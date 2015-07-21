@@ -1,0 +1,20 @@
+[class^=#{$abprefix}],
+[class*=#{$abprefix}] {
+    box-sizing: border-box;
+
+    &:before,
+    &:after {
+        box-sizing: border-box;
+    }
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+html {
+    background: #fff;
+    font-family: "Roboto Slab", sans-serif;
+}
