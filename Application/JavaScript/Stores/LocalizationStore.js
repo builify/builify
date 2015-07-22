@@ -1,23 +1,25 @@
 import {
-  RECEIVE_BUILDER_CONFIGURATION,
-  PROCESS_TEMPLATE_SELECTION
+  GET_LOCALIZATION,
+  PROCCESS_LOCALIZATION
 } from '../Constants/ActionTypes';
 import { setLanguage } from '../Common/Localization';
 
 export default function handle (state = {}, action) {
-  if (typeof action === 'undefined' || !action) {
+	if (typeof action === 'undefined' || !action) {
     console.log('Warning: no action defined!');
     return;
   }
 
   switch (action.type) {
-    case RECEIVE_BUILDER_CONFIGURATION:
+    case GET_LOCALIZATION:
       return action.data;
 
-    case PROCESS_TEMPLATE_SELECTION:
-      return action.template;
+    case PROCCESS_LOCALIZATION:
+      const localizationSetting = action.data.localization || 'en';
+      setLanguage(localizationSetting);
+      return action.data;
 
     default:
       return state;
   }
-};
+}

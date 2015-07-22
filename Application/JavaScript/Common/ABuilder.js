@@ -1,5 +1,5 @@
 const 
-	ABuilderConfiguration = require('./ABuilder.json'),
+	ABuilderConfiguration = require('../Data/ABuilder.json'),
 	ABuilder = {};
 
 ABuilder.getConfigration = function (callback) {

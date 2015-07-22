@@ -4,32 +4,26 @@ $aside-item-padding: 20px;
 .#{$abprefix}aside {
     position: relative;
     height: 100%;
-     width: 275px;
     float: left; 
     background: #eee;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(#000, 0.3) inset;
+    width: $default-aside-width;
     @include user-select(none);
 
-       .aside__itemswrapper {
-        width: 275px * 3;
+    &__itemwrapper {
         overflow: hidden;
         height: 100%;
-        @include transition(all 0.3s ease);
+        width: $default-aside-width;
+    }
 
-        &.active {
-          transform: translate3d(-275px, 0px, 0px);
-      }
-}
-
-.aside__item {
-    position: relative;
-    width: 275px;
-    height: 100%;
-    float: left; 
-    padding: 20px;
-    display: block;
-
-    @include clearfix;
-}
+    &__item {
+        position: relative;
+        height: 100%;
+        float: left; 
+        display: block;
+        padding: $aside-item-padding;
+        width: $default-aside-width;
+        @include clearfix;
+    }
 }

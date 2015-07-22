@@ -12,7 +12,7 @@ export default class Base {
 
     return (
       <div className='react-wrap'>
-        <Aside />
+        <Aside height='30'/>
         <Main />
        </div>
     );

@@ -1,0 +1,52 @@
+{
+  "localization": "en",
+
+  "templates": [
+    {
+      "title": "SimplPage",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum, sit tempore officia quia quod, eius repudiandae modi, atque enim ad magnam saepe suscipit nihil necessitatibus cupiditate aspernatur perspiciatis eum accusamus?", 
+      "image": "simplpage.jpg"
+    },
+    {
+      "title": "Fancycrap",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum, sit tempore officia quia quod, eius repudiandae modi, atque enim ad magnam saepe suscipit nihil necessitatibus cupiditate aspernatur perspiciatis eum accusamus?", 
+      "image": "simplpage.jpg"
+    }
+  ],
+
+  "primarynavigation": [
+    {
+      "id": "pages",
+      "icon": "pe-7s-copy-file",
+      "target": "pages-tab"
+    },
+    {
+      "id": "content",
+      "icon": "pe-7s-display1",
+      "target": "content-tab"
+    },
+    {
+      "id": "design",
+      "icon": "pe-7s-paint-bucket",
+      "target": "design-tab"
+    },
+    {
+      "id": "more",
+      "icon": "pe-7s-tools",
+      "target": "more-tab"
+    },
+    {
+      "id": "preview",
+      "icon": "pe-7s-look",
+      "target": "preview-window"
+    }
+  ],
+
+  "tabs": {
+    "pages": {
+      "title": "Pages",
+      "blocks": [
+      ]
+    }
+  }
+}

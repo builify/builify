@@ -1,10 +1,14 @@
 import { getProperty } from '../Utilities/DataManipulation';
 
-var languageData = require('./Localization.json');
+var languageData = require('../Data/Localization.json');
 var languageSetting = 'en';
 
 export function setLanguage (language) {
   languageSetting = language;
+};
+
+export function getLanguage () {
+  return languageSetting;
 };
 
 export function getString (query) {
@@ -21,4 +25,8 @@ export function getString (query) {
   } else {
     throw Error('Localization - "' + query + '" query not found!');
   }
+};
+
+export function getLocalization (callback) {
+  callback(languageData);
 };

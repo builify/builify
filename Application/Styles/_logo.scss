@@ -1,19 +1,19 @@
-$logo-default-width: 150px;
-$logo-default-height: 50px;
+$logo-default-width: 145px;
+$logo-default-height: 40px;
 $logo-default-color: #333;
-$logo-default-size: 5px;
+$logo-default-size: 4px;
 
 .#{$abprefix}logo {
 	position: relative;
     display: block;
     overflow: hidden;
-    margin-top: $aside-item-padding;
-    margin-bottom: $aside-item-padding * 1.5;
-    margin-left: (($default-aside-width - $logo-default-width) / 2) - ($aside-item-padding / 2);
+    margin: 0 auto;
+    margin-top: $aside-item-padding * 1.5;
+    margin-bottom: $aside-item-padding * 1.8;
     height: $logo-default-height;
-    width: $logo-default-width; 
+    width: $logo-default-width;
     @include clearfix;
-
+ 
     &__icon {
         position: relative;
         display: block;

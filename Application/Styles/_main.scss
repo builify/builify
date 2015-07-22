@@ -1,0 +1,16 @@
+.#{$abprefix}main {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    background: #fff;
+    left: 0;
+    @include transition(all 0.3s ease);
+
+    &.fullsize {
+    	left: -$default-aside-width;
+    }
+
+    &-template-selection {
+        
+    }
+}

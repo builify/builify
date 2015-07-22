@@ -7,6 +7,7 @@ import Base from '../Components/Base';
 
 const redux = createRedux(stores);
 redux.dispatch(ActionCreators.getABuilderConfiguration());
+redux.dispatch(ActionCreators.getLocalizationFile());
 
 export default class Application extends React.Component {
   render() {
