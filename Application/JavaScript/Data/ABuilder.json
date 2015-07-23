@@ -4,13 +4,15 @@
   "templates": [
     {
       "title": "SimplPage",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum, sit tempore officia quia quod, eius repudiandae modi, atque enim ad magnam saepe suscipit nihil necessitatibus cupiditate aspernatur perspiciatis eum accusamus?", 
-      "image": "simplpage.jpg"
+      "tags": ["HTML", "WP"],
+      "description": "A one-page template suitable for agencies, photographers, artists and programmers.", 
+      "image": "http://www.splitshire.com/wp-content/uploads/2015/06/SplitShire-5466-1800x1200-970x500.jpg"
     },
     {
       "title": "Fancycrap",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum, sit tempore officia quia quod, eius repudiandae modi, atque enim ad magnam saepe suscipit nihil necessitatibus cupiditate aspernatur perspiciatis eum accusamus?", 
-      "image": "simplpage.jpg"
+      "tags": ["HTML"],
+      "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
+      "image": "http://www.splitshire.com/wp-content/uploads/2015/06/SplitShire-5466-1800x1200-970x500.jpg"
     }
   ],
 

@@ -1,6 +1,6 @@
-import * as ActionTypes from '../Constants/ActionTypes';
-import ABuilder from '../Common/ABuilder';
 import { getLocalization } from '../Common/Localization';
+import ABuilder from '../Common/ABuilder';
+import * as ActionTypes from '../Constants/ActionTypes';
 
 export function getABuilderConfiguration () {
   return (dispatch, getState) => {
@@ -10,7 +10,7 @@ export function getABuilderConfiguration () {
 
     ABuilder.getConfigration((data) => {
       dispatch(receiveConfiguration(data));
-      dispatch(proccessLocalization(data));
+      dispatch(proccessConfigurationLocalization(data));
     });
   };
 };
@@ -22,6 +22,13 @@ export function receiveConfiguration (data) {
   };
 };
 
+export function proccessConfigurationLocalization (data) {
+  return {
+    type: ActionTypes.PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION,
+    data: data
+  };
+};
+
 export function getLocalizationFile () {
   return (dispatch, getState) => {
     getLocalization((data) => {
@@ -29,15 +36,7 @@ export function getLocalizationFile () {
         type: ActionTypes.GET_LOCALIZATION,
         data: data
       });
-    })
-    
-  }
-}
-
-export function proccessLocalization (data) {
-  return {
-    type: ActionTypes.PROCCESS_LOCALIZATION,
-    data: data
+    });
   };
 };
 

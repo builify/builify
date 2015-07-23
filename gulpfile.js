@@ -20,6 +20,7 @@ var tasks = {};
 
 var dependencies = [
     'react',
+    'react-dom',
     'react/addons',
     'redux'
 ];

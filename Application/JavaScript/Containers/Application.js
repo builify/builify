@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { createRedux } from 'redux';
 import { Provider } from 'redux/react';
 import * as stores from '../Stores/Index';
@@ -9,7 +9,7 @@ const redux = createRedux(stores);
 redux.dispatch(ActionCreators.getABuilderConfiguration());
 redux.dispatch(ActionCreators.getLocalizationFile());
 
-export default class Application extends React.Component {
+export default class Application extends Component {
   render() {
     return (
       <Provider redux={redux}>

@@ -1,25 +1,10 @@
 import {
-  GET_LOCALIZATION,
-  PROCCESS_LOCALIZATION
+  GET_LOCALIZATION
 } from '../Constants/ActionTypes';
-import { setLanguage } from '../Common/Localization';
+import createStore from '../Common/CreateStore';
 
-export default function handle (state = {}, action) {
-	if (typeof action === 'undefined' || !action) {
-    console.log('Warning: no action defined!');
-    return;
+export default createStore({}, {
+  [GET_LOCALIZATION]: (state, action) => {
+    return action.data;
   }
-
-  switch (action.type) {
-    case GET_LOCALIZATION:
-      return action.data;
-
-    case PROCCESS_LOCALIZATION:
-      const localizationSetting = action.data.localization || 'en';
-      setLanguage(localizationSetting);
-      return action.data;
-
-    default:
-      return state;
-  }
-}
+});
