@@ -1,0 +1,25 @@
+$default-pagenew-size: 250px;
+
+.#{$abprefix}page-new {
+	position: relative;
+	text-align: center;
+	border-radius: 5px;
+	cursor: pointer;
+	font-weight: 700;
+	text-transform: uppercase;
+	color: #333;
+	border: 5px dotted #e4e4e4;
+	margin-right: 15px;
+	width: $default-pagenew-size;
+	line-height: $default-pagenew-size;
+	height: $default-pagenew-size;
+	@include transition(all 0.3s ease);
+
+	&:last-child {
+		margin-right: 0;
+	}
+	
+	&:hover {
+		@extend .z1;
+	}
+}

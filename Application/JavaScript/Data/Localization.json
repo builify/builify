@@ -6,6 +6,11 @@
       "design": "Design",
       "more": "More",
       "preview": "Preview"
+    },
+    "templateselection": "Select a template",
+    "pages": {
+      "newpage": "Start new page",
+      "loadpage": "Load previous page"
     }
   }
 }

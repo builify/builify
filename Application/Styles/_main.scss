@@ -1,10 +1,13 @@
 .#{$abprefix}main {
-    position: relative;
-    height: 100%;
+    position: absolute;
     overflow: hidden;
     background: #fff;
-    left: 0;
-    width: auto;
+    top: 0;
+    left: $default-aside-width;
+    width: calc(100% - #{$default-aside-width});
+    bottom: 0;
+    right: 0;
+    height: 100%;
     @include transition(all 0.3s ease);
 
     &.fullsize {

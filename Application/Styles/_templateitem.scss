@@ -7,15 +7,14 @@ $default-templateitem-size: 300px;
     margin-right: 20px;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 0 0 2px rgba(0,0,0,.14),
-                0 2px 4px rgba(0,0,0,.18);
     height: $default-templateitem-size;
     width: $default-templateitem-size;
     @include transition(all 0.3s ease);
+    @include clearfix;
+    @extend .z1;
 
     &:hover {
-        box-shadow: 0 0 6px rgba(0,0,0,.2),
-                0 2px 8px rgba(0,0,0,.3);
+        @extend .z2;
     }
 
     &:last-child {
@@ -50,66 +49,8 @@ $default-templateitem-size: 300px;
         }
 
         p {
+            margin: 0;
             padding: 15px;
         }
     }
 }
-
-/*
-.card{
-  margin: 0 auto;
-  max-width: 350px; //or whatever
-  background: $true-white;
-  border-radius: .25rem;
-  box-shadow: 0 0 2px rgba(0,0,0,.14),0 2px 4px rgba(0,0,0,.18);
-  color: $text;
-  h2{
-    margin: 0;
-    padding: $spacing-unit;
-  }
-  
-  .card-img{
-    
-    img{
-      @include animate(.2s);
-      
-      &:hover{
-        @include scale(1.025);
-        box-shadow: 0 0 2px rgba(0,0,0,.14),0 2px 4px rgba(0,0,0,.18);
-      }
-      
-    }
-    
-  }
-  
-  .card-content{
-    padding: $spacing-unit;
-    
-    p{
-      font-size: 1.125rem;
-      line-height: 1.6rem;
-    }
-    
-  }
-
-}
-
-
-.btn{
-  font-weight: 700;
-  font-size: 1.125rem;
-  text-transform: uppercase;
-}
-
-.flat-btn{
-  display: inline-block;
-  padding: $spacing-unit/3 0;
-  background: none;
-  color: $link;
-  @include animate();
-  &:hover,
-  &:focus{
-    color: darken($link, 10%);
-  }
-
-}*/

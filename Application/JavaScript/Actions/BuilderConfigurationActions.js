@@ -1,4 +1,3 @@
-import { getLocalization } from '../Common/Localization';
 import ABuilder from '../Common/ABuilder';
 import * as ActionTypes from '../Constants/ActionTypes';
 
@@ -26,23 +25,5 @@ export function proccessConfigurationLocalization (data) {
   return {
     type: ActionTypes.PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION,
     data: data
-  };
-};
-
-export function getLocalizationFile () {
-  return (dispatch, getState) => {
-    getLocalization((data) => {
-      dispatch({
-        type: ActionTypes.GET_LOCALIZATION,
-        data: data
-      });
-    });
-  };
-};
-
-export function proccessTemplateSelection (template) {
-  return {
-    type: ActionTypes.PROCESS_TEMPLATE_SELECTION,
-    template: template
   };
 };

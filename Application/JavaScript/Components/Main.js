@@ -1,41 +1,58 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'redux/react';
 import { bindActionCreators } from 'redux';
-import { proccessTemplateSelection } from '../Actions/ActionCreators';
+import { proccessTemplateSelection, startNewPage, loadPreviousPage } from '../Actions/BuilderActions';
+import { getString } from '../Common/Localization';
 import classNames from 'classnames';
-import ABuilder from '../Common/ABuilder'
+import ABuilder from '../Common/ABuilder';
 
 @connect(state => ({
   localization: state.localizationData
 }))
 class Page extends Component {
   static propTypes = {
-    isNewPage: PropTypes.string
+    data: PropTypes.object
   };
 
-  render () {
-    return (
-      <div className='ab-page-new'>
-        <span>New Page</span>
-      </div>
-    );
+  selectPage (isNewPage) {
+    if (isNewPage) {
+      return startNewPage();
+    } else {
+      return loadPreviousPage();
+    }
   }
-}
 
-@connect(state => ({
-  localization: state.localizationData
-}))
-class ProjectStartScreen extends Component {
   render () {
+    const { data, dispatch } = this.props;
+    const { isNewPage } = data;
+    const name = isNewPage ? getString('pages.newpage') : getString('pages.loadpage');
+
     return (
-      <Page isNewPage='false'/>
+      <div 
+        className='ab-page-new'
+        {...bindActionCreators({
+          onClick: ::this.selectPage(isNewPage)
+        }, dispatch)}>
+        <span>{name}</span>
+      </div>
     );
   }
 };
 
-@connect(state => ({
-  localization: state.localizationData
-}))
+@connect(() => ({}))
+class ProjectStartScreen extends Component {
+  render () {
+    const items = {isNewPage: true};
+    return (
+      <div className='ab-flex center'>
+        <Page data={{isNewPage: true}} />
+        <Page data={{isNewPage: false}} />
+      </div>
+    );
+  }
+};
+
+@connect(() => ({}))
 class TemplateItem extends Component {
   static propTypes = {
     templateInformation: PropTypes.object.isRequired
@@ -84,7 +101,8 @@ class TemplateItem extends Component {
 
 @connect(state => ({
   builderConfiguration: state.builderConfiguration,
-  builder: state.builder
+  builder: state.builder,
+  localization: state.localizationData
 }))
 export default class Main extends Component {
   doesURLHashHasTemplateName () {
@@ -104,7 +122,7 @@ export default class Main extends Component {
   templateSectionNodes (templates) {
     return (
       <div className="ab-main-template-selection">
-        <h1>Select Template</h1>
+        <h1>{getString('templateselection')}</h1>
         <div className='ab-flex'>
           {templates.map((template, i) =>
             <TemplateItem key={i} templateInformation={template} />

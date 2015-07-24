@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'redux/react';
 import Logo from './Logo';
 import PrimaryNavigation from './PrimaryNavigation';
 
 @connect(() => ({}))
-export default class Aside {
+export default class Aside extends Component {
   render () {
     return (
       <aside className='ab-aside'>
