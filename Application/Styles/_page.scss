@@ -14,12 +14,14 @@ $default-pagenew-size: 250px;
 	line-height: $default-pagenew-size;
 	height: $default-pagenew-size;
 	@include transition(all 0.3s ease);
+	@include user-select(none);
+	@include clearfix;
 
 	&:last-child {
 		margin-right: 0;
 	}
 	
 	&:hover {
-		@extend .z1;
+		@extend .z2;
 	}
 }

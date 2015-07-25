@@ -1,4 +1,5 @@
 $abprefix: 'ab-';
+$base-color: #9b59b6;
 
 @import "bourbon/bourbon";
 
@@ -14,4 +15,5 @@ $abprefix: 'ab-';
 @import "main";
 @import "templateitem";
 @import "page";
+@import "tab";
 @import "misc"; 

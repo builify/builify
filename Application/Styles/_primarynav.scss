@@ -16,15 +16,17 @@
         font-size: 18px;
         color: #333;
         cursor: pointer;
+        color: #34495e;
         @include user-select(none);
+        @include transition(all 0.3s ease);
         
         span {
-          color: #000;
+          color: inherit;
           margin-right: 10px;
         }
 
         &:hover {
-            color: red;
+            color: $base-color;
         }
     }
 }

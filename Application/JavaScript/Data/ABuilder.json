@@ -44,11 +44,18 @@
     }
   ],
 
-  "tabs": {
-    "pages": {
-      "title": "Pages",
-      "blocks": [
-      ]
+  "tabs": [
+    {
+      "title": "Pages"
+    },
+    {
+      "title": "Content"
+    },
+    {
+      "title": "Design"
+    },
+    {
+      "title": "More"
     }
-  }
+  ]
 }

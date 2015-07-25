@@ -1,0 +1,16 @@
+.#{$abprefix}tab {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 20;
+	overflow: hidden;
+	background: $default-aside-bg;
+	@include transform(translate3d(0, 0, 0));
+	@include transition(all 0.3s ease);
+
+	&.open {
+		@include transform(translate3d(-$default-aside-width, 0, 0));
+	}
+}

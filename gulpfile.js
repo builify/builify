@@ -15,6 +15,7 @@ var jade = require('gulp-jade');
 var gutil = require('gulp-util');
 var plumber = require('gulp-plumber');
 var browserSync = require('browser-sync').create();
+var watch = require('gulp-watch');
 
 var tasks = {};
 
@@ -109,7 +110,7 @@ function createStylesheets (options) {
         };
 
         tasks.stylesheet();
-        gulp.watch('./Application/Styles/**/*.scss', tasks.stylesheet);
+        watch('./Application/Styles/**/*.scss', tasks.stylesheet);
 
     } else {
         gulp.src(options.src)
@@ -134,7 +135,7 @@ function createHTML (options) {
         };
 
         tasks.html();
-        gulp.watch('./Application/Jade/**/*.jade', tasks.html);
+        watch('./Application/Jade/**/*.jade', tasks.html);
     }
 }
 
@@ -146,7 +147,7 @@ function createServer (options) {
         }
     });
 
-    gulp.watch('./DevelopmentBuild/*.html').on('change', browserSync.reload);
+    watch('./DevelopmentBuild/*.html').on('change', browserSync.reload);
 }
 
 gulp.task('default', function () {

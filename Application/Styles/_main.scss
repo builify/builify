@@ -8,6 +8,7 @@
     bottom: 0;
     right: 0;
     height: 100%;
+    z-index: 30;
     @include transition(all 0.3s ease);
 
     &.fullsize {

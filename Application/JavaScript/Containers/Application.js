@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { createRedux } from 'redux';
 import { Provider } from 'redux/react';
 import * as stores from '../Stores/Index';
-import * as ActionCreators from '../Actions/Index';
+import * as ActionCreators from '../Actions/ActionCreators';
 import Base from '../Components/Base';
 
-console.log(ActionCreators);
 const redux = createRedux(stores);
-redux.dispatch(ActionCreators.builderConfigrationActions.getABuilderConfiguration());
-redux.dispatch(ActionCreators.localizationActions.getLocalizationFile());
+redux.dispatch(ActionCreators.getABuilderConfiguration());
 
 export default class Application extends Component {
   render() {
@@ -17,5 +15,5 @@ export default class Application extends Component {
         {() => <Base />}
       </Provider>
     );
-  }
-}
+  } 
+};

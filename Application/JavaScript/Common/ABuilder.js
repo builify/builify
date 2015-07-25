@@ -20,8 +20,4 @@ ABuilder.getBrowserSize = function () {
   }
 };
 
-ABuilder.getElementWidth = function (element) {
-  
-}
-
 export default ABuilder;
