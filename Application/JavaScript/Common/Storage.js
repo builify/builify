@@ -1,7 +1,7 @@
 var Storage = {};
 
 Storage.keyList = {
-  'previouspage': 'ab-prvpg'
+  'pages': 'ab-ppgs'
 };
 
 Storage.set = function (key, value) {

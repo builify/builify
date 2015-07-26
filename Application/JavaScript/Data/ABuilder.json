@@ -52,7 +52,15 @@
       "title": "Content"
     },
     {
-      "title": "Design"
+      "title": "Design",
+      "blocks": [
+        {
+          "title": "Typography",
+          "dropdown": [
+            {"name": "Open Sans"}
+          ]
+        }
+      ]
     },
     {
       "title": "More"

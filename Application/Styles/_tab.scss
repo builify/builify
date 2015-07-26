@@ -6,11 +6,35 @@
 	bottom: 0;
 	z-index: 20;
 	overflow: hidden;
+	will-change: transform;
 	background: $default-aside-bg;
 	@include transform(translate3d(0, 0, 0));
 	@include transition(all 0.3s ease);
 
 	&.open {
 		@include transform(translate3d(-$default-aside-width, 0, 0));
+	}
+
+	&__close {
+		display: block;
+		cursor: pointer;
+	}
+
+	&__wrapper {
+		padding: 40px;
+
+		h1 {
+			color: #333;
+			font-weight: 700;
+			text-transform: uppercase;
+			@include rem(font-size, 26px);
+		}
+
+		h2 {
+			color: #555;
+			font-weight: 400;
+			text-transform: uppercase;
+			@include rem(font-size, 16px);
+		}
 	}
 }

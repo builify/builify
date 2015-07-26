@@ -22,7 +22,9 @@ class PrimaryNavigationItem extends Component {
   itemClick (e) {
     const { target, navigationItemInformation } = this.props;
 
-    return ((navigationItemInformation.target.indexOf('tab') !== -1) ? openTab(target) : openPreview(target));
+    return ((navigationItemInformation.target.indexOf('tab') !== -1) ? 
+            openTab(target) : 
+            openPreview(target));
   }
 
   render () {
@@ -51,7 +53,11 @@ export default class PrimaryNavigation extends Component {
     return (
       <ul className='ab-primarynav'>
         {primarynavigation.map((navigationItem, i) => {
-          return <PrimaryNavigationItem key={i} target={i} language={this.props.builderConfiguration.localization} navigationItemInformation={navigationItem} />
+          return <PrimaryNavigationItem 
+                    key={i} 
+                    target={i} 
+                    language={this.props.builderConfiguration.localization} 
+                    navigationItemInformation={navigationItem} />
         })}
       </ul>
     );

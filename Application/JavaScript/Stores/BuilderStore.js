@@ -1,4 +1,5 @@
 import {
+  CHECK_IF_TEMPLATE_IS_SELECTED,
   PROCESS_TEMPLATE_SELECTION,
   START_NEW_PAGE,
   LOAD_PREVIOUS_PAGE,
@@ -11,74 +12,126 @@ import createStore from '../Common/CreateStore';
 import ABuilder from '../Common/ABuilder';
 import Storage from '../Common/Storage';
 
-var builderData = {
-  selectedTemplate: null,
+let builderDefaultState = {
+  currentLocation: 0, // 0 - Template Selection; 1 - New/Load Page; 2 - Canvas
+
+  doesPreviousPageExistInStorage: false,
+
+  isTemplateSelected: false,
+  selectedTemplate: '',
 
   isTabOpened: false,
-  currentTabOpened: -1
+  tabOpened: -1,
+
+  currentPage: -1,
+  pages: []
 };
 
-export default createStore(builderData, {
-  [PROCESS_TEMPLATE_SELECTION]: (state, action) => {
-    ABuilder.setURLHash('#template-' + action.template);
-    
-    return {
-      selectedTemplate: action.template,
-      ...state
-    }
-  },
+export default function builder (state = builderDefaultState, action) {
+  switch (action.type) {
+    case CHECK_IF_TEMPLATE_IS_SELECTED:
+      let currentURL = ABuilder.getURLHash();
+      let stringPosition = currentURL.indexOf('template-') !== -1;
 
-  [START_NEW_PAGE]: (state, action) => {
-    const currentHash = ABuilder.getURLHash();
+      if (stringPosition) {
+          let template = currentURL.split('/')[0],
+            templateName = template.slice(1 + 'template-'.length);
 
-    if (currentHash.indexOf('page') !== -1) {
+          return {
+            ...state,
+            currentLocation: 1,
+            isTemplateSelected: true,
+            selectedTemplate: templateName
+          };
+      }
 
-    } else {
-      ABuilder.setURLHash(currentHash + '/page-unnamed');
-    }
-
-  	return state;
-  },
-
-  [LOAD_PREVIOUS_PAGE]: (state, action) => {
-  	return state;
-  },
-
-  [CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE]: (state, action) => {
-    if (Storage.get(Storage.keyList.previouspage)) {
-      return {
-        doesPreviousPageExistInLocalStorage: true,
-        ...state
-      };
-    } else {
       return state;
-    }
-  },
 
-  [OPEN_TAB]: (state, action) => {
-    const targetTabElement = document.querySelector('[data-target="' + action.target + '"]');
-    targetTabElement.classList.add('open');
+    case PROCESS_TEMPLATE_SELECTION:
+      ABuilder.setURL(ABuilder.TEMPLATE, action.template);
 
-    return {
-      isTabOpened: true,
-      currentTabOpened: action.target,
-      ...state
-    };
-  },
+      return {
+        ...state,
+        currentLocation: 1,
+        isTemplateSelected: true,
+        selectedTemplate: action.template
+      };
 
-  [CLOSE_TAB]: (state, action) => {
+    case START_NEW_PAGE:
+      if (state.pages.length == 0) {
+        let newPage = {
+          id: '01',
+          title: "Unnamed page",
+          HTMLData: []
+        };
 
-      const targetTabElement = document.querySelector('.open[data-target]');
-      console.log(targetTabElement)
-      targetTabElement.classList.remove('open');
-      state.isTabOpened = false;
-      state.currentTabOpened = -1;
-    
+        state.pages.push(newPage);
 
-    return state;
-  },
+        ABuilder.setURL(ABuilder.PAGE, newPage.id);
 
-  [OPEN_PREVIEW]: (state, action) => {
-    return state;
+        Storage.set(Storage.keyList.pages, newPage);
+
+        return {
+          ...state,
+          currentLocation: 2,
+          currentPage: 0
+        };
+      }
+
+      return state;
+
+    case LOAD_PREVIOUS_PAGE:
+      return {
+        ...state,
+        currentLocation: 2,
+        currentPage: 0
+      };
+
+    case CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE:
+      if (Storage.get(Storage.keyList.pages) !== null) {
+        return {
+          ...state,
+          doesPreviousPageExistInStorage: true
+        };
+      }
+
+      return state;
+
+    case OPEN_TAB:
+      const { target } = action;
+      let openTabElement = document.querySelector('[data-target="' + target + '"]');
+
+      if (openTabElement) {
+        openTabElement.classList.add('open');
+
+        return {
+          ...state,
+          isTabOpened: true,
+          tabOpened: target
+        };
+      }
+
+      return state;
+
+    case CLOSE_TAB:
+      let closeTabElement = document.querySelector('[data-target="' + state.tabOpened + '"]');
+
+      if (closeTabElement) {
+        closeTabElement.classList.remove('open');
+
+        return {
+          ...state,
+          isTabOpened: false,
+          tabOpened: -1
+        };
+      }
+
+      return state;
+
+    case OPEN_PREVIEW:
+      return state;
+
+    default:
+      return state;
   }
-});
+};

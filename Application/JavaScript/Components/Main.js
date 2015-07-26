@@ -5,6 +5,7 @@ import { proccessTemplateSelection, startNewPage, loadPreviousPage } from '../Ac
 import { getString } from '../Common/Localization';
 import classNames from 'classnames';
 import ABuilder from '../Common/ABuilder';
+import Canvas from './Canvas';
 
 @connect(state => ({
   localization: state.localizationData
@@ -44,7 +45,7 @@ class ProjectStartScreen extends Component {
   render () {
     const items = {isNewPage: true};
     const previousPageNode = () => {
-      if (this.props.builder.doesPreviousPageExistInLocalStorage) {
+      if (this.props.builder.doesPreviousPageExistInStorage) {
         return (
           <Page data={{isNewPage: false}} />
         );
@@ -123,6 +124,12 @@ export default class Main extends Component {
     }
   }
 
+  canvasNodes () {
+    return (
+      <Canvas />
+    );
+  }
+
   workflowNodes () {
     return (
       <ProjectStartScreen />
@@ -144,10 +151,14 @@ export default class Main extends Component {
 
   renderNodes (templates) {
     const hashChangeEvent = (e) => {
-      if (this.doesURLHashHasTemplateName()) {
+      let { currentLocation } = this.props.builder;
+
+      if (currentLocation == 0) {
+        return this.templateSectionNodes(templates);
+      } else if (currentLocation == 1) {
         return this.workflowNodes();
       } else {
-        return this.templateSectionNodes(templates);
+        return this.canvasNodes();
       }
     };
 
@@ -158,8 +169,8 @@ export default class Main extends Component {
 
   render () {
     const { templates } = this.props.builderConfiguration;
-    const isTemplateSelected = this.doesURLHashHasTemplateName();
-    const mainClassName = classNames('ab-main', !isTemplateSelected ? 'fullsize' : '');
+    const { currentLocation } = this.props.builder;
+    const mainClassName = classNames('ab-main', currentLocation == 0 ? 'fullsize' : '');
 
     return (
       <main 

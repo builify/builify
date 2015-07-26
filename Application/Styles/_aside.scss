@@ -8,21 +8,10 @@ $aside-item-padding: 20px;
     float: left; 
     overflow: hidden;
     z-index: 10;
+    box-shadow: 0 0 10px rgba(#000, 0.3) inset;
     background: $default-aside-bg;
     width: $default-aside-width;
     @include user-select(none);
-
-    &:before {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        height: 100%; 
-        width: 20px;
-        box-shadow: 0 0 10px rgba(#000, 0.3) inset;
-        z-index: 90; 
-    }
 
     &__itemwrapper {
         overflow: hidden;

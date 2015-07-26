@@ -50,7 +50,14 @@ export function initialize () {
     dispatch({
       type: ActionTypes.CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE
     });
+    dispatch(checkTemplateSelection());
   };
+};
+
+export function checkTemplateSelection () {
+  return {
+    type: ActionTypes.CHECK_IF_TEMPLATE_IS_SELECTED
+  }
 };
 
 export function proccessTemplateSelection (template) {
@@ -92,7 +99,8 @@ export function closeTab () {
 };
 
 export function openPreview (target) {
-  return (
-    type: ActionTypes.OPEN_PREVIEW
-  );
+  return {
+    type: ActionTypes.OPEN_PREVIEW,
+    target: target
+  };
 };
