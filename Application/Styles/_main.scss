@@ -1,6 +1,5 @@
 .#{$abprefix}main {
     position: absolute;
-    overflow: hidden;
     background: #fff;
     top: 0;
     left: $default-aside-width;
@@ -9,6 +8,7 @@
     right: 0;
     height: 100%;
     z-index: 30;
+    box-shadow: 0 0 10px rgba(#000, 0.3);
     @include transition(all 0.3s ease);
 
     &.fullsize {
@@ -19,6 +19,12 @@
         bottom: 0;
         right: 0;
         height: 100%;
+    }
+
+    &.preview {
+        width: 100%;
+        left: 0;
+        top: 0;
     }
 
     &-template-selection {
@@ -38,5 +44,48 @@
             margin-top: round($default-aside-width / 2.3);
             @include clearfix;
         }
+    }
+}
+
+.#{$abprefix}preview { 
+    height: 100%;
+    width: 100%;
+
+    &__controls {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        height: 50px;
+        line-height: 50px;
+        background: #eee;
+    }
+
+    &__close {
+        display: block;
+        float: left;
+    }
+
+    &__responsive {
+        display: block;
+        float: right;
+
+        ul {
+            list-style: none;
+
+            li {
+                display: inline-block;
+            }
+        }
+    }
+
+    .#{$abprefix}canvas {
+        position: relative;
+        display: block;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: calc(100% - 50px);
+        width: 100%;
+        box-shadow: 0 0 10px rgba(#000, 0.3);
     }
 }

@@ -15,6 +15,16 @@ export function getABuilderConfiguration () {
       dispatch(getLocalizationFile());
       dispatch(initialize());
     });
+
+    setTimeout(() => {
+      dispatch(removeLoadingScreen());
+    }, 1000);
+  };
+};
+
+export function removeLoadingScreen () {
+  return {
+    type: ActionTypes.REMOVE_LOADING_SCREEN
   };
 };
 
@@ -102,5 +112,11 @@ export function openPreview (target) {
   return {
     type: ActionTypes.OPEN_PREVIEW,
     target: target
+  };
+};
+
+export function closePreview () {
+  return {
+    type: ActionTypes.CLOSE_PREVIEW
   };
 };

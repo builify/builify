@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'redux/react';
+import classNames from 'classnames';
 import Logo from './Logo';
 import PrimaryNavigation from './PrimaryNavigation';
 import Tab from './Tab';
@@ -10,9 +11,10 @@ import Tab from './Tab';
 export default class Aside extends Component {
   render () {
     const { tabs } = this.props.builderConfiguration;
+    const asideClassName = classNames('ab-aside', this.props.cName);
 
     return (
-      <aside className='ab-aside'>
+      <aside className={asideClassName} >
         <div className='ab-aside__itemwrapper'>
           <div className='ab-aside__item'>
             <Logo text='ABuilder'/>

@@ -141,6 +141,9 @@ function createHTML (options) {
 
 function createServer (options) {
     browserSync.init({
+        logPrefix: 'BrowserSync',
+        browser: ['google chrome'],
+        open: 'external',
         notify: false,
         server: {
             baseDir: options.src

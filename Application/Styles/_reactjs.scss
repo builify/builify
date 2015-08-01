@@ -5,5 +5,10 @@
 	.react-wrap {
 		height: 100%;
 		width: 100%;
+		@include transition(all 0.3s ease);
+
+		&.preview {
+			background: #eee;
+		}
 	}
 }

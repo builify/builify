@@ -15,6 +15,7 @@ ABuilder.getURLHash = function () {
 
 ABuilder.TEMPLATE = Symbol('TEMPLATE');
 ABuilder.PAGE = Symbol('PAGE');
+ABuilder.PREVIEW = Symbol('PREVIEW');
 ABuilder.setURL = function (type, value) {
   switch (type) {
     case ABuilder.TEMPLATE:
@@ -35,16 +36,26 @@ ABuilder.setURL = function (type, value) {
 
       break;
 
+    case ABuilder.PREVIEW:
+      if (typeof value !== 'undefined') {
+
+      } else {
+        
+      }
+
+      break;
+
     default:
       break;
   }
 };
 
-ABuilder.getBrowserSize = function () {
-  return {
-    width: window.innerWidth || document.body.clientWidth,
-    height: window.innerHeight || document.body.clientHeight
+ABuilder.on = function (eventName, eventFunction, isBubble) {
+  if (typeof isBubble === 'undefined') {
+    isBubble = false;
   }
+
+  window['addEventListener'](eventName, eventFunction, isBubble);
 };
 
 export default ABuilder;

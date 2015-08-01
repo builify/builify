@@ -9,10 +9,6 @@ export default class Logo extends Component {
     text: 'ABuilder'
   };
 
-  constructor (props) {
-    super(props);
-  }
-
   render () {
     return (
       <div className='ab-logo'>

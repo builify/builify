@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'redux/react';
 
 @connect(state => ({
-  builder: state.builder
+  builder: state.builder,
 }))
-export default class Canvas extends Component {
+export default class LoadingScreen extends Component {
   render () {
     return (
-      <div className='ab-canvas'>
-        <h1>Canvas</h1>
-      </div>
+      <h1>Loading</h1>
     );
   }
 };

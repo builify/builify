@@ -3,112 +3,13 @@ import { connect } from 'redux/react';
 import { bindActionCreators } from 'redux';
 import { proccessTemplateSelection, startNewPage, loadPreviousPage } from '../Actions/ActionCreators';
 import { getString } from '../Common/Localization';
+import { CurrentLocationEnum } from '../Constants/Enums';
 import classNames from 'classnames';
 import ABuilder from '../Common/ABuilder';
 import Canvas from './Canvas';
-
-@connect(state => ({
-  localization: state.localizationData
-}))
-class Page extends Component {
-  static propTypes = {
-    data: PropTypes.object
-  };
-
-  selectPage (e) {
-    const { isNewPage } = this.props.data;
-
-    return isNewPage ? startNewPage() : loadPreviousPage();
-  }
-
-  render () {
-    const { data, dispatch } = this.props;
-    const { isNewPage } = data;
-    const name = isNewPage ? getString('pages.newpage') : getString('pages.loadpage');
-
-    return (
-      <div 
-        className='ab-page-new'
-        {...bindActionCreators({
-          onClick: ::this.selectPage
-        }, dispatch)}>
-        <span>{name}</span>
-      </div>
-    );
-  }
-};
-
-@connect(state => ({
-  builder: state.builder
-}))
-class ProjectStartScreen extends Component {
-  render () {
-    const items = {isNewPage: true};
-    const previousPageNode = () => {
-      if (this.props.builder.doesPreviousPageExistInStorage) {
-        return (
-          <Page data={{isNewPage: false}} />
-        );
-      } else {
-        return null;
-      }
-    };
-
-    return (
-      <div className='ab-flex center'>
-        <Page data={{isNewPage: true}} />
-        {previousPageNode()}
-      </div>
-    );
-  }
-};
-
-@connect(() => ({}))
-class TemplateItem extends Component {
-  static propTypes = {
-    templateInformation: PropTypes.object.isRequired
-  };
-
-  static defaultProps  = {
-    templateInformation: {}
-  };
-
-  selectTemplate (e) {
-    const { templateInformation } = this.props;
-
-    return proccessTemplateSelection(templateInformation.title.toString().toLowerCase());
-  }
-
-  render () {
-    const { templateInformation, dispatch } = this.props;
-
-    if (!templateInformation) {
-      throw Error('Template information is invalid. Please check builder configuration file.');
-    } else if (!templateInformation.title) {
-      throw Error('Template title is missing. Please check builder configuration file.')
-    } else if (!templateInformation.tags) {
-      throw Error('Template tags is missing. Please check builder configuration file.')
-    } else if (!templateInformation.description) {
-      throw Error('Template description is missing. Please check builder configuration file.')
-    } else if (!templateInformation.image) {
-      throw Error('Template image is missing. Please check builder configuration file.')
-    }
-
-    return (
-      <div 
-        className='ab-templateitem' 
-        {...bindActionCreators({
-          onClick: ::this.selectTemplate
-        }, dispatch)}>
-        <figure className='ab-templateitem__figure'>
-          <h1>{templateInformation.title}</h1>
-          <div className='ab-templateitem__bg' style={{backgroundImage: 'url(' + templateInformation.image + ')'}}></div>
-          <p>{templateInformation.description}</p>
-        </figure>
-      </div>
-    );
-  };
-};
+import ProjectStartScreen from './ProjectStartScreen';
+import TemplateItem from './TemplateItem';
+import PreviewContainer from './PreviewContainer';
 
 @connect(state => ({
   builderConfiguration: state.builderConfiguration,
@@ -122,6 +23,12 @@ export default class Main extends Component {
     } else {
       return false;
     }
+  }
+
+  previewNodes () {
+    return (
+      <PreviewContainer />
+    );
   }
 
   canvasNodes () {
@@ -153,24 +60,45 @@ export default class Main extends Component {
     const hashChangeEvent = (e) => {
       let { currentLocation } = this.props.builder;
 
-      if (currentLocation == 0) {
-        return this.templateSectionNodes(templates);
-      } else if (currentLocation == 1) {
-        return this.workflowNodes();
-      } else {
-        return this.canvasNodes();
+      switch (currentLocation) {
+        case CurrentLocationEnum.TEMPLATESELECTION:
+          return this.templateSectionNodes(templates);
+
+        case CurrentLocationEnum.STARTSCREEN:
+          return this.workflowNodes();
+
+        case CurrentLocationEnum.CANVAS:
+          return this.canvasNodes();
+
+        case CurrentLocationEnum.PREVIEW:
+          return this.previewNodes();
       }
     };
 
-    window.addEventListener('hashchange', hashChangeEvent, false);
+    ABuilder.on('hashchange', hashChangeEvent);
 
     return hashChangeEvent();
   }
 
   render () {
-    const { templates } = this.props.builderConfiguration;
+    let externalClassName = '';
     const { currentLocation } = this.props.builder;
-    const mainClassName = classNames('ab-main', currentLocation == 0 ? 'fullsize' : '');
+
+    switch (currentLocation) {
+      case CurrentLocationEnum.TEMPLATESELECTION:
+        externalClassName = 'fullsize';
+        break;
+
+      case CurrentLocationEnum.PREVIEW:
+        externalClassName = 'preview';
+        break;
+
+      default:
+        break;
+    }
+
+    const { templates } = this.props.builderConfiguration;
+    const mainClassName = classNames('ab-main', externalClassName);
 
     return (
       <main 

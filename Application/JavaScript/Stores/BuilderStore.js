@@ -1,4 +1,5 @@
 import {
+  REMOVE_LOADING_SCREEN,
   CHECK_IF_TEMPLATE_IS_SELECTED,
   PROCESS_TEMPLATE_SELECTION,
   START_NEW_PAGE,
@@ -6,14 +7,18 @@ import {
   CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE,
   OPEN_TAB,
   CLOSE_TAB,
-  OPEN_PREVIEW
+  OPEN_PREVIEW,
+  CLOSE_PREVIEW
 } from '../Constants/ActionTypes';
+import { CurrentLocationEnum } from '../Constants/Enums';
 import createStore from '../Common/CreateStore';
 import ABuilder from '../Common/ABuilder';
 import Storage from '../Common/Storage';
 
 let builderDefaultState = {
-  currentLocation: 0, // 0 - Template Selection; 1 - New/Load Page; 2 - Canvas
+  isLoadingScreenActive: true,
+
+  currentLocation: 0, // 0 - Template Selection; 1 - New/Load Page; 2 - Canvas; 3 - Preview
 
   doesPreviousPageExistInStorage: false,
 
@@ -29,6 +34,12 @@ let builderDefaultState = {
 
 export default function builder (state = builderDefaultState, action) {
   switch (action.type) {
+    case REMOVE_LOADING_SCREEN:
+      return {
+        ...state,
+        isLoadingScreenActive: false
+      }; 
+
     case CHECK_IF_TEMPLATE_IS_SELECTED:
       let currentURL = ABuilder.getURLHash();
       let stringPosition = currentURL.indexOf('template-') !== -1;
@@ -44,7 +55,7 @@ export default function builder (state = builderDefaultState, action) {
             selectedTemplate: templateName
           };
       }
-
+ 
       return state;
 
     case PROCESS_TEMPLATE_SELECTION:
@@ -58,33 +69,30 @@ export default function builder (state = builderDefaultState, action) {
       };
 
     case START_NEW_PAGE:
-      if (state.pages.length == 0) {
-        let newPage = {
-          id: '01',
-          title: "Unnamed page",
-          HTMLData: []
-        };
+      let newPageId = '01';
+      let newPage = {
+        id: newPageId,
+        title: "Unnamed Page",
+        HTMLData: []
+      };
 
+      if (state.pages.length === 0) {
         state.pages.push(newPage);
-
         ABuilder.setURL(ABuilder.PAGE, newPage.id);
+      } else {
 
-        Storage.set(Storage.keyList.pages, newPage);
-
-        return {
-          ...state,
-          currentLocation: 2,
-          currentPage: 0
-        };
       }
 
-      return state;
+      return {
+        ...state,
+        currentLocation: CurrentLocationEnum.CANVAS,
+        currentPage: newPageId
+      };
 
     case LOAD_PREVIOUS_PAGE:
       return {
         ...state,
-        currentLocation: 2,
-        currentPage: 0
+        currentLocation: CurrentLocationEnum.CANVAS
       };
 
     case CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE:
@@ -95,7 +103,9 @@ export default function builder (state = builderDefaultState, action) {
         };
       }
 
-      return state;
+      return {
+        ...state
+      };
 
     case OPEN_TAB:
       const { target } = action;
@@ -128,8 +138,22 @@ export default function builder (state = builderDefaultState, action) {
 
       return state;
 
-    case OPEN_PREVIEW:
-      return state;
+    case OPEN_PREVIEW: 
+      if (state.currentLocation === CurrentLocationEnum.TEMPLATESELECTION ||
+          state.currentLocation === CurrentLocationEnum.STARTSCREEN) {
+        return state;
+      } else {
+        return {
+          ...state,
+          currentLocation: CurrentLocationEnum.PREVIEW
+        };
+      }
+
+    case CLOSE_PREVIEW:
+      return {
+        ...state,
+        currentLocation: CurrentLocationEnum.CANVAS
+      };
 
     default:
       return state;
