@@ -53,17 +53,34 @@
     },
     {
       "title": "Design",
-      "blocks": [
+      "children": [
         {
+          "type": "open.sidetab",
+          "title": "Colors",
+          "target": "tabs.design.colors"
+        },
+        {
+          "type": "open.sidetab",
           "title": "Typography",
-          "dropdown": [
-            {"name": "Open Sans"}
-          ]
+          "target": "tabs.design.typography"
         }
       ]
     },
     {
       "title": "More"
+    }
+  ],
+
+  "sidetabs": [
+    {
+      "id": "colors",
+      "title": "Design",
+      "subtitle": "Colors"
+    },
+    {
+      "id": "typography",
+      "title": "Design",
+      "subtitle": "Typography"
     }
   ]
 }

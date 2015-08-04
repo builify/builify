@@ -7,11 +7,12 @@ import {
   CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE,
   OPEN_TAB,
   CLOSE_TAB,
+  OPEN_SIDETAB,
+  CLOSE_SIDETAB,
   OPEN_PREVIEW,
   CLOSE_PREVIEW
 } from '../Constants/ActionTypes';
 import { CurrentLocationEnum } from '../Constants/Enums';
-import createStore from '../Common/CreateStore';
 import ABuilder from '../Common/ABuilder';
 import Storage from '../Common/Storage';
 
@@ -27,6 +28,9 @@ let builderDefaultState = {
 
   isTabOpened: false,
   tabOpened: -1,
+
+  isSidetabOpened: false,
+  sidetabOpened: -1,
 
   currentPage: -1,
   pages: []
@@ -136,6 +140,36 @@ export default function builder (state = builderDefaultState, action) {
         };
       }
 
+      return state;
+
+    case OPEN_SIDETAB:
+      let sidetabElement = document.querySelector('[data-sidetabid="' + action.target + '"]');
+      
+      if (sidetabElement) {
+        sidetabElement.classList.add('open');
+
+        return {
+          ...state,
+          isSidetabOpened: true,
+          sidetabOpened: action.target
+        };
+      }
+
+      return state;
+
+    case CLOSE_SIDETAB:
+      let closeSidetabElement = document.querySelector('[data-sidetabid="' + state.sidetabOpened + '"]');
+
+      if (closeSidetabElement) {
+        closeSidetabElement.classList.remove('open');
+
+        return {
+          ...state,
+           isSidetabOpened: false,
+          sidetabOpened: -1
+        };
+      }
+      
       return state;
 
     case OPEN_PREVIEW: 

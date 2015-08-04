@@ -1,5 +1,10 @@
 {
   "en": {
+    "tips": {
+      "hotkeys": "New: Beautiful colors to build beautiful charts.",
+      "custom": "Did you know... You can upload your own custom shapes to use in Lucidchart"
+    },
+
     "primarynavigation": {
       "pages": "Pages",
       "content": "Content",

@@ -8,7 +8,7 @@ export default class Canvas extends Component {
   render () {
     return (
       <div className='ab-canvas'>
-        <h1>Canvas</h1>
+        <iframe src="http://ironsummitmedia.github.io/startbootstrap-agency/" />
       </div>
     );
   }

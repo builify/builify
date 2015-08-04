@@ -19,6 +19,9 @@ export default keyMirror({
   OPEN_TAB: Symbol('OPEN_TAB'),
   CLOSE_TAB: Symbol('CLOSE_TAB'),
   
+  OPEN_SIDETAB: Symbol('OPEN_SIDETAB'),
+  CLOSE_SIDETAB: Symbol('CLOSE_SIDETAB'),
+  
   OPEN_PREVIEW: Symbol('OPEN_PREVIEW'),
   CLOSE_PREVIEW: Symbol('CLOSE_PREVIEW')
 });

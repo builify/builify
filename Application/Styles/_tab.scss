@@ -31,10 +31,34 @@
 		}
 
 		h2 {
+			position: relative;
 			color: #555;
+			height: 22px;
+			line-height: 22px;
 			font-weight: 400;
 			text-transform: uppercase;
 			@include rem(font-size, 16px);
+			@include transition(all 0.3s ease);
+
+			&.to-sidebar {
+				cursor: pointer;
+
+				&:after {
+					color: inherit;
+					position: absolute;
+					right: 0;
+					height: 22px;
+					line-height: 22px;
+					font-family: "Pe-icon-7-stroke";
+					content: "\e684";
+					@include rem(font-size, 30px);
+					@include transition(all 0.3s ease);
+				}
+
+				&:hover {
+					color: $base-color;
+				}
+			}
 		}
 	}
 }

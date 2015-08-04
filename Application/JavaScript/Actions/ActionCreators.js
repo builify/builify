@@ -14,11 +14,12 @@ export function getABuilderConfiguration () {
       dispatch(proccessConfigurationLocalization(data));
       dispatch(getLocalizationFile());
       dispatch(initialize());
+      dispatch(removeLoadingScreen());
     });
 
-    setTimeout(() => {
+    /*setTimeout(() => {
       dispatch(removeLoadingScreen());
-    }, 1000);
+    }, 1000);*/
   };
 };
 
@@ -105,6 +106,19 @@ export function openTab (target) {
 export function closeTab () {
   return {
     type: ActionTypes.CLOSE_TAB
+  };
+};
+
+export function openSidetab (target) {
+  return {
+    type: ActionTypes.OPEN_SIDETAB,
+    target: target
+  };
+};
+
+export function closeSidetab () {
+  return {
+    type: ActionTypes.CLOSE_SIDETAB
   };
 };
 

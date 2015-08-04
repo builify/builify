@@ -1,0 +1,221 @@
+$tipnumber: 1;
+
+.#{$abprefix}loadingScreen {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    z-index: 100; 
+  
+    &.fadeOut {
+        @include animation(fadeOut 1s ease);
+        @include animation-fill-mode(forwards);
+    }
+  
+    &__bg {
+        @include position(absolute, 0px 0px 0px 0px);
+        background: rgb(105,155,200);
+background: -moz-radial-gradient(top left, ellipse cover, rgba(105,155,200,1) 0%, rgba(181,197,216,1) 57%);
+ background: -webkit-gradient(radial, top left, 0px, top left, 100%, color-stop(0%,rgba(105,155,200,1)), color-stop(57%,rgba(181,197,216,1)));
+ background: -webkit-radial-gradient(top left, ellipse cover, rgba(105,155,200,1) 0%,rgba(181,197,216,1) 57%);
+ background: -o-radial-gradient(top left, ellipse cover, rgba(105,155,200,1) 0%,rgba(181,197,216,1) 57%);
+ background: -ms-radial-gradient(top left, ellipse cover, rgba(105,155,200,1) 0%,rgba(181,197,216,1) 57%);
+ background: radial-gradient(ellipse at top left, rgba(105,155,200,1) 0%,rgba(181,197,216,1) 57%);
+ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#699bc8', endColorstr='#b5c5d8',GradientType=1 );
+    }
+  
+    &__content {
+        display: block;
+        position: relative;
+        z-index: 110;
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: center;
+        height: 100%;
+        align-items: center;
+    }
+
+    &__progress-text {
+        text-align: center;
+        color: #5a5a5a;
+        padding-bottom: 5px;
+        @include rem((
+            font-size: 22px
+        ));
+    }
+
+    &__progress {
+        background-color: #fff;
+        width: 239px;
+        height: 14px;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        margin: 0 auto;
+
+        .status {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            background-color: #F78D1E;
+            z-index: 2;
+            width: 10%;
+            @include transition(all 10s ease);
+        }
+    }
+
+    &__progress,
+    .status {
+        border-radius: 7px;
+    }
+
+    &__container {
+  background: #FFF;
+  width: 494px;
+  margin: 30px auto;
+  border-radius: 15px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+&__tip-img {
+  width: 454px;
+  height: 255px;
+
+  img {
+    display:none;
+
+    &.active {
+        display: block;
+      }
+  }
+}
+
+&__tip-text {
+  color: #333;
+  font-size: 18px;
+  display: block;
+  text-align:center;
+  span{
+    margin-top: 20px;
+    display:none;
+
+    &.active {
+        display: block;
+    }
+  }
+}
+}
+
+.loader {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  border: 4px solid #Fff;
+  top: 50%;
+  animation: loader 2s infinite ease;
+}
+
+.loader-inner {
+  vertical-align: top;
+  display: inline-block;
+  width: 100%;
+  background-color: #fff;
+  animation: loader-inner 2s infinite ease-in;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  
+  25% {
+    transform: rotate(180deg);
+  }
+  
+  50% {
+    transform: rotate(180deg);
+  }
+  
+  75% {
+    transform: rotate(360deg);
+  }
+  
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loader-inner {
+  0% {
+    height: 0%;
+  }
+  
+  25% {
+    height: 0%;
+  }
+  
+  50% {
+    height: 100%;
+  }
+  
+  75% {
+    height: 100%;
+  }
+  
+  100% {
+    height: 0%;
+  }
+}
+/*
+
+.blue-purple {
+    @include linear-gradient(to right, #1D2B64, #9b59b6);
+    @include animation(fadeInOut 25s ease);
+    @include animation-fill-mode(forwards);
+    @include animation-iteration-count(infinite);
+}
+
+.green-blue {
+    @include linear-gradient(to right, #26C281, #003171);
+    @include animation(fadeOutIn 25s ease);
+    @include animation-fill-mode(forwards);
+    @include animation-iteration-count(infinite);
+}*/
+
+@include keyframes(fadeInOut) {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@include keyframes(fadeOutIn) {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@include keyframes (fadeOut) {
+  0% {
+    opacity: 1;
+  }
+  
+  100% {
+    opacity: 0;
+  }
+}
