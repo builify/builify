@@ -6,7 +6,8 @@
       "title": "SimplPage",
       "tags": ["HTML", "WP"],
       "description": "A one-page template suitable for agencies, photographers, artists and programmers.", 
-      "image": "http://www.splitshire.com/wp-content/uploads/2015/06/SplitShire-5466-1800x1200-970x500.jpg"
+      "image": "http://www.splitshire.com/wp-content/uploads/2015/06/SplitShire-5466-1800x1200-970x500.jpg",
+      "data": "Templates/Simplpage"
     },
     {
       "title": "Fancycrap",
@@ -75,7 +76,31 @@
     {
       "id": "colors",
       "title": "Design",
-      "subtitle": "Colors"
+      "subtitle": "Colors",
+      "children": [
+        {
+          "type": "block.title", 
+          "title": "Colors"
+        },
+        {
+          "type": "block.colors",
+          "colors": [
+            {"id": "body"},
+            {"id": "anchor"}
+          ]
+        },
+        {
+          "type": "block.title",
+          "title": "Swatch"
+        },
+        {
+          "type": "block.swatch",
+          "swatches": [
+            {"name": "Sun Flower & Clouds", "colors": ["#f1c40f", "#ecf0f1"]},
+            {"name": "Blue & Purple", "colors": ["#2980b9", "#8e44ad"]}
+          ]
+        }
+      ]
     },
     {
       "id": "typography",

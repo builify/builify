@@ -1,4 +1,90 @@
-.#{$abprefix}tab {
+$item-height: 30px;
+
+.#{$abprefix}item,
+.#{$abprefix}color,
+.#{$abprefix}swatch {
+	position: relative;
+	cursor: pointer;
+	height: $item-height;
+	line-height: $item-height;
+	padding: 0 $base-padding;
+}
+
+.#{$abprefix}item {
+	&.goto {
+		text-transform: uppercase;
+
+		&:after {
+			color: inherit;
+			position: absolute;
+			font-family: "Pe-icon-7-stroke";
+			content: "\e684";
+			right: $base-padding;
+			@include rem(font-size, 30px);
+			@include transition(all 0.3s ease);
+		}
+	}
+}
+
+.#{$abprefix}color {
+	text-transform: uppercase;
+
+	&__name {
+		font-weight: 400;
+		@include rem(font-size, 14px);
+	}
+
+	&__circle {
+		position: absolute;
+		display: block;
+		border-radius: 100%;
+		overflow: hidden;
+		right: $base-padding;
+		top: ($base-padding - round($item-height / 1.5)) / 4;
+		height: round($item-height / 1.5);
+		width: round($item-height / 1.5);
+		@extend .z1;
+
+		> span {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+	}
+}
+
+.#{$abprefix}swatch {
+	text-transform: uppercase;
+
+	&__name {
+		font-weight: 400;
+		@include rem(font-size, 14px);
+	}
+
+	&__color {
+		position: absolute;
+		display: block;
+		border-radius: 100%;
+		overflow: hidden;
+		background: darken($default-aside-bg, 13%);
+		right: $base-padding;
+		top: ($base-padding - round($item-height / 1.5)) / 4;
+		height: round($item-height / 1.5);
+		width: round($item-height / 1.5);
+		@extend .z1;
+
+		> span {
+			display: block;
+			float: left;
+			width: 50%;
+			height: 100%;
+			background: #000;
+		}
+	}
+}
+
+.#{$abprefix}tab,
+.#{$abprefix}sidetab {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -6,42 +92,86 @@
 	bottom: 0;
 	z-index: 20;
 	overflow: hidden;
-	will-change: transform;
+	transform-style: preserve-3d;
+	backface-visibility: hidden;
 	background: $default-aside-bg;
-	@include transform(translate3d(0, 0, 0));
-	@include transition(all 0.3s ease);
+	@include transform(translateX(0px));
+	//@include transition(all 0.5s ease);
 
 	&.open {
-		@include transform(translate3d(-$default-aside-width, 0, 0));
+		@include transform(translateX(-$default-aside-width));
 	}
 
 	&__close {
+		height: $base-padding;
+		line-height: $base-padding;
+		overflow: hidden;
+		position: relative;
 		display: block;
 		cursor: pointer;
+		padding: 0 $base-padding;
+		@include transition(all 0.3s ease);
+
+		&:before {
+			display: block;
+			position: absolute;
+			left: $base-padding;
+			height: $base-padding;
+			width: $base-padding;
+			top: 0;
+			text-align: left;
+			content: "\e687";
+			font-family: 'Pe-icon-7-stroke';
+			@include rem(font-size, 32px);
+			@include transition(all 0.3s ease);
+			@include transform(scale3d(1, 1, 1));
+		}
+
+		span {
+			padding-left: $base-padding;
+		}
+
+		&:hover {
+			color: $base-color;
+
+			&:before {
+				@include transform(scale3d(1.2, 1.2, 1.2));
+			}
+		}
 	}
 
 	&__wrapper {
-		padding: 40px;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		padding: $base-padding 0;
 
 		h1 {
 			color: #333;
 			font-weight: 700;
 			text-transform: uppercase;
-			@include rem(font-size, 26px);
+			padding: 0 $base-padding;
+			@include rem(font-size, 24px);
 		}
 
 		h2 {
 			position: relative;
 			color: #555;
-			height: 22px;
-			line-height: 22px;
+			height: $base-padding / 1.5;
+			line-height: $base-padding / 1.5;
 			font-weight: 400;
+			margin-top: 20px;
+			margin-bottom: 0;
 			text-transform: uppercase;
-			@include rem(font-size, 16px);
+			padding-left: $base-padding;
+			padding-right: $base-padding;
+			@include rem(font-size, 18px);
 			@include transition(all 0.3s ease);
 
 			&.to-sidebar {
 				cursor: pointer;
+				margin-bottom: 30px;
 
 				&:after {
 					color: inherit;

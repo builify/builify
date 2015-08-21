@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
-import { connect } from 'redux/react';
+import { connect } from 'react-redux';
 
-@connect(state => ({
-  builder: state.builder
-}))
-export default class Canvas extends Component {
+class Canvas extends Component {
   render () {
     return (
       <div className='ab-canvas'>
-        <iframe src="http://ironsummitmedia.github.io/startbootstrap-agency/" />
-      </div>
+        {'Canvas'}
+      </div> 
     );
   }
 };
+
+function mapStateToProps (state) {
+  return {
+    builderConfiguration: state.builderConfiguration,
+    builder: state.builder,
+    localization: state.localizationData
+  };
+}
+
+export default connect(mapStateToProps)(Canvas);

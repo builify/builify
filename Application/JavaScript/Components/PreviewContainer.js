@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'redux/react';
 import { closePreview } from '../Actions/ActionCreators';
 import BackButton from './BackButton';
 import Canvas from './Canvas';
 
-@connect(() => ({}))
 export default class PreviewContainer extends Component {
   closePreviewWindow () {
     return closePreview();
@@ -27,3 +25,4 @@ export default class PreviewContainer extends Component {
     );
   } 
 };
+

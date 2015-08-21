@@ -23,7 +23,11 @@ var dependencies = [
     'react',
     'react-dom',
     'react/addons',
-    'redux'
+    'react-redux',
+    'redux',
+    'redux-thunk',
+    'lodash',
+    'immutable'
 ];
 
 // Rewrite gulp.src for better error handling.

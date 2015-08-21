@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import { createRedux } from 'redux';
-import { Provider } from 'redux/react';
-import * as stores from '../Stores/Index';
-import * as ActionCreators from '../Actions/ActionCreators';
+import { Provider } from 'react-redux';
+import { getABuilderConfiguration } from '../Actions/ActionCreators';
 import Base from '../Components/Base';
+import configureStore from '../Store/ConfigureStore';
 
-const redux = createRedux(stores);
-redux.dispatch(ActionCreators.getABuilderConfiguration());
+const store = configureStore();
+store.dispatch(getABuilderConfiguration());
 
 export default class Application extends Component {
   render() {
-    return (
-      <Provider redux={redux}>
+  	return (
+      <Provider store={store}>
         {() => <Base />}
       </Provider>
     );

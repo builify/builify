@@ -1,4 +1,16 @@
-import keyMirror from 'react/lib/keyMirror';
+var keyMirror = function(obj) {
+  var ret = {};
+  var key;
+  if (!(obj instanceof Object && !Array.isArray(obj))) {
+    throw new Error('keyMirror(...): Argument must be an object.');
+  }
+  for (key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      ret[key] = key;
+    }
+  }
+  return ret;
+};
 
 export default keyMirror({
   REMOVE_LOADING_SCREEN: Symbol('REMOVE_LOADING_SCREEN'),
@@ -12,6 +24,7 @@ export default keyMirror({
   CHECK_IF_TEMPLATE_IS_SELECTED: Symbol('CHECK_IF_TEMPLATE_IS_SELECTED'),
   PROCESS_TEMPLATE_SELECTION: Symbol('PROCESS_TEMPLATE_SELECTION'),
 
+  CHECK_IF_PAGE_IS_SELECTED: Symbol('CHECK_IF_PAGE_IS_SELECTED'),
   START_NEW_PAGE: Symbol('START_NEW_PAGE'),
   LOAD_PREVIOUS_PAGE: Symbol('LOAD_PREVIOUS_PAGE'),
   CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE: Symbol('CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE'),
@@ -23,5 +36,7 @@ export default keyMirror({
   CLOSE_SIDETAB: Symbol('CLOSE_SIDETAB'),
   
   OPEN_PREVIEW: Symbol('OPEN_PREVIEW'),
-  CLOSE_PREVIEW: Symbol('CLOSE_PREVIEW')
+  CLOSE_PREVIEW: Symbol('CLOSE_PREVIEW'),
+
+  SET_DESIGN_COLOR: Symbol('SET_DESIGN_COLOR')
 });

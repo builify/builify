@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'redux/react';
+import { connect } from 'react-redux';
 import { getString } from '../Common/Localization';
 import classNames from 'classnames';
 
-@connect(state => ({
-  builderConfiguration: state.builderConfiguration,
-  builder: state.builder,
-  localization: state.localizationData
-}))
-export default class LoadingScreen extends Component {
+class LoadingScreen extends Component {
   render () {
     return (
       <div className='ab-loadingScreen'>
@@ -23,6 +18,16 @@ export default class LoadingScreen extends Component {
           </span> 
         </div>
       </div>
-    );
+    ); 
   }
 };
+
+function mapStateToProps (state) {
+  return {
+    builderConfiguration: state.builderConfiguration,
+    builder: state.builder,
+    localization: state.localizationData
+  };
+}
+
+export default connect(mapStateToProps)(LoadingScreen);

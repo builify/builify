@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'redux/react';
+import { connect } from 'react-redux';
 import { CurrentLocationEnum } from '../Constants/Enums';
 import classNames from 'classnames';
 import Aside from './Aside';
 import Main from './Main';
 import LoadingScreen from './LoadingScreen';
 
-@connect(state => ({
-  builder: state.builder,
-}))
-export default class Base extends Component {
+class Base extends Component {
   render() {
     const { currentLocation, isLoadingScreenActive } = this.props.builder;
     const reactWrapClassname = classNames('react-wrap', currentLocation === CurrentLocationEnum.PREVIEW ? 'preview' : '');
@@ -21,7 +18,7 @@ export default class Base extends Component {
           <LoadingScreen />
         </div>
       );
-    } else {
+    } else { 
       return (
         <div className={reactWrapClassname}>
           <Aside cName={asideClassName} /> 
@@ -31,3 +28,14 @@ export default class Base extends Component {
     }
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    builder: state.builder
+  };
+}
+
+export default connect(mapStateToProps)(Base);
+
+
+

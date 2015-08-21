@@ -1,6 +1,5 @@
 $default-aside-width: 275px;
-$default-aside-bg: #eee;
-$aside-item-padding: 20px;
+$default-aside-bg: #eee; 
 
 .#{$abprefix}aside {
     position: relative;
@@ -23,7 +22,6 @@ $aside-item-padding: 20px;
         height: 100%;
         float: left; 
         display: block;
-        padding: $aside-item-padding;
         width: $default-aside-width;
         @include clearfix; 
     }

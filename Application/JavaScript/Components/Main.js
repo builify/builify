@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'redux/react';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { proccessTemplateSelection, startNewPage, loadPreviousPage } from '../Actions/ActionCreators';
 import { getString } from '../Common/Localization';
@@ -11,12 +11,7 @@ import ProjectStartScreen from './ProjectStartScreen';
 import TemplateItem from './TemplateItem';
 import PreviewContainer from './PreviewContainer';
 
-@connect(state => ({
-  builderConfiguration: state.builderConfiguration,
-  builder: state.builder,
-  localization: state.localizationData
-}))
-export default class Main extends Component {
+class Main extends Component {
   doesURLHashHasTemplateName () {
     if (ABuilder.getURLHash().indexOf('template-') !== -1) {
       return true;
@@ -108,3 +103,13 @@ export default class Main extends Component {
     );
   }
 };
+
+function mapStateToProps (state) {
+  return {
+    builderConfiguration: state.builderConfiguration,
+    builder: state.builder,
+    localization: state.localizationData
+  };
+}
+
+export default connect(mapStateToProps)(Main);

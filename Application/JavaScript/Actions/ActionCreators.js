@@ -16,10 +16,6 @@ export function getABuilderConfiguration () {
       dispatch(initialize());
       dispatch(removeLoadingScreen());
     });
-
-    /*setTimeout(() => {
-      dispatch(removeLoadingScreen());
-    }, 1000);*/
   };
 };
 
@@ -41,7 +37,7 @@ export function proccessConfigurationLocalization (data) {
     type: ActionTypes.PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION,
     data: data
   };
-};
+}; 
 
 // Localization actions.
 export function getLocalizationFile () {
@@ -58,10 +54,9 @@ export function getLocalizationFile () {
 // Builder actions.
 export function initialize () {
   return (dispatch, getState) => {
-    dispatch({
-      type: ActionTypes.CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE
-    });
     dispatch(checkTemplateSelection());
+    dispatch(checkIfPreviousPageExists());
+    dispatch(checkIfPageIsSelected());
   };
 };
 
@@ -75,6 +70,12 @@ export function proccessTemplateSelection (template) {
   return {
     type: ActionTypes.PROCESS_TEMPLATE_SELECTION,
     template: template
+  };
+};
+
+export function checkIfPageIsSelected () {
+  return {
+    type: ActionTypes.CHECK_IF_PAGE_IS_SELECTED
   };
 };
 
@@ -133,4 +134,10 @@ export function closePreview () {
   return {
     type: ActionTypes.CLOSE_PREVIEW
   };
+};
+
+export function setDesignColor () {
+  return {
+    type: ActionTypes.SET_DESIGN_COLOR
+  }
 };

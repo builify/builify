@@ -1,16 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'redux/react';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { closeTab, openSidetab } from '../Actions/ActionCreators';
 import classNames from 'classnames';
 import BackButton from './BackButton';
 
-@connect(state => ({
-  builderConfiguration: state.builderConfiguration,
-  builder: state.builder,
-  localization: state.localizationData
-}))
-export default class Tab extends Component {
+class Tab extends Component {
   static propTypes = {
     data: PropTypes.object,
     targetIndex: PropTypes.number
@@ -75,10 +70,10 @@ export default class Tab extends Component {
 
   renderSidebar (item, i) {
     const { dispatch } = this.props;
-    const sidebarClassName = classNames('to-sidebar');
+    const sidebarClassName = classNames('ab-item', 'goto');
 
     return (
-      <h2 
+      <div
         className={sidebarClassName}
         data-targetid={item.target}
         key={i} 
@@ -86,7 +81,7 @@ export default class Tab extends Component {
           onClick: ::this.sidebarClick
         }, dispatch)}>
         {item.title.toString()}
-      </h2>
+      </div>
     );
   }
 
@@ -98,8 +93,7 @@ export default class Tab extends Component {
     return (
       <div 
         className='ab-tab' 
-        data-target={targetIndex} 
-        ref={'tab-' + targetIndex}>
+        data-target={targetIndex}>
         <div className='ab-tab__wrapper'>
           <BackButton clickFunction={this.closeTab} />
           <h1>{data.title}</h1>
@@ -113,3 +107,13 @@ export default class Tab extends Component {
     );
   }
 };
+
+function mapStateToProps (state) {
+  return {
+    builderConfiguration: state.builderConfiguration,
+    builder: state.builder,
+    localization: state.localizationData
+  };
+}
+
+export default connect(mapStateToProps)(Tab);

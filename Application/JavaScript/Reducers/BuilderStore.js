@@ -2,6 +2,7 @@ import {
   REMOVE_LOADING_SCREEN,
   CHECK_IF_TEMPLATE_IS_SELECTED,
   PROCESS_TEMPLATE_SELECTION,
+  CHECK_IF_PAGE_IS_SELECTED,
   START_NEW_PAGE,
   LOAD_PREVIOUS_PAGE,
   CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE,
@@ -13,10 +14,11 @@ import {
   CLOSE_PREVIEW
 } from '../Constants/ActionTypes';
 import { CurrentLocationEnum } from '../Constants/Enums';
+import Immutable from 'immutable';
 import ABuilder from '../Common/ABuilder';
 import Storage from '../Common/Storage';
 
-let builderDefaultState = {
+const initialState = {
   isLoadingScreenActive: true,
 
   currentLocation: 0, // 0 - Template Selection; 1 - New/Load Page; 2 - Canvas; 3 - Preview
@@ -34,15 +36,15 @@ let builderDefaultState = {
 
   currentPage: -1,
   pages: []
-};
+}; 
 
-export default function builder (state = builderDefaultState, action) {
+export default function builder (state = initialState, action) {
   switch (action.type) {
     case REMOVE_LOADING_SCREEN:
       return {
         ...state,
         isLoadingScreenActive: false
-      }; 
+      };
 
     case CHECK_IF_TEMPLATE_IS_SELECTED:
       let currentURL = ABuilder.getURLHash();
@@ -68,9 +70,14 @@ export default function builder (state = builderDefaultState, action) {
       return {
         ...state,
         currentLocation: 1,
-        isTemplateSelected: true,
+        isTemplateSelected: true, 
         selectedTemplate: action.template
       };
+
+    case CHECK_IF_PAGE_IS_SELECTED:
+      const currentUrlHash = ABuilder.getURLHash();
+      
+      return state;
 
     case START_NEW_PAGE:
       let newPageId = '01';
@@ -188,8 +195,7 @@ export default function builder (state = builderDefaultState, action) {
         ...state,
         currentLocation: CurrentLocationEnum.CANVAS
       };
-
-    default:
-      return state;
   }
+
+  return state;
 };

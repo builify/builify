@@ -10,13 +10,13 @@
     li {
         display: block;
         width: 100%;
-        padding: 10px 20px;
         text-transform: uppercase;
         font-weight: 400;
         font-size: 18px;
         color: #333;
         cursor: pointer;
         color: #34495e;
+        padding: 10px $base-padding;
         @include user-select(none);
         @include transition(all 0.3s ease);
         
@@ -26,7 +26,16 @@
         }
 
         &:hover {
-            color: $base-color;
+            background: darken($default-aside-bg, 13%);
+        }
+
+        &.hide {
+            cursor: default;
+            opacity: 0.5;
+
+            &:hover {
+                background: transparent;
+            }
         }
     }
 }

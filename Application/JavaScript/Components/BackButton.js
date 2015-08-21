@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'redux/react';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-@connect(state => ({}))
 export default class BackButton extends Component {
   static propTypes = {
     clickFunction: PropTypes.func,
@@ -28,3 +27,11 @@ export default class BackButton extends Component {
     );
   }
 };
+
+function mapStateToProps (state) {
+  return {
+    localization: state.localizationData
+  };
+}
+
+export default connect(mapStateToProps)(BackButton);

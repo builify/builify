@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'redux/react';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { proccessTemplateSelection } from '../Actions/ActionCreators';
+import * as ActionTypes from '../Actions/ActionCreators';
 
-@connect(() => ({}))
-export default class TemplateItem extends Component {
+class TemplateItem extends Component {
   static propTypes = {
     templateInformation: PropTypes.object.isRequired
   };
@@ -14,9 +14,9 @@ export default class TemplateItem extends Component {
   };
 
   selectTemplate (e) {
-    const { templateInformation } = this.props;
+    const { dispatch, templateInformation } = this.props;
 
-    return proccessTemplateSelection(templateInformation.title.toString().toLowerCase());
+    return dispatch(proccessTemplateSelection(templateInformation.title.toString().toLowerCase()));
   }
 
   render () {
@@ -35,11 +35,9 @@ export default class TemplateItem extends Component {
     }
 
     return (
-      <div 
+      <div
         className='ab-templateitem' 
-        {...bindActionCreators({
-          onClick: ::this.selectTemplate
-        }, dispatch)}>
+        onClick={::this.selectTemplate}>
         <figure className='ab-templateitem__figure'>
           <h1>{templateInformation.title}</h1>
           <div className='ab-templateitem__bg' style={{backgroundImage: 'url(' + templateInformation.image + ')'}}></div>
@@ -49,3 +47,13 @@ export default class TemplateItem extends Component {
     );
   };
 };
+
+function mapStateToProps (state) {
+  return {
+    builderConfiguration: state.builderConfiguration,
+    builder: state.builder,
+    localization: state.localizationData
+  };
+}
+
+export default connect(mapStateToProps)(TemplateItem);
