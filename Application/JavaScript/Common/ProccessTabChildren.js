@@ -60,6 +60,21 @@ export default function proccessChildrenData (data) {
               };
 
               childrenToRender.push(pagesBlock);
+            } else if (blockType === 'switch') {
+              let state = currentChildren.state === 'on' ? true : false;
+              let switchBlock = {
+                type: 'switch',
+                state: state,
+                text: currentChildren.name
+              };
+
+              childrenToRender.push(switchBlock); 
+            } else if (blockType === 'fonts') {
+              let fontsBlock = {
+                type: 'fonts'
+              };
+
+              childrenToRender.push(fontsBlock);
             }
 
             break;

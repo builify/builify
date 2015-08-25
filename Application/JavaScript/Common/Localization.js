@@ -23,7 +23,8 @@ export function getString (query) {
   if (typeof result !== 'undefined') {
     return result;
   } else {
-    throw Error('Localization - "' + query + '" query not found!');
+    console.warn('Localization - "' + query + '" query not found!');
+    return false;
   }
 };
 

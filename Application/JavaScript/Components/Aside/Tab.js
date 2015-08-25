@@ -23,6 +23,10 @@ class Tab extends Component {
     this.childrenToRender = [];
   } 
 
+  shouldComponentUpdate () {
+    return false; // For now
+  }
+
   closeTab (e) {
     return closeTab();
   }
@@ -92,9 +96,7 @@ class Tab extends Component {
 
   render () {
     const { data, targetIndex } = this.props;
-
-    console.log(data);
-
+    
     this.childrenToRender = proccessChildrenData(data);
 
     return (

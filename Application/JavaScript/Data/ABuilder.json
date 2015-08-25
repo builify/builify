@@ -2,6 +2,10 @@
   "localization": "en",
   "defaultTheme": "light",
 
+  "fonts": [
+    {"name": "Open Sans", "font": ""}
+  ],
+
   "templates": [
     {
       "title": "SimplPage",
@@ -89,8 +93,15 @@
       "subtitle": "Colors",
       "children": [
         {
+          "type": "block.title",
+          "title": "design.titles.swatches"
+        },
+        {
+          "type": "block.swatches",
+        },
+        {
           "type": "block.title", 
-          "title": "Colors"
+          "title": "design.titles.colors"
         },
         {
           "type": "block.colors",
@@ -98,20 +109,48 @@
             {"id": "body"},
             {"id": "anchor"}
           ]
-        },
-        {
-          "type": "block.title",
-          "title": "Swatch"
-        },
-        {
-          "type": "block.swatches",
         }
       ]
     },
     {
       "id": "typography",
       "title": "Design",
-      "subtitle": "Typography"
+      "subtitle": "Typography",
+      "children": [
+        {
+          "type": "block.switch",
+          "state": "off",
+          "name": "vertical rythm"
+        },
+        {
+          "type": "block.title",
+          "title": "Show vertical rythm"
+        },
+        {
+          "type": "block.title",
+          "title": "Header font"
+        },
+        {
+          "type": "block.title",
+          "title": "Header font"
+        },
+        {
+          "type": "block.title",
+          "title": "Body font"
+        },
+        {
+          "type": "block.title",
+          "title": "Modular scale"
+        },
+        {
+          "type": "block.title",
+          "title": "Base font size"
+        },
+        {
+          "type": "block.title",
+          "title": "Baseline height"
+        }
+      ]
     }
   ]
 }

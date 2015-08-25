@@ -5,7 +5,10 @@ $item-height: 30px;
 .#{$abprefix}swatch {
 	position: relative;
 	cursor: pointer;
-	height: $item-height;
+	overflow: hidden;
+	width: 100%;
+	min-height: $item-height;
+	max-height: $item-height * 2;
 	line-height: $item-height;
 	padding: 0 $base-padding;
 }

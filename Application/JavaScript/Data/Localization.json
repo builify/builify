@@ -1,10 +1,5 @@
 {
   "en": {
-    "tips": {
-      "hotkeys": "New: Beautiful colors to build beautiful charts.",
-      "custom": "Did you know... You can upload your own custom shapes to use in Lucidchart"
-    },
-
     "primarynavigation": {
       "pages": "Pages",
       "content": "Content",
@@ -12,10 +7,24 @@
       "more": "More",
       "preview": "Preview"
     },
+
     "templateselection": "Select a template",
+
     "pages": {
       "newpage": "Start new page",
       "loadpage": "Load previous page"
+    },
+
+    "design": {
+      "titles": {
+        "basefont": "Base font",
+        "swatches": "Swatches",
+        "colors": "Colors"
+      },
+      "colors": {
+        "body": "Body colour",
+        "anchor": "Anchor color"
+      }
     }
   }
 }
