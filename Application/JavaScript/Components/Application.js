@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { getABuilderConfiguration } from '../Actions/ActionCreators';
-import Base from '../Components/Base';
+import { runApplicationActions } from '../Actions/ActionCreators';
+import Base from './Base';
 import configureStore from '../Store/ConfigureStore';
 
 const store = configureStore();
-store.dispatch(getABuilderConfiguration());
+store.dispatch(runApplicationActions());
 
 export default class Application extends Component {
   render() {

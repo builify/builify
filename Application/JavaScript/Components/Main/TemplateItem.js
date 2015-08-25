@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { proccessTemplateSelection } from '../Actions/ActionCreators';
-import * as ActionTypes from '../Actions/ActionCreators';
+import { proccessTemplateSelection } from '../../Actions/ActionCreators';
 
 class TemplateItem extends Component {
   static propTypes = {
@@ -14,14 +13,15 @@ class TemplateItem extends Component {
   };
 
   selectTemplate (e) {
-    const { dispatch, templateInformation } = this.props;
+    const { onTemplateSelection, templateInformation } = this.props;
+    const templateName = templateInformation.title.toString().toLowerCase();
 
-    return dispatch(proccessTemplateSelection(templateInformation.title.toString().toLowerCase()));
+    return onTemplateSelection(templateName);
   }
 
   render () {
     const { templateInformation, dispatch } = this.props;
-
+ 
     if (!templateInformation) {
       throw Error('Template information is invalid. Please check builder configuration file.');
     } else if (!templateInformation.title) {
@@ -56,4 +56,15 @@ function mapStateToProps (state) {
   };
 }
 
-export default connect(mapStateToProps)(TemplateItem);
+function mapDispatchToProps (dispatch) {
+  return {
+    onTemplateSelection: (query) => {
+      dispatch(proccessTemplateSelection(query));
+    }
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TemplateItem);

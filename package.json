@@ -26,10 +26,13 @@
   "dependencies": {
     "classnames": "^2.1.3",
     "immutable": "^3.7.4",
+    "lodash": "^3.10.1",
     "react": "^0.14.0-beta1",
+    "react-color": "^1.0.5",
     "react-dom": "^0.14.0-beta1",
     "react-redux": "^0.9.0",
     "redux": "^1.0.1",
+    "redux-logger": "^1.0.3",
     "redux-thunk": "^0.1.0"
   }
 }

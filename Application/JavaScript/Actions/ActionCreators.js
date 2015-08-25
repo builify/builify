@@ -2,26 +2,29 @@ import { getLocalization } from '../Common/Localization';
 import ABuilder from '../Common/ABuilder';
 import * as ActionTypes from '../Constants/ActionTypes';
 
-// Builder configuration actions.
-export function getABuilderConfiguration () {
+export function runApplicationActions () {
   return (dispatch, getState) => {
-    dispatch({
-      type: ActionTypes.GET_BUILDER_CONFIGURATION
-    });
+    dispatch(getBuilderConfiguration());
 
     ABuilder.getConfigration((data) => {
       dispatch(receiveConfiguration(data));
-      dispatch(proccessConfigurationLocalization(data));
+      dispatch(proccessConfigurationLocalization());
       dispatch(getLocalizationFile());
-      dispatch(initialize());
+      dispatch(initializeBuilder());
       dispatch(removeLoadingScreen());
-    });
+    }); 
   };
 };
 
 export function removeLoadingScreen () {
   return {
     type: ActionTypes.REMOVE_LOADING_SCREEN
+  };
+};
+
+export function getBuilderConfiguration () {
+  return {
+    type: ActionTypes.GET_BUILDER_CONFIGURATION
   };
 };
 
@@ -32,10 +35,9 @@ export function receiveConfiguration (data) {
   };
 };
 
-export function proccessConfigurationLocalization (data) {
+export function proccessConfigurationLocalization () {
   return {
-    type: ActionTypes.PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION,
-    data: data
+    type: ActionTypes.PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION
   };
 }; 
 
@@ -52,7 +54,7 @@ export function getLocalizationFile () {
 };
 
 // Builder actions.
-export function initialize () {
+export function initializeBuilder () {
   return (dispatch, getState) => {
     dispatch(checkTemplateSelection());
     dispatch(checkIfPreviousPageExists());

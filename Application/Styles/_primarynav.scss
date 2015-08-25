@@ -13,9 +13,7 @@
         text-transform: uppercase;
         font-weight: 400;
         font-size: 18px;
-        color: #333;
         cursor: pointer;
-        color: #34495e;
         padding: 10px $base-padding;
         @include user-select(none);
         @include transition(all 0.3s ease);
@@ -23,10 +21,6 @@
         span {
           color: inherit;
           margin-right: 10px;
-        }
-
-        &:hover {
-            background: darken($default-aside-bg, 13%);
         }
 
         &.hide {

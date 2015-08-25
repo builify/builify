@@ -10,8 +10,8 @@ const initialState = {
     }
   }
 };
-
-export default function theme (state = initialState, action) {
+ 
+export function theme (state = initialState, action) {
   switch (action.type) {
     case SET_DESIGN_COLOR:
       console.log('setting color');

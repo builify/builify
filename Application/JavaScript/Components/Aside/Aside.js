@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import Logo from './Logo';
+import Logo from '../Shared/Logo';
 import PrimaryNavigation from './PrimaryNavigation';
 import Tab from './Tab';
 import SideTab from './SideTab';
@@ -28,9 +28,9 @@ class Aside extends Component {
           </div>
         </div>
       </aside>
-    );
+    )
   }
-};
+}
 
 function mapStateToProps (state) {
   return {
@@ -38,4 +38,6 @@ function mapStateToProps (state) {
   };
 }
 
-export default connect(mapStateToProps)(Aside);
+export default connect(
+  mapStateToProps
+)(Aside);

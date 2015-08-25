@@ -19,34 +19,30 @@ ABuilder.PREVIEW = Symbol('PREVIEW');
 ABuilder.setURL = function (type, value) {
   switch (type) {
     case ABuilder.TEMPLATE:
-      ABuilder.setURLHash('#template-' + value.toString());
+      ABuilder.setURLHash('template-' + value.toString());
       break;
 
     case ABuilder.PAGE:
       let currentUrl = ABuilder.getURLHash();
+      let newUrl = currentUrl;
+      let pageInUrl = currentUrl.indexOf('page-7');
 
-      if (currentUrl.indexOf('/page-') !== -1) {
-        currentUrl = currentUrl.split('/');
-        currentUrl[1].replace(currentUrl[1].substr('page-'.length, 2), value);
+      if (pageInUrl === -1) {
+        let lastCharacterOfUrl = currentUrl.slice(-1);
 
-        ABuilder.setURLHash(currentUrl.join('/'));
+        if (lastCharacterOfUrl == '/') {
+          newUrl = currentUrl + value.toString();
+        } else {
+          newUrl = currentUrl + '/' + value.toString();
+        }
       } else {
-        ABuilder.setURLHash(currentUrl + '/page-' + value);
+        console.log(pageInUrl);
       }
 
-      break;
-
-    case ABuilder.PREVIEW:
-      if (typeof value !== 'undefined') {
-
-      } else {
-        
-      }
+      ABuilder.setURLHash(newUrl);
 
       break;
 
-    default:
-      break;
   }
 };
 

@@ -1,18 +1,8 @@
-var keyMirror = function(obj) {
-  var ret = {};
-  var key;
-  if (!(obj instanceof Object && !Array.isArray(obj))) {
-    throw new Error('keyMirror(...): Argument must be an object.');
-  }
-  for (key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      ret[key] = key;
-    }
-  }
-  return ret;
-};
+import keyMirror from '../Common/KeyMirror';
 
 export default keyMirror({
+  INITIALIZE: Symbol('INITIALIZE'),
+  
   REMOVE_LOADING_SCREEN: Symbol('REMOVE_LOADING_SCREEN'),
   
   GET_BUILDER_CONFIGURATION: Symbol('GET_BUILDER_CONFIGURATION'),

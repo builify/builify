@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { startNewPage, loadPreviousPage } from '../Actions/ActionCreators';
-import { getString } from '../Common/Localization';
+import { startNewPage, loadPreviousPage } from '../../Actions/ActionCreators';
+import { getString } from '../../Common/Localization';
 
 class Page extends Component {
   static propTypes = {
@@ -11,7 +11,6 @@ class Page extends Component {
 
   selectPage (e) {
     const { isNewPage } = this.props.data;
-    console.log("j")
     return isNewPage ? startNewPage() : loadPreviousPage();
   }
 

@@ -1,0 +1,44 @@
+.light {
+    background: #fff;
+
+    .#{$abprefix}main {
+		background: #fff;
+		box-shadow: 0 0 10px rgba(#000, 0.3);
+
+		&-template-selection {
+        	h1 {
+            	color: #444;
+        	}
+    	}
+    }
+
+	.#{$abprefix}aside,
+	.#{$abprefix}tab,
+	.#{$abprefix}sidetab {
+		background: #eee;
+	} 
+
+	.#{$abprefix}primarynav {
+		li {
+			color: #34495e;
+
+			&:hover {
+	            background: darken(#eee, 13%);
+	        }
+		}
+	}
+	
+	.#{$abprefix}swatch {
+		&__color {
+			background: darken(#eee, 13%);
+
+			> span {
+				background: #000;
+			}
+		}
+	}
+
+	.#{$abprefix}page-new {
+		border-color: #e4e4e4;
+	}
+}

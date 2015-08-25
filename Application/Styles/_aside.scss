@@ -1,5 +1,4 @@
-$default-aside-width: 275px;
-$default-aside-bg: #eee; 
+$default-aside-width: 275px !default;
 
 .#{$abprefix}aside {
     position: relative;
@@ -7,7 +6,6 @@ $default-aside-bg: #eee;
     float: left; 
     overflow: hidden;
     z-index: 10;
-    background: $default-aside-bg;
     width: $default-aside-width;
     @include user-select(none);
 

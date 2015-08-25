@@ -34,4 +34,6 @@ function mapStateToProps (state) {
   };
 }
 
-export default connect(mapStateToProps)(BackButton);
+export default connect(
+  mapStateToProps
+)(BackButton);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { closePreview } from '../Actions/ActionCreators';
-import BackButton from './BackButton';
+import { closePreview } from '../../Actions/ActionCreators';
+import BackButton from '../Shared/BackButton';
 import Canvas from './Canvas';
 
 export default class PreviewContainer extends Component {

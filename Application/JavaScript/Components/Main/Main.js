@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { proccessTemplateSelection, startNewPage, loadPreviousPage } from '../Actions/ActionCreators';
-import { getString } from '../Common/Localization';
-import { CurrentLocationEnum } from '../Constants/Enums';
+import { proccessTemplateSelection, startNewPage, loadPreviousPage } from '../../Actions/ActionCreators';
+import { getString } from '../../Common/Localization';
+import { CurrentLocationEnum } from '../../Constants/Enums';
 import classNames from 'classnames';
-import ABuilder from '../Common/ABuilder';
+import ABuilder from '../../Common/ABuilder';
 import Canvas from './Canvas';
 import ProjectStartScreen from './ProjectStartScreen';
 import TemplateItem from './TemplateItem';

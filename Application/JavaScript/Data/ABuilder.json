@@ -1,19 +1,20 @@
 {
   "localization": "en",
+  "defaultTheme": "light",
 
   "templates": [
     {
       "title": "SimplPage",
       "tags": ["HTML", "WP"],
       "description": "A one-page template suitable for agencies, photographers, artists and programmers.", 
-      "image": "http://www.splitshire.com/wp-content/uploads/2015/06/SplitShire-5466-1800x1200-970x500.jpg",
+      "image": "http://i.imgur.com/ULTAvsu.jpg",
       "data": "Templates/Simplpage"
     },
     {
       "title": "Fancycrap",
       "tags": ["HTML"],
       "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
-      "image": "http://www.splitshire.com/wp-content/uploads/2015/06/SplitShire-5466-1800x1200-970x500.jpg"
+      "image": "http://i.imgur.com/ULTAvsu.jpg"
     }
   ],
 
@@ -47,7 +48,16 @@
 
   "tabs": [
     {
-      "title": "Pages"
+      "title": "Pages",
+      "children": [
+        {
+          "type": "block.title", 
+          "title": "Pages in storage"
+        },
+        {
+          "type": "block.pages"
+        }
+      ]
     },
     {
       "title": "Content"
@@ -94,11 +104,7 @@
           "title": "Swatch"
         },
         {
-          "type": "block.swatch",
-          "swatches": [
-            {"name": "Sun Flower & Clouds", "colors": ["#f1c40f", "#ecf0f1"]},
-            {"name": "Blue & Purple", "colors": ["#2980b9", "#8e44ad"]}
-          ]
+          "type": "block.swatches",
         }
       ]
     },

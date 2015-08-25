@@ -53,36 +53,6 @@ $item-height: 30px;
 	}
 }
 
-.#{$abprefix}swatch {
-	text-transform: uppercase;
-
-	&__name {
-		font-weight: 400;
-		@include rem(font-size, 14px);
-	}
-
-	&__color {
-		position: absolute;
-		display: block;
-		border-radius: 100%;
-		overflow: hidden;
-		background: darken($default-aside-bg, 13%);
-		right: $base-padding;
-		top: ($base-padding - round($item-height / 1.5)) / 4;
-		height: round($item-height / 1.5);
-		width: round($item-height / 1.5);
-		@extend .z1;
-
-		> span {
-			display: block;
-			float: left;
-			width: 50%;
-			height: 100%;
-			background: #000;
-		}
-	}
-}
-
 .#{$abprefix}tab,
 .#{$abprefix}sidetab {
 	position: absolute;
@@ -94,9 +64,7 @@ $item-height: 30px;
 	overflow: hidden;
 	transform-style: preserve-3d;
 	backface-visibility: hidden;
-	background: $default-aside-bg;
 	@include transform(translateX(0px));
-	//@include transition(all 0.5s ease);
 
 	&.open {
 		@include transform(translateX(-$default-aside-width));

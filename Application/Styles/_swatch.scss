@@ -1,0 +1,27 @@
+.#{$abprefix}swatch {
+	text-transform: uppercase;
+
+	&__name {
+		font-weight: 400;
+		@include rem(font-size, 14px);
+	}
+
+	&__color {
+		position: absolute;
+		display: block;
+		border-radius: 100%;
+		overflow: hidden;
+		right: $base-padding;
+		top: ($base-padding - round($item-height / 1.5)) / 4;
+		height: round($item-height / 1.5);
+		width: round($item-height / 1.5);
+		@extend .z1;
+
+		> span {
+			display: block;
+			float: left;
+			width: 50%;
+			height: 100%;
+		}
+	}
+}
