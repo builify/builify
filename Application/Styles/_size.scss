@@ -1,0 +1,104 @@
+.#{$abprefix}size {
+    position: relative;
+    padding: 0 40px;
+    width: 100%;
+    margin-top: 15px;
+    @include rem((
+        font-size: 14px
+    ));
+
+    label {
+        display: block;
+        margin: 0 0 7px;
+    }
+
+    input[type="range"] {
+        width: 100%;
+        height: 13px;
+        outline: 0;
+        -webkit-appearance: none;
+
+        &:focus {
+            outline: 0;
+            -webkit-appearance: none;
+        }
+
+        // Mozilla
+        &::-moz-range-track {
+            position: relative;
+            width: 100%;
+            height: 5px;
+            cursor: pointer;
+            border-radius: 3px;
+            box-shadow: 0 0 1px rgba(#000, 0.3) inset;
+        }
+
+        &::-moz-range-thumb {
+            cursor: pointer;
+            width: 17px;
+            height: 17px;
+            border-radius: 100%;
+            border: 0;
+            @extend .z1;
+        } 
+
+        // Webkit
+        &::-webkit-slider-runnable-track {
+            position: relative;
+            width: 100%;
+            height: 5px;
+            cursor: pointer;
+            border-radius: 3px;
+            box-shadow: 0 0 1px rgba(#000, 0.3) inset;
+        }
+
+        &::-webkit-slider-thumb {
+            cursor: pointer;
+            width: 17px;
+            height: 17px;
+            margin-top: -6px;
+            border-radius: 100%;
+            border: 0;
+            -webkit-appearance: none;
+            @extend .z2;
+        }
+
+        // IE
+        &::-ms-track {
+            position: relative;
+            width: 100%;
+            height: 5px;
+            cursor: pointer;
+            border-color: transparent;
+            color: transparent;
+            background: transparent;
+        }
+
+        &::-ms-fill-lower,
+        &::-ms-fill-upper {
+            border-radius: 3px;
+            box-shadow: 0 0 1px rgba(#000, 0.3) inset;
+        }
+
+        &::-ms-thumb {
+            cursor: pointer;
+            width: 17px;
+            height: 17px;
+            border-radius: 100%;
+            border: 0;
+            @extend .z1;
+        }
+    }
+
+
+    &__output {
+        position: absolute;
+        top: 0;
+        right: 40px;
+        font-weight: 700;
+
+        &:after {
+            content: "px";
+        }
+    }
+}

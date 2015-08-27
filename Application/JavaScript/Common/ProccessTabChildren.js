@@ -20,11 +20,14 @@ export default function proccessChildrenData (data) {
           throw Error('Tab children does not have type defined.');
         }
 
-        let typeName = currentChildrenType.substr(0, currentChildrenType.indexOf('.'));
+        let splitCurrentChildrenType = currentChildrenType.split('.');
+
+        let typeName = splitCurrentChildrenType.length !== 0 ? 
+          splitCurrentChildrenType[0] : currentChildrenType.substr(0, currentChildrenType.indexOf('.'));
 
         switch (typeName) {
           case 'block':
-            let blockType = currentChildrenType.substr('block.'.length);
+            let blockType = splitCurrentChildrenType[1];
 
             if (blockType === 'title') {
               let { title } = currentChildren;
@@ -65,16 +68,26 @@ export default function proccessChildrenData (data) {
               let switchBlock = {
                 type: 'switch',
                 state: state,
-                text: currentChildren.name
+                text: currentChildren.name ? currentChildren.name : ''
               };
 
               childrenToRender.push(switchBlock); 
-            } else if (blockType === 'fonts') {
-              let fontsBlock = {
-                type: 'fonts'
+            } else if (blockType === 'font') {
+              let fontBlock = {
+                type: 'font'
               };
 
-              childrenToRender.push(fontsBlock);
+              childrenToRender.push(fontBlock);
+            } else if (blockType === 'size') {
+              let sizeBlock = {
+                type: 'size',
+                min: currentChildren.min ? currentChildren.min : 0,
+                max: currentChildren.max ? currentChildren.max : 0,
+                label: currentChildren.label ? currentChildren.label : '',
+                sizeType: splitCurrentChildrenType[2] ? splitCurrentChildrenType[2] : null
+              };
+
+              childrenToRender.push(sizeBlock);
             }
 
             break;
@@ -94,6 +107,9 @@ export default function proccessChildrenData (data) {
               childrenToRender.push(sideTabBlock);
             }
 
+            break;
+
+          default:
             break;
         }
       }

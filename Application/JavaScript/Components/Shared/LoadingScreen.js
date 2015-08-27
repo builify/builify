@@ -5,7 +5,9 @@ import LoadingIcon from './LoadingIcon';
 class LoadingScreen extends Component {
   render () {
     return (
-      <div className='ab-loadingScreen'>
+      <div 
+        className='ab-loadingScreen' 
+        id='ab-js-lsc'>
         <LoadingIcon />
       </div>
     ); 

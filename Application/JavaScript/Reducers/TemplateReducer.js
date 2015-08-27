@@ -2,6 +2,12 @@ import {
   SET_DESIGN_COLOR
 } from '../Constants/ActionTypes';
 
+const modularScales = {
+  minorSecond: {
+    name: 'Minor second - 16/15'
+  }
+}
+
 const initialState = {
   design: {
     swatches: [
@@ -13,6 +19,13 @@ const initialState = {
     colors: {
       body: "#777",
       anchor: "#333"
+    },
+
+    typography: {
+      size: {
+        basefont: 16,
+        baseline: 24 
+      }
     }
   }
 };

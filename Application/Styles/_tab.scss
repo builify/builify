@@ -2,7 +2,8 @@ $item-height: 30px;
 
 .#{$abprefix}item,
 .#{$abprefix}color,
-.#{$abprefix}swatch {
+.#{$abprefix}swatch,
+.#{$abprefix}toggle {
 	position: relative;
 	cursor: pointer;
 	overflow: hidden;

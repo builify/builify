@@ -1,9 +1,11 @@
+import stripJSONComments from 'strip-json-comments';
+
 const ABuilderConfiguration = require('../Data/ABuilder.json');
 const ABuilder = {};
 
 ABuilder.getConfigration = function (callback) {
-  callback(ABuilderConfiguration);
-};
+  callback(JSON.parse(stripJSONComments(JSON.stringify(ABuilderConfiguration)))); 
+}; 
 
 ABuilder.setURLHash = function (string) {
   location.hash = string;

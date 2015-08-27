@@ -8,27 +8,21 @@ import LoadingScreen from './Shared/LoadingScreen';
 
 class Base extends Component {
   render() {
-    const { currentLocation, isLoadingScreenActive } = this.props.builder;
+    const { currentLocation } = this.props.builder;
     const { defaultTheme } = this.props.builderConfiguration;
     const reactWrapClassname = classNames('react-wrap', 
       defaultTheme, 
       currentLocation === CurrentLocationEnum.PREVIEW ? 'preview' : '');
     const asideClassName = currentLocation === CurrentLocationEnum.PREVIEW ? 'hidden' : '';
+    const isLoadingScreen = currentLocation === CurrentLocationEnum.LOADINGSCREEN ? true : false;
     
-    if (isLoadingScreenActive) {
-      return (
-        <div className={reactWrapClassname}>
-          <LoadingScreen />
-        </div>
-      )
-    } else { 
-      return (
-        <div className={reactWrapClassname}>
-          <Aside cName={asideClassName} /> 
-          <Main />
-         </div>
-      )
-    }
+    return (
+      <div className={reactWrapClassname}>
+        {isLoadingScreen ? <LoadingScreen /> : null}
+        <Aside cName={asideClassName} /> 
+        <Main />
+      </div>
+    )
   }
 }
 

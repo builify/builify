@@ -41,4 +41,23 @@
 	.#{$abprefix}page-new {
 		border-color: #e4e4e4;
 	}
+
+	.#{$abprefix}size {
+		input[type="range"] {
+			background: #eee;
+
+			&::-moz-range-track,
+			&::-webkit-slider-runnable-track,
+			&::-ms-fill-lower,
+			&::-ms-fill-upper {
+				background: darken(#eee, 17%);
+			}
+
+			&::-moz-range-thumb,
+			&::-webkit-slider-thumb,
+			&::-ms-thumb { 
+				background: #fff;
+			}
+		}
+	}
 }

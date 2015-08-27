@@ -117,39 +117,15 @@
       "title": "Design",
       "subtitle": "Typography",
       "children": [
-        {
-          "type": "block.switch",
-          "state": "off",
-          "name": "vertical rythm"
-        },
-        {
-          "type": "block.title",
-          "title": "Show vertical rythm"
-        },
-        {
-          "type": "block.title",
-          "title": "Header font"
-        },
-        {
-          "type": "block.title",
-          "title": "Header font"
-        },
-        {
-          "type": "block.title",
-          "title": "Body font"
-        },
-        {
-          "type": "block.title",
-          "title": "Modular scale"
-        },
-        {
-          "type": "block.title",
-          "title": "Base font size"
-        },
-        {
-          "type": "block.title",
-          "title": "Baseline height"
-        }
+        { "type": "block.title", "title": "design.titles.misc" },
+        { "type": "block.switch", "state": "off", "name": "design.titles.verticalrythm" },
+        { "type": "block.switch", "state": "on", "name": "design.titles.verticalrythm" },
+        { "type": "block.title", "title": "design.titles.fonts" },
+        { "type": "block.font.header" }, 
+        { "type": "block.font.body" },
+        { "type": "block.title", "title": "design.titles.sizes" },
+        { "type": "block.size.basefont", "min": 8, "max": 100, "label": "design.typography.size.basefont" },
+        { "type": "block.size.baseline", "min": 8, "max": 100, "label": "design.typography.size.baseline" } 
       ]
     }
   ]

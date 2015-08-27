@@ -17,13 +17,23 @@
 
     "design": {
       "titles": {
-        "basefont": "Base font",
         "swatches": "Swatches",
-        "colors": "Colors"
+        "colors": "Colors",
+
+        "misc": "Miscellaneous",
+        "verticalrythm": "Vertical Rythm",
+        "fonts": "Fonts",
+        "sizes": "Sizes"
       },
       "colors": {
         "body": "Body colour",
         "anchor": "Anchor color"
+      },
+      "typography": {
+        "size": {
+          "basefont": "Base font size",
+          "baseline": "Base line height"
+        }
       }
     }
   }

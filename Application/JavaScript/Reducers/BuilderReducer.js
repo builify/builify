@@ -50,10 +50,20 @@ export function builderConfiguration (state = builderConfigurationInitialState, 
 export function builder (state = builderInitialState, action) {
   switch (action.type) {
     case Actions.REMOVE_LOADING_SCREEN:
-      return {
-        ...state,
-        isLoadingScreenActive: false
-      };
+      if (state.isTemplateSelected) {
+        return {
+          ...state,
+
+          isLoadingScreenActive: false
+        }
+      } else {
+        return {
+          ...state,
+
+          currentLocation: CurrentLocationEnum.TEMPLATESELECTION,
+          isLoadingScreenActive: false
+        }
+      }
 
     case Actions.CHECK_IF_TEMPLATE_IS_SELECTED:
       let currentURL = ABuilder.getURLHash();
@@ -65,7 +75,7 @@ export function builder (state = builderInitialState, action) {
 
           return {
             ...state,
-            currentLocation: 1,
+            currentLocation: CurrentLocationEnum.STARTSCREEN,
             isTemplateSelected: true,
             selectedTemplate: templateName
           };
@@ -78,7 +88,7 @@ export function builder (state = builderInitialState, action) {
 
       return {
         ...state,
-        currentLocation: 1,
+        currentLocation: CurrentLocationEnum.STARTSCREEN,
         isTemplateSelected: true, 
         selectedTemplate: action.template
       };
@@ -186,8 +196,7 @@ export function builder (state = builderInitialState, action) {
           ...state,
 
           currentLocation: CurrentLocationEnum.CANVAS,
-          isPageSelected: true,
-          currentPage: position
+          isPageSelected: true
         }
       }
 

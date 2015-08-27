@@ -7,11 +7,11 @@ $default-templateitem-size: 300px;
     margin-right: 20px;
     overflow: hidden;
     cursor: pointer;
+    box-shadow: 0 0 10px rgba(#000, 0.3);
     height: $default-templateitem-size;
     width: $default-templateitem-size;
     @include transition(all 0.3s ease);
     @include clearfix;
-    @extend .z1;
 
     &:hover {
         @extend .z2;

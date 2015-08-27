@@ -33,6 +33,7 @@
     "react-redux": "^0.9.0",
     "redux": "^1.0.1",
     "redux-logger": "^1.0.3",
-    "redux-thunk": "^0.1.0"
+    "redux-thunk": "^0.1.0",
+    "strip-json-comments": "^1.0.4"
   }
 }
