@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LoadingIcon from './LoadingIcon';
+import className from 'classnames';
 
 class LoadingScreen extends Component {
   render () {
+    const { builder } = this.props;
+    const { isLoadingScreenActive } = builder;
+    const loadingScreenClassName = className('ab-loadingScreen', isLoadingScreenActive ? 'show' : '');
+
     return (
-      <div 
-        className='ab-loadingScreen' 
-        id='ab-js-lsc'>
+      <div className={loadingScreenClassName}>
         <LoadingIcon />
       </div>
     ); 
@@ -16,10 +19,10 @@ class LoadingScreen extends Component {
 
 function mapStateToProps (state) {
   return {
-    builderConfiguration: state.builderConfiguration,
-    builder: state.builder,
-    localization: state.localizationData
+    builder: state.builder
   };
 }
 
-export default connect(mapStateToProps)(LoadingScreen);
+export default connect(
+  mapStateToProps
+)(LoadingScreen);

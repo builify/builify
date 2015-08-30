@@ -5,6 +5,25 @@ import ABuilder from '../Common/ABuilder';
 import Storage from '../Common/Storage';
 import * as Actions from '../Constants/ActionTypes';
 
+const notificationsInitialState = [];
+const notificationDefaultProps = {
+  type: null,
+  message: null,
+  timeout: null
+};
+
+export function notifications (state = notificationsInitialState, action) {
+  switch (action.type) {
+    case Actions.ADD_NOTIFICATION:
+      const { notification } = action;
+      const notificaionItem = Object.assign(notificationDefaultProps, notification);
+
+      return [...state, notificaionItem]
+  }
+
+  return state;
+}
+
 const builderConfigurationInitialState = {};
 const builderInitialState = {
   isLoadingScreenActive: true,
@@ -50,19 +69,10 @@ export function builderConfiguration (state = builderConfigurationInitialState, 
 export function builder (state = builderInitialState, action) {
   switch (action.type) {
     case Actions.REMOVE_LOADING_SCREEN:
-      if (state.isTemplateSelected) {
-        return {
-          ...state,
+      return {
+        ...state,
 
-          isLoadingScreenActive: false
-        }
-      } else {
-        return {
-          ...state,
-
-          currentLocation: CurrentLocationEnum.TEMPLATESELECTION,
-          isLoadingScreenActive: false
-        }
+        isLoadingScreenActive: false,
       }
 
     case Actions.CHECK_IF_TEMPLATE_IS_SELECTED:
@@ -124,7 +134,6 @@ export function builder (state = builderInitialState, action) {
           latestPage: position
         }
       } else {
-
         return state;
       }
 
@@ -139,10 +148,9 @@ export function builder (state = builderInitialState, action) {
           currentLocation: CurrentLocationEnum.CANVAS,
           isPageSelected: true,
         }
+      } else {
+        return state;
       }
-
-
-      return state;
 
     case Actions.START_NEW_PAGE:
       let pagesStorage = Storage.get('ab-pages');
@@ -198,9 +206,9 @@ export function builder (state = builderInitialState, action) {
           currentLocation: CurrentLocationEnum.CANVAS,
           isPageSelected: true
         }
+      } else {
+        return state;
       }
-
-      return state;
 
 
 

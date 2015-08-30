@@ -22,14 +22,26 @@
 
         "misc": "Miscellaneous",
         "verticalrythm": "Vertical Rythm",
-        "fonts": "Fonts",
+        "typography": "Typography",
         "sizes": "Sizes"
       },
       "colors": {
-        "body": "Body colour",
-        "anchor": "Anchor color"
+        "body": "Body",
+        "anchor": "Anchor",
+        "ahchorhover": "Anchor hover",
+        "anchorvisited": "Anchor visited",
+        "paragraph": "Paragraph",
+        "header1": "Heading 1",
+        "header2": "Heading 2",
+        "header3": "Heading 3",
+        "header4": "Heading 4",
+        "blockquote": "Blockquote"
       },
       "typography": {
+        "fonts": {
+          "header": "Headings font",
+          "body": "Body font"
+        },
         "size": {
           "basefont": "Base font size",
           "baseline": "Base line height"

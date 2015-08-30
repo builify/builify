@@ -46,15 +46,27 @@
 		input[type="range"] {
 			background: #eee;
 
-			&::-moz-range-track,
-			&::-webkit-slider-runnable-track,
+			&::-moz-range-track {
+				background: darken(#eee, 17%);
+			}
+
+			&::-webkit-slider-runnable-track {
+				background: darken(#eee, 17%);
+			}
+
 			&::-ms-fill-lower,
 			&::-ms-fill-upper {
 				background: darken(#eee, 17%);
 			}
 
-			&::-moz-range-thumb,
-			&::-webkit-slider-thumb,
+			&::-moz-range-thumb { 
+				background: #fff;
+			}
+
+			&::-webkit-slider-thumb { 
+				background: #fff;
+			}
+			
 			&::-ms-thumb { 
 				background: #fff;
 			}

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
-import _ from 'lodash';
 
 class NumberInput extends Component {
   static propTypes = {

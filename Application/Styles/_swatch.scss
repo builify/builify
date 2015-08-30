@@ -11,11 +11,11 @@
 		display: block;
 		border-radius: 100%;
 		overflow: hidden;
+		box-shadow: 0 2px 6px rgba(#000, 0.3);
 		right: $base-padding;
 		top: ($base-padding - round($item-height / 1.5)) / 4;
 		height: round($item-height / 1.5);
 		width: round($item-height / 1.5);
-		@extend .z1;
 
 		> span {
 			display: block;

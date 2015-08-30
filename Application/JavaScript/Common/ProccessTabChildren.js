@@ -74,7 +74,8 @@ export default function proccessChildrenData (data) {
               childrenToRender.push(switchBlock); 
             } else if (blockType === 'font') {
               let fontBlock = {
-                type: 'font'
+                type: 'font',
+                label: currentChildren.label ? currentChildren.label : ''
               };
 
               childrenToRender.push(fontBlock);

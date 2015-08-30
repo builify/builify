@@ -5,6 +5,7 @@ import { getString } from '../../Common/Localization';
 import { openTab, openPreview } from '../../Actions/ActionCreators';
 import { CurrentLocationEnum } from '../../Constants/Enums';
 import classNames from 'classnames';
+import Icon from '../Shared/Icon';
 
 class PrimaryNavigationItem extends Component {
   static propTypes = {
@@ -29,35 +30,19 @@ class PrimaryNavigationItem extends Component {
     const { dispatch, builder } = this.props;
     const { id, icon, target } = this.props.navigationItemInformation;
     const { currentLocation } = builder;
-    let itemClassName = classNames(currentLocation == CurrentLocationEnum.STARTSCREEN ? 'hide' : '');
+    let itemClassName = classNames(currentLocation == CurrentLocationEnum.STARTSCREEN ? 
+      (id !== 'pages' ? 'hide' : '') : '');
 
-    if (currentLocation == CurrentLocationEnum.STARTSCREEN) {
-      if (id == 'pages') {
-        return (
-          <li
-            {...bindActionCreators({
-              onClick: ::this.itemClick
-            }, dispatch)}>
-            <span className={icon}/>{getString('primarynavigation.' + id)}
-          </li>
-        );
-      } else {
-        return (
-          <li className='hide'>
-            <span className={icon}/>{getString('primarynavigation.' + id)}
-          </li>
-        );
-      }
-    } else {
-      return (
-        <li
-          {...bindActionCreators({
-            onClick: ::this.itemClick
-          }, dispatch)}>
-          <span className={icon}/>{getString('primarynavigation.' + id)}
-        </li>
-      );
-    }
+    return (
+      <li
+        className={itemClassName}
+        {...bindActionCreators({
+          onClick: ::this.itemClick
+        }, dispatch)}>
+        <Icon name={icon} />
+        {getString('primarynavigation.' + id)}
+      </li>
+    )
   }
 };
 
@@ -68,4 +53,6 @@ function mapStateToProps (state) {
   };
 }
 
-export default connect(mapStateToProps)(PrimaryNavigationItem);
+export default connect(
+  mapStateToProps
+)(PrimaryNavigationItem);

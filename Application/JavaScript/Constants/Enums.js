@@ -1,7 +1,6 @@
 export const CurrentLocationEnum = {
-  LOADINGSCREEN: 0,
-  TEMPLATESELECTION: 1,
-  STARTSCREEN: 2,
-  CANVAS: 3,
-  PREVIEW: 4
+  TEMPLATESELECTION: 0,
+  STARTSCREEN: 1,
+  CANVAS: 2,
+  PREVIEW: 3 
 };

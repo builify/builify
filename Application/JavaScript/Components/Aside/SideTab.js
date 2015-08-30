@@ -32,7 +32,7 @@ class SideTab extends ProccessedChildrenRender {
   }
 
   render () {
-    const { data, theme, localization } = this.props;
+    const { data, builderConfiguration, theme, localization } = this.props;
 
     this.childrenToRender = proccessChildrenData(data);
 
@@ -45,7 +45,7 @@ class SideTab extends ProccessedChildrenRender {
           <h1>{data.title}<span>{data.subtitle}</span></h1>
           {this.childrenToRender.length !== 0 ?
             this.childrenToRender.map((item, i) => {
-              return this.renderChildren(item, theme, localization, i);
+              return this.renderChildren(item, theme, localization, builderConfiguration, i);
             }) : false
           }
         </div>
@@ -56,6 +56,7 @@ class SideTab extends ProccessedChildrenRender {
 
 function mapStateToProps (state) {
   return {
+    builderConfiguration: state.builderConfiguration,
     localization: state.localization,
     theme: state.theme
   };

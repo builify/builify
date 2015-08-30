@@ -7,7 +7,16 @@
     width: 100%;
     height: 100%;
     background: #333;
-    z-index: 9999;
+    opacity: 0;
+    z-index: -1;
+    visibility: hidden;
+    @include transition(all 0.3s ease);
+
+    &.show {
+        z-index: 9999;
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 .#{$abprefix}loadingIcon {

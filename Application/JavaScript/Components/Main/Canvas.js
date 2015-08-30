@@ -13,10 +13,10 @@ class Canvas extends Component {
 
 function mapStateToProps (state) {
   return {
-    builderConfiguration: state.builderConfiguration,
-    builder: state.builder,
-    localization: state.localizationData
-  };
+    builder: state.builder
+  }
 }
 
-export default connect(mapStateToProps)(Canvas);
+export default connect(
+  mapStateToProps
+)(Canvas);

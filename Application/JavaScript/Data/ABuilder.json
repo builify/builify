@@ -3,7 +3,52 @@
   "defaultTheme": "light",
 
   "fonts": [
-    {"name": "Open Sans", "font": ""}
+    {"label": "Abril", "value": "abril"},
+    {"label": "Fatface", "value": "fatface"},
+    {"label": "Lora", "value": "lora"},
+    {"label": "Open Sans", "value": "open+sans"},
+    {"label": "Open Sans Condensed", "value": "open+sans+condensed"},
+    {"label": "Crimson Text", "value": "crimson+text"},
+    {"label": "Almendra Display", "value": "almendra+display"},
+    {"label": "Philosopher", "value": "philosopher"},
+    {"label": "Gentium Book Basic", "value": "gentium+book+basic"},
+    {"label": "Vollkorn", "value": "vollkorn"},
+    {"label": "Gravitas One", "value": "gravitas+one"},
+    {"label": "Lato", "value": "lato"},
+    {"label": "Old Standard TT", "value": "old+standard+TT"},
+    {"label": "PT Serif", "value": "pt+serif"},
+    {"label": "PT Sans Narrow", "value": "pt+sans+narrow"},
+    {"label": "Merriweather", "value": "merriweather"},
+    {"label": "Playfair Display", "value": "playfair+display"},
+    {"label": "Oswald", "value": "oswald"},
+    {"label": "PT Mono", "value": "pt+mono"},
+    {"label": "Cardo", "value": "cardo"},
+    {"label": "Inconsolata", "value": "inconsolata"},
+    {"label": "Roboto", "value": "roboto"},
+    {"label": "Roboto Slab", "value": "roboto+slab"},
+    {"label": "Source Sans Pro", "value": "source+sans+slab"},
+    {"label": "Alegreya", "value": "alegreya"},
+    {"label": "Libre Baskerville", "value": "libre+baskerville"},
+    {"label": "Railway", "value": "railway"},
+    {"label": "Unica One", "value": "unica+one"},
+    {"label": "Megrim", "value": "megrim"},
+    {"label": "Ovo", "value": "ovo"},
+    {"label": "Neuton", "value": "neuton"},
+    {"label": "Fanwood Text", "value": "fanwood+text"},
+    {"label": "Petrona", "value": "petrona"},
+    {"label": "Raleway", "value": "raleway"},
+    {"label": "Karla", "value": "karla"},
+    {"label": "Noto Serif", "value": "noto+serif"},
+    {"label": "Noto Sans", "value": "noto+sans"},
+    {"label": "Anonymous Pro", "value": "anonymous+pro"},
+    {"label": "Fira Sans", "value": "fira+sans"},
+    {"label": "Jura", "value": "jura"},
+    {"label": "Bitter", "value": "bitter"},
+    {"label": "EB Garamond", "value": "eb+garamond"},
+    {"label": "Cabin", "value": "cabin"},
+    {"label": "Rufina", "value": "rufina"},
+    {"label": "Droid Serif", "value": "droid+serif"},
+    {"label": "Droid Sans", "value": "droid+sans"}
   ],
 
   "templates": [
@@ -25,27 +70,27 @@
   "primarynavigation": [
     {
       "id": "pages",
-      "icon": "pe-7s-copy-file",
+      "icon": "copy-file",
       "target": "pages-tab"
     },
     {
       "id": "content",
-      "icon": "pe-7s-display1",
+      "icon": "display1",
       "target": "content-tab"
     },
     {
       "id": "design",
-      "icon": "pe-7s-paint-bucket",
+      "icon": "paint-bucket",
       "target": "design-tab"
     },
     {
       "id": "more",
-      "icon": "pe-7s-tools",
+      "icon": "tools",
       "target": "more-tab"
     },
     {
       "id": "preview",
-      "icon": "pe-7s-look",
+      "icon": "look",
       "target": "preview-window"
     }
   ],
@@ -93,13 +138,6 @@
       "subtitle": "Colors",
       "children": [
         {
-          "type": "block.title",
-          "title": "design.titles.swatches"
-        },
-        {
-          "type": "block.swatches",
-        },
-        {
           "type": "block.title", 
           "title": "design.titles.colors"
         },
@@ -107,8 +145,23 @@
           "type": "block.colors",
           "colors": [
             {"id": "body"},
-            {"id": "anchor"}
+            {"id": "anchor"},
+            {"id": "ahchorhover"},
+            {"id": "anchorvisited"},
+            {"id": "paragraph"},
+            {"id": "header1"},
+            {"id": "header2"},
+            {"id": "header3"},
+            {"id": "header4"},
+            {"id": "blockquote"}
           ]
+        },
+        {
+          "type": "block.title",
+          "title": "design.titles.swatches"
+        },
+        {
+          "type": "block.swatches",
         }
       ]
     },
@@ -119,13 +172,12 @@
       "children": [
         { "type": "block.title", "title": "design.titles.misc" },
         { "type": "block.switch", "state": "off", "name": "design.titles.verticalrythm" },
-        { "type": "block.switch", "state": "on", "name": "design.titles.verticalrythm" },
-        { "type": "block.title", "title": "design.titles.fonts" },
-        { "type": "block.font.header" }, 
-        { "type": "block.font.body" },
+        { "type": "block.title", "title": "design.titles.typography" },
+        { "type": "block.font.header", "label": "design.typography.fonts.header"}, 
+        { "type": "block.font.body", "label": "design.typography.fonts.body" },
         { "type": "block.title", "title": "design.titles.sizes" },
         { "type": "block.size.basefont", "min": 8, "max": 100, "label": "design.typography.size.basefont" },
-        { "type": "block.size.baseline", "min": 8, "max": 100, "label": "design.typography.size.baseline" } 
+        { "type": "block.size.baseline", "min": 8, "max": 100, "label": "design.typography.size.baseline" }
       ]
     }
   ]

@@ -16,12 +16,26 @@ const initialState = {
       {name: 'Peter River', colors: '#3498db'} 
     ],
 
+    currentSwatch: 'Emerald/Sun',
+
     colors: {
-      body: "#777",
-      anchor: "#333"
+      body: '#777',
+      anchor: '#333',
+      ahchorhover: '#333',
+      anchorvisited: '#333',
+      paragraph: '#444',
+      header1: '#111',
+      header2: '#222',
+      header3: '#333',
+      header4: '#444',
+      blockquote: '#666'
     },
 
     typography: {
+      fonts: {
+        header: 'open+sans',
+        body: 'roboto'
+      },
       size: {
         basefont: 16,
         baseline: 24 

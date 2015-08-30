@@ -3,137 +3,217 @@ import { getString } from '../../Common/Localization';
 import { getProperty } from '../../Utilities/DataManipulation';
 import classNames from 'classnames';
 import Toggle from '../Shared/Toggle'; 
+import Select from 'react-select';
 
 class ProccessedChildrenRender extends Component {
 	constructor (props) {
     super(props);
 
     this.renderChildren = this.renderChildren;
+    this.theme = {};
+    this.localization = {};
   }
 
-  renderChildren (item, theme, localization, i) {
+  renderTitle (item, i) {
+    let lang = getString(item.text);
+
+    return (
+      <h2 key={i}>{lang ? lang : item.text}</h2>
+    )
+  }
+
+  renderColor (item, i) {
+    let colorId = '';
+    let colorName = '';
+
+    if (this.theme.design.colors.hasOwnProperty(item.id)) {
+      colorId = this.theme.design.colors[item.id];
+      colorName = getString('design.colors.' + item.id);
+    } else {
+      return null;
+    }
+
+    return (
+      <div
+        className='ab-color'
+        key={i}>
+        <div 
+          className='ab-color__name' 
+          title={colorName}>
+          {colorName}
+        </div>
+        <div 
+          className='ab-color__circle' 
+          title={colorId}>
+          <span style={{backgroundColor: colorId}} />
+        </div>
+      </div>
+    )
+  }
+
+  renderSwatch (item, i) {
+    let swatches = [];
+    let swatchesToRender = [];
+
+    if (this.theme.design.hasOwnProperty('swatches')) {
+      swatches = this.theme.design.swatches;
+    }
+
+    for (let i = 0; i < swatches.length; i++) {
+      let swatch = swatches[i];
+      swatchesToRender.push({text: swatch.name, colors: swatch.colors});
+    }
+
+    return (
+      <div key={i}>
+        {swatchesToRender.length !== 0 ?
+          swatchesToRender.map((item, i) => {
+            let colors = item.colors;
+            let color1, color2 = '';
+            let colorsTitle = '';
+
+            if (typeof colors === 'object') {
+              if (colors.length == 1) {
+                color1 = color2 = colors[0];
+
+                colorsTitle = color1;
+              } else if (colors.length == 2) {
+                color1 = colors[0];
+                color2 = colors[1];
+
+                colorsTitle = color1 + '/' + color2;
+              }
+            } else if (typeof colors === 'string') {
+              color1 = color2 = colors;
+
+              colorsTitle = color1;
+            }
+
+            return (
+              <div
+                className='ab-swatch'
+                key={i}>
+                <div 
+                  className='ab-swatch__name' 
+                  title={item.text}>
+                  {item.text}
+                </div>
+                <div
+                  className='ab-swatch__color'
+                  title={colorsTitle}>
+                  <span style={{backgroundColor: color1}}/>
+                  <span style={{backgroundColor: color2}}/>
+                </div>
+              </div>
+            )
+          }) : null
+        }
+      </div>
+    )
+  }
+
+  renderSwitch (item, i) {
+    return (
+      <Toggle 
+        key={i}
+        label={getString(item.text)} 
+        toggled={item.state} />
+    )
+  }
+
+  renderSize (item, i) {
+    const { theme } = this.props;
+    let defaultValue = getProperty(this.theme, item.label);
+    const outputRefName = 'sizeOutput-' + i + '';
+    const changeEvent = (e) => {
+      e.preventDefault();
+      let { target } = e;
+      let { value } = target;
+
+      this.refs[outputRefName].innerHTML = value;
+    };
+    let isIE = !!navigator.userAgent.match(/Trident.*rv[ :]*11\./);
+
+    return (
+      <div
+        className='ab-size'
+        key={i}>
+        <label>{getString(item.label)}</label>
+        <input
+          onMouseUp={isIE ? changeEvent : () => {}}
+          onChange={!isIE ? changeEvent : () => {}}
+          defaultValue={defaultValue !== 'undefined' ? defaultValue : 0} 
+          step={1} 
+          min={item.min}
+          max={item.max} 
+          type='range'
+          name='range' />
+        <div className='ab-size__output'>
+          <span ref={outputRefName}>{defaultValue !== 'undefined' ? defaultValue : 0}</span>
+        </div>
+      </div>
+    )
+  }
+
+  renderFont (item, i) {
+    const { fonts } = this.builderConfiguration;
+    let fontsOptions = null;
+    let value = null;
+
+    let itemLabel = item.label.split('.');
+    let labelName = itemLabel[itemLabel.length - 1];
+
+    labelName = this.theme.design.typography.fonts[labelName];
+    value = labelName !== 'undefined' ? labelName : '';
+
+    if (this.builderConfiguration.hasOwnProperty('fonts')) {
+      fontsOptions = [...fonts];
+    }
+
+    return (
+      <div
+        key={i}
+        className='ab-select'>
+        <h3 className='ab-select__name'>{getString(item.label)}</h3>
+        <Select
+          key={i}
+          name={String(i)}
+          value={value}
+          options={fontsOptions} />
+      </div>
+    )
+  }
+
+  renderChildren (item, theme, localization, builderConfiguration, i) {
     if (!item || typeof item !== 'object') {
       throw Error('No item defined or not object.');
     }
 
+    this.builderConfiguration = builderConfiguration ? builderConfiguration : {};
+    this.theme = theme ? theme : {};
+    this.localization = localization ? localization : {};
+
     if (item.hasOwnProperty('type')) {
       item.text = item.text ? item.text : '';
 
-      switch (item.type) {
+      switch (item.type.toString()) {
         case 'title':
-          let lang = getString(item.text);
-
-          return (
-            <h2 key={i}>{lang ? lang : item.text}</h2>
-          )
-
-          break;
+          return this.renderTitle(item, i);
 
         case 'color':
-          let colorId = '';
-          let colorName = '';
-
-          if (theme.design.colors.hasOwnProperty(item.id)) {
-            colorId = theme.design.colors[item.id];
-            colorName = getString('design.colors.' + item.id);
-          }
-
-          return (
-            <div
-              className='ab-color'
-              key={i}>
-              <div className='ab-color__name'>{colorName}</div>
-              <div className='ab-color__circle' title={colorId}><span style={{backgroundColor: colorId}} /></div>
-            </div>
-          )
-
-          break;
+          return this.renderColor(item, i);
 
         case 'swatches':
-          let swatches = theme.design.swatches;
-          let swatchesToRender = [];
-
-          for (let i = 0; i < swatches.length; i++) {
-            let swatch = swatches[i];
-
-            swatchesToRender.push({text: swatch.name, colors: swatch.colors});
-          }
-
-          return (
-            <div key={i}>
-              {swatchesToRender.length !== 0 ?
-                swatchesToRender.map((item, i) => {
-                  let colors = item.colors;
-                  let color1, color2 = '';
-
-                  if (typeof colors === 'object') {
-                    if (colors.length == 2) {
-                      color1 = colors[0];
-                      color2 = colors[1];
-                    }
-                  } else if (typeof colors === 'string') {
-                    color1 = color2 = colors;
-                  }
-
-                  return (
-                    <div
-                      className='ab-swatch'
-                      key={i}>
-                      <div className='ab-swatch__name' title={item.text}>{item.text}</div>
-                      <div className='ab-swatch__color'>
-                        <span style={{backgroundColor: color1}}/>
-                        <span style={{backgroundColor: color2}}/>
-                      </div>
-                    </div>
-                  )
-                }) : null
-              }
-            </div>
-          );
-
-          break;
+          return this.renderSwatch(item, i);
 
         case 'switch':
-          return (
-            <Toggle 
-              key={i}
-              label={getString(item.text)} 
-              toggled={item.state} />
-          )
+          return this.renderSwitch(item, i);
 
         case 'size':
-          const { theme } = this.props;
-          let defaultValue = getProperty(theme, item.label);
-          const outputRefName = 'sizeOutput' + i + '';
+          return this.renderSize(item, i);
 
-          return (
-            <div
-              className='ab-size'
-              key={i}>
-              <label>{getString(item.label)}</label>
-              <input 
-                onChange={(e) => {
-                  e.preventDefault();
-
-                  let { target } = e;
-                  let { value } = target;
-                  console.log(value);
-                  this.refs[outputRefName].innerHTML = value;
-                }} 
-                defaultValue={defaultValue !== 'undefined' ? defaultValue : 0} 
-                step={1} 
-                min={item.min}
-                max={item.max} 
-                type='range'
-                name='range' />
-              <div className='ab-size__output'>
-                <span ref={outputRefName}>{defaultValue !== 'undefined' ? defaultValue : 0}</span>
-              </div>
-            </div>
-          )
-
-        default:
-          break;
+        case 'font':
+          return this.renderFont(item, i);
       }
     }
 

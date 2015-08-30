@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CurrentLocationEnum } from '../Constants/Enums';
+import { addNotification } from '../Actions/ActionCreators';
 import classNames from 'classnames';
+import ColorPicker from 'react-color';
 import Aside from './Aside/Aside';
 import Main from './Main/Main';
 import LoadingScreen from './Shared/LoadingScreen';
+import Notifications from './Notifications/Notifications';
 
 class Base extends Component {
-  render() {
-    const { currentLocation } = this.props.builder;
-    const { defaultTheme } = this.props.builderConfiguration;
-    const reactWrapClassname = classNames('react-wrap', 
-      defaultTheme, 
-      currentLocation === CurrentLocationEnum.PREVIEW ? 'preview' : '');
+  render () {
+    const { builder, builderConfiguration} = this.props;
+    const { currentLocation } = builder;
+    const { defaultTheme } = builderConfiguration;
+    const reactWrapClassname = classNames('react-wrap', defaultTheme, currentLocation === CurrentLocationEnum.PREVIEW ? 'preview' : '');
     const asideClassName = currentLocation === CurrentLocationEnum.PREVIEW ? 'hidden' : '';
-    const isLoadingScreen = currentLocation === CurrentLocationEnum.LOADINGSCREEN ? true : false;
-    
+
     return (
       <div className={reactWrapClassname}>
-        {isLoadingScreen ? <LoadingScreen /> : null}
+        <LoadingScreen />
         <Aside cName={asideClassName} /> 
         <Main />
+        <Notifications />
       </div>
     )
   }
