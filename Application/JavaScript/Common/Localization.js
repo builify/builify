@@ -15,17 +15,15 @@ export function getLanguage () {
 export function getString (query) {
   if (!query) {
     return;
-  } else {
-    query = languageSetting.toString() + '.' + query;
   }
 
-  let result = getProperty(languageData, query);
+  let result = getProperty(languageData, languageSetting.toString() + '.' + query);
 
   if (typeof result !== 'undefined') {
     return result;
   } else {
     console.warn('Localization - "' + query + '" query not found!');
-    return '.';
+    return query;
   }
 };
 

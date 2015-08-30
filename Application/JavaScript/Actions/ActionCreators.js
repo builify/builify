@@ -164,6 +164,25 @@ export function removeAllNotifications () {
   }
 }
 
+export function openColorPicker (target) {
+  return {
+    type: ActionTypes.OPEN_COLORPICKER,
+    target: target
+  }
+}
+
+export function setColorFromColorPicker () {
+  return {
+    type: ActionTypes.SET_COLOR_FROM_COLORPICKER
+  }
+}
+
+export function closeColorPicker () {
+  return {
+    type: ActionTypes.CLOSE_COLORPICKER
+  }
+}
+
 export function setDesignColor () {
   return {
     type: ActionTypes.SET_DESIGN_COLOR

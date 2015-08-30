@@ -5,7 +5,6 @@ import { closeSidetab } from '../../Actions/ActionCreators';
 import classNames from 'classnames';
 import proccessChildrenData from '../../Common/ProccessTabChildren';
 import BackButton from '../Shared/BackButton';
-import NumberPicker from '../Shared/NumberPicker';
 import ProccessedChildrenRender from '../Shared/ProccessedChildrenRender';
 
 class SideTab extends ProccessedChildrenRender {
@@ -32,7 +31,7 @@ class SideTab extends ProccessedChildrenRender {
   }
 
   render () {
-    const { data, builderConfiguration, theme, localization } = this.props;
+    const { dispatch, data, builderConfiguration, theme, localization } = this.props;
 
     this.childrenToRender = proccessChildrenData(data);
 
@@ -45,7 +44,7 @@ class SideTab extends ProccessedChildrenRender {
           <h1>{data.title}<span>{data.subtitle}</span></h1>
           {this.childrenToRender.length !== 0 ?
             this.childrenToRender.map((item, i) => {
-              return this.renderChildren(item, theme, localization, builderConfiguration, i);
+              return this.renderChildren(item, theme, localization, builderConfiguration, dispatch, i);
             }) : false
           }
         </div>

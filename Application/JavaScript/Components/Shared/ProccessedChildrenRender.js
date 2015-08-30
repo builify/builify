@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { getString } from '../../Common/Localization';
 import { getProperty } from '../../Utilities/DataManipulation';
+import { openColorPicker, openSidetab, closeTab } from '../../Actions/ActionCreators';
 import classNames from 'classnames';
 import Toggle from '../Shared/Toggle'; 
 import Select from 'react-select';
@@ -9,11 +11,22 @@ class ProccessedChildrenRender extends Component {
 	constructor (props) {
     super(props);
 
+    this.dispatch = () => {};
     this.renderChildren = this.renderChildren;
     this.theme = {};
     this.localization = {};
   }
 
+  // Events
+  eventColorClick (e) {
+    const { target } = e;
+
+    console.log(target);
+
+    this.dispatch(openColorPicker(target));
+  }
+
+  // Block components
   renderTitle (item, i) {
     let lang = getString(item.text);
 
@@ -42,7 +55,8 @@ class ProccessedChildrenRender extends Component {
           title={colorName}>
           {colorName}
         </div>
-        <div 
+        <div
+          onClick={::this.eventColorClick}
           className='ab-color__circle' 
           title={colorId}>
           <span style={{backgroundColor: colorId}} />
@@ -184,11 +198,53 @@ class ProccessedChildrenRender extends Component {
     )
   }
 
-  renderChildren (item, theme, localization, builderConfiguration, i) {
+  renderSideTab (item, i) {
+    let sidebarClassName = classNames('ab-item', 'goto');
+
+    return (
+      <div
+        className={sidebarClassName}
+        data-targetid={item.target}
+        key={i} 
+        {...bindActionCreators({
+          onClick: (e) => {
+            e.preventDefault();
+            let targetId = e.target.getAttribute('data-targetid');
+          
+            return openSidetab(targetId);
+          }
+        }, this.dispatch)}>
+        {item.title.toString()}
+      </div>
+    )
+  }
+
+  renderPages (item, i) {
+    let { pages } = this.props.builder;
+
+          if (pages.length !== 0) {
+            return (
+              <ul
+                className='ab-pages'
+                key={i}>
+                {pages.map((page, i) => {
+                  return (
+                    <li key={i}>
+                      {page.id}
+                    </li>
+                  )
+                })}
+              </ul>
+            )
+          }
+  }
+
+  renderChildren (item, theme, localization, builderConfiguration, dispatch, i) {
     if (!item || typeof item !== 'object') {
       throw Error('No item defined or not object.');
     }
 
+    this.dispatch = dispatch;
     this.builderConfiguration = builderConfiguration ? builderConfiguration : {};
     this.theme = theme ? theme : {};
     this.localization = localization ? localization : {};
@@ -214,6 +270,12 @@ class ProccessedChildrenRender extends Component {
 
         case 'font':
           return this.renderFont(item, i);
+
+        case 'sidetab':
+          return this.renderSideTab(item, i);
+
+        case 'pages':
+          return this.renderPages(item, i);
       }
     }
 
