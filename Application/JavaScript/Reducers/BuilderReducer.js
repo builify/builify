@@ -45,7 +45,11 @@ const builderInitialState = {
   doesPreviousPageExistInStorage: false,
   currentPage: -1,
   latestPage: -1,
-  pages: [] 
+  pages: [] ,
+
+  // Colorpicker
+  isColorPickerOpened: false,
+  colorPickerTarget: null
 };
 
 export function builderConfiguration (state = builderConfigurationInitialState, action) {
@@ -289,7 +293,31 @@ export function builder (state = builderInitialState, action) {
       return {
         ...state,
         currentLocation: CurrentLocationEnum.CANVAS
-      };
+      }
+
+    case Actions.OPEN_COLORPICKER:
+      return {
+        ...state,
+
+        isColorPickerOpened: true,
+        colorPickerTarget: action.target
+      }
+
+    case Actions.SET_COLOR_FROM_COLORPICKER:
+      if (state.colorPickerTarget) {
+        const { color } = action;
+        state.colorPickerTarget.style.backgroundColor = '#' + color + '';
+      }
+
+      return state;
+
+    case Actions.CLOSE_COLORPICKER:
+      return {
+        ...state,
+
+        isColorPickerOpened: false,
+        colorPickerTarget: null
+      }
   }
 
   return state;

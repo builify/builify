@@ -3,22 +3,22 @@ import stripJSONComments from 'strip-json-comments';
 const ABuilderConfiguration = require('../Data/ABuilder.json');
 const ABuilder = {};
 
-ABuilder.getConfigration = function (callback) {
+ABuilder.getConfigration = (callback) => {
   callback(JSON.parse(stripJSONComments(JSON.stringify(ABuilderConfiguration)))); 
-}; 
+}
 
-ABuilder.setURLHash = function (string) {
+ABuilder.setURLHash = (string) => {
   location.hash = string;
-};
+}
 
-ABuilder.getURLHash = function () {
+ABuilder.getURLHash = () => {
   return location.hash;
-};
+}
 
 ABuilder.TEMPLATE = Symbol('TEMPLATE');
 ABuilder.PAGE = Symbol('PAGE');
 ABuilder.PREVIEW = Symbol('PREVIEW');
-ABuilder.setURL = function (type, value) {
+ABuilder.setURL = (type, value) => {
   switch (type) {
     case ABuilder.TEMPLATE:
       ABuilder.setURLHash('template-' + value.toString());
@@ -44,16 +44,33 @@ ABuilder.setURL = function (type, value) {
       ABuilder.setURLHash(newUrl);
 
       break;
-
   }
-};
+}
 
-ABuilder.on = function (eventName, eventFunction, isBubble) {
+ABuilder.on = (eventName, eventFunction, isBubble) => {
   if (typeof isBubble === 'undefined') {
     isBubble = false;
   }
 
-  window['addEventListener'](eventName, eventFunction, isBubble);
-};
+  if (addEventListener in window) {
+    window['addEventListener'](eventName, eventFunction, isBubble);
+  }
+}
+
+ABuilder.getBrowserSize = () => {
+  return {
+    width: window.innerWidth || document.body.clientWidth,
+    height: window.innerHeight || document.body.clientHeight
+  }
+}
+
+ABuilder.getOffset = (element) => {
+  element = element.getBoundingClientRect();
+
+  return {
+    left: element.left + window.scrollX,
+    top: element.top + window.scrollY
+  }
+}
 
 export default ABuilder;

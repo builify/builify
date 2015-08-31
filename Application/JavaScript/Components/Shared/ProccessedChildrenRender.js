@@ -21,8 +21,6 @@ class ProccessedChildrenRender extends Component {
   eventColorClick (e) {
     const { target } = e;
 
-    console.log(target);
-
     this.dispatch(openColorPicker(target));
   }
 

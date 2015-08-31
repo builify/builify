@@ -24,7 +24,7 @@ class Tab extends ProccessedChildrenRender {
     this.childrenToRender = [];
   } 
 
-  shouldComponentUpdate () {
+  shouldComponentUpdate (nextProps, nextState) {
     return false;
   }
 

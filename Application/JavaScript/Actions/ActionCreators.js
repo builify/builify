@@ -171,20 +171,15 @@ export function openColorPicker (target) {
   }
 }
 
-export function setColorFromColorPicker () {
+export function setColorFromColorPicker (color) {
   return {
-    type: ActionTypes.SET_COLOR_FROM_COLORPICKER
+    type: ActionTypes.SET_COLOR_FROM_COLORPICKER,
+    color: color
   }
 }
 
 export function closeColorPicker () {
   return {
     type: ActionTypes.CLOSE_COLORPICKER
-  }
-}
-
-export function setDesignColor () {
-  return {
-    type: ActionTypes.SET_DESIGN_COLOR
   }
 }
