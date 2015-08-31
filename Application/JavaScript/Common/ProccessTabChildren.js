@@ -97,15 +97,19 @@ export default function proccessChildrenData (data) {
             let openWhat = currentChildrenType.substr('open.'.length);
 
             if (openWhat === 'sidetab') {
-              let target = currentChildren.target.split('.');
-              let sideTarget = target[target.length - 1];
-              let sideTabBlock = {
-                type: 'sidetab',
-                title: currentChildren.title,
-                target: sideTarget
-              };
+              if (currentChildren.hasOwnProperty('target')) {
+                let target = currentChildren.target.split('.');
+                let sideTarget = target[target.length - 1];
+                let sideTabBlock = {
+                  type: 'sidetab',
+                  title: currentChildren.title,
+                  target: sideTarget
+                };
 
-              childrenToRender.push(sideTabBlock);
+                childrenToRender.push(sideTabBlock);
+              } else {
+                console.warn('Missing target for sidetab.')
+              }
             }
 
             break;

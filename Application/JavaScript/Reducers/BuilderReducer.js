@@ -55,9 +55,7 @@ const builderInitialState = {
 export function builderConfiguration (state = builderConfigurationInitialState, action) {
   switch (action.type) {
     case Actions.RECEIVE_BUILDER_CONFIGURATION: 
-      const { data } = action;
-
-      return data;
+      return Object.assign({}, state, action.data);
 
     case Actions.PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION:
       const { localization } = state;
@@ -73,11 +71,9 @@ export function builderConfiguration (state = builderConfigurationInitialState, 
 export function builder (state = builderInitialState, action) {
   switch (action.type) {
     case Actions.REMOVE_LOADING_SCREEN:
-      return {
-        ...state,
-
-        isLoadingScreenActive: false,
-      }
+      return Object.assign({}, state, {
+        isLoadingScreenActive: false
+      });
 
     case Actions.CHECK_IF_TEMPLATE_IS_SELECTED:
       let currentURL = ABuilder.getURLHash();
@@ -87,28 +83,23 @@ export function builder (state = builderInitialState, action) {
           let template = currentURL.split('/')[0],
             templateName = template.slice(1 + 'template-'.length);
 
-          return {
-            ...state,
+          return Object.assign({}, state, {
             currentLocation: CurrentLocationEnum.STARTSCREEN,
             isTemplateSelected: true,
             selectedTemplate: templateName
-          };
+          });
+      } else {
+        return state;
       }
- 
-      return state;
 
     case Actions.PROCESS_TEMPLATE_SELECTION:
       ABuilder.setURL(ABuilder.TEMPLATE, action.template);
 
-      return {
-        ...state,
+      return Object.assign({}, state, {
         currentLocation: CurrentLocationEnum.STARTSCREEN,
         isTemplateSelected: true, 
         selectedTemplate: action.template
-      };
-
-
-
+      });
 
     // Pages related.
     case Actions.CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE:
@@ -130,13 +121,11 @@ export function builder (state = builderInitialState, action) {
         let largest = Math.max.apply(Math, sizes);
         let position = sizes.indexOf(largest);
 
-        return {
-          ...state,
-
+        return Object.assign({}, state, {
           doesPreviousPageExistInStorage: true,
           pages: storageItem,
           latestPage: position
-        }
+        });
       } else {
         return state;
       }
@@ -146,12 +135,10 @@ export function builder (state = builderInitialState, action) {
       let pagePositionInString = getCurrentUrl.indexOf('page-7');
 
       if (pagePositionInString !== -1) {
-        return {
-          ...state,
-
+        return Object.assign({}, state, {
           currentLocation: CurrentLocationEnum.CANVAS,
-          isPageSelected: true,
-        }
+          isPageSelected: true
+        });
       } else {
         return state;
       }
@@ -190,13 +177,11 @@ export function builder (state = builderInitialState, action) {
       Storage.set('ab-pages', newPages);
       ABuilder.setURL(ABuilder.PAGE, pageId);
 
-      return {
-        ...state,
-
+      return Object.assign({}, state, {
         currentLocation: CurrentLocationEnum.CANVAS,
         isPageSelected: true,
         pages: newPages
-      }
+      });
 
     case Actions.LOAD_PREVIOUS_PAGE:
       let pagesSize = state.pages.length;
@@ -204,18 +189,13 @@ export function builder (state = builderInitialState, action) {
       if (pagesSize > 0) {
         ABuilder.setURL(ABuilder.PAGE, state.pages[state.latestPage].id);
 
-        return {
-          ...state,
-
+        return Object.assign({}, state, {
           currentLocation: CurrentLocationEnum.CANVAS,
           isPageSelected: true
-        }
+        });
       } else {
         return state;
       }
-
-
-
 
     case Actions.OPEN_TAB:
       const { target } = action;
@@ -224,14 +204,13 @@ export function builder (state = builderInitialState, action) {
       if (openTabElement) {
         openTabElement.classList.add('open');
 
-        return {
-          ...state,
+        return Object.assign({}, state, {
           isTabOpened: true,
           tabOpened: target
-        };
+        });
+      } else {
+        return state;
       }
-
-      return state;
 
     case Actions.CLOSE_TAB:
       let closeTabElement = document.querySelector('[data-target="' + state.tabOpened + '"]');
@@ -239,14 +218,13 @@ export function builder (state = builderInitialState, action) {
       if (closeTabElement) {
         closeTabElement.classList.remove('open');
 
-        return {
-          ...state,
+        return Object.assign({}, state, {
           isTabOpened: false,
           tabOpened: -1
-        };
+        });
+      } else {
+        return state;
       }
-
-      return state;
 
     case Actions.OPEN_SIDETAB:
       let sidetabElement = document.querySelector('[data-sidetabid="' + action.target + '"]');
@@ -254,14 +232,13 @@ export function builder (state = builderInitialState, action) {
       if (sidetabElement) {
         sidetabElement.classList.add('open');
 
-        return {
-          ...state,
-          isSidetabOpened: true,
+        return Object.assign({}, state, {
+          iisSidetabOpened: true,
           sidetabOpened: action.target
-        };
+        });
+      } else {
+        return state;
       }
-
-      return state;
 
     case Actions.CLOSE_SIDETAB:
       let closeSidetabElement = document.querySelector('[data-sidetabid="' + state.sidetabOpened + '"]');
@@ -269,39 +246,34 @@ export function builder (state = builderInitialState, action) {
       if (closeSidetabElement) {
         closeSidetabElement.classList.remove('open');
 
-        return {
-          ...state,
-           isSidetabOpened: false,
+        return Object.assign({}, state, {
+          isSidetabOpened: false,
           sidetabOpened: -1
-        };
+        });
+      } else {
+        return state;
       }
-      
-      return state;
 
     case Actions.OPEN_PREVIEW: 
       if (state.currentLocation === CurrentLocationEnum.TEMPLATESELECTION ||
           state.currentLocation === CurrentLocationEnum.STARTSCREEN) {
         return state;
       } else {
-        return {
-          ...state,
+        return Object.assign({}, state, {
           currentLocation: CurrentLocationEnum.PREVIEW
-        };
+        });
       }
 
     case Actions.CLOSE_PREVIEW:
-      return {
-        ...state,
+      return Object.assign({}, state, {
         currentLocation: CurrentLocationEnum.CANVAS
-      }
+      });
 
     case Actions.OPEN_COLORPICKER:
-      return {
-        ...state,
-
+      return Object.assign({}, state, {
         isColorPickerOpened: true,
         colorPickerTarget: action.target
-      }
+      });
 
     case Actions.SET_COLOR_FROM_COLORPICKER:
       if (state.colorPickerTarget) {
@@ -312,12 +284,10 @@ export function builder (state = builderInitialState, action) {
       return state;
 
     case Actions.CLOSE_COLORPICKER:
-      return {
-        ...state,
-
+      return Object.assign({}, state, {
         isColorPickerOpened: false,
         colorPickerTarget: null
-      }
+      });
   }
 
   return state;

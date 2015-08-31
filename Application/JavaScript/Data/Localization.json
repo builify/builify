@@ -8,6 +8,34 @@
       "preview": "Preview"
     },
 
+    "sidetabs": {
+      "navigation": {
+        "title": "Content",
+        "subtitle": "Navigation"
+      },
+      "main": {
+        "title": "Content",
+        "subtitle": "Main"
+      },
+      "footer": {
+        "title": "Content",
+        "subtitle": "Footer"
+      },
+      "all": {
+        "title": "Content",
+        "subtitle": "All"
+      },
+
+      "colors": {
+        "title": "Design",
+        "subtitle": "Colors"
+      },
+      "typography": {
+        "title": "Design",
+        "subtitle": "Colors"
+      }
+    },
+
     "templateselection": "Select a template",
 
     "pages": {
@@ -15,8 +43,18 @@
       "loadpage": "Load previous page"
     },
 
+    "content": {
+      "titles": {
+        "navigationblocks": "Navigation blocks",
+        "mainblocks": "Main blocks",
+        "footerblocks": "Footer blocks",
+        "allblocks": "All blocks"
+      }
+    },
+
     "design": {
       "titles": {
+        "typography": "Typography",
         "swatches": "Swatches",
         "colors": "Colors",
 

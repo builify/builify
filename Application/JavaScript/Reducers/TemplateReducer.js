@@ -1,6 +1,4 @@
-import {
-  SET_DESIGN_COLOR
-} from '../Constants/ActionTypes';
+import * as Actions from '../Constants/ActionTypes';
 
 const modularScales = {
   minorSecond: {
@@ -9,6 +7,8 @@ const modularScales = {
 }
 
 const initialState = {
+  _colorPickerTarget: null,
+
   design: {
     swatches: [
       {name: 'Emerald/Sun', colors: ['#2ecc71', '#f1c40f']},
@@ -46,10 +46,28 @@ const initialState = {
  
 export function theme (state = initialState, action) {
   switch (action.type) {
-    case SET_DESIGN_COLOR:
-      return state;
+    case Actions.OPEN_COLORPICKER:
+      return Object.assign({}, state, {
+        _colorPickerTarget: action.target
+      });
 
-    default:
-      return state;
+    case Actions.SET_COLOR_FROM_COLORPICKER:
+      const { color } = action;
+      let dataColor = state._colorPickerTarget.getAttribute('data-color');
+
+      if (dataColor) {
+        if (state.design.colors.hasOwnProperty(dataColor)) {
+          state.design.colors[dataColor] = '#' + color + '';
+        }
+      }
+
+      return state; 
+
+    case Actions.CLOSE_COLORPICKER:
+      return Object.assign({}, state, {
+        _colorPickerTarget: null
+      }); 
   }
+
+  return state;
 }

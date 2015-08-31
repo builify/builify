@@ -57,7 +57,9 @@ class ProccessedChildrenRender extends Component {
           onClick={::this.eventColorClick}
           className='ab-color__circle' 
           title={colorId}>
-          <span style={{backgroundColor: colorId}} />
+          <span 
+            data-color={item.id}
+            style={{backgroundColor: colorId}} />
         </div>
       </div>
     )
@@ -212,7 +214,7 @@ class ProccessedChildrenRender extends Component {
             return openSidetab(targetId);
           }
         }, this.dispatch)}>
-        {item.title.toString()}
+        {getString(item.title)}
       </div>
     )
   }

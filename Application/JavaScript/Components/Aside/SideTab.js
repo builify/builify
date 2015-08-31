@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { closeSidetab } from '../../Actions/ActionCreators';
+import { getString } from '../../Common/Localization';
 import classNames from 'classnames';
 import proccessChildrenData from '../../Common/ProccessTabChildren';
 import BackButton from '../Shared/BackButton';
@@ -41,7 +42,9 @@ class SideTab extends ProccessedChildrenRender {
         data-sidetabid={data.id}>
         <div className='ab-sidetab__wrapper'>
           <BackButton clickFunction={this.closeSidetab} />
-          <h1>{data.title}<span>{data.subtitle}</span></h1>
+          <h1>{getString(data.title)}
+            <span>{getString(data.subtitle)}</span>
+          </h1>
           {this.childrenToRender.length !== 0 ?
             this.childrenToRender.map((item, i) => {
               return this.renderChildren(item, theme, localization, builderConfiguration, dispatch, i);

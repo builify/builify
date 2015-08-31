@@ -109,20 +109,42 @@
       ]
     },
     {
-      "title": "Content"
+      "title": "Content",
+      "children": [
+        {
+          "type": "open.sidetab",
+          "title": "content.titles.navigationblocks",
+          "target": "content.navigation"
+        },
+        {
+          "type": "open.sidetab",
+          "title": "content.titles.mainblocks",
+          "target": "content.main"
+        },
+        {
+          "type": "open.sidetab",
+          "title": "content.titles.footerblocks",
+          "target": "content.footer"
+        },
+        {
+          "type": "open.sidetab",
+          "title": "content.titles.allblocks",
+          "target": "content.all"
+        }
+      ]
     },
     {
       "title": "Design",
       "children": [
         {
           "type": "open.sidetab",
-          "title": "Colors",
-          "target": "tabs.design.colors"
+          "title": "design.titles.colors",
+          "target": "design.colors"
         },
         {
           "type": "open.sidetab",
-          "title": "Typography",
-          "target": "tabs.design.typography"
+          "title": "design.titles.typography",
+          "target": "design.typography"
         }
       ]
     },
@@ -133,9 +155,33 @@
 
   "sidetabs": [
     {
+      "id": "navigation",
+      "title": "sidetabs.navigation.title",
+      "subtitle": "sidetabs.navigation.subtitle",
+      "children": []
+    },
+    {
+      "id": "main",
+      "title": "sidetabs.main.title",
+      "subtitle": "sidetabs.main.subtitle",
+      "children": []
+    },
+    {
+      "id": "footer",
+      "title": "sidetabs.footer.title",
+      "subtitle": "sidetabs.footer.subtitle",
+      "children": []
+    },
+    {
+      "id": "all",
+      "title": "sidetabs.all.title",
+      "subtitle": "sidetabs.all.subtitle",
+      "children": []
+    },
+    {
       "id": "colors",
-      "title": "Design",
-      "subtitle": "Colors",
+      "title": "sidetabs.colors.title",
+      "subtitle": "sidetabs.colors.subtitle",
       "children": [
         {
           "type": "block.title", 
@@ -167,8 +213,8 @@
     },
     {
       "id": "typography",
-      "title": "Design",
-      "subtitle": "Typography",
+      "title": "sidetabs.typography.title",
+      "subtitle": "sidetabs.typography.subtitle",
       "children": [
         { "type": "block.title", "title": "design.titles.misc" },
         { "type": "block.switch", "state": "off", "name": "design.titles.verticalrythm" },
