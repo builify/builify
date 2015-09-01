@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { getString } from '../../Common/Localization';
 import { getProperty } from '../../Utilities/DataManipulation';
-import { openColorPicker, openSidetab, closeTab } from '../../Actions/ActionCreators';
+import { setSwatch, openColorPicker, openSidetab, closeTab } from '../../Actions/ActionCreators';
 import classNames from 'classnames';
 import Toggle from '../Shared/Toggle'; 
 import Select from 'react-select';
@@ -15,13 +15,6 @@ class ProccessedChildrenRender extends Component {
     this.renderChildren = this.renderChildren;
     this.theme = {};
     this.localization = {};
-  }
-
-  // Events
-  eventColorClick (e) {
-    const { target } = e;
-
-    this.dispatch(openColorPicker(target));
   }
 
   // Block components
@@ -54,9 +47,13 @@ class ProccessedChildrenRender extends Component {
           {colorName}
         </div>
         <div
-          onClick={::this.eventColorClick}
           className='ab-color__circle' 
-          title={colorId}>
+          title={colorId}
+          {...bindActionCreators({
+            onClick: (e) => {
+              return openColorPicker(e.target);
+            }
+          }, this.dispatch)}>
           <span 
             data-color={item.id}
             style={{backgroundColor: colorId}} />
@@ -66,6 +63,7 @@ class ProccessedChildrenRender extends Component {
   }
 
   renderSwatch (item, i) {
+
     let swatches = [];
     let swatchesToRender = [];
 
@@ -106,7 +104,12 @@ class ProccessedChildrenRender extends Component {
             return (
               <div
                 className='ab-swatch'
-                key={i}>
+                key={i}
+                {...bindActionCreators({
+                  onClick: (e) => {
+                    return setSwatch(item.text);
+                  }
+                }, this.dispatch)}>
                 <div 
                   className='ab-swatch__name' 
                   title={item.text}>
@@ -222,21 +225,40 @@ class ProccessedChildrenRender extends Component {
   renderPages (item, i) {
     let { pages } = this.props.builder;
 
-          if (pages.length !== 0) {
+    if (pages.length !== 0) {
+      return (
+        <ul
+          className='ab-pages'
+          key={i}>
+          {pages.map((page, i) => {
             return (
-              <ul
-                className='ab-pages'
-                key={i}>
-                {pages.map((page, i) => {
-                  return (
-                    <li key={i}>
-                      {page.id}
-                    </li>
-                  )
-                })}
-              </ul>
+              <li key={i}>
+                {page.id}
+              </li>
             )
-          }
+          })}
+        </ul>
+      )
+    }
+  }
+
+  renderContentBlocks (item, i) {
+    return (
+      <div className='ab-contentblocks'>
+        <div className='ab-contentblocks__inner'>
+          {[0,1,2,3, 5, 6, 7, 8, 9, 10, 11].map((item, i) => {
+            return (
+              <figure className='ab-contentblocks__block'>
+                <img src='http://pivot.mediumra.re/variant/img/sections/variant-hero-slider-2.jpg' />
+                <figcaption>
+                  <span>Multilayer slide</span>
+                </figcaption>
+              </figure>
+            )
+          })}
+        </div>
+      </div>
+    )
   }
 
   renderChildren (item, theme, localization, builderConfiguration, dispatch, i) {
@@ -250,8 +272,6 @@ class ProccessedChildrenRender extends Component {
     this.localization = localization ? localization : {};
 
     if (item.hasOwnProperty('type')) {
-      item.text = item.text ? item.text : '';
-
       switch (item.type.toString()) {
         case 'title':
           return this.renderTitle(item, i);
@@ -276,6 +296,9 @@ class ProccessedChildrenRender extends Component {
 
         case 'pages':
           return this.renderPages(item, i);
+
+        case 'contentblocks':
+          return this.renderContentBlocks(item, i);
       }
     }
 

@@ -112,6 +112,9 @@
       "title": "Content",
       "children": [
         {
+          "type": "block.contentblocks"
+        }
+        /*{
           "type": "open.sidetab",
           "title": "content.titles.navigationblocks",
           "target": "content.navigation"
@@ -130,7 +133,7 @@
           "type": "open.sidetab",
           "title": "content.titles.allblocks",
           "target": "content.all"
-        }
+        }*/
       ]
     },
     {

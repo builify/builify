@@ -89,6 +89,12 @@ export default function proccessChildrenData (data) {
               };
 
               childrenToRender.push(sizeBlock);
+            } else if (blockType === 'contentblocks') {
+              let contentBlock = {
+                type: 'contentblocks'
+              };
+
+              childrenToRender.push(contentBlock);
             }
 
             break;

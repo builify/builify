@@ -66,7 +66,18 @@ export function theme (state = initialState, action) {
     case Actions.CLOSE_COLORPICKER:
       return Object.assign({}, state, {
         _colorPickerTarget: null
-      }); 
+      });
+
+    case Actions.SET_SWATCH:
+      let selectedSwatch = state.currentSwatch;
+      
+      if (action.hasOwnProperty('swatch')) {
+        selectedSwatch = String(action.swatch);
+      }
+
+      return Object.assign({}, state, {
+        currentSwatch: selectedSwatch
+      });
   }
 
   return state;

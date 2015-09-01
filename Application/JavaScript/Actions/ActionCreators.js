@@ -183,3 +183,10 @@ export function closeColorPicker () {
     type: ActionTypes.CLOSE_COLORPICKER
   }
 }
+
+export function setSwatch (swatch) {
+  return {
+    type: ActionTypes.SET_SWATCH,
+    swatch: swatch
+  }
+}

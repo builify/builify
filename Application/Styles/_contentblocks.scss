@@ -1,0 +1,40 @@
+$block-height: 35px;
+
+.#{$abprefix}contentblocks {
+	position: relative;
+	padding: 0 ($base-padding / 1.6) 0 $base-padding;
+
+	&__inner {
+		width: 100%;
+
+	}
+
+	&__block {
+		position: relative;
+		display: block;
+		margin: 0;
+		padding: 0;
+		line-height: 0;
+		margin-bottom: ($block-height + 15);
+
+		img {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+		}
+
+		figcaption {
+			position: absolute;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			color: #FFF;
+			background: #333;
+			padding: 0 15px;
+			bottom: -$block-height;
+			line-height: $block-height;
+			height: $block-height;
+			@include rem(font-size, 14px);
+		}
+	}
+}
