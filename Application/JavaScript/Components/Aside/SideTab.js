@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import proccessChildrenData from '../../Common/ProccessTabChildren';
 import BackButton from '../Shared/BackButton';
 import ProccessedChildrenRender from '../Shared/ProccessedChildrenRender';
+import Scrollbar from '../Shared/Scrollbar'; 
 
 class SideTab extends ProccessedChildrenRender {
   static propTypes = {
@@ -40,7 +41,7 @@ class SideTab extends ProccessedChildrenRender {
       <div 
         className='ab-sidetab'
         data-sidetabid={data.id}>
-        <div className='ab-sidetab__wrapper'>
+        <Scrollbar>
           <BackButton clickFunction={this.closeSidetab} />
           <h1>{getString(data.title)}
             <span>{getString(data.subtitle)}</span>
@@ -50,7 +51,7 @@ class SideTab extends ProccessedChildrenRender {
               return this.renderChildren(item, theme, localization, builderConfiguration, dispatch, i);
             }) : false
           }
-        </div>
+        </Scrollbar>
       </div>
     );
   }

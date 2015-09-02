@@ -28,78 +28,6 @@ $item-height: 30px;
 		@include rem(font-size, 14px);
 	}
 }
-/*
-// M.O.V.E - Rage Your Dream
-.#{$abprefix}select {
-	position: relative;
-	cursor: pointer;
-	width: 100%;
-	margin-top: 7px;
-	padding: 0 $base-padding;
-
-	&__name {
-		text-transform: uppercase;
-		min-height: $item-height;
-		max-height: $item-height * 2;
-		line-height: $item-height;
-		@include rem(font-size, 14px);
-
-		&:after {
-			color: inherit;
-			position: absolute;
-			font-family: "Pe-icon-7-stroke";
-			content: "\e688";
-			right: $base-padding;
-			@include rem(font-size, 30px);
-			@include transition(all 0.3s ease);
-		}
-	}
-
-	&__list {
-		display: block;
-		list-style: none;
-
-		li {
-			text-transform: capitalize;
-			font-weight: 400;
-			display: block;
-			width: 100%;
-			padding: 7px 0;
-			@include rem(font-size, 16px);
-
-			&:nth-of-type(1) {
-				font-family: "Open Sans";
-			}
-
-			&:nth-of-type(2) {
-				font-family: "Roboto";
-			}
-
-			&:nth-of-type(3) {
-				font-family: "Arial";
-			}
-
-			&:nth-of-type(4) {
-				font-family: "Lato";
-			}
-		}
-	}
-
-	/*width: 100%;
-	position: relative;
-	padding: 0 $base-padding;
-
-	&__name {
-		margin: 0;
-		padding: 0;
-		width: 100%;
-		color: #555;
-		margin-top: 10px;
-		font-weight: 400;
-		display: block;
-		@include rem(font-size, 14px);
-	}
-}*/
 
 .#{$abprefix}item {
 	&.goto {
@@ -199,53 +127,53 @@ $item-height: 30px;
 		}
 	}
 
-	&__wrapper {
+	h1 {
+		color: #333;
+		font-weight: 700;
+		text-transform: uppercase;
+		padding: 0 $base-padding;
+		@include rem(font-size, 24px);
+	}
+
+	h2 {
 		position: relative;
-		width: 100%;
-		padding: $base-padding 0;
+		color: #555;
+		height: $base-padding / 1.5;
+		line-height: $base-padding / 1.5;
+		font-weight: 400;
+		margin-top: 20px;
+		margin-bottom: 0;
+		text-transform: uppercase;
+		padding-left: $base-padding;
+		padding-right: $base-padding;
+		@include rem(font-size, 18px);
+		@include transition(all 0.3s ease);
 
-		h1 {
-			color: #333;
-			font-weight: 700;
-			text-transform: uppercase;
-			padding: 0 $base-padding;
-			@include rem(font-size, 24px);
-		}
+		&.to-sidebar {
+			cursor: pointer;
+			margin-bottom: 30px;
 
-		h2 {
-			position: relative;
-			color: #555;
-			height: $base-padding / 1.5;
-			line-height: $base-padding / 1.5;
-			font-weight: 400;
-			margin-top: 20px;
-			margin-bottom: 0;
-			text-transform: uppercase;
-			padding-left: $base-padding;
-			padding-right: $base-padding;
-			@include rem(font-size, 18px);
-			@include transition(all 0.3s ease);
+			&:after {
+				color: inherit;
+				position: absolute;
+				right: 0;
+				height: 22px;
+				line-height: 22px;
+				font-family: "Pe-icon-7-stroke";
+				content: "\e684";
+				@include rem(font-size, 30px);
+				@include transition(all 0.3s ease);
+			}
 
-			&.to-sidebar {
-				cursor: pointer;
-				margin-bottom: 30px;
-
-				&:after {
-					color: inherit;
-					position: absolute;
-					right: 0;
-					height: 22px;
-					line-height: 22px;
-					font-family: "Pe-icon-7-stroke";
-					content: "\e684";
-					@include rem(font-size, 30px);
-					@include transition(all 0.3s ease);
-				}
-
-				&:hover {
-					color: $base-color;
-				}
+			&:hover {
+				color: $base-color;
 			}
 		}
+	}
+}
+
+.#{$abprefix}scrollbar {
+	&__inner {
+		padding: $base-padding 0;
 	}
 }

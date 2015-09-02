@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import proccessChildrenData from '../../Common/ProccessTabChildren';
 import ProccessedChildrenRender from '../Shared/ProccessedChildrenRender';
 import BackButton from '../Shared/BackButton';
+import Scrollbar from '../Shared/Scrollbar'; 
 
 class Tab extends ProccessedChildrenRender {
   static propTypes = {
@@ -41,7 +42,7 @@ class Tab extends ProccessedChildrenRender {
       <div 
         className='ab-tab' 
         data-target={targetIndex}>
-        <div className='ab-tab__wrapper'>
+        <Scrollbar>
           <BackButton clickFunction={this.closeTab} />
           <h1>{data.title}</h1>
           {this.childrenToRender.length !== 0 ?
@@ -49,7 +50,7 @@ class Tab extends ProccessedChildrenRender {
               return this.renderChildren(item, theme, localization, builderConfiguration, dispatch, i);
             }) : false
           }
-        </div>
+        </Scrollbar>
       </div>
     );
   }
@@ -60,7 +61,7 @@ function mapStateToProps (state) {
     builderConfiguration: state.builderConfiguration,
     builder: state.builder,
     localization: state.localizationData
-  };
+  }
 }
 
 export default connect(
