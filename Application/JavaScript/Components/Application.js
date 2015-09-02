@@ -9,10 +9,10 @@ store.dispatch(runApplicationActions());
 
 export default class Application extends Component {
   render() {
-  	return (
+    return (
       <Provider store={store}>
-        {() => <Base />}
+        <Base />
       </Provider>
-    );
+    )
   } 
-};
+}
