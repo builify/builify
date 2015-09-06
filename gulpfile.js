@@ -27,9 +27,13 @@ var dependencies = [
   'react-color',
   'react-select',
   'react-redux',
+  'react-custom-scrollbars',
   'redux',
   'redux-thunk',
-  'strip-json-comments'
+  'strip-json-comments',
+  'axios',
+  'classnames',
+  'immutable'
 ];
 
 // Rewrite gulp.src for better error handling.

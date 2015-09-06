@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { getString } from '../../Common/Localization';
 import { getProperty } from '../../Utilities/DataManipulation';
-import { setSwatch, openColorPicker, openSidetab, closeTab } from '../../Actions/ActionCreators';
+import { setFont, setSwatch, openColorPicker, openSidetab, closeTab } from '../../Actions/ActionCreators';
 import classNames from 'classnames';
 import Toggle from '../Shared/Toggle'; 
 import Select from 'react-select';
@@ -196,7 +196,12 @@ class ProccessedChildrenRender extends Component {
           key={i}
           name={String(i)}
           value={value}
-          options={fontsOptions} />
+          options={fontsOptions} 
+          {...bindActionCreators({
+            onChange: (newValue) => {
+              return setFont(newValue);
+            }
+          }, this.dispatch)} />
       </div>
     )
   }
@@ -248,7 +253,7 @@ class ProccessedChildrenRender extends Component {
         <div className='ab-contentblocks__inner'>
           {[0,1,2,3, 5, 6, 7, 8, 9, 10, 11].map((item, i) => {
             return (
-              <figure className='ab-contentblocks__block'>
+              <figure key={i} className='ab-contentblocks__block'>
                 <img src='http://pivot.mediumra.re/variant/img/sections/variant-hero-slider-2.jpg' />
                 <figcaption>
                   <span>Multilayer slide</span>
@@ -261,12 +266,13 @@ class ProccessedChildrenRender extends Component {
     )
   }
 
-  renderChildren (item, theme, localization, builderConfiguration, dispatch, i) {
+  renderChildren (item, theme, localization, builderConfiguration, dispatch, builder, i) {
     if (!item || typeof item !== 'object') {
       throw Error('No item defined or not object.');
     }
 
     this.dispatch = dispatch;
+    this.builder = builder ? builder : {};
     this.builderConfiguration = builderConfiguration ? builderConfiguration : {};
     this.theme = theme ? theme : {};
     this.localization = localization ? localization : {};

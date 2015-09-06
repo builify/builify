@@ -3,20 +3,19 @@
   "defaultTheme": "light",
 
   "fonts": [
-    {"label": "Abril", "value": "abril"},
-    {"label": "Fatface", "value": "fatface"},
-    {"label": "Lora", "value": "lora"},
-    {"label": "Open Sans", "value": "open+sans"},
-    {"label": "Open Sans Condensed", "value": "open+sans+condensed"},
-    {"label": "Crimson Text", "value": "crimson+text"},
-    {"label": "Almendra Display", "value": "almendra+display"},
-    {"label": "Philosopher", "value": "philosopher"},
-    {"label": "Gentium Book Basic", "value": "gentium+book+basic"},
-    {"label": "Vollkorn", "value": "vollkorn"},
-    {"label": "Gravitas One", "value": "gravitas+one"},
-    {"label": "Lato", "value": "lato"},
-    {"label": "Old Standard TT", "value": "old+standard+TT"},
-    {"label": "PT Serif", "value": "pt+serif"},
+    {"label": "Abril Fatface", "value": "Abril+Fatface"},
+    {"label": "Lora", "value": "Lora"},
+    {"label": "Open Sans", "value": "Open+Sans"},
+    {"label": "Open Sans Condensed", "value": "Open+Sans+Condensed"},
+    {"label": "Crimson Text", "value": "Crimson+Text"},
+    {"label": "Almendra Display", "value": "Almendra+Display"},
+    {"label": "Philosopher", "value": "Philosopher"},
+    {"label": "Gentium Book Basic", "value": "Gentium+Book+Basic"},
+    {"label": "Vollkorn", "value": "Vollkorn"},
+    {"label": "Gravitas One", "value": "Gravitas+One"},
+    {"label": "Lato", "value": "Lato"},
+    {"label": "Old Standard TT", "value": "Old+Standard+TT"},
+    {"label": "PT Serif", "value": "PT+Serif"},
     {"label": "PT Sans Narrow", "value": "pt+sans+narrow"},
     {"label": "Merriweather", "value": "merriweather"},
     {"label": "Playfair Display", "value": "playfair+display"},
@@ -53,11 +52,12 @@
 
   "templates": [
     {
+      "manifest": "Simplpage/Manifest.json",
+      "id": "simplpage",
       "title": "SimplPage",
       "tags": ["HTML", "WP"],
       "description": "A one-page template suitable for agencies, photographers, artists and programmers.", 
       "image": "http://i.imgur.com/ULTAvsu.jpg",
-      "data": "Templates/Simplpage"
     },
     {
       "title": "Fancycrap",

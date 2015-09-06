@@ -1,5 +1,7 @@
 import { getLocalization } from '../Common/Localization';
+import axios from 'axios';
 import ABuilder from '../Common/ABuilder';
+import Storage from '../Common/Storage';
 import * as ActionTypes from '../Constants/ActionTypes';
 
 export function runApplicationActions () {
@@ -69,21 +71,78 @@ export function initializeBuilder () {
 }
 
 export function checkTemplateSelection () {
-  return {
-    type: ActionTypes.CHECK_IF_TEMPLATE_IS_SELECTED
+  let data = {
+    isTemplateSelected: false,
+    selectedTemplate: ''
+  };
+  let currentURL = ABuilder.getURLHash();
+  let stringPosition = currentURL.indexOf('template-') !== -1;
+
+  if (stringPosition) {
+    let template = currentURL.split('/')[0],
+      templateName = template.slice(1 + 'template-'.length);
+
+    data.isTemplateSelected = true;
+    data.selectedTemplate = templateName;
+  }
+
+  return (dispatch, getState) => {
+    dispatch({
+      type: ActionTypes.CHECK_IF_TEMPLATE_IS_SELECTED,
+      data: data
+    });
+
+    if (data.isTemplateSelected) {
+      dispatch(getSelectedTemplateData(data.selectedTemplate));
+    }
   }
 }
 
 export function proccessTemplateSelection (template) {
-  return {
-    type: ActionTypes.PROCESS_TEMPLATE_SELECTION,
-    template: template
+  ABuilder.setURL(ABuilder.TEMPLATE, template);
+
+  return (dispatch, getState) => {
+    dispatch({
+      type: ActionTypes.PROCESS_TEMPLATE_SELECTION,
+      template: template
+    });
+
+    dispatch(getSelectedTemplateData(template));
+  }
+}
+
+export function getSelectedTemplateData (template) {
+  return (dispatch, getState) => {
+    axios.get('/Data/' + template + '/Manifest.json')
+      .then((response) => {
+        if (response.hasOwnProperty('data')) {
+          console.log(response.data);
+        }
+      })
+      .catch(function(response) {
+        console.log(response);
+      })
+
+    dispatch({
+      type: ActionTypes.GET_SELECTED_TEMPLATE_DATA
+    });
   }
 }
 
 export function checkIfPageIsSelected () {
+  let data = {
+    isPageSelected: false
+  };
+  let getCurrentUrl = ABuilder.getURLHash();
+  let pagePositionInString = getCurrentUrl.indexOf('page-7');
+
+  if (pagePositionInString !== -1) {
+    data.isPageSelected = true;
+  }
+
   return {
-    type: ActionTypes.CHECK_IF_PAGE_IS_SELECTED
+    type: ActionTypes.CHECK_IF_PAGE_IS_SELECTED,
+    data: data
   }
 }
 
@@ -100,12 +159,43 @@ export function loadPreviousPage () {
 }
 
 export function checkIfPreviousPageExists () {
+  let data = {
+    doesPreviousPageExistInStorage: false,
+    pages: null,
+    latestPage: 0
+  };
+  let storageItem = Storage.get('ab-pages');
+
+  if (storageItem) {
+    let pagesSize = storageItem.length;
+    let sizes = [];
+
+    for (let i = 0; i < pagesSize; i++) {
+      let page = storageItem[i];
+
+      if (typeof page === 'object' && page.hasOwnProperty('id')) {
+        let timestamp = parseInt(page.id.substr('page-7'.length));
+        sizes.push(timestamp);
+      }
+    }
+
+    let largest = Math.max.apply(Math, sizes);
+    let position = sizes.indexOf(largest);
+
+    data.doesPreviousPageExistInStorage = true;
+    data.pages = storageItem;
+    data.latestPage = position;
+  }
+
   return {
-    type: ActionTypes.CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE
+    type: ActionTypes.CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE,
+    data: data
   }
 }
 
 export function openTab (target) {
+  window.dispatchEvent(new Event('resize'));
+
   return {
     type: ActionTypes.OPEN_TAB,
     target: target
@@ -119,6 +209,8 @@ export function closeTab () {
 }
 
 export function openSidetab (target) {
+  window.dispatchEvent(new Event('resize'));
+
   return {
     type: ActionTypes.OPEN_SIDETAB,
     target: target
@@ -188,5 +280,27 @@ export function setSwatch (swatch) {
   return {
     type: ActionTypes.SET_SWATCH,
     swatch: swatch
+  }
+}
+
+export function setFont (font) {
+  let doesFontExistInHeadRoot = document.querySelector('[data-fontname="' + font + '"]');
+
+  console.log(doesFontExistInHeadRoot);
+
+  if (doesFontExistInHeadRoot === null || doesFontExistInHeadRoot === undefined) {
+    let headElement = document.getElementsByTagName('head')[0];
+    let googleFont = document.createElement('link');
+
+    googleFont.setAttribute('rel', 'stylesheet');
+    googleFont.setAttribute('type', 'text/css');
+    googleFont.setAttribute('data-fontname', String(font));
+    googleFont.setAttribute('href', 'https://fonts.googleapis.com/css?family=' + font);
+
+    headElement.appendChild(googleFont);
+  }
+
+  return {
+    type: ActionTypes.SET_FONT
   }
 }

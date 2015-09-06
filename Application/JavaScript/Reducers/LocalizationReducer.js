@@ -1,15 +1,11 @@
-import {
-  GET_LOCALIZATION
-} from '../Constants/ActionTypes';
+import * as Actions from '../Constants/ActionTypes';
 
 const localizationInitialState = {};
 
 export function localization (state = localizationInitialState, action) {
   switch (action.type) {
-    case GET_LOCALIZATION:
-      const { data } = action;
-
-      return data;
+    case Actions.GET_LOCALIZATION:
+      return Object.assign({}, state, action.data);
   }
 
   return state;

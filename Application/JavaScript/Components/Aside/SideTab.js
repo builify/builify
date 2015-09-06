@@ -33,7 +33,7 @@ class SideTab extends ProccessedChildrenRender {
   }
 
   render () {
-    const { dispatch, data, builderConfiguration, theme, localization } = this.props;
+    const { dispatch, data, builderConfiguration, theme, localization, builder } = this.props;
 
     this.childrenToRender = proccessChildrenData(data);
 
@@ -48,7 +48,7 @@ class SideTab extends ProccessedChildrenRender {
           </h1>
           {this.childrenToRender.length !== 0 ?
             this.childrenToRender.map((item, i) => {
-              return this.renderChildren(item, theme, localization, builderConfiguration, dispatch, i);
+              return this.renderChildren(item, theme, localization, builderConfiguration, dispatch, builder, i);
             }) : false
           }
         </Scrollbar>
@@ -60,9 +60,10 @@ class SideTab extends ProccessedChildrenRender {
 function mapStateToProps (state) {
   return {
     builderConfiguration: state.builderConfiguration,
+    builder: state.builder,
     localization: state.localization,
     theme: state.theme
-  };
+  }
 }
 
 export default connect(

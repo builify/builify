@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { proccessTemplateSelection } from '../../Actions/ActionCreators';
+import LoadImage from '../Shared/LoadImage';
 
 class TemplateItem extends Component {
   static propTypes = {
@@ -53,15 +54,15 @@ function mapStateToProps (state) {
     builderConfiguration: state.builderConfiguration,
     builder: state.builder,
     localization: state.localizationData
-  };
+  }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    onTemplateSelection: (query) => {
-      dispatch(proccessTemplateSelection(query));
+    onTemplateSelection: (templateName) => {
+      dispatch(proccessTemplateSelection(templateName));
     }
-  };
+  }
 }
 
 export default connect(

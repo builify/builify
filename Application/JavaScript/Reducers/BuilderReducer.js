@@ -26,6 +26,7 @@ export function notifications (state = notificationsInitialState, action) {
 
 const builderConfigurationInitialState = {};
 const builderInitialState = {
+  assetsToLoad: [],
   isLoadingScreenActive: true,
 
   currentLocation: 0, // 0 - Template Selection; 1 - New/Load Page; 2 - Canvas; 3 - Preview
@@ -49,7 +50,10 @@ const builderInitialState = {
 
   // Colorpicker
   isColorPickerOpened: false,
-  colorPickerTarget: null
+  colorPickerTarget: null,
+
+  // Template related
+  selectedTemplateData: {}
 };
 
 export function builderConfiguration (state = builderConfigurationInitialState, action) {
@@ -69,6 +73,12 @@ export function builderConfiguration (state = builderConfigurationInitialState, 
 }
  
 export function builder (state = builderInitialState, action) {
+  let data = {};
+
+  if (action.hasOwnProperty('data')) {
+    data = action.data;
+  }
+
   switch (action.type) {
     case Actions.REMOVE_LOADING_SCREEN:
       return Object.assign({}, state, {
@@ -76,25 +86,13 @@ export function builder (state = builderInitialState, action) {
       });
 
     case Actions.CHECK_IF_TEMPLATE_IS_SELECTED:
-      let currentURL = ABuilder.getURLHash();
-      let stringPosition = currentURL.indexOf('template-') !== -1;
-
-      if (stringPosition) {
-          let template = currentURL.split('/')[0],
-            templateName = template.slice(1 + 'template-'.length);
-
-          return Object.assign({}, state, {
-            currentLocation: CurrentLocationEnum.STARTSCREEN,
-            isTemplateSelected: true,
-            selectedTemplate: templateName
-          });
-      } else {
-        return state;
-      }
+      return Object.assign({}, state, {
+        currentLocation: data.isTemplateSelected ? CurrentLocationEnum.STARTSCREEN : state.currentLocation,
+        isTemplateSelected: data.isTemplateSelected,
+        selectedTemplate: data.templateName
+      });
 
     case Actions.PROCESS_TEMPLATE_SELECTION:
-      ABuilder.setURL(ABuilder.TEMPLATE, action.template);
-
       return Object.assign({}, state, {
         currentLocation: CurrentLocationEnum.STARTSCREEN,
         isTemplateSelected: true, 
@@ -103,45 +101,17 @@ export function builder (state = builderInitialState, action) {
 
     // Pages related.
     case Actions.CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE:
-      let storageItem = Storage.get('ab-pages');
-
-      if (storageItem) {
-        let pagesSize = storageItem.length;
-        let sizes = [];
-
-        for (let i = 0; i < pagesSize; i++) {
-          let page = storageItem[i];
-
-          if (typeof page === 'object' && page.hasOwnProperty('id')) {
-            let timestamp = parseInt(page.id.substr('page-7'.length));
-            sizes.push(timestamp);
-          }
-        }
-
-        let largest = Math.max.apply(Math, sizes);
-        let position = sizes.indexOf(largest);
-
-        return Object.assign({}, state, {
-          doesPreviousPageExistInStorage: true,
-          pages: storageItem,
-          latestPage: position
-        });
-      } else {
-        return state;
-      }
+      return Object.assign({}, state, {
+        doesPreviousPageExistInStorage: data.doesPreviousPageExistInStorage,
+        pages: data.pages,
+        latestPage: data.latestPage
+      });
 
     case Actions.CHECK_IF_PAGE_IS_SELECTED:
-      let getCurrentUrl = ABuilder.getURLHash();
-      let pagePositionInString = getCurrentUrl.indexOf('page-7');
-
-      if (pagePositionInString !== -1) {
-        return Object.assign({}, state, {
-          currentLocation: CurrentLocationEnum.CANVAS,
-          isPageSelected: true
-        });
-      } else {
-        return state;
-      }
+      return Object.assign({}, state, {
+        currentLocation: data.isPageSelected ? CurrentLocationEnum.CANVAS : state.currentLocation,
+        isPageSelected: data.isPageSelected
+      });
 
     case Actions.START_NEW_PAGE:
       let pagesStorage = Storage.get('ab-pages');

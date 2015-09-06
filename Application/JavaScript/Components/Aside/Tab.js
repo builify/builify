@@ -34,7 +34,7 @@ class Tab extends ProccessedChildrenRender {
   }
 
   render () {
-    const { dispatch, data, builderConfiguration, theme, localization, targetIndex } = this.props;
+    const { dispatch, data, builderConfiguration, theme, localization, targetIndex, builder } = this.props;
     
     this.childrenToRender = proccessChildrenData(data);
 
@@ -47,7 +47,7 @@ class Tab extends ProccessedChildrenRender {
           <h1>{data.title}</h1>
           {this.childrenToRender.length !== 0 ?
             this.childrenToRender.map((item, i) => {
-              return this.renderChildren(item, theme, localization, builderConfiguration, dispatch, i);
+              return this.renderChildren(item, theme, localization, builderConfiguration, dispatch, builder, i);
             }) : false
           }
         </Scrollbar>
@@ -60,7 +60,8 @@ function mapStateToProps (state) {
   return {
     builderConfiguration: state.builderConfiguration,
     builder: state.builder,
-    localization: state.localizationData
+    localization: state.localizationData,
+    theme: state.theme
   }
 }
 
