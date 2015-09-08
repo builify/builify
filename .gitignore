@@ -1,4 +1,5 @@
 jsconfig.json
 node_modules
 DevelopmentBuild
+dist
 Build
