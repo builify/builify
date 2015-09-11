@@ -4,5 +4,5 @@ import Application from './Components/Application'
 
 ReactDOM.render(
   <Application />,
-  document.getElementById("react-js")
+  document.getElementById('react-js')
 );

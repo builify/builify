@@ -6,8 +6,8 @@ class LoadingIcon extends Component {
       <div className='ab-loadingIcon__wrapper'>
         <div className='ab-loadingIcon' />
       </div>
-    ); 
+    )
   }
-};
+}
 
 export default LoadingIcon;

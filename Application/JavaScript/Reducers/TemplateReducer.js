@@ -46,6 +46,13 @@ const initialState = {
  
 export function theme (state = initialState, action) {
   switch (action.type) {
+    case Actions.GET_SELECTED_TEMPLATE_DATA:
+      if (action.hasOwnProperty('data')) {
+        return Object.assign({}, state, action.data);
+      } else {
+        return state;
+      }
+
     case Actions.OPEN_COLORPICKER:
       return Object.assign({}, state, {
         _colorPickerTarget: action.target

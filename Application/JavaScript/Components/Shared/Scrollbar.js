@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
-import ABuilder from '../../Common/Abuilder';
+import ABuilder from '../../Common/Builder';
 
 class Scrollbar extends Component {
   render () {

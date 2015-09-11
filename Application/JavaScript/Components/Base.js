@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CurrentLocationEnum } from '../Constants/Enums';
+import { CurrentLocationEnum } from '../Constants/Defines';
 import { addNotification } from '../Actions/ActionCreators';
 import classNames from 'classnames';
 import Aside from './Aside/Aside';

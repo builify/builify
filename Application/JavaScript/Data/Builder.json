@@ -1,0 +1,358 @@
+{
+  "localization": "en",
+  "defaultTheme": "light",
+
+  "fonts": [
+    {
+      "label": "Abril Fatface",
+      "value": "Abril+Fatface"
+    },
+    {
+      "label": "Lora",
+      "value": "Lora"
+    },
+    {
+      "label": "Open Sans",
+      "value": "Open+Sans"
+    },
+    {
+      "label": "Open Sans Condensed",
+      "value": "Open+Sans+Condensed"
+    },
+    {
+      "label": "Crimson Text",
+      "value": "Crimson+Text"
+    },
+    {
+      "label": "Almendra Display",
+      "value": "Almendra+Display"
+    },
+    {
+      "label": "Philosopher",
+      "value": "Philosopher"
+    },
+    {
+      "label": "Gentium Book Basic",
+      "value": "Gentium+Book+Basic"
+    },
+    {
+      "label": "Vollkorn",
+      "value": "Vollkorn"
+    },
+    {
+      "label": "Gravitas One",
+      "value": "Gravitas+One"
+    },
+    {
+      "label": "Lato",
+      "value": "Lato"
+    },
+    {
+      "label": "Old Standard TT",
+      "value": "Old+Standard+TT"
+    },
+    {
+      "label": "PT Serif",
+      "value": "PT+Serif"
+    },
+    {
+      "label": "PT Sans Narrow",
+      "value": "pt+sans+narrow"
+    },
+    {
+      "label": "Merriweather",
+      "value": "merriweather"
+    },
+    {
+      "label": "Playfair Display",
+      "value": "playfair+display"
+    },
+    {
+      "label": "Oswald",
+      "value": "oswald"
+    },
+    {
+      "label": "PT Mono",
+      "value": "pt+mono"
+    },
+    {
+      "label": "Cardo",
+      "value": "cardo"
+    },
+    {
+      "label": "Inconsolata",
+      "value": "inconsolata"
+    },
+    {
+      "label": "Roboto",
+      "value": "roboto"
+    },
+    {
+      "label": "Roboto Slab",
+      "value": "roboto+slab"
+    },
+    {
+      "label": "Source Sans Pro",
+      "value": "source+sans+slab"
+    },
+    {
+      "label": "Alegreya",
+      "value": "alegreya"
+    },
+    {
+      "label": "Libre Baskerville",
+      "value": "libre+baskerville"
+    },
+    {
+      "label": "Railway",
+      "value": "railway"
+    },
+    {
+      "label": "Unica One",
+      "value": "unica+one"
+    },
+    {
+      "label": "Megrim",
+      "value": "megrim"
+    },
+    {
+      "label": "Ovo",
+      "value": "ovo"
+    },
+    {
+      "label": "Neuton",
+      "value": "neuton"
+    },
+    {
+      "label": "Fanwood Text",
+      "value": "fanwood+text"
+    },
+    {
+      "label": "Petrona",
+      "value": "petrona"
+    },
+    {
+      "label": "Raleway",
+      "value": "raleway"
+    },
+    {
+      "label": "Karla",
+      "value": "karla"
+    },
+    {
+      "label": "Noto Serif",
+      "value": "noto+serif"
+    },
+    {
+      "label": "Noto Sans",
+      "value": "noto+sans"
+    },
+    {
+      "label": "Anonymous Pro",
+      "value": "anonymous+pro"
+    },
+    {
+      "label": "Fira Sans",
+      "value": "fira+sans"
+    },
+    {
+      "label": "Jura",
+      "value": "jura"
+    },
+    {
+      "label": "Bitter",
+      "value": "bitter"
+    },
+    {
+      "label": "EB Garamond",
+      "value": "eb+garamond"
+    },
+    {
+      "label": "Cabin",
+      "value": "cabin"
+    },
+    {
+      "label": "Rufina",
+      "value": "rufina"
+    },
+    {
+      "label": "Droid Serif",
+      "value": "droid+serif"
+    },
+    {
+      "label": "Droid Sans",
+      "value": "droid+sans"
+    }
+  ],
+
+  "templates": [
+    {
+      "manifest": "Simplpage/Manifest.json",
+      "id": "simplpage",
+      "title": "SimplPage",
+      "tags": [
+        "HTML",
+        "WP"
+      ],
+      "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
+      "image": "http://i.imgur.com/ULTAvsu.jpg"
+    },
+    {
+      "title": "Fancycrap",
+      "tags": [
+        "HTML"
+      ],
+      "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
+      "image": "http://i.imgur.com/ULTAvsu.jpg"
+    }
+  ],
+
+  "primarynavigation": [
+    {
+      "id": "pages",
+      "icon": "copy-file",
+      "target": "pages-tab"
+    },
+    {
+      "id": "content",
+      "icon": "display1",
+      "target": "content-tab"
+    },
+    {
+      "id": "design",
+      "icon": "paint-bucket",
+      "target": "design-tab"
+    },
+    {
+      "id": "preview",
+      "icon": "look",
+      "target": "preview-window"
+    }
+  ],
+
+  "tabs": [
+    {
+      "title": "Pages",
+      "children": [
+        {
+          "type": "block.pages"
+        }
+      ]
+    },
+    {
+      "title": "Content",
+      "children": [
+        {
+          "type": "block.contentblocks"
+        }
+      ]
+    },
+    {
+      "title": "Design",
+      "children": [
+        {
+          "type": "open.sidetab",
+          "title": "design.titles.colors",
+          "target": "design.colors"
+        },
+        {
+          "type": "open.sidetab",
+          "title": "design.titles.typography",
+          "target": "design.typography"
+        }
+      ]
+    }
+  ],
+
+  "sidetabs": [
+    {
+      "id": "navigation",
+      "title": "sidetabs.navigation.title",
+      "subtitle": "sidetabs.navigation.subtitle",
+      "children": []
+    },
+    {
+      "id": "main",
+      "title": "sidetabs.main.title",
+      "subtitle": "sidetabs.main.subtitle",
+      "children": []
+    },
+    {
+      "id": "footer",
+      "title": "sidetabs.footer.title",
+      "subtitle": "sidetabs.footer.subtitle",
+      "children": []
+    },
+    {
+      "id": "all",
+      "title": "sidetabs.all.title",
+      "subtitle": "sidetabs.all.subtitle",
+      "children": []
+    },
+    {
+      "id": "colors",
+      "title": "sidetabs.colors.title",
+      "subtitle": "sidetabs.colors.subtitle",
+      "children": [
+        {
+          "type": "block.title",
+          "title": "design.titles.colors"
+        },
+        {
+          "type": "block.colors",
+        },
+        {
+          "type": "block.title",
+          "title": "design.titles.swatches"
+        },
+        {
+          "type": "block.swatches"
+        }
+      ]
+    },
+    {
+      "id": "typography",
+      "title": "sidetabs.typography.title",
+      "subtitle": "sidetabs.typography.subtitle",
+      "children": [
+        {
+          "type": "block.title",
+          "title": "design.titles.misc"
+        },
+        {
+          "type": "block.switch",
+          "state": "off",
+          "name": "design.titles.verticalrythm"
+        },
+        {
+          "type": "block.title",
+          "title": "design.titles.typography"
+        },
+        {
+          "type": "block.font.header",
+          "label": "design.typography.fonts.header"
+        },
+        {
+          "type": "block.font.body",
+          "label": "design.typography.fonts.body"
+        },
+        {
+          "type": "block.title",
+          "title": "design.titles.sizes"
+        },
+        {
+          "type": "block.size.basefont",
+          "min": 8,
+          "max": 100,
+          "label": "design.typography.size.basefont"
+        },
+        {
+          "type": "block.size.baseline",
+          "min": 8,
+          "max": 100,
+          "label": "design.typography.size.baseline"
+        }
+      ]
+    }
+  ]
+}

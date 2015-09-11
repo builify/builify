@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import Logo from '../Shared/Logo';
-import PrimaryNavigation from './PrimaryNavigation';
 import Tab from './Tab';
 import SideTab from './SideTab';
+import PrimaryNavigation from './PrimaryNavigation';
 
 class Aside extends Component {
   render () {
@@ -35,7 +35,7 @@ class Aside extends Component {
 function mapStateToProps (state) {
   return {
     builderConfiguration: state.builderConfiguration
-  };
+  }
 }
 
 export default connect(

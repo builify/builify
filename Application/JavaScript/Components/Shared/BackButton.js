@@ -31,7 +31,7 @@ export default class BackButton extends Component {
 function mapStateToProps (state) {
   return {
     localization: state.localizationData
-  };
+  }
 }
 
 export default connect(

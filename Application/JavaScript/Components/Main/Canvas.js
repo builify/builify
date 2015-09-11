@@ -7,9 +7,9 @@ class Canvas extends Component {
       <div className='ab-canvas'>
         {'Canvas'}
       </div> 
-    );
+    )
   }
-};
+}
 
 function mapStateToProps (state) {
   return {

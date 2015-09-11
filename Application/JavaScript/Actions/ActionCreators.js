@@ -1,11 +1,12 @@
 import { getLocalization } from '../Common/Localization';
 import axios from 'axios';
-import ABuilder from '../Common/ABuilder';
+import ABuilder from '../Common/Builder';
 import Storage from '../Common/Storage';
 import * as ActionTypes from '../Constants/ActionTypes';
 
 export function runApplicationActions () {
   return (dispatch, getState) => {
+    dispatch(initialize());
     dispatch(getBuilderConfiguration());
 
     ABuilder.getConfigration((data) => {
@@ -21,6 +22,12 @@ export function runApplicationActions () {
       message: 'This is a notification',
       timeout: 5000
     }));
+  }
+}
+
+export function initialize () {
+  return {
+    type: ActionTypes.INITIALIZE
   }
 }
 
@@ -116,16 +123,15 @@ export function getSelectedTemplateData (template) {
     axios.get('/Data/' + template + '/Manifest.json')
       .then((response) => {
         if (response.hasOwnProperty('data')) {
-          console.log(response.data);
+          dispatch({
+            type: ActionTypes.GET_SELECTED_TEMPLATE_DATA,
+            data: response.data
+          });
         }
       })
-      .catch(function(response) {
+      .catch((response) => {
         console.log(response);
       })
-
-    dispatch({
-      type: ActionTypes.GET_SELECTED_TEMPLATE_DATA
-    });
   }
 }
 

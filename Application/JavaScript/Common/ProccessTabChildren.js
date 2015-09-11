@@ -38,19 +38,11 @@ export default function proccessChildrenData (data) {
 
               childrenToRender.push(titleBlock);
             } else if (blockType === 'colors') {
-              if (currentChildren.hasOwnProperty('colors')) {
-                let { colors } = currentChildren;
+              let colorsBlock = {
+                type: 'colors'
+              };
 
-                for (let j = 0; j < colors.length; j++) {
-                  let color = colors[j];
-                  let colorBlock = {
-                    type: 'color',
-                    id: color.id
-                  };
-
-                  childrenToRender.push(colorBlock);
-                }
-              }
+              childrenToRender.push(colorsBlock);
             } else if (blockType === 'swatches') {
               let swatchBlock = {
                 type: 'swatches'

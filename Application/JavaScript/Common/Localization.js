@@ -1,4 +1,4 @@
-import { getProperty } from '../Utilities/DataManipulation';
+import { getProperty } from './DataManipulation';
 import stripJSONComments from 'strip-json-comments';
 
 const languageData = require('../Data/Localization.json');
@@ -6,11 +6,11 @@ var languageSetting = 'en';
 
 export function setLanguage (language) {
   languageSetting = language;
-};
+}
 
 export function getLanguage () {
   return languageSetting;
-};
+}
 
 export function getString (query) {
   if (!query) {
@@ -25,8 +25,8 @@ export function getString (query) {
     console.warn('Localization - "' + query + '" query not found!');
     return query;
   }
-};
+}
 
 export function getLocalization (callback) {
   callback(JSON.parse(stripJSONComments(JSON.stringify(languageData))));
-};
+}

@@ -18,6 +18,6 @@ export default class Logo extends Component {
         </div>
         <div className='ab-logo__text'>{this.props.text}</div>
       </div>
-    ); 
-  };
-};
+    )
+  }
+}

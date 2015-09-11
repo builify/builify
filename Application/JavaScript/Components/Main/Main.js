@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { proccessTemplateSelection, startNewPage, loadPreviousPage } from '../../Actions/ActionCreators';
 import { getString } from '../../Common/Localization';
-import { CurrentLocationEnum } from '../../Constants/Enums';
+import { CurrentLocationEnum } from '../../Constants/Defines';
 import classNames from 'classnames';
-import ABuilder from '../../Common/ABuilder';
+import ABuilder from '../../Common/Builder';
 import Canvas from './Canvas';
 import ProjectStartScreen from './ProjectStartScreen';
 import TemplateItem from './TemplateItem';
@@ -100,16 +100,18 @@ class Main extends Component {
         className={mainClassName} >
         {this.renderNodes(templates)}
       </main>
-    );
+    )
   }
-};
+}
 
 function mapStateToProps (state) {
   return {
     builderConfiguration: state.builderConfiguration,
     builder: state.builder,
     localization: state.localizationData
-  };
+  }
 }
 
-export default connect(mapStateToProps)(Main);
+export default connect(
+  mapStateToProps
+)(Main);

@@ -13,9 +13,9 @@ class LoadingScreen extends Component {
       <div className={loadingScreenClassName}>
         <LoadingIcon />
       </div>
-    ); 
+    )
   }
-};
+}
 
 function mapStateToProps (state) {
   return {

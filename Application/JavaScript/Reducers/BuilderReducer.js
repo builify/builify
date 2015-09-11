@@ -1,7 +1,7 @@
-import { CurrentLocationEnum } from '../Constants/Enums';
+import { CurrentLocationEnum } from '../Constants/Defines';
 import { setLanguage } from '../Common/Localization';
 import { MAXIUMUM_PAGES_IN_STORAGE } from '../Constants/Defines';
-import ABuilder from '../Common/ABuilder';
+import ABuilder from '../Common/Builder';
 import Storage from '../Common/Storage';
 import * as Actions from '../Constants/ActionTypes';
 
@@ -46,7 +46,7 @@ const builderInitialState = {
   doesPreviousPageExistInStorage: false,
   currentPage: -1,
   latestPage: -1,
-  pages: [] ,
+  pages: [],
 
   // Colorpicker
   isColorPickerOpened: false,
@@ -127,6 +127,11 @@ export function builder (state = builderInitialState, action) {
         }
       };
       let newPages = state.pages;
+      console.log(state);
+
+      if (newPages === undefined) {
+        return state;
+      }
 
       if (newPages.length > 1) {
         let cleanStorageFromOldPages = (arr) => {

@@ -28,7 +28,7 @@ class ProjectStartScreen extends Component {
 function mapStateToProps (state) {
   return {
     builder: state.builder
-  };
+  }
 }
 
 export default connect(

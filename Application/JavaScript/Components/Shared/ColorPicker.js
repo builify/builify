@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { closeColorPicker, setColorFromColorPicker } from '../../Actions/ActionCreators';
-import ABuilder from '../../Common/ABuilder';
+import ABuilder from '../../Common/Builder';
 import ColorPick from 'react-color';
 
 class ColorPicker extends Component {

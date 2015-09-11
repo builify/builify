@@ -23,10 +23,6 @@ class Tab extends ProccessedChildrenRender {
     super(props);
 
     this.childrenToRender = [];
-  } 
-
-  shouldComponentUpdate (nextProps, nextState) {
-    return false;
   }
 
   closeTab (e) {

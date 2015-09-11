@@ -4,26 +4,59 @@ var node_modules_dir = path.resolve(__dirname, 'node_modules');
 
 var config = {
   entry: {
-    app: path.resolve(__dirname, 'app/main.js'),
+    app: [
+      'webpack-dev-server/client?http://localhost:3000',
+      'webpack/hot/only-dev-server',
+      path.resolve(__dirname, 'Application/JavaScript/Main.js')
+    ],
+    vendors: [
+      'react',
+      'react-dom',
+      'react/addons',
+      'react-color',
+      'react-select',
+      'react-redux',
+      'react-custom-scrollbars',
+      'redux',
+      'redux-thunk',
+      'strip-json-comments',
+      'axios',
+      'classnames',
+      'immutable'
+    ]
+  },
 
-    // Since react is installed as a node module, node_modules/react,
-    // we can point to it directly, just like require('react');
-    vendors: ['react']
-  },
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'app.js'
+    path: path.resolve(__dirname, 'DevelopmentBuild'),
+    filename: 'main.js',
+    publicPath: 'http://localhost:3000/DevelopmentBuild'
   },
+
   module: {
-    loaders: [{
-      test: /\.js$/,
-      exclude: [node_modules_dir],
-      loader: 'babel'
-    }]
+    loaders: [
+      {
+        test: [/\.js$/, /\.es6$/],
+        exclude: [node_modules_dir],
+        loaders: ['babel-loader?stage=0&externalHelpers=true']
+      },
+      { test: /\.json$/, loader: 'json-loader' }
+    ]
   },
+
+  resolve: {
+    extensions: ['', '.json', '.jsx', '.js']
+  },
+
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
-  ]
+    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
+    new webpack.HotModuleReplacementPlugin()
+  ],
+
+  devServer: {
+    contentBase: "./DevelopmentBuild"
+  },
+
+  watch: true
 };
 
 module.exports = config;

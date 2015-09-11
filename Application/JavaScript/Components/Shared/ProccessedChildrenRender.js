@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { getString } from '../../Common/Localization';
-import { getProperty } from '../../Utilities/DataManipulation';
+import { getProperty } from '../../Common/DataManipulation';
 import { setFont, setSwatch, openColorPicker, openSidetab, closeTab } from '../../Actions/ActionCreators';
 import classNames from 'classnames';
 import Toggle from '../Shared/Toggle'; 
@@ -26,44 +26,44 @@ class ProccessedChildrenRender extends Component {
     )
   }
 
-  renderColor (item, i) {
-    let colorId = '';
-    let colorName = '';
+  renderColors (item, i) {
+    let colors = this.theme.design.colors;
+    let colorsElements = [];
 
-    if (this.theme.design.colors.hasOwnProperty(item.id)) {
-      colorId = this.theme.design.colors[item.id];
-      colorName = getString('design.colors.' + item.id);
-    } else {
-      return null;
+    for (let color in colors) {
+      if (colors.hasOwnProperty(color)) {
+        let colorName = getString('design.colors.' + color);
+        let colorId = colors[color];
+        colorsElements.push(
+          <div
+            className='ab-color'
+            key={color}>
+            <div 
+              className='ab-color__name' 
+              title={colorName}>
+              {colorName}
+            </div>
+            <div
+              className='ab-color__circle' 
+              title={colorId}
+              {...bindActionCreators({
+                onClick: (e) => {
+                  return openColorPicker(e.target);
+                }
+              }, this.dispatch)}>
+              <span 
+                data-color={item.id}
+                style={{backgroundColor: colorId}} />
+            </div>
+          </div>
+        );
+      }
     }
 
-    return (
-      <div
-        className='ab-color'
-        key={i}>
-        <div 
-          className='ab-color__name' 
-          title={colorName}>
-          {colorName}
-        </div>
-        <div
-          className='ab-color__circle' 
-          title={colorId}
-          {...bindActionCreators({
-            onClick: (e) => {
-              return openColorPicker(e.target);
-            }
-          }, this.dispatch)}>
-          <span 
-            data-color={item.id}
-            style={{backgroundColor: colorId}} />
-        </div>
-      </div>
-    )
+    return colorsElements;
   }
 
   renderSwatch (item, i) {
-
     let swatches = [];
     let swatchesToRender = [];
 
@@ -230,6 +230,10 @@ class ProccessedChildrenRender extends Component {
   renderPages (item, i) {
     let { pages } = this.props.builder;
 
+    if (!pages || pages === undefined) {
+      return null;
+    }
+
     if (pages.length !== 0) {
       return (
         <ul
@@ -282,8 +286,8 @@ class ProccessedChildrenRender extends Component {
         case 'title':
           return this.renderTitle(item, i);
 
-        case 'color':
-          return this.renderColor(item, i);
+        case 'colors':
+          return this.renderColors(item, i);
 
         case 'swatches':
           return this.renderSwatch(item, i);

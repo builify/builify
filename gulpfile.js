@@ -16,7 +16,8 @@ var gutil = require('gulp-util');
 var plumber = require('gulp-plumber');
 var browserSync = require('browser-sync').create();
 var watch = require('gulp-watch');
-var liveReactLoad = require('livereactload');
+var postCSS = require('gulp-postcss');
+var lost = require('lost');
 
 var tasks = {};
 
@@ -116,6 +117,9 @@ function createStylesheets (options) {
 
       gulp.src(options.src)
         .pipe(sass())
+        .pipe(postCSS([
+          lost()
+        ]))
         .pipe(gulp.dest(options.dest))
         .pipe(notify(function () {
           gutil.log(gutil.colors.bgGreen('[STYLEHSEET]Bundle built in ' + (Date.now() - start) + 'ms'));
@@ -168,6 +172,8 @@ function createServer (options) {
 }
 
 gulp.task('default', function () {
+  process.env.NODE_ENV = 'development';
+  
   createServer({
     src: './DevelopmentBuild'
   });

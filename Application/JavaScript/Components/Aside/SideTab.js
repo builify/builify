@@ -24,10 +24,6 @@ class SideTab extends ProccessedChildrenRender {
     this.childrenToRender = [];
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
-    return false;
-  }
-
   closeSidetab () {
     return closeSidetab();
   }

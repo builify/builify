@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getString } from '../../Common/Localization';
 import { openTab, openPreview } from '../../Actions/ActionCreators';
-import { CurrentLocationEnum } from '../../Constants/Enums';
+import { CurrentLocationEnum } from '../../Constants/Defines';
 import classNames from 'classnames';
 import Icon from '../Shared/Icon';
 
@@ -50,7 +50,7 @@ function mapStateToProps (state) {
   return {
     builder: state.builder,
     localization: state.localizationData
-  };
+  }
 }
 
 export default connect(

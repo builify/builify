@@ -1,31 +1,31 @@
 import stripJSONComments from 'strip-json-comments';
 
-const ABuilderConfiguration = require('../Data/ABuilder.json');
-const ABuilder = {};
+const BuilderConfiguration = require('../Data/Builder.json');
+const Builder = {};
 
-ABuilder.getConfigration = (callback) => {
-  callback(JSON.parse(stripJSONComments(JSON.stringify(ABuilderConfiguration)))); 
+Builder.getConfigration = (callback) => {
+  callback(JSON.parse(stripJSONComments(JSON.stringify(BuilderConfiguration)))); 
 }
 
-ABuilder.setURLHash = (string) => {
+Builder.setURLHash = (string) => {
   location.hash = string;
 }
 
-ABuilder.getURLHash = () => {
+Builder.getURLHash = () => {
   return location.hash;
 }
 
-ABuilder.TEMPLATE = Symbol('TEMPLATE');
-ABuilder.PAGE = Symbol('PAGE');
-ABuilder.PREVIEW = Symbol('PREVIEW');
-ABuilder.setURL = (type, value) => {
+Builder.TEMPLATE = Symbol('TEMPLATE');
+Builder.PAGE = Symbol('PAGE');
+Builder.PREVIEW = Symbol('PREVIEW');
+Builder.setURL = (type, value) => {
   switch (type) {
-    case ABuilder.TEMPLATE:
-      ABuilder.setURLHash('template-' + value.toString());
+    case Builder.TEMPLATE:
+      Builder.setURLHash('template-' + value.toString());
       break;
 
-    case ABuilder.PAGE:
-      let currentUrl = ABuilder.getURLHash();
+    case Builder.PAGE:
+      let currentUrl = Builder.getURLHash();
       let newUrl = currentUrl;
       let pageInUrl = currentUrl.indexOf('page-7');
 
@@ -41,13 +41,13 @@ ABuilder.setURL = (type, value) => {
         console.log(pageInUrl);
       }
 
-      ABuilder.setURLHash(newUrl);
+      Builder.setURLHash(newUrl);
 
       break;
   }
 }
 
-ABuilder.on = (eventName, eventFunction, isBubble) => {
+Builder.on = (eventName, eventFunction, isBubble) => {
   if (typeof isBubble === 'undefined') {
     isBubble = false;
   }
@@ -57,14 +57,14 @@ ABuilder.on = (eventName, eventFunction, isBubble) => {
   }
 }
 
-ABuilder.getBrowserSize = () => {
+Builder.getBrowserSize = () => {
   return {
     width: window.innerWidth || document.body.clientWidth,
     height: window.innerHeight || document.body.clientHeight
   }
 }
 
-ABuilder.getOffset = (element) => {
+Builder.getOffset = (element) => {
   element = element.getBoundingClientRect();
 
   return {
@@ -73,4 +73,4 @@ ABuilder.getOffset = (element) => {
   }
 }
 
-export default ABuilder;
+export default Builder;
