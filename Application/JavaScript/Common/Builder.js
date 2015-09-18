@@ -73,4 +73,8 @@ Builder.getOffset = (element) => {
   }
 }
 
+Builder.randomKey = () => {
+  return Math.random().toString(36).slice(-8);
+}
+
 export default Builder;

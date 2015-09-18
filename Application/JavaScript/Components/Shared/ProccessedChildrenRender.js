@@ -4,7 +4,9 @@ import { getString } from '../../Common/Localization';
 import { getProperty } from '../../Common/DataManipulation';
 import { setFont, setSwatch, openColorPicker, openSidetab, closeTab } from '../../Actions/ActionCreators';
 import classNames from 'classnames';
-import Toggle from '../Shared/Toggle'; 
+import Builder from '../../Common/Builder';
+import Toggle from '../Shared/Toggle';
+import ContentBlock from '../Shared/ContentBlock'; 
 import Select from 'react-select';
 
 class ProccessedChildrenRender extends Component {
@@ -256,14 +258,8 @@ class ProccessedChildrenRender extends Component {
       <div className='ab-contentblocks'>
         <div className='ab-contentblocks__inner'>
           {[0,1,2,3, 5, 6, 7, 8, 9, 10, 11].map((item, i) => {
-            return (
-              <figure key={i} className='ab-contentblocks__block'>
-                <img src='http://pivot.mediumra.re/variant/img/sections/variant-hero-slider-2.jpg' />
-                <figcaption>
-                  <span>Multilayer slide</span>
-                </figcaption>
-              </figure>
-            )
+            const contentBlockKey = Builder.randomKey();
+            return <ContentBlock key={contentBlockKey} />
           })}
         </div>
       </div>

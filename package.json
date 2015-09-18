@@ -1,11 +1,10 @@
 {
   "name": "abuilder",
-  "version": "2.2.2",
-  "description": "ABuilder application source code",
+  "version": "0.0.1",
+  "description": "ABuilder",
   "author": "Aphakeme",
   "license": "ISC",
   "scripts": {
-    "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
@@ -41,13 +40,12 @@
     "lodash": "^3.10.1",
     "react": "^0.14.0-rc1",
     "react-color": "^1.0.5",
-    "react-custom-scrollbars": "^0.1.9",
+    "react-custom-scrollbars": "^1.0.0-rc1",
     "react-dom": "^0.14.0-rc1",
-    "react-redux": "^2.0.0",
-    "react-select": "^0.6.7",
-    "redux": "^2.0.0",
-    "redux-logger": "^1.0.3",
-    "redux-thunk": "^0.1.0",
+    "react-redux": "^2.1.2",
+    "react-select": "^0.6.8",
+    "redux": "^3.0.0",
+    "redux-thunk": "^1.0.0",
     "strip-json-comments": "^1.0.4",
     "whatwg-fetch": "^0.9.0"
   }

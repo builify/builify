@@ -200,8 +200,6 @@ export function checkIfPreviousPageExists () {
 }
 
 export function openTab (target) {
-  window.dispatchEvent(new Event('resize'));
-
   return {
     type: ActionTypes.OPEN_TAB,
     target: target
@@ -215,8 +213,6 @@ export function closeTab () {
 }
 
 export function openSidetab (target) {
-  window.dispatchEvent(new Event('resize'));
-
   return {
     type: ActionTypes.OPEN_SIDETAB,
     target: target
