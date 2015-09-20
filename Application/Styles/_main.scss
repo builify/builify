@@ -24,23 +24,6 @@
         left: 0;
         top: 0;
     }
-
-    &-template-selection {
-        position: relative;
-        display: block;
-        width: 100%;
-
-        h1 {
-            display: block;
-            width: 100%;
-            text-align: center;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: round($default-aside-width / 5.6);
-            margin-top: round($default-aside-width / 2.3);
-            @include clearfix;
-        }
-    }
 }
 
 $preview-controls-height: 55px;

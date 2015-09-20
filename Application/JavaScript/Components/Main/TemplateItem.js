@@ -27,8 +27,6 @@ class TemplateItem extends Component {
       throw Error('Template information is invalid. Please check builder configuration file.');
     } else if (!templateInformation.title) {
       throw Error('Template title is missing. Please check builder configuration file.')
-    } else if (!templateInformation.tags) {
-      throw Error('Template tags is missing. Please check builder configuration file.')
     } else if (!templateInformation.description) {
       throw Error('Template description is missing. Please check builder configuration file.')
     } else if (!templateInformation.image) {
@@ -36,18 +34,20 @@ class TemplateItem extends Component {
     }
 
     return (
-      <div
-        className='ab-templateitem' 
+      <li
+        className='ab-templateitem'
         onClick={::this.selectTemplate}>
         <figure className='ab-templateitem__figure'>
-          <h1>{templateInformation.title}</h1>
-          <div className='ab-templateitem__bg' style={{backgroundImage: 'url(' + templateInformation.image + ')'}}></div>
-          <p>{templateInformation.description}</p>
+          <img src={templateInformation.image} alt="Image" />
+          <figcaption>
+            <h2>{templateInformation.title}</h2>
+            <p>{templateInformation.description}</p>
+          </figcaption>
         </figure>
-      </div>
-    );
-  };
-};
+      </li>
+    )
+  }
+}
 
 function mapStateToProps (state) {
   return {

@@ -190,18 +190,53 @@
       "manifest": "Simplpage/Manifest.json",
       "id": "simplpage",
       "title": "SimplPage",
-      "tags": [
-        "HTML",
-        "WP"
-      ],
+      "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
+      "image": "http://i.imgur.com/ULTAvsu.jpg"
+    },
+    {
+      "manifest": "Simplpage/Manifest.json",
+      "id": "simplpage",
+      "title": "SimplPage",
+      "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
+      "image": "http://i.imgur.com/ULTAvsu.jpg"
+    },
+    {
+      "manifest": "Simplpage/Manifest.json",
+      "id": "simplpage",
+      "title": "SimplPage",
+      "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
+      "image": "http://i.imgur.com/ULTAvsu.jpg"
+    },
+    {
+      "manifest": "Simplpage/Manifest.json",
+      "id": "simplpage",
+      "title": "SimplPage",
+      "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
+      "image": "http://i.imgur.com/ULTAvsu.jpg"
+    },
+    {
+      "manifest": "Simplpage/Manifest.json",
+      "id": "simplpage",
+      "title": "SimplPage",
+      "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
+      "image": "http://i.imgur.com/ULTAvsu.jpg"
+    },
+    {
+      "manifest": "Simplpage/Manifest.json",
+      "id": "simplpage",
+      "title": "SimplPage",
+      "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
+      "image": "http://i.imgur.com/ULTAvsu.jpg"
+    },
+    {
+      "manifest": "Simplpage/Manifest.json",
+      "id": "simplpage",
+      "title": "SimplPage",
       "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
       "image": "http://i.imgur.com/ULTAvsu.jpg"
     },
     {
       "title": "Fancycrap",
-      "tags": [
-        "HTML"
-      ],
       "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
       "image": "http://i.imgur.com/ULTAvsu.jpg"
     }

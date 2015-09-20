@@ -1,3 +1,13 @@
+$loadingscreen-bg: #00000C;
+$loadingscreen-loader-size: 100px;
+$loadingscreen-loader-border-thickness: 5px;
+$loadingscreen-loader-corner-radio: 8px;
+$loadingscreen-loader-base-opacity: 0.25;
+$loadingscreen-loader-base-color: #2f2f37;
+$loadingscreen-loader-snake-color: #f1f1f2;
+$loadingscreen-loader-animation-settings: 2s linear infinite;
+$loadingscreen-loader-mask-size: $loadingscreen-loader-size / 1.618;
+
 .#{$abprefix}loadingScreen {
     position: fixed;
     top: 0;
@@ -6,63 +16,113 @@
     bottom: 0;
     width: 100%;
     height: 100%;
-    background: #333;
     opacity: 0;
     z-index: -1;
-    visibility: hidden;
-    @include transition(all 0.3s ease);
+    overflow: hidden;
+    visibility: hidden; 
+    background: $loadingscreen-bg;
+    @include transition(all 1s ease);
+    @include display(flex);
+    @include align-items(center);
+    @include align-content(flex-start);
+    @include justify-content(center);
+    @include flex-direction(column);
+    @include flex-wrap(wrap);
 
     &.show {
         z-index: 9999;
         opacity: 1;
         visibility: visible;
     }
+
+    &__loader {
+        position: relative;
+    }
+
+    &__loader, 
+    &__loader:before, 
+    &__loader > div:before {
+        width: $loadingscreen-loader-size;
+        height: $loadingscreen-loader-size;
+    }
+
+    &__loader, 
+    &__loader:before,
+    &__loader > div,
+    &__loader > div:before {
+        display: block;
+    }
+
+    &__loader:before,
+    &__loader > div {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    &__loader > div {
+        width: $loadingscreen-loader-size;
+        height: $loadingscreen-loader-mask-size;
+        left: 50%;
+        top: ($loadingscreen-loader-size - $loadingscreen-loader-mask-size) / 2;
+        overflow: hidden;
+        @include animation(loader_mask $loadingscreen-loader-animation-settings);
+        @include transform-origin(left center);
+    }
+
+    &__loader:before,
+    &__loader > div:before {
+        content: '';
+        border-radius: 100%;
+        border: $loadingscreen-loader-border-thickness solid $loadingscreen-loader-base-color;
+    }
+
+    &__loader > div:before {
+        position: relative;
+        left: -($loadingscreen-loader-size / 2);
+        top: -($loadingscreen-loader-size - $loadingscreen-loader-mask-size) / 2;
+        border-color: $loadingscreen-loader-snake-color;
+        @include animation(mask_contents $loadingscreen-loader-animation-settings);
+        @include transform-origin(center center);
+    }
+
+    &__loading,
+    &__info {
+        position: relative;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 200;
+        color: #f1f1f2;
+        height: 50px;
+        width: 250px;
+        text-align: center;
+    }
+
+    &__loading {
+        font-size: 26px;
+        margin: 45px 0 0;
+    }
+
+    &__info {
+        font-size: 18px;
+    }
 }
 
-.#{$abprefix}loadingIcon {
+@include keyframes(loader_mask) {
+    0% { 
+        @include transform(rotate(0deg)); 
+    }
 
-
-
-    animation: animate 1.5s linear infinite forwards;
-  clip: rect(0, 80px, 80px, 40px);
-  height: 80px;
-  width: 80px;
-  position: fixed;
-  left: 50%;
-  margin-left: -40px;
-  top: 50%;
-  margin-top: -80px;
-
-  &:after {
-  animation: animate2 1.5s ease-in-out infinite forwards;
-  clip: rect(0, 80px, 80px, 40px);
-  content: '';
-  border-radius: 50%;
-  height: 80px;
-  width: 80px;
-  position: absolute;
+    100% { 
+        @include transform(rotate(360deg)); 
+    }
 }
 
-}
+@include keyframes(mask_contents) {
+    0% { 
+        @include transform(rotate(0deg)); 
+    }
 
-@keyframes animate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(220deg);
-  }
-}
-@keyframes animate2 {
-  0% {
-    box-shadow: inset #fff 0 0 0 17px;
-    transform: rotate(-140deg);
-  }
-  50% {
-    box-shadow: inset #fff 0 0 0 2px;
-  }
-  100% {
-    box-shadow: inset #fff 0 0 0 17px;
-    transform: rotate(140deg);
-  }
+    100% { 
+        @include transform(rotate(-360deg)); 
+    }
 }

@@ -11,7 +11,11 @@ class LoadingScreen extends Component {
 
     return (
       <div className={loadingScreenClassName}>
-        <LoadingIcon />
+        <div className='ab-loadingScreen__loader'>
+          <div />
+        </div>
+        <div className="ab-loadingScreen__loading">Loading builder</div>
+        <div className="ab-loadingScreen__info">Please wait...</div>
       </div>
     )
   }

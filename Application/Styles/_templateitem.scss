@@ -1,3 +1,305 @@
+$selecttemplate-bg: #fff;
+
+.#{$abprefix}selecttemplate {
+    position: relative;
+    display: block;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background: $selecttemplate-bg;
+
+    &__heading {
+        width: 100%;
+        color: #333;
+        height: 50px;
+        margin: 95px 0 35px 0;
+        font-weight: 700;
+        text-align: center;
+        @include rem(font-size, 36px);
+    }
+
+    &__nav {
+        display: block;
+        color: transparent;
+        overflow: hidden;
+        text-indent: 100%;
+        white-space: nowrap;
+        list-style: none;
+        margin: 0;
+        width: 100%;
+        padding: 0;
+
+        li {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            bottom: auto;
+            transform: translateY(-50%);
+            height: 60px;
+            line-height: 60px;
+            width: 40px;
+            background: #eee;
+            z-index: 9999;
+            color: #fff;
+            overflow: hidden;
+            text-align: center;
+
+            &:before {
+                font-family: "Pe-icon-7-stroke";
+                content: "\e686";
+                color: #fff;
+            }
+
+            span {
+                color: #fff;
+            }
+
+            &.left {
+                left: 0;
+            }
+
+            &.right {
+                right: 0;
+            }
+        }
+    }
+
+    &__list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 450px * 12;
+        overflow-y: auto;
+        @include transition(transform 0.3s ease);
+        @include transform(translateX(-350px));
+
+        li {
+            overflow: hidden;
+            cursor: pointer;
+            display: block;
+            position: relative;
+            float: left;
+            width: 450px;
+            margin: 0 30px;
+            padding: 0;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(#000, 0.3);
+
+            figure {
+               position: relative;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                height: 100%;
+
+                img {
+                    display: block;
+                    width: 100%;
+                    max-width: 100%;
+                }
+
+                figcaption {
+                    padding: 1em 1.6em;
+                    background-color: #fff;
+                    border-radius: 0px 0px 0.25em 0.25em;
+
+                    h2,
+                    p {
+                        line-height: 1.2;
+                        color: #0F1926;
+                    }
+
+                    h2 {
+                        font-size: 2.5rem;
+                        font-weight: bold;
+                    }
+
+                    p {
+                        font-size: 1.4rem;
+                        opacity: 0.6;
+                        padding: 0.4em 0px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*
+cd-slider {
+    padding-top: 10vh;
+    height: 100%;
+    overflow-y: auto;
+
+    .projects-visible & {
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+    li {
+        margin: 4%;
+        opacity: 0;
+        border-radius: .25em;
+        box-shadow: 0 0 20px rgba(#000, .2);
+        @include transition(opacity 0s $animation-duration);
+
+
+        @include transform(translateZ(0));
+        @include backface-visibility(hidden); 
+
+        &.slides-in {
+            @include transition(opacity 0s 0s);
+            opacity: 1;
+            @include animation(cd-translate 0.5s);
+        }
+    }
+
+    a {
+        display: block;
+        height: 100%;
+        width: 100%;
+    }
+
+    img {
+        display: block;
+        border-radius: .25em .25em 0 0;
+        width: 100%;
+    }
+
+    .project-info {
+        padding: 1em 1.6em;
+        background-color: $color-3;
+        border-radius: 0 0 .25em .25em;
+    }
+
+    h2 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        line-height: 1.2;
+    }
+
+    p {
+        font-size: 1.4rem;
+        opacity: .6;
+        padding: .4em 0;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    h2, p {
+        line-height: 1.2;
+        color: $color-1;
+    }
+
+    @include MQ(M) {
+        padding: 0;
+        overflow: hidden;
+        @include transition(transform .5s);
+
+        @include transform(translateZ(0));
+        @include backface-visibility(hidden); 
+
+        @include clearfix;
+
+        li {
+            position: relative;
+            float: left;
+            width: 26vw;
+            margin: 0 0 0 2vw;
+            top: 50%;
+            @include transform( translateX(400%) translateY(-50%) rotate(-10deg));
+            @include transition(opacity 0s 0.3s, transform 0s 0.3s);
+
+            &:first-of-type {
+                margin-left: 9vw;
+            }
+
+            &.slides-in {
+              
+                @include animation(none);
+                @include transform(translateY(-50%));
+
+                &:first-of-type {
+
+                    @include transition(transform 0.55s 0s);
+                }
+
+                &:nth-of-type(2) {
+                    @include transition(transform 0.53s 0.05s);
+                }
+
+                &:nth-of-type(3) {
+                    @include transition(transform 0.50s 0.1s);
+                }
+
+                &:nth-of-type(4) {
+                    @include transition(transform 0.48s 0.15s);
+                }
+            }
+        }
+
+        &.next li.current {
+
+            @include animation(cd-slide-1 0.5s);
+        }
+
+        &.next li.current + li {
+            @include animation(cd-slide-2 0.5s);
+        }
+
+        &.next li.current + li + li {
+            @include animation(cd-slide-3 0.5s);
+        }
+
+        &.next li.current + li + li + li +li{
+            @include animation(cd-slide-4 0.5s);
+        }
+
+        &.next li.current + li + li + li +li + li {
+            @include animation(cd-slide-5 0.5s);
+        }
+
+        &.next li.current + li + li + li +li + li ~ li {
+            @include animation(cd-slide-6 0.5s);
+        } 
+
+        &.prev li {
+          
+            @include animation(cd-slide-7 0.5s);
+        }
+
+        &.prev li.previous  {
+           
+            @include animation(cd-slide-1 0.5s);
+        }
+
+        &.prev li.previous + li  {
+            @include animation(cd-slide-2 0.5s);
+        }
+
+        &.prev li.previous + li + li {
+            @include animation(cd-slide-3 0.5s);
+        }
+
+        &.prev li.current + li {
+            @include animation(cd-slide-4 0.5s);
+        }
+
+        &.prev li.current + li + li {
+            @include animation(cd-slide-5 0.5s);
+        }
+
+        &.prev li.current, &.prev li.current + li + li ~ li {
+            @include animation(none);
+        }
+    }
+}
 $default-templateitem-size: 300px;
 
 .#{$abprefix}templateitem {
@@ -52,4 +354,4 @@ $default-templateitem-size: 300px;
             padding: 15px;
         }
     }
-}
+}*/

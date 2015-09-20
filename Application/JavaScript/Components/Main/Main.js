@@ -10,6 +10,32 @@ import Canvas from './Canvas';
 import ProjectStartScreen from './ProjectStartScreen';
 import TemplateItem from './TemplateItem';
 import PreviewContainer from './PreviewContainer';
+import Icon from '../Shared/Icon';
+
+class TemplateSelectionScreen extends Component {
+  render () {
+    const { templates } = this.props;
+
+    return (
+      <div className='ab-selecttemplate'>
+        <div className='ab-selecttemplate__heading'>{getString('templateselection')}</div>
+        <ul className='ab-selecttemplate__list'>
+          {templates.map((template, i) =>
+            <TemplateItem key={i} templateInformation={template} />
+          )}
+        </ul>
+        <ul className='ab-selecttemplate__nav'>
+          <li className='left'>
+            <Icon name='angle-left' />
+          </li>
+          <li className='right'>
+            <Icon name='angle-right' />
+          </li>
+        </ul>
+      </div>
+    )
+  }
+}
 
 class Main extends Component {
   doesURLHashHasTemplateName () {
@@ -19,36 +45,21 @@ class Main extends Component {
       return false;
     }
   }
-
+ 
   previewNodes () {
-    return (
-      <PreviewContainer />
-    );
+    return <PreviewContainer />
   }
 
   canvasNodes () {
-    return (
-      <Canvas />
-    );
+    return <Canvas />
   }
 
   workflowNodes () {
-    return (
-      <ProjectStartScreen />
-    );
+    return <ProjectStartScreen />
   }
 
   templateSectionNodes (templates) {
-    return (
-      <div className="ab-main-template-selection">
-        <h1>{getString('templateselection')}</h1>
-        <div className='ab-flex'>
-          {templates.map((template, i) =>
-            <TemplateItem key={i} templateInformation={template} />
-          )}
-        </div>
-      </div>
-    );
+    return <TemplateSelectionScreen templates={templates} />
   }
 
   renderNodes (templates) {
