@@ -21,7 +21,7 @@ Builder.PREVIEW = Symbol('PREVIEW');
 Builder.setURL = (type, value) => {
   switch (type) {
     case Builder.TEMPLATE:
-      Builder.setURLHash('template-' + value.toString());
+      Builder.setURLHash('#/template-' + value.toString());
       break;
 
     case Builder.PAGE:

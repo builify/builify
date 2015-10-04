@@ -1,4 +1,4 @@
-import * as Actions from '../Constants/ActionTypes';
+import * as Actions from '../Constants/Actions';
 
 const modularScales = {
   minorSecond: {
@@ -10,31 +10,15 @@ const initialState = {
   _colorPickerTarget: null,
 
   design: {
-    swatches: [
-      {name: 'Emerald/Sun', colors: ['#2ecc71', '#f1c40f']},
-      {name: 'Turq/Pomegra', colors: ['#1abc9c', '#c0392b']},
-      {name: 'Peter River', colors: '#3498db'} 
-    ],
+    swatches: [],
+    currentSwatch: '',
 
-    currentSwatch: 'Emerald/Sun',
-
-    colors: {
-      body: '#777',
-      anchor: '#333',
-      ahchorhover: '#333',
-      anchorvisited: '#333',
-      paragraph: '#444',
-      header1: '#111',
-      header2: '#222',
-      header3: '#333',
-      header4: '#444',
-      blockquote: '#666'
-    },
+    colors: {},
 
     typography: {
       fonts: {
-        header: 'open+sans',
-        body: 'roboto'
+        header: '',
+        body: ''
       },
       size: {
         basefont: 16,
@@ -47,11 +31,30 @@ const initialState = {
 export function theme (state = initialState, action) {
   switch (action.type) {
     case Actions.GET_SELECTED_TEMPLATE_DATA:
+      let data = {};
+
       if (action.hasOwnProperty('data')) {
-        return Object.assign({}, state, action.data);
-      } else {
-        return state;
+        data = action.data;
+
+        if (data.hasOwnProperty('external')) {
+          if (data.external.hasOwnProperty('css')) {
+            let CSSFiles = data.external.css;
+
+            CSSFiles.map((css, i) => {
+              let headElement = document.getElementsByTagName('head')[0];
+              let cssElement = document.createElement('link');
+
+              cssElement.setAttribute('rel', 'stylesheet');
+              cssElement.setAttribute('type', 'text/css');
+              cssElement.setAttribute('href', css);
+
+              headElement.appendChild(cssElement);
+            });
+          }
+        }
       }
+
+      return Object.assign({}, state, data);
 
     case Actions.OPEN_COLORPICKER:
       return Object.assign({}, state, {

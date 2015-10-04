@@ -187,58 +187,8 @@
 
   "templates": [
     {
-      "manifest": "Simplpage/Manifest.json",
       "id": "simplpage",
-      "title": "SimplPage",
-      "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
-      "image": "http://i.imgur.com/ULTAvsu.jpg"
-    },
-    {
-      "manifest": "Simplpage/Manifest.json",
-      "id": "simplpage",
-      "title": "SimplPage",
-      "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
-      "image": "http://i.imgur.com/ULTAvsu.jpg"
-    },
-    {
-      "manifest": "Simplpage/Manifest.json",
-      "id": "simplpage",
-      "title": "SimplPage",
-      "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
-      "image": "http://i.imgur.com/ULTAvsu.jpg"
-    },
-    {
-      "manifest": "Simplpage/Manifest.json",
-      "id": "simplpage",
-      "title": "SimplPage",
-      "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
-      "image": "http://i.imgur.com/ULTAvsu.jpg"
-    },
-    {
-      "manifest": "Simplpage/Manifest.json",
-      "id": "simplpage",
-      "title": "SimplPage",
-      "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
-      "image": "http://i.imgur.com/ULTAvsu.jpg"
-    },
-    {
-      "manifest": "Simplpage/Manifest.json",
-      "id": "simplpage",
-      "title": "SimplPage",
-      "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
-      "image": "http://i.imgur.com/ULTAvsu.jpg"
-    },
-    {
-      "manifest": "Simplpage/Manifest.json",
-      "id": "simplpage",
-      "title": "SimplPage",
-      "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
-      "image": "http://i.imgur.com/ULTAvsu.jpg"
-    },
-    {
-      "title": "Fancycrap",
-      "description": "A one-page template suitable for agencies, photographers, artists and programmers.",
-      "image": "http://i.imgur.com/ULTAvsu.jpg"
+      "thumbnail": "http://app.closeheat.com/screenshots/spatial.png"
     }
   ],
 
@@ -294,6 +244,25 @@
           "type": "open.sidetab",
           "title": "design.titles.typography",
           "target": "design.typography"
+        },
+        {
+          "type": "block.title",
+          "title": "design.titles.misc"
+        },
+        {
+          "type": "block.switch",
+          "state": "off",
+          "name": "design.titles.roundbutton"
+        },
+        {
+          "type": "block.switch",
+          "state": "off",
+          "name": "design.titles.boxedlayout"
+        },
+        {
+          "type": "block.switch",
+          "state": "off",
+          "name": "design.titles.darkskin"
         }
       ]
     }

@@ -15,22 +15,21 @@ class TemplateItem extends Component {
 
   selectTemplate (e) {
     const { onTemplateSelection, templateInformation } = this.props;
-    const templateName = templateInformation.title.toString().toLowerCase();
+    const { id } = templateInformation;
 
-    return onTemplateSelection(templateName);
+    return onTemplateSelection(id);
   }
 
   render () {
     const { templateInformation, dispatch } = this.props;
- 
+    const { id, thumbnail} = templateInformation;
+
     if (!templateInformation) {
       throw Error('Template information is invalid. Please check builder configuration file.');
-    } else if (!templateInformation.title) {
-      throw Error('Template title is missing. Please check builder configuration file.')
-    } else if (!templateInformation.description) {
-      throw Error('Template description is missing. Please check builder configuration file.')
-    } else if (!templateInformation.image) {
-      throw Error('Template image is missing. Please check builder configuration file.')
+    } else if (!id) {
+      throw Error('Template id is missing. Please check builder configuration file.');
+    } else if (!thumbnail) {
+      throw Error('Template thumbnail is missing. Please check builder configuration file.');
     }
 
     return (
@@ -38,10 +37,9 @@ class TemplateItem extends Component {
         className='ab-templateitem'
         onClick={::this.selectTemplate}>
         <figure className='ab-templateitem__figure'>
-          <img src={templateInformation.image} alt="Image" />
+          <img src={thumbnail} alt={id} />
           <figcaption>
-            <h2>{templateInformation.title}</h2>
-            <p>{templateInformation.description}</p>
+            <h2>{id}</h2>
           </figcaption>
         </figure>
       </li>

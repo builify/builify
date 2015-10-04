@@ -3,7 +3,7 @@ import { setLanguage } from '../Common/Localization';
 import { MAXIUMUM_PAGES_IN_STORAGE } from '../Constants/Defines';
 import ABuilder from '../Common/Builder';
 import Storage from '../Common/Storage';
-import * as Actions from '../Constants/ActionTypes';
+import * as Actions from '../Constants/Actions';
 
 const notificationsInitialState = [];
 const notificationDefaultProps = {
@@ -26,7 +26,6 @@ export function notifications (state = notificationsInitialState, action) {
 
 const builderConfigurationInitialState = {};
 const builderInitialState = {
-  assetsToLoad: [],
   isLoadingScreenActive: true,
 
   currentLocation: 0, // 0 - Template Selection; 1 - New/Load Page; 2 - Canvas; 3 - Preview
@@ -53,7 +52,10 @@ const builderInitialState = {
   colorPickerTarget: null,
 
   // Template related
-  selectedTemplateData: {}
+  selectedTemplateData: {},
+
+  // Canvas related
+  canvasContentBlocks: []
 };
 
 export function builderConfiguration (state = builderConfigurationInitialState, action) {
@@ -89,7 +91,7 @@ export function builder (state = builderInitialState, action) {
       return Object.assign({}, state, {
         currentLocation: data.isTemplateSelected ? CurrentLocationEnum.STARTSCREEN : state.currentLocation,
         isTemplateSelected: data.isTemplateSelected,
-        selectedTemplate: data.templateName
+        selectedTemplate: data.selectedTemplate
       });
 
     case Actions.PROCESS_TEMPLATE_SELECTION:
@@ -127,7 +129,6 @@ export function builder (state = builderInitialState, action) {
         }
       };
       let newPages = state.pages;
-      console.log(state);
 
       if (newPages === undefined) {
         return state;
@@ -262,6 +263,18 @@ export function builder (state = builderInitialState, action) {
       return Object.assign({}, state, {
         isColorPickerOpened: false,
         colorPickerTarget: null
+      });
+
+    case Actions.LOAD_CONTENTBLOCK_SOURCE_TO_CANVAS:
+      const { HTMLData } = action;
+      let newCanvasContentBlocks = state.canvasContentBlocks;
+
+      newCanvasContentBlocks.push({
+        HTML: HTMLData
+      });
+      
+      return Object.assign({}, state, {
+        canvasContentBlocks: newCanvasContentBlocks
       });
   }
 

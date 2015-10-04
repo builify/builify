@@ -24,9 +24,9 @@ export default class BackButton extends Component {
         }, dispatch)}>
         <span>Go Back</span>
       </div>
-    );
+    )
   }
-};
+}
 
 function mapStateToProps (state) {
   return {

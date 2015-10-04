@@ -1,22 +1,49 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { loadContentBlockSourceToCanvas } from '../../Actions/ActionCreators';
 
 class ContentBlock extends Component {
-  clickEvent (e) {
-    alert("s")
+  selectContentBlock (e) {
+    const { onContentBlockSelection, data, builder } = this.props;
+    const { source } = data;
+    const { selectedTemplate } = builder;
+
+    return onContentBlockSelection(source, selectedTemplate);
   }
 
   render () {
+    const { data } = this.props;
+    const { title, thumbnail } = data;
+
     return (
       <figure 
         className='ab-contentblocks__block'
-        onClick={::this.clickEvent}> 
-        <img src='http://pivot.mediumra.re/variant/img/sections/variant-hero-slider-2.jpg' />
+        onClick={::this.selectContentBlock}> 
+        <img src={thumbnail} />
         <figcaption>
-          <span>Multilayer slide</span>
+          <span>{title}</span>
         </figcaption>
       </figure>
     )
   }
 }
 
-export default ContentBlock;
+function mapStateToProps (state) {
+  return {
+    builder: state.builder
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    onContentBlockSelection: (source, templateName) => {
+      dispatch(loadContentBlockSourceToCanvas(source, templateName));
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ContentBlock);

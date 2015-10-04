@@ -254,12 +254,35 @@ class ProccessedChildrenRender extends Component {
   }
 
   renderContentBlocks (item, i) {
+    const { blocks } = this.theme;
+
+    if (!blocks) {
+      return;
+    }
+
+    const blocksLength = blocks.length;
+    let contentBlocks = [];
+
+    for (let i = 0; i < blocksLength; i++) {
+      let currentBlocks = blocks[i];
+      let { type, items } = currentBlocks;
+
+      for (let j = 0; j < items.length; j++) {
+        contentBlocks.push(items[j]);
+      }
+    }
+
     return (
       <div className='ab-contentblocks'>
         <div className='ab-contentblocks__inner'>
-          {[0,1,2,3, 5, 6, 7, 8, 9, 10, 11].map((item, i) => {
-            const contentBlockKey = Builder.randomKey();
-            return <ContentBlock key={contentBlockKey} />
+          {contentBlocks.map((item, i) => {
+            let contentBlockKey = Builder.randomKey();
+
+            return (
+              <ContentBlock 
+                data={item}
+                key={contentBlockKey} />
+            )
           })}
         </div>
       </div>

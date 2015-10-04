@@ -2,48 +2,17 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { proccessTemplateSelection, startNewPage, loadPreviousPage } from '../../Actions/ActionCreators';
-import { getString } from '../../Common/Localization';
 import { CurrentLocationEnum } from '../../Constants/Defines';
 import classNames from 'classnames';
 import ABuilder from '../../Common/Builder';
 import Canvas from './Canvas';
 import ProjectStartScreen from './ProjectStartScreen';
-import TemplateItem from './TemplateItem';
 import PreviewContainer from './PreviewContainer';
-import Icon from '../Shared/Icon';
-
-class TemplateSelectionScreen extends Component {
-  render () {
-    const { templates } = this.props;
-
-    return (
-      <div className='ab-selecttemplate'>
-        <div className='ab-selecttemplate__heading'>{getString('templateselection')}</div>
-        <ul className='ab-selecttemplate__list'>
-          {templates.map((template, i) =>
-            <TemplateItem key={i} templateInformation={template} />
-          )}
-        </ul>
-        <ul className='ab-selecttemplate__nav'>
-          <li className='left'>
-            <Icon name='angle-left' />
-          </li>
-          <li className='right'>
-            <Icon name='angle-right' />
-          </li>
-        </ul>
-      </div>
-    )
-  }
-}
+import TemplateSelectionScreen from './TemplateSelectionScreen';
 
 class Main extends Component {
   doesURLHashHasTemplateName () {
-    if (ABuilder.getURLHash().indexOf('template-') !== -1) {
-      return true;
-    } else {
-      return false;
-    }
+    return (ABuilder.getURLHash().indexOf('template-') !== -1 ? true : false);
   }
  
   previewNodes () {
@@ -115,13 +84,11 @@ class Main extends Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    builderConfiguration: state.builderConfiguration,
-    builder: state.builder,
-    localization: state.localizationData
-  }
-}
+const mapStateToProps = (state) => ({
+  builderConfiguration: state.builderConfiguration,
+  builder: state.builder,
+  localization: state.localizationData
+});
 
 export default connect(
   mapStateToProps

@@ -36,7 +36,7 @@
       }
     },
 
-    "templateselection": "Select a template",
+    "templateselection": "Choose your website template",
 
     "pages": {
       "newpage": "Start new page",
@@ -61,7 +61,11 @@
         "misc": "Miscellaneous",
         "verticalrythm": "Vertical Rythm",
         "typography": "Typography",
-        "sizes": "Sizes"
+        "sizes": "Sizes",
+
+        "roundbutton": "Rounded buttons",
+        "boxedlayout": "Boxed layout",
+        "darkskin": "Dark skin"
       },
       "colors": {
         "body": "Body",

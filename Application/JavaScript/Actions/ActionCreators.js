@@ -1,8 +1,8 @@
 import { getLocalization } from '../Common/Localization';
-import axios from 'axios';
+import { GetSource } from '../Common/Request';
 import ABuilder from '../Common/Builder';
 import Storage from '../Common/Storage';
-import * as ActionTypes from '../Constants/ActionTypes';
+import * as Actions from '../Constants/Actions';
 
 export function runApplicationActions () {
   return (dispatch, getState) => {
@@ -16,43 +16,37 @@ export function runApplicationActions () {
       dispatch(initializeBuilder());
       dispatch(removeLoadingScreen());
     });
-
-    dispatch(addNotification({
-      type: 'info',
-      message: 'This is a notification',
-      timeout: 5000
-    }));
   }
 }
 
 export function initialize () {
   return {
-    type: ActionTypes.INITIALIZE
+    type: Actions.INITIALIZE
   }
 }
 
 export function removeLoadingScreen () {
   return {
-    type: ActionTypes.REMOVE_LOADING_SCREEN
+    type: Actions.REMOVE_LOADING_SCREEN
   }
 }
 
 export function getBuilderConfiguration () {
   return {
-    type: ActionTypes.GET_BUILDER_CONFIGURATION
+    type: Actions.GET_BUILDER_CONFIGURATION
   }
 }
 
 export function receiveConfiguration (data) {
   return {
-    type: ActionTypes.RECEIVE_BUILDER_CONFIGURATION,
+    type: Actions.RECEIVE_BUILDER_CONFIGURATION,
     data: data
   }
 }
 
 export function proccessConfigurationLocalization () {
   return {
-    type: ActionTypes.PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION
+    type: Actions.PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION
   }
 }
 
@@ -61,7 +55,7 @@ export function getLocalizationFile () {
   return (dispatch, getState) => {
     getLocalization((data) => {
       dispatch({
-        type: ActionTypes.GET_LOCALIZATION,
+        type: Actions.GET_LOCALIZATION,
         data: data
       });
     });
@@ -86,8 +80,17 @@ export function checkTemplateSelection () {
   let stringPosition = currentURL.indexOf('template-') !== -1;
 
   if (stringPosition) {
-    let template = currentURL.split('/')[0],
-      templateName = template.slice(1 + 'template-'.length);
+    let templateNameSplit = currentURL.split('/');
+    let templateName = '';
+
+    for (let i = 0; i < templateNameSplit.length; i++) {
+      let current = templateNameSplit[i];
+
+      if (current.indexOf('template-') !== -1) {
+        templateName = current.substr('template-'.length);
+        break;
+      }
+    }
 
     data.isTemplateSelected = true;
     data.selectedTemplate = templateName;
@@ -95,7 +98,7 @@ export function checkTemplateSelection () {
 
   return (dispatch, getState) => {
     dispatch({
-      type: ActionTypes.CHECK_IF_TEMPLATE_IS_SELECTED,
+      type: Actions.CHECK_IF_TEMPLATE_IS_SELECTED,
       data: data
     });
 
@@ -110,7 +113,7 @@ export function proccessTemplateSelection (template) {
 
   return (dispatch, getState) => {
     dispatch({
-      type: ActionTypes.PROCESS_TEMPLATE_SELECTION,
+      type: Actions.PROCESS_TEMPLATE_SELECTION,
       template: template
     });
 
@@ -120,18 +123,18 @@ export function proccessTemplateSelection (template) {
 
 export function getSelectedTemplateData (template) {
   return (dispatch, getState) => {
-    axios.get('/Data/' + template + '/Manifest.json')
-      .then((response) => {
+    GetSource('/templates/' + template + '/manifest.json', 
+      (response) => {
         if (response.hasOwnProperty('data')) {
           dispatch({
-            type: ActionTypes.GET_SELECTED_TEMPLATE_DATA,
+            type: Actions.GET_SELECTED_TEMPLATE_DATA,
             data: response.data
           });
         }
-      })
-      .catch((response) => {
+      },
+      (response) => {
         console.log(response);
-      })
+      });
   }
 }
 
@@ -147,20 +150,20 @@ export function checkIfPageIsSelected () {
   }
 
   return {
-    type: ActionTypes.CHECK_IF_PAGE_IS_SELECTED,
+    type: Actions.CHECK_IF_PAGE_IS_SELECTED,
     data: data
   }
 }
 
 export function startNewPage () {
 	return {
-    type: ActionTypes.START_NEW_PAGE
+    type: Actions.START_NEW_PAGE
   }
 }
 
 export function loadPreviousPage () {
   return {
-    type: ActionTypes.LOAD_PREVIOUS_PAGE
+    type: Actions.LOAD_PREVIOUS_PAGE
   }
 }
 
@@ -194,93 +197,93 @@ export function checkIfPreviousPageExists () {
   }
 
   return {
-    type: ActionTypes.CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE,
+    type: Actions.CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE,
     data: data
   }
 }
 
 export function openTab (target) {
   return {
-    type: ActionTypes.OPEN_TAB,
+    type: Actions.OPEN_TAB,
     target: target
   }
 }
 
 export function closeTab () {
   return {
-    type: ActionTypes.CLOSE_TAB
+    type: Actions.CLOSE_TAB
   }
 }
 
 export function openSidetab (target) {
   return {
-    type: ActionTypes.OPEN_SIDETAB,
+    type: Actions.OPEN_SIDETAB,
     target: target
   }
 }
 
 export function closeSidetab () {
   return {
-    type: ActionTypes.CLOSE_SIDETAB
+    type: Actions.CLOSE_SIDETAB
   }
 }
 
 export function openPreview (target) {
   return {
-    type: ActionTypes.OPEN_PREVIEW,
+    type: Actions.OPEN_PREVIEW,
     target: target
   }
 }
 
 export function closePreview () {
   return {
-    type: ActionTypes.CLOSE_PREVIEW
-  };
+    type: Actions.CLOSE_PREVIEW
+  }
 }
 
 export function addNotification (notification) {
   return {
-    type: ActionTypes.ADD_NOTIFICATION,
+    type: Actions.ADD_NOTIFICATION,
     notification: notification
   }
 }
 
 export function removeNotification (notification) {
   return {
-    type: ActionTypes.REMOVE_NOTIFICATION,
+    type: Actions.REMOVE_NOTIFICATION,
     notification: notification
   }
 }
 
 export function removeAllNotifications () {
   return {
-    type: ActionTypes.REMOVE_ALL_NOTIFICATIONS
+    type: Actions.REMOVE_ALL_NOTIFICATIONS
   }
 }
 
 export function openColorPicker (target) {
   return {
-    type: ActionTypes.OPEN_COLORPICKER,
+    type: Actions.OPEN_COLORPICKER,
     target: target
   }
 }
 
 export function setColorFromColorPicker (color) {
   return {
-    type: ActionTypes.SET_COLOR_FROM_COLORPICKER,
+    type: Actions.SET_COLOR_FROM_COLORPICKER,
     color: color
   }
 }
 
 export function closeColorPicker () {
   return {
-    type: ActionTypes.CLOSE_COLORPICKER
+    type: Actions.CLOSE_COLORPICKER
   }
 }
 
 export function setSwatch (swatch) {
   return {
-    type: ActionTypes.SET_SWATCH,
+    type: Actions.SET_SWATCH,
     swatch: swatch
   }
 }
@@ -303,6 +306,23 @@ export function setFont (font) {
   }
 
   return {
-    type: ActionTypes.SET_FONT
+    type: Actions.SET_FONT
+  }
+}
+
+export function loadContentBlockSourceToCanvas (source, templateName) {
+  return (dispatch, getState) => {
+    GetSource('/templates/' + String(templateName) + '/' + String(source), 
+      (response) => {
+        if (response.hasOwnProperty('data')) {
+          dispatch({
+            type: Actions.LOAD_CONTENTBLOCK_SOURCE_TO_CANVAS,
+            HTMLData: response.data
+          })
+        }
+      },
+      (response) => {
+        console.log(response);
+      });
   }
 }
