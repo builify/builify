@@ -1,4 +1,4 @@
-import * as Actions from '../Constants/ActionTypes';
+import * as Actions from '../Constants/Actions';
 
 const localizationInitialState = {};
 

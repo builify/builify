@@ -18,3 +18,21 @@
 		@include clearfix;
 	}
 }
+
+.#{$abprefix}suggestionBox {
+	width: 100%;
+	height: 100%;
+	@include display(flex);
+    @include align-items(center);
+    @include align-content(flex-start);
+    @include justify-content(center);
+    @include flex-direction(column);
+    @include flex-wrap(wrap);
+
+	h1 {
+		text-align: center;
+		text-transform: uppercase;
+		color: #666;
+		@include rem(font-size, 36px);
+	}
+}

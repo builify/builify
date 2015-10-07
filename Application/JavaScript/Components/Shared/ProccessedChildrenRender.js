@@ -273,7 +273,9 @@ class ProccessedChildrenRender extends Component {
     }
 
     return (
-      <div className='ab-contentblocks'>
+      <div 
+        key={i} 
+        className='ab-contentblocks'>
         <div className='ab-contentblocks__inner'>
           {contentBlocks.map((item, i) => {
             let contentBlockKey = Builder.randomKey();

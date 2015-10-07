@@ -9,6 +9,12 @@ const modularScales = {
 const initialState = {
   _colorPickerTarget: null,
 
+  _canvas: {
+    navigationBlock: {},
+    mainBlocks: [],
+    footerBlock: {}
+  },
+
   design: {
     swatches: [],
     currentSwatch: '',
@@ -35,26 +41,20 @@ export function theme (state = initialState, action) {
 
       if (action.hasOwnProperty('data')) {
         data = action.data;
-
-        if (data.hasOwnProperty('external')) {
-          if (data.external.hasOwnProperty('css')) {
-            let CSSFiles = data.external.css;
-
-            CSSFiles.map((css, i) => {
-              let headElement = document.getElementsByTagName('head')[0];
-              let cssElement = document.createElement('link');
-
-              cssElement.setAttribute('rel', 'stylesheet');
-              cssElement.setAttribute('type', 'text/css');
-              cssElement.setAttribute('href', css);
-
-              headElement.appendChild(cssElement);
-            });
-          }
-        }
       }
 
       return Object.assign({}, state, data);
+
+    case Actions.LOAD_CONTENTBLOCK_SOURCE_TO_CANVAS:
+      if (action.hasOwnProperty('HTMLData')) {
+        const { HTMLData } = action;
+
+        state._canvas.mainBlocks.push({
+          'type': 'block-banner',
+          'src': HTMLData
+        });
+      }
+      return Object.assign({}, state, {});
 
     case Actions.OPEN_COLORPICKER:
       return Object.assign({}, state, {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { closeTab, openSidetab } from '../../Actions/ActionCreators';
 import classNames from 'classnames';
+import Builder from '../../Common/Builder';
 import proccessChildrenData from '../../Common/ProccessTabChildren';
 import ProccessedChildrenRender from '../Shared/ProccessedChildrenRender';
 import BackButton from '../Shared/BackButton';
@@ -31,6 +32,7 @@ class Tab extends ProccessedChildrenRender {
 
   render () {
     const { dispatch, data, builderConfiguration, theme, localization, targetIndex, builder } = this.props;
+    const scrollbarKey = Builder.randomKey();
     
     this.childrenToRender = proccessChildrenData(data);
 
@@ -38,7 +40,7 @@ class Tab extends ProccessedChildrenRender {
       <div 
         className='ab-tab' 
         data-target={targetIndex}>
-        <Scrollbar>
+        <Scrollbar key={scrollbarKey}>
           <BackButton clickFunction={this.closeTab} />
           <h1>{data.title}</h1>
           {this.childrenToRender.length !== 0 ?
@@ -48,9 +50,9 @@ class Tab extends ProccessedChildrenRender {
           }
         </Scrollbar>
       </div>
-    );
+    )
   }
-};
+}
 
 function mapStateToProps (state) {
   return {

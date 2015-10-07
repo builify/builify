@@ -265,6 +265,9 @@ export function builder (state = builderInitialState, action) {
         colorPickerTarget: null
       });
 
+    case Actions.GET_SELECTED_TEMPLATE_DATA:
+      return Object.assign({}, state, {});
+
     case Actions.LOAD_CONTENTBLOCK_SOURCE_TO_CANVAS:
       const { HTMLData } = action;
       let newCanvasContentBlocks = state.canvasContentBlocks;

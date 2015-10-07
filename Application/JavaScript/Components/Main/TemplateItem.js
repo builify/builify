@@ -48,11 +48,7 @@ class TemplateItem extends Component {
 }
 
 function mapStateToProps (state) {
-  return {
-    builderConfiguration: state.builderConfiguration,
-    builder: state.builder,
-    localization: state.localizationData
-  }
+  return state;
 }
 
 function mapDispatchToProps (dispatch) {

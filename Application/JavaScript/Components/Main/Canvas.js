@@ -1,38 +1,44 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Scrollbar from '../Shared/Scrollbar'; 
+import IFrame from '../Shared/IFrame';
 
 class CanvasSuggestionBox extends Component {
+  static propTypes = {
+    display: PropTypes.bool
+  };
+
+  static defaultProps = {
+    display: true
+  };
+
   render () {
-    return (
-      <h1>Drop something</h1>
-    )
+    const { display } = this.props;
+
+    if (display) {
+      return (
+        <div className='ab-suggestionBox'>
+          <h1>Drop some content!</h1>
+        </div>
+      )
+    } else {
+      return null;
+    }
   }
 }
 
 class Canvas extends Component {
-  renderCanvasContent () {
+  render () {
     const { builder } = this.props;
     const { canvasContentBlocks } = builder;
     const contentBlocksOnCanvas = canvasContentBlocks.length;
+    const displaySuggestion = contentBlocksOnCanvas === 0 ? true : false;
 
-    if (contentBlocksOnCanvas === 0) {
-      return <CanvasSuggestionBox />
-    } else {
-      let blockWrapper = document.createElement('div');
-      blockWrapper.innerHTML = canvasContentBlocks[0].HTML;
-
-      this.refs.canvas.appendChild(blockWrapper);
-    }
-  }
-
-  render () {
     return (
       <div className='ab-canvas'>
-        <div ref='canvas' className='ab-canvas__wrapper'>
-          {this.renderCanvasContent()}
-        </div>
-      </div> 
+        <CanvasSuggestionBox display={displaySuggestion}/>
+        <IFrame />
+      </div>
     )
   }
 }

@@ -228,7 +228,26 @@
       "title": "Content",
       "children": [
         {
-          "type": "block.contentblocks"
+          "type": "block.title",
+          "title": "Main blocks"
+        },
+        {
+          "type": "open.sidetab",
+          "title": "Navigation",
+          "target": "content.navigation",
+          "isIcon": "true"
+        },
+        {
+          "type": "open.sidetab",
+          "title": "Main",
+          "target": "content.main",
+          "isIcon": "true"
+        },
+        {
+          "type": "open.sidetab",
+          "title": "Footer",
+          "target": "content.footer",
+          "isIcon": "true"
         }
       ]
     },
@@ -273,19 +292,31 @@
       "id": "navigation",
       "title": "sidetabs.navigation.title",
       "subtitle": "sidetabs.navigation.subtitle",
-      "children": []
+      "children": [
+        {
+          "type": "block.navigationblocks"
+        }
+      ]
     },
     {
       "id": "main",
       "title": "sidetabs.main.title",
       "subtitle": "sidetabs.main.subtitle",
-      "children": []
+      "children": [
+        {
+          "type": "block.contentblocks"
+        }
+      ]
     },
     {
       "id": "footer",
       "title": "sidetabs.footer.title",
       "subtitle": "sidetabs.footer.subtitle",
-      "children": []
+      "children": [
+        {
+          "type": "block.footerblocks"
+        }
+      ]
     },
     {
       "id": "all",

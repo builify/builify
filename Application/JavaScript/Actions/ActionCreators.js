@@ -112,16 +112,11 @@ export function proccessTemplateSelection (template) {
   ABuilder.setURL(ABuilder.TEMPLATE, template);
 
   return (dispatch, getState) => {
-    dispatch({
-      type: Actions.PROCESS_TEMPLATE_SELECTION,
-      template: template
-    });
-
-    dispatch(getSelectedTemplateData(template));
+    dispatch(getSelectedTemplateData(template, true));
   }
 }
 
-export function getSelectedTemplateData (template) {
+export function getSelectedTemplateData (template, isTemplateSelection: false) {
   return (dispatch, getState) => {
     GetSource('/templates/' + template + '/manifest.json', 
       (response) => {
@@ -130,6 +125,13 @@ export function getSelectedTemplateData (template) {
             type: Actions.GET_SELECTED_TEMPLATE_DATA,
             data: response.data
           });
+
+          if (isTemplateSelection) {
+            dispatch({
+              type: Actions.PROCESS_TEMPLATE_SELECTION,
+              template: template
+            });
+          }
         }
       },
       (response) => {
