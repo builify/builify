@@ -5,7 +5,9 @@ import { getProperty } from '../../Common/DataManipulation';
 import { setFont, setSwatch, openColorPicker, openSidetab, closeTab } from '../../Actions/ActionCreators';
 import classNames from 'classnames';
 import Builder from '../../Common/Builder';
+import Icon from '../Shared/Icon';
 import Toggle from '../Shared/Toggle';
+import Filter from '../Shared/Filter';
 import ContentBlock from '../Shared/ContentBlock'; 
 import Select from 'react-select';
 
@@ -17,6 +19,22 @@ class ProccessedChildrenRender extends Component {
     this.renderChildren = this.renderChildren;
     this.theme = {};
     this.localization = {};
+
+    this.state = {
+      themeBlocksAdded: false
+    };
+  }
+
+  shouldComponentUpdate (nextProps, nextState) {
+    if (!this.state.themeBlocksAdded) {
+      if (nextProps.hasOwnProperty('theme')) {
+        if (nextProps.theme.blocks.length !== 0) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   // Block components
@@ -209,22 +227,36 @@ class ProccessedChildrenRender extends Component {
   }
 
   renderSideTab (item, i) {
-    let sidebarClassName = classNames('ab-item', 'goto');
+    const itemIcon = item.icon;
+    const doesItemHaveIcon = itemIcon === null ? false : true;
+    const itemClassName = classNames('ab-item', doesItemHaveIcon ? 'icon' : 'link');
+    const childrenNodes = (item) => {
+      if (item.icon !== null) {
+        return (
+          <div>
+            <Icon className='ico' name={item.icon} />
+            <span className='text'>{getString(item.title)}</span>
+          </div>
+        )
+      } else {
+        return (
+          <span>{getString(item.title)}</span>
+        )
+      }
+    };
 
     return (
       <div
-        className={sidebarClassName}
+        className={itemClassName}
         data-targetid={item.target}
         key={i} 
         {...bindActionCreators({
           onClick: (e) => {
             e.preventDefault();
-            let targetId = e.target.getAttribute('data-targetid');
-          
-            return openSidetab(targetId);
+            return openSidetab(item.target);
           }
         }, this.dispatch)}>
-        {getString(item.title)}
+        {childrenNodes(item)}
       </div>
     )
   }
@@ -254,41 +286,76 @@ class ProccessedChildrenRender extends Component {
   }
 
   renderContentBlocks (item, i) {
-    const { blocks } = this.theme;
+    if (this.theme.hasOwnProperty('blocks')) {
+      const { blocks } = this.theme;
+      const blocksLength = blocks.length;
+      let itemsToRender = [];
 
-    if (!blocks) {
-      return;
-    }
+      if (blocksLength > 0) {
+        blocks.map((block, i) => {
+          if (block.hasOwnProperty('type')) {
+            const { type } = block;
 
-    const blocksLength = blocks.length;
-    let contentBlocks = [];
+            itemsToRender.push({
+              type: 'blocktitle',
+              name: type
+            });
 
-    for (let i = 0; i < blocksLength; i++) {
-      let currentBlocks = blocks[i];
-      let { type, items } = currentBlocks;
+            if (block.hasOwnProperty('items')) {
+              const blockItems = block.items;
+              const itemsLength = blockItems.length;
 
-      for (let j = 0; j < items.length; j++) {
-        contentBlocks.push(items[j]);
+              if (itemsLength > 0) {
+                blockItems.map((blockItem, i) => {
+                  const { title, source } = blockItem;
+                  const thumbnail = blockItem.hasOwnProperty('thumbnail') ? blockItem.thumbnail : null;
+
+                  itemsToRender.push({
+                    type: 'block',
+                    blockType: type,
+                    name: title,
+                    source: source,
+                    thumbnail: thumbnail
+                  });
+                })
+              }
+            }
+
+          } else {
+            throw Error('Missing type of ' + JSON.stringify(block));
+          }
+        })
       }
-    }
 
-    return (
-      <div 
-        key={i} 
-        className='ab-contentblocks'>
-        <div className='ab-contentblocks__inner'>
-          {contentBlocks.map((item, i) => {
-            let contentBlockKey = Builder.randomKey();
+      return (
+        <div 
+          key={i} 
+          className='ab-contentblocks'>
+          <div className='ab-contentblocks__inner'>
+            {itemsToRender.map((item, i) => {
+              const { type, name } = item;
 
-            return (
-              <ContentBlock 
-                data={item}
-                key={contentBlockKey} />
-            )
-          })}
+              if (type === 'blocktitle') {
+                return (
+                  <h2 className='blocktitle'>{name}</h2>
+                )
+              } else if (type === 'block') {
+                return (
+                  <ContentBlock 
+                    data={item} />
+                )
+              }
+            })}
+          </div>
         </div>
-      </div>
-    )
+      )
+    } else {
+      return null;
+    }
+  }
+
+  renderFilter (item, i) {
+    return <Filter />
   }
 
   renderChildren (item, theme, localization, builderConfiguration, dispatch, builder, i) {
@@ -330,6 +397,9 @@ class ProccessedChildrenRender extends Component {
 
         case 'contentblocks':
           return this.renderContentBlocks(item, i);
+
+        case 'filterblock':
+          return this.renderFilter(item, i);
       }
     }
 

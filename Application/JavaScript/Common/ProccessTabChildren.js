@@ -87,6 +87,12 @@ export default function proccessChildrenData (data) {
               };
 
               childrenToRender.push(contentBlock);
+            } else if (blockType === 'filter') {
+              let filterBlock = {
+                type: 'filterblock'
+              };
+
+              childrenToRender.push(filterBlock);
             }
 
             break;
@@ -98,10 +104,12 @@ export default function proccessChildrenData (data) {
               if (currentChildren.hasOwnProperty('target')) {
                 let target = currentChildren.target.split('.');
                 let sideTarget = target[target.length - 1];
+                let icon = currentChildren.hasOwnProperty('icon') ? currentChildren.icon : null;
                 let sideTabBlock = {
                   type: 'sidetab',
                   title: currentChildren.title,
-                  target: sideTarget
+                  target: sideTarget,
+                  icon: icon
                 };
 
                 childrenToRender.push(sideTabBlock);

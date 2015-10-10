@@ -27,6 +27,7 @@ export function notifications (state = notificationsInitialState, action) {
 const builderConfigurationInitialState = {};
 const builderInitialState = {
   isLoadingScreenActive: true,
+  loadingScreenType: 0, // 0 - Normal full
 
   currentLocation: 0, // 0 - Template Selection; 1 - New/Load Page; 2 - Canvas; 3 - Preview
 
@@ -52,10 +53,7 @@ const builderInitialState = {
   colorPickerTarget: null,
 
   // Template related
-  selectedTemplateData: {},
-
-  // Canvas related
-  canvasContentBlocks: []
+  selectedTemplateData: {}
 };
 
 export function builderConfiguration (state = builderConfigurationInitialState, action) {
@@ -130,7 +128,9 @@ export function builder (state = builderInitialState, action) {
       };
       let newPages = state.pages;
 
-      if (newPages === undefined) {
+      console.log(newPages);
+
+      if (newPages === undefined || newPages === null) {
         return state;
       }
 
@@ -263,21 +263,6 @@ export function builder (state = builderInitialState, action) {
       return Object.assign({}, state, {
         isColorPickerOpened: false,
         colorPickerTarget: null
-      });
-
-    case Actions.GET_SELECTED_TEMPLATE_DATA:
-      return Object.assign({}, state, {});
-
-    case Actions.LOAD_CONTENTBLOCK_SOURCE_TO_CANVAS:
-      const { HTMLData } = action;
-      let newCanvasContentBlocks = state.canvasContentBlocks;
-
-      newCanvasContentBlocks.push({
-        HTML: HTMLData
-      });
-      
-      return Object.assign({}, state, {
-        canvasContentBlocks: newCanvasContentBlocks
       });
   }
 

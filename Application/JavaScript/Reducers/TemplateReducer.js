@@ -1,4 +1,5 @@
 import * as Actions from '../Constants/Actions';
+import Builder from '../Common/Builder';
 
 const modularScales = {
   minorSecond: {
@@ -9,10 +10,11 @@ const modularScales = {
 const initialState = {
   _colorPickerTarget: null,
 
-  _canvas: {
-    navigationBlock: {},
-    mainBlocks: [],
-    footerBlock: {}
+  _currentPage: {
+    navigation: {},
+    main: [],
+    footer: [],
+    blocksCount: 0
   },
 
   design: {
@@ -33,6 +35,26 @@ const initialState = {
     }
   }
 };
+
+function proccessHTML (HTML, arrayOfItemsToReplace) {
+  if (!HTML || !arrayOfItemsToReplace || !arrayOfItemsToReplace.length) {
+    return;
+  }
+
+  arrayOfItemsToReplace.map((replacer, i) => {
+    const { findWhat, replaceWith } = replacer;
+
+    if (!findWhat || !replaceWith) {
+      return;
+    }
+
+    let reg = new RegExp(findWhat, "g");
+
+    HTML = HTML.replace(reg, replaceWith);
+  });
+
+  return HTML;
+}
  
 export function theme (state = initialState, action) {
   switch (action.type) {
@@ -46,14 +68,30 @@ export function theme (state = initialState, action) {
       return Object.assign({}, state, data);
 
     case Actions.LOAD_CONTENTBLOCK_SOURCE_TO_CANVAS:
-      if (action.hasOwnProperty('HTMLData')) {
-        const { HTMLData } = action;
 
-        state._canvas.mainBlocks.push({
-          'type': 'block-banner',
-          'src': HTMLData
-        });
+      if (action.hasOwnProperty('HTMLData')) {
+        let { HTMLData, blockType, blockName } = action;
+        const blockID = Builder.randomKey();
+
+        HTMLData = proccessHTML(HTMLData, state.replacer);
+
+        if (blockType === 'navigation') {
+
+        } else if (blockType === 'footer') {
+
+        } else {
+          let blockInformation = {
+            id: blockID,
+            type: blockType,
+            blockName: blockName,
+            source: HTMLData
+          };
+
+          state._currentPage.main.push(blockInformation);
+          state._currentPage.blocksCount++;
+        }
       }
+
       return Object.assign({}, state, {});
 
     case Actions.OPEN_COLORPICKER:

@@ -49,9 +49,9 @@ class SideTab extends ProccessedChildrenRender {
           }
         </Scrollbar>
       </div>
-    );
+    )
   }
-};
+}
 
 function mapStateToProps (state) {
   return {

@@ -312,15 +312,17 @@ export function setFont (font) {
   }
 }
 
-export function loadContentBlockSourceToCanvas (source, templateName) {
+export function loadContentBlockSourceToCanvas (source, blockType, blockName, templateName) {
   return (dispatch, getState) => {
     GetSource('/templates/' + String(templateName) + '/' + String(source), 
       (response) => {
         if (response.hasOwnProperty('data')) {
           dispatch({
             type: Actions.LOAD_CONTENTBLOCK_SOURCE_TO_CANVAS,
-            HTMLData: response.data
-          })
+            HTMLData: response.data,
+            blockType: blockType,
+            blockName: blockName
+          });
         }
       },
       (response) => {

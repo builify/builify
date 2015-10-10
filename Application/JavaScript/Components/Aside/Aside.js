@@ -7,6 +7,10 @@ import SideTab from './SideTab';
 import PrimaryNavigation from './PrimaryNavigation';
 
 class Aside extends Component {
+  shouldComponentUpdate (nextProps, nextState) {
+    return false;
+  }
+  
   render () {
     const { tabs, sidetabs } = this.props.builderConfiguration;
     const asideClassName = classNames('ab-aside', this.props.cName);

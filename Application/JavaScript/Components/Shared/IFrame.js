@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { removeBlockFromToRenderList } from '../../Actions/ActionCreators';
 
 class IFrame extends Component {
   constructor (props) {
     super(props);
 
     this.state = {
-      areCoreFilesAppendedInHead: false
+      areCoreFilesAppendedInHead: false,
+
+      mainBlocks: []
     };
   }
 
   componentDidMount () {
     let canvasReference = this.refs.canvas;
     let canvasDocumentElement = canvasReference.contentWindow.document;
+
+    // Firefox iFrame fix START
+    canvasDocumentElement.open();
+    canvasDocumentElement.close();
+    // Firefox iFrame fix END
+
     let bodyElement = canvasDocumentElement.body;
 
     // Create wrappers for navigation, main and footer.
@@ -34,7 +44,7 @@ class IFrame extends Component {
 
     bodyElement.appendChild(documentFragment);
 
-    // Manually bind refs.
+    this.refs.body = bodyElement;
     this.refs.navigation = navigationElement;
     this.refs.main = mainElement;
     this.refs.footer = footerElement;
@@ -94,33 +104,55 @@ class IFrame extends Component {
       });
     }
 
-    // Add template items.
-    const { _canvas } = props.theme;
-    const canvas = _canvas;
-    const { navigationBlock, mainBlocks, footerBlock } = canvas;
+    this.renderBlocks();
+  }
 
-    // Navigation
-    if (Object.keys(navigationBlock).length !== 0) {
+  renderBlocks () {
+    const { theme } = this.props;
+    const { _currentPage } = theme;
+    const currentPage = _currentPage;
+    const { navigation, main, footer } = currentPage;
 
-    }
+    this.renderMainBlocks(main);
 
-    // Main blocks
-    if (mainBlocks.length !== 0) {
-      let allBlocksHTML = '';
+    this.contentEditable();
+  }
 
-      mainBlocks.map((block, i) => {
-        const source = block.src;
+  renderMainBlocks (main) {
+    const { mainBlocks } = this.state;
+    const mainElement = this.refs.main;
+    let html = '';
 
-        allBlocksHTML += source;
+    main.map((block, i) => {
+      const { id, type, blockName, source } = block;
+
+      html += source;
+    });
+
+    this.setState({
+      mainBlocks: main
+    });
+
+    mainElement.innerHTML = html;
+  }
+
+  contentEditable () {
+    let whereToFindItems = this.refs.body.querySelectorAll('section:not([data-hasbeencrawledthrough]), nav:not([data-hasbeencrawledthrough]), header:not([data-hasbeencrawledthrough]), footer:not([data-hasbeencrawledthrough])');
+    var forEach = function (array, callback, scope) {
+      for (var i = 0; i < array.length; i++) {
+        callback.call(scope, i, array[i]); // passes back stuff we need
+      }
+    };
+
+    [].slice.call(whereToFindItems).map((searchPlace, i) => {
+      let items = searchPlace.querySelectorAll('p, span, a, h1, h2, h3, h4, h5, h6, strong, em, ul, li, i, section, header, figure, iframe, input, textarea, blockquote, figcaption');
+
+      forEach(items, function (index, value) {
+        value.contentEditable = true;
       });
 
-      this.refs.main.innerHTML = allBlocksHTML;
-    }
-
-    // Footer
-    if (Object.keys(footerBlock).length !== 0) {
-
-    }
+      searchPlace.setAttribute('data-hasbeencrawledthrough', 'yes');
+    });
   }
 
   render () {
@@ -128,6 +160,7 @@ class IFrame extends Component {
       <iframe 
         ref='canvas'
         id='ab-canvas'
+        name='ab-canvas'
         className='ab-canvas__wrapper' />
     )
   }

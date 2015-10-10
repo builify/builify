@@ -200,7 +200,7 @@
     },
     {
       "id": "content",
-      "icon": "display1",
+      "icon": "photo",
       "target": "content-tab"
     },
     {
@@ -228,26 +228,10 @@
       "title": "Content",
       "children": [
         {
-          "type": "block.title",
-          "title": "Main blocks"
+          "type": "block.filter"
         },
         {
-          "type": "open.sidetab",
-          "title": "Navigation",
-          "target": "content.navigation",
-          "isIcon": "true"
-        },
-        {
-          "type": "open.sidetab",
-          "title": "Main",
-          "target": "content.main",
-          "isIcon": "true"
-        },
-        {
-          "type": "open.sidetab",
-          "title": "Footer",
-          "target": "content.footer",
-          "isIcon": "true"
+          "type": "block.contentblocks"
         }
       ]
     },
@@ -288,36 +272,6 @@
   ],
 
   "sidetabs": [
-    {
-      "id": "navigation",
-      "title": "sidetabs.navigation.title",
-      "subtitle": "sidetabs.navigation.subtitle",
-      "children": [
-        {
-          "type": "block.navigationblocks"
-        }
-      ]
-    },
-    {
-      "id": "main",
-      "title": "sidetabs.main.title",
-      "subtitle": "sidetabs.main.subtitle",
-      "children": [
-        {
-          "type": "block.contentblocks"
-        }
-      ]
-    },
-    {
-      "id": "footer",
-      "title": "sidetabs.footer.title",
-      "subtitle": "sidetabs.footer.subtitle",
-      "children": [
-        {
-          "type": "block.footerblocks"
-        }
-      ]
-    },
     {
       "id": "all",
       "title": "sidetabs.all.title",

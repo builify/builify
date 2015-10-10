@@ -6,18 +6,21 @@ import className from 'classnames';
 class LoadingScreen extends Component {
   render () {
     const { builder } = this.props;
-    const { isLoadingScreenActive } = builder;
-    const loadingScreenClassName = className('ab-loadingScreen', isLoadingScreenActive ? 'show' : '');
+    const { isLoadingScreenActive, loadingScreenType } = builder;
 
-    return (
-      <div className={loadingScreenClassName}>
-        <div className='ab-loadingScreen__loader'>
-          <div />
+    if (loadingScreenType === 0) {
+      const loadingScreenClassName = className('ab-loadingScreen', isLoadingScreenActive ? 'show' : '');
+
+      return (
+        <div className={loadingScreenClassName}>
+          <div className='ab-loadingScreen__loader'>
+            <div />
+          </div>
+          <div className="ab-loadingScreen__loading">Loading builder</div>
+          <div className="ab-loadingScreen__info">Please wait...</div>
         </div>
-        <div className="ab-loadingScreen__loading">Loading builder</div>
-        <div className="ab-loadingScreen__info">Please wait...</div>
-      </div>
-    )
+      )
+    }
   }
 }
 

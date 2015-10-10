@@ -21,7 +21,7 @@ $loadingscreen-loader-mask-size: $loadingscreen-loader-size / 1.618;
     overflow: hidden;
     visibility: hidden; 
     background: $loadingscreen-bg;
-    @include transition(all 1s ease);
+    @include transition(all 0.3s ease);
     @include display(flex);
     @include align-items(center);
     @include align-content(flex-start);
