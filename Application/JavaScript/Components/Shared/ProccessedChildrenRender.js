@@ -337,11 +337,16 @@ class ProccessedChildrenRender extends Component {
 
               if (type === 'blocktitle') {
                 return (
-                  <h2 className='blocktitle'>{name}</h2>
+                  <h2 
+                    key={i}
+                    className='blocktitle'>
+                    {name}
+                  </h2>
                 )
               } else if (type === 'block') {
                 return (
                   <ContentBlock 
+                    key={i}
                     data={item} />
                 )
               }
@@ -355,7 +360,7 @@ class ProccessedChildrenRender extends Component {
   }
 
   renderFilter (item, i) {
-    return <Filter />
+    return <Filter key={i} />
   }
 
   renderChildren (item, theme, localization, builderConfiguration, dispatch, builder, i) {

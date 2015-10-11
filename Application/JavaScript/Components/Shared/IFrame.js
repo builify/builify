@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { removeBlockFromToRenderList } from '../../Actions/ActionCreators';
 
 class IFrame extends Component {
   constructor (props) {
@@ -15,6 +14,11 @@ class IFrame extends Component {
   }
 
   componentDidMount () {
+    this.appendElements();
+    this.rightClickPanel();
+  }
+
+  appendElements () {
     let canvasReference = this.refs.canvas;
     let canvasDocumentElement = canvasReference.contentWindow.document;
 
@@ -31,12 +35,9 @@ class IFrame extends Component {
     let footerElement = document.createElement('div');
     let documentFragment = document.createDocumentFragment();
 
-    navigationElement.setAttribute('class', 'ab-navigation__wrapper');
-    mainElement.setAttribute('class', 'ab-main__wrapper');
-    footerElement.setAttribute('class', 'ab-footer__wrapper');
-    navigationElement.setAttribute('id', 'ab-navigation__wrapper');
-    mainElement.setAttribute('id', 'ab-main__wrapper');
-    footerElement.setAttribute('id', 'ab-footer__wrapper');
+    navigationElement.setAttribute('class', 'ab-cnavigation__wrapper');
+    mainElement.setAttribute('class', 'ab-cmain__wrapper');
+    footerElement.setAttribute('class', 'ab-cfooter__wrapper');
 
     documentFragment.appendChild(navigationElement);
     documentFragment.appendChild(mainElement);
@@ -64,6 +65,12 @@ class IFrame extends Component {
           let canvasDocumentElement = canvasReference.contentWindow.document;
           let headElement = canvasDocumentElement.head;
 
+          // Add iframe styles.
+          coreFiles.push({
+            type: 'css',
+            src: '/IFrameStylesheet.css'
+          });
+
           coreFiles.map((file, i) => {
             let source = file.src;
             let type = file.type;
@@ -87,10 +94,10 @@ class IFrame extends Component {
               if (doesItemAlreadyExist === undefined || doesItemAlreadyExist === null) {
                 let srcElement = document.createElement('script');
 
-                linkElement.setAttribute('src', source);
-                linkElement.setAttribute('data-fileurl', source);
+                srcElement.setAttribute('src', source);
+                srcElement.setAttribute('data-fileurl', source);
 
-                headElement.appendChild(linkElement);
+                headElement.appendChild(srcElement);
               }
             } else {
               console.warn('' + type + ' - is invalid type for source: ' + source);
@@ -113,13 +120,58 @@ class IFrame extends Component {
     const currentPage = _currentPage;
     const { navigation, main, footer } = currentPage;
 
+    this.renderNavigation(navigation);
     this.renderMainBlocks(main);
+    this.renderFooter(footer);
 
-    this.contentEditable();
+    //this.contentEditable();
+  }
+
+  renderNavigation (navigation) {
+    if (Object.keys(navigation).length === 0) {
+      return;
+    }
+
+    const { id, type, blockName, source } = navigation;
+    const navigationElement = this.refs.navigation;
+    const mainElement = this.refs.main;
+
+    if (source === null || source === undefined) {
+      return;
+    }
+
+    navigationElement.innerHTML = source;
+
+    let navElement = navigationElement.firstElementChild || navigationElement.firstChild;
+
+    if (navElement !== undefined) {
+      let computedStyle = getComputedStyle(navElement);
+      let positionValue = computedStyle.getPropertyValue('position');
+      let backgroundColorValue = computedStyle.getPropertyValue('background-color');
+
+      if ((positionValue === 'absolute' || positionValue === 'fixed')) {
+        let elementHeight = Math.round(navElement.offsetHeight);
+
+        /*if (backgroundColorValue === 'transparent') {
+          mainElement.style.marginTop = elementHeight + 'px';
+        } else {
+          let firstMainElement = mainElement.firstElementChild || mainElement.firstChild;
+
+          if (firstMainElement !== undefined) {
+            firstMainElement.style.paddingTop = elementHeight + 'px';
+          } else {
+            mainElement.style.paddingTop = elementHeight + 'px';
+          }
+        }*/
+      }
+    }
   }
 
   renderMainBlocks (main) {
-    const { mainBlocks } = this.state;
+    if (main === undefined || main === null || main.length === 0) {
+      return;
+    }
+
     const mainElement = this.refs.main;
     let html = '';
 
@@ -129,15 +181,24 @@ class IFrame extends Component {
       html += source;
     });
 
-    this.setState({
-      mainBlocks: main
-    });
-
     mainElement.innerHTML = html;
   }
 
+  renderFooter (footer) {
+    const footerElement = this.refs.footer;
+    let html = '';
+
+    footer.map((block, i) => {
+      const { id, type, blockName, source } = block;
+
+      html += source;
+    });
+
+    footerElement.innerHTML = html;
+  }
+
   contentEditable () {
-    let whereToFindItems = this.refs.body.querySelectorAll('section:not([data-hasbeencrawledthrough]), nav:not([data-hasbeencrawledthrough]), header:not([data-hasbeencrawledthrough]), footer:not([data-hasbeencrawledthrough])');
+    let whereToFindItems = this.refs.body.querySelectorAll('section, nav, header, footer');
     var forEach = function (array, callback, scope) {
       for (var i = 0; i < array.length; i++) {
         callback.call(scope, i, array[i]); // passes back stuff we need
@@ -145,14 +206,88 @@ class IFrame extends Component {
     };
 
     [].slice.call(whereToFindItems).map((searchPlace, i) => {
+      if (searchPlace.getAttribute('data-hasbeencrawledthrough')) {
+        return;
+      }
+
       let items = searchPlace.querySelectorAll('p, span, a, h1, h2, h3, h4, h5, h6, strong, em, ul, li, i, section, header, figure, iframe, input, textarea, blockquote, figcaption');
 
       forEach(items, function (index, value) {
         value.contentEditable = true;
+        value.classList.add('ab-editable');
       });
 
       searchPlace.setAttribute('data-hasbeencrawledthrough', 'yes');
     });
+  }
+
+  rightClickPanel () {
+    const targetElement = this.refs.body;
+
+    let isContextMenuOpened = false;
+
+    let rightPlaneElement = document.createElement('div');
+    let rightPanelMainText = document.createElement('div'); 
+
+    rightPlaneElement.setAttribute('class', 'ab-crightpanel');
+    rightPanelMainText.setAttribute('class', 'ab-crightpanel__text');
+
+    rightPlaneElement.appendChild(rightPanelMainText);
+
+    targetElement.appendChild(rightPlaneElement);
+
+    targetElement.addEventListener('contextmenu', function (e) {
+      const target = e.target;
+      const HTMLTags = {
+        DIV: "Div",
+        SECTION: "Section",
+        HEADER: "Header",
+        H1: "Heading",
+        H2: "Heading",
+        H3: "Heading",
+        H4: "Heading",
+        H5: "Heading",
+        H6: "Heading",
+        P: "Paragraph",
+        SPAN: "Span",
+        UL: "Unordered List",
+        LI: "List Item",
+        IMG: "Image",
+        STRONG: "Strong Text",
+        EM: "Emphasised Text",
+        I: "Icon",
+        A: "Link",
+        INPUT: "Input",
+        BLOCKQUOTE: "Quote",
+        FIGCAPTION: "Caption"
+      };
+
+      if (e.shiftKey) {
+        return;
+      }
+
+      e.preventDefault();
+      isContextMenuOpened = true;
+
+      const panelTagName = HTMLTags[target.tagName];
+      const eventPosition = {
+        x: e.clientX,
+        y: e.clientY
+      };
+
+      rightPlaneElement.classList.add('show');
+
+      rightPanelMainText.textContent = String(panelTagName);
+      rightPlaneElement.style.top = eventPosition.y + 'px';
+      rightPlaneElement.style.left = eventPosition.x + 'px';
+    }, false);
+
+    targetElement.addEventListener('click', (e) => {
+      if (isContextMenuOpened) {
+        rightPlaneElement.classList.remove('show');
+        isContextMenuOpened = false;
+      }
+    }, false);
   }
 
   render () {
@@ -161,7 +296,8 @@ class IFrame extends Component {
         ref='canvas'
         id='ab-canvas'
         name='ab-canvas'
-        className='ab-canvas__wrapper' />
+        className='ab-canvas__wrapper'
+        scrolling='yes' />
     )
   }
 }

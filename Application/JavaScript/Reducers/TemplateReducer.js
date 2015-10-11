@@ -68,7 +68,6 @@ export function theme (state = initialState, action) {
       return Object.assign({}, state, data);
 
     case Actions.LOAD_CONTENTBLOCK_SOURCE_TO_CANVAS:
-
       if (action.hasOwnProperty('HTMLData')) {
         let { HTMLData, blockType, blockName } = action;
         const blockID = Builder.randomKey();
@@ -76,9 +75,25 @@ export function theme (state = initialState, action) {
         HTMLData = proccessHTML(HTMLData, state.replacer);
 
         if (blockType === 'navigation') {
+          let navigationBlockInformation = {
+            id: blockID,
+            type: blockType,
+            blockName: blockName,
+            source: HTMLData
+          };
 
+          state._currentPage.navigation = navigationBlockInformation;
+          state._currentPage.blocksCount++;
         } else if (blockType === 'footer') {
+          let footerBlockInformation = {
+            id: blockID,
+            type: blockType,
+            blockName: blockName,
+            source: HTMLData
+          };
 
+          state._currentPage.footer.push(footerBlockInformation);
+          state._currentPage.blocksCount++;
         } else {
           let blockInformation = {
             id: blockID,

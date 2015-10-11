@@ -16,8 +16,6 @@ var gutil = require('gulp-util');
 var plumber = require('gulp-plumber');
 var browserSync = require('browser-sync').create();
 var watch = require('gulp-watch');
-var postCSS = require('gulp-postcss');
-var lost = require('lost');
 
 var tasks = {};
 
@@ -34,7 +32,8 @@ var dependencies = [
   'strip-json-comments',
   'axios',
   'classnames',
-  'immutable'
+  'immutable',
+  'medium-editor'
 ];
 
 // Rewrite gulp.src for better error handling.
@@ -117,9 +116,6 @@ function createStylesheets (options) {
 
       gulp.src(options.src)
         .pipe(sass())
-        .pipe(postCSS([
-          lost()
-        ]))
         .pipe(gulp.dest(options.dest))
         .pipe(notify(function () {
           gutil.log(gutil.colors.bgGreen('[STYLEHSEET]Bundle built in ' + (Date.now() - start) + 'ms'));
@@ -129,6 +125,32 @@ function createStylesheets (options) {
 
     tasks.stylesheet();
     watch('./Application/Styles/**/*.scss', tasks.stylesheet);
+
+  } else {
+    gulp.src(options.src)
+      .pipe(sass())
+      .pipe(cssmin())
+      .pipe(gulp.dest(options.dest));
+  }
+}
+
+function createIFrameStylesheet (options) {
+  if (options.development) {
+    tasks.stylesheet = function () {
+      var start = new Date();
+      gutil.log(gutil.colors.bgGreen('[IFRAME STYLEHSEET]Building bundle.'));
+
+      gulp.src(options.src)
+        .pipe(sass())
+        .pipe(gulp.dest(options.dest))
+        .pipe(notify(function () {
+          gutil.log(gutil.colors.bgGreen('[IFRAME STYLEHSEET]Bundle built in ' + (Date.now() - start) + 'ms'));
+        }))
+        .pipe(browserSync.stream({ match: '**/*.css' }));
+    };
+
+    tasks.stylesheet();
+    watch('./Application/IFrameStyles/**/*.scss', tasks.stylesheet);
 
   } else {
     gulp.src(options.src)
@@ -189,6 +211,12 @@ gulp.task('default', function () {
     src: './Application/Styles/Stylesheet.scss',
     dest: './DevelopmentBuild'
   });
+
+  createIFrameStylesheet({
+    development: true,
+    src: './Application/IFrameStyles/IFrameStylesheet.scss',
+    dest: './DevelopmentBuild'
+  })
 
   createJavaScript({
     development: true,

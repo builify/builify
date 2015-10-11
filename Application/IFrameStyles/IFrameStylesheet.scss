@@ -1,0 +1,50 @@
+$abprefix: 'ab-';
+$base-color: #9b59b6;
+
+@import "../Styles/bourbon/bourbon";
+@import "../Styles/dependencies/rem";
+
+* {
+	cursor: auto;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+.#{$abprefix}crightpanel {
+	position: fixed;
+	display: none;
+	z-index: 999999 !important;
+	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    border-radius: 0 0 4px 4px;
+    width: 150px;
+
+	&.show {
+		display: block;
+	}
+
+	&__text {
+		height: 45px;
+		line-height: 45px;
+		color: #FFF;
+		font-weight: 400;
+		text-align: left;
+		border-radius: 4px 4px 0 0;
+		background: $base-color;
+		@include rem(font-size, 16px);
+	}
+
+	&__item {
+		
+	}
+}
+
+.#{$abprefix}cmain__wrapper {
+	position: relative;
+    overflow: hidden;
+    width: 100%;
+    @include transform(translate3d(0px, 0, 0));
+	@include transition(all 0.3s ease);
+}
