@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import CanvasSuggestionBox from '../Shared/CanvasSuggestionBox';
 import Scrollbar from '../Shared/Scrollbar';
-import IFrame from '../Shared/IFrame';
+import CanvasFrame from '../Shared/CanvasFrame';
 
 class Canvas extends Component {
   render () {
@@ -13,7 +13,7 @@ class Canvas extends Component {
     return (
       <div className='ab-canvas'>
         <CanvasSuggestionBox display={displaySuggestionBox} />
-        <IFrame />
+        <CanvasFrame />
       </div>
     )
   }
