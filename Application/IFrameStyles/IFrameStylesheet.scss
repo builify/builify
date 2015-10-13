@@ -18,27 +18,40 @@ body {
 	display: none;
 	z-index: 999999 !important;
 	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-    border-radius: 0 0 4px 4px;
+    border-radius: 4px;
+    overflow: hidden;
     width: 150px;
 
 	&.show {
 		display: block;
 	}
 
-	&__text {
+	&__text,
+	&__item {
+		width: 100%;
+		overflow: hidden;
 		height: 45px;
 		line-height: 45px;
-		color: #FFF;
 		padding: 0 15px;
 		font-weight: 400;
 		text-align: left;
-		border-radius: 4px 4px 0 0;
-		background: $base-color;
 		@include rem(font-size, 16px);
 	}
 
+	&__text {
+		color: #FFF;
+		font-weight: 700;
+		background: $base-color;
+	}
+
 	&__item {
-		
+		background: #FFF;
+		color: #333;
+
+		&,
+		& * {
+			cursor: pointer;
+		}
 	}
 }
 

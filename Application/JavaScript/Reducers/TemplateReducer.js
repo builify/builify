@@ -74,34 +74,23 @@ export function theme (state = initialState, action) {
 
         HTMLData = proccessHTML(HTMLData, state.replacer);
 
-        if (blockType === 'navigation') {
-          let navigationBlockInformation = {
-            id: blockID,
-            type: blockType,
-            blockName: blockName,
-            source: HTMLData
-          };
+        let blockInformation = {
+          id: blockID,
+          type: blockType,
+          blockName: blockName,
+          source: HTMLData,
 
-          state._currentPage.navigation = navigationBlockInformation;
+          hasBeenRendered: false,
+          elementReference: null
+        };
+
+        if (blockType === 'navigation') {
+          state._currentPage.navigation = blockInformation;
           state._currentPage.blocksCount++;
         } else if (blockType === 'footer') {
-          let footerBlockInformation = {
-            id: blockID,
-            type: blockType,
-            blockName: blockName,
-            source: HTMLData
-          };
-
-          state._currentPage.footer.push(footerBlockInformation);
+          state._currentPage.footer.push(blockInformation);
           state._currentPage.blocksCount++;
         } else {
-          let blockInformation = {
-            id: blockID,
-            type: blockType,
-            blockName: blockName,
-            source: HTMLData
-          };
-
           state._currentPage.main.push(blockInformation);
           state._currentPage.blocksCount++;
         }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import ABuilder from '../../Common/Builder';
+import Icon from './Icon';
 
 class ClickToolbox extends Component {
   constructor (props) {
@@ -62,6 +64,10 @@ class ClickToolbox extends Component {
     };
     const target = e.target;
     const targetName = this.HTMLTagNames[target.tagName];
+    const browserSize = ABuilder.getBrowserSize();
+    const { width, height } = browserSize;
+
+
 
     this.setState({
       panelOpen: true,
@@ -80,6 +86,43 @@ class ClickToolbox extends Component {
     });
   }
 
+  removeElement (e) {
+    let targetElement = this.state.target;
+
+    targetElement.remove();
+
+    this.closePanel(e);
+  }
+
+  listItemRemove () {
+    return (
+      <div 
+        className='ab-crightpanel__item'
+        onClick={::this.removeElement}>
+        <span>Remove</span>
+      </div>
+    )
+  }
+
+  renderChildren () {
+    const targetElement = this.state.target;
+    let elementOptions = {
+      showRemove: false
+    };
+
+    if (targetElement !== null) {
+      if (!targetElement.getAttribute('data-abccorent')) {
+        elementOptions.showRemove = true;
+      }
+    }
+
+    return (
+      <div>
+        {elementOptions.showRemove ? this.listItemRemove() : null}
+      </div>
+    )
+  }
+
   render () {
     const planelClassName = classNames('ab-crightpanel', this.state.panelOpen ? 'show' : '');
     const panelStyle = {
@@ -95,6 +138,7 @@ class ClickToolbox extends Component {
         <div className='ab-crightpanel__text'>
           {this.state.targetName}
         </div>
+        {this.renderChildren()}
       </div>
     )
   }

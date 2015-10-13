@@ -4,18 +4,28 @@ import IFrame from './IFrame';
 import ClickToolbox from './ClickToolbox';
 
 class CanvasFrame extends Component {
+  constructor (props) {
+    super(props);
+
+    this._blocks = {};
+  }
+
   render () {
+    // data-abcorent - ab-core-Not-Removable
     return (
       <IFrame>
         <div className='ab-croot'>
           <div 
             ref='navigation' 
+            data-abccorent='true'
             className='ab-cnavigation__wrapper' />
           <div 
             ref='main' 
+            data-abccorent='true'
             className='ab-cmain__wrapper' />
           <div 
-            ref='footer' 
+            ref='footer'
+            data-abccorent='true'
             className='ab-cfooter__wrapper' />
           <ClickToolbox />
         </div>
@@ -24,64 +34,87 @@ class CanvasFrame extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    this.renderBlocks();
+    const props = nextProps;
+    const currentPage = props.theme._currentPage;
+
+    this._blocks = Object.assign({}, this._blocks, currentPage);
+    this.renderBlocks(this._blocks);
   }
 
-  renderBlocks () {
-    const { theme } = this.props;
-    const { _currentPage } = theme;
-    const currentPage = _currentPage;
-    const { navigation, main, footer } = currentPage;
+  renderBlocks (blocks) {
+    const { navigation, main, footer } = blocks;
 
     this.renderNavigation(navigation);
     this.renderMainBlocks(main);
     this.renderFooter(footer);
   }
 
-  renderNavigation (navigation) {
-    if (Object.keys(navigation).length === 0) {
-      return;
-    }
-
-    const { id, type, blockName, source } = navigation;
+  renderNavigation (navigationBlock) {
     const navigationElement = this.refs.navigation;
-    const mainElement = this.refs.main;
 
-    if (source === null || source === undefined) {
-      return;
+    if (Object.keys(navigationBlock).length !== 0) {
+      const { id, type, blockName, source } = navigationBlock;
+
+      navigationElement.innerHTML = '';
+      navigationElement.insertAdjacentHTML('beforeend', source);
+
+      navigationBlock.hasBeenRendered = true;
+      navigationBlock.elementReference = navigationElement.children[0];
+
+      navigationBlock.elementReference.setAttribute('data-abccorent', 'true');
     }
 
-    navigationElement.innerHTML = source;
+    this._blocks.navigation = navigationBlock;
   }
 
-  renderMainBlocks (main) {
-    if (main === undefined || main === null || main.length === 0) {
-      return;
-    }
-
+  renderMainBlocks (mainBlocks) {
     const mainElement = this.refs.main;
-    let html = '';
+    const navigationBlock = this._blocks.navigation;
+    let doesNavigationBlockExist = false;
 
-    main.map((block, i) => {
+    mainBlocks.map((block, i) => {
       const { id, type, blockName, source } = block;
 
-      html += source;
+      if (!block.hasBeenRendered) {
+        mainElement.insertAdjacentHTML('beforeend', source);
+
+        block.hasBeenRendered = true;
+        block.elementReference = mainElement.children[i];
+
+        block.elementReference.setAttribute('data-abccorent', 'true');
+      }
     });
 
-    mainElement.innerHTML = html;
+    if (Object.keys(navigationBlock).length !== 0) {
+      doesNavigationBlockExist = true;
+
+      if (mainBlocks.length !== 0) {
+        let targetElement = mainBlocks[0].elementReference;
+
+        targetElement.style.paddingTop = '300px';
+      }
+    }
+
+    this._blocks.main = mainBlocks;
   }
 
-  renderFooter (footer) {
+  renderFooter (footerBlocks) {
     const footerElement = this.refs.footer;
-    let html = '';
 
-    footer.map((block, i) => {
+    footerBlocks.map((block, i) => {
       const { id, type, blockName, source } = block;
 
-      html += source;
+      if (!block.hasBeenRendered) {
+        footerElement.insertAdjacentHTML('beforeend', source);
+
+        block.hasBeenRendered = true;
+        block.elementReference = footerElement.children[i];
+
+        block.elementReference.setAttribute('data-abccorent', 'true');
+      }
     });
 
-    footerElement.innerHTML = html;
+    this._blocks.footer = footerBlocks;
   }
 }
 

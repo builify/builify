@@ -30,6 +30,11 @@ class Frame extends Component {
       src: '/IFrameStylesheet.css'
     });
 
+    coreFiles.push({
+      type: 'css',
+      src: 'http://themes-pixeden.com/font-demos/7-stroke/Pe-icon-7-stroke.css'
+    });
+
     coreFiles.map((file, i) => {
       let type = file.type;
 
