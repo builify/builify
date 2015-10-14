@@ -33,7 +33,8 @@ var dependencies = [
   'axios',
   'classnames',
   'immutable',
-  'medium-editor'
+  'medium-editor',
+  'sprint-js'
 ];
 
 // Rewrite gulp.src for better error handling.

@@ -67,8 +67,6 @@ class ClickToolbox extends Component {
     const browserSize = ABuilder.getBrowserSize();
     const { width, height } = browserSize;
 
-
-
     this.setState({
       panelOpen: true,
       panelCoordinates: {
@@ -104,20 +102,41 @@ class ClickToolbox extends Component {
     )
   }
 
+  changeBackgroundImage () {
+    return (
+      <div
+        className='ab-crightpanel__item'>
+        <span>Change background</span>
+      </div>
+    )
+  }
+
   renderChildren () {
     const targetElement = this.state.target;
     let elementOptions = {
-      showRemove: false
+      showRemove: false,
+      showBackgroundImageChange: false
     };
 
     if (targetElement !== null) {
-      if (!targetElement.getAttribute('data-abccorent')) {
+      const isChangeble = targetElement.getAttribute('data-abccorent');
+
+      if (!isChangeble) {
         elementOptions.showRemove = true;
+      } else {
+        // Instead of unchange item, go to nearest changeble
+        const nextTarget = targetElement.children[0];
+        const style = getComputedStyle(nextTarget);
+
+        if (style.getPropertyValue('background-image') !== null) {
+          elementOptions.showBackgroundImageChange = true;
+        }
       }
     }
 
     return (
       <div>
+        {elementOptions.showBackgroundImageChange ? this.changeBackgroundImage() : null}
         {elementOptions.showRemove ? this.listItemRemove() : null}
       </div>
     )

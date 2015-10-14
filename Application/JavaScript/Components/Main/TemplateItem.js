@@ -2,16 +2,16 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { proccessTemplateSelection } from '../../Actions/ActionCreators';
-import LoadImage from '../Shared/LoadImage';
+import ImageItem from '../Shared/ImageItem';
 
 class TemplateItem extends Component {
   static propTypes = {
     templateInformation: PropTypes.object.isRequired
-  };
+  }
 
   static defaultProps  = {
     templateInformation: {}
-  };
+  }
 
   selectTemplate (e) {
     const { onTemplateSelection, templateInformation } = this.props;
@@ -37,7 +37,7 @@ class TemplateItem extends Component {
         className='ab-templateitem'
         onClick={::this.selectTemplate}>
         <figure className='ab-templateitem__figure'>
-          <img src={thumbnail} alt={id} />
+          <ImageItem src={thumbnail} alt={id} />
           <figcaption>
             <h2>{id}</h2>
           </figcaption>

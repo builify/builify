@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadContentBlockSourceToCanvas } from '../../Actions/ActionCreators';
+import ImageItem from './ImageItem';
 
 class ContentBlock extends Component {
   selectContentBlock (e) {
@@ -20,7 +21,7 @@ class ContentBlock extends Component {
         className='ab-contentblocks__block'
         data-blocktype={blockType}
         onClick={::this.selectContentBlock}> 
-        <img src={thumbnail} />
+        <ImageItem src={thumbnail} />
         <figcaption>
           <span>{name}</span>
         </figcaption>

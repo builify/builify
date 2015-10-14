@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import $ from 'sprint-js';
 import IFrame from './IFrame';
 import ClickToolbox from './ClickToolbox';
 
@@ -14,7 +15,10 @@ class CanvasFrame extends Component {
     // data-abcorent - ab-core-Not-Removable
     return (
       <IFrame>
-        <div className='ab-croot'>
+        <div 
+          data-abccorent='true'
+          ref='root'
+          className='ab-croot'>
           <div 
             ref='navigation' 
             data-abccorent='true'
@@ -39,6 +43,8 @@ class CanvasFrame extends Component {
 
     this._blocks = Object.assign({}, this._blocks, currentPage);
     this.renderBlocks(this._blocks);
+
+    this.hoverBlocks();
   }
 
   renderBlocks (blocks) {
@@ -115,6 +121,27 @@ class CanvasFrame extends Component {
     });
 
     this._blocks.footer = footerBlocks;
+  }
+
+  hoverBlocks () {
+    const targets = 'p , span, a, h1, h2, h3, h4, h5, h6, strong, em, li, ul, div, i, img, input, textarea, blockquote, figcaption';
+    const navigationElement = this.refs.navigation;
+    const mainElement = this.refs.main;
+    const footerElement = this.refs.footer;
+
+    const mainTargetElements = mainElement.querySelectorAll(targets);
+
+    for (let i = 0; i < mainTargetElements.length; i++) {
+      const target = mainTargetElements[i];
+
+      target.addEventListener('mouseenter', function (e) {
+        this.classList.add('ab-ch');
+      }, false);
+
+      target.addEventListener('mouseleave', function (e) {
+        this.classList.remove('ab-ch');
+      }, false);
+    }
   }
 }
 
