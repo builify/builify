@@ -11,12 +11,12 @@ class PrimaryNavigationItem extends Component {
   static propTypes = {
     language: PropTypes.string,
     navigationItemInformation: PropTypes.object
-  };
+  }
 
   static defaultProps = {
     language: 'en',
     navigationItemInformation: {}
-  };
+  }
 
   itemClick (e) {
     const { target, navigationItemInformation } = this.props;

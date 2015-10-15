@@ -16,7 +16,7 @@ class Toggle extends Component {
     label: 'Toggle switch',
     toggled: true,
     defaultToggled: true
-  };
+  }
 
   constructor (props) {
     super(props);

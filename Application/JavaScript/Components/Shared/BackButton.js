@@ -6,12 +6,12 @@ export default class BackButton extends Component {
   static propTypes = {
     clickFunction: PropTypes.func,
     wrapperClassName: PropTypes.string
-  };
+  }
 
   static defaultProps = {
     clickFunction: () => {},
     wrapperClassName: 'ab-tab__close'
-  };
+  }
 
   render () {
     const { dispatch } = this.props;

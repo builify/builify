@@ -19,36 +19,39 @@ class ClickToolbox extends Component {
 
     this.HTMLTagNames = {
       DIV: 'Div',
-      SECTION: 'Section',
-      HEADER: 'Header',
-      FOOTER: 'Footer',
-      H1: "Heading",
-      H2: "Heading",
-      H3: "Heading",
-      H4: "Heading",
-      H5: "Heading",
-      H6: "Heading",
-      P: "Paragraph",
-      SPAN: "Span",
-      UL: "Unordered List",
-      LI: "List Item",
-      IMG: "Image",
-      STRONG: "Strong Text",
-      EM: "Emphasised Text",
-      I: "Icon",
-      A: "Link",
-      INPUT: "Input",
-      BLOCKQUOTE: "Quote",
-      FIGCAPTION: "Caption"
+      H1: 'Heading',
+      H2: 'Heading',
+      H3: 'Heading',
+      H4: 'Heading',
+      H5: 'Heading',
+      H6: 'Heading',
+      P: 'Paragraph',
+      SPAN: 'Span',
+      UL: 'Unordered List',
+      LI: 'List Item',
+      IMG: 'Image',
+      STRONG: 'Strong Text',
+      EM: 'Emphasised Text',
+      I: 'Icon',
+      A: 'Link',
+      INPUT: 'Input',
+      BLOCKQUOTE: 'Quote',
+      FIGCAPTION: 'Caption'
     };
   }
 
   componentDidMount () {
-    let panelElement = this.refs.panel;
+    const panelElement = this.refs.panel;
     let clickTargetElement = panelElement.parentElement;
 
     clickTargetElement.addEventListener('contextmenu', ::this.openPanel, false);
     clickTargetElement.addEventListener('click', ::this.closePanel, false);
+  }
+
+  componentDidUpdate () {
+    const panelElement = this.refs.panel;
+
+    console.log(panelElement.offsetHeight);
   }
 
   openPanel (e) {
@@ -62,10 +65,13 @@ class ClickToolbox extends Component {
       x: e.clientX,
       y: e.clientY
     };
+    const panelElement = this.refs.panel;
     const target = e.target;
     const targetName = this.HTMLTagNames[target.tagName];
     const browserSize = ABuilder.getBrowserSize();
-    const { width, height } = browserSize;
+    const elementOffset = ABuilder.getOffset(panelElement);
+    const { left, top } = elementOffset;
+    let { width, height } = browserSize;
 
     this.setState({
       panelOpen: true,
@@ -92,6 +98,42 @@ class ClickToolbox extends Component {
     this.closePanel(e);
   }
 
+  listChangeImage (type) {
+    let text = '';
+
+    if (type === 0) {
+      text = 'Change Image';
+    }
+
+    return (
+      <div
+        className='ab-crightpanel__item'>
+        onClick={(e) => {
+          this.changeImage(0)
+        }}>
+        <span>{text}</span>
+      </div>
+    )
+  }
+
+  listLinkChange () {
+    return (
+      <div 
+        className='ab-crightpanel__item'>
+        <span>Change Link</span>
+      </div>
+    )
+  }
+
+  listIconChange () {
+    return (
+      <div 
+        className='ab-crightpanel__item'>
+        <span>Change Icon</span>
+      </div>
+    )
+  }
+
   listItemRemove () {
     return (
       <div 
@@ -102,41 +144,41 @@ class ClickToolbox extends Component {
     )
   }
 
-  changeBackgroundImage () {
-    return (
-      <div
-        className='ab-crightpanel__item'>
-        <span>Change background</span>
-      </div>
-    )
-  }
-
   renderChildren () {
     const targetElement = this.state.target;
     let elementOptions = {
-      showRemove: false,
-      showBackgroundImageChange: false
+      showIconChange: false,
+      showLinkChange: false,
+      showChangeImage: false,
+      showRemove: false
     };
 
     if (targetElement !== null) {
-      const isChangeble = targetElement.getAttribute('data-abccorent');
+      const isNotChangeble = targetElement.getAttribute('data-abccorent');
+      const isChangeble = isNotChangeble ? false : true;
+      const tagName = targetElement.tagName;
 
-      if (!isChangeble) {
+      if (isChangeble) {
         elementOptions.showRemove = true;
-      } else {
-        // Instead of unchange item, go to nearest changeble
-        const nextTarget = targetElement.children[0];
-        const style = getComputedStyle(nextTarget);
 
-        if (style.getPropertyValue('background-image') !== null) {
-          elementOptions.showBackgroundImageChange = true;
+        if (tagName === 'IMG') {
+          elementOptions.showChangeImage = true;
+        }
+
+        if (tagName === 'A') {
+          elementOptions.showLinkChange = true;
+        }
+
+        if (tagName === 'I') {
+          elementOptions.showIconChange = true;
         }
       }
     }
 
     return (
       <div>
-        {elementOptions.showBackgroundImageChange ? this.changeBackgroundImage() : null}
+        {elementOptions.showLinkChange ? this.listLinkChange() : null}
+        {elementOptions.showIconChange ? this.listIconChange() : null}
         {elementOptions.showRemove ? this.listItemRemove() : null}
       </div>
     )
@@ -152,6 +194,8 @@ class ClickToolbox extends Component {
     return (
       <div 
         ref='panel'
+        id='ab-cpanel'
+        data-abcpanel={true}
         style={panelStyle}
         className={planelClassName}>
         <div className='ab-crightpanel__text'>

@@ -7,7 +7,7 @@ import { getString } from '../../Common/Localization';
 class Page extends Component {
   static propTypes = {
     data: PropTypes.object
-  };
+  }
 
   selectPage (e) {
     const { isNewPage } = this.props.data;

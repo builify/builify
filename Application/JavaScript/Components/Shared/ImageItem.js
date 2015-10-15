@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { loadedAsset } from '../../Actions/ActionCreators';
 import classNames from 'classnames';
 import ImageSpinner from './ImageSpinner';
 
@@ -15,31 +17,27 @@ class ImageItem extends Component {
     };
   }
 
-  componentDidMount () {
+  loadedImage (e) {
     const { src } = this.props;
-    let image = new Image();
 
-    image.onload = (e) => {
-      this.setState({
-        isImageFileLoaded: true
-      });
-    };
-    
-    image.src = src;
+    this.setState({
+      isImageFileLoaded: true
+    });
   }
 
   render () {
     const { isImageFileLoaded } = this.state;
     const { src, alt } = this.props;
     const loadImage = classNames('ab-loadimage', this.state.isImageFileLoaded ? 'loaded' : '');
-    const imageSource =  isImageFileLoaded ? src : 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-    
+    const imageSource = src;
+
     return (
       <div
         className={loadImage}
         ref='imageWrapper'>
         <ImageSpinner size={70} />
         <img
+          onLoad={::this.loadedImage}
           src={imageSource}
           alt={alt ? alt : 'Picture'} 
           ref='image'/>

@@ -12,11 +12,11 @@ import Scrollbar from '../Shared/Scrollbar';
 class SideTab extends ProccessedChildrenRender {
   static propTypes = {
     data: PropTypes.object
-  };
+  }
 
   static defaultProps = {
     data: {}
-  };
+  }
 
   constructor (props) {
     super(props);

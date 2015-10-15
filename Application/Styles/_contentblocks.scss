@@ -21,6 +21,10 @@ $block-height: 35px;
 			@include rem(font-size, 18px);
 			@include clearfix;
 
+			&.hide {
+				display: none;
+			}
+
 			&:nth-of-type(1) {
 				margin-top: 0;
 			}
@@ -37,6 +41,10 @@ $block-height: 35px;
 		line-height: 0;
 		margin-bottom: ($block-height + 15);
 		@include clearfix;
+
+		&.hide {
+			display: none;
+		}
 
 		img {
 			margin: 0;

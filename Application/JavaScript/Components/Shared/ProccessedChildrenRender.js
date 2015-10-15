@@ -8,6 +8,7 @@ import Builder from '../../Common/Builder';
 import Icon from '../Shared/Icon';
 import Toggle from '../Shared/Toggle';
 import Filter from '../Shared/Filter';
+import BlockTitle from '../Shared/BlockTitle';
 import ContentBlock from '../Shared/ContentBlock'; 
 import Select from 'react-select';
 
@@ -28,9 +29,7 @@ class ProccessedChildrenRender extends Component {
   shouldComponentUpdate (nextProps, nextState) {
     if (!this.state.themeBlocksAdded) {
       if (nextProps.hasOwnProperty('theme')) {
-        if (nextProps.theme.blocks.length !== 0) {
-          return true;
-        }
+        return true;
       }
     }
 
@@ -333,15 +332,13 @@ class ProccessedChildrenRender extends Component {
           className='ab-contentblocks'>
           <div className='ab-contentblocks__inner'>
             {itemsToRender.map((item, i) => {
-              const { type, name } = item;
+              const { type } = item;
 
               if (type === 'blocktitle') {
                 return (
-                  <h2 
+                  <BlockTitle
                     key={i}
-                    className='blocktitle'>
-                    {name}
-                  </h2>
+                    data={item} />
                 )
               } else if (type === 'block') {
                 return (

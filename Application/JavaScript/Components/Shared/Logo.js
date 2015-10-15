@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from "react";
 
-export default class Logo extends Component {
+class Logo extends Component {
   static propTypes = {
     text: PropTypes.string
-  };
+  }
 
   static defaultProps = {
     text: 'ABuilder'
-  };
+  }
 
   render () {
     return (
@@ -21,3 +21,5 @@ export default class Logo extends Component {
     )
   }
 }
+
+export default Logo;

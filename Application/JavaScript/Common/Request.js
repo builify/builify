@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-export function GetSource (source, successFunction, errorFunction) {
+const emptyFunction = function () {};
+
+export function GetSource (source, successFunction: emptyFunction, errorFunction: emptyFunction) {
   axios.get(source)
     .then((response) => {
       successFunction(response);

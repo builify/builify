@@ -63,6 +63,13 @@ export function getLocalizationFile () {
 }
 
 // Builder actions.
+export function loadedAsset (asset) {
+  return {
+    type: Actions.LOADED_ASSET,
+    asset: asset
+  }
+}
+
 export function initializeBuilder () {
   return (dispatch, getState) => {
     dispatch(checkTemplateSelection());
@@ -133,9 +140,6 @@ export function getSelectedTemplateData (template, isTemplateSelection: false) {
             });
           }
         }
-      },
-      (response) => {
-        console.log(response);
       });
   }
 }
@@ -293,8 +297,6 @@ export function setSwatch (swatch) {
 export function setFont (font) {
   let doesFontExistInHeadRoot = document.querySelector('[data-fontname="' + font + '"]');
 
-  console.log(doesFontExistInHeadRoot);
-
   if (doesFontExistInHeadRoot === null || doesFontExistInHeadRoot === undefined) {
     let headElement = document.getElementsByTagName('head')[0];
     let googleFont = document.createElement('link');
@@ -324,9 +326,13 @@ export function loadContentBlockSourceToCanvas (source, blockType, blockName, te
             blockName: blockName
           });
         }
-      },
-      (response) => {
-        console.log(response);
       });
+  }
+}
+
+export function filterContentBlocks (target) {
+  return {
+    type: Actions.FILTER_CONTENTBLOCKS,
+    target: target
   }
 }

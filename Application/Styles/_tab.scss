@@ -92,7 +92,7 @@ $item-height: 30px;
 			&__text {
 				div:after {
 					margin-top: 2px;
-					@include transform(rotate(180deg));
+					@include transform(rotate(-180deg));
 				}
 			}
 			&__items {

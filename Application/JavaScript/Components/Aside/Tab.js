@@ -13,12 +13,12 @@ class Tab extends ProccessedChildrenRender {
   static propTypes = {
     data: PropTypes.object,
     targetIndex: PropTypes.number
-  };
+  }
 
   static defaultProps = {
     data: {},
     targetIndex: 0
-  };
+  }
 
   constructor (props) {
     super(props);

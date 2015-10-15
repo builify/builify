@@ -7,7 +7,7 @@ import configureStore from '../Store/ConfigureStore';
 const store = configureStore();
 store.dispatch(runApplicationActions());
 
-export default class Application extends Component {
+class Application extends Component {
   render() {
     return (
       <Provider store={store}>
@@ -16,3 +16,5 @@ export default class Application extends Component {
     )
   } 
 }
+
+export default Application;

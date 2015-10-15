@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadContentBlockSourceToCanvas } from '../../Actions/ActionCreators';
+import classNames from 'classnames';
 import ImageItem from './ImageItem';
 
 class ContentBlock extends Component {
+  shouldComponentUpdate () {
+    return false;
+  }
+  
   selectContentBlock (e) {
     const { onContentBlockSelection, data, builder } = this.props;
     const { source, blockType, name } = data;
@@ -13,15 +18,23 @@ class ContentBlock extends Component {
   }
 
   render () {
-    const { data } = this.props;
+    const { builder, data } = this.props;
     const { name, thumbnail, blockType} = data;
+    const { filterContentBlocksTarget } = builder;
+    let blockClassName = classNames('ab-contentblocks__block');
+
+    if (filterContentBlocksTarget != 'all') {
+      if (blockType != filterContentBlocksTarget) {
+        blockClassName = classNames('ab-contentblocks__block', 'hide');
+      }
+    }
 
     return (
       <figure 
-        className='ab-contentblocks__block'
+        className={blockClassName}
         data-blocktype={blockType}
         onClick={::this.selectContentBlock}> 
-        <ImageItem src={thumbnail} />
+        <ImageItem src={thumbnail} alt={name}/>
         <figcaption>
           <span>{name}</span>
         </figcaption>

@@ -123,24 +123,31 @@ class CanvasFrame extends Component {
     this._blocks.footer = footerBlocks;
   }
 
+  hoverBlocksMouseEnter (e) {
+    this.classList.add('ab-ch');
+  }
+
+  hoverBlocksMouseLeave (e) {
+    this.classList.remove('ab-ch');
+  }
+
   hoverBlocks () {
     const targets = 'p , span, a, h1, h2, h3, h4, h5, h6, strong, em, li, ul, div, i, img, input, textarea, blockquote, figcaption';
-    const navigationElement = this.refs.navigation;
-    const mainElement = this.refs.main;
-    const footerElement = this.refs.footer;
+    const rootElement = this.refs.root;
+    const targetElements = rootElement.querySelectorAll(targets);
 
-    const mainTargetElements = mainElement.querySelectorAll(targets);
+    for (let i = 0; i < targetElements.length; i++) {
+      const target = targetElements[i];
 
-    for (let i = 0; i < mainTargetElements.length; i++) {
-      const target = mainTargetElements[i];
+      if (target.getAttribute('data-abcpanel')) {
+        break;
+      }
 
-      target.addEventListener('mouseenter', function (e) {
-        this.classList.add('ab-ch');
-      }, false);
-
-      target.addEventListener('mouseleave', function (e) {
-        this.classList.remove('ab-ch');
-      }, false);
+      target.removeEventListener('mouseenter', this.hoverBlocksMouseEnter);
+      target.removeEventListener('mouseleave', this.hoverBlocksMouseLeave);
+      
+      target.addEventListener('mouseenter', this.hoverBlocksMouseEnter, false);
+      target.addEventListener('mouseleave', this.hoverBlocksMouseLeave, false);
     }
   }
 }

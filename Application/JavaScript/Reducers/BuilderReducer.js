@@ -26,6 +26,7 @@ export function notifications (state = notificationsInitialState, action) {
 
 const builderConfigurationInitialState = {};
 const builderInitialState = {
+  loadedAssets: [],
   isLoadingScreenActive: true,
   loadingScreenType: 0, // 0 - Normal full
 
@@ -53,7 +54,8 @@ const builderInitialState = {
   colorPickerTarget: null,
 
   // Template related
-  selectedTemplateData: {}
+  selectedTemplateData: {},
+  filterContentBlocksTarget: 'all'
 };
 
 export function builderConfiguration (state = builderConfigurationInitialState, action) {
@@ -80,6 +82,16 @@ export function builder (state = builderInitialState, action) {
   }
 
   switch (action.type) {
+    case Actions.LOADED_ASSET:
+      const asset = action.asset;
+      let oldAssetsLoaded = state.loadedAssets;
+
+      oldAssetsLoaded.push(asset);
+      
+      return Object.assign({}, state, {
+        loadedAssets: oldAssetsLoaded
+      });
+
     case Actions.REMOVE_LOADING_SCREEN:
       return Object.assign({}, state, {
         isLoadingScreenActive: false
@@ -263,6 +275,13 @@ export function builder (state = builderInitialState, action) {
       return Object.assign({}, state, {
         isColorPickerOpened: false,
         colorPickerTarget: null
+      });
+
+    case Actions.FILTER_CONTENTBLOCKS:
+      let actionTarget = action.target;
+
+      return Object.assign({}, state, {
+       filterContentBlocksTarget: actionTarget
       });
   }
 

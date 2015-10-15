@@ -3,11 +3,11 @@ import React, { Component, PropTypes } from 'react';
 class CanvasSuggestionBox extends Component {
   static propTypes = {
     display: PropTypes.bool
-  };
+  }
 
   static defaultProps = {
     display: true
-  };
+  }
 
   render () {
     const { display } = this.props;
