@@ -260,7 +260,11 @@
         {
           "type": "block.switch",
           "state": "off",
-          "name": "design.titles.boxedlayout"
+          "name": "design.titles.boxedlayout",
+          "action": {
+            "target": "body",
+            "activeClassname": "boxed-layout"
+          }
         },
         {
           "type": "block.switch",

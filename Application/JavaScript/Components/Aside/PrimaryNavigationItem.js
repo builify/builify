@@ -19,7 +19,14 @@ class PrimaryNavigationItem extends Component {
   }
 
   itemClick (e) {
-    const { target, navigationItemInformation } = this.props;
+    const { target, builder, navigationItemInformation } = this.props;
+    const { currentLocation } = builder;
+
+    if (currentLocation == CurrentLocationEnum.STARTSCREEN) {
+      if (navigationItemInformation.id !== 'pages') {
+        return false;
+      }
+    }
 
     return ((navigationItemInformation.target.indexOf('tab') !== -1) ? 
             openTab(target) : 
@@ -48,8 +55,7 @@ class PrimaryNavigationItem extends Component {
 
 function mapStateToProps (state) {
   return {
-    builder: state.builder,
-    localization: state.localizationData
+    builder: state.builder
   }
 }
 

@@ -101,6 +101,7 @@ class Frame extends Component {
 
     return (
       <iframe
+        id='ab-cfrm'
         ref='frm'
         onLoad={::this.renderFrame} />
     )

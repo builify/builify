@@ -6,20 +6,26 @@ import ImageSpinner from './ImageSpinner';
 
 class ImageItem extends Component {
   static propTypes = {
-    src: PropTypes.string.isRequired
+    src: PropTypes.string.isRequired,
+    loaded: PropTypes.bool
+  }
+
+  static defaultProps = {
+    src: '',
+    loaded: false
   }
 
   constructor (props) {
     super(props);
 
     this.state = {
-      isImageFileLoaded: false
+      isImageFileLoaded: props.loaded ? true : false
     };
   }
 
   loadedImage (e) {
     const { src } = this.props;
-
+    
     this.setState({
       isImageFileLoaded: true
     });

@@ -1,10 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { getString } from '../../Common/Localization';
-import { openTab, openPreview } from '../../Actions/ActionCreators';
-import { CurrentLocationEnum } from '../../Constants/Defines';
-import classNames from 'classnames';
 import PrimaryNavigationItem from './PrimaryNavigationItem';
 
 class PrimaryNavigation extends Component {

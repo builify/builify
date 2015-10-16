@@ -33,8 +33,10 @@ var dependencies = [
   'axios',
   'classnames',
   'immutable',
-  'medium-editor',
-  'sprint-js'
+  'lodash',
+  'keycode',
+  'active-event-stack',
+  'dynamics.js'
 ];
 
 // Rewrite gulp.src for better error handling.

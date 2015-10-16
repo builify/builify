@@ -57,10 +57,12 @@ export default function proccessChildrenData (data) {
               childrenToRender.push(pagesBlock);
             } else if (blockType === 'switch') {
               let state = currentChildren.state === 'on' ? true : false;
+              let action = currentChildren.hasOwnProperty('action') ? currentChildren.action : {};
               let switchBlock = {
                 type: 'switch',
                 state: state,
-                text: currentChildren.name ? currentChildren.name : ''
+                text: currentChildren.name ? currentChildren.name : '',
+                action: action
               };
 
               childrenToRender.push(switchBlock); 

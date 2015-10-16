@@ -336,3 +336,27 @@ export function filterContentBlocks (target) {
     target: target
   }
 }
+
+export function openImageEditModal () {
+  return {
+    type: Actions.OPEN_IMAGE_EDIT_MODAL
+  }
+}
+
+export function closeImageEditModal () {
+  return {
+    type: Actions.CLOSE_IMAGE_EDIT_MODAL
+  }
+}
+
+export function openContextmenuToolbox () {
+  return {
+    type: Actions.OPEN_CONTEXTMENU_TOOLBOX
+  }
+}
+
+export function closeContextmenuToolbox () {
+  return {
+    type: Actions.CLOSE_CONTEXTMENU_TOOLBOX
+  }
+}

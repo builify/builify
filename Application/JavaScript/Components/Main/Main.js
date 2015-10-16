@@ -76,8 +76,8 @@ class Main extends Component {
     const mainClassName = classNames('ab-main', externalClassName);
 
     return (
-      <main 
-        className={mainClassName} >
+      <main
+        className={mainClassName}>
         {this.renderNodes(templates)}
       </main>
     )

@@ -26,16 +26,6 @@ class ProccessedChildrenRender extends Component {
     };
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
-    if (!this.state.themeBlocksAdded) {
-      if (nextProps.hasOwnProperty('theme')) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
   // Block components
   renderTitle (item, i) {
     let lang = getString(item.text);
@@ -152,6 +142,7 @@ class ProccessedChildrenRender extends Component {
     return (
       <Toggle 
         key={i}
+        action={item.action}
         label={getString(item.text)} 
         toggled={item.state} />
     )

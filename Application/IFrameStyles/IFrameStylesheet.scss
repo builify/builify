@@ -67,3 +67,14 @@ body {
     @include transform(translate3d(0px, 0, 0));
 	@include transition(all 0.3s ease);
 }
+
+.boxed-layout {
+	.#{$abprefix}cmain__wrapper,
+	.#{$abprefix}cfooter__wrapper,
+	nav {
+		max-width: 1280px;
+	    margin: 0 auto;
+	    left: 0;
+	    right: 0;
+	}
+}

@@ -8,6 +8,7 @@ import Main from './Main/Main';
 import LoadingScreen from './Shared/LoadingScreen';
 import Notifications from './Notifications/Notifications';
 import ColorPicker from './Shared/ColorPicker';
+import Modal from './Shared/Modal';
 
 class Base extends Component {
   render () {
@@ -31,6 +32,7 @@ class Base extends Component {
         <Main />
         <Notifications />
         <ColorPicker />
+        <Modal />
       </div>
     )
   }

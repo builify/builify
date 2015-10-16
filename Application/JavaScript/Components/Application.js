@@ -4,10 +4,10 @@ import { runApplicationActions } from '../Actions/ActionCreators';
 import Base from './Base';
 import configureStore from '../Store/ConfigureStore';
 
-const store = configureStore();
+export const store = configureStore();
 store.dispatch(runApplicationActions());
 
-class Application extends Component {
+export class Application extends Component {
   render() {
     return (
       <Provider store={store}>
@@ -16,5 +16,3 @@ class Application extends Component {
     )
   } 
 }
-
-export default Application;

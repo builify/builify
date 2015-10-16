@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import { store } from '../Application';
+import {
+  openContextmenuToolbox,
+  closeContextmenuToolbox,
+  openImageEditModal,
+  closeImageEditModal
+} from '../../Actions/ActionCreators';
 import classNames from 'classnames';
 import ABuilder from '../../Common/Builder';
 import Icon from './Icon';
@@ -50,8 +57,6 @@ class ClickToolbox extends Component {
 
   componentDidUpdate () {
     const panelElement = this.refs.panel;
-
-    console.log(panelElement.offsetHeight);
   }
 
   openPanel (e) {
@@ -66,12 +71,37 @@ class ClickToolbox extends Component {
       y: e.clientY
     };
     const panelElement = this.refs.panel;
-    const target = e.target;
-    const targetName = this.HTMLTagNames[target.tagName];
+    let target = e.target;
     const browserSize = ABuilder.getBrowserSize();
     const elementOffset = ABuilder.getOffset(panelElement);
     const { left, top } = elementOffset;
     let { width, height } = browserSize;
+    let isElemenetChangeable = true;
+
+    // We do not allow panel to be editable
+    if (target.getAttribute('data-abcpanel')) {
+      return false;
+    }
+
+    store.dispatch(openContextmenuToolbox());
+
+    // If original block element
+    if (target.getAttribute('data-abccorent')) {
+      // Check if there is background-image holder
+      const { children } = target;
+
+      for (let i = 0; i < children.length; i++) {
+        let currentChild = children[i];
+
+        if (currentChild.classList.contains('background-image-holder')) {
+          target = currentChild;
+          target.setAttribute('data-abcnotremoveable', true);
+          break;
+        }
+      }
+    }
+
+    const targetName = this.HTMLTagNames[target.tagName];
 
     this.setState({
       panelOpen: true,
@@ -80,11 +110,14 @@ class ClickToolbox extends Component {
         y: eventPosition.y
       },
       target: target,
-      targetName: targetName
+      targetName: targetName,
+      isElemenetChangeable: isElemenetChangeable
     });
   }
 
   closePanel (e) {
+    store.dispatch(closeContextmenuToolbox());
+
     this.setState({
       panelOpen: false
     });
@@ -98,29 +131,25 @@ class ClickToolbox extends Component {
     this.closePanel(e);
   }
 
-  listChangeImage (type) {
-    let text = '';
-
-    if (type === 0) {
-      text = 'Change Image';
-    }
-
+  listImageChange () {
     return (
       <div
-        className='ab-crightpanel__item'>
         onClick={(e) => {
-          this.changeImage(0)
-        }}>
-        <span>{text}</span>
+          return store.dispatch(openImageEditModal());
+        }}
+        data-abcpanel={true}
+        className='ab-crightpanel__item'>
+        <span data-abcpanel={true}>Edit Image</span>
       </div>
     )
   }
 
   listLinkChange () {
     return (
-      <div 
+      <div
+        data-abcpanel={true}
         className='ab-crightpanel__item'>
-        <span>Change Link</span>
+        <span data-abcpanel={true}>Change Link</span>
       </div>
     )
   }
@@ -128,18 +157,20 @@ class ClickToolbox extends Component {
   listIconChange () {
     return (
       <div 
+        data-abcpanel={true}
         className='ab-crightpanel__item'>
-        <span>Change Icon</span>
+        <span data-abcpanel={true}>Change Icon</span>
       </div>
     )
   }
 
   listItemRemove () {
     return (
-      <div 
+      <div
+        data-abcpanel={true}
         className='ab-crightpanel__item'
         onClick={::this.removeElement}>
-        <span>Remove</span>
+        <span data-abcpanel={true}>Remove</span>
       </div>
     )
   }
@@ -150,6 +181,7 @@ class ClickToolbox extends Component {
       showIconChange: false,
       showLinkChange: false,
       showChangeImage: false,
+      showChangeBackgroundImage: false,
       showRemove: false
     };
 
@@ -159,7 +191,9 @@ class ClickToolbox extends Component {
       const tagName = targetElement.tagName;
 
       if (isChangeble) {
-        elementOptions.showRemove = true;
+        if (!targetElement.getAttribute('data-abcnotremoveable')) {
+          elementOptions.showRemove = true;
+        }
 
         if (tagName === 'IMG') {
           elementOptions.showChangeImage = true;
@@ -173,10 +207,15 @@ class ClickToolbox extends Component {
           elementOptions.showIconChange = true;
         }
       }
+
+      if (targetElement.classList.contains('background-image-holder')) {
+        elementOptions.showChangeBackgroundImage = true;
+      }
     }
 
     return (
       <div>
+        {elementOptions.showChangeImage || elementOptions.showChangeBackgroundImage ? this.listImageChange() : null}
         {elementOptions.showLinkChange ? this.listLinkChange() : null}
         {elementOptions.showIconChange ? this.listIconChange() : null}
         {elementOptions.showRemove ? this.listItemRemove() : null}
@@ -192,13 +231,15 @@ class ClickToolbox extends Component {
     };
 
     return (
-      <div 
+      <div
         ref='panel'
         id='ab-cpanel'
         data-abcpanel={true}
         style={panelStyle}
         className={planelClassName}>
-        <div className='ab-crightpanel__text'>
+        <div 
+          data-abcpanel={true}
+          className='ab-crightpanel__text'>
           {this.state.targetName}
         </div>
         {this.renderChildren()}

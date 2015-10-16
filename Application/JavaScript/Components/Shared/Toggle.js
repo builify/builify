@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import Builder from '../../Common/Builder';
 import Switch from './Switch';
 
 class Toggle extends Component {
@@ -7,7 +9,8 @@ class Toggle extends Component {
     value: PropTypes.string,
     label: PropTypes.string,
     toggled: PropTypes.bool,
-    defaultToggled: PropTypes.bool
+    defaultToggled: PropTypes.bool,
+    action: PropTypes.object
   }
 
   static defaultProps = {
@@ -15,7 +18,8 @@ class Toggle extends Component {
     value: 'toggleValue01',
     label: 'Toggle switch',
     toggled: true,
-    defaultToggled: true
+    defaultToggled: true,
+    action: {}
   }
 
   constructor (props) {
@@ -27,7 +31,22 @@ class Toggle extends Component {
   }
 
   toggleSwitch (e) {
+    const { action } = this.props;
+
     e.preventDefault();
+
+    if (action.hasOwnProperty('target') && action.hasOwnProperty('activeClassname')) {
+      const { target, activeClassname } = action;
+      const targetElement = Builder.getIframeWindow(document.getElementById('ab-cfrm'));
+
+      if (targetElement !== undefined) {
+        const elementToAddress = targetElement.document.querySelector(target);
+        
+        if (elementToAddress !== null) {
+          elementToAddress.classList.toggle(activeClassname);
+        }
+      }
+    }
 
     this.setState({
       isSwitched: !this.state.isSwitched
@@ -48,4 +67,12 @@ class Toggle extends Component {
   }
 }
 
-export default Toggle;
+function mapStateToProps (state) {
+  return {
+    theme: state.theme
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(Toggle);
