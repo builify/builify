@@ -1,6 +1,6 @@
 import { getLocalization } from '../Common/Localization';
 import { GetSource } from '../Common/Request';
-import { getConfiguration } from '../Common/Common';
+import { getConfiguration, setSessionStoreParameters, randomKey } from '../Common/Common';
 import Storage from '../Common/Storage';
 import * as Actions from '../Constants/Actions';
 
@@ -95,23 +95,6 @@ export function getTemplateManifest (template) {
 export function getSelectedTemplateData (data) {
   return {
     type: Actions.GET_SELECTED_TEMPLATE_DATA,
-    data: data
-  }
-}
-
-export function checkIfPageIsSelected () {
-  let data = {
-    isPageSelected: false
-  };
-  let getCurrentUrl = ABuilder.getURLHash();
-  let pagePositionInString = getCurrentUrl.indexOf('page-7');
-
-  if (pagePositionInString !== -1) {
-    data.isPageSelected = true;
-  }
-
-  return {
-    type: Actions.CHECK_IF_PAGE_IS_SELECTED,
     data: data
   }
 }
@@ -271,6 +254,13 @@ export function setFont (font) {
 
 export function loadContentBlockSource (source, blockType, blockName) {
   return (dispatch, getState) => {
+    const contentBlockId = randomKey();
+
+    dispatch(addNotification({
+      type: 'loading',
+      id: contentBlockId
+    }));
+
     GetSource('/Template/' + String(source), 
       (response) => {
         if (response.hasOwnProperty('data')) {

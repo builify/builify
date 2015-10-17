@@ -1,11 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import classNames from 'classnames';
 
 class LoadingIcon extends Component {
+  static propTypes = {
+    size: PropTypes.string
+  }
+
+  static defaultProps = {
+    size: 'big'
+  }
+
   render () {
+    const loaderClassName = classNames('ab-loadingScreen__loader', this.props.size);
+
     return (
-      <div className='ab-loadingIcon__wrapper'>
-        <div className='ab-loadingIcon' />
-      </div>
+      <div className={loaderClassName}>
+        <div />
+       </div>
     )
   }
 }

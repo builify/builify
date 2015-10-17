@@ -1,12 +1,17 @@
 $loadingscreen-bg: #00000C;
-$loadingscreen-loader-size: 100px;
 $loadingscreen-loader-border-thickness: 5px;
 $loadingscreen-loader-corner-radio: 8px;
 $loadingscreen-loader-base-opacity: 0.25;
 $loadingscreen-loader-base-color: #2f2f37;
 $loadingscreen-loader-snake-color: #f1f1f2;
 $loadingscreen-loader-animation-settings: 2s linear infinite;
-$loadingscreen-loader-mask-size: $loadingscreen-loader-size / 1.618;
+
+$loadingscreen-loader-size-big: 100px;
+$loadingscreen-loader-mask-size-big: $loadingscreen-loader-size-big / 1.618;
+
+$loadingscreen-loader-size-small: 50px;
+$loadingscreen-loader-mask-size-small: $loadingscreen-loader-size-small / 3;
+
 
 .#{$abprefix}loadingScreen {
     position: fixed;
@@ -27,7 +32,7 @@ $loadingscreen-loader-mask-size: $loadingscreen-loader-size / 1.618;
     @include align-content(flex-start);
     @include justify-content(center);
     @include flex-direction(column);
-    @include flex-wrap(wrap);
+    @include flex-wrap(wrap); 
 
     &.show {
         z-index: 9999;
@@ -37,13 +42,6 @@ $loadingscreen-loader-mask-size: $loadingscreen-loader-size / 1.618;
 
     &__loader {
         position: relative;
-    }
-
-    &__loader, 
-    &__loader:before, 
-    &__loader > div:before {
-        width: $loadingscreen-loader-size;
-        height: $loadingscreen-loader-size;
     }
 
     &__loader, 
@@ -61,10 +59,7 @@ $loadingscreen-loader-mask-size: $loadingscreen-loader-size / 1.618;
     }
 
     &__loader > div {
-        width: $loadingscreen-loader-size;
-        height: $loadingscreen-loader-mask-size;
         left: 50%;
-        top: ($loadingscreen-loader-size - $loadingscreen-loader-mask-size) / 2;
         overflow: hidden;
         @include animation(loader_mask $loadingscreen-loader-animation-settings);
         @include transform-origin(left center);
@@ -79,8 +74,6 @@ $loadingscreen-loader-mask-size: $loadingscreen-loader-size / 1.618;
 
     &__loader > div:before {
         position: relative;
-        left: -($loadingscreen-loader-size / 2);
-        top: -($loadingscreen-loader-size - $loadingscreen-loader-mask-size) / 2;
         border-color: $loadingscreen-loader-snake-color;
         @include animation(mask_contents $loadingscreen-loader-animation-settings);
         @include transform-origin(center center);
@@ -104,6 +97,53 @@ $loadingscreen-loader-mask-size: $loadingscreen-loader-size / 1.618;
 
     &__info {
         font-size: 18px;
+    }
+
+    &__loader {
+        &.big {
+            width: $loadingscreen-loader-size-big;
+            height: $loadingscreen-loader-size-big;
+
+            &:before,
+            & > div:before {
+                width: $loadingscreen-loader-size-big;
+                height: $loadingscreen-loader-size-big;
+            }
+
+            & > div {
+                width: $loadingscreen-loader-size-big;
+                height: $loadingscreen-loader-mask-size-big;
+                top: ($loadingscreen-loader-size-big - $loadingscreen-loader-mask-size-big) / 2;
+                
+                &:before {
+                    left: -($loadingscreen-loader-size-big / 2);
+                    top: -($loadingscreen-loader-size-big - $loadingscreen-loader-mask-size-big) / 2;
+                }
+            }
+        }
+
+        &.small {
+            width: $loadingscreen-loader-size-small;
+            height: $loadingscreen-loader-size-small;
+
+            &:before,
+            & > div:before {
+                width: $loadingscreen-loader-size-small;
+                height: $loadingscreen-loader-size-small;
+            }
+
+            & > div {
+                width: $loadingscreen-loader-size-small;
+                height: $loadingscreen-loader-mask-size-small;
+                top: ($loadingscreen-loader-size-small - $loadingscreen-loader-mask-size-small) / 2;
+                @include animation-duration(0.5s);
+
+                &:before {
+                    left: -($loadingscreen-loader-size-small / 2);
+                    top: -($loadingscreen-loader-size-small - $loadingscreen-loader-mask-size-small) / 2;
+                }
+            }
+        }
     }
 }
 

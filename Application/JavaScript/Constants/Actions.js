@@ -8,12 +8,9 @@ export const GET_LOCALIZATION = Symbol.for('GET_LOCALIZATION');
 export const LOADED_ASSET = Symbol.for('LOADED_ASSET');
 
 // Template's actions
-export const CHECK_IF_TEMPLATE_IS_SELECTED = Symbol.for('CHECK_IF_TEMPLATE_IS_SELECTED');
-export const PROCESS_TEMPLATE_SELECTION = Symbol.for('PROCESS_TEMPLATE_SELECTION');
 export const GET_SELECTED_TEMPLATE_DATA = Symbol.for('GET_SELECTED_TEMPLATE_DATA');
 
 // Page's actions
-export const CHECK_IF_PAGE_IS_SELECTED = Symbol.for('CHECK_IF_PAGE_IS_SELECTED');
 export const START_NEW_PAGE = Symbol.for('START_NEW_PAGE');
 export const LOAD_PREVIOUS_PAGE = Symbol.for('LOAD_PREVIOUS_PAGE');
 export const CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE = Symbol.for('CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE');

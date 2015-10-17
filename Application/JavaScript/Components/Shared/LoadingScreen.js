@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import LoadingIcon from './LoadingIcon';
 import className from 'classnames';
+import LoadingIcon from './LoadingIcon';
 
 class LoadingScreen extends Component {
   render () {
@@ -13,9 +13,7 @@ class LoadingScreen extends Component {
 
       return (
         <div className={loadingScreenClassName}>
-          <div className='ab-loadingScreen__loader'>
-            <div />
-          </div>
+          <LoadingIcon />
           <div className="ab-loadingScreen__loading">Loading builder</div>
           <div className="ab-loadingScreen__info">Please wait...</div>
         </div>

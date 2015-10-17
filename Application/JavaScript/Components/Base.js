@@ -5,6 +5,7 @@ import { addNotification } from '../Actions/ActionCreators';
 import classNames from 'classnames';
 import Aside from './Aside/Aside';
 import Main from './Main/Main';
+import NotificationContainer from './Notifications/NotificationContainer';
 import LoadingScreen from './Shared/LoadingScreen';
 import ColorPicker from './Shared/ColorPicker';
 
@@ -29,6 +30,7 @@ class Base extends Component {
         <Aside cName={asideClassName} /> 
         <Main />
         <ColorPicker />
+        <NotificationContainer />
       </div>
     )
   }
