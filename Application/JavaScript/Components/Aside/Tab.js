@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { closeTab, openSidetab } from '../../Actions/ActionCreators';
+import { randomKey } from '../../Common/Common';
 import classNames from 'classnames';
-import Builder from '../../Common/Builder';
 import proccessChildrenData from '../../Common/ProccessTabChildren';
 import ProccessedChildrenRender from '../Shared/ProccessedChildrenRender';
 import BackButton from '../Shared/BackButton';
@@ -32,7 +32,7 @@ class Tab extends ProccessedChildrenRender {
 
   render () {
     const { dispatch, data, builderConfiguration, theme, localization, targetIndex, builder } = this.props;
-    const scrollbarKey = Builder.randomKey();
+    const scrollbarKey = randomKey();
     
     this.childrenToRender = proccessChildrenData(data);
 

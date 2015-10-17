@@ -6,9 +6,7 @@ import classNames from 'classnames';
 import Aside from './Aside/Aside';
 import Main from './Main/Main';
 import LoadingScreen from './Shared/LoadingScreen';
-import Notifications from './Notifications/Notifications';
 import ColorPicker from './Shared/ColorPicker';
-import Modal from './Shared/Modal';
 
 class Base extends Component {
   render () {
@@ -30,9 +28,7 @@ class Base extends Component {
         <LoadingScreen />
         <Aside cName={asideClassName} /> 
         <Main />
-        <Notifications />
         <ColorPicker />
-        <Modal />
       </div>
     )
   }

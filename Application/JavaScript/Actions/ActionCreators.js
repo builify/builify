@@ -1,6 +1,6 @@
 import { getLocalization } from '../Common/Localization';
 import { GetSource } from '../Common/Request';
-import ABuilder from '../Common/Builder';
+import { getConfiguration } from '../Common/Common';
 import Storage from '../Common/Storage';
 import * as Actions from '../Constants/Actions';
 
@@ -9,12 +9,11 @@ export function runApplicationActions () {
     dispatch(initialize());
     dispatch(getBuilderConfiguration());
 
-    ABuilder.getConfigration((data) => {
+    getConfiguration((data) => {
       dispatch(receiveConfiguration(data));
       dispatch(proccessConfigurationLocalization());
       dispatch(getLocalizationFile());
       dispatch(initializeBuilder());
-      dispatch(removeLoadingScreen());
     });
   }
 }
@@ -54,11 +53,15 @@ export function proccessConfigurationLocalization () {
 export function getLocalizationFile () {
   return (dispatch, getState) => {
     getLocalization((data) => {
-      dispatch({
-        type: Actions.GET_LOCALIZATION,
-        data: data
-      });
+      dispatch(returnLocalization(data));
     });
+  }
+}
+
+export function returnLocalization (data) {
+  return {
+    type: Actions.GET_LOCALIZATION,
+    data: data
   }
 }
 
@@ -72,75 +75,27 @@ export function loadedAsset (asset) {
 
 export function initializeBuilder () {
   return (dispatch, getState) => {
-    dispatch(checkTemplateSelection());
     dispatch(checkIfPreviousPageExists());
-    dispatch(checkIfPageIsSelected());
+    dispatch(getTemplateManifest());
   }
 }
 
-export function checkTemplateSelection () {
-  let data = {
-    isTemplateSelected: false,
-    selectedTemplate: ''
-  };
-  let currentURL = ABuilder.getURLHash();
-  let stringPosition = currentURL.indexOf('template-') !== -1;
-
-  if (stringPosition) {
-    let templateNameSplit = currentURL.split('/');
-    let templateName = '';
-
-    for (let i = 0; i < templateNameSplit.length; i++) {
-      let current = templateNameSplit[i];
-
-      if (current.indexOf('template-') !== -1) {
-        templateName = current.substr('template-'.length);
-        break;
-      }
-    }
-
-    data.isTemplateSelected = true;
-    data.selectedTemplate = templateName;
-  }
-
+export function getTemplateManifest (template) {
   return (dispatch, getState) => {
-    dispatch({
-      type: Actions.CHECK_IF_TEMPLATE_IS_SELECTED,
-      data: data
-    });
-
-    if (data.isTemplateSelected) {
-      dispatch(getSelectedTemplateData(data.selectedTemplate));
-    }
-  }
-}
-
-export function proccessTemplateSelection (template) {
-  ABuilder.setURL(ABuilder.TEMPLATE, template);
-
-  return (dispatch, getState) => {
-    dispatch(getSelectedTemplateData(template, true));
-  }
-}
-
-export function getSelectedTemplateData (template, isTemplateSelection: false) {
-  return (dispatch, getState) => {
-    GetSource('/templates/' + template + '/manifest.json', 
+    GetSource('/Template/manifest.json', 
       (response) => {
         if (response.hasOwnProperty('data')) {
-          dispatch({
-            type: Actions.GET_SELECTED_TEMPLATE_DATA,
-            data: response.data
-          });
-
-          if (isTemplateSelection) {
-            dispatch({
-              type: Actions.PROCESS_TEMPLATE_SELECTION,
-              template: template
-            });
-          }
+          dispatch(getSelectedTemplateData(response.data));
+          dispatch(removeLoadingScreen());
         }
       });
+  }
+}
+
+export function getSelectedTemplateData (data) {
+  return {
+    type: Actions.GET_SELECTED_TEMPLATE_DATA,
+    data: data
   }
 }
 
@@ -314,19 +269,23 @@ export function setFont (font) {
   }
 }
 
-export function loadContentBlockSourceToCanvas (source, blockType, blockName, templateName) {
+export function loadContentBlockSource (source, blockType, blockName) {
   return (dispatch, getState) => {
-    GetSource('/templates/' + String(templateName) + '/' + String(source), 
+    GetSource('/Template/' + String(source), 
       (response) => {
         if (response.hasOwnProperty('data')) {
-          dispatch({
-            type: Actions.LOAD_CONTENTBLOCK_SOURCE_TO_CANVAS,
-            HTMLData: response.data,
-            blockType: blockType,
-            blockName: blockName
-          });
+          dispatch(loadContentBlocksSourceToCanvas(response.data, blockType, blockName));
         }
       });
+  }
+}
+
+export function loadContentBlocksSourceToCanvas (data, blockType, blockName) {
+  return {
+    type: Actions.LOAD_CONTENTBLOCK_SOURCE_TO_CANVAS,
+    HTMLData: data,
+    blockType: blockType,
+    blockName: blockName
   }
 }
 

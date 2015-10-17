@@ -3,18 +3,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { proccessTemplateSelection, startNewPage, loadPreviousPage } from '../../Actions/ActionCreators';
 import { CurrentLocationEnum } from '../../Constants/Defines';
+import { on } from '../../Common/Common';
 import classNames from 'classnames';
-import ABuilder from '../../Common/Builder';
 import Canvas from './Canvas';
 import ProjectStartScreen from './ProjectStartScreen';
 import PreviewContainer from './PreviewContainer';
 import TemplateSelectionScreen from './TemplateSelectionScreen';
 
 class Main extends Component {
-  doesURLHashHasTemplateName () {
-    return (ABuilder.getURLHash().indexOf('template-') !== -1 ? true : false);
-  }
- 
   previewNodes () {
     return <PreviewContainer />
   }
@@ -27,18 +23,11 @@ class Main extends Component {
     return <ProjectStartScreen />
   }
 
-  templateSectionNodes (templates) {
-    return <TemplateSelectionScreen templates={templates} />
-  }
-
   renderNodes (templates) {
     const hashChangeEvent = (e) => {
       let { currentLocation } = this.props.builder;
 
       switch (currentLocation) {
-        case CurrentLocationEnum.TEMPLATESELECTION:
-          return this.templateSectionNodes(templates);
-
         case CurrentLocationEnum.STARTSCREEN:
           return this.workflowNodes();
 
@@ -50,7 +39,7 @@ class Main extends Component {
       }
     };
 
-    ABuilder.on('hashchange', hashChangeEvent);
+    on('hashchange', hashChangeEvent);
 
     return hashChangeEvent();
   }

@@ -3,8 +3,8 @@ import { bindActionCreators } from 'redux';
 import { getString } from '../../Common/Localization';
 import { getProperty } from '../../Common/DataManipulation';
 import { setFont, setSwatch, openColorPicker, openSidetab, closeTab } from '../../Actions/ActionCreators';
+import { randomKey } from '../../Common/Common';
 import classNames from 'classnames';
-import Builder from '../../Common/Builder';
 import Icon from '../Shared/Icon';
 import Toggle from '../Shared/Toggle';
 import Filter from '../Shared/Filter';
@@ -21,17 +21,20 @@ class ProccessedChildrenRender extends Component {
     this.theme = {};
     this.localization = {};
 
-    this.state = {
-      themeBlocksAdded: false
-    };
+    this._lifeCycle = 0;
+  }
+
+  shouldComponentUpdate (nextProps, nextState) {
+    return true;
   }
 
   // Block components
   renderTitle (item, i) {
     let lang = getString(item.text);
+    const key = '' + randomKey() + 'title';
 
     return (
-      <h2 key={i}>{lang ? lang : item.text}</h2>
+      <h2 key={key}>{lang ? lang : item.text}</h2>
     )
   }
 
@@ -43,10 +46,12 @@ class ProccessedChildrenRender extends Component {
       if (colors.hasOwnProperty(color)) {
         let colorName = getString('design.colors.' + color);
         let colorId = colors[color];
+        const key = '' + randomKey() + 'color';
+
         colorsElements.push(
           <div
             className='ab-color'
-            key={color}>
+            key={key}>
             <div 
               className='ab-color__name' 
               title={colorName}>
@@ -92,6 +97,7 @@ class ProccessedChildrenRender extends Component {
             let colors = item.colors;
             let color1, color2 = '';
             let colorsTitle = '';
+            const key = '' + randomKey() + 'swatch';
 
             if (typeof colors === 'object') {
               if (colors.length == 1) {
@@ -106,14 +112,13 @@ class ProccessedChildrenRender extends Component {
               }
             } else if (typeof colors === 'string') {
               color1 = color2 = colors;
-
               colorsTitle = color1;
             }
 
             return (
               <div
                 className='ab-swatch'
-                key={i}
+                key={key}
                 {...bindActionCreators({
                   onClick: (e) => {
                     return setSwatch(item.text);
@@ -139,9 +144,11 @@ class ProccessedChildrenRender extends Component {
   }
 
   renderSwitch (item, i) {
+    const key = '' + randomKey() + 'toggle';
+
     return (
       <Toggle 
-        key={i}
+        key={key}
         action={item.action}
         label={getString(item.text)} 
         toggled={item.state} />
@@ -160,11 +167,12 @@ class ProccessedChildrenRender extends Component {
       this.refs[outputRefName].innerHTML = value;
     };
     let isIE = !!navigator.userAgent.match(/Trident.*rv[ :]*11\./);
+    const key = '' + randomKey() + 'size';
 
     return (
       <div
         className='ab-size'
-        key={i}>
+        key={key}>
         <label>{getString(item.label)}</label>
         <input
           onMouseUp={isIE ? changeEvent : () => {}}
@@ -186,9 +194,9 @@ class ProccessedChildrenRender extends Component {
     const { fonts } = this.builderConfiguration;
     let fontsOptions = null;
     let value = null;
-
     let itemLabel = item.label.split('.');
     let labelName = itemLabel[itemLabel.length - 1];
+    const key = '' + randomKey() + 'font';
 
     labelName = this.theme.design.typography.fonts[labelName];
     value = labelName !== 'undefined' ? labelName : '';
@@ -203,7 +211,7 @@ class ProccessedChildrenRender extends Component {
         className='ab-select'>
         <h3 className='ab-select__name'>{getString(item.label)}</h3>
         <Select
-          key={i}
+          key={key}
           name={String(i)}
           value={value}
           options={fontsOptions} 
@@ -234,12 +242,13 @@ class ProccessedChildrenRender extends Component {
         )
       }
     };
+    const key = '' + randomKey() + 'sidetab';
 
     return (
       <div
         className={itemClassName}
         data-targetid={item.target}
-        key={i} 
+        key={key} 
         {...bindActionCreators({
           onClick: (e) => {
             e.preventDefault();
@@ -253,6 +262,7 @@ class ProccessedChildrenRender extends Component {
 
   renderPages (item, i) {
     let { pages } = this.props.builder;
+    const key = '' + randomKey() + 'pages';
 
     if (!pages || pages === undefined) {
       return null;
@@ -262,7 +272,7 @@ class ProccessedChildrenRender extends Component {
       return (
         <ul
           className='ab-pages'
-          key={i}>
+          key={key}>
           {pages.map((page, i) => {
             return (
               <li key={i}>
@@ -280,6 +290,7 @@ class ProccessedChildrenRender extends Component {
       const { blocks } = this.theme;
       const blocksLength = blocks.length;
       let itemsToRender = [];
+      const key = '' + randomKey() + 'contentblock';
 
       if (blocksLength > 0) {
         blocks.map((block, i) => {
@@ -319,7 +330,7 @@ class ProccessedChildrenRender extends Component {
 
       return (
         <div 
-          key={i} 
+          key={key} 
           className='ab-contentblocks'>
           <div className='ab-contentblocks__inner'>
             {itemsToRender.map((item, i) => {
@@ -348,7 +359,9 @@ class ProccessedChildrenRender extends Component {
   }
 
   renderFilter (item, i) {
-    return <Filter key={i} />
+    const key = '' + randomKey() + 'contentblock';
+    
+    return <Filter key={key} />
   }
 
   renderChildren (item, theme, localization, builderConfiguration, dispatch, builder, i) {

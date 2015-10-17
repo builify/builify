@@ -1,5 +1,5 @@
 import * as Actions from '../Constants/Actions';
-import Builder from '../Common/Builder';
+import { randomKey } from '../Common/Common';
 
 const modularScales = {
   minorSecond: {
@@ -70,7 +70,7 @@ export function theme (state = initialState, action) {
     case Actions.LOAD_CONTENTBLOCK_SOURCE_TO_CANVAS:
       if (action.hasOwnProperty('HTMLData')) {
         let { HTMLData, blockType, blockName } = action;
-        const blockID = Builder.randomKey();
+        const blockID = randomKey();
 
         HTMLData = proccessHTML(HTMLData, state.replacer);
 

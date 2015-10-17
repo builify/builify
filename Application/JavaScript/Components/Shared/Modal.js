@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import classNames from 'classnames';
 import Icon from './Icon';
 
 class ModalBackground extends Component {
@@ -16,9 +17,11 @@ class ModalBackground extends Component {
 class ModalContainer extends Component {
   render () {
     const { children, ...props } = this.props;
+    const { display } = this.props;
+    const modalClassName = classNames('ab-modal', display ? 'show' : '');
 
     return (
-      <div className='ab-modal'>
+      <div className={modalClassName}>
         <ModalBackground>
           {children}
         </ModalBackground>

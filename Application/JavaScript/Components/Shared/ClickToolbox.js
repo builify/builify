@@ -7,7 +7,6 @@ import {
   closeImageEditModal
 } from '../../Actions/ActionCreators';
 import classNames from 'classnames';
-import ABuilder from '../../Common/Builder';
 import Icon from './Icon';
 
 class ClickToolbox extends Component {
@@ -72,10 +71,6 @@ class ClickToolbox extends Component {
     };
     const panelElement = this.refs.panel;
     let target = e.target;
-    const browserSize = ABuilder.getBrowserSize();
-    const elementOffset = ABuilder.getOffset(panelElement);
-    const { left, top } = elementOffset;
-    let { width, height } = browserSize;
     let isElemenetChangeable = true;
 
     // We do not allow panel to be editable

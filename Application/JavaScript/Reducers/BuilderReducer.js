@@ -1,7 +1,7 @@
 import { CurrentLocationEnum } from '../Constants/Defines';
 import { setLanguage } from '../Common/Localization';
 import { MAXIUMUM_PAGES_IN_STORAGE } from '../Constants/Defines';
-import ABuilder from '../Common/Builder';
+import { setURI } from '../Common/Common';
 import Storage from '../Common/Storage';
 import * as Actions from '../Constants/Actions';
 
@@ -30,11 +30,7 @@ const builderInitialState = {
   isLoadingScreenActive: true,
   loadingScreenType: 0, // 0 - Normal full
 
-  currentLocation: 0, // 0 - Template Selection; 1 - New/Load Page; 2 - Canvas; 3 - Preview
-
-  // Template selection
-  isTemplateSelected: false,
-  selectedTemplate: '',
+  currentLocation: 0, // 0 - New/Load Page; 1 - Canvas; 2 - Preview
 
   // Tabs
   isTabOpened: false,
@@ -52,9 +48,7 @@ const builderInitialState = {
   // Colorpicker
   isColorPickerOpened: false,
   colorPickerTarget: null,
-
-  // Template related
-  selectedTemplateData: {},
+  
   filterContentBlocksTarget: 'all'
 };
 
@@ -97,20 +91,6 @@ export function builder (state = builderInitialState, action) {
         isLoadingScreenActive: false
       });
 
-    case Actions.CHECK_IF_TEMPLATE_IS_SELECTED:
-      return Object.assign({}, state, {
-        currentLocation: data.isTemplateSelected ? CurrentLocationEnum.STARTSCREEN : state.currentLocation,
-        isTemplateSelected: data.isTemplateSelected,
-        selectedTemplate: data.selectedTemplate
-      });
-
-    case Actions.PROCESS_TEMPLATE_SELECTION:
-      return Object.assign({}, state, {
-        currentLocation: CurrentLocationEnum.STARTSCREEN,
-        isTemplateSelected: true, 
-        selectedTemplate: action.template
-      });
-
     // Pages related.
     case Actions.CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE:
       return Object.assign({}, state, {
@@ -140,8 +120,6 @@ export function builder (state = builderInitialState, action) {
       };
       let newPages = state.pages;
 
-      console.log(newPages);
-
       if (newPages === undefined || newPages === null) {
         return state;
       }
@@ -163,7 +141,7 @@ export function builder (state = builderInitialState, action) {
       newPages.push(newPage);
 
       Storage.set('ab-pages', newPages);
-      ABuilder.setURL(ABuilder.PAGE, pageId);
+      setURI('PAGE', pageId);
 
       return Object.assign({}, state, {
         currentLocation: CurrentLocationEnum.CANVAS,
@@ -175,7 +153,7 @@ export function builder (state = builderInitialState, action) {
       let pagesSize = state.pages.length;
 
       if (pagesSize > 0) {
-        ABuilder.setURL(ABuilder.PAGE, state.pages[state.latestPage].id);
+        setURI(ABuilder.PAGE, state.pages[state.latestPage].id);
 
         return Object.assign({}, state, {
           currentLocation: CurrentLocationEnum.CANVAS,

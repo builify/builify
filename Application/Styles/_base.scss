@@ -143,6 +143,12 @@ $switch-btn-size: 20px;
 }
 
 .#{$abprefix}modal {
+	display: none;
+
+	&.show {
+		display: block;
+	}
+	
 	&__background {
 		position: fixed;
 		top: 0;

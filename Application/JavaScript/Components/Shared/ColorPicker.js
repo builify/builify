@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { closeColorPicker, setColorFromColorPicker } from '../../Actions/ActionCreators';
-import ABuilder from '../../Common/Builder';
+import { getBrowserSize, getOffset } from '../../Common/Common';
 import ColorPick from 'react-color';
 
 class ColorPicker extends Component {
@@ -24,8 +24,8 @@ class ColorPicker extends Component {
     let x = 275, y = 0;
 
     if (colorPickerTarget) {
-      let browserSize = ABuilder.getBrowserSize();
-      let elementOffset = ABuilder.getOffset(colorPickerTarget);
+      let browserSize = getBrowserSize();
+      let elementOffset = getOffset(colorPickerTarget);
       const { left, top } = elementOffset;
       const { width, height } = browserSize;
       const estimatedColorPickerHeight = 320; // Why not 420?

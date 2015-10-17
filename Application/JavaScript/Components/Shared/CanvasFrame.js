@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import $ from 'sprint-js';
 import IFrame from './IFrame';
 import ClickToolbox from './ClickToolbox';
 

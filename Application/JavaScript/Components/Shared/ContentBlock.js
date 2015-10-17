@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loadContentBlockSourceToCanvas } from '../../Actions/ActionCreators';
+import { loadContentBlockSource } from '../../Actions/ActionCreators';
 import classNames from 'classnames';
 import ImageItem from './ImageItem';
 
@@ -10,11 +10,10 @@ class ContentBlock extends Component {
   }
   
   selectContentBlock (e) {
-    const { onContentBlockSelection, data, builder } = this.props;
+    const { onContentBlockSelection, data } = this.props;
     const { source, blockType, name } = data;
-    const { selectedTemplate } = builder;
 
-    return onContentBlockSelection(source, blockType, name, selectedTemplate);
+    return onContentBlockSelection(source, blockType, name);
   }
 
   render () {
@@ -51,8 +50,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onContentBlockSelection: (source, blockType, blockName, templateName) => {
-      dispatch(loadContentBlockSourceToCanvas(source, blockType, blockName, templateName));
+    onContentBlockSelection: (source, blockType, blockName) => {
+      dispatch(loadContentBlockSource(source, blockType, blockName));
     }
   }
 }

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
-import ABuilder from '../../Common/Builder';
+import { getBrowserSize } from '../../Common/Common';
 
 class Scrollbar extends Component {
   render () {
-    const browserSize = ABuilder.getBrowserSize();
+    const browserSize = getBrowserSize();
     const scrollBarHeight = browserSize.height;
     const scrollBarWidth = 275;
     const scrollBarStyle = {
