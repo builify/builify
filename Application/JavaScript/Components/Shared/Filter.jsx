@@ -30,8 +30,6 @@ class Filter extends Component {
     });*/
   }
 
-
-
   renderFilterItems () {
     const items = [
       {

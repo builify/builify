@@ -6,6 +6,11 @@ $notification-container-margin: 25px;
         z-index: 999999;
         pointer-events: none;
 
+        &.top-right {
+          top: $notification-container-margin - 10px;
+          right: $notification-container-margin;
+        }
+
         &.bottom-right {
             bottom: $notification-container-margin - 10px;
             right: $notification-container-margin;
@@ -38,7 +43,8 @@ $notification-container-margin: 25px;
         box-shadow: 0 0 30px rgba(#000, 0.3);
         background: $loadingscreen-bg;
 
-        &-inner {
+        &-inner,
+        &-inner > div {
             width: 100%;
             height: 100%;
             overflow: hidden;

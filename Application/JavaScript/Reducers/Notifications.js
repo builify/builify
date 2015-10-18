@@ -16,6 +16,24 @@ export function notifications (state = notificationsInitialState, action) {
       return [...state, notificaionItem];
 
     case Actions.REMOVE_NOTIFICATION:
+      const { id } = action;
+      let index = -1;
+
+      for (let i = 0; i < state.length; i++) {
+        const currentItem = state[i];
+
+        if (currentItem.id === id) {
+          index = i;
+          break;
+        }
+      }
+
+      if (index !== -1) {
+        return [
+          ...state.slice(0, index)
+        ]
+      }
+      
       return state;
   }
 

@@ -32,6 +32,7 @@ export default actionMirror(true, [
 
   // Notification's actions
   'ADD_NOTIFICATION',
+  'ALERT_NOTIFICATION_FOR_REMOVAL',
   'REMOVE_NOTIFICATION',
   'REMOVE_ALL_NOTIFICATIONS',
 

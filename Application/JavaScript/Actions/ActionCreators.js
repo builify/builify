@@ -193,8 +193,22 @@ export function addNotification (notification) {
 }
 
 export function removeNotification (id) {
+  return (dispatch, getState) => {
+    dispatch(alertNotificationRemoval(id));
+    window.setTimeout(removeNotifi(id), 500);
+  }
+}
+
+export function removeNotifi (id) {
   return {
     type: Actions.REMOVE_NOTIFICATION,
+    id: id
+  }
+}
+
+export function alertNotificationRemoval (id) {
+  return {
+    type: Actions.ALERT_NOTIFICATION_FOR_REMOVAL,
     id: id
   }
 }
