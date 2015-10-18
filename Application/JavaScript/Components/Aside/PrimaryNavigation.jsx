@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import PrimaryNavigationItem from './PrimaryNavigationItem';
+import PrimaryNavigationItem from './PrimaryNavigationItem.jsx';
 
 class PrimaryNavigation extends Component {
 	render () {
@@ -9,10 +9,10 @@ class PrimaryNavigation extends Component {
     return (
       <ul className='ab-primarynav'>
         {primarynavigation.map((navigationItem, i) => {
-          return <PrimaryNavigationItem 
-                    key={i} 
-                    target={i} 
-                    language={this.props.builderConfiguration.localization} 
+          return <PrimaryNavigationItem
+                    key={i}
+                    target={i}
+                    language={this.props.builderConfiguration.localization}
                     navigationItemInformation={navigationItem} />
         })}
       </ul>

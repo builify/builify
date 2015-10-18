@@ -1,10 +1,10 @@
-import * as localizationReducer from './LocalizationReducer';
-import * as builderReducer from './BuilderReducer';
-import * as templateReducer from './TemplateReducer'; 
+import * as localization from './Localization';
+import * as builder from './Builder';
+import * as template from './Template';
+import * as notifications from './Notifications';
 
-const allReducers = Object.assign({},
-						localizationReducer, 
-						builderReducer, 
-						templateReducer);
+const allReducers = Object.assign(
+	{}, localization, builder, template, notifications
+);
 
 export default allReducers;

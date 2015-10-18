@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { store } from '../Application';
+import { store } from '../Application.jsx';
 import {
   openContextmenuToolbox,
   closeContextmenuToolbox,
@@ -7,7 +7,7 @@ import {
   closeImageEditModal
 } from '../../Actions/ActionCreators';
 import classNames from 'classnames';
-import Icon from './Icon';
+import Icon from './Icon.jsx';
 
 class ClickToolbox extends Component {
   constructor (props) {
@@ -151,7 +151,7 @@ class ClickToolbox extends Component {
 
   listIconChange () {
     return (
-      <div 
+      <div
         data-abcpanel={true}
         className='ab-crightpanel__item'>
         <span data-abcpanel={true}>Change Icon</span>
@@ -232,7 +232,7 @@ class ClickToolbox extends Component {
         data-abcpanel={true}
         style={panelStyle}
         className={planelClassName}>
-        <div 
+        <div
           data-abcpanel={true}
           className='ab-crightpanel__text'>
           {this.state.targetName}

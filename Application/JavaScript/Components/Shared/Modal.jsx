@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
-import Icon from './Icon';
+import Icon from './Icon.jsx';
 
 class ModalBackground extends Component {
   render () {
@@ -10,7 +10,7 @@ class ModalBackground extends Component {
       <div className='ab-modal__background'>
         {children}
       </div>
-    ) 
+    )
   }
 }
 
@@ -34,15 +34,15 @@ class ModalDialog extends Component {
   closeDialog (e) {
     console.log('Close');
   }
-  
+
   render () {
     const { children } = this.props;
 
     return (
       <div className='ab-modal__dialog'>
-        <Icon 
-          className='ab-modal__close' 
-          title='Close modal' 
+        <Icon
+          className='ab-modal__close'
+          title='Close modal'
           name='pe-7s-close-circle'
           onClick={::this.closeDialog} />
         <div className='ab-modal__dialog-inner'>

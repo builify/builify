@@ -17,7 +17,7 @@ export default class BackButton extends Component {
     const { dispatch } = this.props;
 
     return (
-      <div 
+      <div
         className={this.props.wrapperClassName}
         {...bindActionCreators({
           onClick: ::this.props.clickFunction

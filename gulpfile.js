@@ -52,12 +52,17 @@ gulp.src = function () {
 function createJavaScript (options) {
   var appBundler = browserify({
     entries: [options.src],
+    extension: [
+      'jsx',
+      'json',
+      'js'
+    ],
     transform: [
       babelify.configure({externalHelpers: true, stage: 0})
     ],
     debug: options.development,
-    cache: {}, 
-    packageCache: {}, 
+    cache: {},
+    packageCache: {},
     fullPaths: options.development
   });
 
@@ -198,7 +203,7 @@ function createServer (options) {
 
 gulp.task('default', function () {
   process.env.NODE_ENV = 'development';
-  
+
   createServer({
     src: './DevelopmentBuild'
   });
@@ -223,7 +228,7 @@ gulp.task('default', function () {
 
   createJavaScript({
     development: true,
-    src: './Application/JavaScript/Main.js',
+    src: './Application/JavaScript/Main.jsx',
     dest: './DevelopmentBuild'
   });
 });

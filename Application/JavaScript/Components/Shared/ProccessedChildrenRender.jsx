@@ -1,16 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { getString } from '../../Common/Localization';
-import { getProperty } from '../../Common/DataManipulation';
 import { setFont, setSwatch, openColorPicker, openSidetab, closeTab } from '../../Actions/ActionCreators';
-import { randomKey } from '../../Common/Common';
+import { randomKey, getProperty } from '../../Common/Common';
 import classNames from 'classnames';
-import Icon from '../Shared/Icon';
-import Toggle from '../Shared/Toggle';
-import Filter from '../Shared/Filter';
-import BlockTitle from '../Shared/BlockTitle';
-import ContentBlock from '../Shared/ContentBlock'; 
 import Select from 'react-select';
+import Icon from '../Shared/Icon.jsx';
+import Toggle from '../Shared/Toggle.jsx';
+import Filter from '../Shared/Filter.jsx';
+import BlockTitle from '../Shared/BlockTitle.jsx';
+import ContentBlock from '../Shared/ContentBlock.jsx';
 
 class ProccessedChildrenRender extends Component {
 	constructor (props) {
@@ -52,20 +51,20 @@ class ProccessedChildrenRender extends Component {
           <div
             className='ab-color'
             key={key}>
-            <div 
-              className='ab-color__name' 
+            <div
+              className='ab-color__name'
               title={colorName}>
               {colorName}
             </div>
             <div
-              className='ab-color__circle' 
+              className='ab-color__circle'
               title={colorId}
               {...bindActionCreators({
                 onClick: (e) => {
                   return openColorPicker(e.target);
                 }
               }, this.dispatch)}>
-              <span 
+              <span
                 data-color={item.id}
                 style={{backgroundColor: colorId}} />
             </div>
@@ -124,8 +123,8 @@ class ProccessedChildrenRender extends Component {
                     return setSwatch(item.text);
                   }
                 }, this.dispatch)}>
-                <div 
-                  className='ab-swatch__name' 
+                <div
+                  className='ab-swatch__name'
                   title={item.text}>
                   {item.text}
                 </div>
@@ -147,10 +146,10 @@ class ProccessedChildrenRender extends Component {
     const key = '' + randomKey() + 'toggle';
 
     return (
-      <Toggle 
+      <Toggle
         key={key}
         action={item.action}
-        label={getString(item.text)} 
+        label={getString(item.text)}
         toggled={item.state} />
     )
   }
@@ -177,10 +176,10 @@ class ProccessedChildrenRender extends Component {
         <input
           onMouseUp={isIE ? changeEvent : () => {}}
           onChange={!isIE ? changeEvent : () => {}}
-          defaultValue={defaultValue !== 'undefined' ? defaultValue : 0} 
-          step={1} 
+          defaultValue={defaultValue !== 'undefined' ? defaultValue : 0}
+          step={1}
           min={item.min}
-          max={item.max} 
+          max={item.max}
           type='range'
           name='range' />
         <div className='ab-size__output'>
@@ -214,7 +213,7 @@ class ProccessedChildrenRender extends Component {
           key={key}
           name={String(i)}
           value={value}
-          options={fontsOptions} 
+          options={fontsOptions}
           {...bindActionCreators({
             onChange: (newValue) => {
               return setFont(newValue);
@@ -248,7 +247,7 @@ class ProccessedChildrenRender extends Component {
       <div
         className={itemClassName}
         data-targetid={item.target}
-        key={key} 
+        key={key}
         {...bindActionCreators({
           onClick: (e) => {
             e.preventDefault();
@@ -329,8 +328,8 @@ class ProccessedChildrenRender extends Component {
       }
 
       return (
-        <div 
-          key={key} 
+        <div
+          key={key}
           className='ab-contentblocks'>
           <div className='ab-contentblocks__inner'>
             {itemsToRender.map((item, i) => {
@@ -344,7 +343,7 @@ class ProccessedChildrenRender extends Component {
                 )
               } else if (type === 'block') {
                 return (
-                  <ContentBlock 
+                  <ContentBlock
                     key={i}
                     data={item} />
                 )
@@ -360,7 +359,7 @@ class ProccessedChildrenRender extends Component {
 
   renderFilter (item, i) {
     const key = '' + randomKey() + 'contentblock';
-    
+
     return <Filter key={key} />
   }
 

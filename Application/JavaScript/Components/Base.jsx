@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { CurrentLocationEnum } from '../Constants/Defines';
 import { addNotification } from '../Actions/ActionCreators';
 import classNames from 'classnames';
-import Aside from './Aside/Aside';
-import Main from './Main/Main';
-import NotificationContainer from './Notifications/NotificationContainer';
-import LoadingScreen from './Shared/LoadingScreen';
-import ColorPicker from './Shared/ColorPicker';
+import Aside from './Aside/Aside.jsx';
+import Main from './Main/Main.jsx';
+import NotificationContainer from './Notifications/NotificationContainer.jsx';
+import LoadingScreen from './Shared/LoadingScreen.jsx';
+import ColorPicker from './Shared/ColorPicker.jsx';
 
 class Base extends Component {
   render () {
@@ -27,7 +27,7 @@ class Base extends Component {
     return (
       <div className={reactWrapClassname}>
         <LoadingScreen />
-        <Aside cName={asideClassName} /> 
+        <Aside cName={asideClassName} />
         <Main />
         <ColorPicker />
         <NotificationContainer />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import IFrame from './IFrame';
-import ClickToolbox from './ClickToolbox';
+import IFrame from './IFrame.jsx';
+import ClickToolbox from './ClickToolbox.jsx';
 
 class CanvasFrame extends Component {
   constructor (props) {
@@ -14,19 +14,19 @@ class CanvasFrame extends Component {
     // data-abcorent - ab-core-Not-Removable
     return (
       <IFrame>
-        <div 
+        <div
           data-abccorent='true'
           ref='root'
           className='ab-croot'>
-          <div 
-            ref='navigation' 
+          <div
+            ref='navigation'
             data-abccorent='true'
             className='ab-cnavigation__wrapper' />
-          <div 
-            ref='main' 
+          <div
+            ref='main'
             data-abccorent='true'
             className='ab-cmain__wrapper' />
-          <div 
+          <div
             ref='footer'
             data-abccorent='true'
             className='ab-cfooter__wrapper' />
@@ -144,7 +144,7 @@ class CanvasFrame extends Component {
 
       target.removeEventListener('mouseenter', this.hoverBlocksMouseEnter);
       target.removeEventListener('mouseleave', this.hoverBlocksMouseLeave);
-      
+
       target.addEventListener('mouseenter', this.hoverBlocksMouseEnter, false);
       target.addEventListener('mouseleave', this.hoverBlocksMouseLeave, false);
     }

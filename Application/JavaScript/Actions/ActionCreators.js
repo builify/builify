@@ -82,7 +82,7 @@ export function initializeBuilder () {
 
 export function getTemplateManifest (template) {
   return (dispatch, getState) => {
-    GetSource('/Template/manifest.json', 
+    GetSource('/Template/manifest.json',
       (response) => {
         if (response.hasOwnProperty('data')) {
           dispatch(getSelectedTemplateData(response.data));
@@ -192,10 +192,10 @@ export function addNotification (notification) {
   }
 }
 
-export function removeNotification (notification) {
+export function removeNotification (id) {
   return {
     type: Actions.REMOVE_NOTIFICATION,
-    notification: notification
+    id: id
   }
 }
 
@@ -261,9 +261,10 @@ export function loadContentBlockSource (source, blockType, blockName) {
       id: contentBlockId
     }));
 
-    GetSource('/Template/' + String(source), 
+    GetSource('/Template/' + String(source),
       (response) => {
         if (response.hasOwnProperty('data')) {
+          dispatch(removeNotification(contentBlockId));
           dispatch(loadContentBlocksSourceToCanvas(response.data, blockType, blockName));
         }
       });

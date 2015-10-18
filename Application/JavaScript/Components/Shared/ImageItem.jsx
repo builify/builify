@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { loadedAsset } from '../../Actions/ActionCreators';
 import classNames from 'classnames';
-import ImageSpinner from './ImageSpinner';
+import ImageSpinner from './ImageSpinner.jsx';
 
 class ImageItem extends Component {
   static propTypes = {
@@ -25,7 +25,7 @@ class ImageItem extends Component {
 
   loadedImage (e) {
     const { src } = this.props;
-    
+
     this.setState({
       isImageFileLoaded: true
     });
@@ -45,7 +45,7 @@ class ImageItem extends Component {
         <img
           onLoad={::this.loadedImage}
           src={imageSource}
-          alt={alt ? alt : 'Picture'} 
+          alt={alt ? alt : 'Picture'}
           ref='image'/>
       </div>
     )

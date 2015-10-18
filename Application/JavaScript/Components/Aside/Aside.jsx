@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import Logo from '../Shared/Logo';
-import Tab from './Tab';
-import SideTab from './SideTab';
-import PrimaryNavigation from './PrimaryNavigation';
+import Logo from '../Shared/Logo.jsx';
+import Tab from './Tab.jsx';
+import SideTab from './SideTab.jsx';
+import PrimaryNavigation from './PrimaryNavigation.jsx';
 
 class Aside extends Component {
   shouldComponentUpdate (nextProps, nextState) {
     return false;
   }
-  
+
   render () {
     const { tabs, sidetabs } = this.props.builderConfiguration;
     const asideClassName = classNames('ab-aside', this.props.cName);

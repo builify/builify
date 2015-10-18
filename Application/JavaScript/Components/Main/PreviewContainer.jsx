@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { closePreview } from '../../Actions/ActionCreators';
-import BackButton from '../Shared/BackButton';
-import Icon from '../Shared/Icon';
-import Canvas from './Canvas';
+import BackButton from '../Shared/BackButton.jsx';
+import Icon from '../Shared/Icon.jsx';
+import Canvas from './Canvas.jsx';
 
 export default class PreviewContainer extends Component {
   closePreviewWindow () {
@@ -13,8 +13,8 @@ export default class PreviewContainer extends Component {
     return (
       <div className='ab-preview'>
         <div className='ab-preview__controls'>
-          <BackButton 
-            wrapperClassName={'ab-preview__close'} 
+          <BackButton
+            wrapperClassName={'ab-preview__close'}
             clickFunction={this.closePreviewWindow} />
           <div className='ab-preview__responsive'>
             <ul>
@@ -26,5 +26,5 @@ export default class PreviewContainer extends Component {
         <Canvas />
       </div>
     )
-  } 
+  }
 }

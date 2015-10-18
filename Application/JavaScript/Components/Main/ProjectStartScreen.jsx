@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { startNewPage, loadPreviousPage } from '../../Actions/ActionCreators';
 import { getString } from '../../Common/Localization';
 import classNames from 'classnames';
-import Page from './Page';
+import Page from './Page.jsx';
 
 class ProjectStartScreen extends Component {
   render () {

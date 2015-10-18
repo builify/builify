@@ -18,7 +18,10 @@ export function notifications (state = notificationsInitialState, action) {
       const { notification } = action;
       const notificaionItem = Object.assign(notificationDefaultProps, notification);
 
-      return [...state, notificaionItem]
+      return [...state, notificaionItem];
+
+    case Actions.REMOVE_NOTIFICATION:
+      return state;
   }
 
   return state;
@@ -48,13 +51,13 @@ const builderInitialState = {
   // Colorpicker
   isColorPickerOpened: false,
   colorPickerTarget: null,
-  
+
   filterContentBlocksTarget: 'all'
 };
 
 export function builderConfiguration (state = builderConfigurationInitialState, action) {
   switch (action.type) {
-    case Actions.RECEIVE_BUILDER_CONFIGURATION: 
+    case Actions.RECEIVE_BUILDER_CONFIGURATION:
       return Object.assign({}, state, action.data);
 
     case Actions.PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION:
@@ -67,7 +70,7 @@ export function builderConfiguration (state = builderConfigurationInitialState, 
 
   return state;
 }
- 
+
 export function builder (state = builderInitialState, action) {
   let data = {};
 
@@ -81,7 +84,7 @@ export function builder (state = builderInitialState, action) {
       let oldAssetsLoaded = state.loadedAssets;
 
       oldAssetsLoaded.push(asset);
-      
+
       return Object.assign({}, state, {
         loadedAssets: oldAssetsLoaded
       });
@@ -194,7 +197,7 @@ export function builder (state = builderInitialState, action) {
 
     case Actions.OPEN_SIDETAB:
       let sidetabElement = document.querySelector('[data-sidetabid="' + action.target + '"]');
-      
+
       if (sidetabElement) {
         sidetabElement.classList.add('open');
 
@@ -220,7 +223,7 @@ export function builder (state = builderInitialState, action) {
         return state;
       }
 
-    case Actions.OPEN_PREVIEW: 
+    case Actions.OPEN_PREVIEW:
       if (state.currentLocation === CurrentLocationEnum.TEMPLATESELECTION ||
           state.currentLocation === CurrentLocationEnum.STARTSCREEN) {
         return state;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { runApplicationActions } from '../Actions/ActionCreators';
-import Base from './Base';
+import Base from './Base.jsx';
 import configureStore from '../Store/ConfigureStore';
 
 export const store = configureStore();
@@ -14,5 +14,5 @@ export class Application extends Component {
         <Base />
       </Provider>
     )
-  } 
+  }
 }

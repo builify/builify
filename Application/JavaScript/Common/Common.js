@@ -126,11 +126,11 @@ export function getIframeWindow (iFrame) {
 
   if (iFrame.window) {
     return iFrame.window;
-  } 
+  }
 
   if (!doc && iFrame.contentDocument) {
     doc = iFrame.contentDocument;
-  } 
+  }
 
   if (!doc && iFrame.document) {
     doc = iFrame.document;
@@ -146,3 +146,34 @@ export function getIframeWindow (iFrame) {
 
   return undefined;
 }
+
+export function actionMirror (isSymbol, arr) {
+  let result = {};
+
+  if (!(arr instanceof Array)) {
+    throw new Error('actionMirror(...): Argument must be an array.');
+  }
+
+  for (let i = 0; i < arr.length; i++) {
+    result[arr[i]] = isSymbol ? Symbol.for(arr[i]) : arr[i];
+  }
+
+  return result;
+}
+
+export function getProperty (obj, prop) {
+  var parts = prop.split('.'),
+  last = parts.pop(),
+  l = parts.length,
+  i = 1,
+  current = parts[0];
+
+  while((obj = obj[current]) && i < l) {
+    current = parts[i];
+    i++;
+  }
+
+  if(obj) {
+    return obj[last];
+  }
+};

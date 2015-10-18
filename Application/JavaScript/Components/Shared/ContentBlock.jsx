@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadContentBlockSource } from '../../Actions/ActionCreators';
 import classNames from 'classnames';
-import ImageItem from './ImageItem';
+import ImageItem from './ImageItem.jsx';
 
 class ContentBlock extends Component {
   shouldComponentUpdate () {
     return false;
   }
-  
+
   selectContentBlock (e) {
     const { onContentBlockSelection, data } = this.props;
     const { source, blockType, name } = data;
@@ -29,10 +29,10 @@ class ContentBlock extends Component {
     }
 
     return (
-      <figure 
+      <figure
         className={blockClassName}
         data-blocktype={blockType}
-        onClick={::this.selectContentBlock}> 
+        onClick={::this.selectContentBlock}>
         <ImageItem src={thumbnail} alt={name}/>
         <figcaption>
           <span>{name}</span>

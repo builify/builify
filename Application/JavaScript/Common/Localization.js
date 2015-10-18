@@ -1,8 +1,8 @@
-import { getProperty } from './DataManipulation';
+import { getProperty } from './Common';
 import stripJSONComments from 'strip-json-comments';
+import languageData from '../Data/Localization.json';
 
-const languageData = require('../Data/Localization.json');
-var languageSetting = 'en';
+let languageSetting = 'en';
 
 export function setLanguage (language) {
   languageSetting = language;

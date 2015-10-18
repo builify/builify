@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { filterContentBlocks } from '../../Actions/ActionCreators';
 import classNames from 'classnames';
-import Icon from './Icon';
+import Icon from './Icon.jsx';
 
 class Filter extends Component {
   constructor (props) {
@@ -69,7 +69,7 @@ class Filter extends Component {
           const itemClassName = classNames(target == filterContentBlocksTarget ? 'active' : '');
 
           return (
-            <li 
+            <li
               key={'filterItem-' + i}
               onClick={(e) => {
                 e.preventDefault();
@@ -90,7 +90,7 @@ class Filter extends Component {
 
     return (
       <div className={filterClassName}>
-        <div 
+        <div
           className='ab-filter__text'
           onClick={::this.filterEvent}>
           <div>{'Filter'}</div>

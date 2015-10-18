@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import className from 'classnames';
-import LoadingIcon from './LoadingIcon';
+import LoadingIcon from './LoadingIcon.jsx';
 
 class LoadingScreen extends Component {
   render () {

@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import CanvasSuggestionBox from '../Shared/CanvasSuggestionBox';
-import Scrollbar from '../Shared/Scrollbar';
-import CanvasFrame from '../Shared/CanvasFrame';
+import CanvasSuggestionBox from '../Shared/CanvasSuggestionBox.jsx';
+import Scrollbar from '../Shared/Scrollbar.jsx';
+import CanvasFrame from '../Shared/CanvasFrame.jsx';
 
 class Canvas extends Component {
   render () {

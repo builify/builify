@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { randomKey } from '../../Common/Common';
 import classNames from 'classnames';
-import LoadingIcon from '../Shared/LoadingIcon';
-import Icon from '../Shared/Icon';
+import LoadingIcon from '../Shared/LoadingIcon.jsx';
+import Icon from '../Shared/Icon.jsx';
 
 class NotificationItem extends Component {
   closeItem (e) {
+    console.log(e);
     return false;
   }
 
@@ -16,7 +17,7 @@ class NotificationItem extends Component {
     return (
       <div
         className={notificationClassName}>
-        <div 
+        <div
           onClick={::this.closeItem}
           className='ab-notification__close'>
           <Icon name='close'/>
@@ -32,7 +33,7 @@ class NotificationItem extends Component {
       </div>
     )
   }
-} 
+}
 
 class NotificationContainer extends Component {
   render () {
@@ -46,7 +47,7 @@ class NotificationContainer extends Component {
           const notificationKey = '' + randomKey() + 'notification';
 
           return (
-            <NotificationItem 
+            <NotificationItem
               key={notificationKey}/>
           )
         })}

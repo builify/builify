@@ -5,10 +5,9 @@ import { proccessTemplateSelection, startNewPage, loadPreviousPage } from '../..
 import { CurrentLocationEnum } from '../../Constants/Defines';
 import { on } from '../../Common/Common';
 import classNames from 'classnames';
-import Canvas from './Canvas';
-import ProjectStartScreen from './ProjectStartScreen';
-import PreviewContainer from './PreviewContainer';
-import TemplateSelectionScreen from './TemplateSelectionScreen';
+import Canvas from './Canvas.jsx';
+import ProjectStartScreen from './ProjectStartScreen.jsx';
+import PreviewContainer from './PreviewContainer.jsx';
 
 class Main extends Component {
   previewNodes () {
@@ -73,11 +72,13 @@ class Main extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  builderConfiguration: state.builderConfiguration,
-  builder: state.builder,
-  localization: state.localizationData
-});
+function mapStateToProps (state) {
+  return {
+    builderConfiguration: state.builderConfiguration,
+    builder: state.builder,
+    localization: state.localizationData
+  }
+}
 
 export default connect(
   mapStateToProps

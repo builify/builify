@@ -5,7 +5,7 @@ import { getString } from '../../Common/Localization';
 import { openTab, openPreview } from '../../Actions/ActionCreators';
 import { CurrentLocationEnum } from '../../Constants/Defines';
 import classNames from 'classnames';
-import Icon from '../Shared/Icon';
+import Icon from '../Shared/Icon.jsx';
 
 class PrimaryNavigationItem extends Component {
   static propTypes = {
@@ -28,8 +28,8 @@ class PrimaryNavigationItem extends Component {
       }
     }
 
-    return ((navigationItemInformation.target.indexOf('tab') !== -1) ? 
-            openTab(target) : 
+    return ((navigationItemInformation.target.indexOf('tab') !== -1) ?
+            openTab(target) :
             openPreview(target));
   }
 
@@ -37,7 +37,7 @@ class PrimaryNavigationItem extends Component {
     const { dispatch, builder } = this.props;
     const { id, icon, target } = this.props.navigationItemInformation;
     const { currentLocation } = builder;
-    let itemClassName = classNames(currentLocation == CurrentLocationEnum.STARTSCREEN ? 
+    let itemClassName = classNames(currentLocation == CurrentLocationEnum.STARTSCREEN ?
       (id !== 'pages' ? 'hide' : '') : '');
 
     return (

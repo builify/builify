@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { getIframeWindow } from '../../Common/Common';
-import Switch from './Switch';
+import Switch from './Switch.jsx';
 
 class Toggle extends Component {
   static propTypes = {
@@ -41,7 +41,7 @@ class Toggle extends Component {
 
       if (targetElement !== undefined) {
         const elementToAddress = targetElement.document.querySelector(target);
-        
+
         if (elementToAddress !== null) {
           elementToAddress.classList.toggle(activeClassname);
         }
@@ -57,7 +57,7 @@ class Toggle extends Component {
     let { isSwitched } = this.state;
 
     return (
-      <div 
+      <div
         onClick={::this.toggleSwitch}
         className='ab-toggle'>
         <label>{this.props.label}</label>

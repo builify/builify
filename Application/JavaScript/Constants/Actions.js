@@ -1,46 +1,50 @@
-// Builder's actions
-export const INITIALIZE = Symbol.for('INITIALIZE');
-export const REMOVE_LOADING_SCREEN = Symbol.for('REMOVE_LOADING_SCREEN');
-export const GET_BUILDER_CONFIGURATION = Symbol.for('GET_BUILDER_CONFIGURATION');
-export const RECEIVE_BUILDER_CONFIGURATION = Symbol.for('RECEIVE_BUILDER_CONFIGURATION');
-export const PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION = Symbol.for('PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION');
-export const GET_LOCALIZATION = Symbol.for('GET_LOCALIZATION');
-export const LOADED_ASSET = Symbol.for('LOADED_ASSET');
+import { actionMirror } from '../Common/Common';
 
-// Template's actions
-export const GET_SELECTED_TEMPLATE_DATA = Symbol.for('GET_SELECTED_TEMPLATE_DATA');
+export default actionMirror(true, [
+  // Builder's actions
+  'INITIALIZE',
+  'REMOVE_LOADING_SCREEN',
+  'GET_BUILDER_CONFIGURATION',
+  'RECEIVE_BUILDER_CONFIGURATION',
+  'PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION',
+  'GET_LOCALIZATION',
+  'LOADED_ASSET',
 
-// Page's actions
-export const START_NEW_PAGE = Symbol.for('START_NEW_PAGE');
-export const LOAD_PREVIOUS_PAGE = Symbol.for('LOAD_PREVIOUS_PAGE');
-export const CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE = Symbol.for('CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE');
+  // Template's actions
+  'GET_SELECTED_TEMPLATE_DATA',
 
-// Tab's actions
-export const OPEN_TAB = Symbol.for('OPEN_TAB');
-export const CLOSE_TAB = Symbol.for('CLOSE_TAB');
-export const OPEN_SIDETAB = Symbol.for('OPEN_SIDETAB');
-export const CLOSE_SIDETAB = Symbol.for('CLOSE_SIDETAB');
-export const SET_SWATCH = Symbol.for('SET_SWATCH');
-export const SET_FONT = Symbol.for('SET_FONT');
+  // Page's actions
+  'START_NEW_PAGE',
+  'LOAD_PREVIOUS_PAGE',
+  'CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE',
 
-// Preview's actions
-export const OPEN_PREVIEW = Symbol.for('OPEN_PREVIEW');
-export const CLOSE_PREVIEW = Symbol.for('CLOSE_PREVIEW');
+  // Tab's actions
+  'OPEN_TAB',
+  'CLOSE_TAB',
+  'OPEN_SIDETAB',
+  'CLOSE_SIDETAB',
+  'SET_SWATCH',
+  'SET_FONT',
 
-// Notification's actions
-export const ADD_NOTIFICATION = Symbol.for('ADD_NOTIFICATION');
-export const REMOVE_NOTIFICATION = Symbol.for('REMOVE_NOTIFICATION');
-export const REMOVE_ALL_NOTIFICATIONS = Symbol.for('REMOVE_ALL_NOTIFICATIONS');
+  // Preview's actions
+  'OPEN_PREVIEW',
+  'CLOSE_PREVIEW',
 
-// Colorpicker's actions
-export const OPEN_COLORPICKER = Symbol.for('OPEN_COLORPICKER');
-export const SET_COLOR_FROM_COLORPICKER = Symbol.for('SET_COLOR_FROM_COLORPICKER');
-export const CLOSE_COLORPICKER = Symbol.for('CLOSE_COLORPICKER');
+  // Notification's actions
+  'ADD_NOTIFICATION',
+  'REMOVE_NOTIFICATION',
+  'REMOVE_ALL_NOTIFICATIONS',
 
-// Tempate design's actions
-export const LOAD_CONTENTBLOCK_SOURCE_TO_CANVAS = Symbol.for('LOAD_CONTENTBLOCK_SOURCE_TO_CANVAS');
-export const FILTER_CONTENTBLOCKS = Symbol.for('FILTER_CONTENTBLOCKS');
-export const OPEN_CONTEXTMENU_TOOLBOX = Symbol.for('OPEN_CONTEXTMENU_TOOLBOX');
-export const CLOSE_CONTEXTMENU_TOOLBOX = Symbol.for('CLOSE_CONTEXTMENU_TOOLBOX');
-export const OPEN_IMAGE_EDIT_MODAL = Symbol.for('OPEN_IMAGE_EDIT_MODAL');
-export const CLOSE_IMAGE_EDIT_MODAL = Symbol.for('CLOSE_IMAGE_EDIT_MODAL');
+  // Colorpicker's actions
+  'OPEN_COLORPICKER',
+  'SET_COLOR_FROM_COLORPICKER',
+  'CLOSE_COLORPICKER',
+
+  // Tempate design's actions
+  'LOAD_CONTENTBLOCK_SOURCE_TO_CANVAS',
+  'FILTER_CONTENTBLOCKS',
+  'OPEN_CONTEXTMENU_TOOLBOX',
+  'CLOSE_CONTEXTMENU_TOOLBOX',
+  'OPEN_IMAGE_EDIT_MODAL',
+  'CLOSE_IMAGE_EDIT_MODAL'
+]);

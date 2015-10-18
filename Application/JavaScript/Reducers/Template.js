@@ -1,12 +1,6 @@
 import * as Actions from '../Constants/Actions';
 import { randomKey } from '../Common/Common';
 
-const modularScales = {
-  minorSecond: {
-    name: 'Minor second - 16/15'
-  }
-}
-
 const initialState = {
   _colorPickerTarget: null,
 
@@ -30,7 +24,7 @@ const initialState = {
       },
       size: {
         basefont: 16,
-        baseline: 24 
+        baseline: 24
       }
     }
   }
@@ -41,21 +35,21 @@ function proccessHTML (HTML, arrayOfItemsToReplace) {
     return;
   }
 
-  arrayOfItemsToReplace.map((replacer, i) => {
+  arrayOfItemsToReplace.map((replacer) => {
     const { findWhat, replaceWith } = replacer;
 
     if (!findWhat || !replaceWith) {
       return;
     }
 
-    let reg = new RegExp(findWhat, "g");
+    const reg = new RegExp(findWhat, 'g');
 
     HTML = HTML.replace(reg, replaceWith);
   });
 
   return HTML;
 }
- 
+
 export function theme (state = initialState, action) {
   switch (action.type) {
     case Actions.GET_SELECTED_TEMPLATE_DATA:
@@ -113,7 +107,7 @@ export function theme (state = initialState, action) {
         }
       }
 
-      return state; 
+      return state;
 
     case Actions.CLOSE_COLORPICKER:
       return Object.assign({}, state, {
@@ -122,7 +116,7 @@ export function theme (state = initialState, action) {
 
     case Actions.SET_SWATCH:
       let selectedSwatch = state.currentSwatch;
-      
+
       if (action.hasOwnProperty('swatch')) {
         selectedSwatch = String(action.swatch);
       }
