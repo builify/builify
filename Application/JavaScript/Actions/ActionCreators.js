@@ -88,6 +88,9 @@ export function getTemplateManifest (template) {
           dispatch(getSelectedTemplateData(response.data));
           dispatch(removeLoadingScreen());
         }
+      },
+      (response) => {
+        console.error(response);
       });
   }
 }
@@ -192,14 +195,17 @@ export function addNotification (notification) {
   }
 }
 
-export function removeNotification (id) {
+export function eliminateNotification (id) {
   return (dispatch, getState) => {
     dispatch(alertNotificationRemoval(id));
-    window.setTimeout(removeNotifi(id), 500);
+
+    window.setTimeout(function () {
+      dispatch(removeNotification(id));
+    }, 500);
   }
 }
 
-export function removeNotifi (id) {
+export function removeNotification (id) {
   return {
     type: Actions.REMOVE_NOTIFICATION,
     id: id
@@ -207,6 +213,12 @@ export function removeNotifi (id) {
 }
 
 export function alertNotificationRemoval (id) {
+  const element = document.getElementById('nid-' + String(id));
+
+  if (element) {
+    element.classList.add('close');
+  }
+
   return {
     type: Actions.ALERT_NOTIFICATION_FOR_REMOVAL,
     id: id
@@ -278,7 +290,7 @@ export function loadContentBlockSource (source, blockType, blockName) {
     GetSource('/Template/' + String(source),
       (response) => {
         if (response.hasOwnProperty('data')) {
-          dispatch(removeNotification(contentBlockId));
+          dispatch(eliminateNotification(contentBlockId));
           dispatch(loadContentBlocksSourceToCanvas(response.data, blockType, blockName));
         }
       });
@@ -307,12 +319,6 @@ export function openImageEditModal () {
   }
 }
 
-export function closeImageEditModal () {
-  return {
-    type: Actions.CLOSE_IMAGE_EDIT_MODAL
-  }
-}
-
 export function openContextmenuToolbox () {
   return {
     type: Actions.OPEN_CONTEXTMENU_TOOLBOX
@@ -322,5 +328,18 @@ export function openContextmenuToolbox () {
 export function closeContextmenuToolbox () {
   return {
     type: Actions.CLOSE_CONTEXTMENU_TOOLBOX
+  }
+}
+
+export function openLinkEditModal (target) {
+  return {
+    type: Actions.OPEN_LINK_EDIT_MODAL,
+    target: target
+  }
+}
+
+export function closeModal () {
+  return {
+    type: Actions.CLOSE_MODAL
   }
 }

@@ -130,6 +130,10 @@ class CanvasFrame extends Component {
     this.classList.remove('ab-ch');
   }
 
+  aBlockClick (e) {
+    e.preventDefault();
+  }
+
   hoverBlocks () {
     const targets = 'p , span, a, h1, h2, h3, h4, h5, h6, strong, em, li, ul, div, i, img, input, textarea, blockquote, figcaption';
     const rootElement = this.refs.root;
@@ -140,6 +144,13 @@ class CanvasFrame extends Component {
 
       if (target.getAttribute('data-abcpanel')) {
         break;
+      }
+
+      target.classList.add('editable');
+
+      if (target.tagName === 'A') {
+        target.removeEventListener('click', ::this.aBlockClick);
+        target.addEventListener('click', ::this.aBlockClick, false);
       }
 
       target.removeEventListener('mouseenter', this.hoverBlocksMouseEnter);

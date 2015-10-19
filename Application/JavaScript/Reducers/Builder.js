@@ -5,29 +5,6 @@ import { setURI } from '../Common/Common';
 import Storage from '../Common/Storage';
 import * as Actions from '../Constants/Actions';
 
-const notificationsInitialState = [];
-const notificationDefaultProps = {
-  type: null,
-  message: null,
-  timeout: null
-};
-
-export function notifications (state = notificationsInitialState, action) {
-  switch (action.type) {
-    case Actions.ADD_NOTIFICATION:
-      const { notification } = action;
-      const notificaionItem = Object.assign(notificationDefaultProps, notification);
-
-      return [...state, notificaionItem];
-
-    case Actions.REMOVE_NOTIFICATION:
-      return state;
-  }
-
-  return state;
-}
-
-const builderConfigurationInitialState = {};
 const builderInitialState = {
   loadedAssets: [],
   isLoadingScreenActive: true,
@@ -52,24 +29,14 @@ const builderInitialState = {
   isColorPickerOpened: false,
   colorPickerTarget: null,
 
-  filterContentBlocksTarget: 'all'
+  // Filter
+  filterContentBlocksTarget: 'all',
+
+  // Modal
+  isModalOpen: false,
+  modalType: null,
+  modalTarget: null
 };
-
-export function builderConfiguration (state = builderConfigurationInitialState, action) {
-  switch (action.type) {
-    case Actions.RECEIVE_BUILDER_CONFIGURATION:
-      return Object.assign({}, state, action.data);
-
-    case Actions.PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION:
-      const { localization } = state;
-
-      setLanguage(localization || 'en');
-
-      return state;
-  }
-
-  return state;
-}
 
 export function builder (state = builderInitialState, action) {
   let data = {};
@@ -263,6 +230,22 @@ export function builder (state = builderInitialState, action) {
 
       return Object.assign({}, state, {
        filterContentBlocksTarget: actionTarget
+      });
+
+    case Actions.OPEN_LINK_EDIT_MODAL:
+      let linkTarget= action.target;
+
+      return Object.assign({}, state, {
+        isModalOpen: true,
+        modalType: 'linkchange',
+        modalTarget: linkTarget
+      });
+
+    case Actions.CLOSE_MODAL:
+      return Object.assign({}, state, {
+        isModalOpen: false,
+        modalType: null,
+        modalTarget: null
       });
   }
 

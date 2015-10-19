@@ -23,6 +23,10 @@ class ImageItem extends Component {
     };
   }
 
+  imageDrag (e) {
+    e.preventDefault();
+  }
+
   loadedImage (e) {
     const { src } = this.props;
 
@@ -43,6 +47,7 @@ class ImageItem extends Component {
         ref='imageWrapper'>
         <ImageSpinner size={70} />
         <img
+          draggable='false'
           onLoad={::this.loadedImage}
           src={imageSource}
           alt={alt ? alt : 'Picture'}

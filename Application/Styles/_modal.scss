@@ -1,0 +1,140 @@
+.#{$abprefix}modal {
+	display: none;
+
+	&.show {
+		display: block;
+	}
+
+	&__background {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(#000, 0.3);
+		z-index: 9999;
+		@include transition(all 0.3s ease);
+	    @include display(flex);
+	    @include align-items(center);
+	    @include align-content(flex-start);
+	    @include justify-content(center);
+	    @include flex-direction(column);
+	    @include flex-wrap(wrap);
+	}
+
+	&__dialog {
+		position: relative;
+		display: block;
+		width: 500px;
+		min-height: 50px;
+		background: #FFF;
+		border-radius: 5px;
+		box-shadow: 0 0 30px 5px rgba(#000, 0.3);
+	}
+
+	&__close {
+		cursor: pointer;
+		position: absolute;
+		top: -25px;
+		right: -25px;
+		width: 50px;
+		height: 50px;
+		overflow: hidden;
+		line-height: 50px;
+		background: #FFF;
+		border-radius: 100%;
+		text-align: center;
+		padding-left: 1px;
+		@include rem(font-size, 46px);
+	}
+
+	&.linkchange {
+		.#{$abprefix}modal__dialog {
+			width: 300px;
+		}
+	}
+
+	&__link {
+		&-heading {
+			cursor: move;
+	    padding: 0 24px;
+	    color: #333;
+	    font-weight: 500;
+	    font-size: 18px;
+	    position: relative;
+	    height: 64px;
+	    line-height: 64px;
+		}
+
+		&-body {
+			padding: 0 24px;
+		}
+
+		&-item {
+			overflow: hidden;
+			margin-bottom: 16px;
+			position: relative;
+
+			span {
+				&:first-child {
+					display: block;
+			    height: 32px;
+			    line-height: 32px;
+				}
+
+				&.icon {
+					color: #333;
+					font-size: 15px;
+					float: left;
+					position: relative;
+					top: 7px;
+				}
+			}
+		}
+
+		&-actions {
+			height: 48px;
+			line-height: 48px;
+			overflow: hidden;
+			clear: both;
+			padding: 0 24px;
+			text-align: right;
+		}
+
+		input[type="text"] {
+			font-size: 14px;
+			height: 32px;
+			line-height: 32px;
+			border: none;
+			border-bottom: 1px solid rgba(0,0,0,0.12);
+			padding-left: 32px;
+			position: relative;
+			right: 24px;
+			color: rgba(0,0,0,0.4);
+			margin-bottom: 0;
+			border-radius: 0px !important;
+			background: none !important;
+			max-width: 100% !important;
+			box-sizing: border-box !important;
+			box-shadow: none !important;
+			border-right: none;
+			border-left: none;
+			border-top: none;
+		}
+	}
+}
+
+.#{$abprefix}button {
+		display: inline-block;
+    height: 48px;
+    line-height: 48px;
+    margin-left: 24px;
+    color: #60A0B3;
+		text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+		    text-transform: uppercase;
+}

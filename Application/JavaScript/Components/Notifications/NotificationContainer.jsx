@@ -1,26 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { randomKey } from '../../Common/Common';
-import { removeNotification } from '../../Actions/ActionCreators';
+import { eliminateNotification } from '../../Actions/ActionCreators';
 import classNames from 'classnames';
 import LoadingIcon from '../Shared/LoadingIcon.jsx';
 import Icon from '../Shared/Icon.jsx';
 
 class NotificationWrapper extends Component {
-  closeItem (e) {
-    console.log(e);
-    return false;
-  }
-
   render () {
-    const { children } = this.props;
+    const { children, onClose, id } = this.props;
     const cn = classNames('ab-notification__item');
 
     return (
       <div
+        id={'nid-' + String(id)}
         className={cn}>
         <div
-          onClick={::this.closeItem}
+          onClick={onClose}
           className='ab-notification__close'>
           <Icon name='close'/>
         </div>
@@ -52,8 +48,14 @@ class NotificationItem extends Component {
   }
 
   render () {
+    const { data } = this.props;
+    const { id } = data;
+    const { onClose } = this.props;
+
     return (
-      <NotificationWrapper>
+      <NotificationWrapper
+        id={id}
+        onClose={onClose}>
         {this.renderChildren()}
       </NotificationWrapper>
     )
@@ -61,6 +63,11 @@ class NotificationItem extends Component {
 }
 
 class NotificationContainer extends Component {
+  closeItem (e) {
+    console.log(e);
+    return false;
+  }
+
   render () {
     const { notifications } = this.props;
     const cn = classNames('ab-notification__container', 'top-right');
@@ -73,6 +80,7 @@ class NotificationContainer extends Component {
 
           return (
             <NotificationItem
+              onClose={::this.closeItem}
               data={notification}
               key={notificationKey}/>
           )
@@ -86,6 +94,10 @@ function mapStateToProps (state) {
   return {
     notifications: state.notifications
   }
+}
+
+function mapPropsToState () {
+
 }
 
 export default connect(

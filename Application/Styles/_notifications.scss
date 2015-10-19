@@ -42,6 +42,11 @@ $notification-container-margin: 25px;
         color: #FFF;
         box-shadow: 0 0 30px rgba(#000, 0.3);
         background: $loadingscreen-bg;
+        @include transition(opacity 0.5s ease);
+
+        &.close {
+          opacity: 0;
+        }
 
         &-inner,
         &-inner > div {

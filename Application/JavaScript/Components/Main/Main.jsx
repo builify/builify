@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import Canvas from './Canvas.jsx';
 import ProjectStartScreen from './ProjectStartScreen.jsx';
 import PreviewContainer from './PreviewContainer.jsx';
+import TextEditorPanel from '../Shared/TextEditorPanel.jsx';
 
 class Main extends Component {
   previewNodes () {
@@ -66,6 +67,7 @@ class Main extends Component {
     return (
       <main
         className={mainClassName}>
+        <TextEditorPanel />
         {this.renderNodes(templates)}
       </main>
     )

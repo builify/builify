@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import { store } from '../Application.jsx';
-import {
-  openContextmenuToolbox,
-  closeContextmenuToolbox,
-  openImageEditModal,
-  closeImageEditModal
-} from '../../Actions/ActionCreators';
+import * as Actions from '../../Actions/ActionCreators';
 import classNames from 'classnames';
 import Icon from './Icon.jsx';
 
@@ -78,7 +73,7 @@ class ClickToolbox extends Component {
       return false;
     }
 
-    store.dispatch(openContextmenuToolbox());
+    store.dispatch(Actions.openContextmenuToolbox());
 
     // If original block element
     if (target.getAttribute('data-abccorent')) {
@@ -111,11 +106,15 @@ class ClickToolbox extends Component {
   }
 
   closePanel (e) {
-    store.dispatch(closeContextmenuToolbox());
+    if (this.state.panelOpen) {
+      store.dispatch(Actions.closeContextmenuToolbox());
 
-    this.setState({
-      panelOpen: false
-    });
+      this.setState({
+        panelOpen: false
+      });
+    } else {
+      return;
+    }
   }
 
   removeElement (e) {
@@ -139,9 +138,18 @@ class ClickToolbox extends Component {
     )
   }
 
+  openLinkEditModal (e) {
+    const { target } = this.state;
+
+    e.preventDefault();
+
+    store.dispatch(Actions.openLinkEditModal(target));
+  }
+
   listLinkChange () {
     return (
       <div
+        onClick={::this.openLinkEditModal}
         data-abcpanel={true}
         className='ab-crightpanel__item'>
         <span data-abcpanel={true}>Change Link</span>

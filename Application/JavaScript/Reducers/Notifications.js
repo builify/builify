@@ -33,7 +33,7 @@ export function notifications (state = notificationsInitialState, action) {
           ...state.slice(0, index)
         ]
       }
-      
+
       return state;
   }
 

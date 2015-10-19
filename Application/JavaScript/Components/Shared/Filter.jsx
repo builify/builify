@@ -31,56 +31,59 @@ class Filter extends Component {
   }
 
   renderFilterItems () {
-    const items = [
-      {
-        'name': 'Show all',
-        'target': 'all'
-      },
-      {
-        'name': 'Navigation',
-        'target': 'navigation'
-      },
-      {
-        'name': 'Footer',
-        'target': 'footer'
-      },
-      {
-        'name': 'Banner',
-        'target': 'banner'
+    const { theme } = this.props;
+    let items = [{
+      name: 'Show All',
+      target: 'all'
+    }];
+
+    if (theme.hasOwnProperty('blocks')) {
+      const { blocks } = theme;
+
+      blocks.map((block, i) => {
+        const { type } = block;
+        items.push({
+          name: String(type),
+          target: type
+        });
+      });
+
+      if (items.length > 0) {
+        return (
+          <ul>
+            {items.map((item, i) => {
+              const { name, target } = item;
+              const { filterContentBlocksTarget } = this.props.builder;
+              const { onFilterItemSelection } = this.props;
+              let isActive = false;
+
+              if (item.hasOwnProperty('active')) {
+                if (item.active) {
+                  isActive = true;
+                }
+              }
+
+              const itemClassName = classNames(target == filterContentBlocksTarget ? 'active' : '');
+
+              return (
+                <li
+                  key={'filterItem-' + i}
+                  onClick={(e) => {
+                    e.preventDefault();
+
+                    return onFilterItemSelection(target);
+                  }}
+                  className={itemClassName}>
+                  <span>{name}</span>
+                </li>
+              )
+            })}
+          </ul>
+        )
       }
-    ];
+    }
 
-    return (
-      <ul>
-        {items.map((item, i) => {
-          const { name, target } = item;
-          const { filterContentBlocksTarget } = this.props.builder;
-          const { onFilterItemSelection } = this.props;
-          let isActive = false;
-
-          if (item.hasOwnProperty('active')) {
-            if (item.active) {
-              isActive = true;
-            }
-          }
-
-          const itemClassName = classNames(target == filterContentBlocksTarget ? 'active' : '');
-
-          return (
-            <li
-              key={'filterItem-' + i}
-              onClick={(e) => {
-                e.preventDefault();
-
-                return onFilterItemSelection(target);
-              }}
-              className={itemClassName}>
-              <span>{name}</span>
-            </li>
-          )
-        })}
-      </ul>
-    )
+    return null;
   }
 
   render () {
@@ -103,6 +106,7 @@ class Filter extends Component {
 
 function mapStateToProps (state) {
   return {
+    theme: state.theme,
     builder: state.builder
   }
 }

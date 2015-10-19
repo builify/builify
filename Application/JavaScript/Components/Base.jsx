@@ -8,6 +8,7 @@ import Main from './Main/Main.jsx';
 import NotificationContainer from './Notifications/NotificationContainer.jsx';
 import LoadingScreen from './Shared/LoadingScreen.jsx';
 import ColorPicker from './Shared/ColorPicker.jsx';
+import Modal from './Shared/Modal.jsx';
 
 class Base extends Component {
   render () {
@@ -25,12 +26,14 @@ class Base extends Component {
     };
 
     return (
-      <div className={reactWrapClassname}>
+      <div
+        className={reactWrapClassname}>
         <LoadingScreen />
         <Aside cName={asideClassName} />
         <Main />
         <ColorPicker />
         <NotificationContainer />
+        <Modal />
       </div>
     )
   }

@@ -40,7 +40,13 @@ $block-height: 35px;
 		padding: 0;
 		line-height: 0;
 		margin-bottom: ($block-height + 15);
+		@include transition(transform 0.3s ease);
 		@include clearfix;
+
+		&:hover {
+			cursor: grab;
+			@include transform(scale(1.03));
+		}
 
 		&.hide {
 			display: none;
@@ -50,6 +56,8 @@ $block-height: 35px;
 			margin: 0;
 			padding: 0;
 			width: 100%;
+			min-height: 50px;
+			pointer-events: none;
 		}
 
 		figcaption {

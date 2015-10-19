@@ -15,6 +15,9 @@ class Frame extends Component {
     const frame = this.refs.frm;
     const frameDoc = frame.contentWindow.document;
 
+    frameDoc.designMode = 'on';
+
+    this._documentElement = frameDoc;
     this._headElement = frameDoc.head;
     this._bodyElement = frameDoc.body;
 
@@ -40,8 +43,6 @@ class Frame extends Component {
 
       if (type === 'css') {
         this.createStylesheet(file);
-      } else if (type === 'js') {
-        //this.createJavaScript(file);
       }
     });
   }

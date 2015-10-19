@@ -4,7 +4,7 @@ import BackButton from '../Shared/BackButton.jsx';
 import Icon from '../Shared/Icon.jsx';
 import Canvas from './Canvas.jsx';
 
-export default class PreviewContainer extends Component {
+class PreviewContainer extends Component {
   closePreviewWindow () {
     return closePreview();
   }
@@ -28,3 +28,5 @@ export default class PreviewContainer extends Component {
     )
   }
 }
+
+export default PreviewContainer;
