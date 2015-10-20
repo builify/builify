@@ -176,4 +176,52 @@ export function getProperty (obj, prop) {
   if(obj) {
     return obj[last];
   }
+}
+
+export function replaceDataInHTML (HTML, arrayOfItemsToReplace) {
+  if (!HTML || !arrayOfItemsToReplace || !arrayOfItemsToReplace.length) {
+    return;
+  }
+
+  if (arrayOfItemsToReplace.length === 0) {
+    return HTML;
+  }
+
+  arrayOfItemsToReplace.map((replacer) => {
+    const { findWhat, replaceWith } = replacer;
+
+    if (!findWhat || !replaceWith) {
+      return;
+    }
+
+    const reg = new RegExp(findWhat, 'g');
+
+    HTML = HTML.replace(reg, replaceWith);
+  });
+
+  return HTML;
+}
+
+export function getAbsPosition (el) {
+    var el2 = el;
+    var curtop = 0;
+    var curleft = 0;
+    if (document.getElementById || document.all) {
+        do  {
+            curleft += el.offsetLeft-el.scrollLeft;
+            curtop += el.offsetTop-el.scrollTop;
+            el = el.offsetParent;
+            el2 = el2.parentNode;
+            while (el2 != el) {
+                curleft -= el2.scrollLeft;
+                curtop -= el2.scrollTop;
+                el2 = el2.parentNode;
+            }
+        } while (el.offsetParent);
+
+    } else if (document.layers) {
+        curtop += el.y;
+        curleft += el.x;
+    }
+    return [curtop, curleft];
 };

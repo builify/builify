@@ -1,6 +1,7 @@
 import { getLocalization } from '../Common/Localization';
 import { GetSource } from '../Common/Request';
 import { getConfiguration, setSessionStoreParameters, randomKey } from '../Common/Common';
+import axios from 'axios';
 import Storage from '../Common/Storage';
 import * as Actions from '../Constants/Actions';
 
@@ -82,15 +83,15 @@ export function initializeBuilder () {
 
 export function getTemplateManifest (template) {
   return (dispatch, getState) => {
-    GetSource('/Template/manifest.json',
-      (response) => {
+    axios.get('/Template/manifest.json')
+      .then((response) => {
         if (response.hasOwnProperty('data')) {
           dispatch(getSelectedTemplateData(response.data));
           dispatch(removeLoadingScreen());
         }
-      },
-      (response) => {
-        console.error(response);
+      })
+      .catch((response) => {
+        console.log(response);
       });
   }
 }
@@ -287,22 +288,32 @@ export function loadContentBlockSource (source, blockType, blockName) {
       id: contentBlockId
     }));
 
-    GetSource('/Template/' + String(source),
-      (response) => {
+    axios.get('/Template/' + String(source))
+      .then((response) => {
         if (response.hasOwnProperty('data')) {
           dispatch(eliminateNotification(contentBlockId));
-          dispatch(loadContentBlocksSourceToCanvas(response.data, blockType, blockName));
+          dispatch(loadContentBlockToPage(response.data, blockType, blockName));
         }
+      })
+      .catch((response) => {
+        console.log(response);
       });
   }
 }
 
-export function loadContentBlocksSourceToCanvas (data, blockType, blockName) {
+export function loadContentBlockToPage (data, blockType, blockName) {
   return {
-    type: Actions.LOAD_CONTENTBLOCK_SOURCE_TO_CANVAS,
-    HTMLData: data,
+    type: Actions.LOAD_CONTENTBLOCK_TO_PAGE,
+    HTML: data,
     blockType: blockType,
     blockName: blockName
+  }
+}
+
+export function currentHoverBlock (element) {
+  return {
+    type: Actions.CURRENT_HOVER_BLOCK,
+    element: element
   }
 }
 

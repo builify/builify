@@ -4,13 +4,6 @@ import { randomKey } from '../Common/Common';
 const initialState = {
   _colorPickerTarget: null,
 
-  _currentPage: {
-    navigation: {},
-    main: [],
-    footer: [],
-    blocksCount: 0
-  },
-
   design: {
     swatches: [],
     currentSwatch: '',
@@ -30,26 +23,6 @@ const initialState = {
   }
 };
 
-function proccessHTML (HTML, arrayOfItemsToReplace) {
-  if (!HTML || !arrayOfItemsToReplace || !arrayOfItemsToReplace.length) {
-    return;
-  }
-
-  arrayOfItemsToReplace.map((replacer) => {
-    const { findWhat, replaceWith } = replacer;
-
-    if (!findWhat || !replaceWith) {
-      return;
-    }
-
-    const reg = new RegExp(findWhat, 'g');
-
-    HTML = HTML.replace(reg, replaceWith);
-  });
-
-  return HTML;
-}
-
 export function theme (state = initialState, action) {
   switch (action.type) {
     case Actions.GET_SELECTED_TEMPLATE_DATA:
@@ -60,37 +33,6 @@ export function theme (state = initialState, action) {
       }
 
       return Object.assign({}, state, data);
-
-    case Actions.LOAD_CONTENTBLOCK_SOURCE_TO_CANVAS:
-      if (action.hasOwnProperty('HTMLData')) {
-        let { HTMLData, blockType, blockName } = action;
-        const blockID = randomKey();
-
-        HTMLData = proccessHTML(HTMLData, state.replacer);
-
-        let blockInformation = {
-          id: blockID,
-          type: blockType,
-          blockName: blockName,
-          source: HTMLData,
-
-          hasBeenRendered: false,
-          elementReference: null
-        };
-
-        if (blockType === 'navigation') {
-          state._currentPage.navigation = blockInformation;
-          state._currentPage.blocksCount++;
-        } else if (blockType === 'footer') {
-          state._currentPage.footer.push(blockInformation);
-          state._currentPage.blocksCount++;
-        } else {
-          state._currentPage.main.push(blockInformation);
-          state._currentPage.blocksCount++;
-        }
-      }
-
-      return Object.assign({}, state, {});
 
     case Actions.OPEN_COLORPICKER:
       return Object.assign({}, state, {

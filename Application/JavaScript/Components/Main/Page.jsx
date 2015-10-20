@@ -20,7 +20,7 @@ class Page extends Component {
     const name = isNewPage ? getString('pages.newpage') : getString('pages.loadpage');
 
     return (
-      <div 
+      <div
         className='ab-page-new'
         {...bindActionCreators({
           onClick: ::this.selectPage
@@ -33,10 +33,10 @@ class Page extends Component {
 
 function mapStateToProps (state) {
   return {
-    builderConfiguration: state.builderConfiguration,
-    builder: state.builder,
     localization: state.localizationData
   }
 }
 
-export default connect(mapStateToProps)(Page);
+export default connect(
+  mapStateToProps
+)(Page);

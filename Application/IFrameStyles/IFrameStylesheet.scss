@@ -3,7 +3,6 @@ $base-color: #9b59b6;
 
 @import "../Styles/bourbon/bourbon";
 @import "../Styles/dependencies/rem";
-
 * {
 	cursor: auto;
 }
@@ -57,7 +56,52 @@ body {
 		& * {
 			cursor: pointer;
 		}
+
+		svg {
+			margin-right: 5px;
+    	height: 100%;
+		}
 	}
+}
+
+.#{$abprefix}cstoolbox {
+		position: absolute;
+		top: 10px;
+		right: 20px;
+		display: block;
+
+		ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+
+				li {
+						cursor: pointer;
+						text-align: center;
+						height: 40px;
+						width: 40px;
+						float: left;
+						display: block;
+						line-height: 40px;
+						margin: 0 4px;
+						border-radius: 100%;
+						background: rgba(#000, 0.3);
+						@include transition(all 0.3s ease);
+
+						&:hover {
+								background: rgba(#000, 0.9);
+								@include transform(rotate(360deg));
+						}
+
+						* {
+							cursor: pointer;
+						}
+
+						svg {
+								margin-top: (40px - 24px) / 2;
+						}
+				}
+		}
 }
 
 .#{$abprefix}cmain__wrapper {

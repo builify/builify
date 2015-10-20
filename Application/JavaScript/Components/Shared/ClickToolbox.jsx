@@ -3,6 +3,7 @@ import { store } from '../Application.jsx';
 import * as Actions from '../../Actions/ActionCreators';
 import classNames from 'classnames';
 import Icon from './Icon.jsx';
+import SvgIcon from './SvgIcon.jsx';
 
 class ClickToolbox extends Component {
   constructor (props) {
@@ -125,19 +126,6 @@ class ClickToolbox extends Component {
     this.closePanel(e);
   }
 
-  listImageChange () {
-    return (
-      <div
-        onClick={(e) => {
-          return store.dispatch(openImageEditModal());
-        }}
-        data-abcpanel={true}
-        className='ab-crightpanel__item'>
-        <span data-abcpanel={true}>Edit Image</span>
-      </div>
-    )
-  }
-
   openLinkEditModal (e) {
     const { target } = this.state;
 
@@ -146,12 +134,27 @@ class ClickToolbox extends Component {
     store.dispatch(Actions.openLinkEditModal(target));
   }
 
+  listImageChange () {
+    return (
+      <div
+        onClick={(e) => {
+          return store.dispatch(openImageEditModal());
+        }}
+        data-abcpanel={true}
+        className='ab-crightpanel__item'>
+        <SvgIcon icon='image' />
+        <span data-abcpanel={true}>Edit Image</span>
+      </div>
+    )
+  }
+
   listLinkChange () {
     return (
       <div
         onClick={::this.openLinkEditModal}
         data-abcpanel={true}
         className='ab-crightpanel__item'>
+        <SvgIcon icon='link' />
         <span data-abcpanel={true}>Change Link</span>
       </div>
     )
@@ -162,6 +165,7 @@ class ClickToolbox extends Component {
       <div
         data-abcpanel={true}
         className='ab-crightpanel__item'>
+        <SvgIcon icon='star' />
         <span data-abcpanel={true}>Change Icon</span>
       </div>
     )
@@ -173,6 +177,7 @@ class ClickToolbox extends Component {
         data-abcpanel={true}
         className='ab-crightpanel__item'
         onClick={::this.removeElement}>
+        <SvgIcon icon='clear' />
         <span data-abcpanel={true}>Remove</span>
       </div>
     )

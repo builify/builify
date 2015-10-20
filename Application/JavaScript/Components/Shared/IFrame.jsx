@@ -1,8 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM, { render, unmountComponentAtNode } from 'react-dom';
 import { connect } from 'react-redux';
 
 class Frame extends Component {
+  static propTypes = {
+    title: PropTypes.string
+  }
+
+  static defaultProps = {
+    title: 'Page Title'
+  }
+
   constructor (props) {
     super(props);
 
@@ -16,6 +24,7 @@ class Frame extends Component {
     const frameDoc = frame.contentWindow.document;
 
     frameDoc.designMode = 'on';
+    frameDoc.title = this.props.title;
 
     this._documentElement = frameDoc;
     this._headElement = frameDoc.head;
@@ -31,11 +40,6 @@ class Frame extends Component {
     coreFiles.push({
       type: 'css',
       src: '/IFrameStylesheet.css'
-    });
-
-    coreFiles.push({
-      type: 'css',
-      src: 'http://themes-pixeden.com/font-demos/7-stroke/Pe-icon-7-stroke.css'
     });
 
     coreFiles.map((file, i) => {

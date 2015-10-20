@@ -6,9 +6,9 @@ import CanvasFrame from '../Shared/CanvasFrame.jsx';
 
 class Canvas extends Component {
   render () {
-    const { theme } = this.props;
-    const { _currentPage } = theme;
-    const displaySuggestionBox = _currentPage.blocksCount > 0 ? false : true;
+    const { page } = this.props;
+    const { blocksCount } = page;
+    const displaySuggestionBox = blocksCount > 0 ? false : true;
 
     return (
       <div className='ab-canvas'>
@@ -21,7 +21,7 @@ class Canvas extends Component {
 
 function mapStateToProps (state) {
   return {
-    theme: state.theme
+    page: state.page
   }
 }
 

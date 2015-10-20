@@ -15,7 +15,8 @@ class CanvasSuggestionBox extends Component {
     if (display) {
       return (
         <div className='ab-suggestionBox'>
-          <h1>Drop some content!</h1>
+          <h1>This is where your page will appear</h1>
+          <h2>So drop some contentblocks!</h2>
         </div>
       )
     } else {

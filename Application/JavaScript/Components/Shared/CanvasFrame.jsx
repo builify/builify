@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { currentHoverBlock } from '../../Actions/ActionCreators';
 import IFrame from './IFrame.jsx';
 import ClickToolbox from './ClickToolbox.jsx';
+import SectionToolBox from './SectionToolBox.jsx';
 
 class CanvasFrame extends Component {
   constructor (props) {
@@ -10,10 +12,19 @@ class CanvasFrame extends Component {
     this._blocks = {};
   }
 
+  shouldComponentUpdate () {
+    return true;
+  }
+
   render () {
+    const { page } = this.props;
+    const { title } = page;
+    const { _currentHoverBlock } = page;
+
     // data-abcorent - ab-core-Not-Removable
     return (
-      <IFrame>
+      <IFrame
+        title={title}>
         <div
           data-abccorent='true'
           ref='root'
@@ -31,6 +42,8 @@ class CanvasFrame extends Component {
             data-abccorent='true'
             className='ab-cfooter__wrapper' />
           <ClickToolbox />
+          <SectionToolBox
+            data={_currentHoverBlock}/>
         </div>
       </IFrame>
     )
@@ -38,7 +51,7 @@ class CanvasFrame extends Component {
 
   componentWillReceiveProps (nextProps) {
     const props = nextProps;
-    const currentPage = props.theme._currentPage;
+    const currentPage = props.page;
 
     this._blocks = Object.assign({}, this._blocks, currentPage);
     this.renderBlocks(this._blocks);
@@ -54,6 +67,17 @@ class CanvasFrame extends Component {
     this.renderFooter(footer);
   }
 
+  setElementAttributes (element) {
+    const { onCoreBlockHover } = this.props;
+
+    element.addEventListener('mouseenter', (e) => {
+      return onCoreBlockHover(element);
+    }, false);
+
+    element.setAttribute('data-abccorent', 'true');
+    element.classList.add('ab-ccorent');
+  }
+
   renderNavigation (navigationBlock) {
     const navigationElement = this.refs.navigation;
 
@@ -66,7 +90,7 @@ class CanvasFrame extends Component {
       navigationBlock.hasBeenRendered = true;
       navigationBlock.elementReference = navigationElement.children[0];
 
-      navigationBlock.elementReference.setAttribute('data-abccorent', 'true');
+      this.setElementAttributes(navigationBlock.elementReference);
     }
 
     this._blocks.navigation = navigationBlock;
@@ -86,7 +110,7 @@ class CanvasFrame extends Component {
         block.hasBeenRendered = true;
         block.elementReference = mainElement.children[i];
 
-        block.elementReference.setAttribute('data-abccorent', 'true');
+        this.setElementAttributes(block.elementReference);
       }
     });
 
@@ -115,7 +139,7 @@ class CanvasFrame extends Component {
         block.hasBeenRendered = true;
         block.elementReference = footerElement.children[i];
 
-        block.elementReference.setAttribute('data-abccorent', 'true');
+        this.setElementAttributes(block.elementReference);
       }
     });
 
@@ -135,6 +159,7 @@ class CanvasFrame extends Component {
   }
 
   hoverBlocks () {
+    const { onCoreBlockHover } = this.props;
     const targets = 'p , span, a, h1, h2, h3, h4, h5, h6, strong, em, li, ul, div, i, img, input, textarea, blockquote, figcaption';
     const rootElement = this.refs.root;
     const targetElements = rootElement.querySelectorAll(targets);
@@ -142,7 +167,7 @@ class CanvasFrame extends Component {
     for (let i = 0; i < targetElements.length; i++) {
       const target = targetElements[i];
 
-      if (target.getAttribute('data-abcpanel')) {
+      if (target.getAttribute('data-abcpanel') || target.classList.contains('ab-ccorent')) {
         break;
       }
 
@@ -155,7 +180,6 @@ class CanvasFrame extends Component {
 
       target.removeEventListener('mouseenter', this.hoverBlocksMouseEnter);
       target.removeEventListener('mouseleave', this.hoverBlocksMouseLeave);
-
       target.addEventListener('mouseenter', this.hoverBlocksMouseEnter, false);
       target.addEventListener('mouseleave', this.hoverBlocksMouseLeave, false);
     }
@@ -164,10 +188,19 @@ class CanvasFrame extends Component {
 
 function mapStateToProps (state) {
   return {
-    theme: state.theme
+    page: state.page
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    onCoreBlockHover: (element) => {
+      dispatch(currentHoverBlock(element));
+    }
   }
 }
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(CanvasFrame);
