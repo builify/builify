@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { store } from '../Application.jsx';
+import { findUpAttr } from '../../Common/Common';
 import * as Actions from '../../Actions/ActionCreators';
 import classNames from 'classnames';
-import Icon from './Icon.jsx';
 import SvgIcon from './SvgIcon.jsx';
 
 class ClickToolbox extends Component {
@@ -68,9 +68,9 @@ class ClickToolbox extends Component {
     const panelElement = this.refs.panel;
     let target = e.target;
     let isElemenetChangeable = true;
+    const findUp = findUpAttr(target, 'data-abctoolbox data-abcpanel');
 
-    // We do not allow panel to be editable
-    if (target.getAttribute('data-abcpanel')) {
+    if (findUp !== null) {
       return false;
     }
 

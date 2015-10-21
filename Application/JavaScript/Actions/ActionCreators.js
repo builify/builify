@@ -16,6 +16,10 @@ export function runApplicationActions () {
       dispatch(getLocalizationFile());
       dispatch(initializeBuilder());
     });
+
+    window.setTimeout(() => {
+      console.log(window.frames['ab-cfrm'].contentWindow.document.documentElement.innerHTML);
+    }, 15000);
   }
 }
 
@@ -26,8 +30,12 @@ export function initialize () {
 }
 
 export function removeLoadingScreen () {
-  return {
-    type: Actions.REMOVE_LOADING_SCREEN
+  return (dispatch, getState) => {
+    window.setTimeout(() => {
+      dispatch({
+        type: Actions.REMOVE_LOADING_SCREEN
+      })
+    }, 250);
   }
 }
 
@@ -314,6 +322,13 @@ export function currentHoverBlock (element) {
   return {
     type: Actions.CURRENT_HOVER_BLOCK,
     element: element
+  }
+}
+
+export function removeContentBlock (blockElement) {
+  return {
+    type: Actions.REMOVE_CONTENTBLOCK,
+    blockElement: blockElement
   }
 }
 

@@ -206,6 +206,11 @@ export function getAbsPosition (el) {
     var el2 = el;
     var curtop = 0;
     var curleft = 0;
+
+    if (el === undefined || el === null) {
+      return [0, 0]
+    }
+    
     if (document.getElementById || document.all) {
         do  {
             curleft += el.offsetLeft-el.scrollLeft;
@@ -224,4 +229,23 @@ export function getAbsPosition (el) {
         curleft += el.x;
     }
     return [curtop, curleft];
-};
+}
+
+export function findUpAttr (el, attr) {
+  attr = attr.split(' ')
+  while (el.parentNode) {
+    el = el.parentNode;
+
+    for (let i = 0; i < attr.length; i++) {
+      if (el.getAttribute(attr[i])) {
+        return el;
+      }
+    }
+
+    if (el.tagName === 'HTML') {
+      break;
+    }
+  }
+
+  return null;
+}

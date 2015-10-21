@@ -23,7 +23,6 @@ class Frame extends Component {
     const frame = this.refs.frm;
     const frameDoc = frame.contentWindow.document;
 
-    frameDoc.designMode = 'on';
     frameDoc.title = this.props.title;
 
     this._documentElement = frameDoc;
@@ -72,7 +71,7 @@ class Frame extends Component {
   }
 
   componentDidMount () {
-    setTimeout(::this.renderFrame, 0);
+    this.renderFrame();
   }
 
   componentWillReceiveProps (nextProps) {

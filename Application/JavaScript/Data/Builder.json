@@ -220,6 +220,10 @@
       "title": "Pages",
       "children": [
         {
+          "type": "block.title",
+          "title": "pages.titles.currentpage"
+        },
+        {
           "type": "block.pages"
         }
       ]

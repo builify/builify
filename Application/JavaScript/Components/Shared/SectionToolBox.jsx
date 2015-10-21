@@ -1,26 +1,42 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { removeContentBlock } from '../../Actions/ActionCreators';
+import cx from 'classnames';
 import SvgIcon from './SvgIcon.jsx';
 
 class SectionToolBox extends Component {
   render () {
+    const { page, onRemove } = this.props;
+    const { blocksCount, _currentHoverBlock } = page;
+    const { element, topX } = _currentHoverBlock;
+    const toolBoxClassName = cx('ab-cstoolbox');
     const iconSize = 24;
     const iconStyle = {
       fill: '#FFF'
     };
+    const toolBoxStyle = {
+      top: topX
+    };
 
     return (
       <div
-        className='ab-cstoolbox'>
+        data-abctoolbox
+        className={toolBoxClassName}
+        style={toolBoxStyle}>
         <ul>
-          <li title='Change Block Settings'>
+          <li
+            title='Change Block Settings'>
             <SvgIcon
               icon='settings'
               size={iconSize}
               style={iconStyle } />
           </li>
-          <li title='Remove Block'>
+          <li
+            title='Remove Block'>
             <SvgIcon
+              onClick={(e) => {
+                return onRemove(element);
+              }}
               icon='remove-circle-outline'
               size={iconSize}
               style={iconStyle } />
@@ -31,4 +47,21 @@ class SectionToolBox extends Component {
   }
 }
 
-export default SectionToolBox;
+function mapStateToProps (state) {
+  return {
+    page: state.page
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    onRemove: (id) => {
+      dispatch(removeContentBlock(id));
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SectionToolBox);

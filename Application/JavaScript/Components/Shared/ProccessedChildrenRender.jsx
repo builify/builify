@@ -10,6 +10,7 @@ import Toggle from '../Shared/Toggle.jsx';
 import Filter from '../Shared/Filter.jsx';
 import BlockTitle from '../Shared/BlockTitle.jsx';
 import ContentBlock from '../Shared/ContentBlock.jsx';
+import CurrentPage from '../Shared/CurrentPage.jsx';
 
 class ProccessedChildrenRender extends Component {
 	constructor (props) {
@@ -269,17 +270,8 @@ class ProccessedChildrenRender extends Component {
 
     if (pages.length !== 0) {
       return (
-        <ul
-          className='ab-pages'
-          key={key}>
-          {pages.map((page, i) => {
-            return (
-              <li key={i}>
-                {page.id}
-              </li>
-            )
-          })}
-        </ul>
+        <CurrentPage
+					key={key} />
       )
     }
   }

@@ -3,20 +3,20 @@ import cx from 'classnames';
 
 class SvgIcon extends Component {
   static propTypes = {
+    onClick: PropTypes.func,
     icon: PropTypes.string.isRequired,
     size: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number
     ]),
     style: PropTypes.object,
-    className: PropTypes.string,
-    title: PropTypes.string
+    className: PropTypes.string
   }
 
   static defaultProps = {
+    onClick: function () {},
     size: 18,
-    className: '',
-    title: ''
+    className: ''
   }
 
   mergeStyles (...args) {
@@ -54,11 +54,25 @@ class SvgIcon extends Component {
         return (
           <g><path d="M7 11v2h10v-2h-10zm5-9c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></g>
         )
+
+      case 'close':
+      case 'clear':
+        return (
+          <g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g>
+        )
+
+      case 'apps':
+        return (
+          <g><path d="M4 8h4v-4h-4v4zm6 12h4v-4h-4v4zm-6 0h4v-4h-4v4zm0-6h4v-4h-4v4zm6 0h4v-4h-4v4zm6-10v4h4v-4h-4zm-6 4h4v-4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"></path></g>
+        )
+
+      default:
+        return null;
     }
   }
 
   render () {
-    const { className, size, style, title } = this.props;
+    const { className, size, style, onClick } = this.props;
     const cn = cx(className);
     let styles = {
       fill: 'currentcolor',
@@ -69,7 +83,7 @@ class SvgIcon extends Component {
 
     return (
       <svg
-        title={title}
+        onClick={onClick}
         viewBox='0 0 24 24'
         preserveAspectRatio='xMidYMid meet'
         fit

@@ -12,7 +12,9 @@ class LoadingScreen extends Component {
       const loadingScreenClassName = className('ab-loadingScreen', isLoadingScreenActive ? 'show' : '');
 
       return (
-        <div className={loadingScreenClassName}>
+        <div
+          id='ab-loadingScreen'
+          className={loadingScreenClassName}>
           <LoadingIcon />
           <div className="ab-loadingScreen__loading">Loading builder</div>
           <div className="ab-loadingScreen__info">Please wait...</div>

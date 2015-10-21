@@ -39,6 +39,9 @@
     "templateselection": "Choose your website template",
 
     "pages": {
+      "titles": {
+        "currentpage": "Current Page"
+      },
       "newpage": "Start new page",
       "loadpage": "Load previous page"
     },

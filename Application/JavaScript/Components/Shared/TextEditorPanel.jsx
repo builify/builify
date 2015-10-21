@@ -44,7 +44,7 @@ class TextEditorPanel extends Component {
     ];
     const cn = classNames('ab-txpanel', 'active');
     return null;
-    return (
+    /*return (
       <div
         ref='panel'
         className={cn}>
@@ -57,7 +57,7 @@ class TextEditorPanel extends Component {
           )
         })}
       </div>
-    )
+    )*/
   }
 }
 

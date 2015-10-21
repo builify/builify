@@ -44,6 +44,7 @@ export default actionMirror(true, [
   // Tempate design's actions
   'LOAD_CONTENTBLOCK_TO_PAGE',
   'CURRENT_HOVER_BLOCK',
+  'REMOVE_CONTENTBLOCK',
   'FILTER_CONTENTBLOCKS',
   'OPEN_CONTEXTMENU_TOOLBOX',
   'CLOSE_CONTEXTMENU_TOOLBOX',

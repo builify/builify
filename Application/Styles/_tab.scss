@@ -12,6 +12,54 @@ $item-height: 30px;
 	padding: 0 $base-padding;
 }
 
+.#{$abprefix}currentPage {
+    position: relative;
+    list-style: none;
+		margin: 0;
+		padding: 0;
+
+    &__item {
+				position: relative;
+				width: 100%;
+				min-height: $item-height;
+		    max-height: $item-height * 2;
+		    line-height: $item-height;
+		    padding: 0 $base-padding;
+
+				&:hover {
+						.remove {
+								opacity: 1;
+						}
+				}
+
+        &-title {
+            display: inline-block;
+            text-overflow: ellipsis;
+            cursor: text;
+            padding-right: 8px;
+            @include user-select(text);
+						@include rem(font-size, 14px);
+        }
+
+				.mover {
+						display: inline-block;
+						margin-right: 5px;
+						vertical-align: auto !important;
+						top: 1px;
+				}
+
+				.remove {
+						opacity: 0;
+						position: absolute;
+						top: 4px;
+						text-align: right;
+						cursor: pointer;
+						right: $base-padding / 2;
+						@include transition(all 0.3s ease);
+				}
+    }
+}
+
 .#{$abprefix}filter {
 	position: relative;
 	width: 100%;
@@ -180,7 +228,7 @@ $item-height: 30px;
 	overflow: auto;
 	transform-style: preserve-3d;
 	backface-visibility: hidden;
-	@include transition(transform 0.3s ease);
+	//@include transition(transform 0.3s ease);
 	@include transform(translateX(0px));
 
 	&.open {

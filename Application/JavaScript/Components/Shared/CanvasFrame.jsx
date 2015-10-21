@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { currentHoverBlock } from '../../Actions/ActionCreators';
+import { store } from '../Application.jsx';
 import IFrame from './IFrame.jsx';
 import ClickToolbox from './ClickToolbox.jsx';
 import SectionToolBox from './SectionToolBox.jsx';
@@ -19,33 +20,34 @@ class CanvasFrame extends Component {
   render () {
     const { page } = this.props;
     const { title } = page;
-    const { _currentHoverBlock } = page;
 
     // data-abcorent - ab-core-Not-Removable
     return (
-      <IFrame
-        title={title}>
-        <div
-          data-abccorent='true'
-          ref='root'
-          className='ab-croot'>
+      <div>
+        <IFrame
+          title={title}>
           <div
-            ref='navigation'
             data-abccorent='true'
-            className='ab-cnavigation__wrapper' />
-          <div
-            ref='main'
-            data-abccorent='true'
-            className='ab-cmain__wrapper' />
-          <div
-            ref='footer'
-            data-abccorent='true'
-            className='ab-cfooter__wrapper' />
-          <ClickToolbox />
-          <SectionToolBox
-            data={_currentHoverBlock}/>
-        </div>
-      </IFrame>
+            ref='root'
+            className='ab-croot'>
+            <div
+              ref='navigation'
+              data-abccorent='true'
+              className='ab-cnavigation__wrapper' />
+            <div
+              ref='main'
+              data-abccorent='true'
+              className='ab-cmain__wrapper' />
+            <div
+              ref='footer'
+              data-abccorent='true'
+              className='ab-cfooter__wrapper' />
+            <ClickToolbox />
+            <SectionToolBox
+              store={store} />
+          </div>
+        </IFrame>
+      </div>
     )
   }
 
@@ -68,14 +70,15 @@ class CanvasFrame extends Component {
   }
 
   setElementAttributes (element) {
+    const { id, type, blockName, elementReference } = element;
     const { onCoreBlockHover } = this.props;
 
-    element.addEventListener('mouseenter', (e) => {
+    elementReference.addEventListener('mouseenter', (e) => {
       return onCoreBlockHover(element);
     }, false);
 
-    element.setAttribute('data-abccorent', 'true');
-    element.classList.add('ab-ccorent');
+    elementReference.setAttribute('data-abcblocknr', String(id));
+    elementReference.setAttribute('data-abccorent', 'true');
   }
 
   renderNavigation (navigationBlock) {
@@ -90,7 +93,7 @@ class CanvasFrame extends Component {
       navigationBlock.hasBeenRendered = true;
       navigationBlock.elementReference = navigationElement.children[0];
 
-      this.setElementAttributes(navigationBlock.elementReference);
+      this.setElementAttributes(navigationBlock);
     }
 
     this._blocks.navigation = navigationBlock;
@@ -110,7 +113,7 @@ class CanvasFrame extends Component {
         block.hasBeenRendered = true;
         block.elementReference = mainElement.children[i];
 
-        this.setElementAttributes(block.elementReference);
+        this.setElementAttributes(block);
       }
     });
 
@@ -139,7 +142,7 @@ class CanvasFrame extends Component {
         block.hasBeenRendered = true;
         block.elementReference = footerElement.children[i];
 
-        this.setElementAttributes(block.elementReference);
+        this.setElementAttributes(block);
       }
     });
 

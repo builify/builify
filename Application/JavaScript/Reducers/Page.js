@@ -13,7 +13,7 @@ const pageInitialState = {
 
   _currentHoverBlock: {
     element: null,
-    topX: 0
+    topX: 10
   }
 };
 
@@ -33,6 +33,8 @@ export function page (state = pageInitialState, action) {
       });
 
     case Actions.LOAD_CONTENTBLOCK_TO_PAGE:
+      let { navigation, footer, blocksCount, main } = state;
+
       if (action.hasOwnProperty('HTML')) {
         let { HTML, blockType, blockName } = action;
         const { replaceInHTML } = state;
@@ -48,27 +50,41 @@ export function page (state = pageInitialState, action) {
         };
 
         if (blockType === 'navigation') {
-          state.navigation = blockInformation;
-          state.blocksCount++;
+          navigation = blockInformation;
         } else if (blockType === 'footer') {
-          state.footer.push(blockInformation);
-          state.blocksCount++;
+          footer.push(blockInformation);
         } else {
-          state.main.push(blockInformation);
-          state.blocksCount++;
+          main.push(blockInformation);
         }
+
+        blocksCount++;
       }
 
-      return Object.assign({}, state, {});
+      return Object.assign({}, state, {
+        navigation: navigation,
+        footer: footer,
+        main: main,
+        blocksCount: blocksCount
+      });
 
     case Actions.CURRENT_HOVER_BLOCK:
       let { _currentHoverBlock } = state;
       const { element } = action;
+      const { elementReference } = element;
 
-      _currentHoverBlock.element = element;
-      _currentHoverBlock.topX = getAbsPosition(element)[0];
+      _currentHoverBlock.element = elementReference;
+      _currentHoverBlock.topX = getAbsPosition(elementReference)[0] + 10;
 
       return Object.assign({}, state, {
+        _currentHoverBlock: _currentHoverBlock
+      });
+
+    case Actions.REMOVE_CONTENTBLOCK:
+      const { blockElement } = action;
+      
+      blockElement.remove();
+
+      return Object.assing({}, state, {
         _currentHoverBlock: _currentHoverBlock
       });
   }
