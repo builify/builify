@@ -1,18 +1,26 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { randomKey } from '../../Common/Common';
 import PrimaryNavigationItem from './PrimaryNavigationItem.jsx';
 
 class PrimaryNavigation extends Component {
+	shouldComponentUpdate (nextProps, nextState) {
+    return false;
+  }
+	
 	render () {
-    const { primarynavigation } = this.props.builderConfiguration;
+		const { builderConfiguration } = this.props;
+    const { primarynavigation, localization } = builderConfiguration;
 
     return (
       <ul className='ab-primarynav'>
         {primarynavigation.map((navigationItem, i) => {
+					const itemKey = randomKey() + 'pni';
+
           return <PrimaryNavigationItem
-                    key={i}
+                    key={itemKey}
                     target={i}
-                    language={this.props.builderConfiguration.localization}
+                    language={localization}
                     navigationItemInformation={navigationItem} />
         })}
       </ul>

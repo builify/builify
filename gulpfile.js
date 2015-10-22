@@ -34,9 +34,7 @@ var dependencies = [
   'classnames',
   'immutable',
   'lodash',
-  'keycode',
-  'active-event-stack',
-  'dynamics.js'
+  'jszip'
 ];
 
 // Rewrite gulp.src for better error handling.

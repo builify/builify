@@ -1,74 +1,42 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { proccessTemplateSelection, startNewPage, loadPreviousPage } from '../../Actions/ActionCreators';
 import { CurrentLocationEnum } from '../../Constants/Defines';
-import { on } from '../../Common/Common';
-import classNames from 'classnames';
+import cx from 'classnames';
 import Canvas from './Canvas.jsx';
 import ProjectStartScreen from './ProjectStartScreen.jsx';
 import PreviewContainer from './PreviewContainer.jsx';
 import TextEditorPanel from '../Shared/TextEditorPanel.jsx';
 
 class Main extends Component {
-  previewNodes () {
-    return <PreviewContainer />
-  }
+  renderChildren () {
+    const { builder } = this.props;
+    const { currentLocation } = builder;
 
-  canvasNodes () {
-    return <Canvas />
-  }
-
-  workflowNodes () {
-    return <ProjectStartScreen />
-  }
-
-  renderNodes (templates) {
-    const hashChangeEvent = (e) => {
-      let { currentLocation } = this.props.builder;
-
-      switch (currentLocation) {
-        case CurrentLocationEnum.STARTSCREEN:
-          return this.workflowNodes();
-
-        case CurrentLocationEnum.CANVAS:
-          return this.canvasNodes();
-
-        case CurrentLocationEnum.PREVIEW:
-          return this.previewNodes();
-      }
-    };
-
-    on('hashchange', hashChangeEvent);
-
-    return hashChangeEvent();
+    if (currentLocation === CurrentLocationEnum.STARTSCREEN) {
+      return (
+        <ProjectStartScreen />
+      )
+    } else {
+      return (
+        <Canvas />
+      )
+    }
   }
 
   render () {
     let externalClassName = '';
-    const { currentLocation } = this.props.builder;
+    const { builder } = this.props;
+    const { currentLocation } = builder;
 
-    switch (currentLocation) {
-      case CurrentLocationEnum.TEMPLATESELECTION:
-        externalClassName = 'fullsize';
-        break;
-
-      case CurrentLocationEnum.PREVIEW:
-        externalClassName = 'preview';
-        break;
-
-      default:
-        break;
-    }
-
-    const { templates } = this.props.builderConfiguration;
-    const mainClassName = classNames('ab-main', externalClassName);
+    const mainClassName = cx('ab-main',
+      currentLocation === CurrentLocationEnum.TEMPLATESELECTION ? 'fullsize' :
+      (currentLocation === CurrentLocationEnum.PREVIEW ? 'preview' : ''));
 
     return (
       <main
         className={mainClassName}>
         <TextEditorPanel />
-        {this.renderNodes(templates)}
+        {this.renderChildren()}
       </main>
     )
   }
@@ -76,9 +44,7 @@ class Main extends Component {
 
 function mapStateToProps (state) {
   return {
-    builderConfiguration: state.builderConfiguration,
-    builder: state.builder,
-    localization: state.localizationData
+    builder: state.builder
   }
 }
 

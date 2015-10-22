@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { startNewPage, loadPreviousPage } from '../../Actions/ActionCreators';
 import { getString } from '../../Common/Localization';
 
@@ -10,8 +9,10 @@ class Page extends Component {
   }
 
   selectPage (e) {
-    const { isNewPage } = this.props.data;
-    return isNewPage ? startNewPage() : loadPreviousPage();
+    const { onStartNewPage, onLoadPreviousPage, data } = this.props;
+    const { isNewPage } = data;
+
+    return isNewPage ? onStartNewPage() : onLoadPreviousPage();
   }
 
   render () {
@@ -22,10 +23,8 @@ class Page extends Component {
     return (
       <div
         className='ab-page-new'
-        {...bindActionCreators({
-          onClick: ::this.selectPage
-        }, dispatch)}>
-        <span>{name}</span>
+        onClick={::this.selectPage}>
+        {name}
       </div>
     )
   }
@@ -37,6 +36,19 @@ function mapStateToProps (state) {
   }
 }
 
+function mapDispatchToProps (dispatch) {
+  return {
+    onStartNewPage: () => {
+      dispatch(startNewPage());
+    },
+
+    onLoadPreviousPage: () => {
+      dispatch(loadPreviousPage());
+    }
+  }
+}
+
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Page);

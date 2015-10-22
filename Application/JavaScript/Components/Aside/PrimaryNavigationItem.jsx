@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { getString } from '../../Common/Localization';
-import { openTab, openPreview } from '../../Actions/ActionCreators';
+import { openTab, openPreview, downloadAsHTML } from '../../Actions/ActionCreators';
 import { CurrentLocationEnum } from '../../Constants/Defines';
 import classNames from 'classnames';
-import Icon from '../Shared/Icon.jsx';
+import SvgIcon from '../Shared/SvgIcon.jsx';
 
 class PrimaryNavigationItem extends Component {
   static propTypes = {
@@ -19,7 +18,7 @@ class PrimaryNavigationItem extends Component {
   }
 
   itemClick (e) {
-    const { target, builder, navigationItemInformation } = this.props;
+    const { onOpenTab, onOpenPreview, target, builder, navigationItemInformation } = this.props;
     const { currentLocation } = builder;
 
     if (currentLocation == CurrentLocationEnum.STARTSCREEN) {
@@ -29,29 +28,38 @@ class PrimaryNavigationItem extends Component {
     }
 
     return ((navigationItemInformation.target.indexOf('tab') !== -1) ?
-            openTab(target) :
-            openPreview(target));
+            onOpenTab(target) :
+            onOpenPreview(target));
   }
 
   render () {
-    const { dispatch, builder } = this.props;
-    const { id, icon, target } = this.props.navigationItemInformation;
+    const { onGetHTML, builder, navigationItemInformation } = this.props;
+    const { id, icon, target } = navigationItemInformation;
     const { currentLocation } = builder;
     let itemClassName = classNames(currentLocation == CurrentLocationEnum.STARTSCREEN ?
       (id !== 'pages' ? 'hide' : '') : '');
 
-    return (
-      <li
-        className={itemClassName}
-        {...bindActionCreators({
-          onClick: ::this.itemClick
-        }, dispatch)}>
-        <Icon name={icon} />
-        {getString('primarynavigation.' + id)}
-      </li>
-    )
+    if (id === 'gethtml') {
+      return (
+        <li
+          onClick={onGetHTML}
+          className='html'>
+          <SvgIcon icon='file-download' />
+          {'Get HTML'}
+        </li>
+      )
+    } else {
+      return (
+        <li
+          className={itemClassName}
+          onClick={::this.itemClick}>
+          <SvgIcon icon={icon} />
+          {getString('primarynavigation.' + id)}
+        </li>
+      )
+    }
   }
-};
+}
 
 function mapStateToProps (state) {
   return {
@@ -59,6 +67,23 @@ function mapStateToProps (state) {
   }
 }
 
+function mapDispatchToProps (dispatch) {
+  return {
+    onOpenTab: (target) => {
+      dispatch(openTab(target));
+    },
+
+    onOpenPreview: (target) => {
+      dispatch(openPreview(target));
+    },
+
+    onGetHTML: () => {
+      dispatch(downloadAsHTML());
+    }
+  }
+}
+
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(PrimaryNavigationItem);

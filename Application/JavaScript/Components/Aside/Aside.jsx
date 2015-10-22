@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
+import cx from 'classnames';
 import Logo from '../Shared/Logo.jsx';
 import Tab from './Tab.jsx';
 import SideTab from './SideTab.jsx';
@@ -12,8 +12,9 @@ class Aside extends Component {
   }
 
   render () {
-    const { tabs, sidetabs } = this.props.builderConfiguration;
-    const asideClassName = classNames('ab-aside', this.props.cName);
+    const { builderConfiguration, cName } = this.props;
+    const { tabs, sidetabs } = builderConfiguration;
+    const asideClassName = cx('ab-aside', cName);
 
     return (
       <aside className={asideClassName} >

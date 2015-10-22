@@ -1,6 +1,6 @@
 import { getLocalization } from '../Common/Localization';
 import { GetSource } from '../Common/Request';
-import { getConfiguration, setSessionStoreParameters, randomKey } from '../Common/Common';
+import { getConfiguration, setSessionStoreParameters, randomKey, downloadPages } from '../Common/Common';
 import axios from 'axios';
 import Storage from '../Common/Storage';
 import * as Actions from '../Constants/Actions';
@@ -16,10 +16,6 @@ export function runApplicationActions () {
       dispatch(getLocalizationFile());
       dispatch(initializeBuilder());
     });
-
-    window.setTimeout(() => {
-      console.log(window.frames['ab-cfrm'].contentWindow.document.documentElement.innerHTML);
-    }, 15000);
   }
 }
 
@@ -155,6 +151,18 @@ export function checkIfPreviousPageExists () {
   return {
     type: Actions.CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE,
     data: data
+  }
+}
+
+export function getCurrentPageData () {
+  return {
+    type: Actions.GET_CURRENT_PAGE_DATA
+  }
+}
+
+export function downloadAsHTML () {
+  return {
+    type: Actions.DOWNLOAD_AS_HTML
   }
 }
 
@@ -326,6 +334,7 @@ export function currentHoverBlock (element) {
 }
 
 export function removeContentBlock (blockElement) {
+  console.log(blockElement);
   return {
     type: Actions.REMOVE_CONTENTBLOCK,
     blockElement: blockElement

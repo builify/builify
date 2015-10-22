@@ -111,7 +111,6 @@ export function builder (state = builderInitialState, action) {
       newPages.push(newPage);
 
       Storage.set('ab-pages', newPages);
-      setURI('PAGE', pageId);
 
       return Object.assign({}, state, {
         currentLocation: CurrentLocationEnum.CANVAS,
@@ -123,8 +122,6 @@ export function builder (state = builderInitialState, action) {
       let pagesSize = state.pages.length;
 
       if (pagesSize > 0) {
-        setURI(ABuilder.PAGE, state.pages[state.latestPage].id);
-
         return Object.assign({}, state, {
           currentLocation: CurrentLocationEnum.CANVAS,
           isPageSelected: true

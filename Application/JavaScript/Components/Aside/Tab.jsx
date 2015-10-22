@@ -1,9 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { closeTab, openSidetab } from '../../Actions/ActionCreators';
 import { randomKey } from '../../Common/Common';
-import classNames from 'classnames';
 import proccessChildrenData from '../../Common/ProccessTabChildren';
 import ProccessedChildrenRender from '../Shared/ProccessedChildrenRender.jsx';
 import BackButton from '../Shared/BackButton.jsx';

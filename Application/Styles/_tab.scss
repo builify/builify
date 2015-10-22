@@ -44,8 +44,9 @@ $item-height: 30px;
 				.mover {
 						display: inline-block;
 						margin-right: 5px;
-						vertical-align: auto !important;
-						top: 1px;
+						position: relative;
+						top: 3px;
+						cursor: move;
 				}
 
 				.remove {

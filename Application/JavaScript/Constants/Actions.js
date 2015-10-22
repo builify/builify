@@ -17,6 +17,8 @@ export default actionMirror(true, [
   'START_NEW_PAGE',
   'LOAD_PREVIOUS_PAGE',
   'CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE',
+  'GET_CURRENT_PAGE_DATA',
+  'DOWNLOAD_AS_HTML',
 
   // Tab's actions
   'OPEN_TAB',

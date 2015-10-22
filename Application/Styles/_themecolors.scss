@@ -5,14 +5,6 @@ $themes: (
 		"bg": #eee,
 		"templateitem-bg": #FFF,
 		"templateitem-h1": #444
-	),
-
-	"dark": (
-		"core": #666,
-		"main-h1": #FFF,
-		"bg": #333,
-		"templateitem-bg": #FFF,
-		"templateitem-h1": #333
 	)
 );
 
@@ -45,28 +37,12 @@ $themes: (
 		.#{$abprefix}main {
 			box-shadow: 0 0 10px rgba(#000, 0.3);
 			background: map-fetch($themes, $theme "core");
-
-			&-template-selection {
-	        	h1 {
-	            	color: map-fetch($themes, $theme "main-h1");
-	        	}
-	    	}
 		}
 
 		.#{$abprefix}aside,
 		.#{$abprefix}tab,
 		.#{$abprefix}sidetab {
 			background: map-fetch($themes, $theme "bg");
-		} 
-
-		.#{$abprefix}templateitem {
-			background: map-fetch($themes, $theme "templateitem-bg");
-
-			&__figure {
-				h1 {
-					color: map-fetch($themes, $theme "templateitem-h1");
-				}
-			}
 		}
 	}
 }
@@ -81,7 +57,7 @@ $themes: (
 	        }
 		}
 	}
-	
+
 	.#{$abprefix}swatch {
 		&__color {
 			background: darken(#eee, 13%);
@@ -113,15 +89,15 @@ $themes: (
 				background: darken(#eee, 17%);
 			}
 
-			&::-moz-range-thumb { 
+			&::-moz-range-thumb {
 				background: #fff;
 			}
 
-			&::-webkit-slider-thumb { 
+			&::-webkit-slider-thumb {
 				background: #fff;
 			}
-			
-			&::-ms-thumb { 
+
+			&::-ms-thumb {
 				background: #fff;
 			}
 		}

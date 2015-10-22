@@ -6,9 +6,9 @@ import SvgIcon from './SvgIcon.jsx';
 
 class SectionToolBox extends Component {
   render () {
-    const { page, onRemove } = this.props;
-    const { blocksCount, _currentHoverBlock } = page;
-    const { element, topX } = _currentHoverBlock;
+    const { canvas, onRemove } = this.props;
+    const { currentHoverBlock } = canvas;
+    const { element, topX } = currentHoverBlock;
     const toolBoxClassName = cx('ab-cstoolbox');
     const iconSize = 24;
     const iconStyle = {
@@ -49,7 +49,7 @@ class SectionToolBox extends Component {
 
 function mapStateToProps (state) {
   return {
-    page: state.page
+    canvas: state.canvas
   }
 }
 

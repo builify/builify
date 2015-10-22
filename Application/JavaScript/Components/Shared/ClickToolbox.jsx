@@ -140,7 +140,6 @@ class ClickToolbox extends Component {
         onClick={(e) => {
           return store.dispatch(openImageEditModal());
         }}
-        data-abcpanel={true}
         className='ab-crightpanel__item'>
         <SvgIcon icon='image' />
         <span data-abcpanel={true}>Edit Image</span>
@@ -152,7 +151,6 @@ class ClickToolbox extends Component {
     return (
       <div
         onClick={::this.openLinkEditModal}
-        data-abcpanel={true}
         className='ab-crightpanel__item'>
         <SvgIcon icon='link' />
         <span data-abcpanel={true}>Change Link</span>
@@ -163,7 +161,6 @@ class ClickToolbox extends Component {
   listIconChange () {
     return (
       <div
-        data-abcpanel={true}
         className='ab-crightpanel__item'>
         <SvgIcon icon='star' />
         <span data-abcpanel={true}>Change Icon</span>
@@ -174,7 +171,6 @@ class ClickToolbox extends Component {
   listItemRemove () {
     return (
       <div
-        data-abcpanel={true}
         className='ab-crightpanel__item'
         onClick={::this.removeElement}>
         <SvgIcon icon='clear' />
@@ -242,11 +238,10 @@ class ClickToolbox extends Component {
       <div
         ref='panel'
         id='ab-cpanel'
-        data-abcpanel={true}
+        data-abcpanel
         style={panelStyle}
         className={planelClassName}>
         <div
-          data-abcpanel={true}
           className='ab-crightpanel__text'>
           {this.state.targetName}
         </div>

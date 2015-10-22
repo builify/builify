@@ -73,12 +73,17 @@ class CanvasFrame extends Component {
     const { id, type, blockName, elementReference } = element;
     const { onCoreBlockHover } = this.props;
 
+    if (elementReference === undefined || elementReference === null) {
+      return;
+    }
+
     elementReference.addEventListener('mouseenter', (e) => {
       return onCoreBlockHover(element);
     }, false);
 
     elementReference.setAttribute('data-abcblocknr', String(id));
     elementReference.setAttribute('data-abccorent', 'true');
+    elementReference.setAttribute('data-abcblocktype', type);
   }
 
   renderNavigation (navigationBlock) {

@@ -9,6 +9,14 @@ class CurrentPageItem extends Component {
     data: PropTypes.object.isRequired
   }
 
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      isPressed: false
+    }
+  }
+
   render () {
     const { data, onRemoveClick } = this.props;
     const { id, type, blockName, elementReference, hasBeenRendered } = data;
@@ -17,7 +25,8 @@ class CurrentPageItem extends Component {
     };
 
     return (
-      <li className='ab-currentPage__item'>
+      <li
+        className='ab-currentPage__item'>
         <SvgIcon
           className='mover'
           size={18}
@@ -42,6 +51,10 @@ class CurrentPage extends Component {
     const { navigation, main, footer } = page;
     let items = [];
 
+    if (Object.keys(navigation).length !== 0) {
+      items.push(navigation);
+    }
+
     main.map((mainItem, i) => {
       items.push(mainItem);
     });
@@ -53,9 +66,13 @@ class CurrentPage extends Component {
     return (
       <ul className='ab-currentPage'>
         {items.map((item, i) => {
+          const { elementReference } = item;
+
           return (
             <CurrentPageItem
-              onRemoveClick={onRemove}
+              onRemoveClick={(e) => {
+                return onRemove(elementReference);
+              }}
               data={item}
               key={i} />
           )
@@ -73,8 +90,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onRemove: (id) => {
-      dispatch(removeContentBlock(id));
+    onRemove: (element) => {
+      dispatch(removeContentBlock(element));
     }
   }
 }
