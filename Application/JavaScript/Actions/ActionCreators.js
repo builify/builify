@@ -1,5 +1,4 @@
 import { getLocalization } from '../Common/Localization';
-import { GetSource } from '../Common/Request';
 import { getConfiguration, setSessionStoreParameters, randomKey, downloadPages } from '../Common/Common';
 import axios from 'axios';
 import Storage from '../Common/Storage';
@@ -334,7 +333,6 @@ export function currentHoverBlock (element) {
 }
 
 export function removeContentBlock (blockElement) {
-  console.log(blockElement);
   return {
     type: Actions.REMOVE_CONTENTBLOCK,
     blockElement: blockElement
@@ -376,5 +374,12 @@ export function openLinkEditModal (target) {
 export function closeModal () {
   return {
     type: Actions.CLOSE_MODAL
+  }
+}
+
+export function sortContentBlocks (evt) {
+  return {
+    type: Actions.SORT_CONTENTBLOCKS,
+    evt: evt
   }
 }

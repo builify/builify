@@ -12,6 +12,18 @@ $item-height: 30px;
 	padding: 0 $base-padding;
 }
 
+.#{$abprefix}copyright {
+		position: absolute;
+		bottom: $base-padding / 2;
+		left: $base-padding;
+
+		h3 {
+				color: #777;
+				text-transform: uppercase;
+				@include rem(font-size, 12px);
+		}
+}
+
 .#{$abprefix}currentPage {
     position: relative;
     list-style: none;
@@ -41,12 +53,17 @@ $item-height: 30px;
 						@include rem(font-size, 14px);
         }
 
-				.mover {
+				.handle {
+						height: 18px;
+						width: 18px;
 						display: inline-block;
-						margin-right: 5px;
 						position: relative;
-						top: 3px;
+						margin-right: 5px;
 						cursor: move;
+						svg {
+							position: relative;
+							top: 3px;
+						}
 				}
 
 				.remove {

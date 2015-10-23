@@ -1,4 +1,5 @@
 import { randomKey, replaceDataInHTML, getAbsPosition } from '../Common/Common';
+import _ from 'lodash';
 import * as Actions from '../Constants/Actions';
 
 const pageInitialState = {
@@ -6,7 +7,7 @@ const pageInitialState = {
 
   navigation: {},
   main: [],
-  footer: [],
+  footer: {},
   blocksCount: 0,
 
   replaceInHTML: []
@@ -47,7 +48,7 @@ export function page (state = pageInitialState, action) {
         if (blockType === 'navigation') {
           navigation = blockInformation;
         } else if (blockType === 'footer') {
-          footer.push(blockInformation);
+          footer = blockInformation;
         } else {
           main.push(blockInformation);
         }
@@ -76,14 +77,11 @@ export function page (state = pageInitialState, action) {
 
         if (blockNumber) {
           if (attr == 'footer') {
-            for (let i = footer.length - 1; i >= 0; i--) {
-              let curItem = footer[i];
-
-              if (curItem.id === blockNumber) {
-                footer.splice(i, 1);
-                blocksCount--;
-                break;
-              }
+            if (footer.id === blockNumber) {
+              footer = {};
+              blocksCount--;
+            } else {
+              throw Error('Footer item mismatches with requested block deletion.');
             }
           } else if (attr == 'navigation') {
             // It must equal. I really do not know when it would not be equal
@@ -118,8 +116,36 @@ export function page (state = pageInitialState, action) {
       });
 
     case Actions.GET_CURRENT_PAGE_DATA:
-      console.log(state);
       return state;
+
+    case Actions.SORT_CONTENTBLOCKS:
+      const { evt } = action;
+      const { newIndex, oldIndex, item } = evt;
+      const blockIdElement = item.querySelector('[data-blockid]');
+      const blockId = blockIdElement ? blockIdElement.getAttribute('data-blockid') : null;
+
+      if (blockId !== null) {
+        let temp = main[newIndex];
+
+        main[newIndex] = main[oldIndex];
+        main[oldIndex] = temp;
+
+        _.assign(main[newIndex], {
+          updatePosition: true,
+          oldPos: oldIndex,
+          newPos: newIndex
+        });
+
+        _.assign(main[oldIndex], {
+          updatePosition: true,
+          oldPos: newIndex,
+          newPos: oldIndex
+        });
+      }
+
+      return Object.assign({}, state, {
+        main: main
+      });
   }
 
   return state;

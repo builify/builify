@@ -32,7 +32,10 @@ class Frame extends Component {
     let rootElement = document.createElement('div');
 
     this._bodyElement.appendChild(rootElement);
+
     render(this._children, rootElement);
+
+    this.setFiles();
   }
 
   appendFiles (coreFiles) {
@@ -74,8 +77,8 @@ class Frame extends Component {
     this.renderFrame();
   }
 
-  componentWillReceiveProps (nextProps) {
-    const props = nextProps;
+  setFiles () {
+    const props = this.props;
     const theme = props.theme;
     const { coreFilesAppended } = this.state;
 
@@ -86,10 +89,6 @@ class Frame extends Component {
 
           if (coreFiles && coreFiles.length) {
             this.appendFiles(coreFiles);
-
-            this.setState({
-              coreFilesAppended: true
-            });
           }
         }
       }

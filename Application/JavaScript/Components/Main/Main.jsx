@@ -4,7 +4,6 @@ import { CurrentLocationEnum } from '../../Constants/Defines';
 import cx from 'classnames';
 import Canvas from './Canvas.jsx';
 import ProjectStartScreen from './ProjectStartScreen.jsx';
-import PreviewContainer from './PreviewContainer.jsx';
 import TextEditorPanel from '../Shared/TextEditorPanel.jsx';
 
 class Main extends Component {

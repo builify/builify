@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import cx from 'classnames';
 import Logo from '../Shared/Logo.jsx';
+import Copyright from '../Shared/Copyright.jsx';
 import Tab from './Tab.jsx';
 import SideTab from './SideTab.jsx';
 import PrimaryNavigation from './PrimaryNavigation.jsx';
@@ -22,6 +23,7 @@ class Aside extends Component {
           <div className='ab-aside__item'>
             <Logo text='ABuilder'/>
             <PrimaryNavigation />
+            <Copyright />
           </div>
           <div className='ab-aside__item'>
             {tabs.map((tab, index) => {

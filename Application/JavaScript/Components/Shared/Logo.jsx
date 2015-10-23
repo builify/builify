@@ -9,6 +9,10 @@ class Logo extends Component {
     text: 'ABuilder'
   }
 
+  shouldComponentUpdate (nextProps, nextState) {
+    return false;
+  }
+
   render () {
     return (
       <div className='ab-logo'>

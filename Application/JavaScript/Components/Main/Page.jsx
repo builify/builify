@@ -8,6 +8,10 @@ class Page extends Component {
     data: PropTypes.object
   }
 
+  shouldComponentUpdate (nextProps, nextState) {
+    return false;
+  }
+
   selectPage (e) {
     const { onStartNewPage, onLoadPreviousPage, data } = this.props;
     const { isNewPage } = data;

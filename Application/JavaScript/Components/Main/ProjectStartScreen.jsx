@@ -6,11 +6,16 @@ import cx from 'classnames';
 import Page from './Page.jsx';
 
 class ProjectStartScreen extends Component {
+  shouldComponentUpdate (nextProps, nextState) {
+    return false;
+  }
+
   render () {
     const wrapperClassName = cx('ab-flex', 'full', 'center');
     const items = {isNewPage: true};
     const previousPageNode = () => {
-      const { doesPreviousPageExistInStorage } = this.props.builder;
+      const { builder } = this.props;
+      const { doesPreviousPageExistInStorage } = builder;
 
       return doesPreviousPageExistInStorage ? <Page data={{isNewPage: false}} /> : null;
     };
@@ -20,9 +25,9 @@ class ProjectStartScreen extends Component {
         <Page data={{isNewPage: true}} />
         {previousPageNode()}
       </div>
-    );
+    )
   }
-};
+}
 
 function mapStateToProps (state) {
   return {

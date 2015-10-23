@@ -10,6 +10,10 @@ class LoadingIcon extends Component {
     size: 'big'
   }
 
+  shouldComponentUpdate (nextProps, nextState) {
+    return false;
+  }
+
   render () {
     const loaderClassName = classNames('ab-loadingScreen__loader', this.props.size);
 

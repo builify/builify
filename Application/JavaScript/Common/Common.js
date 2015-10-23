@@ -22,6 +22,7 @@ export function removeUnneccesaryDataFromDocument (targetDocument) {
     'contenteditable',
     '.editable'
   ].join(',');
+  
   const targets = targetDocument.querySelectorAll(query);
 
   for (let i = 0; i < targets.length; i++) {

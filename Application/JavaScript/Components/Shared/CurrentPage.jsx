@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { removeContentBlock } from '../../Actions/ActionCreators';
+import { removeContentBlock, sortContentBlocks } from '../../Actions/ActionCreators';
+import cx from 'classnames';
+import Sortable from './Sortable.jsx';
 import SvgIcon from './SvgIcon.jsx';
 
 class CurrentPageItem extends Component {
@@ -21,16 +23,25 @@ class CurrentPageItem extends Component {
     const { data, onRemoveClick } = this.props;
     const { id, type, blockName, elementReference, hasBeenRendered } = data;
     const removeIconStyle = {
-      fill: 'red'
+      fill: '#ce4031'
     };
+    const itemClassName = cx('ab-currentPage__item');
+
+    if (type === 'navigation' || type === 'footer') {
+      return null;
+    }
 
     return (
       <li
-        className='ab-currentPage__item'>
-        <SvgIcon
-          className='mover'
-          size={18}
-          icon='apps' />
+        data-blockid={id}
+        className={itemClassName}>
+        <div
+          className='handle'
+          title='Remove Element'>
+          <SvgIcon
+            size={18}
+            icon='apps' />
+        </div>
         <div className='ab-currentPage__item-title'>
           {blockName}
         </div>
@@ -47,24 +58,36 @@ class CurrentPageItem extends Component {
 
 class CurrentPage extends Component {
   render () {
-    const { page, onRemove } = this.props;
+    const { page, onRemove, onSortBlocks } = this.props;
     const { navigation, main, footer } = page;
+    const sortableOptions = {
+      draggable: '.draggable',
+      filter: '.ignore',
+      handle: '.handle',
+      onSort: (evt) => {
+        return onSortBlocks(evt);
+      }
+    }
     let items = [];
 
     if (Object.keys(navigation).length !== 0) {
       items.push(navigation);
     }
 
+    if (Object.keys(footer).length !== 0) {
+      items.push(footer);
+    }
+
     main.map((mainItem, i) => {
       items.push(mainItem);
     });
 
-    footer.map((footerItem, i) => {
-      items.push(footerItem);
-    });
-
     return (
-      <ul className='ab-currentPage'>
+      <Sortable
+        sortable={sortableOptions}
+        component='ul'
+        childElement='div'
+        className='ab-currentPage'>
         {items.map((item, i) => {
           const { elementReference } = item;
 
@@ -77,7 +100,7 @@ class CurrentPage extends Component {
               key={i} />
           )
         })}
-      </ul>
+      </Sortable>
     )
   }
 }
@@ -92,6 +115,10 @@ function mapDispatchToProps (dispatch) {
   return {
     onRemove: (element) => {
       dispatch(removeContentBlock(element));
+    },
+
+    onSortBlocks: (element) => {
+      dispatch(sortContentBlocks(element));
     }
   }
 }

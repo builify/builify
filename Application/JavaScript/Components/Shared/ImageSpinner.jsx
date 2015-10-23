@@ -20,6 +20,10 @@ class ImageSpinner extends Component {
     };
   }
 
+  shouldComponentUpdate (nextProps, nextState) {
+    return false;
+  }
+
   render () {
     const { loading } = this.state;
 
@@ -28,7 +32,7 @@ class ImageSpinner extends Component {
       const moonSize = size / 7;
 
       return (
-        <div 
+        <div
           className='ab-loadimage__icon'
           style={{
             marginTop: -(size / 2),
@@ -36,19 +40,19 @@ class ImageSpinner extends Component {
             width: size,
             height: size
           }}>
-          <div 
+          <div
             className='icon'
             style={{
               width: size,
               height: size
             }}>
-            <div 
+            <div
               className='icon__ball'
               style={{
                 height: moonSize,
                 width: moonSize
               }} />
-            <div 
+            <div
               className='icon__track'
               style={{
                 width: size,

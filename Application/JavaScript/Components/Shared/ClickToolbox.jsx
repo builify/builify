@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { store } from '../Application.jsx';
-import { findUpAttr } from '../../Common/Common';
+import { findUpAttr, getBrowserSize } from '../../Common/Common';
+import _ from 'lodash';
 import * as Actions from '../../Actions/ActionCreators';
 import classNames from 'classnames';
 import SvgIcon from './SvgIcon.jsx';
@@ -40,6 +41,14 @@ class ClickToolbox extends Component {
       BLOCKQUOTE: 'Quote',
       FIGCAPTION: 'Caption'
     };
+
+    this._browserSize = getBrowserSize();
+
+    window.addEventListener('resize', () => {
+      this._browserSize = getBrowserSize();
+    });
+
+    this._panelXPadding = 15;
   }
 
   componentDidMount () {
@@ -52,6 +61,14 @@ class ClickToolbox extends Component {
 
   componentDidUpdate () {
     const panelElement = this.refs.panel;
+    const panelElementHeight = panelElement.offsetHeight;
+    const { y } = this.state.panelCoordinates;
+
+    if ((y + panelElementHeight) >= (this._browserSize.height - this._panelXPadding)) {
+      const dif = (y + panelElementHeight) - (this._browserSize.height - this._panelXPadding);
+
+      panelElement.style.top = (y - +dif) + 'px';
+    }
   }
 
   openPanel (e) {
@@ -61,7 +78,7 @@ class ClickToolbox extends Component {
 
     e.preventDefault();
 
-    const eventPosition = {
+    let eventPosition = {
       x: e.clientX,
       y: e.clientY
     };
@@ -93,6 +110,15 @@ class ClickToolbox extends Component {
     }
 
     const targetName = this.HTMLTagNames[target.tagName];
+    const panelWidth = 170;
+    const xOfrightPanelEdge = eventPosition.x + panelWidth + 275;
+
+    if (+xOfrightPanelEdge >= (this._browserSize.width - this._panelXPadding)) {
+      // Multiply panelXPadding by 2 because iframe gives scrollbar.
+      const dif = +xOfrightPanelEdge - (this._browserSize.width - (this._panelXPadding * 2));
+
+      eventPosition.x = eventPosition.x - dif;
+    }
 
     this.setState({
       panelOpen: true,
@@ -107,7 +133,9 @@ class ClickToolbox extends Component {
   }
 
   closePanel (e) {
-    if (this.state.panelOpen) {
+    const { panelOpen } = this.state;
+
+    if (panelOpen) {
       store.dispatch(Actions.closeContextmenuToolbox());
 
       this.setState({

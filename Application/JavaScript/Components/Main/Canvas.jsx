@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import CanvasSuggestionBox from '../Shared/CanvasSuggestionBox.jsx';
 import Scrollbar from '../Shared/Scrollbar.jsx';
 import CanvasFrame from '../Shared/CanvasFrame.jsx';
+import PreviewControls from './PreviewControls.jsx';
 
 class Canvas extends Component {
   render () {

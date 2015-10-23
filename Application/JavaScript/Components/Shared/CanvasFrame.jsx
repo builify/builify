@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { currentHoverBlock } from '../../Actions/ActionCreators';
+import { currentHoverBlock, removeContentBlock } from '../../Actions/ActionCreators';
 import { store } from '../Application.jsx';
 import IFrame from './IFrame.jsx';
 import ClickToolbox from './ClickToolbox.jsx';
@@ -69,7 +69,7 @@ class CanvasFrame extends Component {
     this.renderFooter(footer);
   }
 
-  setElementAttributes (element) {
+  setElementAttributes (element, i: 0) {
     const { id, type, blockName, elementReference } = element;
     const { onCoreBlockHover } = this.props;
 
@@ -81,6 +81,7 @@ class CanvasFrame extends Component {
       return onCoreBlockHover(element);
     }, false);
 
+    elementReference.setAttribute('data-abc-i', i);
     elementReference.setAttribute('data-abcblocknr', String(id));
     elementReference.setAttribute('data-abccorent', 'true');
     elementReference.setAttribute('data-abcblocktype', type);
@@ -90,35 +91,46 @@ class CanvasFrame extends Component {
     const navigationElement = this.refs.navigation;
 
     if (Object.keys(navigationBlock).length !== 0) {
-      const { id, type, blockName, source } = navigationBlock;
+      const { id, type, blockName, source, hasBeenRendered } = navigationBlock;
 
-      navigationElement.innerHTML = '';
-      navigationElement.insertAdjacentHTML('beforeend', source);
+      if (!hasBeenRendered) {
+        navigationElement.innerHTML = '';
+        navigationElement.insertAdjacentHTML('beforeend', source);
 
-      navigationBlock.hasBeenRendered = true;
-      navigationBlock.elementReference = navigationElement.children[0];
+        navigationBlock.hasBeenRendered = true;
+        navigationBlock.elementReference = navigationElement.children[0];
 
-      this.setElementAttributes(navigationBlock);
+        this.setElementAttributes(navigationBlock);
+      }
     }
 
     this._blocks.navigation = navigationBlock;
   }
 
   renderMainBlocks (mainBlocks) {
+    const { onElementRemove } = this.props;
     const mainElement = this.refs.main;
     const navigationBlock = this._blocks.navigation;
     let doesNavigationBlockExist = false;
 
     mainBlocks.map((block, i) => {
-      const { id, type, blockName, source } = block;
+      const { id, type, blockName, source, hasBeenRendered, elementReference } = block;
 
-      if (!block.hasBeenRendered) {
+      if (!hasBeenRendered) {
         mainElement.insertAdjacentHTML('beforeend', source);
 
         block.hasBeenRendered = true;
         block.elementReference = mainElement.children[i];
 
-        this.setElementAttributes(block);
+        this.setElementAttributes(block, i);
+      }
+
+      if (block.hasOwnProperty('updatePosition')) {
+        const { oldPos, newPos } = block;
+
+        onElementRemove(block.elementReference);
+
+        delete block.updatePosition;
       }
     });
 
@@ -135,23 +147,24 @@ class CanvasFrame extends Component {
     this._blocks.main = mainBlocks;
   }
 
-  renderFooter (footerBlocks) {
-    const footerElement = this.refs.footer;
+  renderFooter (navigationBlock) {
+    const navigationElement = this.refs.footer;
 
-    footerBlocks.map((block, i) => {
-      const { id, type, blockName, source } = block;
+    if (Object.keys(navigationBlock).length !== 0) {
+      const { id, type, blockName, source, hasBeenRendered } = navigationBlock;
 
-      if (!block.hasBeenRendered) {
-        footerElement.insertAdjacentHTML('beforeend', source);
+      if (!hasBeenRendered) {
+        navigationElement.innerHTML = '';
+        navigationElement.insertAdjacentHTML('beforeend', source);
 
-        block.hasBeenRendered = true;
-        block.elementReference = footerElement.children[i];
+        navigationBlock.hasBeenRendered = true;
+        navigationBlock.elementReference = navigationElement.children[0];
 
-        this.setElementAttributes(block);
+        this.setElementAttributes(navigationBlock);
       }
-    });
+    }
 
-    this._blocks.footer = footerBlocks;
+    this._blocks.footer = navigationBlock;
   }
 
   hoverBlocksMouseEnter (e) {
@@ -204,6 +217,10 @@ function mapDispatchToProps (dispatch) {
   return {
     onCoreBlockHover: (element) => {
       dispatch(currentHoverBlock(element));
+    },
+
+    onElementRemove: (element) => {
+      dispatch(removeContentBlock(element));
     }
   }
 }

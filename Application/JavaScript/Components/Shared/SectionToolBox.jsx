@@ -37,7 +37,7 @@ class SectionToolBox extends Component {
               onClick={(e) => {
                 return onRemove(element);
               }}
-              icon='remove-circle-outline'
+              icon='remove'
               size={iconSize}
               style={iconStyle } />
           </li>
