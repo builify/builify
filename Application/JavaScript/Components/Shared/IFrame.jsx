@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM, { render, unmountComponentAtNode } from 'react-dom';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 class Frame extends Component {
   static propTypes = {
@@ -44,7 +45,7 @@ class Frame extends Component {
       src: '/IFrameStylesheet.css'
     });
 
-    coreFiles.map((file, i) => {
+    _.map(coreFiles, (file) => {
       let type = file.type;
 
       if (type === 'css') {
@@ -82,15 +83,11 @@ class Frame extends Component {
     const theme = props.theme;
     const { coreFilesAppended } = this.state;
 
-    if (!coreFilesAppended) {
-      if (theme.hasOwnProperty('external')) {
-        if (theme.external.hasOwnProperty('core')) {
-          let coreFiles = theme.external.core;
+    if (!coreFilesAppended && _.has(theme, 'external.core')) {
+      let coreFiles = theme.external.core;
 
-          if (coreFiles && coreFiles.length) {
-            this.appendFiles(coreFiles);
-          }
-        }
+      if (coreFiles && coreFiles.length) {
+        this.appendFiles(coreFiles);
       }
     }
   }

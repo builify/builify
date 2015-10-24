@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { filterContentBlocks } from '../../Actions/ActionCreators';
+import _ from 'lodash';
 import classNames from 'classnames';
-import Icon from './Icon.jsx';
 
 class Filter extends Component {
   constructor (props) {
@@ -23,24 +23,18 @@ class Filter extends Component {
     });
   }
 
-  setTarget (i, target) {
-    /*this.setState({
-      activeTargetId: i,
-      target: target
-    });*/
-  }
-
   renderFilterItems () {
-    const { theme } = this.props;
+    const { theme, builder, onFilterItemSelection } = this.props;
+    const { filterContentBlocksTarget } = builder;
     let items = [{
       name: 'Show All',
       target: 'all'
     }];
 
-    if (theme.hasOwnProperty('blocks')) {
+    if (_.has(theme, 'blocks')) {
       const { blocks } = theme;
 
-      blocks.map((block, i) => {
+      _.map(blocks, (block) => {
         const { type } = block;
         items.push({
           name: String(type),
@@ -48,39 +42,36 @@ class Filter extends Component {
         });
       });
 
-      if (items.length > 0) {
-        return (
-          <ul>
-            {items.map((item, i) => {
-              const { name, target } = item;
-              const { filterContentBlocksTarget } = this.props.builder;
-              const { onFilterItemSelection } = this.props;
-              let isActive = false;
+      items = _.sortByOrder(items, ['name'], 'asc');
 
-              if (item.hasOwnProperty('active')) {
-                if (item.active) {
-                  isActive = true;
-                }
+      return (
+        <ul>
+          {_.map(items, (item, i) => {
+            const { name, target } = item;
+            let isActive = false;
+
+            if (_.has(item, 'active')) {
+              if (item.active) {
+                isActive = true;
               }
+            }
 
-              const itemClassName = classNames(target == filterContentBlocksTarget ? 'active' : '');
+            const itemClassName = classNames(target == filterContentBlocksTarget ? 'active' : '');
 
-              return (
-                <li
-                  key={'filterItem-' + i}
-                  onClick={(e) => {
-                    e.preventDefault();
-
-                    return onFilterItemSelection(target);
-                  }}
-                  className={itemClassName}>
-                  <span>{name}</span>
-                </li>
-              )
-            })}
-          </ul>
-        )
-      }
+            return (
+              <li
+                key={'filterItem-' + i}
+                onClick={(e) => {
+                  e.preventDefault();
+                  return onFilterItemSelection(target);
+                }}
+                className={itemClassName}>
+                {name}
+              </li>
+            )
+          })}
+        </ul>
+      )
     }
 
     return null;

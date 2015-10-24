@@ -7,7 +7,7 @@ const notificationDefaultProps = {
   timeout: null
 };
 
-export function notifications (state = notificationsInitialState, action) {
+function notifications (state = notificationsInitialState, action) {
   switch (action.type) {
     case Actions.ADD_NOTIFICATION:
       const { notification } = action;
@@ -39,3 +39,5 @@ export function notifications (state = notificationsInitialState, action) {
 
   return state;
 }
+
+export default notifications;

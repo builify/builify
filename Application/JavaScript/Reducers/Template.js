@@ -1,5 +1,6 @@
 import * as Actions from '../Constants/Actions';
 import { randomKey } from '../Common/Common';
+import _ from 'lodash';
 
 const initialState = {
   _colorPickerTarget: null,
@@ -23,19 +24,19 @@ const initialState = {
   }
 };
 
-export function theme (state = initialState, action) {
+function theme (state = initialState, action) {
   switch (action.type) {
     case Actions.GET_SELECTED_TEMPLATE_DATA:
       let data = {};
 
-      if (action.hasOwnProperty('data')) {
+      if (_.has(action, 'data')) {
         data = action.data;
       }
 
-      return Object.assign({}, state, data);
+      return _.assign({}, state, data);
 
     case Actions.OPEN_COLORPICKER:
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
         _colorPickerTarget: action.target
       });
 
@@ -52,21 +53,23 @@ export function theme (state = initialState, action) {
       return state;
 
     case Actions.CLOSE_COLORPICKER:
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
         _colorPickerTarget: null
       });
 
     case Actions.SET_SWATCH:
-      let selectedSwatch = state.currentSwatch;
+      let designState = state.design;
 
-      if (action.hasOwnProperty('swatch')) {
-        selectedSwatch = String(action.swatch);
+      if (_.has(action, 'swatch')) {
+        designState.currentSwatch = action.swatch;
       }
 
-      return Object.assign({}, state, {
-        currentSwatch: selectedSwatch
+      return _.assign({}, state, {
+        design: designState
       });
   }
 
   return state;
 }
+
+export default theme;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { currentHoverBlock, removeContentBlock } from '../../Actions/ActionCreators';
 import { store } from '../Application.jsx';
+import _ from 'lodash';
 import IFrame from './IFrame.jsx';
 import ClickToolbox from './ClickToolbox.jsx';
 import SectionToolBox from './SectionToolBox.jsx';
@@ -42,7 +43,8 @@ class CanvasFrame extends Component {
               ref='footer'
               data-abccorent='true'
               className='ab-cfooter__wrapper' />
-            <ClickToolbox />
+            <ClickToolbox
+              store={store}/>
             <SectionToolBox
               store={store} />
           </div>
@@ -90,7 +92,7 @@ class CanvasFrame extends Component {
   renderNavigation (navigationBlock) {
     const navigationElement = this.refs.navigation;
 
-    if (Object.keys(navigationBlock).length !== 0) {
+    if (_.values(navigationBlock).length !== 0) {
       const { id, type, blockName, source, hasBeenRendered } = navigationBlock;
 
       if (!hasBeenRendered) {
@@ -108,13 +110,21 @@ class CanvasFrame extends Component {
   }
 
   renderMainBlocks (mainBlocks) {
-    const { onElementRemove } = this.props;
+    const { onElementRemove, page } = this.props;
     const mainElement = this.refs.main;
     const navigationBlock = this._blocks.navigation;
+    const mainBlocksLength = mainBlocks.length;
     let doesNavigationBlockExist = false;
 
-    mainBlocks.map((block, i) => {
-      const { id, type, blockName, source, hasBeenRendered, elementReference } = block;
+    _.map(mainBlocks, (block, i) => {
+      const {
+        id,
+        type,
+        blockName,
+        source,
+        hasBeenRendered,
+        elementReference
+      } = block;
 
       if (!hasBeenRendered) {
         mainElement.insertAdjacentHTML('beforeend', source);
@@ -125,16 +135,24 @@ class CanvasFrame extends Component {
         this.setElementAttributes(block, i);
       }
 
-      if (block.hasOwnProperty('updatePosition')) {
+      if (_.has(block, 'updatePosition')) {
         const { oldPos, newPos } = block;
 
-        onElementRemove(block.elementReference);
+        if (newPos === 0) {
+          mainElement.insertBefore(mainElement.children[newPos], mainElement.children[oldPos]);
+          mainElement.insertBefore(mainElement.children[oldPos], mainElement.children[0]);
+        } else if (newPos === (mainBlocksLength - 1)) {
+          mainElement.insertBefore(mainElement.children[newPos], mainElement.children[oldPos]);
+          mainElement.appendChild(mainElement.children[oldPos]);
+        } else {
+
+        }
 
         delete block.updatePosition;
       }
     });
 
-    if (Object.keys(navigationBlock).length !== 0) {
+    if (_.values(navigationBlock).length !== 0) {
       doesNavigationBlockExist = true;
 
       if (mainBlocks.length !== 0) {
@@ -147,24 +165,24 @@ class CanvasFrame extends Component {
     this._blocks.main = mainBlocks;
   }
 
-  renderFooter (navigationBlock) {
-    const navigationElement = this.refs.footer;
+  renderFooter (footerBlock) {
+    const footerElement = this.refs.footer;
 
-    if (Object.keys(navigationBlock).length !== 0) {
-      const { id, type, blockName, source, hasBeenRendered } = navigationBlock;
+    if (_.values(footerBlock).length !== 0) {
+      const { id, type, blockName, source, hasBeenRendered } = footerBlock;
 
       if (!hasBeenRendered) {
-        navigationElement.innerHTML = '';
-        navigationElement.insertAdjacentHTML('beforeend', source);
+        footerElement.innerHTML = '';
+        footerElement.insertAdjacentHTML('beforeend', source);
 
-        navigationBlock.hasBeenRendered = true;
-        navigationBlock.elementReference = navigationElement.children[0];
+        footerBlock.hasBeenRendered = true;
+        footerBlock.elementReference = footerElement.children[0];
 
-        this.setElementAttributes(navigationBlock);
+        this.setElementAttributes(footerBlock);
       }
     }
 
-    this._blocks.footer = navigationBlock;
+    this._blocks.footer = footerBlock;
   }
 
   hoverBlocksMouseEnter (e) {
@@ -185,14 +203,14 @@ class CanvasFrame extends Component {
     const rootElement = this.refs.root;
     const targetElements = rootElement.querySelectorAll(targets);
 
-    for (let i = 0; i < targetElements.length; i++) {
-      const target = targetElements[i];
-
+    _.map(targetElements, (target, i) => {
       if (target.getAttribute('data-abcpanel') || target.classList.contains('ab-ccorent')) {
-        break;
+        return;
       }
 
-      target.classList.add('editable');
+      if (!target.classList.contains('editabe')) {
+        target.classList.add('editable');
+      }
 
       if (target.tagName === 'A') {
         target.removeEventListener('click', ::this.aBlockClick);
@@ -203,7 +221,7 @@ class CanvasFrame extends Component {
       target.removeEventListener('mouseleave', this.hoverBlocksMouseLeave);
       target.addEventListener('mouseenter', this.hoverBlocksMouseEnter, false);
       target.addEventListener('mouseleave', this.hoverBlocksMouseLeave, false);
-    }
+    });
   }
 }
 

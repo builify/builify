@@ -5,12 +5,12 @@ import { setFont, setSwatch, openColorPicker, openSidetab, closeTab } from '../.
 import { randomKey, getProperty } from '../../Common/Common';
 import classNames from 'classnames';
 import Select from 'react-select';
-import Icon from '../Shared/Icon.jsx';
-import Toggle from '../Shared/Toggle.jsx';
-import Filter from '../Shared/Filter.jsx';
-import BlockTitle from '../Shared/BlockTitle.jsx';
-import ContentBlock from '../Shared/ContentBlock.jsx';
-import CurrentPage from '../Shared/CurrentPage.jsx';
+import Toggle from './Toggle.jsx';
+import Filter from './Filter.jsx';
+import BlockTitle from './BlockTitle.jsx';
+import ContentBlock from './ContentBlock.jsx';
+import CurrentPage from './CurrentPage.jsx';
+import Swatches from './Swatches.jsx';
 
 class ProccessedChildrenRender extends Component {
 	constructor (props) {
@@ -31,7 +31,7 @@ class ProccessedChildrenRender extends Component {
   // Block components
   renderTitle (item, i) {
     let lang = getString(item.text);
-    const key = '' + randomKey() + 'title';
+    const key = randomKey('title');
 
     return (
       <h2 key={key}>{lang ? lang : item.text}</h2>
@@ -46,7 +46,7 @@ class ProccessedChildrenRender extends Component {
       if (colors.hasOwnProperty(color)) {
         let colorName = getString('design.colors.' + color);
         let colorId = colors[color];
-        const key = '' + randomKey() + 'color';
+        const key = randomKey('color');
 
         colorsElements.push(
           <div
@@ -78,73 +78,16 @@ class ProccessedChildrenRender extends Component {
   }
 
   renderSwatch (item, i) {
-    let swatches = [];
-    let swatchesToRender = [];
-
-    if (this.theme.design.hasOwnProperty('swatches')) {
-      swatches = this.theme.design.swatches;
-    }
-
-    for (let i = 0; i < swatches.length; i++) {
-      let swatch = swatches[i];
-      swatchesToRender.push({text: swatch.name, colors: swatch.colors});
-    }
+		const key = randomKey('swatches');
 
     return (
-      <div key={i}>
-        {swatchesToRender.length !== 0 ?
-          swatchesToRender.map((item, i) => {
-            let colors = item.colors;
-            let color1, color2 = '';
-            let colorsTitle = '';
-            const key = '' + randomKey() + 'swatch';
-
-            if (typeof colors === 'object') {
-              if (colors.length == 1) {
-                color1 = color2 = colors[0];
-
-                colorsTitle = color1;
-              } else if (colors.length == 2) {
-                color1 = colors[0];
-                color2 = colors[1];
-
-                colorsTitle = color1 + '/' + color2;
-              }
-            } else if (typeof colors === 'string') {
-              color1 = color2 = colors;
-              colorsTitle = color1;
-            }
-
-            return (
-              <div
-                className='ab-swatch'
-                key={key}
-                {...bindActionCreators({
-                  onClick: (e) => {
-                    return setSwatch(item.text);
-                  }
-                }, this.dispatch)}>
-                <div
-                  className='ab-swatch__name'
-                  title={item.text}>
-                  {item.text}
-                </div>
-                <div
-                  className='ab-swatch__color'
-                  title={colorsTitle}>
-                  <span style={{backgroundColor: color1}}/>
-                  <span style={{backgroundColor: color2}}/>
-                </div>
-              </div>
-            )
-          }) : null
-        }
-      </div>
-    )
+			<Swatches
+				key={key} />
+		)
   }
 
   renderSwitch (item, i) {
-    const key = '' + randomKey() + 'toggle';
+    const key = randomKey('toggle');
 
     return (
       <Toggle
@@ -167,7 +110,7 @@ class ProccessedChildrenRender extends Component {
       this.refs[outputRefName].innerHTML = value;
     };
     let isIE = !!navigator.userAgent.match(/Trident.*rv[ :]*11\./);
-    const key = '' + randomKey() + 'size';
+    const key = randomKey('size');
 
     return (
       <div
@@ -229,18 +172,18 @@ class ProccessedChildrenRender extends Component {
     const doesItemHaveIcon = itemIcon === null ? false : true;
     const itemClassName = classNames('ab-item', doesItemHaveIcon ? 'icon' : 'link');
     const childrenNodes = (item) => {
-      if (item.icon !== null) {
+      /*if (item.icon !== null) {
         return (
           <div>
             <Icon className='ico' name={item.icon} />
             <span className='text'>{getString(item.title)}</span>
           </div>
         )
-      } else {
+      } else {*/
         return (
           <span>{getString(item.title)}</span>
         )
-      }
+      //}
     };
     const key = '' + randomKey() + 'sidetab';
 
@@ -262,7 +205,7 @@ class ProccessedChildrenRender extends Component {
 
   renderPages (item, i) {
     let { pages } = this.props.builder;
-    const key = '' + randomKey() + 'pages';
+    const key = randomKey('pages');
 
     if (!pages || pages === undefined) {
       return null;
@@ -281,7 +224,7 @@ class ProccessedChildrenRender extends Component {
       const { blocks } = this.theme;
       const blocksLength = blocks.length;
       let itemsToRender = [];
-      const key = '' + randomKey() + 'contentblock';
+      const key = randomKey('contentblock');
 
       if (blocksLength > 0) {
         blocks.map((block, i) => {
@@ -350,9 +293,12 @@ class ProccessedChildrenRender extends Component {
   }
 
   renderFilter (item, i) {
-    const key = '' + randomKey() + 'contentblock';
+    const key = randomKey('contentblock');
 
-    return <Filter key={key} />
+    return (
+			<Filter
+				key={key} />
+		)
   }
 
   renderChildren (item, theme, localization, builderConfiguration, dispatch, builder, i) {

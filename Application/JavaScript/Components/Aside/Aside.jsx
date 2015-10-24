@@ -7,6 +7,18 @@ import Tab from './Tab.jsx';
 import SideTab from './SideTab.jsx';
 import PrimaryNavigation from './PrimaryNavigation.jsx';
 
+class AsideItem extends Component {
+  render () {
+    const { children } = this.props;
+
+    return (
+      <div className='ab-aside__item'>
+        {children}
+      </div>
+    )
+  }
+}
+
 class Aside extends Component {
   shouldComponentUpdate (nextProps, nextState) {
     return false;
@@ -20,19 +32,19 @@ class Aside extends Component {
     return (
       <aside className={asideClassName} >
         <div className='ab-aside__itemwrapper'>
-          <div className='ab-aside__item'>
+          <AsideItem>
             <Logo text='ABuilder'/>
             <PrimaryNavigation />
             <Copyright />
-          </div>
-          <div className='ab-aside__item'>
+          </AsideItem>
+          <AsideItem>
             {tabs.map((tab, index) => {
               return <Tab data={tab} targetIndex={index} key={index}/>
             })}
             {sidetabs.map((sidetab, index) => {
               return <SideTab data={sidetab} key={index} />
             })}
-          </div>
+          </AsideItem>
         </div>
       </aside>
     )

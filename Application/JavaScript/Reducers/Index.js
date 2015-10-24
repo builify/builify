@@ -1,19 +1,20 @@
-import * as localization from './Localization';
-import * as builder from './Builder';
-import * as builderConfiguration from './BuilderConfiguration';
-import * as template from './Template';
-import * as notifications from './Notifications';
-import * as page from './Page';
-import * as canvas from './Canvas';
+import { combineReducers } from 'redux';
+import localization from './Localization';
+import builder from './Builder';
+import builderConfiguration from './BuilderConfiguration';
+import theme from './Template';
+import notifications from './Notifications';
+import page from './Page';
+import canvas from './Canvas';
 
-const allReducers = Object.assign({},
+const allReducers = combineReducers({
 	localization,
 	builder,
 	builderConfiguration,
-	template,
+	theme,
 	notifications,
 	page,
 	canvas
-);
+});
 
 export default allReducers;

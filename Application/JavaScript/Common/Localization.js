@@ -1,6 +1,6 @@
 import { getProperty } from './Common';
 import stripJSONComments from 'strip-json-comments';
-import languageData from '../Data/Localization.json';
+import languageData from '../Data/Builder/Localization.json';
 
 let languageSetting = 'en';
 

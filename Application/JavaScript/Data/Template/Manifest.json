@@ -1,0 +1,149 @@
+{
+  "external": {
+    "core": [
+      {"type": "css", "src": "http://pivot.mediumra.re/variant/css/variant-icons.css"},
+      {"type": "css", "src": "http://pivot.mediumra.re/variant/css/variant-social-icons.css"},
+      {"type": "css", "src": "http://pivot.mediumra.re/variant/css/normalize.css"},
+      {"type": "css", "src": "http://pivot.mediumra.re/variant/css/flexslider.min.css"},
+      {"type": "css", "src": "http://pivot.mediumra.re/variant/css/style.css"},
+      {"type": "css", "src": "http://fonts.googleapis.com/css?family=Roboto:400,500,700"},
+      {"type": "css", "src": "http://pivot.mediumra.re/variant/theme/css/line-icons.min.css"},
+      {"type": "css", "src": "http://pivot.mediumra.re/variant/theme/css/elegant-icons.min.css"},
+      {"type": "css", "src": "http://pivot.mediumra.re/variant/theme/css/lightbox.min.css"},
+      {"type": "css", "src": "http://pivot.mediumra.re/variant/theme/css/bootstrap.min.css"},
+      {"type": "css", "src": "http://pivot.mediumra.re/variant/theme/css/theme.css"},
+
+      {"type": "js", "src": "http://pivot.mediumra.re/variant/js/jquery.js"},
+      {"type": "js", "src": "http://pivot.mediumra.re/variant/theme/js/jquery.plugin.min.js"},
+      {"type": "js", "src": "http://pivot.mediumra.re/variant/theme/js/smooth-scroll.min.js"},
+      {"type": "js", "src": "http://pivot.mediumra.re/variant/theme/js/skrollr.min.js"},
+      {"type": "js", "src": "http://pivot.mediumra.re/variant/theme/js/spectragram.min.js"},
+      {"type": "js", "src": "http://pivot.mediumra.re/variant/theme/js/scrollReveal.min.js"},
+      {"type": "js", "src": "http://pivot.mediumra.re/variant/theme/js/isotope.min.js"},
+      {"type": "js", "src": "http://pivot.mediumra.re/variant/theme/js/twitterFetcher_v10_min.js"},
+      {"type": "js", "src": "http://pivot.mediumra.re/variant/theme/js/lightbox.min.js"},
+      {"type": "js", "src": "http://pivot.mediumra.re/variant/theme/js/jquery.countdown.min.js"}
+   ]
+  },
+
+  "replacer": [
+    {"findWhat": "{%imagepath%}", "replaceWith": "http://pivot.mediumra.re/img"}
+  ],
+
+  "blocks": [
+    {
+      "type": "navigation",
+      "items": [
+        {
+          "title": "Top navigation",
+          "thumbnail": "http://pivot.mediumra.re/variant/img/sections/variant-personal-header-1.jpg",
+          "source": "navigation-top.html"
+        },
+        {
+          "title": "Simple bar",
+          "thumbnail": "http://pivot.mediumra.re/variant/img/sections/variant-personal-header-1.jpg",
+          "source": "navigation-simple-bar.html"
+        }
+      ]
+    },
+    {
+      "type": "footer",
+      "items": [
+        {
+          "title": "Social Footer",
+          "thumbnail": "http://pivot.mediumra.re/variant/img/sections/variant-personal-header-1.jpg",
+          "source": "footer-social.html"
+        },
+        {
+          "title": "Short Social Footer",
+          "thumbnail": "http://pivot.mediumra.re/variant/img/sections/variant-personal-header-1.jpg",
+          "source": "footer-social-short.html"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "items": [
+        {
+          "title": "Personal header",
+          "thumbnail": "http://pivot.mediumra.re/variant/img/sections/variant-personal-header-1.jpg",
+          "source": "block-header-personal.html"
+        }
+      ]
+    },
+    {
+      "type": "banner",
+      "items": [
+        {
+          "title": "Action banner",
+          "thumbnail": "http://pivot.mediumra.re/variant/img/sections/variant-action-banner-1.jpg",
+          "source": "block-banner-action.html"
+        },
+        {
+          "title": "Signup banner",
+          "thumbnail": "http://pivot.mediumra.re/variant/img/sections/variant-signup-banner-1.jpg",
+          "source": "block-banner-signup.html"
+        }
+      ]
+    },
+    {
+      "type": "feature",
+      "items": [
+        {
+          "title": "Small Icon Features",
+          "thumbnail": "http://pivot.mediumra.re/variant/img/sections/variant-small-icon-features-1.jpg",
+          "source": "feature-small-icon.html"
+        }
+      ]
+    }
+  ],
+
+  "design": {
+    "swatches": [
+      {
+        "name": "Emerald/Sun",
+        "colors": [
+          "#2ecc71",
+          "#f1c40f"
+        ]
+      },
+      {
+        "name": "Turq/Pomegra",
+        "colors": [
+          "#1abc9c",
+          "#c0392b"
+        ]
+      },
+      {
+        "name": "Peter River",
+        "colors": "#3498db"
+      }
+    ],
+
+    "currentSwatch": "Emerald/Sun",
+
+    "colors": {
+      "body": "#333",
+      "anchor": "#444",
+      "ahchorhover": "#ee",
+      "anchorvisited": "#333",
+      "paragraph": "#444",
+      "header1": "#111",
+      "header2": "#222",
+      "header3": "#333",
+      "header4": "#444",
+      "blockquote": "#666"
+    },
+
+    "typography": {
+      "fonts": {
+        "header": "lora",
+        "body": "roboto"
+      },
+      "size": {
+        "basefont": 16,
+        "baseline": 24
+      }
+    }
+  }
+}

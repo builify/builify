@@ -1,4 +1,4 @@
-$item-height: 30px;
+$item-height: 33px;
 
 .#{$abprefix}color,
 .#{$abprefix}swatch,
@@ -14,10 +14,12 @@ $item-height: 30px;
 
 .#{$abprefix}copyright {
 		position: absolute;
+		text-align: center;
 		bottom: $base-padding / 2;
 		left: $base-padding;
 
 		h3 {
+				margin-bottom: 5px;
 				color: #777;
 				text-transform: uppercase;
 				@include rem(font-size, 12px);
@@ -37,6 +39,7 @@ $item-height: 30px;
 		    max-height: $item-height * 2;
 		    line-height: $item-height;
 		    padding: 0 $base-padding;
+				@include user-select(none);
 
 				&:hover {
 						.remove {

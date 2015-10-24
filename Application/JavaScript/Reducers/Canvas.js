@@ -1,4 +1,5 @@
 import { getAbsPosition } from '../Common/Common';
+import _ from 'lodash';
 import * as Actions from '../Constants/Actions';
 
 const canvasInitialState = {
@@ -8,7 +9,7 @@ const canvasInitialState = {
   }
 };
 
-export function canvas (state = canvasInitialState, action) {
+function canvas (state = canvasInitialState, action) {
   switch (action.type) {
     case Actions.CURRENT_HOVER_BLOCK:
       let { currentHoverBlock } = state;
@@ -18,10 +19,12 @@ export function canvas (state = canvasInitialState, action) {
       currentHoverBlock.element = elementReference;
       currentHoverBlock.topX = getAbsPosition(elementReference)[0] + 10;
 
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
         currentHoverBlock: currentHoverBlock
       });
   }
 
   return state;
 }
+
+export default canvas;

@@ -2,6 +2,7 @@ import { CurrentLocationEnum } from '../Constants/Defines';
 import { setLanguage } from '../Common/Localization';
 import { MAXIUMUM_PAGES_IN_STORAGE } from '../Constants/Defines';
 import { setURI } from '../Common/Common';
+import _ from 'lodash';
 import Storage from '../Common/Storage';
 import * as Actions from '../Constants/Actions';
 
@@ -38,10 +39,10 @@ const builderInitialState = {
   modalTarget: null
 };
 
-export function builder (state = builderInitialState, action) {
+function builder (state = builderInitialState, action) {
   let data = {};
 
-  if (action.hasOwnProperty('data')) {
+  if (_.has(action, 'data')) {
     data = action.data;
   }
 
@@ -52,25 +53,24 @@ export function builder (state = builderInitialState, action) {
 
       oldAssetsLoaded.push(asset);
 
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
         loadedAssets: oldAssetsLoaded
       });
 
     case Actions.REMOVE_LOADING_SCREEN:
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
         isLoadingScreenActive: false
       });
 
-    // Pages related.
     case Actions.CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE:
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
         doesPreviousPageExistInStorage: data.doesPreviousPageExistInStorage,
         pages: data.pages,
         latestPage: data.latestPage
       });
 
     case Actions.CHECK_IF_PAGE_IS_SELECTED:
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
         currentLocation: data.isPageSelected ? CurrentLocationEnum.CANVAS : state.currentLocation,
         isPageSelected: data.isPageSelected
       });
@@ -112,7 +112,7 @@ export function builder (state = builderInitialState, action) {
 
       Storage.set('ab-pages', newPages);
 
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
         currentLocation: CurrentLocationEnum.CANVAS,
         isPageSelected: true,
         pages: newPages
@@ -122,7 +122,7 @@ export function builder (state = builderInitialState, action) {
       let pagesSize = state.pages.length;
 
       if (pagesSize > 0) {
-        return Object.assign({}, state, {
+        return _.assign({}, state, {
           currentLocation: CurrentLocationEnum.CANVAS,
           isPageSelected: true
         });
@@ -137,7 +137,7 @@ export function builder (state = builderInitialState, action) {
       if (openTabElement) {
         openTabElement.classList.add('open');
 
-        return Object.assign({}, state, {
+        return _.assign({}, state, {
           isTabOpened: true,
           tabOpened: target
         });
@@ -151,7 +151,7 @@ export function builder (state = builderInitialState, action) {
       if (closeTabElement) {
         closeTabElement.classList.remove('open');
 
-        return Object.assign({}, state, {
+        return _.assign({}, state, {
           isTabOpened: false,
           tabOpened: -1
         });
@@ -165,7 +165,7 @@ export function builder (state = builderInitialState, action) {
       if (sidetabElement) {
         sidetabElement.classList.add('open');
 
-        return Object.assign({}, state, {
+        return _.assign({}, state, {
           iisSidetabOpened: true,
           sidetabOpened: action.target
         });
@@ -179,7 +179,7 @@ export function builder (state = builderInitialState, action) {
       if (closeSidetabElement) {
         closeSidetabElement.classList.remove('open');
 
-        return Object.assign({}, state, {
+        return _.assign({}, state, {
           isSidetabOpened: false,
           sidetabOpened: -1
         });
@@ -192,18 +192,18 @@ export function builder (state = builderInitialState, action) {
           state.currentLocation === CurrentLocationEnum.STARTSCREEN) {
         return state;
       } else {
-        return Object.assign({}, state, {
+        return _.assign({}, state, {
           currentLocation: CurrentLocationEnum.PREVIEW
         });
       }
 
     case Actions.CLOSE_PREVIEW:
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
         currentLocation: CurrentLocationEnum.CANVAS
       });
 
     case Actions.OPEN_COLORPICKER:
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
         isColorPickerOpened: true,
         colorPickerTarget: action.target
       });
@@ -217,7 +217,7 @@ export function builder (state = builderInitialState, action) {
       return state;
 
     case Actions.CLOSE_COLORPICKER:
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
         isColorPickerOpened: false,
         colorPickerTarget: null
       });
@@ -225,21 +225,21 @@ export function builder (state = builderInitialState, action) {
     case Actions.FILTER_CONTENTBLOCKS:
       let actionTarget = action.target;
 
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
        filterContentBlocksTarget: actionTarget
       });
 
     case Actions.OPEN_LINK_EDIT_MODAL:
       let linkTarget= action.target;
 
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
         isModalOpen: true,
         modalType: 'linkchange',
         modalTarget: linkTarget
       });
 
     case Actions.CLOSE_MODAL:
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
         isModalOpen: false,
         modalType: null,
         modalTarget: null
@@ -248,3 +248,5 @@ export function builder (state = builderInitialState, action) {
 
   return state;
 }
+
+export default builder;

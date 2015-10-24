@@ -8,6 +8,7 @@ class Copyright extends Component {
     return (
       <div className='ab-copyright'>
         <h3>Copyright {currentYear} - Aphakeme</h3>
+        <h3>All rights reserved</h3>
       </div>
     )
   }

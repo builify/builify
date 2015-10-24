@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { closeModal } from '../../Actions/ActionCreators';
 import classNames from 'classnames';
-import Icon from './Icon.jsx';
 
 class ModalBackground extends Component {
   render () {
@@ -62,12 +61,10 @@ class ModalDialog extends Component {
           <div className='ab-modal__link-body'>
             <div className='ab-modal__link-item'>
               <span className='title'>Edit link href:</span>
-              <Icon className='icon' name='link' />
               <input type='text' className='input' value={hrefValue}/>
             </div>
             <div className='ab-modal__link-item'>
               <span>Open in:</span>
-              <Icon className='icon' name='browser' />
               <select>
                 <option value='default'>Default</option>
                 <option value='_blank'>New Tab</option>

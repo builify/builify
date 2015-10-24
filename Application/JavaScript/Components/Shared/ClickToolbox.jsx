@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { store } from '../Application.jsx';
-import { findUpAttr, getBrowserSize } from '../../Common/Common';
+import { connect } from 'react-redux';
+import { findUpAttr, findUpClassName, getBrowserSize } from '../../Common/Common';
+import { openContextmenuToolbox, closeContextmenuToolbox } from '../../Actions/ActionCreators';
 import _ from 'lodash';
-import * as Actions from '../../Actions/ActionCreators';
 import classNames from 'classnames';
 import SvgIcon from './SvgIcon.jsx';
 
@@ -85,13 +85,13 @@ class ClickToolbox extends Component {
     const panelElement = this.refs.panel;
     let target = e.target;
     let isElemenetChangeable = true;
+    let isBackgroundImageHolder = false;
     const findUp = findUpAttr(target, 'data-abctoolbox data-abcpanel');
 
     if (findUp !== null) {
+      this.closePanel();
       return false;
     }
-
-    store.dispatch(Actions.openContextmenuToolbox());
 
     // If original block element
     if (target.getAttribute('data-abccorent')) {
@@ -104,12 +104,22 @@ class ClickToolbox extends Component {
         if (currentChild.classList.contains('background-image-holder')) {
           target = currentChild;
           target.setAttribute('data-abcnotremoveable', true);
+          isBackgroundImageHolder= true;
           break;
         }
       }
     }
 
     const targetName = this.HTMLTagNames[target.tagName];
+
+    if (targetName === undefined) {
+      this.closePanel();
+      return false;
+    }
+
+    const { onOpenContextMenu } = this.props;
+    onOpenContextMenu();
+
     const panelWidth = 170;
     const xOfrightPanelEdge = eventPosition.x + panelWidth + 275;
 
@@ -136,11 +146,12 @@ class ClickToolbox extends Component {
     const { panelOpen } = this.state;
 
     if (panelOpen) {
-      store.dispatch(Actions.closeContextmenuToolbox());
-
+      const { onCloseContextMenu } = this.props;
       this.setState({
         panelOpen: false
       });
+
+      return onCloseContextMenu();
     } else {
       return;
     }
@@ -158,16 +169,11 @@ class ClickToolbox extends Component {
     const { target } = this.state;
 
     e.preventDefault();
-
-    store.dispatch(Actions.openLinkEditModal(target));
   }
 
   listImageChange () {
     return (
       <div
-        onClick={(e) => {
-          return store.dispatch(openImageEditModal());
-        }}
         className='ab-crightpanel__item'>
         <SvgIcon icon='image' />
         <span data-abcpanel={true}>Edit Image</span>
@@ -279,4 +285,25 @@ class ClickToolbox extends Component {
   }
 }
 
-export default ClickToolbox;
+function mapStateToProps (state) {
+  return {
+    canvas: state.canvas
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    onOpenContextMenu: () => {
+      dispatch(openContextmenuToolbox());
+    },
+
+    onCloseContextMenu: () => {
+      dispatch(closeContextmenuToolbox());
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ClickToolbox);

@@ -1,5 +1,5 @@
 import { getLocalization } from '../Common/Localization';
-import { getConfiguration, setSessionStoreParameters, randomKey, downloadPages } from '../Common/Common';
+import { getConfiguration, getTemplateMani, setSessionStoreParameters, randomKey, downloadPages } from '../Common/Common';
 import axios from 'axios';
 import Storage from '../Common/Storage';
 import * as Actions from '../Constants/Actions';
@@ -86,16 +86,10 @@ export function initializeBuilder () {
 
 export function getTemplateManifest (template) {
   return (dispatch, getState) => {
-    axios.get('/Template/manifest.json')
-      .then((response) => {
-        if (response.hasOwnProperty('data')) {
-          dispatch(getSelectedTemplateData(response.data));
-          dispatch(removeLoadingScreen());
-        }
-      })
-      .catch((response) => {
-        console.log(response);
-      });
+    getTemplateMani((data) => {
+      dispatch(getSelectedTemplateData(data));
+      dispatch(removeLoadingScreen());
+    });
   }
 }
 

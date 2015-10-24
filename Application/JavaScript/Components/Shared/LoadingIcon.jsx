@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames';
+import cx from 'classnames';
 
 class LoadingIcon extends Component {
   static propTypes = {
@@ -15,7 +15,8 @@ class LoadingIcon extends Component {
   }
 
   render () {
-    const loaderClassName = classNames('ab-loadingScreen__loader', this.props.size);
+    const { size } = this.props;
+    const loaderClassName = cx('ab-loadingScreen__loader', size);
 
     return (
       <div className={loaderClassName}>

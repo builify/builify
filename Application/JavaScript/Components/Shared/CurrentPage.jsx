@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { randomKey } from '../../Common/Common';
 import { removeContentBlock, sortContentBlocks } from '../../Actions/ActionCreators';
+import _ from 'lodash';
 import cx from 'classnames';
 import Sortable from './Sortable.jsx';
 import SvgIcon from './SvgIcon.jsx';
@@ -11,14 +13,6 @@ class CurrentPageItem extends Component {
     data: PropTypes.object.isRequired
   }
 
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      isPressed: false
-    }
-  }
-
   render () {
     const { data, onRemoveClick } = this.props;
     const { id, type, blockName, elementReference, hasBeenRendered } = data;
@@ -26,10 +20,6 @@ class CurrentPageItem extends Component {
       fill: '#ce4031'
     };
     const itemClassName = cx('ab-currentPage__item');
-
-    if (type === 'navigation' || type === 'footer') {
-      return null;
-    }
 
     return (
       <li
@@ -40,7 +30,7 @@ class CurrentPageItem extends Component {
           title='Remove Element'>
           <SvgIcon
             size={18}
-            icon='apps' />
+            icon='reorder' />
         </div>
         <div className='ab-currentPage__item-title'>
           {blockName}
@@ -70,15 +60,7 @@ class CurrentPage extends Component {
     }
     let items = [];
 
-    if (Object.keys(navigation).length !== 0) {
-      items.push(navigation);
-    }
-
-    if (Object.keys(footer).length !== 0) {
-      items.push(footer);
-    }
-
-    main.map((mainItem, i) => {
+    _.map(main, (mainItem) => {
       items.push(mainItem);
     });
 
@@ -88,8 +70,9 @@ class CurrentPage extends Component {
         component='ul'
         childElement='div'
         className='ab-currentPage'>
-        {items.map((item, i) => {
+        {_.map(items, (item) => {
           const { elementReference } = item;
+          const keyNr = randomKey() + 'cpi';
 
           return (
             <CurrentPageItem
@@ -97,7 +80,7 @@ class CurrentPage extends Component {
                 return onRemove(elementReference);
               }}
               data={item}
-              key={i} />
+              key={keyNr} />
           )
         })}
       </Sortable>

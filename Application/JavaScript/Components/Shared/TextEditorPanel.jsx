@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { getBrowserSize, randomKey } from '../../Common/Common';
 import classNames from 'classnames';
-import Icon from './Icon.jsx';
 
 class PanelItem extends Component {
   render () {
     return (
       <a
         href=''>
-        <Icon name='tools' />
       </a>
     )
   }

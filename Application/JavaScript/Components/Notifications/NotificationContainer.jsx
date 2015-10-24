@@ -4,7 +4,7 @@ import { randomKey } from '../../Common/Common';
 import { eliminateNotification } from '../../Actions/ActionCreators';
 import classNames from 'classnames';
 import LoadingIcon from '../Shared/LoadingIcon.jsx';
-import Icon from '../Shared/Icon.jsx';
+import SvgIcon from '../Shared/SvgIcon.jsx';
 
 class NotificationWrapper extends Component {
   render () {
@@ -18,7 +18,7 @@ class NotificationWrapper extends Component {
         <div
           onClick={onClose}
           className='ab-notification__close'>
-          <Icon name='close'/>
+          <SvgIcon icon='remove' />
         </div>
         <div className='ab-notification__item-inner'>
           {children}

@@ -63,9 +63,14 @@ class SvgIcon extends Component {
           <g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g>
         )
 
-      case 'apps':
+      case 'format-indent-decrease':
         return (
-          <g><path d="M4 8h4v-4h-4v4zm6 12h4v-4h-4v4zm-6 0h4v-4h-4v4zm0-6h4v-4h-4v4zm6 0h4v-4h-4v4zm6-10v4h4v-4h-4zm-6 4h4v-4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"></path></g>
+          <g><path d="M11 17h10v-2h-10v2zm-8-5l4 4v-8l-4 4zm0 9h18v-2h-18v2zm0-18v2h18v-2h-18zm8 6h10v-2h-10v2zm0 4h10v-2h-10v2z"></path></g>
+        )
+
+      case 'format-indent-increase':
+        return (
+          <g><path d="M3 21h18v-2h-18v2zm0-13v8l4-4-4-4zm8 9h10v-2h-10v2zm-8-14v2h18v-2h-18zm8 6h10v-2h-10v2zm0 4h10v-2h-10v2z"></path></g>
         )
 
       case 'content-copy':
@@ -107,6 +112,11 @@ class SvgIcon extends Component {
       case 'screen-rotation':
         return (
           <g><path d="M16.48 2.52c3.27 1.55 5.61 4.72 5.97 8.48h1.5c-.51-6.16-5.66-11-11.95-11l-.66.03 3.81 3.81 1.33-1.32zm-6.25-.77c-.59-.59-1.54-.59-2.12 0l-6.36 6.36c-.59.59-.59 1.54 0 2.12l12.02 12.02c.59.59 1.54.59 2.12 0l6.36-6.36c.59-.59.59-1.54 0-2.12l-12.02-12.02zm4.6 19.44l-12.02-12.02 6.36-6.36 12.02 12.02-6.36 6.36zm-7.31.29c-3.27-1.54-5.61-4.72-5.97-8.48h-1.5c.51 6.16 5.66 11 11.95 11l.66-.03-3.81-3.81-1.33 1.32z"></path></g>
+        )
+
+      case 'reorder':
+        return (
+          <g><path d="M3,15h18v-2H3V15z M3,19h18v-2H3V19z M3,11h18V9H3V11z M3,5v2h18V5H3z"></path></g>
         )
 
       default:

@@ -1,12 +1,13 @@
 import { setLanguage } from '../Common/Localization';
+import _ from 'lodash';
 import * as Actions from '../Constants/Actions';
 
 const builderConfigurationInitialState = {};
 
-export function builderConfiguration (state = builderConfigurationInitialState, action) {
+function builderConfiguration (state = builderConfigurationInitialState, action) {
   switch (action.type) {
     case Actions.RECEIVE_BUILDER_CONFIGURATION:
-      return Object.assign({}, state, action.data);
+      return _.assign({}, state, action.data);
 
     case Actions.PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION:
       const { localization } = state;
@@ -18,3 +19,5 @@ export function builderConfiguration (state = builderConfigurationInitialState, 
 
   return state;
 }
+
+export default builderConfiguration;

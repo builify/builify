@@ -1,7 +1,8 @@
 import stripJSONComments from 'strip-json-comments';
 import JSZip from 'jszip';
 import { saveAs } from './FileSaver';
-import builderConfiguration from '../Data/Builder.json';
+import builderConfiguration from '../Data/Builder/Builder.json';
+import templateManifest from '../Data/Template/Manifest.json';
 
 export function addDoctype (htmlString) {
   if (!htmlString || htmlString === null) {
@@ -22,7 +23,7 @@ export function removeUnneccesaryDataFromDocument (targetDocument) {
     'contenteditable',
     '.editable'
   ].join(',');
-  
+
   const targets = targetDocument.querySelectorAll(query);
 
   for (let i = 0; i < targets.length; i++) {
@@ -121,6 +122,10 @@ export function getConfiguration (callback) {
   callback(JSON.parse(stripJSONComments(JSON.stringify(builderConfiguration))));
 }
 
+export function getTemplateMani (callback) {
+  callback(JSON.parse(stripJSONComments(JSON.stringify(templateManifest))));
+}
+
 export function setSessionStoreParameters (setWhat, value) {
   switch (setWhat) {
     case 'PAGE':
@@ -189,8 +194,8 @@ export function getOffset (element) {
   }
 }
 
-export function randomKey () {
-  return Math.random().toString(36).slice(-8);
+export function randomKey (str: 'rnd') {
+  return (Math.random().toString(36).slice(-8)) + str;
 }
 
 export function getIframeWindow (iFrame) {
@@ -314,6 +319,32 @@ export function findUpAttr (el, attr) {
 
     for (let i = 0; i < attr.length; i++) {
       if (el.getAttribute(attr[i])) {
+        return el;
+      }
+    }
+
+    if (el.tagName === 'HTML') {
+      break;
+    }
+  }
+
+  return null;
+}
+
+export function findUpClassName (el, cx) {
+  let matchFlag = false;
+
+  if (cx[0] == '*') {
+    matchFlag = true;
+  }
+
+  cx = cx.split(' ');
+
+  while (el.parentNode) {
+    el = el.parentNode;
+
+    for (let i = 0; i < cx.length; i++) {
+      if (matchFlag ? el.className.indexOf(cx[i]) !== -1 : el.classList.containts(cx[i])) {
         return el;
       }
     }

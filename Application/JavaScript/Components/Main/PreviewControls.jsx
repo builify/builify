@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { closePreview } from '../../Actions/ActionCreators';
 import BackButton from '../Shared/BackButton.jsx';
-import Icon from '../Shared/Icon.jsx';
+import SvgIcon from '../Shared/SvgIcon.jsx';
 
 class PreviewControls extends Component {
   closePreviewWindow () {
@@ -16,8 +16,12 @@ class PreviewControls extends Component {
           clickFunction={this.closePreviewWindow} />
         <div className='ab-preview__responsive'>
           <ul>
-            <li><Icon name='monitor' /></li>
-            <li><Icon name='phone' /></li>
+            <li>
+              <SvgIcon name='monitor' />
+            </li>
+            <li>
+              <SvgIcon name='phone' />
+            </li>
           </ul>
         </div>
       </div>

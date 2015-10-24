@@ -13,25 +13,23 @@ const pageInitialState = {
   replaceInHTML: []
 };
 
-export function page (state = pageInitialState, action) {
+function page (state = pageInitialState, action) {
   let { navigation, main, footer, blocksCount } = state;
 
   switch (action.type) {
     case Actions.GET_SELECTED_TEMPLATE_DATA:
       let replacer = state.replacer;
 
-      if (action.hasOwnProperty('data')) {
-        if (action.data.hasOwnProperty('replacer')) {
-          replacer = action.data.replacer;
-        }
+      if (_.has(action, 'data.replacer')) {
+        replacer = action.data.replacer;
       }
 
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
         replaceInHTML: replacer
       });
 
     case Actions.LOAD_CONTENTBLOCK_TO_PAGE:
-      if (action.hasOwnProperty('HTML')) {
+      if (_.has(action, 'HTML')) {
         let { HTML, blockType, blockName } = action;
         const { replaceInHTML } = state;
         const blockID = randomKey();
@@ -56,7 +54,7 @@ export function page (state = pageInitialState, action) {
         blocksCount++;
       }
 
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
         navigation: navigation,
         footer: footer,
         main: main,
@@ -77,21 +75,11 @@ export function page (state = pageInitialState, action) {
 
         if (blockNumber) {
           if (attr == 'footer') {
-            if (footer.id === blockNumber) {
-              footer = {};
-              blocksCount--;
-            } else {
-              throw Error('Footer item mismatches with requested block deletion.');
-            }
+            footer = {};
+            blocksCount--;
           } else if (attr == 'navigation') {
-            // It must equal. I really do not know when it would not be equal
-            // because there is only 1 navigation element and nothing more.
-            if (navigation.id === blockNumber) {
-              navigation = {};
-              blocksCount--;
-            } else {
-              throw Error('Navigation item mismatches with requested block deletion.');
-            }
+            navigation = {};
+            blocksCount--;
           } else {
             for (let i = main.length - 1; i >= 0; i--) {
               let curItem = main[i];
@@ -108,7 +96,7 @@ export function page (state = pageInitialState, action) {
 
       blockElement.remove();
 
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
         navigation: navigation,
         footer: footer,
         main: main,
@@ -122,31 +110,28 @@ export function page (state = pageInitialState, action) {
       const { evt } = action;
       const { newIndex, oldIndex, item } = evt;
       const blockIdElement = item.querySelector('[data-blockid]');
-      const blockId = blockIdElement ? blockIdElement.getAttribute('data-blockid') : null;
+      let temp = main[newIndex];
 
-      if (blockId !== null) {
-        let temp = main[newIndex];
+      main[newIndex] = main[oldIndex];
+      _.assign(main[newIndex], {
+        updatePosition: true,
+        oldPos: oldIndex,
+        newPos: newIndex
+      });
 
-        main[newIndex] = main[oldIndex];
-        main[oldIndex] = temp;
+      main[oldIndex] = temp;
+      _.assign(main[oldIndex], {
+        updatePosition: true,
+        oldPos: newIndex,
+        newPos: oldIndex
+      });
 
-        _.assign(main[newIndex], {
-          updatePosition: true,
-          oldPos: oldIndex,
-          newPos: newIndex
-        });
-
-        _.assign(main[oldIndex], {
-          updatePosition: true,
-          oldPos: newIndex,
-          newPos: oldIndex
-        });
-      }
-
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
         main: main
       });
   }
 
   return state;
 }
+
+export default page;
