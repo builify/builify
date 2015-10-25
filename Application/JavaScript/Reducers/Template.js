@@ -26,7 +26,7 @@ const initialState = {
 
 function theme (state = initialState, action) {
   switch (action.type) {
-    case Actions.GET_SELECTED_TEMPLATE_DATA:
+    case Actions.GET_TEMPLATE_DATA:
       let data = {};
 
       if (_.has(action, 'data')) {
@@ -36,25 +36,32 @@ function theme (state = initialState, action) {
       return _.assign({}, state, data);
 
     case Actions.OPEN_COLORPICKER:
-      return _.assign({}, state, {
-        _colorPickerTarget: action.target
-      });
+      let target = null;
 
-    case Actions.SET_COLOR_FROM_COLORPICKER:
-      const { color } = action;
-      let dataColor = state._colorPickerTarget.getAttribute('data-color');
-
-      if (dataColor) {
-        if (state.design.colors.hasOwnProperty(dataColor)) {
-          state.design.colors[dataColor] = '#' + color + '';
-        }
+      if(_.has(action, 'target')) {
+        target = action.target;
       }
 
-      return state;
+      return _.assign({}, state, {
+        _colorPickerTarget: target
+      });
 
     case Actions.CLOSE_COLORPICKER:
       return _.assign({}, state, {
         _colorPickerTarget: null
+      });
+
+    case Actions.SET_COLOR_FROM_COLORPICKER:
+      const { color } = action;
+      let { design, _colorPickerTarget } = state;
+      let dataColor = _colorPickerTarget.getAttribute('data-color');
+
+      if (dataColor && _.has(state, 'design.colors.dataColor')) {
+        design.colors[dataColor] = '#' + color + '';
+      }
+
+      return _.assign({}, state, {
+        design: design
       });
 
     case Actions.SET_SWATCH:

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CurrentLocationEnum } from '../Constants/Defines';
 import { addNotification } from '../Actions/ActionCreators';
-import classNames from 'classnames';
+import cx from 'classnames';
 import Aside from './Aside/Aside.jsx';
 import Main from './Main/Main.jsx';
 import NotificationContainer from './Notifications/NotificationContainer.jsx';
@@ -15,7 +15,7 @@ class Base extends Component {
     const { builder, builderConfiguration} = this.props;
     const { currentLocation } = builder;
     const { defaultTheme } = builderConfiguration;
-    const reactWrapClassname = classNames('react-wrap', defaultTheme, currentLocation === CurrentLocationEnum.PREVIEW ? 'preview' : '');
+    const reactWrapClassname = cx('react-wrap', defaultTheme, currentLocation === CurrentLocationEnum.PREVIEW ? 'preview' : '');
     const asideClassName = currentLocation === CurrentLocationEnum.PREVIEW ? 'hidden' : '';
 
     let colorCss = {

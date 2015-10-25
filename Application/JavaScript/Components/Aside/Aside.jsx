@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import cx from 'classnames';
+import _ from 'lodash';
 import Logo from '../Shared/Logo.jsx';
 import Copyright from '../Shared/Copyright.jsx';
 import Tab from './Tab.jsx';
@@ -38,11 +39,20 @@ class Aside extends Component {
             <Copyright />
           </AsideItem>
           <AsideItem>
-            {tabs.map((tab, index) => {
-              return <Tab data={tab} targetIndex={index} key={index}/>
+            {_.map(tabs, (tab, index) => {
+              return (
+                <Tab
+                  data={tab}
+                  targetIndex={index}
+                  key={index} />
+                )
             })}
-            {sidetabs.map((sidetab, index) => {
-              return <SideTab data={sidetab} key={index} />
+            {_.map(sidetabs, (sidetab, index) => {
+              return (
+                <SideTab
+                  data={sidetab}
+                  key={index} />
+                )
             })}
           </AsideItem>
         </div>

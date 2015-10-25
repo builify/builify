@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { filterContentBlocks } from '../../Actions/ActionCreators';
 import _ from 'lodash';
-import classNames from 'classnames';
+import cx from 'classnames';
 
 class Filter extends Component {
   constructor (props) {
@@ -56,7 +56,7 @@ class Filter extends Component {
               }
             }
 
-            const itemClassName = classNames(target == filterContentBlocksTarget ? 'active' : '');
+            const itemClassName = cx(target == filterContentBlocksTarget ? 'active' : '');
 
             return (
               <li
@@ -78,7 +78,7 @@ class Filter extends Component {
   }
 
   render () {
-    const filterClassName = classNames('ab-filter', this.state.isFilterOpened ? 'active' : '');
+    const filterClassName = cx('ab-filter', this.state.isFilterOpened ? 'active' : '');
 
     return (
       <div className={filterClassName}>

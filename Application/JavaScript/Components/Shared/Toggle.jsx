@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { getIframeWindow } from '../../Common/Common';
+import _ from 'lodash';
 import Switch from './Switch.jsx';
 
 class Toggle extends Component {
@@ -35,7 +36,7 @@ class Toggle extends Component {
 
     e.preventDefault();
 
-    if (action.hasOwnProperty('target') && action.hasOwnProperty('activeClassname')) {
+    if (_.has(action, 'target') && _.has(action, 'activeClassname')) {
       const { target, activeClassname } = action;
       const targetElement = getIframeWindow(document.getElementById('ab-cfrm'));
 

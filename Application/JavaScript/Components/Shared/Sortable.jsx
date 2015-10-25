@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM, { unmountComponentAtNode, render, findDOMNode } from 'react-dom';
+import _ from 'lodash';
 import Sortable from 'sortablejs';
 
 class ReactSortable extends Component {
   componentDidMount () {
-    var options = Object.assign({}, this.props.sortable);
+    var options = _.assign({}, this.props.sortable);
 
     this.sortable = Sortable.create(findDOMNode(this), options);
     this.renderList();
@@ -29,7 +30,7 @@ class ReactSortable extends Component {
   }
 
   render () {
-    var otherProps = Object.assign({}, this.props);
+    var otherProps = _.assign({}, this.props);
 
     var consumedProps = ["sortable", "component", "childElement", "children"];
     for (var i = 0; i < consumedProps.length; i++) {

@@ -14,45 +14,6 @@ class CanvasFrame extends Component {
     this._blocks = {};
   }
 
-  shouldComponentUpdate () {
-    return true;
-  }
-
-  render () {
-    const { page } = this.props;
-    const { title } = page;
-
-    // data-abcorent - ab-core-Not-Removable
-    return (
-      <div>
-        <IFrame
-          title={title}>
-          <div
-            data-abccorent='true'
-            ref='root'
-            className='ab-croot'>
-            <div
-              ref='navigation'
-              data-abccorent='true'
-              className='ab-cnavigation__wrapper' />
-            <div
-              ref='main'
-              data-abccorent='true'
-              className='ab-cmain__wrapper' />
-            <div
-              ref='footer'
-              data-abccorent='true'
-              className='ab-cfooter__wrapper' />
-            <ClickToolbox
-              store={store}/>
-            <SectionToolBox
-              store={store} />
-          </div>
-        </IFrame>
-      </div>
-    )
-  }
-
   componentWillReceiveProps (nextProps) {
     const props = nextProps;
     const currentPage = props.page;
@@ -222,6 +183,41 @@ class CanvasFrame extends Component {
       target.addEventListener('mouseenter', this.hoverBlocksMouseEnter, false);
       target.addEventListener('mouseleave', this.hoverBlocksMouseLeave, false);
     });
+  }
+
+  render () {
+    const { page } = this.props;
+    const { title } = page;
+
+    // data-abcorent - ab-core-Not-Removable
+    return (
+      <div>
+        <IFrame
+          title={title}>
+          <div
+            data-abccorent='true'
+            ref='root'
+            className='ab-croot'>
+            <div
+              ref='navigation'
+              data-abccorent='true'
+              className='ab-cnavigation__wrapper' />
+            <div
+              ref='main'
+              data-abccorent='true'
+              className='ab-cmain__wrapper' />
+            <div
+              ref='footer'
+              data-abccorent='true'
+              className='ab-cfooter__wrapper' />
+            <ClickToolbox
+              store={store}/>
+            <SectionToolBox
+              store={store} />
+          </div>
+        </IFrame>
+      </div>
+    )
   }
 }
 

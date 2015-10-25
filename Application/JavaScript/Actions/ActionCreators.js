@@ -87,15 +87,15 @@ export function initializeBuilder () {
 export function getTemplateManifest (template) {
   return (dispatch, getState) => {
     getTemplateMani((data) => {
-      dispatch(getSelectedTemplateData(data));
+      dispatch(returnTemplateData(data));
       dispatch(removeLoadingScreen());
     });
   }
 }
 
-export function getSelectedTemplateData (data) {
+export function returnTemplateData (data) {
   return {
-    type: Actions.GET_SELECTED_TEMPLATE_DATA,
+    type: Actions.GET_TEMPLATE_DATA,
     data: data
   }
 }
@@ -305,7 +305,7 @@ export function loadContentBlockSource (source, blockType, blockName) {
         }
       })
       .catch((response) => {
-        console.log(response);
+        throw Error(response);
       });
   }
 }
@@ -375,5 +375,12 @@ export function sortContentBlocks (evt) {
   return {
     type: Actions.SORT_CONTENTBLOCKS,
     evt: evt
+  }
+}
+
+export function geThemeCustomStylesheetSheet (sheet) {
+  return {
+    type: Actions.GET_THEME_CUSTOM_STYLESHEET_SHEET,
+    sheet: sheet
   }
 }

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { loadedAsset } from '../../Actions/ActionCreators';
-import classNames from 'classnames';
+import cx from 'classnames';
 import ImageSpinner from './ImageSpinner.jsx';
 
 class ImageItem extends Component {
@@ -38,7 +38,7 @@ class ImageItem extends Component {
   render () {
     const { isImageFileLoaded } = this.state;
     const { src, alt } = this.props;
-    const loadImage = classNames('ab-loadimage', this.state.isImageFileLoaded ? 'loaded' : '');
+    const loadImage = cx('ab-loadimage', this.state.isImageFileLoaded ? 'loaded' : '');
     const imageSource = src;
 
     return (

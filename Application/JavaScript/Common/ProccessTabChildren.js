@@ -1,11 +1,13 @@
-export default function proccessChildrenData (data) {
+import _ from 'lodash';
+
+function proccessChildrenData (data) {
   let childrenToRender = [];
 
   if (!data) {
     throw Error('No data defined.');
   }
 
-  if (data.hasOwnProperty('children')) {
+  if (_.has(data, 'children')) {
     const { children } = data;
     let childrenLength = children.length;
 
@@ -13,8 +15,8 @@ export default function proccessChildrenData (data) {
       for (let i = 0; i < childrenLength; i++) {
         let currentChildren = children[i];
         let currentChildrenType = null;
-          
-        if (currentChildren.hasOwnProperty('type')) {
+
+        if (_.has(currentChildren, 'type')) {
           currentChildrenType = currentChildren.type;
         } else {
           throw Error('Tab children does not have type defined.');
@@ -22,7 +24,7 @@ export default function proccessChildrenData (data) {
 
         let splitCurrentChildrenType = currentChildrenType.split('.');
 
-        let typeName = splitCurrentChildrenType.length !== 0 ? 
+        let typeName = splitCurrentChildrenType.length !== 0 ?
           splitCurrentChildrenType[0] : currentChildrenType.substr(0, currentChildrenType.indexOf('.'));
 
         switch (typeName) {
@@ -65,7 +67,7 @@ export default function proccessChildrenData (data) {
                 action: action
               };
 
-              childrenToRender.push(switchBlock); 
+              childrenToRender.push(switchBlock);
             } else if (blockType === 'font') {
               let fontBlock = {
                 type: 'font',
@@ -103,10 +105,10 @@ export default function proccessChildrenData (data) {
             let openWhat = currentChildrenType.substr('open.'.length);
 
             if (openWhat === 'sidetab') {
-              if (currentChildren.hasOwnProperty('target')) {
+              if (_.has(currentChildren, 'target')) {
                 let target = currentChildren.target.split('.');
                 let sideTarget = target[target.length - 1];
-                let icon = currentChildren.hasOwnProperty('icon') ? currentChildren.icon : null;
+                let icon = _.has(currentChildren, 'icon') ? currentChildren.icon : null;
                 let sideTabBlock = {
                   type: 'sidetab',
                   title: currentChildren.title,
@@ -131,3 +133,5 @@ export default function proccessChildrenData (data) {
 
   return childrenToRender;
 }
+
+export default proccessChildrenData;

@@ -1,4 +1,4 @@
-import { randomKey, replaceDataInHTML, getAbsPosition } from '../Common/Common';
+import { randomKey, replaceDataInHTML, getAbsPosition, addCSSRule } from '../Common/Common';
 import _ from 'lodash';
 import * as Actions from '../Constants/Actions';
 
@@ -10,22 +10,31 @@ const pageInitialState = {
   footer: {},
   blocksCount: 0,
 
-  replaceInHTML: []
+  templateDesign: {},
+  replaceInHTML: [],
+
+  customStylesheetElement: null,
+  colorPickerTarget: null
 };
 
 function page (state = pageInitialState, action) {
   let { navigation, main, footer, blocksCount } = state;
 
   switch (action.type) {
-    case Actions.GET_SELECTED_TEMPLATE_DATA:
-      let replacer = state.replacer;
+    case Actions.GET_TEMPLATE_DATA:
+      let { templateDesign, replaceInHTML } = state;
 
       if (_.has(action, 'data.replacer')) {
-        replacer = action.data.replacer;
+        replaceInHTML = action.data.replacer;
+      }
+
+      if (_.has(action, 'data.design')) {
+        templateDesign = action.data.design;
       }
 
       return _.assign({}, state, {
-        replaceInHTML: replacer
+        templateDesign: templateDesign,
+        replaceInHTML: replaceInHTML
       });
 
     case Actions.LOAD_CONTENTBLOCK_TO_PAGE:
@@ -128,6 +137,28 @@ function page (state = pageInitialState, action) {
 
       return _.assign({}, state, {
         main: main
+      });
+
+    case Actions.GET_THEME_CUSTOM_STYLESHEET_SHEET:
+      let { customStylesheetElement } = state;
+
+      if (_.has(action, 'sheet')) {
+        const { sheet } = action;
+
+        customStylesheetElement = sheet;
+      }
+
+      return _.assign({}, state, {
+        customStylesheetElement: customStylesheetElement
+      });
+
+    case Actions.SET_COLOR_FROM_COLORPICKER:
+      const { color } = action;
+
+      addCSSRule(state.customStylesheetElement, 'body', 'color: ' + color);
+      
+      return _.assign({}, state, {
+
       });
   }
 

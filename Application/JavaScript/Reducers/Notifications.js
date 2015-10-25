@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import * as Actions from '../Constants/Actions';
 
 const notificationsInitialState = [];
@@ -11,7 +12,7 @@ function notifications (state = notificationsInitialState, action) {
   switch (action.type) {
     case Actions.ADD_NOTIFICATION:
       const { notification } = action;
-      const notificaionItem = Object.assign(notificationDefaultProps, notification);
+      const notificaionItem = _.assign(notificationDefaultProps, notification);
 
       return [...state, notificaionItem];
 

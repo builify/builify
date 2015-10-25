@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { closeSidetab } from '../../Actions/ActionCreators';
 import { getString } from '../../Common/Localization';
+import _ from 'lodash';
 import proccessChildrenData from '../../Common/ProccessTabChildren';
 import BackButton from '../Shared/BackButton.jsx';
 import ProccessedChildrenRender from '../Shared/ProccessedChildrenRender.jsx';
@@ -40,11 +41,9 @@ class SideTab extends ProccessedChildrenRender {
           <h1>{getString(data.title)}
             <span>{getString(data.subtitle)}</span>
           </h1>
-          {this.childrenToRender.length !== 0 ?
-            this.childrenToRender.map((item, i) => {
-              return this.renderChildren(item, theme, localization, builderConfiguration, dispatch, builder, i);
-            }) : false
-          }
+          {_.map(this.childrenToRender, (item, i) => {
+            return this.renderChildren(item, theme, localization, builderConfiguration, dispatch, builder, i);
+          })}
         </Scrollbar>
       </div>
     )

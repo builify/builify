@@ -11,7 +11,7 @@ export default actionMirror(true, [
   'LOADED_ASSET',
 
   // Template's actions
-  'GET_SELECTED_TEMPLATE_DATA',
+  'GET_TEMPLATE_DATA',
 
   // Page's actions
   'START_NEW_PAGE',
@@ -53,5 +53,6 @@ export default actionMirror(true, [
   'CLOSE_CONTEXTMENU_TOOLBOX',
   'OPEN_IMAGE_EDIT_MODAL',
   'OPEN_LINK_EDIT_MODAL',
-  'CLOSE_MODAL'
+  'CLOSE_MODAL',
+  'GET_THEME_CUSTOM_STYLESHEET_SHEET'
 ]);

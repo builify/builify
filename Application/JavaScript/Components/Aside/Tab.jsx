@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { closeTab, openSidetab } from '../../Actions/ActionCreators';
 import { randomKey } from '../../Common/Common';
+import _ from 'lodash';
 import proccessChildrenData from '../../Common/ProccessTabChildren';
 import ProccessedChildrenRender from '../Shared/ProccessedChildrenRender.jsx';
 import BackButton from '../Shared/BackButton.jsx';
@@ -30,7 +31,7 @@ class Tab extends ProccessedChildrenRender {
 
   render () {
     const { dispatch, data, builderConfiguration, theme, localization, targetIndex, builder } = this.props;
-    const scrollbarKey = randomKey();
+    const scrollbarKey = randomKey('scrollbar');
 
     this.childrenToRender = proccessChildrenData(data);
 
@@ -41,11 +42,9 @@ class Tab extends ProccessedChildrenRender {
         <Scrollbar key={scrollbarKey}>
           <BackButton clickFunction={this.closeTab} />
           <h1>{data.title}</h1>
-          {this.childrenToRender.length !== 0 ?
-            this.childrenToRender.map((item, i) => {
-              return this.renderChildren(item, theme, localization, builderConfiguration, dispatch, builder, i);
-            }) : false
-          }
+          {_.map(this.childrenToRender, (item, i) => {
+            return this.renderChildren(item, theme, localization, builderConfiguration, dispatch, builder, i);
+          })}
         </Scrollbar>
       </div>
     )

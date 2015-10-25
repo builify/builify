@@ -57,7 +57,6 @@ class ColorPicker extends Component {
     return (
       <ColorPick
         onClose={::this.handleClose}
-        onChange={::this.handleChange}
         onChangeComplete={::this.handleChange}
         positionCSS={popupPosition}
         display={displayColorPicker}

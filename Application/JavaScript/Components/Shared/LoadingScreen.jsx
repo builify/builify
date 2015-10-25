@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import className from 'classnames';
+import cx from 'classnames';
 import LoadingIcon from './LoadingIcon.jsx';
 
 class LoadingScreen extends Component {
@@ -9,7 +9,7 @@ class LoadingScreen extends Component {
     const { isLoadingScreenActive, loadingScreenType } = builder;
 
     if (loadingScreenType === 0) {
-      const loadingScreenClassName = className('ab-loadingScreen', isLoadingScreenActive ? 'show' : '');
+      const loadingScreenClassName = cx('ab-loadingScreen', isLoadingScreenActive ? 'show' : '');
 
       return (
         <div
