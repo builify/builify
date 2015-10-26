@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames';
+import cx from 'classnames';
 
 class Switch extends Component {
   static propTypes = {
@@ -12,7 +12,7 @@ class Switch extends Component {
 
   render () {
     let { isToggled } = this.props;
-    let switchClassName = classNames('ab-switch', isToggled ? 'toggled' : '');
+    let switchClassName = cx('ab-switch', isToggled ? 'toggled' : '');
 
     return (
       <div className={switchClassName} />

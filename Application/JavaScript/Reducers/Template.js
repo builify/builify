@@ -1,9 +1,13 @@
 import * as Actions from '../Constants/Actions';
-import { randomKey } from '../Common/Common';
+import { setRules } from '../Common/StyleSheet';
 import _ from 'lodash';
 
 const initialState = {
-  _colorPickerTarget: null,
+  isColorPickerOpened: false,
+  colorPickerSelectedElement: null,
+  colorPickerSelectedElementColorElement: null,
+
+  customStylesheetElement: null,
 
   design: {
     swatches: [],
@@ -24,7 +28,9 @@ const initialState = {
   }
 };
 
-function theme (state = initialState, action) {
+function template (state = initialState, action) {
+  let { customStylesheetElement } = state;
+
   switch (action.type) {
     case Actions.GET_TEMPLATE_DATA:
       let data = {};
@@ -36,28 +42,46 @@ function theme (state = initialState, action) {
       return _.assign({}, state, data);
 
     case Actions.OPEN_COLORPICKER:
+      let element = null;
       let target = null;
 
       if(_.has(action, 'target')) {
-        target = action.target;
+        element = action.target;
+        target = element.querySelector('.ab-color__colorHolder');
       }
 
       return _.assign({}, state, {
-        _colorPickerTarget: target
+        isColorPickerOpened: true,
+        colorPickerSelectedElement: element,
+        colorPickerSelectedElementColorElement: target
       });
 
     case Actions.CLOSE_COLORPICKER:
       return _.assign({}, state, {
-        _colorPickerTarget: null
+        isColorPickerOpened: false,
+        colorPickerSelectedElement: null,
+        colorPickerSelectedElementColorElement: null
       });
 
     case Actions.SET_COLOR_FROM_COLORPICKER:
       const { color } = action;
-      let { design, _colorPickerTarget } = state;
-      let dataColor = _colorPickerTarget.getAttribute('data-color');
+      let {
+        design,
+        colorPickerSelectedElementColorElement
+      } = state;
+      const dataColorTarget = colorPickerSelectedElementColorElement.
+                                    getAttribute('data-colortarget');
+      const dataColor = colorPickerSelectedElementColorElement.
+                                    getAttribute('data-color');
 
-      if (dataColor && _.has(state, 'design.colors.dataColor')) {
-        design.colors[dataColor] = '#' + color + '';
+      if (dataColorTarget) {
+        if (design.colors[dataColorTarget]) {
+          design.colors[dataColorTarget] = '#' + color + '';
+
+          setRules(customStylesheetElement, dataColorTarget, {
+            color: '#' + color
+          });
+        }
       }
 
       return _.assign({}, state, {
@@ -74,9 +98,18 @@ function theme (state = initialState, action) {
       return _.assign({}, state, {
         design: designState
       });
+
+    case Actions.GET_THEME_CUSTOM_STYLESHEET_SHEET:
+      if (_.has(action, 'sheet')) {
+        customStylesheetElement = action.sheet;
+      }
+
+      return _.assign({}, state, {
+        customStylesheetElement: customStylesheetElement
+      });
   }
 
   return state;
 }
 
-export default theme;
+export default template;

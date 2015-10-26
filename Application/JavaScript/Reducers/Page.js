@@ -10,11 +10,7 @@ const pageInitialState = {
   footer: {},
   blocksCount: 0,
 
-  templateDesign: {},
-  replaceInHTML: [],
-
-  customStylesheetElement: null,
-  colorPickerTarget: null
+  replaceInHTML: []
 };
 
 function page (state = pageInitialState, action) {
@@ -22,18 +18,13 @@ function page (state = pageInitialState, action) {
 
   switch (action.type) {
     case Actions.GET_TEMPLATE_DATA:
-      let { templateDesign, replaceInHTML } = state;
+      let {  replaceInHTML } = state;
 
       if (_.has(action, 'data.replacer')) {
         replaceInHTML = action.data.replacer;
       }
 
-      if (_.has(action, 'data.design')) {
-        templateDesign = action.data.design;
-      }
-
       return _.assign({}, state, {
-        templateDesign: templateDesign,
         replaceInHTML: replaceInHTML
       });
 
@@ -137,28 +128,6 @@ function page (state = pageInitialState, action) {
 
       return _.assign({}, state, {
         main: main
-      });
-
-    case Actions.GET_THEME_CUSTOM_STYLESHEET_SHEET:
-      let { customStylesheetElement } = state;
-
-      if (_.has(action, 'sheet')) {
-        const { sheet } = action;
-
-        customStylesheetElement = sheet;
-      }
-
-      return _.assign({}, state, {
-        customStylesheetElement: customStylesheetElement
-      });
-
-    case Actions.SET_COLOR_FROM_COLORPICKER:
-      const { color } = action;
-
-      addCSSRule(state.customStylesheetElement, 'body', 'color: ' + color);
-      
-      return _.assign({}, state, {
-
       });
   }
 

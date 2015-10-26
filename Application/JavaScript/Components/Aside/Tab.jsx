@@ -30,7 +30,7 @@ class Tab extends ProccessedChildrenRender {
   }
 
   render () {
-    const { dispatch, data, builderConfiguration, theme, localization, targetIndex, builder } = this.props;
+    const { dispatch, data, builderConfiguration, template, localization, targetIndex, builder } = this.props;
     const scrollbarKey = randomKey('scrollbar');
 
     this.childrenToRender = proccessChildrenData(data);
@@ -43,7 +43,7 @@ class Tab extends ProccessedChildrenRender {
           <BackButton clickFunction={this.closeTab} />
           <h1>{data.title}</h1>
           {_.map(this.childrenToRender, (item, i) => {
-            return this.renderChildren(item, theme, localization, builderConfiguration, dispatch, builder, i);
+            return this.renderChildren(item, template, localization, builderConfiguration, dispatch, builder, i);
           })}
         </Scrollbar>
       </div>
@@ -56,7 +56,7 @@ function mapStateToProps (state) {
     builderConfiguration: state.builderConfiguration,
     builder: state.builder,
     localization: state.localizationData,
-    theme: state.theme
+    template: state.template
   }
 }
 

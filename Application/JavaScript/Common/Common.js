@@ -1,5 +1,6 @@
 import stripJSONComments from 'strip-json-comments';
 import JSZip from 'jszip';
+import _ from 'lodash';
 import { saveAs } from './FileSaver';
 import builderConfiguration from '../Data/Builder/Builder.json';
 import templateManifest from '../Data/Template/Manifest.json';
@@ -313,7 +314,14 @@ export function getAbsPosition (el) {
 }
 
 export function findUpAttr (el, attr) {
-  attr = attr.split(' ')
+  attr = attr.split(' ');
+
+  for (let i = 0; i < attr.length; i++) {
+    if (el.getAttribute(el[i])) {
+      return el;
+    }
+  }
+
   while (el.parentNode) {
     el = el.parentNode;
 
@@ -344,7 +352,7 @@ export function findUpClassName (el, cx) {
     el = el.parentNode;
 
     for (let i = 0; i < cx.length; i++) {
-      if (matchFlag ? el.className.indexOf(cx[i]) !== -1 : el.classList.containts(cx[i])) {
+      if (matchFlag ? el.className.indexOf(cx[i]) !== -1 : el.classList.contains(cx[i])) {
         return el;
       }
     }
@@ -355,13 +363,4 @@ export function findUpClassName (el, cx) {
   }
 
   return null;
-}
-
-export function addCSSRule (sheet, selector, rules, index) {
-	if("insertRule" in sheet) {
-		sheet.insertRule(selector + "{" + rules + "}", index);
-	}
-	else if("addRule" in sheet) {
-		sheet.addRule(selector, rules, index);
-	}
 }

@@ -20,15 +20,18 @@ class ColorPicker extends Component {
 
   render () {
     const { builder } = this.props;
-    const { colorPickerTarget } = builder;
+    const { colorPickerSelectedElementColorElement } = builder;
     let x = 275, y = 0;
+    let defaultColor = '#555';
 
-    if (colorPickerTarget) {
+    if (colorPickerSelectedElementColorElement !== null) {
       let browserSize = getBrowserSize();
-      let elementOffset = getOffset(colorPickerTarget);
+      let elementOffset = getOffset(colorPickerSelectedElementColorElement);
       const { left, top } = elementOffset;
       const { width, height } = browserSize;
       const estimatedColorPickerHeight = 320; // Why not 420?
+
+      defaultColor = colorPickerSelectedElementColorElement.getAttribute('data-color');
 
       x = left + 30;
       y = top;
@@ -56,12 +59,12 @@ class ColorPicker extends Component {
 
     return (
       <ColorPick
+        color={defaultColor}
         onClose={::this.handleClose}
         onChangeComplete={::this.handleChange}
         positionCSS={popupPosition}
         display={displayColorPicker}
-        type='sketch'
-        />
+        type='sketch' />
     )
   }
 }

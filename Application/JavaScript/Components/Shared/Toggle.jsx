@@ -70,7 +70,7 @@ class Toggle extends Component {
 
 function mapStateToProps (state) {
   return {
-    theme: state.theme
+    template: state.template
   }
 }
 

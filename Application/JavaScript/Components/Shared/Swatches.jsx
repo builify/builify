@@ -8,12 +8,12 @@ import cx from 'classnames';
 
 class Swatches extends Component {
   render () {
-    const { theme, onSetSwatch } = this.props;
+    const { template, onSetSwatch } = this.props;
     let swatchesToRender = [];
     let activeSwatch = null;
 
-    if (_.has(theme, 'design.swatches')) {
-      let swatches = theme.design.swatches;
+    if (_.has(template, 'design.swatches')) {
+      let swatches = template.design.swatches;
 
       _.map(swatches, (swatch) => {
         const { name, colors } = swatch;
@@ -25,8 +25,8 @@ class Swatches extends Component {
       })
     }
 
-    if (_.has(theme, 'design.currentSwatch')) {
-      activeSwatch = theme.design.currentSwatch;
+    if (_.has(template, 'design.currentSwatch')) {
+      activeSwatch = template.design.currentSwatch;
     }
 
     if (swatchesToRender.length > 0) {
@@ -85,7 +85,7 @@ class Swatches extends Component {
 
 function mapStateToProps (state) {
   return {
-    theme: state.theme
+    template: state.template
   }
 }
 

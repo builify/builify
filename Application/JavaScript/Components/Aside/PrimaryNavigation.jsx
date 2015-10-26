@@ -18,11 +18,13 @@ class PrimaryNavigation extends Component {
         {_.map(primarynavigation, (navigationItem, i) => {
 					const itemKey = randomKey('pni');
 
-          return <PrimaryNavigationItem
-                    key={itemKey}
-                    target={i}
-                    language={localization}
-                    navigationItemInformation={navigationItem} />
+          return (
+						<PrimaryNavigationItem
+              key={itemKey}
+              target={i}
+              language={localization}
+              navigationItemInformation={navigationItem} />
+					)
         })}
       </ul>
     )

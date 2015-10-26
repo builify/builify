@@ -3,14 +3,15 @@ import { bindActionCreators } from 'redux';
 import { getString } from '../../Common/Localization';
 import { setFont, setSwatch, openColorPicker, openSidetab, closeTab } from '../../Actions/ActionCreators';
 import { randomKey, getProperty } from '../../Common/Common';
-import classNames from 'classnames';
+import cx from 'classnames';
 import Select from 'react-select';
 import Toggle from './Toggle.jsx';
 import Filter from './Filter.jsx';
-import BlockTitle from './BlockTitle.jsx';
-import ContentBlock from './ContentBlock.jsx';
+import ContentBlocks from './ContentBlocks.jsx';
 import CurrentPage from './CurrentPage.jsx';
 import Swatches from './Swatches.jsx';
+import Colors from './Colors.jsx';
+import Size from './Size.jsx';
 
 class ProccessedChildrenRender extends Component {
 	constructor (props) {
@@ -18,7 +19,7 @@ class ProccessedChildrenRender extends Component {
 
     this.dispatch = () => {};
     this.renderChildren = this.renderChildren;
-    this.theme = {};
+    this.template = {};
     this.localization = {};
 
     this._lifeCycle = 0;
@@ -38,46 +39,16 @@ class ProccessedChildrenRender extends Component {
     )
   }
 
-  renderColors (item, i) {
-    let colors = this.theme.design.colors;
-    let colorsElements = [];
+  renderColors () {
+		const key = randomKey('colors');
 
-    for (let color in colors) {
-      if (colors.hasOwnProperty(color)) {
-        let colorName = getString('design.colors.' + color);
-        let colorId = colors[color];
-        const key = randomKey('color');
-
-        colorsElements.push(
-          <div
-            className='ab-color'
-            key={key}>
-            <div
-              className='ab-color__name'
-              title={colorName}>
-              {colorName}
-            </div>
-            <div
-              className='ab-color__circle'
-              title={colorId}
-              {...bindActionCreators({
-                onClick: (e) => {
-                  return openColorPicker(e.target);
-                }
-              }, this.dispatch)}>
-              <span
-                data-color={item.id}
-                style={{backgroundColor: colorId}} />
-            </div>
-          </div>
-        );
-      }
-    }
-
-    return colorsElements;
+    return (
+			<Colors
+				key={key} />
+		)
   }
 
-  renderSwatch (item, i) {
+  renderSwatch () {
 		const key = randomKey('swatches');
 
     return (
@@ -86,51 +57,27 @@ class ProccessedChildrenRender extends Component {
 		)
   }
 
-  renderSwitch (item, i) {
+  renderSwitch (item) {
+		const { action, text, state } = item;
     const key = randomKey('toggle');
 
     return (
       <Toggle
         key={key}
-        action={item.action}
-        label={getString(item.text)}
-        toggled={item.state} />
+        action={action}
+        label={getString(text)}
+        toggled={state} />
     )
   }
 
-  renderSize (item, i) {
-    const { theme } = this.props;
-    let defaultValue = getProperty(this.theme, item.label);
-    const outputRefName = 'sizeOutput-' + i + '';
-    const changeEvent = (e) => {
-      e.preventDefault();
-      let { target } = e;
-      let { value } = target;
+  renderSize (item) {
+		const key = randomKey('size');
 
-      this.refs[outputRefName].innerHTML = value;
-    };
-    let isIE = !!navigator.userAgent.match(/Trident.*rv[ :]*11\./);
-    const key = randomKey('size');
-
-    return (
-      <div
-        className='ab-size'
-        key={key}>
-        <label>{getString(item.label)}</label>
-        <input
-          onMouseUp={isIE ? changeEvent : () => {}}
-          onChange={!isIE ? changeEvent : () => {}}
-          defaultValue={defaultValue !== 'undefined' ? defaultValue : 0}
-          step={1}
-          min={item.min}
-          max={item.max}
-          type='range'
-          name='range' />
-        <div className='ab-size__output'>
-          <span ref={outputRefName}>{defaultValue !== 'undefined' ? defaultValue : 0}</span>
-        </div>
-      </div>
-    )
+		return (
+			<Size
+				item={item}
+				key={key} />
+		)
   }
 
   renderFont (item, i) {
@@ -141,7 +88,7 @@ class ProccessedChildrenRender extends Component {
     let labelName = itemLabel[itemLabel.length - 1];
     const key = '' + randomKey() + 'font';
 
-    labelName = this.theme.design.typography.fonts[labelName];
+    labelName = this.template.design.typography.fonts[labelName];
     value = labelName !== 'undefined' ? labelName : '';
 
     if (this.builderConfiguration.hasOwnProperty('fonts')) {
@@ -170,22 +117,13 @@ class ProccessedChildrenRender extends Component {
   renderSideTab (item, i) {
     const itemIcon = item.icon;
     const doesItemHaveIcon = itemIcon === null ? false : true;
-    const itemClassName = classNames('ab-item', doesItemHaveIcon ? 'icon' : 'link');
+    const itemClassName = cx('ab-item', doesItemHaveIcon ? 'icon' : 'link');
     const childrenNodes = (item) => {
-      /*if (item.icon !== null) {
-        return (
-          <div>
-            <Icon className='ico' name={item.icon} />
-            <span className='text'>{getString(item.title)}</span>
-          </div>
-        )
-      } else {*/
-        return (
-          <span>{getString(item.title)}</span>
-        )
-      //}
+    	return (
+      	<span>{getString(item.title)}</span>
+      )
     };
-    const key = '' + randomKey() + 'sidetab';
+    const key = randomKey('sidetab');
 
     return (
       <div
@@ -220,80 +158,16 @@ class ProccessedChildrenRender extends Component {
   }
 
   renderContentBlocks (item, i) {
-    if (this.theme.hasOwnProperty('blocks')) {
-      const { blocks } = this.theme;
-      const blocksLength = blocks.length;
-      let itemsToRender = [];
-      const key = randomKey('contentblock');
+    const key = randomKey('contentblocks');
 
-      if (blocksLength > 0) {
-        blocks.map((block, i) => {
-          if (block.hasOwnProperty('type')) {
-            const { type } = block;
-
-            itemsToRender.push({
-              type: 'blocktitle',
-              name: type
-            });
-
-            if (block.hasOwnProperty('items')) {
-              const blockItems = block.items;
-              const itemsLength = blockItems.length;
-
-              if (itemsLength > 0) {
-                blockItems.map((blockItem, i) => {
-                  const { title, source } = blockItem;
-                  const thumbnail = blockItem.hasOwnProperty('thumbnail') ? blockItem.thumbnail : null;
-
-                  itemsToRender.push({
-                    type: 'block',
-                    blockType: type,
-                    name: title,
-                    source: source,
-                    thumbnail: thumbnail
-                  });
-                })
-              }
-            }
-
-          } else {
-            throw Error('Missing type of ' + JSON.stringify(block));
-          }
-        })
-      }
-
-      return (
-        <div
-          key={key}
-          className='ab-contentblocks'>
-          <div className='ab-contentblocks__inner'>
-            {itemsToRender.map((item, i) => {
-              const { type } = item;
-
-              if (type === 'blocktitle') {
-                return (
-                  <BlockTitle
-                    key={i}
-                    data={item} />
-                )
-              } else if (type === 'block') {
-                return (
-                  <ContentBlock
-                    key={i}
-                    data={item} />
-                )
-              }
-            })}
-          </div>
-        </div>
-      )
-    } else {
-      return null;
-    }
+		return (
+			<ContentBlocks
+				key={key} />
+		)
   }
 
-  renderFilter (item, i) {
-    const key = randomKey('contentblock');
+  renderFilter () {
+    const key = randomKey('filter');
 
     return (
 			<Filter
@@ -301,7 +175,7 @@ class ProccessedChildrenRender extends Component {
 		)
   }
 
-  renderChildren (item, theme, localization, builderConfiguration, dispatch, builder, i) {
+  renderChildren (item, template, localization, builderConfiguration, dispatch, builder, i) {
     if (!item || typeof item !== 'object') {
       throw Error('No item defined or not object.');
     }
@@ -309,7 +183,7 @@ class ProccessedChildrenRender extends Component {
     this.dispatch = dispatch;
     this.builder = builder ? builder : {};
     this.builderConfiguration = builderConfiguration ? builderConfiguration : {};
-    this.theme = theme ? theme : {};
+    this.template = template ? template : {};
     this.localization = localization ? localization : {};
 
     if (item.hasOwnProperty('type')) {
@@ -342,7 +216,7 @@ class ProccessedChildrenRender extends Component {
           return this.renderContentBlocks(item, i);
 
         case 'filterblock':
-          return this.renderFilter(item, i);
+          return this.renderFilter();
       }
     }
 

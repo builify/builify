@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { findUpAttr, findUpClassName, getBrowserSize } from '../../Common/Common';
 import { openContextmenuToolbox, closeContextmenuToolbox } from '../../Actions/ActionCreators';
 import _ from 'lodash';
-import classNames from 'classnames';
+import cx from 'classnames';
 import SvgIcon from './SvgIcon.jsx';
 
 class ClickToolbox extends Component {
@@ -262,7 +262,7 @@ class ClickToolbox extends Component {
   }
 
   render () {
-    const planelClassName = classNames('ab-crightpanel', this.state.panelOpen ? 'show' : '');
+    const planelClassName = cx('ab-crightpanel', this.state.panelOpen ? 'show' : '');
     const panelStyle = {
       top: this.state.panelCoordinates.y,
       left: this.state.panelCoordinates.x

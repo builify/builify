@@ -24,15 +24,12 @@ class Filter extends Component {
   }
 
   renderFilterItems () {
-    const { theme, builder, onFilterItemSelection } = this.props;
+    const { template, builder, onFilterItemSelection } = this.props;
     const { filterContentBlocksTarget } = builder;
-    let items = [{
-      name: 'Show All',
-      target: 'all'
-    }];
+    let items = [];
 
-    if (_.has(theme, 'blocks')) {
-      const { blocks } = theme;
+    if (_.has(template, 'blocks')) {
+      const { blocks } = template;
 
       _.map(blocks, (block) => {
         const { type } = block;
@@ -43,6 +40,11 @@ class Filter extends Component {
       });
 
       items = _.sortByOrder(items, ['name'], 'asc');
+      
+      items.unshift({
+        name: 'Show All',
+        target: 'all'
+      });
 
       return (
         <ul>
@@ -97,7 +99,7 @@ class Filter extends Component {
 
 function mapStateToProps (state) {
   return {
-    theme: state.theme,
+    template: state.template,
     builder: state.builder
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { getBrowserSize, randomKey } from '../../Common/Common';
-import classNames from 'classnames';
+import cx from 'classnames';
 
 class PanelItem extends Component {
   render () {
@@ -40,7 +40,7 @@ class TextEditorPanel extends Component {
       {'name': 'unLink'},
       {'name': 'htmlSource'}
     ];
-    const cn = classNames('ab-txpanel', 'active');
+    const cn = cx('ab-txpanel', 'active');
     return null;
     /*return (
       <div

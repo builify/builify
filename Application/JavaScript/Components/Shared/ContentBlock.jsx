@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadContentBlockSource } from '../../Actions/ActionCreators';
-import classNames from 'classnames';
+import cx from 'classnames';
 import ImageItem from './ImageItem.jsx';
 
 class ContentBlock extends Component {
@@ -24,11 +24,11 @@ class ContentBlock extends Component {
     const { builder, data } = this.props;
     const { name, thumbnail, blockType} = data;
     const { filterContentBlocksTarget } = builder;
-    let blockClassName = classNames('ab-contentblocks__block');
+    let blockClassName = cx('ab-contentblocks__block');
 
     if (filterContentBlocksTarget != 'all') {
       if (blockType != filterContentBlocksTarget) {
-        blockClassName = classNames('ab-contentblocks__block', 'hide');
+        blockClassName = cx('ab-contentblocks__block', 'hide');
       }
     }
 

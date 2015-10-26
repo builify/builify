@@ -21,7 +21,7 @@ class Frame extends Component {
     this._documentElement = null;
     this._headElement = null;
     this._bodyElement = null;
-    this._themeCustomStyleSheet = null;
+    this._templateCustomStyleSheet = null;
   }
 
   shouldComponentUpdate () {
@@ -37,33 +37,38 @@ class Frame extends Component {
   }
 
   renderFrame () {
-    const { theme, title } = this.props;
-    const frame = this.refs.frm;
-    const frameDoc = frame.contentWindow.document;
-    const rootElement = document.createElement('div');
+    if (!this._isFrameRendered) {
+      const { template, title } = this.props;
+      const frame = this.refs.frm;
+      const frameDoc = frame.contentWindow.document;
+      const rootElement = document.createElement('div');
 
-    frameDoc.title = title;
-    this._documentElement = frameDoc;
-    this._headElement = frameDoc.head;
-    this._bodyElement = frameDoc.body;
+      frameDoc.title = title;
+      this._documentElement = frameDoc;
+      this._headElement = frameDoc.head;
+      this._bodyElement = frameDoc.body;
 
-    this._bodyElement.appendChild(rootElement);
-    render(this._children, rootElement);
+      this._bodyElement.appendChild(rootElement);
+      render(this._children, rootElement);
 
-    if (_.has(theme, 'external.core')) {
-      this.appendFiles(theme.external.core);
+      if (_.has(template, 'external.core')) {
+        this.appendFiles(template.external.core);
+      }
+
+      this.createThemeCustomStyleSheet();
+
+      // Until we figure out how to make firefox work...
+      //this._isFrameRendered = true;
     }
-
-    this.createThemeCustomStyleSheet();
   }
 
   createThemeCustomStyleSheet () {
     let styleElement = document.createElement('style');
     styleElement.type = 'text/css';
-    styleElement.id = 'customthemestylesheet';
+    styleElement.id = 'customtemplatestylesheet';
 
     this._headElement.appendChild(styleElement);
-    this._themeCustomStyleSheet = styleElement.sheet;
+    this._templateCustomStyleSheet = styleElement.sheet;
 
     this.sendThemeCustomStylesheetToReducer();
   }
@@ -71,13 +76,13 @@ class Frame extends Component {
   sendThemeCustomStylesheetToReducer () {
     const { onSendThemeCustomStylesheet } = this.props;
 
-    if (this._themeCustomStyleSheet !== null) {
-      onSendThemeCustomStylesheet(this._themeCustomStyleSheet);
+    if (this._templateCustomStyleSheet !== null) {
+      onSendThemeCustomStylesheet(this._templateCustomStyleSheet);
     }
   }
 
   appendFiles (coreFiles) {
-    coreFiles.push({
+    coreFiles.unshift({
       type: 'css',
       src: '/IFrameStylesheet.css'
     });
@@ -126,7 +131,7 @@ class Frame extends Component {
 
 function mapStateToProps (state) {
   return {
-    theme: state.theme
+    template: state.template
   }
 }
 

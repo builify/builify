@@ -28,7 +28,8 @@ const builderInitialState = {
 
   // Colorpicker
   isColorPickerOpened: false,
-  colorPickerTarget: null,
+  colorPickerSelectedElement: null,
+  colorPickerSelectedElementColorElement: null,
 
   // Filter
   filterContentBlocksTarget: 'all',
@@ -205,7 +206,15 @@ function builder (state = builderInitialState, action) {
     case Actions.OPEN_COLORPICKER:
       return _.assign({}, state, {
         isColorPickerOpened: true,
-        colorPickerTarget: action.target
+        colorPickerSelectedElement: action.target,
+        colorPickerSelectedElementColorElement: action.target.querySelector('.ab-color__colorHolder')
+      });
+
+    case Actions.CLOSE_COLORPICKER:
+      return _.assign({}, state, {
+        isColorPickerOpened: false,
+        colorPickerSelectedElement: null,
+        colorPickerSelectedElementColorElement: null
       });
 
     case Actions.SET_COLOR_FROM_COLORPICKER:
@@ -215,12 +224,6 @@ function builder (state = builderInitialState, action) {
       }
 
       return state;
-
-    case Actions.CLOSE_COLORPICKER:
-      return _.assign({}, state, {
-        isColorPickerOpened: false,
-        colorPickerTarget: null
-      });
 
     case Actions.FILTER_CONTENTBLOCKS:
       let actionTarget = action.target;

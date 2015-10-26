@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { closeModal } from '../../Actions/ActionCreators';
-import classNames from 'classnames';
+import cx from 'classnames';
 
 class ModalBackground extends Component {
   render () {
@@ -18,7 +18,7 @@ class ModalBackground extends Component {
 class ModalContainer extends Component {
   render () {
     const { children, display, modalType, ...props } = this.props;
-    const modalClassName = classNames('ab-modal', modalType, display ? 'show' : '');
+    const modalClassName = cx('ab-modal', modalType, display ? 'show' : '');
 
     return (
       <div className={modalClassName}>

@@ -4,7 +4,7 @@ $logo-default-color: #333;
 $logo-default-size: 4px;
 
 .#{$abprefix}logo {
-	position: relative;
+		position: relative;
     display: block;
     overflow: hidden;
     margin: 0 auto;
@@ -13,7 +13,7 @@ $logo-default-size: 4px;
     height: $logo-default-height;
     width: $logo-default-width;
     @include clearfix;
- 
+
     &__icon {
         position: relative;
         display: block;

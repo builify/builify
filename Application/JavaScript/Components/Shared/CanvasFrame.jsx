@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { currentHoverBlock, removeContentBlock } from '../../Actions/ActionCreators';
+import { findUpAttr } from '../../Common/Common';
 import { store } from '../Application.jsx';
 import _ from 'lodash';
 import IFrame from './IFrame.jsx';
@@ -165,12 +166,11 @@ class CanvasFrame extends Component {
     const targetElements = rootElement.querySelectorAll(targets);
 
     _.map(targetElements, (target, i) => {
-      if (target.getAttribute('data-abcpanel') || target.classList.contains('ab-ccorent')) {
-        return;
-      }
+      const tr = findUpAttr(target, 'data-abcpanel data-abctoolbox');
 
-      if (!target.classList.contains('editabe')) {
-        target.classList.add('editable');
+      if (tr !== null) {
+        console.log(target);
+        return false;
       }
 
       if (target.tagName === 'A') {

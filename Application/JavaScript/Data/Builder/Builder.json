@@ -297,7 +297,7 @@
       "children": [
         {
           "type": "block.title",
-          "title": "design.titles.colors"
+          "title": "design.titles.base"
         },
         {
           "type": "block.colors",

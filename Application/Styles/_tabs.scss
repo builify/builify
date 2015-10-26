@@ -1,0 +1,118 @@
+.#{$abprefix}tab,
+.#{$abprefix}sidetab {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		bottom: 0;
+		z-index: 20;
+		overflow: auto;
+		transform-style: preserve-3d;
+		backface-visibility: hidden;
+		@include transform(translateX(0px));
+
+		&.open {
+				@include transform(translateX(-$default-aside-width));
+		}
+
+		&__close {
+				height: $base-padding;
+				line-height: $base-padding;
+				overflow: hidden;
+				position: relative;
+				display: block;
+				cursor: pointer;
+				padding: 0 $base-padding;
+				@include transition(all 0.3s ease);
+
+				&:before {
+						display: block;
+						position: absolute;
+						left: $base-padding;
+						height: $base-padding;
+						width: $base-padding;
+						top: 0;
+						text-align: left;
+						content: "\e687";
+						font-family: 'Pe-icon-7-stroke';
+						@include rem(font-size, 32px);
+						@include transition(all 0.3s ease);
+						@include transform(scale3d(1, 1, 1));
+				}
+
+				span {
+						padding-left: $base-padding;
+				}
+
+				&:hover {
+						color: $base-color;
+
+						&:before {
+							@include transform(scale3d(1.2, 1.2, 1.2));
+						}
+				}
+		}
+
+		h1 {
+				color: #333;
+				font-weight: 700;
+				text-transform: uppercase;
+				padding: 0 $base-padding;
+				@include rem(font-size, 24px);
+		}
+
+		h2 {
+				position: relative;
+				color: #555;
+				height: $base-padding / 1.5;
+				line-height: $base-padding / 1.5;
+				font-weight: 400;
+				margin-top: 20px;
+				margin-bottom: 0;
+				text-transform: uppercase;
+				padding-left: $base-padding;
+				padding-right: $base-padding;
+				@include rem(font-size, 18px);
+				@include transition(all 0.3s ease);
+
+				&.to-sidebar {
+						cursor: pointer;
+						margin-bottom: 30px;
+
+						&:after {
+								color: inherit;
+								position: absolute;
+								right: 0;
+								height: 22px;
+								line-height: 22px;
+								font-family: "Pe-icon-7-stroke";
+								content: "\e684";
+								@include rem(font-size, 30px);
+								@include transition(all 0.3s ease);
+						}
+
+						&:hover {
+								color: $base-color;
+						}
+				}
+		}
+}
+
+.#{$abprefix}sidetab {
+		h1 {
+				> span {
+						&:nth-child(1) {
+								&:after {
+									content: "/";
+									@include rem(font-size, 16px);
+								}
+						}
+
+						&:nth-child(2) {
+								color: #777;
+								font-weight: 200;
+								@include rem(font-size, 14px);
+						}
+				}
+		}
+}
