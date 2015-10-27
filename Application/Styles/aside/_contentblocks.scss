@@ -1,6 +1,4 @@
-$block-height: 35px;
-
-.#{$abprefix}contentblocks {
+.#{$styleprefix}contentblocks {
 	position: relative;
 	padding: 0 ($base-padding / 1.6) 0 $base-padding;
 
@@ -39,7 +37,7 @@ $block-height: 35px;
 		margin: 0;
 		padding: 0;
 		line-height: 0;
-		margin-bottom: ($block-height + 15);
+		margin-bottom: ($contentblock-figcaption-height + 15);
 		@include transition(transform 0.3s ease);
 		@include clearfix;
 
@@ -68,9 +66,9 @@ $block-height: 35px;
 			color: #FFF;
 			background: #333;
 			padding: 0 15px;
-			bottom: -$block-height;
-			line-height: $block-height;
-			height: $block-height;
+			bottom: -$contentblock-figcaption-height;
+			line-height: $contentblock-figcaption-height;
+			height: $contentblock-figcaption-height;
 			@include rem(font-size, 14px);
 		}
 	}

@@ -1,4 +1,4 @@
-.#{$abprefix}flex {
+.#{$styleprefix}flex {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
@@ -6,7 +6,7 @@
     &.full {
     	height: 100%;
     }
-    
+
     &.center {
     	align-items: center;
     }

@@ -1,7 +1,3 @@
-$abprefix: 'ab-';
-$base-color: #9b59b6;
-$base-padding: 40px;
-
 @import "bourbon/bourbon";
 
 @import "dependencies/normalize";
@@ -9,24 +5,32 @@ $base-padding: 40px;
 @import "dependencies/shadows";
 @import "dependencies/rem";
 
-@import "base";
-@import "reactjs";
-@import "aside";
-@import "logo";
-@import "primarynav";
-@import "main";
-@import "page";
-@import "tab";
-@import "tabs";
-@import "swatch";
-@import "color";
-@import "canvas";
-@import "loadingscreen";
-@import "size";
-@import "misc";
-@import "contentblocks";
-@import "notifications";
-@import "modal";
-@import "filter";
-@import "select";
-@import "themecolors";
+@import "core/variables";
+@import "core/base";
+@import "core/reactjs";
+
+@import "aside/aside";
+@import "aside/logo";
+@import "aside/primarynav";
+@import "aside/tabs";
+@import "aside/copyright";
+@import "aside/size";
+@import "aside/filter";
+@import "aside/contentblocks";
+@import "aside/color";
+@import "aside/swatch";
+@import "aside/currentpage";
+@import "aside/items";
+
+@import "main/main";
+@import "main/canvas";
+@import "main/loadingscreen";
+@import "main/page";
+
+@import "shared/modal";
+@import "shared/notifications";
+@import "shared/select";
+@import "shared/scrollbar";
+@import "shared/misc";
+
+@import "theme/themecolors";

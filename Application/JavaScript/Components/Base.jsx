@@ -5,10 +5,10 @@ import { addNotification } from '../Actions/ActionCreators';
 import cx from 'classnames';
 import Aside from './Aside/Aside.jsx';
 import Main from './Main/Main.jsx';
-import NotificationContainer from './Notifications/NotificationContainer.jsx';
+import NotificationContainer from './Notifications/Container.jsx';
+import Modal from './Modal/Modal.jsx';
 import LoadingScreen from './Shared/LoadingScreen.jsx';
 import ColorPicker from './Shared/ColorPicker.jsx';
-import Modal from './Shared/Modal.jsx';
 
 class Base extends Component {
   render () {
@@ -17,13 +17,6 @@ class Base extends Component {
     const { defaultTheme } = builderConfiguration;
     const reactWrapClassname = cx('react-wrap', defaultTheme, currentLocation === CurrentLocationEnum.PREVIEW ? 'preview' : '');
     const asideClassName = currentLocation === CurrentLocationEnum.PREVIEW ? 'hidden' : '';
-
-    let colorCss = {
-      position: 'fixed',
-      top: '0',
-      left: '275px',
-      marginLeft: '0'
-    };
 
     return (
       <div

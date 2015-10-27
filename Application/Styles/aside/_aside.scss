@@ -1,9 +1,7 @@
-$default-aside-width: 275px !default;
-
-.#{$abprefix}aside {
+.#{$styleprefix}aside {
     position: relative;
     height: 100%;
-    float: left; 
+    float: left;
     overflow: hidden;
     z-index: 10;
     width: $default-aside-width;
@@ -15,12 +13,12 @@ $default-aside-width: 275px !default;
         width: $default-aside-width * 3;
     }
 
-    &__item { 
+    &__item {
         position: relative;
         height: 100%;
-        float: left; 
+        float: left;
         display: block;
         width: $default-aside-width;
-        @include clearfix; 
+        @include clearfix;
     }
-} 
+}

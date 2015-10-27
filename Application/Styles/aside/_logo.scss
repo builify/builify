@@ -1,9 +1,4 @@
-$logo-default-width: 145px;
-$logo-default-height: 40px;
-$logo-default-color: #333;
-$logo-default-size: 4px;
-
-.#{$abprefix}logo {
+.#{$styleprefix}logo {
 		position: relative;
     display: block;
     overflow: hidden;

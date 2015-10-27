@@ -1,12 +1,16 @@
-.#{$abprefix}color {
+.#{$styleprefix}swatch {
 		text-transform: uppercase;
+
+		&.active {
+				background-color: #ccc;
+		}
 
 		&__name {
 				font-weight: 400;
 				@include rem(font-size, 14px);
 		}
 
-		&__circle {
+		&__color {
 				position: absolute;
 				display: block;
 				border-radius: 100%;
@@ -19,13 +23,9 @@
 
 				> span {
 						display: block;
-						width: 100%;
+						float: left;
+						width: 50%;
 						height: 100%;
 				}
-		}
-
-		&.active,
-		&:hover {
-				background-color: #ccc;
 		}
 }

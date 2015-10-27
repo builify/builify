@@ -69,11 +69,11 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onOpenTab: (target) => {
+    onOpenTab: target => {
       dispatch(openTab(target));
     },
 
-    onOpenPreview: (target) => {
+    onOpenPreview: target => {
       dispatch(openPreview(target));
     },
 

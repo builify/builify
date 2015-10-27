@@ -1,7 +1,5 @@
-$default-pagenew-size: 250px;
-
-.#{$abprefix}page-new {
-		position: relative;
+.#{$styleprefix}page-new {
+    position: relative;
 		text-align: center;
 		border-radius: 5px;
 		cursor: pointer;

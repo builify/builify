@@ -1,6 +1,4 @@
-$notification-container-margin: 25px;
-
-.#{$abprefix}notification {
+.#{$styleprefix}notification {
     &__container {
         position: fixed;
         z-index: 999999;

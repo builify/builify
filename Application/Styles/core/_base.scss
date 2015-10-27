@@ -22,7 +22,7 @@ body {
     @include rem(font-size, 16px);
 }
 
-.#{$abprefix}toggle {
+.#{$styleprefix}toggle {
 	text-transform: uppercase;
 	font-weight: 400;
 	@include rem(font-size, 14px);
@@ -32,7 +32,7 @@ $switch-width: 50px;
 $switch-height: 24px;
 $switch-btn-size: 20px;
 
-.#{$abprefix}switch {
+.#{$styleprefix}switch {
 	cursor: pointer;
 	position: relative;
 	float: right;
@@ -73,7 +73,7 @@ $switch-btn-size: 20px;
   border-radius: 3px;
 }
 
-.#{$abprefix}loadimage {
+.#{$styleprefix}loadimage {
     position: relative;
   	background: #eee;
   	height: 100%;
@@ -93,7 +93,7 @@ $switch-btn-size: 20px;
             @include transform(scale(1));
     		}
 
-    		.#{$abprefix}loadimage__icon {
+    		.#{$styleprefix}loadimage__icon {
       			display: none;
     		}
   	}
@@ -131,7 +131,7 @@ $switch-btn-size: 20px;
     }
 }
 
-.#{$abprefix}txpanel {
+.#{$styleprefix}txpanel {
     display: block;
     height: 63px;
     padding: 12px;

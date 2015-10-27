@@ -1,0 +1,51 @@
+.#{$styleprefix}color,
+.#{$styleprefix}swatch,
+.#{$styleprefix}toggle {
+		position: relative;
+		cursor: pointer;
+		width: 100%;
+		min-height: $item-height;
+		max-height: $item-height * 2;
+		line-height: $item-height;
+		padding: 0 $base-padding;
+}
+
+.#{$styleprefix}select {
+		position: relative;
+		cursor: pointer;
+		width: $default-aside-width - ($base-padding * 2);
+		margin: 0 $base-padding;
+
+		&__name {
+				text-transform: capitalize;
+				color: #333;
+				font-weight: 400;
+				margin: 15px 0 0;
+				padding: 0;
+				@include rem(font-size, 14px);
+		}
+}
+
+.#{$styleprefix}item {
+		position: relative;
+		cursor: pointer;
+		text-transform: uppercase;
+
+		&.link {
+				width: 100%;
+				min-height: $item-height;
+				max-height: $item-height * 2;
+				line-height: $item-height;
+				padding: 0 $base-padding;
+
+				&:after {
+						color: inherit;
+						position: absolute;
+						font-family: "Pe-icon-7-stroke";
+						content: "\e684";
+						right: $base-padding;
+						@include rem(font-size, 30px);
+						@include transition(all 0.3s ease);
+				}
+		}
+}

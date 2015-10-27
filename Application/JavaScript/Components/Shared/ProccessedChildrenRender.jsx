@@ -4,7 +4,7 @@ import { getString } from '../../Common/Localization';
 import { setFont, setSwatch, openColorPicker, openSidetab, closeTab } from '../../Actions/ActionCreators';
 import { randomKey, getProperty } from '../../Common/Common';
 import cx from 'classnames';
-import Select from 'react-select';
+import _ from 'lodash';
 import Toggle from './Toggle.jsx';
 import Filter from './Filter.jsx';
 import ContentBlocks from './ContentBlocks.jsx';
@@ -12,31 +12,24 @@ import CurrentPage from './CurrentPage.jsx';
 import Swatches from './Swatches.jsx';
 import Colors from './Colors.jsx';
 import Size from './Size.jsx';
+import Title from './Title.jsx';
+import ItemThatOpensSideTab from './ItemThatOpensSideTab.jsx';
+import FontSelection from './FontSelection.jsx';
 
 class ProccessedChildrenRender extends Component {
-	constructor (props) {
-    super(props);
-
-    this.dispatch = () => {};
-    this.renderChildren = this.renderChildren;
-    this.template = {};
-    this.localization = {};
-
-    this._lifeCycle = 0;
-  }
-
   shouldComponentUpdate (nextProps, nextState) {
     return true;
   }
 
-  // Block components
-  renderTitle (item, i) {
-    let lang = getString(item.text);
+  renderTitle (item) {
+		const { text } = item;
     const key = randomKey('title');
 
-    return (
-      <h2 key={key}>{lang ? lang : item.text}</h2>
-    )
+		return (
+			<Title
+				title={text}
+				key={key} />
+		)
   }
 
   renderColors () {
@@ -80,84 +73,36 @@ class ProccessedChildrenRender extends Component {
 		)
   }
 
-  renderFont (item, i) {
-    const { fonts } = this.builderConfiguration;
-    let fontsOptions = null;
-    let value = null;
-    let itemLabel = item.label.split('.');
-    let labelName = itemLabel[itemLabel.length - 1];
-    const key = '' + randomKey() + 'font';
+  renderFont (item) {
+		const key = randomKey('fontselection');
 
-    labelName = this.template.design.typography.fonts[labelName];
-    value = labelName !== 'undefined' ? labelName : '';
+		return (
+			<FontSelection
+				item={item}
+				key={key} />
+		)
+  }
 
-    if (this.builderConfiguration.hasOwnProperty('fonts')) {
-      fontsOptions = [...fonts];
-    }
+  renderSideTab (item) {
+    const key = randomKey('itemthatopenssidetab');
 
     return (
-      <div
-        key={i}
-        className='ab-select'>
-        <h3 className='ab-select__name'>{getString(item.label)}</h3>
-        <Select
-          key={key}
-          name={String(i)}
-          value={value}
-          options={fontsOptions}
-          {...bindActionCreators({
-            onChange: (newValue) => {
-              return setFont(newValue);
-            }
-          }, this.dispatch)} />
-      </div>
+      <ItemThatOpensSideTab
+				item={item}
+				key={key} />
     )
   }
 
-  renderSideTab (item, i) {
-    const itemIcon = item.icon;
-    const doesItemHaveIcon = itemIcon === null ? false : true;
-    const itemClassName = cx('ab-item', doesItemHaveIcon ? 'icon' : 'link');
-    const childrenNodes = (item) => {
-    	return (
-      	<span>{getString(item.title)}</span>
-      )
-    };
-    const key = randomKey('sidetab');
-
-    return (
-      <div
-        className={itemClassName}
-        data-targetid={item.target}
-        key={key}
-        {...bindActionCreators({
-          onClick: (e) => {
-            e.preventDefault();
-            return openSidetab(item.target);
-          }
-        }, this.dispatch)}>
-        {childrenNodes(item)}
-      </div>
-    )
-  }
-
-  renderPages (item, i) {
-    let { pages } = this.props.builder;
+  renderPages () {
     const key = randomKey('pages');
 
-    if (!pages || pages === undefined) {
-      return null;
-    }
-
-    if (pages.length !== 0) {
-      return (
-        <CurrentPage
-					key={key} />
-      )
-    }
+    return (
+      <CurrentPage
+				key={key} />
+    )
   }
 
-  renderContentBlocks (item, i) {
+  renderContentBlocks () {
     const key = randomKey('contentblocks');
 
 		return (
@@ -175,48 +120,42 @@ class ProccessedChildrenRender extends Component {
 		)
   }
 
-  renderChildren (item, template, localization, builderConfiguration, dispatch, builder, i) {
+  renderChildren (item) {
     if (!item || typeof item !== 'object') {
       throw Error('No item defined or not object.');
     }
 
-    this.dispatch = dispatch;
-    this.builder = builder ? builder : {};
-    this.builderConfiguration = builderConfiguration ? builderConfiguration : {};
-    this.template = template ? template : {};
-    this.localization = localization ? localization : {};
-
-    if (item.hasOwnProperty('type')) {
-      switch (item.type.toString()) {
+		if (_.has(item, 'type')) {
+      switch (item.type) {
         case 'title':
-          return this.renderTitle(item, i);
+          return this.renderTitle(item);
 
         case 'colors':
-          return this.renderColors(item, i);
+          return this.renderColors(item);
 
         case 'swatches':
-          return this.renderSwatch(item, i);
+          return this.renderSwatch(item);
 
         case 'switch':
-          return this.renderSwitch(item, i);
+          return this.renderSwitch(item);
 
         case 'size':
-          return this.renderSize(item, i);
+          return this.renderSize(item);
 
         case 'font':
-          return this.renderFont(item, i);
+          return this.renderFont(item);
 
         case 'sidetab':
-          return this.renderSideTab(item, i);
+          return this.renderSideTab(item);
 
         case 'pages':
-          return this.renderPages(item, i);
+          return this.renderPages(item);
 
         case 'contentblocks':
-          return this.renderContentBlocks(item, i);
+          return this.renderContentBlocks(item);
 
         case 'filterblock':
-          return this.renderFilter();
+          return this.renderFilter(item);
       }
     }
 

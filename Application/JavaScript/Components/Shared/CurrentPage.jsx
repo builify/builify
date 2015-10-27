@@ -7,10 +7,22 @@ import cx from 'classnames';
 import Sortable from './Sortable.jsx';
 import SvgIcon from './SvgIcon.jsx';
 
+class CurrentPageDivider extends Component {
+  render () {
+    return (
+      <div className='ab-currentPage__divider' />
+    )
+  }
+}
+
 class CurrentPageItem extends Component {
   static propTypes = {
-    onRemoveClick: PropTypes.func.isRequired,
+    onRemoveClick: PropTypes.func,
     data: PropTypes.object.isRequired
+  }
+
+  static defaultProps = {
+    onRemoveClick: () => {}
   }
 
   render () {
@@ -19,19 +31,26 @@ class CurrentPageItem extends Component {
     const removeIconStyle = {
       fill: '#ce4031'
     };
-    const itemClassName = cx('ab-currentPage__item');
+    const isNotSortable = type === 'navigation' || type === 'footer' ? true : false;
+    const itemClassName = cx('ab-currentPage__item', isNotSortable ? 'notsortable' : '');
 
     return (
       <li
         data-blockid={id}
         className={itemClassName}>
-        <div
-          className='handle'
-          title='Remove Element'>
-          <SvgIcon
-            size={18}
-            icon='reorder' />
-        </div>
+        {(() => {
+          if (!isNotSortable) {
+            return (
+              <div
+                className='handle'
+                title='Remove Element'>
+                <SvgIcon
+                  size={18}
+                  icon='reorder' />
+              </div>
+            )
+          }
+        })()}
         <div className='ab-currentPage__item-title'>
           {blockName}
         </div>
@@ -59,31 +78,56 @@ class CurrentPage extends Component {
       }
     }
     let items = [];
+    let notSortableItems = [];
 
     _.map(main, (mainItem) => {
       items.push(mainItem);
     });
 
+    if (_.values(navigation).length !== 0) {
+      notSortableItems.unshift(navigation);
+    }
+
+    if (_.values(footer).length !== 0) {
+      notSortableItems.push(footer);
+    }
+
     return (
-      <Sortable
-        sortable={sortableOptions}
-        component='ul'
-        childElement='div'
-        className='ab-currentPage'>
-        {_.map(items, (item) => {
-          const { elementReference } = item;
-          const keyNr = randomKey() + 'cpi';
+      <div>
+        {_.map(notSortableItems, item => {
+          const key = randomKey('notsortableitem');
 
           return (
             <CurrentPageItem
-              onRemoveClick={(e) => {
-                return onRemove(elementReference);
-              }}
               data={item}
-              key={keyNr} />
+              key={key} />
           )
         })}
-      </Sortable>
+        {(() => {
+          if (notSortableItems.length > 0) {
+            return <CurrentPageDivider />
+          }
+        })()}
+        <Sortable
+          sortable={sortableOptions}
+          component='ul'
+          childElement='div'
+          className='ab-currentPage'>
+          {_.map(items, (item) => {
+            const { elementReference } = item;
+            const key = randomKey('sortableitem');
+
+            return (
+              <CurrentPageItem
+                onRemoveClick={(e) => {
+                  return onRemove(elementReference);
+                }}
+                data={item}
+                key={key} />
+            )
+          })}
+        </Sortable>
+      </div>
     )
   }
 }

@@ -1,4 +1,4 @@
-.#{$abprefix}primarynav {
+.#{$styleprefix}primarynav {
     position: relative;
     display: block;
     list-style: none;
@@ -19,11 +19,11 @@
         @include transition(all 0.3s ease);
 
         svg {
-          position: relative;
-          display: inline-block;
-          color: inherit;
-          top: 2px;
-          margin-right: 10px;
+            position: relative;
+            display: inline-block;
+            color: inherit;
+            top: 2px;
+            margin-right: 10px;
         }
 
         &.hide {

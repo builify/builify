@@ -1,4 +1,4 @@
-.#{$abprefix}size {
+.#{$styleprefix}size {
     position: relative;
     padding: 0 40px;
     width: 100%;
@@ -40,7 +40,7 @@
             border-radius: 100%;
             border: 0;
             box-shadow: 0 0 34px rgba(#000, 0.5);
-        } 
+        }
 
         // Webkit
         &::-webkit-slider-runnable-track {

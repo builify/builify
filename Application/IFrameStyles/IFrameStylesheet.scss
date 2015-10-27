@@ -1,4 +1,4 @@
-$abprefix: 'ab-';
+$styleprefix: 'ab-';
 $base-color: #9b59b6;
 
 @import "../Styles/bourbon/bourbon";
@@ -13,11 +13,11 @@ body {
 		height: 100%;
 }
 
-.#{$abprefix}ch {
+.#{$styleprefix}ch {
 		outline: 1px solid #555 !important;
 }
 
-.#{$abprefix}crightpanel {
+.#{$styleprefix}crightpanel {
 		position: fixed;
 		display: none;
 		z-index: 999999 !important;
@@ -66,7 +66,7 @@ body {
 		}
 }
 
-.#{$abprefix}cstoolbox {
+.#{$styleprefix}cstoolbox {
 		position: absolute;
 		top: 10px;
 		right: 20px;
@@ -106,7 +106,7 @@ body {
 		}
 }
 
-.#{$abprefix}cmain__wrapper {
+.#{$styleprefix}cmain__wrapper {
 		position: relative;
     overflow: hidden;
     width: 100%;
@@ -115,8 +115,8 @@ body {
 }
 
 .boxed-layout {
-		.#{$abprefix}cmain__wrapper,
-		.#{$abprefix}cfooter__wrapper,
+		.#{$styleprefix}cmain__wrapper,
+		.#{$styleprefix}cfooter__wrapper,
 		nav {
 				max-width: 1280px;
 	    	margin: 0 auto;

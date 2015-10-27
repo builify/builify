@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import { closeSidetab } from '../../Actions/ActionCreators';
 import { getString } from '../../Common/Localization';
 import _ from 'lodash';
@@ -28,7 +27,7 @@ class SideTab extends ProccessedChildrenRender {
   }
 
   render () {
-    const { dispatch, data, builderConfiguration, template, localization, builder } = this.props;
+    const { data } = this.props;
 
     this.childrenToRender = proccessChildrenData(data);
 
@@ -41,8 +40,8 @@ class SideTab extends ProccessedChildrenRender {
           <h1>{getString(data.title)}
             <span>{getString(data.subtitle)}</span>
           </h1>
-          {_.map(this.childrenToRender, (item, i) => {
-            return this.renderChildren(item, template, localization, builderConfiguration, dispatch, builder, i);
+          {_.map(this.childrenToRender, item => {
+            return this.renderChildren(item);
           })}
         </Scrollbar>
       </div>
@@ -50,15 +49,4 @@ class SideTab extends ProccessedChildrenRender {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    builderConfiguration: state.builderConfiguration,
-    builder: state.builder,
-    localization: state.localization,
-    template: state.template
-  }
-}
-
-export default connect(
-  mapStateToProps
-)(SideTab);
+export default SideTab;

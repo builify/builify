@@ -1,5 +1,5 @@
-.#{$abprefix}tab,
-.#{$abprefix}sidetab {
+.#{$styleprefix}tab,
+.#{$styleprefix}sidetab {
 		position: absolute;
 		top: 0;
 		right: 0;
@@ -98,7 +98,7 @@
 		}
 }
 
-.#{$abprefix}sidetab {
+.#{$styleprefix}sidetab {
 		h1 {
 				> span {
 						&:nth-child(1) {

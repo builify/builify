@@ -1,0 +1,63 @@
+.#{$styleprefix}currentPage {
+    position: relative;
+    list-style: none;
+		margin: 0;
+		padding: 0;
+
+    &__item {
+				position: relative;
+				width: 100%;
+				min-height: $item-height;
+		    max-height: $item-height * 2;
+		    line-height: $item-height;
+		    padding: 0 $base-padding;
+				@include user-select(none);
+
+				&:hover {
+            background-color: #ccc;
+
+						.remove {
+								opacity: 1;
+						}
+				}
+
+        &-title {
+            display: inline-block;
+            text-overflow: ellipsis;
+            cursor: text;
+            padding-right: 8px;
+            @include user-select(text);
+						@include rem(font-size, 14px);
+        }
+
+				.handle {
+						height: 18px;
+						width: 18px;
+						display: inline-block;
+						position: relative;
+						margin-right: 5px;
+						cursor: move;
+						svg {
+							position: relative;
+							top: 3px;
+						}
+				}
+
+				.remove {
+						opacity: 0;
+						position: absolute;
+						top: 4px;
+						text-align: right;
+						cursor: pointer;
+						right: $base-padding / 2;
+						@include transition(all 0.3s ease);
+				}
+    }
+
+    &__divider {
+        width: 100%;
+        height: 1px;
+        margin: 10px 0;
+        background: #ccc;
+    }
+}

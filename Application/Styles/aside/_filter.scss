@@ -1,4 +1,4 @@
-.#{$abprefix}filter {
+.#{$styleprefix}filter {
 		position: relative;
 		width: 100%;
 		margin-bottom: 30px;
@@ -74,7 +74,7 @@
 		}
 
 		&.active {
-				.#{$abprefix}filter {
+				.#{$styleprefix}filter {
 						&__text {
 								div:after {
 										margin-top: 2px;
