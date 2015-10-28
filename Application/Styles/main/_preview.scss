@@ -1,0 +1,85 @@
+$preview-controls-height: 60px;
+
+.#{$nameprefix}preview {
+    &__controls {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        height: $preview-controls-height;
+    }
+
+    &__close {
+        position: absolute;
+        display: block;
+        cursor: pointer;
+        height: $preview-controls-height;
+        line-height: $preview-controls-height;
+        left: $base-padding;
+        @include transition(all 0.3s ease);
+
+        &:before {
+            display: block;
+            position: absolute;
+            top: 0;
+            text-align: left;
+            content: "\e687";
+            font-family: 'Pe-icon-7-stroke';
+            left: 0;
+            height: $base-padding;
+            width: $base-padding;
+            @include rem(font-size, 32px);
+            @include transition(all 0.3s ease);
+            @include transform(scale3d(1, 1, 1));
+        }
+
+        span {
+            padding-left: $base-padding;
+        }
+
+        &:hover {
+            color: $base-color;
+        }
+    }
+
+    &__responsive {
+        position: relative;
+        height: 100%;
+        margin: 0 auto;
+        width: (($preview-controls-height - 10) * 4) + 20;
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                cursor: pointer;
+                border: 1px solid #ccc;
+                border-right: none;
+                display: inline-block;
+                margin: 5px 0;
+                color: #333;
+                height: $preview-controls-height - 10;
+                width: $preview-controls-height - 10;
+                @include transition(all 0.3s ease);
+
+                &:last-child {
+                  border-right: 1px solid #ccc;
+                }
+
+                &:hover {
+                    background: darken(#eee, 5%);
+                }
+
+                svg {
+                    display: block;
+                    position: relative;
+                    vertical-align: middle;
+                    margin: 0 auto;
+                    margin-top: 13px;
+                    fill: #333;
+                }
+            }
+        }
+    }
+}

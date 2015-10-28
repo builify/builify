@@ -1,10 +1,41 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { findUpAttr, findUpClassName, getBrowserSize } from '../../Common/Common';
 import { openContextmenuToolbox, closeContextmenuToolbox } from '../../Actions/ActionCreators';
 import _ from 'lodash';
 import cx from 'classnames';
 import SvgIcon from './SvgIcon.jsx';
+
+class ClickToolBoxItem extends Component {
+  static propTypes = {
+    icon: PropTypes.string,
+    text: PropTypes.string,
+    onClick: PropTypes.func
+  }
+
+  static defaultProps = {
+    icon: null,
+    text: '',
+    onClick: () => {}
+  }
+
+  render () {
+    const { icon, onClick, text } = this.props;
+
+    return (
+      <div
+        className='ab-crightpanel__item'
+        onClick={onClick}>
+        {(() => {
+          if (icon !== null) {
+            return <SvgIcon icon={icon} />
+          }
+        })()}
+        <span>{text}</span>
+      </div>
+    )
+  }
+}
 
 class ClickToolbox extends Component {
   constructor (props) {
@@ -71,7 +102,31 @@ class ClickToolbox extends Component {
     }
   }
 
+  checkIfBackgroundImageHolderIsNear (target) {
+    if (target.getAttribute('data-abccorent')) {
+      const { children } = target;
+
+      for (let i = 0; i < children.length; i++) {
+        let currentChild = children[i];
+
+        if (currentChild.classList.contains('background-image-holder')) {
+          target = currentChild;
+          target.setAttribute('data-abcnotremoveable', true);
+          break;
+        }
+      }
+    }
+
+    return target;
+  }
+
+  getHTMLTagName (target) {
+    return this.HTMLTagNames[target.tagName];
+  }
+
   openPanel (e) {
+    const { onOpenContextMenu } = this.props;
+
     if (e.shiftKey) {
       return;
     }
@@ -85,46 +140,29 @@ class ClickToolbox extends Component {
     const panelElement = this.refs.panel;
     let target = e.target;
     let isElemenetChangeable = true;
-    let isBackgroundImageHolder = false;
     const findUp = findUpAttr(target, 'data-abctoolbox data-abcpanel');
 
-    if (findUp !== null) {
+    if (findUp !== null ||
+      target.getAttribute('data-abctoolbox') ||
+      target.getAttribute('data-abcpanel')) {
       this.closePanel();
       return false;
     }
 
-    // If original block element
-    if (target.getAttribute('data-abccorent')) {
-      // Check if there is background-image holder
-      const { children } = target;
-
-      for (let i = 0; i < children.length; i++) {
-        let currentChild = children[i];
-
-        if (currentChild.classList.contains('background-image-holder')) {
-          target = currentChild;
-          target.setAttribute('data-abcnotremoveable', true);
-          isBackgroundImageHolder= true;
-          break;
-        }
-      }
-    }
-
-    const targetName = this.HTMLTagNames[target.tagName];
+    target = this.checkIfBackgroundImageHolderIsNear(target);
+    const targetName = this.getHTMLTagName(target);
 
     if (targetName === undefined) {
       this.closePanel();
       return false;
     }
 
-    const { onOpenContextMenu } = this.props;
     onOpenContextMenu();
 
     const panelWidth = 170;
     const xOfrightPanelEdge = eventPosition.x + panelWidth + 275;
 
     if (+xOfrightPanelEdge >= (this._browserSize.width - this._panelXPadding)) {
-      // Multiply panelXPadding by 2 because iframe gives scrollbar.
       const dif = +xOfrightPanelEdge - (this._browserSize.width - (this._panelXPadding * 2));
 
       eventPosition.x = eventPosition.x - dif;
@@ -147,6 +185,7 @@ class ClickToolbox extends Component {
 
     if (panelOpen) {
       const { onCloseContextMenu } = this.props;
+
       this.setState({
         panelOpen: false
       });
@@ -173,43 +212,35 @@ class ClickToolbox extends Component {
 
   listImageChange () {
     return (
-      <div
-        className='ab-crightpanel__item'>
-        <SvgIcon icon='image' />
-        <span data-abcpanel={true}>Edit Image</span>
-      </div>
+      <ClickToolBoxItem
+        icon='image'
+        text='Edit Image' />
     )
   }
 
   listLinkChange () {
     return (
-      <div
-        onClick={::this.openLinkEditModal}
-        className='ab-crightpanel__item'>
-        <SvgIcon icon='link' />
-        <span data-abcpanel={true}>Change Link</span>
-      </div>
+      <ClickToolBoxItem
+        icon='link'
+        text='Change Link'
+        onClick={::this.openLinkEditModal} />
     )
   }
 
   listIconChange () {
     return (
-      <div
-        className='ab-crightpanel__item'>
-        <SvgIcon icon='star' />
-        <span data-abcpanel={true}>Change Icon</span>
-      </div>
+      <ClickToolBoxItem
+        icon='star'
+        text='Change Icon' />
     )
   }
 
   listItemRemove () {
     return (
-      <div
-        className='ab-crightpanel__item'
-        onClick={::this.removeElement}>
-        <SvgIcon icon='clear' />
-        <span data-abcpanel={true}>Remove</span>
-      </div>
+      <ClickToolBoxItem
+        icon='clear'
+        text='Remove'
+        onClick={::this.removeElement} />
     )
   }
 

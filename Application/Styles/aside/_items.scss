@@ -1,6 +1,6 @@
-.#{$styleprefix}color,
-.#{$styleprefix}swatch,
-.#{$styleprefix}toggle {
+.#{$nameprefix}color,
+.#{$nameprefix}swatch,
+.#{$nameprefix}toggle {
 		position: relative;
 		cursor: pointer;
 		width: 100%;
@@ -10,7 +10,7 @@
 		padding: 0 $base-padding;
 }
 
-.#{$styleprefix}select {
+.#{$nameprefix}select {
 		position: relative;
 		cursor: pointer;
 		width: $default-aside-width - ($base-padding * 2);
@@ -26,7 +26,7 @@
 		}
 }
 
-.#{$styleprefix}item {
+.#{$nameprefix}item {
 		position: relative;
 		cursor: pointer;
 		text-transform: uppercase;

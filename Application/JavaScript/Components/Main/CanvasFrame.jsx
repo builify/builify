@@ -4,9 +4,9 @@ import { currentHoverBlock, removeContentBlock } from '../../Actions/ActionCreat
 import { findUpAttr } from '../../Common/Common';
 import { store } from '../Application.jsx';
 import _ from 'lodash';
-import IFrame from './IFrame.jsx';
-import ClickToolbox from './ClickToolbox.jsx';
-import SectionToolBox from './SectionToolBox.jsx';
+import IFrame from '../Shared/IFrame.jsx';
+import ClickToolbox from '../Shared/ClickToolbox.jsx';
+import SectionToolBox from '../Shared/SectionToolBox.jsx';
 
 class CanvasFrame extends Component {
   constructor (props) {
@@ -166,10 +166,11 @@ class CanvasFrame extends Component {
     const targetElements = rootElement.querySelectorAll(targets);
 
     _.map(targetElements, (target, i) => {
-      const tr = findUpAttr(target, 'data-abcpanel data-abctoolbox');
+      const targetTracer = findUpAttr(target, 'data-abcpanel data-abctoolbox');
 
-      if (tr !== null) {
-        console.log(target);
+      if (targetTracer !== null ||
+        target.getAttribute('data-abctoolbox') ||
+        target.getAttribute('data-abcpanel')) {
         return false;
       }
 
@@ -191,7 +192,7 @@ class CanvasFrame extends Component {
 
     // data-abcorent - ab-core-Not-Removable
     return (
-      <div>
+      <div className='ab-canvas__holder'>
         <IFrame
           title={title}>
           <div

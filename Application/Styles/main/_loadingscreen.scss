@@ -13,7 +13,7 @@ $loadingscreen-loader-size-small: 50px;
 $loadingscreen-loader-mask-size-small: $loadingscreen-loader-size-small / 3;
 
 
-.#{$styleprefix}loadingScreen {
+.#{$nameprefix}loadingScreen {
     display: none;
     position: fixed;
     top: 0;

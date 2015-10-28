@@ -89,7 +89,7 @@ function builder (state = builderInitialState, action) {
           footer: ''
         }
       };
-      let newPages = state.pages;
+      let { pages: newPages } = state;
 
       if (newPages === undefined || newPages === null) {
         return state;

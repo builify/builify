@@ -15,12 +15,16 @@ class Filter extends Component {
     };
   }
 
-  filterEvent (e) {
-    e.preventDefault();
-
+  openOrCloseFilter () {
     this.setState({
       isFilterOpened: !this.state.isFilterOpened
     });
+  }
+
+  filterEvent (e) {
+    e.preventDefault();
+
+    this.openOrCloseFilter();
   }
 
   renderFilterItems () {
@@ -40,7 +44,7 @@ class Filter extends Component {
       });
 
       items = _.sortByOrder(items, ['name'], 'asc');
-      
+
       items.unshift({
         name: 'Show All',
         target: 'all'
@@ -65,6 +69,9 @@ class Filter extends Component {
                 key={'filterItem-' + i}
                 onClick={(e) => {
                   e.preventDefault();
+
+                  this.openOrCloseFilter();
+                  
                   return onFilterItemSelection(target);
                 }}
                 className={itemClassName}>

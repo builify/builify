@@ -34,21 +34,21 @@ $themes: (
 	.#{$theme} {
 		background: map-fetch($themes, $theme "core");
 
-		.#{$styleprefix}main {
+		.#{$nameprefix}main {
 			box-shadow: 0 0 10px rgba(#000, 0.3);
 			background: map-fetch($themes, $theme "core");
 		}
 
-		.#{$styleprefix}aside,
-		.#{$styleprefix}tab,
-		.#{$styleprefix}sidetab {
+		.#{$nameprefix}aside,
+		.#{$nameprefix}tab,
+		.#{$nameprefix}sidetab {
 			background: map-fetch($themes, $theme "bg");
 		}
 	}
 }
 
 .light {
-	.#{$styleprefix}primarynav {
+	.#{$nameprefix}primarynav {
 		li {
 			color: #34495e;
 
@@ -58,7 +58,7 @@ $themes: (
 		}
 	}
 
-	.#{$styleprefix}swatch {
+	.#{$nameprefix}swatch {
 		&__color {
 			background: darken(#eee, 13%);
 
@@ -68,11 +68,11 @@ $themes: (
 		}
 	}
 
-	.#{$styleprefix}page-new {
+	.#{$nameprefix}page-new {
 		border-color: #e4e4e4;
 	}
 
-	.#{$styleprefix}size {
+	.#{$nameprefix}size {
 		input[type="range"] {
 			background: #eee;
 

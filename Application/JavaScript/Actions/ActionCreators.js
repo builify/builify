@@ -272,15 +272,14 @@ export function setFont (font) {
   let doesFontExistInHeadRoot = document.querySelector('[data-fontname="' + font + '"]');
 
   if (doesFontExistInHeadRoot === null || doesFontExistInHeadRoot === undefined) {
-    let headElement = document.getElementsByTagName('head')[0];
-    let googleFont = document.createElement('link');
+    const headElement = document.getElementsByTagName('head')[0];
+    let font = document.createElement('link');
 
-    googleFont.setAttribute('rel', 'stylesheet');
-    googleFont.setAttribute('type', 'text/css');
-    googleFont.setAttribute('data-fontname', String(font));
-    googleFont.setAttribute('href', 'https://fonts.googleapis.com/css?family=' + font);
-
-    headElement.appendChild(googleFont);
+    font.rel = 'stylesheet';
+    font.type = 'text/css';
+    font.href = `https://fonts.googleapis.com/css?family={font}`;
+    font.setAttribute('data-fontname', font);
+    headElement.appendChild(font);
   }
 
   return {

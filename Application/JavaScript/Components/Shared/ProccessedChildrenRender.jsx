@@ -18,7 +18,7 @@ import FontSelection from './FontSelection.jsx';
 
 class ProccessedChildrenRender extends Component {
   shouldComponentUpdate (nextProps, nextState) {
-    return true;
+    return false;
   }
 
   renderTitle (item) {

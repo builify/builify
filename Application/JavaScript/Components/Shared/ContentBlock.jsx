@@ -6,7 +6,7 @@ import ImageItem from './ImageItem.jsx';
 
 class ContentBlock extends Component {
   shouldComponentUpdate () {
-    return false;
+    return true;
   }
 
   selectContentBlock (e) {

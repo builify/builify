@@ -12,7 +12,9 @@ class ProjectStartScreen extends Component {
 
   render () {
     const wrapperClassName = cx('ab-flex', 'full', 'center');
-    const items = {isNewPage: true};
+    const items = {
+      isNewPage: true
+    };
     const previousPageNode = () => {
       const { builder } = this.props;
       const { doesPreviousPageExistInStorage } = builder;
@@ -22,7 +24,7 @@ class ProjectStartScreen extends Component {
 
     return (
       <div className={wrapperClassName}>
-        <Page data={{isNewPage: true}} />
+        <Page data={items} />
         {previousPageNode()}
       </div>
     )

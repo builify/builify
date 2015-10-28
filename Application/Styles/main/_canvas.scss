@@ -1,4 +1,4 @@
-.#{$styleprefix}canvas {
+.#{$nameprefix}canvas {
 		position: relative;
 		width: 100%;
 		height: 100%;
@@ -6,7 +6,7 @@
 		outline: 0;
 		@include clearfix;
 
-		> div {
+		&__holder {
 				width: 100%;
 				height: 100%;
 		}
@@ -29,7 +29,7 @@
 		}
 }
 
-.#{$styleprefix}suggestionBox {
+.#{$nameprefix}suggestionBox {
 		width: 100%;
 		height: 100%;
 		@include display(flex);

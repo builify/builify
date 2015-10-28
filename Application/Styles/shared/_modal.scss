@@ -1,4 +1,4 @@
-.#{$styleprefix}modal {
+.#{$nameprefix}modal {
 		display: none;
 
 		&.show {
@@ -51,7 +51,7 @@
 		}
 
 		&.linkchange {
-				.#{$styleprefix}modal__dialog {
+				.#{$nameprefix}modal__dialog {
 						width: 300px;
 				}
 		}
@@ -126,7 +126,7 @@
 		}
 }
 
-.#{$styleprefix}button {
+.#{$nameprefix}button {
 			display: inline-block;
 	    height: 48px;
 	    line-height: 48px;

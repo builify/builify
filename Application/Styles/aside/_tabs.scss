@@ -1,5 +1,5 @@
-.#{$styleprefix}tab,
-.#{$styleprefix}sidetab {
+.#{$nameprefix}tab,
+.#{$nameprefix}sidetab {
 		position: absolute;
 		top: 0;
 		right: 0;
@@ -16,25 +16,25 @@
 		}
 
 		&__close {
-				height: $base-padding;
-				line-height: $base-padding;
 				overflow: hidden;
 				position: relative;
 				display: block;
 				cursor: pointer;
+				height: $base-padding;
+				line-height: $base-padding;
 				padding: 0 $base-padding;
 				@include transition(all 0.3s ease);
 
 				&:before {
 						display: block;
 						position: absolute;
-						left: $base-padding;
-						height: $base-padding;
-						width: $base-padding;
 						top: 0;
 						text-align: left;
 						content: "\e687";
 						font-family: 'Pe-icon-7-stroke';
+						left: $base-padding;
+						height: $base-padding;
+						width: $base-padding;
 						@include rem(font-size, 32px);
 						@include transition(all 0.3s ease);
 						@include transform(scale3d(1, 1, 1));
@@ -98,7 +98,7 @@
 		}
 }
 
-.#{$styleprefix}sidetab {
+.#{$nameprefix}sidetab {
 		h1 {
 				> span {
 						&:nth-child(1) {
