@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CurrentLocationEnum } from '../../Constants/Defines';
+import { CurrentLocations } from '../../Constants/Defines';
 import cx from 'classnames';
 import Canvas from './Canvas.jsx';
 import ProjectStartScreen from './ProjectStartScreen.jsx';
@@ -11,7 +11,7 @@ class Main extends Component {
     const { builder } = this.props;
     const { currentLocation } = builder;
 
-    if (currentLocation === CurrentLocationEnum.STARTSCREEN) {
+    if (currentLocation === CurrentLocations.STARTSCREEN) {
       return (
         <ProjectStartScreen />
       )
@@ -28,8 +28,8 @@ class Main extends Component {
     const { currentLocation } = builder;
 
     const mainClassName = cx('ab-main',
-      currentLocation === CurrentLocationEnum.TEMPLATESELECTION ? 'fullsize' :
-      (currentLocation === CurrentLocationEnum.PREVIEW ? 'preview' : ''));
+      currentLocation === CurrentLocations.TEMPLATESELECTION ? 'fullsize' :
+      (currentLocation === CurrentLocations.PREVIEW ? 'preview' : ''));
 
     return (
       <main

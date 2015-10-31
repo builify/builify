@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { closePreview } from '../../Actions/ActionCreators';
+import { connect } from 'react-redux';
+import { setPreviewMode, closePreview } from '../../Actions/ActionCreators';
 import BackButton from '../Shared/BackButton.jsx';
 import SvgIcon from '../Shared/SvgIcon.jsx';
+import ControlItem from './PreviewControlItem.jsx';
 
 class PreviewControls extends Component {
   static propTypes = {
@@ -14,7 +16,7 @@ class PreviewControls extends Component {
 
   render () {
     const { display } = this.props;
-    const iconSize = 24;
+
 
     if (display) {
       return (
@@ -24,26 +26,12 @@ class PreviewControls extends Component {
             clickFunction={this.closePreviewWindow} />
           <div className='ab-preview__responsive'>
             <ul>
-              <li>
-                <SvgIcon
-                  icon='desktop'
-                  size={iconSize} />
-              </li>
-              <li>
-                <SvgIcon
-                  icon='tablet'
-                  size={iconSize} />
-              </li>
-              <li>
-                <SvgIcon
-                  icon='phone'
-                  size={iconSize} />
-              </li>
-              <li>
-                <SvgIcon
-                  icon='screen-rotation'
-                  size={iconSize} />
-              </li>
+              <ControlItem
+                type='desktop' />
+              <ControlItem
+                type='tablet' />
+              <ControlItem
+                type='phone' />
             </ul>
           </div>
         </div>

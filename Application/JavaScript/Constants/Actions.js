@@ -31,6 +31,8 @@ export default actionMirror(true, [
   // Preview's actions
   'OPEN_PREVIEW',
   'CLOSE_PREVIEW',
+  'SET_PREVIEW_MODE',
+  'PREVIEW_MODE_ROTATE',
 
   // Notification's actions
   'ADD_NOTIFICATION',

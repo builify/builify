@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CurrentLocationEnum } from '../Constants/Defines';
+import { CurrentLocations } from '../Constants/Defines';
 import { addNotification } from '../Actions/ActionCreators';
 import cx from 'classnames';
 import Aside from './Aside/Aside.jsx';
 import Main from './Main/Main.jsx';
 import NotificationContainer from './Notifications/Container.jsx';
-import Modal from './Modal/Modal.jsx';
+import DialogContainer from './Dialog/Container.jsx';
 import LoadingScreen from './Shared/LoadingScreen.jsx';
 import ColorPicker from './Shared/ColorPicker.jsx';
 
@@ -15,8 +15,8 @@ class Base extends Component {
     const { builder, builderConfiguration} = this.props;
     const { currentLocation } = builder;
     const { defaultTheme } = builderConfiguration;
-    const reactWrapClassname = cx('react-wrap', defaultTheme, currentLocation === CurrentLocationEnum.PREVIEW ? 'preview' : '');
-    const asideClassName = currentLocation === CurrentLocationEnum.PREVIEW ? 'hidden' : '';
+    const reactWrapClassname = cx('react-wrap', defaultTheme, currentLocation === CurrentLocations.PREVIEW ? 'preview' : '');
+    const asideClassName = currentLocation === CurrentLocations.PREVIEW ? 'hidden' : '';
 
     return (
       <div
@@ -26,7 +26,7 @@ class Base extends Component {
         <Main />
         <ColorPicker />
         <NotificationContainer />
-        <Modal />
+        <DialogContainer />
       </div>
     )
   }

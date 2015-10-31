@@ -2,18 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { closeModal } from '../../Actions/ActionCreators';
 import cx from 'classnames';
-
-class ModalBackground extends Component {
-  render () {
-    const { children, ...props } = this.props;
-
-    return (
-      <div className='ab-modal__background'>
-        {children}
-      </div>
-    )
-  }
-}
+import Overlay from './Overlay.jsx';
 
 class ModalContainer extends Component {
   render () {
@@ -22,9 +11,9 @@ class ModalContainer extends Component {
 
     return (
       <div className={modalClassName}>
-        <ModalBackground>
+        <Overlay>
           {children}
-        </ModalBackground>
+        </Overlay>
       </div>
     )
   }

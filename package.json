@@ -8,10 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "babel-core": "*",
     "babel-eslint": "^4.1.3",
-    "babel-loader": "*",
-    "babelify": "*",
+    "babelify": "^6.4.0",
     "browser-sync": "*",
     "browserify": "*",
     "eslint": "^1.7.3",
@@ -37,7 +35,6 @@
   "dependencies": {
     "axios": "^0.7.0",
     "classnames": "*",
-    "immutable": "*",
     "jszip": "^2.5.0",
     "lodash": "*",
     "react": "*",
@@ -49,7 +46,6 @@
     "redux": "*",
     "redux-thunk": "*",
     "sortablejs": "^1.4.2",
-    "strip-json-comments": "*",
-    "whatwg-fetch": "*"
+    "strip-json-comments": "*"
   }
 }

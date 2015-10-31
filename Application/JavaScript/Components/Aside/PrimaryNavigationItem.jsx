@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { getString } from '../../Common/Localization';
 import { openTab, openPreview, downloadAsHTML } from '../../Actions/ActionCreators';
-import { CurrentLocationEnum } from '../../Constants/Defines';
+import { CurrentLocations } from '../../Constants/Defines';
 import cx from 'classnames';
 import SvgIcon from '../Shared/SvgIcon.jsx';
 
@@ -21,7 +21,7 @@ class PrimaryNavigationItem extends Component {
     const { onOpenTab, onOpenPreview, target, builder, navigationItemInformation } = this.props;
     const { currentLocation } = builder;
 
-    if (currentLocation == CurrentLocationEnum.STARTSCREEN) {
+    if (currentLocation == CurrentLocations.STARTSCREEN) {
       if (navigationItemInformation.id !== 'pages') {
         return false;
       }
@@ -36,7 +36,7 @@ class PrimaryNavigationItem extends Component {
     const { onGetHTML, builder, navigationItemInformation } = this.props;
     const { id, icon, target } = navigationItemInformation;
     const { currentLocation } = builder;
-    let itemClassName = cx(currentLocation == CurrentLocationEnum.STARTSCREEN ?
+    let itemClassName = cx(currentLocation == CurrentLocations.STARTSCREEN ?
       (id !== 'pages' ? 'hide' : '') : '');
 
     if (id === 'gethtml') {

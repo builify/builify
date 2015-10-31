@@ -198,6 +198,19 @@ export function closePreview () {
   }
 }
 
+export function setPreviewMode (mode) {
+  return {
+    type: Actions.SET_PREVIEW_MODE,
+    mode: mode
+  }
+}
+
+export function rotatePreviewView () {
+  return {
+    type: Actions.PREVIEW_MODE_ROTATE
+  }
+}
+
 export function addNotification (notification) {
   return {
     type: Actions.ADD_NOTIFICATION,

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-export default class BackButton extends Component {
+class BackButton extends Component {
   static propTypes = {
     clickFunction: PropTypes.func,
     wrapperClassName: PropTypes.string

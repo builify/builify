@@ -5,6 +5,7 @@ $preview-controls-height: 60px;
         position: relative;
         width: 100%;
         overflow: hidden;
+        box-shadow: 0 0 30px rgba(#000, 0.3);
         height: $preview-controls-height;
     }
 
@@ -67,6 +68,7 @@ $preview-controls-height: 60px;
                   border-right: 1px solid #ccc;
                 }
 
+                &.active,
                 &:hover {
                     background: darken(#eee, 5%);
                 }

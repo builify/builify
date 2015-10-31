@@ -6,6 +6,7 @@ import template from './Template';
 import notifications from './Notifications';
 import page from './Page';
 import canvas from './Canvas';
+import preview from './Preview';
 
 const allReducers = combineReducers({
 	localization,
@@ -14,7 +15,8 @@ const allReducers = combineReducers({
 	template,
 	notifications,
 	page,
-	canvas
+	canvas,
+	preview
 });
 
 export default allReducers;

@@ -1,4 +1,4 @@
-import { CurrentLocationEnum } from '../Constants/Defines';
+import { CurrentLocations } from '../Constants/Defines';
 import { setLanguage } from '../Common/Localization';
 import { MAXIUMUM_PAGES_IN_STORAGE } from '../Constants/Defines';
 import { setURI } from '../Common/Common';
@@ -9,9 +9,9 @@ import * as Actions from '../Constants/Actions';
 const builderInitialState = {
   loadedAssets: [],
   isLoadingScreenActive: true,
-  loadingScreenType: 0, // 0 - Normal full
+  loadingScreenType: 0,
 
-  currentLocation: 0, // 0 - New/Load Page; 1 - Canvas; 2 - Preview
+  currentLocation: 0,
 
   // Tabs
   isTabOpened: false,
@@ -72,7 +72,7 @@ function builder (state = builderInitialState, action) {
 
     case Actions.CHECK_IF_PAGE_IS_SELECTED:
       return _.assign({}, state, {
-        currentLocation: data.isPageSelected ? CurrentLocationEnum.CANVAS : state.currentLocation,
+        currentLocation: data.isPageSelected ? CurrentLocations.CANVAS : state.currentLocation,
         isPageSelected: data.isPageSelected
       });
 
@@ -114,7 +114,7 @@ function builder (state = builderInitialState, action) {
       Storage.set('ab-pages', newPages);
 
       return _.assign({}, state, {
-        currentLocation: CurrentLocationEnum.CANVAS,
+        currentLocation: CurrentLocations.CANVAS,
         isPageSelected: true,
         pages: newPages
       });
@@ -124,7 +124,7 @@ function builder (state = builderInitialState, action) {
 
       if (pagesSize > 0) {
         return _.assign({}, state, {
-          currentLocation: CurrentLocationEnum.CANVAS,
+          currentLocation: CurrentLocations.CANVAS,
           isPageSelected: true
         });
       } else {
@@ -189,18 +189,18 @@ function builder (state = builderInitialState, action) {
       }
 
     case Actions.OPEN_PREVIEW:
-      if (state.currentLocation === CurrentLocationEnum.TEMPLATESELECTION ||
-          state.currentLocation === CurrentLocationEnum.STARTSCREEN) {
+      if (state.currentLocation === CurrentLocations.TEMPLATESELECTION ||
+          state.currentLocation === CurrentLocations.STARTSCREEN) {
         return state;
       } else {
         return _.assign({}, state, {
-          currentLocation: CurrentLocationEnum.PREVIEW
+          currentLocation: CurrentLocations.PREVIEW
         });
       }
 
     case Actions.CLOSE_PREVIEW:
       return _.assign({}, state, {
-        currentLocation: CurrentLocationEnum.CANVAS
+        currentLocation: CurrentLocations.CANVAS
       });
 
     case Actions.OPEN_COLORPICKER:
