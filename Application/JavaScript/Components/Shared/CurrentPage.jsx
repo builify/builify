@@ -4,8 +4,8 @@ import { randomKey } from '../../Common/Common';
 import { removeContentBlock, sortContentBlocks } from '../../Actions/ActionCreators';
 import _ from 'lodash';
 import cx from 'classnames';
-import Sortable from './Sortable.jsx';
-import SvgIcon from './SvgIcon.jsx';
+import Sortable from './Sortable';
+import SvgIcon from './SvgIcon';
 
 class CurrentPageDivider extends Component {
   render () {

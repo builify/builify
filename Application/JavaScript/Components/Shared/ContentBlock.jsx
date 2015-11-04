@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadContentBlockSource } from '../../Actions/ActionCreators';
 import cx from 'classnames';
-import ImageItem from './ImageItem.jsx';
+import ImageItem from './ImageItem';
 
 class ContentBlock extends Component {
   shouldComponentUpdate () {

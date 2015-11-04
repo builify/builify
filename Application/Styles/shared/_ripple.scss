@@ -1,0 +1,45 @@
+$ripple-duration: 1.2s;
+$ripple-final-opacity: .3;
+
+.#{$nameprefix}ripple {
+    %ripple {
+        position: absolute;
+        pointer-events: none;
+        background-color: currentColor;
+        border-radius: 50%;
+        transform-style: preserve-3d;
+        transform: translate3d(-50%, -50%, 0);
+        backface-visibility: hidden;
+        will-change: width, height, opacity;
+        z-index: $z-index-high;
+    }
+
+    &__wrapper {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: $z-index-normal;
+    }
+
+    &__normal {
+        @extend %ripple;
+        width: 0;
+        height: 0;
+        transition-property: height, width;
+        opacity: $ripple-final-opacity;
+        transition-timing-function: $animation-curve-linear-out-slow-in;
+        transition-duration: $ripple-duration;
+
+        &:not(.active) {
+            opacity: 0;
+            transition-property: height, width, opacity;
+
+            &.restarting {
+                transition-property: none;
+            }
+        }
+    }
+}

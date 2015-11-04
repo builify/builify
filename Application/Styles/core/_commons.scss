@@ -6,6 +6,16 @@
     box-sizing: border-box;
 }
 
+
+::-moz-selection {
+    background: $base-color;
+}
+
+::selection {
+    background: $base-color;
+}
+
+
 html,
 body {
     height: 100%;
@@ -14,11 +24,11 @@ body {
 
 html {
     font-size: 62.5%;
-    font-family: "Open Sans", sans-serif;
+    font-family: $preferred-font;
 }
 
 body {
-	z-index: 1;
+    z-index: 1;
     @include rem(font-size, 16px);
 }
 

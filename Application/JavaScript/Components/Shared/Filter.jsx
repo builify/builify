@@ -5,15 +5,11 @@ import _ from 'lodash';
 import cx from 'classnames';
 
 class Filter extends Component {
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      isFilterOpened: false,
-      activeTargetId: 0,
-      target: null
-    };
-  }
+  state = {
+    isFilterOpened: false,
+    activeTargetId: 0,
+    target: null
+  };
 
   openOrCloseFilter () {
     this.setState({
@@ -71,7 +67,7 @@ class Filter extends Component {
                   e.preventDefault();
 
                   this.openOrCloseFilter();
-                  
+
                   return onFilterItemSelection(target);
                 }}
                 className={itemClassName}>

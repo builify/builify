@@ -1,0 +1,19 @@
+.#{$nameprefix}imgviewer {
+    width: 100%;
+    position: relative;
+    height: 350px;
+    border-top: 1px solid #ccc;
+    background: #e4e4e4;
+
+    .ab-scrollbar__inner {
+        padding: 0;
+    }
+
+    &__inner {
+        padding: 0 25px;
+    }
+
+    &.active {
+        opacity: 1;
+    }
+}

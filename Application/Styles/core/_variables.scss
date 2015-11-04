@@ -1,11 +1,57 @@
+//-- Global variables
 $nameprefix: 'ab-';
-$base-color: #9b59b6;
+$base-color: $color-orange;
 $base-padding: 40px;
+$unit: 1rem;
+$preferred-font: "Open Sans", sans-serif;
 
-$default-aside-width: 275px !default;
+//-- Animation
+$animation-duration: .35s;
+$animation-delay: $animation-duration / 5;
+$animation-curve-fast-out-slow-in: cubic-bezier(0.4, 0, 0.2, 1) !default;
+$animation-curve-linear-out-slow-in: cubic-bezier(0, 0, 0.2, 1) !default;
+$animation-curve-fast-out-linear-in: cubic-bezier(0.4, 0, 1, 1) !default;
+$animation-curve-default: $animation-curve-fast-out-slow-in !default;
 
+//-- Shadows
+$shadow-key-umbra-opacity: 0.2 !default;
+$shadow-key-penumbra-opacity: 0.14 !default;
+$shadow-ambient-shadow-opacity: 0.12 !default;
+
+//-- Depth Shadows
+$zdepth-shadow-1: 0 1px 6px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.24);
+$zdepth-shadow-2: 0 3px 10px rgba(0,0,0,0.16), 0 3px 10px rgba(0,0,0,0.23);
+$zdepth-shadow-3: 0 10px 30px rgba(0,0,0,0.19), 0 6px 10px rgba(0,0,0,0.23);
+$zdepth-shadow-4: 0 14px 45px rgba(0,0,0,0.25), 0 10px 18px rgba(0,0,0,0.22);
+$zdepth-shadow-5: 0 19px 60px rgba(0,0,0,0.30), 0 15px 20px rgba(0,0,0,0.22);
+
+//-- Indexes
+$z-index-higher: 200;
+$z-index-high: 100;
+$z-index-normal: 1;
+$z-index-low: -100;
+$z-index-lower: -200;
+
+//-- Loadingscreen
+$loadingscreen-bg: #00000C;
+$loadingscreen-loader-border-thickness: 5px;
+$loadingscreen-loader-corner-radio: 8px;
+$loadingscreen-loader-base-opacity: 0.25;
+$loadingscreen-loader-base-color: #2f2f37;
+$loadingscreen-loader-snake-color: #f1f1f2;
+$loadingscreen-loader-animation-settings: 2s linear infinite;
+$loadingscreen-loader-size-big: 100px;
+$loadingscreen-loader-mask-size-big: $loadingscreen-loader-size-big / 1.618;
+$loadingscreen-loader-size-small: 50px;
+$loadingscreen-loader-mask-size-small: $loadingscreen-loader-size-small / 3;
+
+//-- Aside
+$aside-width: 275px !default;
+
+//-- Contentblock
 $contentblock-figcaption-height: 35px;
 
+//-- Logo
 $logo-default-width: 145px;
 $logo-default-height: 40px;
 $logo-default-color: #333;

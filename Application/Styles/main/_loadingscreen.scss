@@ -1,18 +1,3 @@
-$loadingscreen-bg: #00000C;
-$loadingscreen-loader-border-thickness: 5px;
-$loadingscreen-loader-corner-radio: 8px;
-$loadingscreen-loader-base-opacity: 0.25;
-$loadingscreen-loader-base-color: #2f2f37;
-$loadingscreen-loader-snake-color: #f1f1f2;
-$loadingscreen-loader-animation-settings: 2s linear infinite;
-
-$loadingscreen-loader-size-big: 100px;
-$loadingscreen-loader-mask-size-big: $loadingscreen-loader-size-big / 1.618;
-
-$loadingscreen-loader-size-small: 50px;
-$loadingscreen-loader-mask-size-small: $loadingscreen-loader-size-small / 3;
-
-
 .#{$nameprefix}loadingScreen {
     display: none;
     position: fixed;

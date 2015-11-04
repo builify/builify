@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { removeContentBlock } from '../../Actions/ActionCreators';
 import cx from 'classnames';
-import SvgIcon from './SvgIcon.jsx';
+import SvgIcon from './SvgIcon';
 
 class SectionToolBox extends Component {
   render () {

@@ -8,7 +8,7 @@ export default actionMirror(true, [
   'RECEIVE_BUILDER_CONFIGURATION',
   'PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION',
   'GET_LOCALIZATION',
-  'LOADED_ASSET',
+  'LOAD_ASSET',
 
   // Template's actions
   'GET_TEMPLATE_DATA',

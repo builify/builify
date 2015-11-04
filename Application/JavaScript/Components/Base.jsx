@@ -3,20 +3,34 @@ import { connect } from 'react-redux';
 import { CurrentLocations } from '../Constants/Defines';
 import { addNotification } from '../Actions/ActionCreators';
 import cx from 'classnames';
-import Aside from './Aside/Aside.jsx';
-import Main from './Main/Main.jsx';
-import NotificationContainer from './Notifications/Container.jsx';
-import DialogContainer from './Dialog/Container.jsx';
-import LoadingScreen from './Shared/LoadingScreen.jsx';
-import ColorPicker from './Shared/ColorPicker.jsx';
+import Aside from './Aside/Aside';
+import Main from './Main/Main';
+import NotificationContainer from './Notifications/Container';
+import Dialog from './Shared/Dialog';
+import LoadingScreen from './Shared/LoadingScreen';
+import ColorPicker from './Shared/ColorPicker';
 
 class Base extends Component {
+  componentDidMount () {
+  /*window.setTimeout(() => {
+      this.refs.dialog.show();
+    }, 500);*/
+  }
+
+  closeDialog () {
+    this.refs.dialog.hide();
+  }
+
   render () {
     const { builder, builderConfiguration} = this.props;
     const { currentLocation } = builder;
     const { defaultTheme } = builderConfiguration;
     const reactWrapClassname = cx('react-wrap', defaultTheme, currentLocation === CurrentLocations.PREVIEW ? 'preview' : '');
     const asideClassName = currentLocation === CurrentLocations.PREVIEW ? 'hidden' : '';
+    let actions = [
+      { label: "Cancel", onClick: ::this.closeDialog },
+      { label: "Save", onClick: ::this.closeDialog }
+    ];
 
     return (
       <div
@@ -26,12 +40,14 @@ class Base extends Component {
         <Main />
         <ColorPicker />
         <NotificationContainer />
-        <DialogContainer />
+
       </div>
     )
   }
 }
-
+/*<Dialog ref='dialog' title='My awesome dialog' type='backgroundImage' actions={actions}>
+  <p>Here you can add arbitrary content. Components like Pickers are using dialogs now.</p>
+</Dialog>*/
 function mapStateToProps (state) {
   return {
     builderConfiguration: state.builderConfiguration,

@@ -4,7 +4,8 @@ import { findUpAttr, findUpClassName, getBrowserSize } from '../../Common/Common
 import { openContextmenuToolbox, closeContextmenuToolbox } from '../../Actions/ActionCreators';
 import _ from 'lodash';
 import cx from 'classnames';
-import SvgIcon from './SvgIcon.jsx';
+import Events from '../../Common/Events';
+import SvgIcon from './SvgIcon';
 
 class ClickToolBoxItem extends Component {
   static propTypes = {
@@ -131,7 +132,7 @@ class ClickToolbox extends Component {
       return;
     }
 
-    e.preventDefault();
+    Events.pauseEvent(e);
 
     let eventPosition = {
       x: e.clientX,
@@ -207,7 +208,7 @@ class ClickToolbox extends Component {
   openLinkEditModal (e) {
     const { target } = this.state;
 
-    e.preventDefault();
+    Events.pauseEvent(e);
   }
 
   listImageChange () {

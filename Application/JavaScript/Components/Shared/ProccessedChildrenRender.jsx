@@ -5,16 +5,16 @@ import { setFont, setSwatch, openColorPicker, openSidetab, closeTab } from '../.
 import { randomKey, getProperty } from '../../Common/Common';
 import cx from 'classnames';
 import _ from 'lodash';
-import Toggle from './Toggle.jsx';
-import Filter from './Filter.jsx';
-import ContentBlocks from './ContentBlocks.jsx';
-import CurrentPage from './CurrentPage.jsx';
-import Swatches from './Swatches.jsx';
-import Colors from './Colors.jsx';
-import Size from './Size.jsx';
-import Title from './Title.jsx';
-import ItemThatOpensSideTab from './ItemThatOpensSideTab.jsx';
-import FontSelection from './FontSelection.jsx';
+import Filter from './Filter';
+import ContentBlocks from './ContentBlocks';
+import CurrentPage from './CurrentPage';
+import Swatches from './Swatches';
+import Colors from './Colors';
+import Size from './Size';
+import Title from './Title';
+import ItemThatOpensSideTab from './ItemThatOpensSideTab';
+import FontSelection from './FontSelection';
+import Checkbox from './Checkbox';
 
 class ProccessedChildrenRender extends Component {
   shouldComponentUpdate (nextProps, nextState) {
@@ -52,14 +52,15 @@ class ProccessedChildrenRender extends Component {
 
   renderSwitch (item) {
 		const { action, text, state } = item;
-    const key = randomKey('toggle');
+    const key = randomKey('checkbox');
+    const label = getString(text);
 
     return (
-      <Toggle
+      <Checkbox
         key={key}
         action={action}
-        label={getString(text)}
-        toggled={state} />
+        label={label}
+        checked={state} />
     )
   }
 

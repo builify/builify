@@ -70,9 +70,9 @@ export function returnLocalization (data) {
 }
 
 // Builder actions.
-export function loadedAsset (asset) {
+export function loadAsset (asset) {
   return {
-    type: Actions.LOADED_ASSET,
+    type: Actions.LOAD_ASSET,
     asset: asset
   }
 }

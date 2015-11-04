@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { PreviewModes } from '../../Constants/Defines';
 import { setPreviewMode, closePreview, rotatePreviewView } from '../../Actions/ActionCreators';
 import cx from 'classnames';
-import BackButton from '../Shared/BackButton.jsx';
-import SvgIcon from '../Shared/SvgIcon.jsx';
+import BackButton from '../Shared/BackButton';
+import SvgIcon from '../Shared/SvgIcon';
 
 class ControlItem extends Component {
   render () {

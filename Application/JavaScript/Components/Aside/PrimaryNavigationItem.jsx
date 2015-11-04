@@ -4,7 +4,7 @@ import { getString } from '../../Common/Localization';
 import { openTab, openPreview, downloadAsHTML } from '../../Actions/ActionCreators';
 import { CurrentLocations } from '../../Constants/Defines';
 import cx from 'classnames';
-import SvgIcon from '../Shared/SvgIcon.jsx';
+import SvgIcon from '../Shared/SvgIcon';
 
 class PrimaryNavigationItem extends Component {
   static propTypes = {

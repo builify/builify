@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import cx from 'classnames';
 import _ from 'lodash';
-import Logo from '../Shared/Logo.jsx';
-import Copyright from '../Shared/Copyright.jsx';
-import Tab from './Tab.jsx';
-import SideTab from './SideTab.jsx';
-import PrimaryNavigation from './PrimaryNavigation.jsx';
+import Logo from '../Shared/Logo';
+import Copyright from '../Shared/Copyright';
+import Tab from './Tab';
+import SideTab from './SideTab';
+import PrimaryNavigation from './PrimaryNavigation';
 
 class AsideItem extends Component {
   render () {

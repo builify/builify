@@ -5,8 +5,11 @@
 @import "dependencies/shadows";
 @import "dependencies/rem";
 
+@import "mixins";
+
+@import "core/colors";
 @import "core/variables";
-@import "core/base";
+@import "core/commons";
 @import "core/reactjs";
 
 @import "aside/aside";
@@ -28,10 +31,15 @@
 @import "main/page";
 @import "main/preview";
 
-@import "shared/modal";
+@import "shared/input";
+@import "shared/ripple";
+@import "shared/button";
 @import "shared/notifications";
 @import "shared/select";
 @import "shared/scrollbar";
 @import "shared/misc";
+@import "shared/dialog";
+@import "shared/imgviewer";
+@import "shared/checkbox";
 
-@import "theme/themecolors";
+@import "theme/stylying";

@@ -2,8 +2,8 @@ import stripJSONComments from 'strip-json-comments';
 import JSZip from 'jszip';
 import _ from 'lodash';
 import { saveAs } from './FileSaver';
-import builderConfiguration from '../Data/Builder/Builder.json';
-import templateManifest from '../Data/Template/Manifest.json';
+import builderConfiguration from '../Data/Builder/Builder';
+import templateManifest from '../Data/Template/Manifest';
 
 export function addDoctype (htmlString) {
   if (!htmlString || htmlString === null) {

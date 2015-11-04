@@ -13,16 +13,11 @@ class Frame extends Component {
     title: 'Page Title'
   }
 
-  constructor (props) {
-    super(props);
-
-    this._isFrameRendered = false;
-
-    this._documentElement = null;
-    this._headElement = null;
-    this._bodyElement = null;
-    this._templateCustomStyleSheet = null;
-  }
+  _isFrameRendered = false;
+  _documentElement = null;
+  _headElement = null;
+  _bodyElement = null;
+  _templateCustomStyleSheet = null;
 
   shouldComponentUpdate () {
     return false;

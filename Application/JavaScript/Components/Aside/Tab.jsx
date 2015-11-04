@@ -4,9 +4,9 @@ import { closeTab, openSidetab } from '../../Actions/ActionCreators';
 import { randomKey } from '../../Common/Common';
 import _ from 'lodash';
 import proccessChildrenData from '../../Common/ProccessTabChildren';
-import ProccessedChildrenRender from '../Shared/ProccessedChildrenRender.jsx';
-import BackButton from '../Shared/BackButton.jsx';
-import Scrollbar from '../Shared/Scrollbar.jsx';
+import ProccessedChildrenRender from '../Shared/ProccessedChildrenRender';
+import BackButton from '../Shared/BackButton';
+import Scrollbar from '../Shared/Scrollbar';
 
 class Tab extends ProccessedChildrenRender {
   static propTypes = {
@@ -31,15 +31,13 @@ class Tab extends ProccessedChildrenRender {
 
   render () {
     const { data, targetIndex } = this.props;
-    const scrollbarKey = randomKey('scrollbar');
-
     this.childrenToRender = proccessChildrenData(data);
 
     return (
       <div
         className='ab-tab'
         data-target={targetIndex}>
-        <Scrollbar key={scrollbarKey}>
+        <Scrollbar aside={true}>
           <BackButton clickFunction={this.closeTab} />
           <h1>{data.title}</h1>
           {_.map(this.childrenToRender, item => {

@@ -12,7 +12,7 @@
 		@include transform(translateX(0px));
 
 		&.open {
-				@include transform(translateX(-$default-aside-width));
+				@include transform(translateX(-$aside-width));
 		}
 
 		&__close {

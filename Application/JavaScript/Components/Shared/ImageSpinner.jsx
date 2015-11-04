@@ -12,12 +12,8 @@ class ImageSpinner extends Component {
     size: 50
   }
 
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      loading: props.loading
-    };
+  state = {
+    loading: this.props.loading
   }
 
   shouldComponentUpdate (nextProps, nextState) {

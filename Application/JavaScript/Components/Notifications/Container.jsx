@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { randomKey } from '../../Common/Common';
 import { eliminateNotification } from '../../Actions/ActionCreators';
 import cx from 'classnames';
-import LoadingIcon from '../Shared/LoadingIcon.jsx';
-import SvgIcon from '../Shared/SvgIcon.jsx';
+import LoadingIcon from '../Shared/LoadingIcon';
+import SvgIcon from '../Shared/SvgIcon';
 
 class NotificationWrapper extends Component {
   render () {

@@ -2,18 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { currentHoverBlock, removeContentBlock } from '../../Actions/ActionCreators';
 import { findUpAttr } from '../../Common/Common';
-import { store } from '../Application.jsx';
+import { store } from '../Application';
 import _ from 'lodash';
-import IFrame from '../Shared/IFrame.jsx';
-import ClickToolbox from '../Shared/ClickToolbox.jsx';
-import SectionToolBox from '../Shared/SectionToolBox.jsx';
+import Events from '../../Common/Events';
+import IFrame from '../Shared/IFrame';
+import ClickToolbox from '../Shared/ClickToolbox';
+import SectionToolBox from '../Shared/SectionToolBox';
 
 class CanvasFrame extends Component {
-  constructor (props) {
-    super(props);
-
-    this._blocks = {};
-  }
+  _blocks = {};
 
   componentWillReceiveProps (nextProps) {
     const props = nextProps;
@@ -155,8 +152,8 @@ class CanvasFrame extends Component {
     this.classList.remove('ab-ch');
   }
 
-  aBlockClick (e) {
-    e.preventDefault();
+  aBlockClick (evt) {
+    Events.pauseEvent(evt);
   }
 
   hoverBlocks () {

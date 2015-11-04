@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { startNewPage, loadPreviousPage } from '../../Actions/ActionCreators';
 import { getString } from '../../Common/Localization';
 import cx from 'classnames';
-import Page from './Page.jsx';
+import Page from './Page';
 
 class ProjectStartScreen extends Component {
   shouldComponentUpdate (nextProps, nextState) {

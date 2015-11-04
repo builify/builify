@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { setPreviewMode, closePreview } from '../../Actions/ActionCreators';
-import BackButton from '../Shared/BackButton.jsx';
-import SvgIcon from '../Shared/SvgIcon.jsx';
-import ControlItem from './PreviewControlItem.jsx';
+import BackButton from '../Shared/BackButton';
+import SvgIcon from '../Shared/SvgIcon';
+import ControlItem from './PreviewControlItem';
 
 class PreviewControls extends Component {
   static propTypes = {
@@ -16,7 +16,6 @@ class PreviewControls extends Component {
 
   render () {
     const { display } = this.props;
-
 
     if (display) {
       return (

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CurrentLocations } from '../../Constants/Defines';
 import cx from 'classnames';
-import Canvas from './Canvas.jsx';
-import ProjectStartScreen from './ProjectStartScreen.jsx';
-import TextEditorPanel from '../Shared/TextEditorPanel.jsx';
+import Canvas from './Canvas';
+import ProjectStartScreen from './ProjectStartScreen';
+import TextEditorPanel from '../Shared/TextEditorPanel';
 
 class Main extends Component {
   renderChildren () {

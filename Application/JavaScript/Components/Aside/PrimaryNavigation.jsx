@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { randomKey } from '../../Common/Common';
 import _ from 'lodash';
-import PrimaryNavigationItem from './PrimaryNavigationItem.jsx';
+import PrimaryNavigationItem from './PrimaryNavigationItem';
 
 class PrimaryNavigation extends Component {
 	shouldComponentUpdate (nextProps, nextState) {

@@ -3,9 +3,9 @@ import { closeSidetab } from '../../Actions/ActionCreators';
 import { getString } from '../../Common/Localization';
 import _ from 'lodash';
 import proccessChildrenData from '../../Common/ProccessTabChildren';
-import BackButton from '../Shared/BackButton.jsx';
-import ProccessedChildrenRender from '../Shared/ProccessedChildrenRender.jsx';
-import Scrollbar from '../Shared/Scrollbar.jsx';
+import BackButton from '../Shared/BackButton';
+import ProccessedChildrenRender from '../Shared/ProccessedChildrenRender';
+import Scrollbar from '../Shared/Scrollbar';
 
 class SideTab extends ProccessedChildrenRender {
   static propTypes = {
@@ -35,7 +35,7 @@ class SideTab extends ProccessedChildrenRender {
       <div
         className='ab-sidetab'
         data-sidetabid={data.id}>
-        <Scrollbar>
+        <Scrollbar aside={true}>
           <BackButton clickFunction={this.closeSidetab} />
           <h1>{getString(data.title)}
             <span>{getString(data.subtitle)}</span>

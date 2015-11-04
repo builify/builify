@@ -13,7 +13,7 @@
 .#{$nameprefix}select {
 		position: relative;
 		cursor: pointer;
-		width: $default-aside-width - ($base-padding * 2);
+		width: $aside-width - ($base-padding * 2);
 		margin: 0 $base-padding;
 
 		&__name {

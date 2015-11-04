@@ -1,26 +1,22 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { loadedAsset } from '../../Actions/ActionCreators';
+import AssetsManager from '../../Common/AssetsManager';
 import cx from 'classnames';
-import ImageSpinner from './ImageSpinner.jsx';
+import ImageSpinner from './ImageSpinner';
 
 class ImageItem extends Component {
   static propTypes = {
     src: PropTypes.string.isRequired,
+    alt: PropTypes.string,
     loaded: PropTypes.bool
   }
 
   static defaultProps = {
-    src: '',
+    alt: '',
     loaded: false
   }
 
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      isImageFileLoaded: props.loaded ? true : false
-    };
+  state = {
+    isImageFileLoaded: this.props.loaded
   }
 
   imageDrag (e) {
@@ -29,6 +25,8 @@ class ImageItem extends Component {
 
   loadedImage (e) {
     const { src } = this.props;
+
+    AssetsManager.addAsset(src);
 
     this.setState({
       isImageFileLoaded: true
@@ -45,7 +43,7 @@ class ImageItem extends Component {
       <div
         className={loadImage}
         ref='imageWrapper'>
-        <ImageSpinner size={70} />
+        <ImageSpinner size={50} />
         <img
           draggable='false'
           onLoad={::this.loadedImage}

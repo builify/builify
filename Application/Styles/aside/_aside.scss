@@ -4,13 +4,13 @@
     float: left;
     overflow: hidden;
     z-index: 10;
-    width: $default-aside-width;
+    width: $aside-width;
     @include user-select(none);
 
     &__itemwrapper {
         overflow: hidden;
         height: 100%;
-        width: $default-aside-width * 3;
+        width: $aside-width * 3;
     }
 
     &__item {
@@ -18,7 +18,7 @@
         height: 100%;
         float: left;
         display: block;
-        width: $default-aside-width;
+        width: $aside-width;
         @include clearfix;
     }
 }

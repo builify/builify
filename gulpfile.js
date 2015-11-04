@@ -32,7 +32,6 @@ var dependencies = [
   'strip-json-comments',
   'axios',
   'classnames',
-  'immutable',
   'lodash',
   'jszip'
 ];
@@ -50,11 +49,7 @@ gulp.src = function () {
 function createJavaScript (options) {
   var appBundler = browserify({
     entries: [options.src],
-    extension: [
-      'jsx',
-      'json',
-      'js'
-    ],
+    extensions: ['.jsx', '.jsx', '.json'],
     transform: [
       babelify.configure({externalHelpers: true, stage: 0})
     ],

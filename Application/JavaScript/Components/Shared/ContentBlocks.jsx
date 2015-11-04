@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { randomKey } from '../../Common/Common';
 import _ from 'lodash';
-import BlockTitle from './BlockTitle.jsx';
-import ContentBlock from './ContentBlock.jsx';
+import BlockTitle from './BlockTitle';
+import ContentBlock from './ContentBlock';
 
 class ContentBlocks extends Component {
   shouldComponentUpdate () {
@@ -33,7 +33,11 @@ class ContentBlocks extends Component {
 
             _.map(blockItems, (blockItem, i) => {
               const { title, source } = blockItem;
-              const thumbnail = blockItem.hasOwnProperty('thumbnail') ? blockItem.thumbnail : null;
+              let thumbnail = null;
+
+              if (_.has(blockItem, 'thumbnail')) {
+                thumbnail = blockItem.thumbnail;
+              }
 
               itemsToRender.push({
                 type: 'block',
@@ -54,7 +58,7 @@ class ContentBlocks extends Component {
       <div
         className='ab-contentblocks'>
         <div className='ab-contentblocks__inner'>
-          {itemsToRender.map((item, i) => {
+          {_.map(itemsToRender, item => {
             const { type } = item;
 
             if (type === 'blocktitle') {

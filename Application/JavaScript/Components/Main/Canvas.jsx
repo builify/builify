@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { CurrentLocations, PreviewModes } from '../../Constants/Defines';
 import cx from 'classnames';
-import CanvasSuggestionBox from '../Shared/CanvasSuggestionBox.jsx';
-import Scrollbar from '../Shared/Scrollbar.jsx';
-import CanvasFrame from './CanvasFrame.jsx';
-import PreviewControls from './PreviewControls.jsx';
+import CanvasSuggestionBox from '../Shared/CanvasSuggestionBox';
+import Scrollbar from '../Shared/Scrollbar';
+import CanvasFrame from './CanvasFrame';
+import PreviewControls from './PreviewControls';
 
 class Canvas extends Component {
   render () {

@@ -1,8 +1,8 @@
 .#{$nameprefix}main {
     position: absolute;
     top: 0;
-    left: $default-aside-width;
-    width: calc(100% - #{$default-aside-width});
+    left: $aside-width;
+    width: calc(100% - #{$aside-width});
     bottom: 0;
     right: 0;
     height: 100%;

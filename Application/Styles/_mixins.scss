@@ -1,0 +1,19 @@
+//-- Typography
+@mixin typo-preferred-font ($use-preferred: true) {
+  @if $use-preferred {
+    font-family: $preferred-font;
+  }
+}
+
+@mixin typo-title ($color-contrast: false, $use-preferred: true) {
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  @include typo-preferred-font($use-preferred);
+  @include rem(font-size, 24px);
+
+  @if $color-contrast {
+    opacity: .87;
+  }
+}
