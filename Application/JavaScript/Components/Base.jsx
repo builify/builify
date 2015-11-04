@@ -12,9 +12,9 @@ import ColorPicker from './Shared/ColorPicker';
 
 class Base extends Component {
   componentDidMount () {
-  /*window.setTimeout(() => {
+    window.setTimeout(() => {
       this.refs.dialog.show();
-    }, 500);*/
+    }, 500);
   }
 
   closeDialog () {
@@ -40,14 +40,12 @@ class Base extends Component {
         <Main />
         <ColorPicker />
         <NotificationContainer />
-
+        <Dialog ref='dialog' type='backgroundImage' />
       </div>
     )
   }
 }
-/*<Dialog ref='dialog' title='My awesome dialog' type='backgroundImage' actions={actions}>
-  <p>Here you can add arbitrary content. Components like Pickers are using dialogs now.</p>
-</Dialog>*/
+
 function mapStateToProps (state) {
   return {
     builderConfiguration: state.builderConfiguration,

@@ -93,7 +93,7 @@ class Dialog extends Component {
   renderImageChangeActions () {
     const actions = [
       { label: 'Browse Images', onClick: ::this.openBackgroundImageImages },
-      { label: 'Cancel' },
+      { label: 'Cancel', onClick: ::this.hide },
       { label: 'Save' }
     ];
 

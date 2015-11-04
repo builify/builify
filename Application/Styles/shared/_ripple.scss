@@ -1,19 +1,19 @@
 $ripple-duration: 1.2s;
 $ripple-final-opacity: .3;
 
-.#{$nameprefix}ripple {
-    %ripple {
-        position: absolute;
-        pointer-events: none;
-        background-color: currentColor;
-        border-radius: 50%;
-        transform-style: preserve-3d;
-        transform: translate3d(-50%, -50%, 0);
-        backface-visibility: hidden;
-        will-change: width, height, opacity;
-        z-index: $z-index-high;
-    }
+%ripple {
+    position: absolute;
+    pointer-events: none;
+    background-color: currentColor;
+    border-radius: 50%;
+    transform-style: preserve-3d;
+    transform: translate3d(-50%, -50%, 0);
+    backface-visibility: hidden;
+    will-change: width, height, opacity;
+    z-index: $z-index-high;
+}
 
+.#{$nameprefix}ripple {
     &__wrapper {
         position: absolute;
         top: 0;
