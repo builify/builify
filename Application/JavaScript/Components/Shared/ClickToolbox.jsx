@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { findUpAttr, findUpClassName, getBrowserSize } from '../../Common/Common';
-import { openContextmenuToolbox, closeContextmenuToolbox } from '../../Actions/ActionCreators';
+import { openLinkEditModal, openImageEditModal, openIconEditModal, openContextmenuToolbox, closeContextmenuToolbox } from '../../Actions/ActionCreators';
 import _ from 'lodash';
 import cx from 'classnames';
 import Events from '../../Common/Events';
@@ -205,17 +205,39 @@ class ClickToolbox extends Component {
     this.closePanel(e);
   }
 
-  openLinkEditModal (e) {
+  _openLinkEditModal (e) {
+    const { onOpenLinkEditModal } = this.props;
     const { target } = this.state;
 
     Events.pauseEvent(e);
+
+    return onOpenLinkEditModal(target);
+  }
+
+  _openIconEditModal (e) {
+    const { onOpenIconEditModal } = this.props;
+    const { target } = this.state;
+
+    Events.pauseEvent(e);
+
+    return onOpenIconEditModal(target);
+  }
+
+  _openImageEditModal (e) {
+    const { onOpenImageEditModal } = this.props;
+    const { target } = this.state;
+
+    Events.pauseEvent(e);
+
+    return onOpenImageEditModal(target);
   }
 
   listImageChange () {
     return (
       <ClickToolBoxItem
         icon='image'
-        text='Edit Image' />
+        text='Edit Image'
+        onClick={::this._openImageEditModal} />
     )
   }
 
@@ -224,7 +246,7 @@ class ClickToolbox extends Component {
       <ClickToolBoxItem
         icon='link'
         text='Change Link'
-        onClick={::this.openLinkEditModal} />
+        onClick={::this._openLinkEditModal} />
     )
   }
 
@@ -232,7 +254,8 @@ class ClickToolbox extends Component {
     return (
       <ClickToolBoxItem
         icon='star'
-        text='Change Icon' />
+        text='Change Icon'
+        onClick={::this._openIconEditModal} />
     )
   }
 
@@ -331,6 +354,18 @@ function mapDispatchToProps (dispatch) {
 
     onCloseContextMenu: () => {
       dispatch(closeContextmenuToolbox());
+    },
+
+    onOpenLinkEditModal: (target) => {
+      dispatch(openLinkEditModal(target));
+    },
+
+    onOpenIconEditModal: (target) => {
+      dispatch(openIconEditModal(target));
+    },
+
+    onOpenImageEditModal: (target) => {
+      dispatch(openImageEditModal(target));
     }
   }
 }

@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { startNewPage, loadPreviousPage } from '../../Actions/ActionCreators';
+import { startNewPage, loadPreviousPage, openPreviousPagesSelectionModal } from '../../Actions/ActionCreators';
 import { getString } from '../../Common/Localization';
 
 class Page extends Component {
   static propTypes = {
-    data: PropTypes.object
+    isNewPage: PropTypes.bool.isRequired
   }
 
   shouldComponentUpdate (nextProps, nextState) {
@@ -13,22 +13,34 @@ class Page extends Component {
   }
 
   selectPage (e) {
-    const { onStartNewPage, onLoadPreviousPage, data } = this.props;
-    const { isNewPage } = data;
+    const { onStartNewPage, onPreviousPagesSelection, onLoadPreviousPage, isNewPage, builder } = this.props;
+    const { pages } = builder;
 
-    return isNewPage ? onStartNewPage() : onLoadPreviousPage();
+    if (isNewPage) {
+      return onStartNewPage();
+    } else {
+      const pagesLength = pages.length;
+
+      if (pagesLength > 1) {
+        return onPreviousPagesSelection();
+      } else {
+        return onLoadPreviousPage();
+      }
+    }
   }
 
   render () {
-    const { data, dispatch } = this.props;
-    const { isNewPage } = data;
-    const name = isNewPage ? getString('pages.newpage') : getString('pages.loadpage');
+    const { isNewPage, dispatch, builder } = this.props;
+    const { pages } = builder;
+    const pagesLength = pages.length;
+    const previousPages = pagesLength > 1 ? 'pages.loadpages' : 'pages.loadpage';
+    const queryString = isNewPage ? 'pages.newpage' : previousPages;
 
     return (
       <div
         className='ab-page-new'
         onClick={::this.selectPage}>
-        {name}
+        { getString(queryString) }
       </div>
     )
   }
@@ -36,6 +48,7 @@ class Page extends Component {
 
 function mapStateToProps (state) {
   return {
+    builder: state.builder,
     localization: state.localizationData
   }
 }
@@ -44,6 +57,10 @@ function mapDispatchToProps (dispatch) {
   return {
     onStartNewPage: () => {
       dispatch(startNewPage());
+    },
+
+    onPreviousPagesSelection: () => {
+      dispatch(openPreviousPagesSelectionModal());
     },
 
     onLoadPreviousPage: () => {

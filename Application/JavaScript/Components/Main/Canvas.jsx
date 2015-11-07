@@ -16,6 +16,7 @@ class Canvas extends Component {
     const isPreviewModeActive = currentLocation === CurrentLocations.PREVIEW ? true : false;
     const displaySuggestionBox = blocksCount > 0 ? false : true;
     const prvClassname = isPreviewModeActive ? 'preview' : '';
+    const isStartScreenLocation = currentLocation === CurrentLocations.STARTSCREEN ? true : false;
     let prvMode = '';
     let lndcapeClassname = '';
 
@@ -31,10 +32,10 @@ class Canvas extends Component {
       lndcapeClassname = 'landscape';
     }
 
-    const classname = cx('ab-canvas', prvClassname, prvMode, lndcapeClassname);
+    const className = cx('ab-canvas', isStartScreenLocation ? 'hide' : null, prvClassname, prvMode, lndcapeClassname);
 
     return (
-      <div className={classname}>
+      <div className={className}>
         <PreviewControls display={isPreviewModeActive}/>
         <CanvasSuggestionBox display={displaySuggestionBox} />
         <CanvasFrame />

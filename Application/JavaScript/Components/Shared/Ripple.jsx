@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
-class Ripple extends React.Component {
+class Ripple extends Component {
   static propTypes = {
-    centered: React.PropTypes.bool,
-    className: React.PropTypes.string,
-    loading: React.PropTypes.bool,
-    spread: React.PropTypes.number
+    centered: PropTypes.bool,
+    className: PropTypes.string,
+    loading: PropTypes.bool,
+    spread: PropTypes.number
   };
 
   static defaultProps = {
@@ -26,7 +26,9 @@ class Ripple extends React.Component {
 
   start = ({ pageX, pageY }) => {
     document.addEventListener('mouseup', this.handleEnd);
+
     const {top, left, width} = this._getDescriptor(pageX, pageY);
+
     this.setState({active: false, restarting: true, width: 0}, () => {
       this.refs.ripple.offsetWidth;  //eslint-disable-line no-unused-expressions
       this.setState({active: true, restarting: false, top, left, width});
@@ -49,15 +51,20 @@ class Ripple extends React.Component {
 
   render () {
     const { left, top, width } = this.state;
-    const rippleStyle = {left, top, width, height: width};
+    const rippleStyle = { left, top, width, height: width };
     let className = this.props.loading ? 'ab-ripple__loading' : 'ab-ripple__normal';
-    if (this.state.active) className += ` active`;
-    if (this.state.restarting) className += ` restarting`;
+
+    if (this.state.active) className += ' active';
+    if (this.state.restarting) className += ' restarting';
     if (this.props.className) className += ` ${this.props.className}`;
 
     return (
       <span className='ab-ripple__wrapper'>
-        <span ref="ripple" role='ripple' className={className} style={rippleStyle} />
+        <span
+          ref='ripple'
+          role='ripple'
+          className={className}
+          style={rippleStyle} />
       </span>
     )
   }

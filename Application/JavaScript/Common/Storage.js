@@ -1,31 +1,27 @@
-let Storage = {};
+const exports = {
+  set (key, value) {
+    $.jStorage.set(key, value);
+  },
 
-Storage.keyList = {
-  'pages': 'ab-ppgs'
-}
+  get (key) {
+    return $.jStorage.get(key);
+  },
 
-Storage.set = function (key, value) {
-  $.jStorage.set(key, value);
-}
+  delete (key) {
+    $.jStorage.deleteKey(key);
+  },
 
-Storage.get = function (key) {
-  return $.jStorage.get(key);
-}
+  clear () {
+    $.jStorage.flush();
+  },
 
-Storage.delete = function (key) {
-  $.jStorage.deleteKey(key);
-}
+  size () {
+    return $.jStorage.storageSize();
+  },
 
-Storage.clear = function () {
-  $.jStorage.flush();
+  isAvailiable () {
+    return $.jStorage.storageAvailable();
+  }
 };
 
-Storage.size = function () {
-  return $.jStorage.storageSize();
-}
-
-Storage.isAvailiable = function () {
-  return $.jStorage.storageAvailable();
-}
-
-export default Storage;
+export default exports;

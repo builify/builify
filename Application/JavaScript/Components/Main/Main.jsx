@@ -7,21 +7,6 @@ import ProjectStartScreen from './ProjectStartScreen';
 import TextEditorPanel from '../Shared/TextEditorPanel';
 
 class Main extends Component {
-  renderChildren () {
-    const { builder } = this.props;
-    const { currentLocation } = builder;
-
-    if (currentLocation === CurrentLocations.STARTSCREEN) {
-      return (
-        <ProjectStartScreen />
-      )
-    } else {
-      return (
-        <Canvas />
-      )
-    }
-  }
-
   render () {
     let externalClassName = '';
     const { builder } = this.props;
@@ -35,7 +20,8 @@ class Main extends Component {
       <main
         className={mainClassName}>
         <TextEditorPanel />
-        {this.renderChildren()}
+        <ProjectStartScreen />
+        <Canvas />
       </main>
     )
   }

@@ -1,6 +1,8 @@
 import { getLocalization } from '../Common/Localization';
 import { getConfiguration, getTemplateMani, setSessionStoreParameters, randomKey, downloadPages } from '../Common/Common';
 import axios from 'axios';
+import _ from 'lodash';
+import ALoader from '../Common/ALoader';
 import Storage from '../Common/Storage';
 import * as Actions from '../Constants/Actions';
 
@@ -79,7 +81,7 @@ export function loadAsset (asset) {
 
 export function initializeBuilder () {
   return (dispatch, getState) => {
-    dispatch(checkIfPreviousPageExists());
+    dispatch(checkPreviousPagesInStorage());
     dispatch(getTemplateManifest());
   }
 }
@@ -88,7 +90,6 @@ export function getTemplateManifest (template) {
   return (dispatch, getState) => {
     getTemplateMani((data) => {
       dispatch(returnTemplateData(data));
-      dispatch(removeLoadingScreen());
     });
   }
 }
@@ -112,38 +113,9 @@ export function loadPreviousPage () {
   }
 }
 
-export function checkIfPreviousPageExists () {
-  let data = {
-    doesPreviousPageExistInStorage: false,
-    pages: null,
-    latestPage: 0
-  };
-  let storageItem = Storage.get('ab-pages');
-
-  if (storageItem) {
-    let pagesSize = storageItem.length;
-    let sizes = [];
-
-    for (let i = 0; i < pagesSize; i++) {
-      let page = storageItem[i];
-
-      if (typeof page === 'object' && page.hasOwnProperty('id')) {
-        let timestamp = parseInt(page.id.substr('page-7'.length));
-        sizes.push(timestamp);
-      }
-    }
-
-    let largest = Math.max.apply(Math, sizes);
-    let position = sizes.indexOf(largest);
-
-    data.doesPreviousPageExistInStorage = true;
-    data.pages = storageItem;
-    data.latestPage = position;
-  }
-
+export function checkPreviousPagesInStorage () {
   return {
-    type: Actions.CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE,
-    data: data
+    type: Actions.DO_PREVIOUS_PAGES_EXIST_IN_STORAGE
   }
 }
 
@@ -352,12 +324,6 @@ export function filterContentBlocks (target) {
   }
 }
 
-export function openImageEditModal () {
-  return {
-    type: Actions.OPEN_IMAGE_EDIT_MODAL
-  }
-}
-
 export function openContextmenuToolbox () {
   return {
     type: Actions.OPEN_CONTEXTMENU_TOOLBOX
@@ -374,6 +340,26 @@ export function openLinkEditModal (target) {
   return {
     type: Actions.OPEN_LINK_EDIT_MODAL,
     target: target
+  }
+}
+
+export function openIconEditModal (target) {
+  return {
+    type: Actions.OPEN_ICON_EDIT_MODAL,
+    target: target
+  }
+}
+
+export function openImageEditModal (target) {
+  return {
+    type: Actions.OPEN_IMAGE_EDIT_MODAL,
+    target: target
+  }
+}
+
+export function openPreviousPagesSelectionModal () {
+  return {
+    type: Actions.OPEN_PREVIOUS_PAGES_SELECT_MODAL
   }
 }
 

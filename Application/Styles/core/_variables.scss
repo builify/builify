@@ -5,6 +5,17 @@ $base-padding: 40px;
 $unit: 1rem;
 $preferred-font: "Open Sans", sans-serif;
 
+//-- Color configuration
+$color-divider: #e4e4e4 !default;
+$color-background: #eee !default;
+$color-text: #333 !default;
+$color-text-secondary: #666 !default;
+$color-overlay: $color-black;
+$color-overlay-opacity: 0.5;
+
+$color-primary-contrast: $color-dark-contrast !default;
+$color-accent-contrast: $color-dark-contrast !default;
+
 //-- Animation
 $animation-duration: .35s;
 $animation-delay: $animation-duration / 5;

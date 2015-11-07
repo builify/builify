@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM, { render, unmountComponentAtNode } from 'react-dom';
 import { connect } from 'react-redux';
-import { geThemeCustomStylesheetSheet } from '../../Actions/ActionCreators';
+import { geThemeCustomStylesheetSheet, removeLoadingScreen } from '../../Actions/ActionCreators';
 import _ from 'lodash';
 
 class Frame extends Component {
@@ -18,6 +18,8 @@ class Frame extends Component {
   _headElement = null;
   _bodyElement = null;
   _templateCustomStyleSheet = null;
+  _filesLength = 0;
+  _filesLoaded = 0;
 
   shouldComponentUpdate () {
     return false;
@@ -52,6 +54,8 @@ class Frame extends Component {
 
       this.createThemeCustomStyleSheet();
 
+      console.log('WHAT THE FUCK')
+
       // Until we figure out how to make firefox work...
       //this._isFrameRendered = true;
     }
@@ -77,10 +81,18 @@ class Frame extends Component {
   }
 
   appendFiles (coreFiles) {
-    coreFiles.unshift({
+    const { onRemoveLoadingScreen } = this.props;
+    const frameCSS = {
       type: 'css',
       src: '/IFrameStylesheet.css'
-    });
+    };
+
+    if (_.findKey(coreFiles, frameCSS) === undefined) {
+      coreFiles.unshift(frameCSS);
+    }
+
+    this._filesLength = coreFiles.length;
+    this._filesLoaded = 0;
 
     _.map(coreFiles, (file) => {
       let type = file.type;
@@ -88,7 +100,13 @@ class Frame extends Component {
       if (type === 'css') {
         this.createStylesheet(file);
       }
+
+      this._filesLoaded++;
     });
+
+    if (this._filesLoaded == this._filesLoaded) {
+      onRemoveLoadingScreen();
+    }
   }
 
   createStylesheet (styleSheet) {
@@ -134,6 +152,10 @@ function mapDispatchToProps (dispatch) {
   return {
     onSendThemeCustomStylesheet: (sheet) => {
       dispatch(geThemeCustomStylesheetSheet(sheet));
+    },
+
+    onRemoveLoadingScreen: () => {
+      dispatch(removeLoadingScreen());
     }
   }
 }

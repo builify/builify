@@ -81,44 +81,6 @@ export function downloadPages () {
   saveAs(content, 'HTMLTemplate.zip');
 }
 
-export var sessionStore = {
-  set: function (item, value) {
-    sessionStorage.setItem(item, value);
-  },
-
-  get: function (item) {
-    var value = sessionStorage.getItem(item);
-    return value;
-  },
-
-  count: function () {
-    var len = sessionStorage.length;
-    return len;
-  },
-
-  remove: function (item) {
-    sessionStorage.removeItem(item);
-  },
-
-  empty: function () {
-    sessionStorage.clear();
-  },
-
-  saveObject: function (item, obj) {
-    if (typeof obj === 'object') {
-      this.set(item, JSON.stringify(obj));
-    } else {
-      this.set(item, 'Could not convert to JSON string');
-    }
-  },
-
-  getObject: function (item) {
-    var json = this.get(item);
-    var obj = JSON.parse(json);
-    return obj;
-  }
-}
-
 export function getConfiguration (callback) {
   callback(JSON.parse(stripJSONComments(JSON.stringify(builderConfiguration))));
 }
@@ -196,7 +158,7 @@ export function getOffset (element) {
 }
 
 export function randomKey (str: 'rnd') {
-  return (Math.random().toString(36).slice(-8)) + str;
+  return (Math.random().toString(36).slice(-8)) + (!str ? '' : str);
 }
 
 export function getIframeWindow (iFrame) {

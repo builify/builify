@@ -1,23 +1,14 @@
-class AssetsManager {
-  _downloadQueue = [];
-  _cache = [];
-  _errorCount = 0;
-  _succesCount = 0;
+import _ from 'lodash';
 
-  vertifyAsset (asset) {
-    return true;
-  }
+class AssetsManager {
+  _assets = [];
 
   addAsset (asset) {
-    if (this.vertifyAsset(asset)) {
-      this._downloadQueue.push(asset);
-    }
-
-    return this;
+    this._assets.push(asset);
   }
 
   get getAssets () {
-    return this._downloadQueue;
+    return this._assets;
   }
 }
 

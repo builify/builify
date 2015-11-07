@@ -43,7 +43,8 @@
         "currentpage": "Current Page"
       },
       "newpage": "Start new page",
-      "loadpage": "Load previous page"
+      "loadpage": "Load previous page",
+      "loadpages": "Load previous pages"
     },
 
     "content": {

@@ -1,13 +1,12 @@
 import { CurrentLocations } from '../Constants/Defines';
 import { setLanguage } from '../Common/Localization';
-import { MAXIUMUM_PAGES_IN_STORAGE } from '../Constants/Defines';
-import { setURI } from '../Common/Common';
+import { MAXIUMUM_PAGES_IN_STORAGE, ModalTypes } from '../Constants/Defines';
+import { randomKey } from '../Common/Common';
 import _ from 'lodash';
 import Storage from '../Common/Storage';
 import * as Actions from '../Constants/Actions';
 
 const builderInitialState = {
-  loadedAssets: [],
   isLoadingScreenActive: true,
   loadingScreenType: 0,
 
@@ -21,9 +20,7 @@ const builderInitialState = {
 
   // Pages
   isPageSelected: false,
-  doesPreviousPageExistInStorage: false,
-  currentPage: -1,
-  latestPage: -1,
+  doPreviousPagesExistInStorage: false,
   pages: [],
 
   // Colorpicker
@@ -48,14 +45,38 @@ function builder (state = builderInitialState, action) {
   }
 
   switch (action.type) {
-    case Actions.LOADED_ASSET:
-      const asset = action.asset;
-      let oldAssetsLoaded = state.loadedAssets;
-
-      oldAssetsLoaded.push(asset);
-
+    case Actions.OPEN_IMAGE_EDIT_MODAL:
       return _.assign({}, state, {
-        loadedAssets: oldAssetsLoaded
+        isModalOpen: true,
+        modalType: ModalTypes.IMAGECHANGE,
+        modalTarget: action.target
+      });
+
+    case Actions.OPEN_ICON_EDIT_MODAL:
+      return _.assign({}, state, {
+        isModalOpen: true,
+        modalType: ModalTypes.ICONCHANGE,
+        modalTarget: action.target
+      });
+
+    case Actions.OPEN_LINK_EDIT_MODAL:
+      return _.assign({}, state, {
+        isModalOpen: true,
+        modalType: ModalTypes.LINKCHANGE,
+        modalTarget: action.target
+      });
+
+    case Actions.OPEN_PREVIOUS_PAGES_SELECT_MODAL:
+      return _.assign({}, state, {
+        isModalOpen: true,
+        modalType: ModalTypes.PREVIOUSPAGES
+      });
+
+    case Actions.CLOSE_MODAL:
+      return _.assign({}, state, {
+        isModalOpen: false,
+        modalType: null,
+        modalTarget: null
       });
 
     case Actions.REMOVE_LOADING_SCREEN:
@@ -63,12 +84,55 @@ function builder (state = builderInitialState, action) {
         isLoadingScreenActive: false
       });
 
-    case Actions.CHECK_IF_PREVIOUS_PAGE_EXISTS_IN_LOCALSTORAGE:
+    case Actions.DO_PREVIOUS_PAGES_EXIST_IN_STORAGE: {
+      const pagesInStorage = Storage.get('ab-pages');
+
+      if (pagesInStorage === null) {
+        return state;
+      }
+
       return _.assign({}, state, {
-        doesPreviousPageExistInStorage: data.doesPreviousPageExistInStorage,
-        pages: data.pages,
-        latestPage: data.latestPage
+        doPreviousPagesExistInStorage: true,
+        pages: pagesInStorage
       });
+    }
+
+    case Actions.START_NEW_PAGE: {
+      const pagesInStorage = Storage.get('ab-pages');
+      const currentTimestamp = Math.floor(Date.now() / 1000);
+      const uniqueKey = randomKey();
+      const pageID = `abpage-${currentTimestamp}-${uniqueKey}`;
+      const pageObject = {
+        id: pageID
+      };
+      let pagesList = [];
+
+      if (pagesInStorage === null) {
+        pagesList.push(pageObject);
+        Storage.set('ab-pages', pagesList);
+      } else {
+        const cleanStorageFromOldPages = (arr) => {
+          let arrayLen = arr.length;
+
+          if (arrayLen > (MAXIUMUM_PAGES_IN_STORAGE - 1)) {
+            arr.shift();
+            cleanStorageFromOldPages(arr);
+          }
+        };
+
+        pagesList = pagesInStorage;
+        cleanStorageFromOldPages(pagesList);
+
+        pagesList.push(pageObject);
+        Storage.set('ab-pages', pagesList);
+      }
+
+      return _.assign({}, state, {
+        currentLocation: CurrentLocations.CANVAS,
+        isPageSelected: true,
+        pages: pagesList
+      });
+    }
 
     case Actions.CHECK_IF_PAGE_IS_SELECTED:
       return _.assign({}, state, {
@@ -76,60 +140,8 @@ function builder (state = builderInitialState, action) {
         isPageSelected: data.isPageSelected
       });
 
-    case Actions.START_NEW_PAGE:
-      let pagesStorage = Storage.get('ab-pages');
-      let timeStamp = new Date();
-      let pageId = 'page-7' + (Math.round(timeStamp.getTime() / 1000)).toString();
-      let newPage = {
-        'id': pageId,
-        'title': 'Unnamed title',
-        'data': {
-          header: '',
-          main: '',
-          footer: ''
-        }
-      };
-      let { pages: newPages } = state;
-
-      if (newPages === undefined || newPages === null) {
-        return state;
-      }
-
-      if (newPages.length > 1) {
-        let cleanStorageFromOldPages = (arr) => {
-          let arrayLen = arr.length;
-
-          if (arrayLen > (MAXIUMUM_PAGES_IN_STORAGE - 1)) {
-            arr.shift();
-
-            cleanStorageFromOldPages(arr);
-          }
-        };
-
-        cleanStorageFromOldPages(newPages);
-      }
-
-      newPages.push(newPage);
-
-      Storage.set('ab-pages', newPages);
-
-      return _.assign({}, state, {
-        currentLocation: CurrentLocations.CANVAS,
-        isPageSelected: true,
-        pages: newPages
-      });
-
     case Actions.LOAD_PREVIOUS_PAGE:
-      let pagesSize = state.pages.length;
-
-      if (pagesSize > 0) {
-        return _.assign({}, state, {
-          currentLocation: CurrentLocations.CANVAS,
-          isPageSelected: true
-        });
-      } else {
-        return state;
-      }
+      return state;
 
     case Actions.OPEN_TAB:
       const { target } = action;

@@ -1,39 +1,15 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { randomKey } from '../../Common/Common';
+import { loadPreviousPage } from '../../Actions/ActionCreators';
 import _ from 'lodash';
+import cx from 'classnames';
 import Events from '../../Common/Events';
 import Button from './Button';
 import Input from './Input';
 import ImageItem from './ImageItem';
 import Scrollbar from './Scrollbar';
-
-class DialogImagesViewer extends Component {
-  render () {
-    const className = 'ab-imgviewer active';
-
-    return (
-      <div className={className}>
-        <Scrollbar height={350} width={600}>
-          <div className='ab-imgviewer__inner'>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Test</h1>
-          </div>
-        </Scrollbar>
-      </div>
-    )
-  }
-}
+import Dropdown from './Dropdown';
 
 class DialogWrapper extends Component {
   render () {
@@ -56,22 +32,31 @@ class Dialog extends Component {
     active: PropTypes.bool,
     className: PropTypes.string,
     title: PropTypes.string,
-    type: PropTypes.string
+    type: PropTypes.string,
+    onClose: PropTypes.func,
+    editTarget: PropTypes.any
   }
 
   static defaultProps = {
     actions: [],
     active: false,
-    type: 'classic'
+    type: 'classic',
+    onClose: () => {}
   }
 
   state = {
     active: this.props.active
   };
 
-  renderActions () {
-    const { actions } = this.props;
+  closeEvent (e) {
+    Events.pauseEvent(e);
 
+    this.hide();
+
+    this.props.onClose(e);
+  }
+
+  renderButtons (actions) {
     return _.map(actions, (action, idx) => {
       let className = 'ab-dialog__button';
 
@@ -86,33 +71,48 @@ class Dialog extends Component {
     });
   }
 
-  openBackgroundImageImages (e) {
-    Events.pauseEvent(e);
+  renderActions () {
+    const { actions } = this.props;
+
+    return this.renderButtons(actions);
   }
 
   renderImageChangeActions () {
     const actions = [
-      { label: 'Browse Images', onClick: ::this.openBackgroundImageImages },
-      { label: 'Cancel', onClick: ::this.hide },
+      { label: 'Cancel', onClick: ::this.closeEvent },
       { label: 'Save' }
     ];
 
-    return _.map(actions, (action, idx) => {
-      let className = 'ab-dialog__button';
+    return this.renderButtons(actions);
+  }
 
-      if (action.className) className += ` ${action.className}`;
+  renderLinkChangeActions () {
+    const actions = [
+      { label: 'Cancel', onClick: ::this.closeEvent },
+      { label: 'Save' }
+    ];
 
-      return (
-        <Button
-          key={idx}
-          {...action}
-          className={className} />
-      )
-    });
+    return this.renderButtons(actions);
+  }
+
+  iconChangeActions () {
+    const actions = [
+      { label: 'Done', onClick: ::this.closeEvent }
+    ];
+
+    return this.renderButtons(actions);
+  }
+
+  previousPagesActions () {
+    const actions = [
+      { label: 'Close', onClick: ::this.closeEvent }
+    ];
+
+    return this.renderButtons(actions);
   }
 
   render () {
-    const { type, title, children, actions } = this.props;
+    const { type, title, children, actions, editTarget } = this.props;
     let className = 'ab-dialog';
 
     if (this.state.active) className += ' active';
@@ -133,7 +133,18 @@ class Dialog extends Component {
           </nav>
         </DialogWrapper>
       )
-    } else if (type === 'backgroundImage') {
+    } else if (type === 'imageChange') {
+      let targetUrl = 'http://pivot.mediumra.re/img/hero8.jpg';
+
+      if (editTarget !== undefined && editTarget !== null) {
+        if (editTarget.classList.contains('background-image-holder')) {
+          const sty = window.getComputedStyle(editTarget, null);
+          const bg = sty.getPropertyValue('background-image');
+
+          targetUrl = bg.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+        }
+      }
+
       className += ' backgroundImage';
 
       return (
@@ -147,7 +158,7 @@ class Dialog extends Component {
                 <Input
                   type='text'
                   label='Image Source'
-                  value='http://pivot.mediumra.re/img/hero8.jpg'
+                  value={targetUrl}
                   floating={false} />
                 <span className='input__title'>Edit image alt:</span>
                 <Input
@@ -159,7 +170,7 @@ class Dialog extends Component {
                 <div className='img__wrap'>
                   <ImageItem
                     alt='Edit Image'
-                    src='http://pivot.mediumra.re/img/hero8.jpg' />
+                    src={targetUrl} />
                   <span className='img__info'>1400x933 pixels</span>
                 </div>
               </div>
@@ -168,10 +179,89 @@ class Dialog extends Component {
           <nav role='navigation' className='ab-dialog__navigation'>
             { this.renderImageChangeActions() }
           </nav>
-          <DialogImagesViewer />
+        </DialogWrapper>
+      )
+    } else if (type === 'linkChange') {
+      const targets = [
+        { value: '_blank', label: 'Open in new tab'},
+        { value: '_self', label: 'Open in current tab'}
+      ];
+      let linkHref = '#';
+      let linkTarget = '_self';
+
+      if (editTarget !== undefined && editTarget !== null) {
+        const target = editTarget.target;
+
+        linkHref = editTarget.getAttribute('href');
+        linkTarget = target.length === 0 ? linkTarget : target;
+      }
+
+      className += ' link';
+
+      return (
+        <DialogWrapper
+          className={className}>
+          <section role='body' className='ab-dialog__body'>
+            <h6 className='ab-dialog__title'>Change link</h6>
+            <div className='input'>
+              <span className='input__title'>Edit link url:</span>
+              <Input
+                type='text'
+                label='Image Source'
+                value={linkHref}
+                floating={false} />
+              <span className='input__title'>Edit image target:</span>
+              <Dropdown
+                className='dropdown'
+                auto
+                dataSource={targets}
+                value={linkTarget} />
+            </div>
+          </section>
+          <nav role='navigation' className='ab-dialog__navigation'>
+            { this.renderLinkChangeActions() }
+          </nav>
+        </DialogWrapper>
+      )
+    } else if (type === 'iconChange') {
+      className += ' iconc';
+
+      return (
+        <DialogWrapper
+          className={className}>
+          <section role='body' className='ab-dialog__body'>
+            <h6 className='ab-dialog__title'>Change Icon</h6>
+            <Scrollbar height={300} width={600}>
+              <div className='iconc__inner'>
+                <h3>Icon</h3>
+              </div>
+            </Scrollbar>
+          </section>
+          <nav role='navigation' className='ab-dialog__navigation'>
+            { this.iconChangeActions() }
+          </nav>
+        </DialogWrapper>
+      )
+    } else if (type === 'previousPages') {
+      const { builder, onLoadPreviousPage } = this.props;
+      const { pages } = builder;
+
+      className += ' previouspages';
+
+      return (
+        <DialogWrapper
+          className={className}>
+          <section role='body' className='ab-dialog__body'>
+            <h6 className='ab-dialog__title'>Select page to load</h6>
+          </section>
+          <nav role='navigation' className='ab-dialog__navigation'>
+            { this.previousPagesActions() }
+          </nav>
         </DialogWrapper>
       )
     }
+
+    return null;
   }
 
   show () {
@@ -187,4 +277,21 @@ class Dialog extends Component {
   }
 }
 
-export default Dialog;
+function mapStateToProps (state) {
+  return {
+    builder: state.builder
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    onLoadPreviousPage: (page) => {
+      dispatch(loadPreviousPage(page));
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dialog);

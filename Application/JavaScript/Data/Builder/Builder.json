@@ -186,13 +186,6 @@
     }
   ],
 
-  "templates": [
-    {
-      "id": "simplpage",
-      "thumbnail": "http://app.closeheat.com/screenshots/spatial.png"
-    }
-  ],
-
   "primarynavigation": [
     {
       "id": "pages",
@@ -224,6 +217,9 @@
       "title": "Pages",
       "children": [
         {
+          "type": "block.pagetools"
+        },
+        {
           "type": "block.title",
           "title": "pages.titles.currentpage"
         },
@@ -232,6 +228,7 @@
         }
       ]
     },
+
     {
       "title": "Content",
       "children": [

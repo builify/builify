@@ -25,13 +25,6 @@ class SectionToolBox extends Component {
         style={toolBoxStyle}>
         <ul>
           <li
-            title='Change Block Settings'>
-            <SvgIcon
-              icon='settings'
-              size={iconSize}
-              style={iconStyle } />
-          </li>
-          <li
             title='Remove Block'>
             <SvgIcon
               onClick={(e) => {

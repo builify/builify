@@ -1,6 +1,6 @@
 $dialog-border-radius: .2 * $unit;
 $dialog-color-title: $color-black !default;
-$dialog-color-white: $color-white !default;
+$dialog-color-white: #FFF !default;
 $dialog-content-padding: 2.4 * $unit;
 $dialog-navigation-padding: .8 * $unit;
 $dialog-translate-y: 4 * $unit;
@@ -155,6 +155,60 @@ $dialog-translate-y: 4 * $unit;
 										}
 								}
 						}
+				}
+		}
+
+		// Link type
+		&.link {
+				.#{$nameprefix}dialog {
+						&__content {
+								width: 350px;
+								min-height: 350px;
+						}
+				}
+
+				.input {
+						position: relative;
+
+						&__title {
+								position: absolute;
+								@include rem(font-size, 14px);
+						}
+				}
+
+				.dropdown {
+						margin: 20px 0;
+				}
+		}
+
+		// Icon type
+		&.iconc {
+				.#{$nameprefix}dialog {
+						&__content {
+								width: 600px;
+								min-height: 200px;
+								overflow: hidden;
+						}
+
+						&__body {
+								overflow: hidden;
+								padding: 0;
+						}
+
+						&__title {
+								padding-top: $dialog-content-padding;
+								padding-left: $dialog-content-padding;
+								padding-right: $dialog-content-padding;
+								padding-bottom: 0;
+						}
+				}
+
+				.ab-scrollbar__inner {
+		        padding: 0;
+		    }
+
+				.iconc__inner {
+						padding: 0 $dialog-content-padding;
 				}
 		}
 }

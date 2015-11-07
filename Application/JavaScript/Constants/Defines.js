@@ -11,3 +11,10 @@ export const PreviewModes = {
   TABLET: 1,
   PHONE: 2
 };
+
+export const ModalTypes = {
+  LINKCHANGE: 0,
+  IMAGECHANGE: 1,
+  ICONCHANGE: 2,
+  PREVIOUSPAGES: 3
+};

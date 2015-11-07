@@ -5,9 +5,9 @@ import { findUpAttr } from '../../Common/Common';
 import { store } from '../Application';
 import _ from 'lodash';
 import Events from '../../Common/Events';
-import IFrame from '../Shared/IFrame';
 import ClickToolbox from '../Shared/ClickToolbox';
 import SectionToolBox from '../Shared/SectionToolBox';
+import IFrame from './IFrame';
 
 class CanvasFrame extends Component {
   _blocks = {};
@@ -187,7 +187,6 @@ class CanvasFrame extends Component {
     const { page } = this.props;
     const { title } = page;
 
-    // data-abcorent - ab-core-Not-Removable
     return (
       <div className='ab-canvas__holder'>
         <IFrame

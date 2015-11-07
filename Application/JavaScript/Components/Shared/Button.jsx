@@ -36,7 +36,7 @@ class Button extends Component {
   render () {
     const {label, icon, loading, ripple, primary, accent, mini, kind, ...others} = this.props;
 
-    let className = 'ab-button';
+    let className = 'ab-button primary';
     if (kind) className += ` ${kind}`
     if (this.props.className) className += ` ${this.props.className}`;
 

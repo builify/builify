@@ -1,33 +1,27 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { CurrentLocations } from '../../Constants/Defines';
 import { startNewPage, loadPreviousPage } from '../../Actions/ActionCreators';
 import { getString } from '../../Common/Localization';
 import cx from 'classnames';
 import Page from './Page';
 
 class ProjectStartScreen extends Component {
-  shouldComponentUpdate (nextProps, nextState) {
-    return false;
-  }
-
   render () {
+    const { builder } = this.props;
+    const { doPreviousPagesExistInStorage: previousPages, currentLocation } = builder;
     const wrapperClassName = cx('ab-flex', 'full', 'center');
-    const items = {
-      isNewPage: true
-    };
-    const previousPageNode = () => {
-      const { builder } = this.props;
-      const { doesPreviousPageExistInStorage } = builder;
 
-      return doesPreviousPageExistInStorage ? <Page data={{isNewPage: false}} /> : null;
-    };
-
-    return (
-      <div className={wrapperClassName}>
-        <Page data={items} />
-        {previousPageNode()}
-      </div>
-    )
+    if (currentLocation === CurrentLocations.STARTSCREEN) {
+      return (
+        <div className={wrapperClassName}>
+          <Page isNewPage={true} />
+          { previousPages ? <Page isNewPage={false} /> : null }
+        </div>
+      )
+    } else {
+      return null;
+    }
   }
 }
 
