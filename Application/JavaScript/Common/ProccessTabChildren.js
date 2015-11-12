@@ -32,10 +32,11 @@ function proccessChildrenData (data) {
             let blockType = splitCurrentChildrenType[1];
 
             if (blockType === 'title') {
-              let { title } = currentChildren;
+              let { title, className } = currentChildren;
               let titleBlock = {
                 type: 'title',
-                text: title
+                text: title,
+                className: className || ''
               };
 
               childrenToRender.push(titleBlock);
@@ -97,6 +98,18 @@ function proccessChildrenData (data) {
               };
 
               childrenToRender.push(filterBlock);
+            } else if (blockType === 'pagetools') {
+              let pageToolsBlock = {
+                type: 'pagetools'
+              };
+
+              childrenToRender.push(pageToolsBlock);
+            } else if (blockType === 'pagefile') {
+              let pageFileBlock = {
+                type: 'pagefile'
+              };
+
+              childrenToRender.push(pageFileBlock);
             }
 
             break;

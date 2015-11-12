@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { getString } from '../../Common/Localization';
-import { openTab, openPreview, downloadAsHTML } from '../../Actions/ActionCreators';
+import { openTab, openPreview, openDownloadModal } from '../../Actions/ActionCreators';
 import { CurrentLocations } from '../../Constants/Defines';
 import cx from 'classnames';
 import SvgIcon from '../Shared/SvgIcon';
@@ -45,7 +45,7 @@ class PrimaryNavigationItem extends Component {
           onClick={onGetHTML}
           className='html'>
           <SvgIcon icon='file-download' />
-          {'Get HTML'}
+          <span>{'Get HTML'}</span>
         </li>
       )
     } else {
@@ -78,7 +78,7 @@ function mapDispatchToProps (dispatch) {
     },
 
     onGetHTML: () => {
-      dispatch(downloadAsHTML());
+      dispatch(openDownloadModal());
     }
   }
 }

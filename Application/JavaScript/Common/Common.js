@@ -5,82 +5,6 @@ import { saveAs } from './FileSaver';
 import builderConfiguration from '../Data/Builder/Builder';
 import templateManifest from '../Data/Template/Manifest';
 
-export function addDoctype (htmlString) {
-  if (!htmlString || htmlString === null) {
-    return;
-  }
-
-  const defaultHtml5Type = '<!DOCTYPE html>';
-
-  return (defaultHtml5Type + htmlString);
-}
-
-export function removeUnneccesaryDataFromDocument (targetDocument) {
-  const query = [
-    '[data-reactid]',
-    '[data-abctoolbox]',
-    '[data-abcpanel]',
-    'contentEditable',
-    'contenteditable',
-    '.editable'
-  ].join(',');
-
-  const targets = targetDocument.querySelectorAll(query);
-
-  for (let i = 0; i < targets.length; i++) {
-    const currentTarget = targets[i];
-
-    if (currentTarget.getAttribute('data-reactid')) {
-      currentTarget.removeAttribute('data-reactid');
-    }
-
-    if (currentTarget.getAttribute('data-abctoolbox') ||
-        currentTarget.getAttribute('data-abcpanel')) {
-      currentTarget.remove();
-    }
-
-    if (currentTarget.getAttribute('contentEditable')) {
-      currentTarget.removeAttribute('contentEditable');
-    }
-
-    if (currentTarget.getAttribute('contenteditable')) {
-      currentTarget.removeAttribute('contenteditable');
-    }
-
-    if (currentTarget.classList.contains('editable')) {
-      currentTarget.classList.remove('editable');
-    }
-  }
-
-  return targetDocument;
-}
-
-export function getPageHTML (target) {
-  const winElem = target.contentWindow;
-  const docElement = winElem.document;
-  const documentElement = docElement.documentElement;
-  let documentCopy = documentElement.cloneNode(true);
-  let HTMLSource = '';
-
-  documentCopy = removeUnneccesaryDataFromDocument(documentCopy);
-  HTMLSource = addDoctype(documentCopy.outerHTML);
-
-  return HTMLSource;
-}
-
-export function downloadPages () {
-  const zip = new JSZip();
-  const pageHTML = getPageHTML(window.frames['ab-cfrm']);
-
-  zip.file('index.html', String(pageHTML));
-
-  const content = zip.generate({
-    type: 'blob'
-  });
-
-  saveAs(content, 'HTMLTemplate.zip');
-}
-
 export function getConfiguration (callback) {
   callback(JSON.parse(stripJSONComments(JSON.stringify(builderConfiguration))));
 }
@@ -157,8 +81,8 @@ export function getOffset (element) {
   }
 }
 
-export function randomKey (str: 'rnd') {
-  return (Math.random().toString(36).slice(-8)) + (!str ? '' : str);
+export function randomKey (str) {
+  return _.uniqueId((str ? str : null));
 }
 
 export function getIframeWindow (iFrame) {

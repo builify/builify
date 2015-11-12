@@ -39,7 +39,7 @@ class Input extends Component {
 
   renderInput () {
     let className = 'ab-input__input';
-    if (this.state.value && this.state.value.length > 0) className += ` filled`;
+    if (this.state.value && this.state.value.length > 0) className += ' filled';
 
     if (this.props.multiline) {
       return (

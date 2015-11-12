@@ -13,8 +13,11 @@ export const PreviewModes = {
 };
 
 export const ModalTypes = {
-  LINKCHANGE: 0,
-  IMAGECHANGE: 1,
-  ICONCHANGE: 2,
-  PREVIOUSPAGES: 3
+  CLASSIC: 0,
+  LINKCHANGE: 1,
+  IMAGECHANGE: 2,
+  ICONCHANGE: 3,
+  PREVIOUSPAGES: 4,
+  CONTENTBLOCKSOURCE: 5,
+  DOWNLOADPAGES: 6
 };

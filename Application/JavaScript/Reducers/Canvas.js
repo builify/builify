@@ -6,7 +6,9 @@ const canvasInitialState = {
   currentHoverBlock: {
     element: null,
     topX: 10
-  }
+  },
+
+  isContentBlockSettingsMenuOpened: false
 };
 
 function canvas (state = canvasInitialState, action) {
@@ -21,6 +23,13 @@ function canvas (state = canvasInitialState, action) {
 
       return _.assign({}, state, {
         currentHoverBlock: currentHoverBlock
+      });
+
+    case Actions.OPEN_CONTENTBLOCK_SETTINGS:
+      const { isContentBlockSettingsMenuOpened } = state;
+
+      return _.assign({}, state, {
+        isContentBlockSettingsMenuOpened: !isContentBlockSettingsMenuOpened
       });
   }
 

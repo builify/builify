@@ -4,16 +4,24 @@ import cx from 'classnames';
 
 class Title extends Component {
   static propTypes = {
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    className: PropTypes.string
+  }
+
+  static defaultProps = {
+    className: ''
   }
 
   render () {
-    const { title } = this.props;
+    const { title, className } = this.props;
+    const titleClassName = cx(className);
 
     return (
-      <h2>
-        <span>{getString(title)}</span>
-      </h2>
+      <div className='relav'>
+        <h2 className={titleClassName}>
+          <span>{getString(title)}</span>
+        </h2>
+      </div>
     )
   }
 }

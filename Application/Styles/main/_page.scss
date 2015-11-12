@@ -20,6 +20,6 @@
 		}
 
 		&:hover {
-				@extend .z2;
+  			@include shadow-4dp();
 		}
 }

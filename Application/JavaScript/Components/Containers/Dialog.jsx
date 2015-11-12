@@ -14,31 +14,16 @@ class DialogContainer extends Component {
   render () {
     const { builder } = this.props;
     const { isModalOpen, modalType, modalTarget } = builder;
+    let dialogType = modalType || ModalTypes.CLASSIC;
 
-    if (isModalOpen && modalType !== null) {
-      let dialogType = 'classic';
-
-      if (modalType === ModalTypes.IMAGECHANGE) {
-        dialogType = 'imageChange';
-      } else if (modalType === ModalTypes.LINKCHANGE) {
-        dialogType = 'linkChange';
-      } else if (modalType === ModalTypes.ICONCHANGE) {
-        dialogType = 'iconChange';
-      } else if (modalType === ModalTypes.PREVIOUSPAGES) {
-        dialogType = 'previousPages';
-      }
-
-      return (
-        <Dialog
-          onClose={::this.closeModal}
-          ref='dialog'
-          active={true}
-          type={dialogType}
-          editTarget={modalTarget} />
-      )
-    } else {
-      return null;
-    }
+    return (
+      <Dialog
+        onClose={::this.closeModal}
+        ref='dialog'
+        active={isModalOpen}
+        type={dialogType}
+        editTarget={modalTarget} />
+    )
   }
 }
 

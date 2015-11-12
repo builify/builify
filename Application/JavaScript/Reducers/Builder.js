@@ -72,6 +72,19 @@ function builder (state = builderInitialState, action) {
         modalType: ModalTypes.PREVIOUSPAGES
       });
 
+    case Actions.OPEN_CONTENTBLOCK_SOURCE_EDIT_MODAL:
+      return _.assign({}, state, {
+        isModalOpen: true,
+        modalType: ModalTypes.CONTENTBLOCKSOURCE,
+        modalTarget: action.currentHoverBlock
+      });
+
+    case Actions.OPEN_DOWNLOAD_MODAL:
+      return _.assign({}, state, {
+        isModalOpen: true,
+        modalType: ModalTypes.DOWNLOADPAGES
+      });
+
     case Actions.CLOSE_MODAL:
       return _.assign({}, state, {
         isModalOpen: false,
@@ -98,12 +111,15 @@ function builder (state = builderInitialState, action) {
     }
 
     case Actions.START_NEW_PAGE: {
-      const pagesInStorage = Storage.get('ab-pages');
-      const currentTimestamp = Math.floor(Date.now() / 1000);
-      const uniqueKey = randomKey();
-      const pageID = `abpage-${currentTimestamp}-${uniqueKey}`;
+      const { pageID, pagesInStorage } = action;
       const pageObject = {
-        id: pageID
+        id: pageID,
+        title: 'Unnamed',
+
+        navigation: {},
+        main: [],
+        footer: {},
+        blocksCount: 0
       };
       let pagesList = [];
 
@@ -141,7 +157,10 @@ function builder (state = builderInitialState, action) {
       });
 
     case Actions.LOAD_PREVIOUS_PAGE:
-      return state;
+      return _.assign({}, state, {
+        currentLocation: CurrentLocations.CANVAS,
+        isPageSelected: true,
+      });
 
     case Actions.OPEN_TAB:
       const { target } = action;

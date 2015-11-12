@@ -40,7 +40,8 @@
 
     "pages": {
       "titles": {
-        "currentpage": "Current Page"
+        "currentpage": "Current Page",
+        "pagetools": "Page Tools"
       },
       "newpage": "Start new page",
       "loadpage": "Load previous page",

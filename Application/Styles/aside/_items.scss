@@ -1,12 +1,20 @@
 .#{$nameprefix}color,
 .#{$nameprefix}swatch,
-.#{$nameprefix}toggle {
+.#{$nameprefix}toggle,
+.#{$nameprefix}simpleitem {
 		position: relative;
 		cursor: pointer;
 		width: 100%;
 		min-height: $item-height;
 		max-height: $item-height * 2;
 		line-height: $item-height;
+		padding: 0 $base-padding;
+}
+
+.#{$nameprefix}itemwrap {
+		position: relative;
+		cursor: pointer;
+		width: 100%;
 		padding: 0 $base-padding;
 }
 

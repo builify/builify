@@ -1,9 +1,11 @@
 import { randomKey, replaceDataInHTML, getAbsPosition, addCSSRule } from '../Common/Common';
+import Storage from '../Common/Storage';
 import _ from 'lodash';
 import * as Actions from '../Constants/Actions';
 
 const pageInitialState = {
-  title: 'Test',
+  pageID: null,
+  pageTitle: 'Test',
 
   navigation: {},
   main: [],
@@ -17,6 +19,87 @@ function page (state = pageInitialState, action) {
   let { navigation, main, footer, blocksCount } = state;
 
   switch (action.type) {
+    case Actions.START_NEW_PAGE:
+      const { pageID } = action;
+
+      return Object.assign({}, state, {
+        pageID: pageID
+      });
+
+    case Actions.SAVE_CURRENT_PAGE: {
+      let { pageID, navigation, main, footer, blocksCount } = state;
+
+      if (pageID !== null) {
+        let pagesInStorage = Storage.get('ab-pages');
+        const itemIndex = _.findIndex(pagesInStorage, 'id', pageID);
+        let pageInStorage = pagesInStorage[itemIndex];
+
+        if (pagesInStorage) {
+          _.map(main, (mainItem, idx) => {
+            mainItem.hasBeenRendered = false;
+            mainItem.elementReference = null;
+          });
+
+          navigation.hasBeenRendered = false;
+          navigation.elementReference = null;
+
+          footer.hasBeenRendered = false;
+          footer.elementReference = null;
+
+          pageInStorage = _.assign({}, pageInStorage, {
+            navigation: navigation,
+            main: main,
+            footer: footer,
+            blocksCount: blocksCount
+          });
+
+          pagesInStorage[itemIndex] = pageInStorage;
+
+          Storage.set('ab-pages', pagesInStorage);
+        }
+      }
+
+      return state;
+    }
+
+    case Actions.LOAD_PREVIOUS_PAGE: {
+      const { idx } = action;
+      let { navigation, main, footer, blocksCount } = state;
+      const pagesInStorage = Storage.get('ab-pages');
+      let pageInStorage = null;
+
+      if (!idx) {
+        pageInStorage = pagesInStorage[0];
+      } else {
+        const itemIndex = _.findIndex(pagesInStorage, 'id', idx);
+        pageInStorage = pagesInStorage[itemIndex];
+      }
+
+      if (pageInStorage) {
+        const {
+          navigation: pageNavigation,
+          main: pageMain,
+          footer: pageFooter,
+          blocksCount: pageBlocksCount
+        } = pageInStorage;
+
+
+        navigation = pageNavigation;
+        main = pageMain;
+        footer = pageFooter;
+        blocksCount = pageBlocksCount;
+      }
+
+      console.log(pagesInStorage);
+
+      return _.assign({}, state, {
+        navigation: navigation,
+        main: main,
+        footer: footer,
+        blocksCount: blocksCount
+      });
+    }
+
     case Actions.GET_TEMPLATE_DATA:
       let {  replaceInHTML } = state;
 

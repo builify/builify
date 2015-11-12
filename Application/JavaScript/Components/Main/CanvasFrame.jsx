@@ -111,7 +111,7 @@ class CanvasFrame extends Component {
       }
     });
 
-    if (_.values(navigationBlock).length !== 0) {
+    /*if (_.values(navigationBlock).length !== 0) {
       doesNavigationBlockExist = true;
 
       if (mainBlocks.length !== 0) {
@@ -119,7 +119,7 @@ class CanvasFrame extends Component {
 
         targetElement.style.paddingTop = '300px';
       }
-    }
+    }*/
 
     this._blocks.main = mainBlocks;
   }
@@ -185,12 +185,11 @@ class CanvasFrame extends Component {
 
   render () {
     const { page } = this.props;
-    const { title } = page;
+    const { pageTitle } = page;
 
     return (
       <div className='ab-canvas__holder'>
-        <IFrame
-          title={title}>
+        <IFrame title={pageTitle}>
           <div
             data-abccorent='true'
             ref='root'

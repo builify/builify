@@ -42,7 +42,6 @@ const exports = {
     }
     return false;
   }
-
 };
 
 export default exports;

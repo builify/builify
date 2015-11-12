@@ -6,6 +6,8 @@ import _ from 'lodash';
 import cx from 'classnames';
 import Sortable from './Sortable';
 import SvgIcon from './SvgIcon';
+import Input from './Input';
+import Button from './Button';
 
 class CurrentPageDivider extends Component {
   render () {
@@ -92,43 +94,53 @@ class CurrentPage extends Component {
       notSortableItems.push(footer);
     }
 
-    return (
-      <div>
-        {_.map(notSortableItems, item => {
-          const key = randomKey('notsortableitem');
-
-          return (
-            <CurrentPageItem
-              data={item}
-              key={key} />
-          )
-        })}
-        {(() => {
-          if (notSortableItems.length > 0) {
-            return <CurrentPageDivider />
-          }
-        })()}
-        <Sortable
-          sortable={sortableOptions}
-          component='ul'
-          childElement='div'
-          className='ab-currentPage'>
-          {_.map(items, (item) => {
-            const { elementReference } = item;
-            const key = randomKey('sortableitem');
+    if (_.values(navigation).length === 0 &&
+        _.values(footer).length === 0 &&
+        main.length === 0) {
+      return (
+        <span className='tip'>Your current page is empty :(</span>
+      )
+    } else {
+      return (
+        <div>
+          <ul>
+          {_.map(notSortableItems, item => {
+            const key = randomKey('notsortableitem');
 
             return (
               <CurrentPageItem
-                onRemoveClick={(e) => {
-                  return onRemove(elementReference);
-                }}
                 data={item}
                 key={key} />
             )
           })}
-        </Sortable>
-      </div>
-    )
+          </ul>
+          {(() => {
+            if (notSortableItems.length > 0) {
+              return <CurrentPageDivider />
+            }
+          })()}
+          <Sortable
+            sortable={sortableOptions}
+            component='ul'
+            childElement='div'
+            className='ab-currentPage'>
+            {_.map(items, (item) => {
+              const { elementReference } = item;
+              const key = randomKey('sortableitem');
+
+              return (
+                <CurrentPageItem
+                  onRemoveClick={(e) => {
+                    return onRemove(elementReference);
+                  }}
+                  data={item}
+                  key={key} />
+              )
+            })}
+          </Sortable>
+        </div>
+      )
+    }
   }
 }
 

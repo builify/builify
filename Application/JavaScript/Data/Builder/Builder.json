@@ -217,14 +217,22 @@
       "title": "Pages",
       "children": [
         {
-          "type": "block.pagetools"
-        },
-        {
           "type": "block.title",
           "title": "pages.titles.currentpage"
         },
         {
           "type": "block.pages"
+        },
+        {
+          "type": "block.title",
+          "title": "pages.titles.pagetools",
+          "className": "abspos"
+        },
+        {
+          "type": "block.pagetools"
+        },
+        {
+          "type": "block.pagefile"
         }
       ]
     },

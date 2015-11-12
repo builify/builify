@@ -54,8 +54,6 @@ class Frame extends Component {
 
       this.createThemeCustomStyleSheet();
 
-      console.log('WHAT THE FUCK')
-
       // Until we figure out how to make firefox work...
       //this._isFrameRendered = true;
     }

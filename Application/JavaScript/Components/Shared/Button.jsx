@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Events from '../../Common/Events';
 import Ripple from './Ripple';
+import SvgIcon from './SvgIcon';
 
 class Button extends Component {
   static propTypes = {
@@ -34,9 +35,23 @@ class Button extends Component {
   };
 
   render () {
-    const {label, icon, loading, ripple, primary, accent, mini, kind, ...others} = this.props;
+    const {
+      label,
+      icon,
+      loading,
+      ripple,
+      primary,
+      accent,
+      mini,
+      kind,
+      ...others
+    } = this.props;
 
-    let className = 'ab-button primary';
+    let className = 'ab-button';
+
+    if (primary) className += ` primary`;
+    if (accent) className += ` accent`;
+    if (!primary && !accent) className += ` primary`;
     if (kind) className += ` ${kind}`
     if (this.props.className) className += ` ${this.props.className}`;
 
@@ -44,10 +59,10 @@ class Button extends Component {
       <button
         {...others}
         className={className}
-        data-react-toolbox='button'
         onMouseDown={this.handleMouseDown}
         disabled={this.props.disabled || this.props.loading} >
-        { ripple ? <Ripple ref='ripple' loading={loading}/> : null }
+        { icon ? <SvgIcon className='ab-button__icon' name={icon} /> : null }
+        { ripple ? <Ripple ref='ripple' loading={loading} /> : null }
         { label ? <abbr className='ab-button__label'>{label}</abbr> : null }
       </button>
     );

@@ -41,7 +41,8 @@ $dialog-translate-y: 4 * $unit;
 		&__content {
 				max-width: 96vw;
 				max-height: 96vh;
-				transition-property: opacity, transform;
+				width: 300px;
+				transition-property: opacity, transform, width;
 				transition-duration: $animation-duration;
 				transition-delay: $animation-delay;
 			  transition-timing-function: $animation-curve-default;
@@ -209,6 +210,40 @@ $dialog-translate-y: 4 * $unit;
 
 				.iconc__inner {
 						padding: 0 $dialog-content-padding;
+				}
+		}
+
+		&.contentblocksource {
+				.#{$nameprefix}dialog {
+						&__content {
+								width: 650px;
+								min-height: 350px;
+						}
+				}
+
+				textarea {
+						height: 333px;
+				}
+		}
+
+		&.previouspages {
+				.#{$nameprefix}dialog {
+						&__content {
+								width: 350px;
+								min-height: 200px;
+								overflow: hidden;
+						}
+				}
+
+				.pageitem {
+						cursor: pointer;
+						height: 30px;
+						line-height: 30px;
+						width: 100%;
+
+						&:hover {
+								background: #eee;
+						}
 				}
 		}
 }
