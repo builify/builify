@@ -94,13 +94,12 @@ class Table extends React.Component {
               model={this.props.model}
               onChange={this.props.onChange ? this.handleRowChange : null}
               onSelect={this.props.onSelect ? this.handleRowSelect : null}
-              selected={this.state.selected || this.state.selected_rows.indexOf(index) !== -1}
-            />
-          );
+              selected={this.state.selected || this.state.selected_rows.indexOf(index) !== -1} />
+          )
         })
       }
       </tbody>
-    );
+    )
   }
 
   render () {

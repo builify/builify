@@ -81,7 +81,7 @@ class Input extends Component {
         { this.props.label ? <label className={labelClassName}>{this.props.label}</label> : null }
         { this.props.error ? <span className={'ab-input__error'}>{this.props.error}</span> : null }
       </div>
-    );
+    )
   }
 
   blur () {

@@ -4,6 +4,7 @@ import { currentHoverBlock, removeContentBlock } from '../../Actions/ActionCreat
 import { findUpAttr } from '../../Common/Common';
 import { store } from '../Application';
 import _ from 'lodash';
+import AClass from '../../Common/AClass';
 import Events from '../../Common/Events';
 import ClickToolbox from '../Shared/ClickToolbox';
 import SectionToolBox from '../Shared/SectionToolBox';
@@ -15,11 +16,11 @@ class CanvasFrame extends Component {
   componentWillReceiveProps (nextProps) {
     const props = nextProps;
     const currentPage = props.page;
+    const blocks = _.assign({}, this._blocks, currentPage);
 
-    this._blocks = Object.assign({}, this._blocks, currentPage);
-    this.renderBlocks(this._blocks);
+    this._blocks = blocks;
 
-    this.hoverBlocks();
+    this.renderBlocks(blocks);
   }
 
   renderBlocks (blocks) {
@@ -28,6 +29,8 @@ class CanvasFrame extends Component {
     this.renderNavigation(navigation);
     this.renderMainBlocks(main);
     this.renderFooter(footer);
+
+    this.hoverBlocks();
   }
 
   setElementAttributes (element, i: 0) {
@@ -54,6 +57,10 @@ class CanvasFrame extends Component {
     if (_.values(navigationBlock).length !== 0) {
       const { id, type, blockName, source, hasBeenRendered } = navigationBlock;
 
+      if (!id || !type || !blockName || !source) {
+        throw Error('Wrong navigation block. ' + navigationBlock);
+      }
+
       if (!hasBeenRendered) {
         navigationElement.innerHTML = '';
         navigationElement.insertAdjacentHTML('beforeend', source);
@@ -70,6 +77,7 @@ class CanvasFrame extends Component {
 
   renderMainBlocks (mainBlocks) {
     const { onElementRemove, page } = this.props;
+    const { blocksCount } = page;
     const mainElement = this.refs.main;
     const navigationBlock = this._blocks.navigation;
     const mainBlocksLength = mainBlocks.length;
@@ -159,21 +167,17 @@ class CanvasFrame extends Component {
   hoverBlocks () {
     const { onCoreBlockHover } = this.props;
     const targets = 'p , span, a, h1, h2, h3, h4, h5, h6, strong, em, li, ul, div, i, img, input, textarea, blockquote, figcaption';
-    const rootElement = this.refs.root;
-    const targetElements = rootElement.querySelectorAll(targets);
+    const navigationElements = this.refs.navigation.querySelectorAll(targets);
+    const mainElements = this.refs.main.querySelectorAll(targets);
+    const footerElements = this.refs.footer.querySelectorAll(targets);
+    const targetElements = _.union(navigationElements, mainElements, footerElements);
 
     _.map(targetElements, (target, i) => {
-      const targetTracer = findUpAttr(target, 'data-abcpanel data-abctoolbox');
-
-      if (targetTracer !== null ||
-        target.getAttribute('data-abctoolbox') ||
-        target.getAttribute('data-abcpanel')) {
-        return false;
-      }
-
       if (target.tagName === 'A') {
         target.removeEventListener('click', ::this.aBlockClick);
         target.addEventListener('click', ::this.aBlockClick, false);
+      } else {
+        target.contentEditable = true;
       }
 
       target.removeEventListener('mouseenter', this.hoverBlocksMouseEnter);

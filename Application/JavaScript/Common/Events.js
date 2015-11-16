@@ -21,7 +21,7 @@ const exports = {
     event.returnValue = false;
     event.cancelBubble = true;
   },
-
+  
   addEventsToDocument (eventMap) {
     for (const key in eventMap) {
       document.addEventListener(key, eventMap[key], false);

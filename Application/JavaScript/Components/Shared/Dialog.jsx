@@ -13,6 +13,8 @@ import ImageItem from './ImageItem';
 import Scrollbar from './Scrollbar';
 import Dropdown from './Dropdown';
 import Table from './Table';
+import DialogImageEdit from './DialogImageEdit';
+import DialogRestart from './DialogRestart';
 
 class DialogWrapper extends Component {
   render () {
@@ -48,7 +50,6 @@ class Dialog extends Component {
   }
 
   state = {
-    active: this.props.active,
     imgSize: {
       w: 0,
       h: 0
@@ -56,11 +57,11 @@ class Dialog extends Component {
   };
 
   closeEvent (e) {
+    const { onClose } = this.props;
+
     Events.pauseEvent(e);
-
     this.hide();
-
-    this.props.onClose(e);
+    return onClose(e);
   }
 
   renderButtons (actions) {
@@ -80,28 +81,6 @@ class Dialog extends Component {
 
   renderActions () {
     const { actions } = this.props;
-
-    return this.renderButtons(actions);
-  }
-
-  renderImageChangeActions () {
-    const { editTarget } = this.props;
-    const actions = [
-      { label: 'Cancel', onClick: ::this.closeEvent },
-      { label: 'Save', onClick: () => {
-        const imgSource = this.refs['image-src'].getValue();
-        const altVal = this.refs['image-alt'].getValue();
-
-        if (editTarget.classList.contains('background-image-holder')) {
-          editTarget.style.backgroundImage = `url(${imgSource})`;
-        } else if (editTarget.tagName === 'IMG') {
-          editTarget.setAttribute('src', imgSource);
-          editTarget.setAttribute('alt', altVal);
-        }
-
-        this.closeEvent();
-      }}
-    ];
 
     return this.renderButtons(actions);
   }
@@ -167,7 +146,7 @@ class Dialog extends Component {
   }
 
   render () {
-    const { type, title, children, actions, editTarget } = this.props;
+    const { type, title, children, actions, editTarget, active } = this.props;
     let className = 'ab-dialog';
 
     if (this.props.active) className += ' active';
@@ -191,74 +170,19 @@ class Dialog extends Component {
         )
 
       case ModalTypes.IMAGECHANGE:
-        let targetUrl = 'http://pivot.mediumra.re/img/hero8.jpg',
-            width = 0,
-            height = 0;
-
-        if (editTarget !== undefined && editTarget !== null) {
-          if (editTarget.classList.contains('background-image-holder')) {
-            const targetStyle = window.getComputedStyle(editTarget, null);
-            const backgroundImg = targetStyle.getPropertyValue('background-image');
-
-            targetUrl = backgroundImg.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
-            const s = new Image();
-
-            s.onload = function () {
-              width = this.naturalWidth || this.width;
-              height = this.naturalHeight || this.height;
-            }
-
-            s.src = targetUrl;
-
-          } else if (editTarget.getAttribute('src')) {
-            targetUrl = editTarget.getAttribute('src');
-
-            width = editTarget.naturalWidth;
-            height = editTarget.naturalHeight;
-          }
-        }
-
-        const imageSize = `${width}x${height} pixels`;
-
-        className += ' backgroundImage';
-
         return (
-          <DialogWrapper
-            className={className}>
-            <section role='body' className='ab-dialog__body'>
-              <h6 className='ab-dialog__title'>Change image</h6>
-              <div className='ab-dialog__wrap'>
-                <div className='input'>
-                  <span className='input__title'>Edit image source:</span>
-                  <Input
-                    required={true}
-                    ref='image-src'
-                    type='text'
-                    label='Image Source'
-                    value={targetUrl}
-                    floating={false} />
-                  <span className='input__title'>Edit image alt:</span>
-                  <Input
-                    ref='image-alt'
-                    type='text'
-                    label='Image "alt" value'
-                    floating={false} />
-                </div>
-                <div className='img'>
-                  <div className='img__wrap'>
-                    <ImageItem
-                      alt='Edit Image'
-                      src={targetUrl} />
-                    <span className='img__info'>{imageSize}</span>
-                  </div>
-                </div>
-              </div>
-            </section>
-            <nav role='navigation' className='ab-dialog__navigation'>
-              { this.renderImageChangeActions() }
-            </nav>
-          </DialogWrapper>
+          <DialogImageEdit
+            active={active}
+            editTarget={editTarget}
+            closeEvent={::this.closeEvent} />
         )
+
+      case ModalTypes.RESTART:
+        return (
+          <DialogRestart
+            active={active} />
+        )
+
       case ModalTypes.LINKCHANGE:
         const targets = [
           { value: '_blank', label: 'Open in new tab'},
@@ -394,22 +318,30 @@ class Dialog extends Component {
           </DialogWrapper>
         )
 
-      case ModalTypes.DOWNLOADPAGES:
-        className += ' downloadpages';
-
-        const UserModel = {
+      case ModalTypes.DOWNLOADPAGES: {
+        const { builder } = this.props;
+        const { pages: builderPages } = builder;
+        const pagesModel = {
           name: {type: String}
         };
+        let pages = [];
 
-        const users = [
-          {name: 'Javi Jimenez', twitter: '@soyjavi', birthdate: new Date(1980, 3, 11), cats: 1}
-        ,
-          {name: 'Javi Velasco', twitter: '@javivelasco', birthdate: new Date(1987, 1, 1), dogs: 1, active: true}
-        ];
+        className += ' downloadpages';
 
-        const handleSelect = (event, row, instance) => {
-          alert(row.twitter);
-        };
+        _.map(builderPages, (page, idx) => {
+          const { id, title } = page;
+          const time = new Date(+(id.split('-')[1]) * 1000);
+          const formatedTime = Time.formatDate(time, 'HH:mm:ss yy/M/d');
+          const pageText = `${title} - (${formatedTime})`;
+
+          pages.push({
+            name: pageText
+          });
+        });
+
+        const handleSelect = (e) => {
+          console.log(e);
+        }
 
         return (
           <DialogWrapper
@@ -417,16 +349,17 @@ class Dialog extends Component {
             <section role='body' className='ab-dialog__body'>
               <h6 className='ab-dialog__title'>Pages Download</h6>
               <Table
-                model={UserModel}
-                dataSource={users}
-                onSelect={handleSelect} />
+                model={pagesModel}
+                dataSource={pages}
+                onSelect={handleSelect}
+                onChange={handleSelect} />
             </section>
             <nav role='navigation' className='ab-dialog__navigation'>
               { this.downloadActions() }
             </nav>
           </DialogWrapper>
         )
-
+      }
     }
 
     return null;

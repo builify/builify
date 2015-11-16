@@ -11,13 +11,12 @@ const pageInitialState = {
   main: [],
   footer: {},
   blocksCount: 0,
+  mainBlocksCount: 0,
 
   replaceInHTML: []
 };
 
 function page (state = pageInitialState, action) {
-  let { navigation, main, footer, blocksCount } = state;
-
   switch (action.type) {
     case Actions.START_NEW_PAGE:
       const { pageID } = action;
@@ -28,6 +27,15 @@ function page (state = pageInitialState, action) {
 
     case Actions.SAVE_CURRENT_PAGE: {
       let { pageID, navigation, main, footer, blocksCount } = state;
+      const resetBlockParameters = (block) => {
+        if (_.has(block, 'hasBeenRendered')) {
+          block.hasBeenRendered = false;
+        }
+
+        if (_.has(block, 'elementReference')) {
+          block.elementReference = null;
+        }
+      };
 
       if (pageID !== null) {
         let pagesInStorage = Storage.get('ab-pages');
@@ -40,11 +48,8 @@ function page (state = pageInitialState, action) {
             mainItem.elementReference = null;
           });
 
-          navigation.hasBeenRendered = false;
-          navigation.elementReference = null;
-
-          footer.hasBeenRendered = false;
-          footer.elementReference = null;
+          resetBlockParameters(navigation);
+          resetBlockParameters(footer);
 
           pageInStorage = _.assign({}, pageInStorage, {
             navigation: navigation,
@@ -64,7 +69,7 @@ function page (state = pageInitialState, action) {
 
     case Actions.LOAD_PREVIOUS_PAGE: {
       const { idx } = action;
-      let { navigation, main, footer, blocksCount } = state;
+      let { pageID, navigation, main, footer, blocksCount } = state;
       const pagesInStorage = Storage.get('ab-pages');
       let pageInStorage = null;
 
@@ -73,6 +78,7 @@ function page (state = pageInitialState, action) {
       } else {
         const itemIndex = _.findIndex(pagesInStorage, 'id', idx);
         pageInStorage = pagesInStorage[itemIndex];
+        pageID = idx;
       }
 
       if (pageInStorage) {
@@ -83,16 +89,15 @@ function page (state = pageInitialState, action) {
           blocksCount: pageBlocksCount
         } = pageInStorage;
 
-
         navigation = pageNavigation;
         main = pageMain;
         footer = pageFooter;
         blocksCount = pageBlocksCount;
       }
 
-      console.log(pagesInStorage);
-
       return _.assign({}, state, {
+        pageID: pageID,
+
         navigation: navigation,
         main: main,
         footer: footer,
@@ -111,7 +116,9 @@ function page (state = pageInitialState, action) {
         replaceInHTML: replaceInHTML
       });
 
-    case Actions.LOAD_CONTENTBLOCK_TO_PAGE:
+    case Actions.LOAD_CONTENTBLOCK_TO_PAGE: {
+      let { navigation, main, footer, blocksCount, mainBlocksCount } = state;
+
       if (_.has(action, 'HTML')) {
         let { HTML, blockType, blockName } = action;
         const { replaceInHTML } = state;
@@ -132,6 +139,7 @@ function page (state = pageInitialState, action) {
           footer = blockInformation;
         } else {
           main.push(blockInformation);
+          mainBlocksCount++;
         }
 
         blocksCount++;
@@ -141,11 +149,14 @@ function page (state = pageInitialState, action) {
         navigation: navigation,
         footer: footer,
         main: main,
-        blocksCount: blocksCount
+        blocksCount: blocksCount,
+        mainBlocksCount: mainBlocksCount
       });
+    }
 
-    case Actions.REMOVE_CONTENTBLOCK:
+    case Actions.REMOVE_CONTENTBLOCK: {
       const { blockElement } = action;
+      let { navigation, main, footer, blocksCount } = state;
 
       if (!blockElement) {
         return state;
@@ -185,6 +196,7 @@ function page (state = pageInitialState, action) {
         main: main,
         blocksCount: blocksCount
       });
+    }
 
     case Actions.GET_CURRENT_PAGE_DATA:
       return state;

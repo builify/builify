@@ -64,4 +64,8 @@ $table-text-color: #757575;
     &__editable > * {
         cursor: pointer;
     }
+
+    .#{$nameprefix}checkbox {
+        padding: 0;
+    }
 }

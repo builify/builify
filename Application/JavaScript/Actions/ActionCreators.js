@@ -17,6 +17,21 @@ export function runApplicationActions () {
       dispatch(getLocalizationFile());
       dispatch(initializeBuilder());
     });
+
+    dispatch(initializeEvents());
+  }
+}
+
+export function initializeEvents () {
+  return (dispatch, getState) => {
+    // When tab is hidden, automatically save page.
+    document.addEventListener('visibilitychange', (e) => {
+      const visbilityState = e.target.visibilityState;
+
+      if (visbilityState === 'hidden') {
+        dispatch(saveCurrentPage());
+      }
+    });
   }
 }
 
@@ -391,6 +406,12 @@ export function openPreviousPagesSelectionModal () {
 export function openDownloadModal () {
   return {
     type: Actions.OPEN_DOWNLOAD_MODAL
+  }
+}
+
+export function openRestartModal () {
+  return {
+    type: Actions.OPEN_RESTART_MODAL
   }
 }
 

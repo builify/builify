@@ -85,6 +85,12 @@ function builder (state = builderInitialState, action) {
         modalType: ModalTypes.DOWNLOADPAGES
       });
 
+    case Actions.OPEN_RESTART_MODAL:
+      return _.assign({}, state, {
+        isModalOpen: true,
+        modalType: ModalTypes.RESTART
+      });
+
     case Actions.CLOSE_MODAL:
       return _.assign({}, state, {
         isModalOpen: false,

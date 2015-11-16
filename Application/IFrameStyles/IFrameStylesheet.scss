@@ -57,6 +57,11 @@ body {
 				background: #FFF;
 				color: #333;
 				@include rem(font-size, 14px);
+				@include animation-default();
+
+				&:hover {
+						background: darken(#FFF, 3%);
+				}
 
 				&,
 				& * {

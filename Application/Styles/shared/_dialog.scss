@@ -80,6 +80,16 @@ $dialog-translate-y: 4 * $unit;
 			  margin-left: $dialog-navigation-padding;
 		}
 
+		&.medium {
+				.#{$nameprefix}dialog {
+						&__content {
+								width: 550px;
+								min-height: 50px;
+						}
+				}
+		}
+
+
 		&.active {
 				pointer-events: all;
 

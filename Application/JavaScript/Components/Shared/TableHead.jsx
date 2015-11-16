@@ -38,7 +38,9 @@ class Head extends Component {
         { this.renderCellSelectable() }
         {
           Object.keys(this.props.model).map((key) => {
-            return (<th key={key}>{key}</th>);
+            return (
+              <th key={key}>{key}</th>
+            )
           })
         }
         </tr>

@@ -208,6 +208,9 @@
       "target": "preview-window"
     },
     {
+      "id": "restore"
+    },
+    {
       "id": "gethtml"
     }
   ],

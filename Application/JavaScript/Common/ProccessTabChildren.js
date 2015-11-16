@@ -131,7 +131,7 @@ function proccessChildrenData (data) {
 
                 childrenToRender.push(sideTabBlock);
               } else {
-                console.warn('Missing target for sidetab.')
+                throw Error('Missing target for sidetab.' + currentChildren);
               }
             }
 

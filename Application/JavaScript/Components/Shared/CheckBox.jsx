@@ -25,8 +25,7 @@ class Checkbox extends Component {
   };
 
   componentWillReceiveProps = (next_props) => {
-    console.log('componentWillReceiveProps', next_props.checked);
-    // this.setState({ checked: next_props.checked });
+    this.setState({ checked: next_props.checked });
   };
 
   handleChange = (event) => {
