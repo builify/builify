@@ -1,22 +1,20 @@
 import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import Time from '../../Common/Time';
+import { closeModal } from '../../../Actions';
+import Time from '../../../Common/Time';
 import _ from 'lodash';
 import cx from 'classnames';
-import Events from '../../Common/Events';
-import Button from './Button';
-import Input from './Input';
-import ImageItem from './ImageItem';
+import Events from '../../../Common/Events';
+import Button from '../Button';
+import Input from '../Input';
+import ImageItem from '../ImageItem';
 import DialogWrapper from './DialogWrapper';
 
 class DialogImageEdit extends Component {
   static propTypes = {
-    closeEvent: PropTypes.func
-  }
-
-  static defaultProps = {
-    closeEvent: () => {}
-  }
+    active: PropTypes.bool.isRequired
+  };
 
   state = {
     imageSize: {
@@ -26,6 +24,22 @@ class DialogImageEdit extends Component {
     imageUrl: 'http://www.engraversnetwork.com/files/placeholder.jpg',
     imageAlt: '',
     isBackgroundImage: false
+  };
+
+  componentDidMount () {
+    const { active } = this.props;
+    const dialogRef = this.refs['dialog'];
+    const dialogElement = ReactDOM.findDOMNode(dialogRef);
+
+    this.dialogElement = dialogElement;
+
+    if (active) {
+      window.setTimeout(() => {
+        if (dialogElement) {
+          dialogElement.classList.add('active');
+        }
+      }, 16);
+    }
   }
 
   componentWillMount () {
@@ -84,10 +98,24 @@ class DialogImageEdit extends Component {
     image.src = value;
   }
 
-  closeEvent () {
-    const { closeEvent } = this.props;
+  closeDialog () {
+    const { onCloseModal } = this.props;
+    let dialogElement = null;
 
-    return closeEvent();
+    if (this.dialogElement !== null) {
+      dialogElement = this.dialogElement;
+    } else {
+      const dialogRef = this.refs['dialog'];
+      dialogElement = ReactDOM.findDOMNode(dialogRef);
+    }
+
+    if (dialogElement) {
+      dialogElement.classList.remove('active');
+    }
+
+    window.setTimeout(() => {
+      return onCloseModal();
+    }, 300);
   }
 
   renderButtons (actions) {
@@ -108,7 +136,7 @@ class DialogImageEdit extends Component {
   renderActions () {
     const { editTarget, closeEvent } = this.props;
     const actions = [
-      { label: 'Cancel', onClick: ::this.closeEvent },
+      { label: 'Cancel', onClick: ::this.closeDialog },
       { label: 'Save', onClick: (e) => {
         const imgSource = this.refs['image-src'].getValue();
 
@@ -121,7 +149,7 @@ class DialogImageEdit extends Component {
           editTarget.setAttribute('alt', altVal);
         }
 
-        this.closeEvent();
+        this.closeDialog();
       }}
     ];
 
@@ -137,6 +165,7 @@ class DialogImageEdit extends Component {
 
     return (
       <DialogWrapper
+        ref='dialog'
         className={className}>
         <section role='body' className='ab-dialog__body'>
           <h6 className='ab-dialog__title'>Change image</h6>
@@ -179,8 +208,25 @@ class DialogImageEdit extends Component {
           { this.renderActions() }
         </nav>
       </DialogWrapper>
-    )
+    );
   }
 }
 
-export default DialogImageEdit;
+function mapStateToProps (state) {
+  return {
+    page: state.page
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    onCloseModal: () => {
+      dispatch(closeModal());
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DialogImageEdit);

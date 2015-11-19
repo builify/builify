@@ -45,7 +45,7 @@
 				}
 
 				&:hover {
-						color: $base-color;
+						color: $color-primary;
 
 						&:before {
 							@include transform(scale3d(1.2, 1.2, 1.2));
@@ -96,7 +96,7 @@
 						}
 
 						&:hover {
-								color: $base-color;
+								color: $color-primary;
 						}
 				}
 		}

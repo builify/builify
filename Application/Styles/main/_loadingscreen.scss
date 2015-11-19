@@ -56,7 +56,7 @@
     &__loader > div:before {
         content: '';
         border-radius: 100%;
-        border: $loadingscreen-loader-border-thickness solid $loadingscreen-loader-base-color;
+        border: $loadingscreen-loader-border-thickness solid $loadingscreen-loader-color-primary;
     }
 
     &__loader > div:before {

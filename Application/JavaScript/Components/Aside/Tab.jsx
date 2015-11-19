@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { closeTab, openSidetab } from '../../Actions/ActionCreators';
+import { closeTab, openSidetab } from '../../Actions';
 import { randomKey } from '../../Common/Common';
 import _ from 'lodash';
 import proccessChildrenData from '../../Common/ProccessTabChildren';

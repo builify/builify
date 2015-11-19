@@ -1,6 +1,6 @@
-import * as Actions from '../Constants/Actions';
 import { setRules } from '../Common/StyleSheet';
 import _ from 'lodash';
+import * as Actions from '../Actions/Constants';
 
 const initialState = {
   isColorPickerOpened: false,

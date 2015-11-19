@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setSwatch } from '../../Actions/ActionCreators';
+import { setSwatch } from '../../Actions';
 import { randomKey } from '../../Common/Common';
 import _ from 'lodash';
 import cx from 'classnames';

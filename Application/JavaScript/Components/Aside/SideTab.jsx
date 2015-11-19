@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { closeSidetab } from '../../Actions/ActionCreators';
+import { closeSidetab } from '../../Actions';
 import { getString } from '../../Common/Localization';
 import _ from 'lodash';
 import proccessChildrenData from '../../Common/ProccessTabChildren';

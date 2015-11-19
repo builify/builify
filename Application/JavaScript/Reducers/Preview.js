@@ -1,6 +1,6 @@
 import { PreviewModes } from '../Constants/Defines';
 import _ from 'lodash';
-import * as Actions from '../Constants/Actions';
+import * as Actions from '../Actions/Constants';
 
 const initialState = {
   previewMode: 0,

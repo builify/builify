@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { closeColorPicker, setColorFromColorPicker } from '../../Actions/ActionCreators';
+import { closeColorPicker, setColorFromColorPicker } from '../../Actions';
 import { getBrowserSize, getOffset } from '../../Common/Common';
 import ColorPick from 'react-color';
 

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { openSidetab } from '../../Actions/ActionCreators';
+import { openSidetab } from '../../Actions';
 import { getString } from '../../Common/Localization';
 import cx from 'classnames';
 

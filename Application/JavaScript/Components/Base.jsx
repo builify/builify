@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CurrentLocations } from '../Constants/Defines';
-import { addNotification } from '../Actions/ActionCreators';
+import { addNotification } from '../Actions';
 import cx from 'classnames';
 import Aside from './Aside/Aside';
 import Main from './Main/Main';

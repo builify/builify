@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setFont } from '../../Actions/ActionCreators';
+import { setFont } from '../../Actions';
 import { getString } from '../../Common/Localization';
 import _ from 'lodash';
 import Select from 'react-select';

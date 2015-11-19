@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { randomKey } from '../../Common/Common';
+import { randomKey } from '../../../Common/Common';
 import _ from 'lodash';
-import BlockTitle from './BlockTitle';
+import BlockTitle from '../BlockTitle';
 import ContentBlock from './ContentBlock';
 
 class ContentBlocks extends Component {

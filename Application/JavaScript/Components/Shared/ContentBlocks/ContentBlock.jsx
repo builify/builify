@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loadContentBlockSource } from '../../Actions/ActionCreators';
+import { loadContentBlockSource } from '../../../Actions';
 import cx from 'classnames';
-import ImageItem from './ImageItem';
+import ImageItem from '../ImageItem';
 
 class ContentBlock extends Component {
   shouldComponentUpdate () {

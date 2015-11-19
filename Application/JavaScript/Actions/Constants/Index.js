@@ -1,6 +1,6 @@
-import { actionMirror } from '../Common/Common';
+import ActionMirror from '../../Common/ActionMirror';
 
-export default actionMirror(true, [
+export default ActionMirror(true, [
   // Builder's actions
   'INITIALIZE',
   'REMOVE_LOADING_SCREEN',
@@ -8,7 +8,6 @@ export default actionMirror(true, [
   'RECEIVE_BUILDER_CONFIGURATION',
   'PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION',
   'GET_LOCALIZATION',
-  'LOAD_ASSET',
 
   // Template's actions
   'GET_TEMPLATE_DATA',
@@ -21,6 +20,7 @@ export default actionMirror(true, [
   'GET_CURRENT_PAGE_DATA',
   'SAVE_CURRENT_PAGE',
   'DOWNLOAD_AS_HTML',
+  'RESTART_PAGE',
 
   // Tab's actions
   'OPEN_TAB',
@@ -49,6 +49,7 @@ export default actionMirror(true, [
 
   // Tempate design's actions
   'LOAD_CONTENTBLOCK_TO_PAGE',
+  'BLOCK_WAS_RENDERED_TO_PAGE',
   'CURRENT_HOVER_BLOCK',
   'REMOVE_CONTENTBLOCK',
   'OPEN_CONTENTBLOCK_SETTINGS',

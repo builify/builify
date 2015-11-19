@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { removeContentBlock, openContentblockSourceEditModal } from '../../Actions/ActionCreators';
+import { removeContentBlock, openContentblockSourceEditModal } from '../../Actions';
 import cx from 'classnames';
 import SvgIcon from './SvgIcon';
 import Dropdown from './Dropdown';

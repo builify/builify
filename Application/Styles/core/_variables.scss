@@ -1,6 +1,5 @@
 //-- Global variables
 $nameprefix: 'ab-';
-$base-color: $color-orange;
 $base-padding: 40px;
 $unit: 1rem;
 $preferred-font: "Open Sans", sans-serif;
@@ -49,7 +48,7 @@ $loadingscreen-bg: #00000C;
 $loadingscreen-loader-border-thickness: 5px;
 $loadingscreen-loader-corner-radio: 8px;
 $loadingscreen-loader-base-opacity: 0.25;
-$loadingscreen-loader-base-color: #2f2f37;
+$loadingscreen-loader-color-primary: #2f2f37;
 $loadingscreen-loader-snake-color: #f1f1f2;
 $loadingscreen-loader-animation-settings: 2s linear infinite;
 $loadingscreen-loader-size-big: 100px;

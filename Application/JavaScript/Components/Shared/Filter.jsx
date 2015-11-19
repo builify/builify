@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { filterContentBlocks } from '../../Actions/ActionCreators';
+import { filterContentBlocks } from '../../Actions';
 import _ from 'lodash';
 import cx from 'classnames';
 

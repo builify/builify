@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { getString } from '../../Common/Localization';
-import { setFont, setSwatch, openColorPicker, openSidetab, closeTab } from '../../Actions/ActionCreators';
+import { setFont, setSwatch, openColorPicker, openSidetab, closeTab } from '../../Actions';
 import { randomKey, getProperty } from '../../Common/Common';
 import cx from 'classnames';
 import _ from 'lodash';

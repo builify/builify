@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { CurrentLocations } from '../../Constants/Defines';
-import { startNewPage, loadPreviousPage } from '../../Actions/ActionCreators';
+import { startNewPage, loadPreviousPage } from '../../Actions';
 import { getString } from '../../Common/Localization';
 import cx from 'classnames';
 import Page from './Page';

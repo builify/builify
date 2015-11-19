@@ -2,7 +2,7 @@
 		position: relative;
 		width: 100%;
 		margin-bottom: 30px;
-		background: $base-color;
+		background: $color-primary;
 		height: $item-height * 2;
 		line-height: $item-height * 2;
 		@include clearfix;
@@ -67,7 +67,7 @@
 
 								&.active,
 								&:hover {
-										color: $base-color;
+										color: $color-primary;
 								}
 						}
 				}

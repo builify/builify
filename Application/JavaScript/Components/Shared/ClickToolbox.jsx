@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { findUpAttr, findUpClassName, getBrowserSize } from '../../Common/Common';
-import { openLinkEditModal, openImageEditModal, openIconEditModal, openContextmenuToolbox, closeContextmenuToolbox } from '../../Actions/ActionCreators';
+import { openLinkEditModal, openImageEditModal, openIconEditModal, openContextmenuToolbox, closeContextmenuToolbox } from '../../Actions';
 import _ from 'lodash';
 import cx from 'classnames';
 import Events from '../../Common/Events';

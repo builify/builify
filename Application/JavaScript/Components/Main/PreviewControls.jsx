@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { setPreviewMode, closePreview } from '../../Actions/ActionCreators';
+import { setPreviewMode, closePreview } from '../../Actions';
 import BackButton from '../Shared/BackButton';
 import SvgIcon from '../Shared/SvgIcon';
 import ControlItem from './PreviewControlItem';

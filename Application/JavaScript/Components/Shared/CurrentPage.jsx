@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { randomKey } from '../../Common/Common';
-import { removeContentBlock, sortContentBlocks } from '../../Actions/ActionCreators';
+import { removeContentBlock, sortContentBlocks } from '../../Actions';
 import _ from 'lodash';
 import cx from 'classnames';
 import Sortable from './Sortable';

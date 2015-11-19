@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import events from '../../Common/Events';
-import Ripple from './Ripple';
+import cx from 'classnames';
+import Events from '../../../Common/Events';
+import Ripple from '../Ripple';
 
-class Checkbox extends Component {
+class Switch extends Component {
   static propTypes = {
     checked: PropTypes.bool,
     className: PropTypes.string,
     disabled: PropTypes.bool,
-    label: PropTypes.any,
+    label: PropTypes.string,
     name: PropTypes.string,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
@@ -24,10 +25,6 @@ class Checkbox extends Component {
     checked: this.props.checked
   };
 
-  componentWillReceiveProps = (next_props) => {
-    this.setState({ checked: next_props.checked });
-  };
-
   handleChange = (event) => {
     this.setState({checked: !this.state.checked}, () => {
       if (this.props.onChange) this.props.onChange(event, this);
@@ -39,38 +36,38 @@ class Checkbox extends Component {
     if (!this.props.disabled) this.handleChange(event);
   };
 
-  handleMouseDown = (event) => {
-    if (!this.props.disabled) this.refs.ripple.start(event);
-  };
-
   handleInputClick = (event) => {
     events.pauseEvent(event);
   };
 
+  handleMouseDown = (event) => {
+    if (!this.props.disabled) this.refs.ripple.start(event);
+  };
+
   render () {
-    let fieldClassName = 'ab-checkbox';
-    let checkboxClassName = 'ab-checkbox__check';
-    if (this.state.checked) checkboxClassName += ` checked`;
-    if (this.props.disabled) fieldClassName += ` disabled`;
-    if (this.props.className) fieldClassName += ` ${this.props.className}`;
+    const labelClassName = cx('ab-switch',
+      this.props.disabled ? 'disabled' : 'field',
+      this.props.className ? this.props.className : null);
+    const switchClassName = this.state.checked ? 'switch-on' : 'switch-off';
 
     return (
       <label
-        className={fieldClassName}
+        className={labelClassName}
         onClick={this.handleClick} >
         <input
           {...this.props}
           ref='input'
-          type='checkbox'
-          className='ab-checkbox__input'
           checked={this.state.checked}
+          className='input'
           onChange={this.handleChange}
           onClick={this.handleInputClick}
-        />
-        <span data-role='checkbox' className={checkboxClassName} onMouseDown={this.handleMouseDown}>
-          <Ripple ref='ripple' data-role='ripple' className='ab-checkbox__ripple' spread={3} centered />
+          type='checkbox' />
+        <span role='switch' className={switchClassName}>
+          <span role='thumb' className='thumb' onMouseDown={this.handleMouseDown}>
+            <Ripple ref='ripple' role='ripple' className='ripple' spread={2.4} centered />
+          </span>
         </span>
-        { this.props.label ? <span data-role='label' className={'ab-checkbox__text'}>{this.props.label}</span> : null }
+        { this.props.label ? <span className='text'>{this.props.label}</span> : null }
       </label>
     );
   }
@@ -92,4 +89,4 @@ class Checkbox extends Component {
   }
 }
 
-export default Checkbox;
+export default Switch;

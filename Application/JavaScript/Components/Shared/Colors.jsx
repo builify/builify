@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { openColorPicker } from '../../Actions/ActionCreators';
+import { openColorPicker } from '../../Actions';
 import { randomKey, findUpClassName } from '../../Common/Common';
 import { getString } from '../../Common/Localization';
 import _ from 'lodash';

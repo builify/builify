@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { getString } from '../../Common/Localization';
-import { openTab, openPreview, openDownloadModal, openRestartModal } from '../../Actions/ActionCreators';
+import { openTab, openPreview, openDownloadModal, openRestartModal } from '../../Actions';
 import { CurrentLocations } from '../../Constants/Defines';
 import cx from 'classnames';
 import SvgIcon from '../Shared/SvgIcon';

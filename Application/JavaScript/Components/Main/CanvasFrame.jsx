@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { currentHoverBlock, removeContentBlock } from '../../Actions/ActionCreators';
+import { currentHoverBlock, blockWasRenderedToPage, removeContentBlock } from '../../Actions';
 import { findUpAttr } from '../../Common/Common';
 import { store } from '../Application';
 import _ from 'lodash';
@@ -15,12 +15,59 @@ class CanvasFrame extends Component {
 
   componentWillReceiveProps (nextProps) {
     const props = nextProps;
-    const currentPage = props.page;
+    const { page: currentPage, builder } = props;
+    const { isPageSelected } = builder;
     const blocks = _.assign({}, this._blocks, currentPage);
 
     this._blocks = blocks;
 
-    this.renderBlocks(blocks);
+    if (isPageSelected) {
+      this.renderBlocks(blocks);
+    } else {
+      //this.cleanCanvas();
+    }
+  }
+
+  cleanCanvas () {
+    const navigationContainer = this.refs['navigation'];
+    const mainElementsContainer = this.refs['main'];
+    const footerContainer = this.refs['footer'];
+    const navigationElement = navigationContainer.children;
+    const mainElements = mainElementsContainer.children;
+    const footerElements = footerContainer.children;
+
+    if (navigationElement.length > 0) {
+      _.map(navigationElement, element => {
+        element.remove();
+      });
+    }
+
+    if (mainElements.length > 0) {
+      for (let i = 0; i < mainElements.length; i++) {
+        const element = mainElements[i];
+
+        if (element !== null && element !== undefined) {
+          console.log(element);
+          element.remove();
+        } else {
+          throw Error(element);
+        }
+      }
+    }
+
+    if (footerElements.length > 0) {
+      _.map(footerElements, element => {
+        element.remove();
+      });
+    }
+  }
+
+  checkBlocks (blocks) {
+    const { navigation, main, footer } = blocks;
+    const mainElementsContainer = this.refs['main'];
+    const mainElements = mainElementsContainer.children;
+    const mainElementsLength = mainElements.length;
+    const mainBlocksLength = main.length;
   }
 
   renderBlocks (blocks) {
@@ -43,7 +90,7 @@ class CanvasFrame extends Component {
 
     elementReference.addEventListener('mouseenter', (e) => {
       return onCoreBlockHover(element);
-    }, false);
+    });
 
     elementReference.setAttribute('data-abc-i', i);
     elementReference.setAttribute('data-abcblocknr', String(id));
@@ -76,7 +123,7 @@ class CanvasFrame extends Component {
   }
 
   renderMainBlocks (mainBlocks) {
-    const { onElementRemove, page } = this.props;
+    const { onElementRemove, onBlockRenderToPage, page } = this.props;
     const { blocksCount } = page;
     const mainElement = this.refs.main;
     const navigationBlock = this._blocks.navigation;
@@ -84,7 +131,7 @@ class CanvasFrame extends Component {
     let doesNavigationBlockExist = false;
 
     _.map(mainBlocks, (block, i) => {
-      const {
+      let {
         id,
         type,
         blockName,
@@ -96,10 +143,11 @@ class CanvasFrame extends Component {
       if (!hasBeenRendered) {
         mainElement.insertAdjacentHTML('beforeend', source);
 
-        block.hasBeenRendered = true;
-        block.elementReference = mainElement.children[i];
-
         this.setElementAttributes(block, i);
+
+        window.setTimeout(() => {
+          onBlockRenderToPage(block, mainElement.children[i]);
+        }, 50);
       }
 
       if (_.has(block, 'updatePosition')) {
@@ -118,16 +166,6 @@ class CanvasFrame extends Component {
         delete block.updatePosition;
       }
     });
-
-    /*if (_.values(navigationBlock).length !== 0) {
-      doesNavigationBlockExist = true;
-
-      if (mainBlocks.length !== 0) {
-        let targetElement = mainBlocks[0].elementReference;
-
-        targetElement.style.paddingTop = '300px';
-      }
-    }*/
 
     this._blocks.main = mainBlocks;
   }
@@ -223,6 +261,7 @@ class CanvasFrame extends Component {
 
 function mapStateToProps (state) {
   return {
+    builder: state.builder,
     page: state.page
   }
 }
@@ -235,6 +274,10 @@ function mapDispatchToProps (dispatch) {
 
     onElementRemove: (element) => {
       dispatch(removeContentBlock(element));
+    },
+
+    onBlockRenderToPage: (block, elementReference) => {
+      dispatch(blockWasRenderedToPage(block, elementReference));
     }
   }
 }

@@ -11,7 +11,7 @@ class DialogWrapper extends Component {
           { children }
         </div>
       </div>
-    )
+    );
   }
 }
 

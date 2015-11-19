@@ -1,7 +1,7 @@
 import { randomKey, replaceDataInHTML, getAbsPosition, addCSSRule } from '../Common/Common';
 import Storage from '../Common/Storage';
 import _ from 'lodash';
-import * as Actions from '../Constants/Actions';
+import * as Actions from '../Actions/Constants';
 
 const pageInitialState = {
   pageID: null,
@@ -18,6 +18,18 @@ const pageInitialState = {
 
 function page (state = pageInitialState, action) {
   switch (action.type) {
+    case Actions.RESTART_PAGE:
+      return _.assign({}, state, {
+        pageID: null,
+        pageTitle: 'Test',
+
+        navigation: {},
+        main: [],
+        footer: {},
+        blocksCount: 0,
+        mainBlocksCount: 0,
+      });
+
     case Actions.START_NEW_PAGE:
       const { pageID } = action;
 
@@ -26,7 +38,11 @@ function page (state = pageInitialState, action) {
       });
 
     case Actions.SAVE_CURRENT_PAGE: {
-      let { pageID, navigation, main, footer, blocksCount } = state;
+      const { pageID, blocksCount } = state;
+      let stateNavigation = state.navigation;
+      let stateMain = state.main;
+      let stateFooter = state.footer;
+
       const resetBlockParameters = (block) => {
         if (_.has(block, 'hasBeenRendered')) {
           block.hasBeenRendered = false;
@@ -35,26 +51,27 @@ function page (state = pageInitialState, action) {
         if (_.has(block, 'elementReference')) {
           block.elementReference = null;
         }
+
+        return block;
       };
 
-      if (pageID !== null) {
+      /*if (pageID) {
         let pagesInStorage = Storage.get('ab-pages');
         const itemIndex = _.findIndex(pagesInStorage, 'id', pageID);
         let pageInStorage = pagesInStorage[itemIndex];
 
         if (pagesInStorage) {
-          _.map(main, (mainItem, idx) => {
-            mainItem.hasBeenRendered = false;
-            mainItem.elementReference = null;
+          stateMain = _.map(stateMain, block => {
+            block = resetBlockParameters(block);
           });
 
-          resetBlockParameters(navigation);
-          resetBlockParameters(footer);
+          stateNavigation = resetBlockParameters(stateNavigation);
+          stateFooter = resetBlockParameters(stateFooter);
 
           pageInStorage = _.assign({}, pageInStorage, {
-            navigation: navigation,
-            main: main,
-            footer: footer,
+            navigation: stateNavigation,
+            main: stateMain,
+            footer: stateFooter,
             blocksCount: blocksCount
           });
 
@@ -62,7 +79,9 @@ function page (state = pageInitialState, action) {
 
           Storage.set('ab-pages', pagesInStorage);
         }
-      }
+      }*/
+
+      console.log(state);
 
       return state;
     }
@@ -105,7 +124,7 @@ function page (state = pageInitialState, action) {
       });
     }
 
-    case Actions.GET_TEMPLATE_DATA:
+    case Actions.GET_TEMPLATE_DATA: {
       let {  replaceInHTML } = state;
 
       if (_.has(action, 'data.replacer')) {
@@ -115,6 +134,7 @@ function page (state = pageInitialState, action) {
       return _.assign({}, state, {
         replaceInHTML: replaceInHTML
       });
+    }
 
     case Actions.LOAD_CONTENTBLOCK_TO_PAGE: {
       let { navigation, main, footer, blocksCount, mainBlocksCount } = state;
@@ -195,6 +215,41 @@ function page (state = pageInitialState, action) {
         footer: footer,
         main: main,
         blocksCount: blocksCount
+      });
+    }
+
+    case Actions.BLOCK_WAS_RENDERED_TO_PAGE: {
+      const { block, elementReference } = action;
+      const { blockType, id } = block;
+      let { navigation, main, footer } = state;
+
+      function setParameters (block) {
+        block.hasBeenRendered = true;
+        block.elementReference = elementReference;
+      }
+
+      if (blockType === 'navigation') {
+        setParameters(navigation);
+      } else if (blockType === 'footer') {
+        setParameters(footer);
+      } else {
+        const indexSearchQuery = { id: id };
+        const index = _.findKey(main, indexSearchQuery);
+
+        let news = main[index];
+
+        news.hasBeenRendered = true;
+        news.elementReference = elementReference;
+
+        main[index] = _.assign({}, main[index], news);
+      }
+
+      console.log(main);
+
+      return _.assign({}, state, {
+        navigation: navigation,
+        main: main,
+        footer: footer
       });
     }
 

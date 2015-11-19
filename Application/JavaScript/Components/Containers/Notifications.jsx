@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { randomKey } from '../../Common/Common';
-import { eliminateNotification } from '../../Actions/ActionCreators';
+import { eliminateNotification } from '../../Actions';
 import cx from 'classnames';
 import LoadingIcon from '../Shared/LoadingIcon';
 import SvgIcon from '../Shared/SvgIcon';

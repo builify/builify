@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { closeModal } from '../../Actions/ActionCreators';
-import { ModalTypes } from '../../Constants/Defines';
+import { closeModal } from '../../Actions';
+import { DialogTypes } from '../../Constants/Defines';
 import Dialog from '../Shared/Dialog';
 
 class DialogContainer extends Component {
@@ -14,7 +14,7 @@ class DialogContainer extends Component {
   render () {
     const { builder } = this.props;
     const { isModalOpen, modalType, modalTarget } = builder;
-    let dialogType = modalType || ModalTypes.CLASSIC;
+    let dialogType = modalType || DialogTypes.CLASSIC;
 
     return (
       <Dialog

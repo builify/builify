@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { startNewPage, loadPreviousPage, openPreviousPagesSelectionModal } from '../../Actions/ActionCreators';
+import { startNewPage, loadPreviousPage, openPreviousPagesSelectionModal } from '../../Actions';
 import { getString } from '../../Common/Localization';
 
 class Page extends Component {

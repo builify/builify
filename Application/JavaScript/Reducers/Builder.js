@@ -1,10 +1,10 @@
 import { CurrentLocations } from '../Constants/Defines';
 import { setLanguage } from '../Common/Localization';
-import { MAXIUMUM_PAGES_IN_STORAGE, ModalTypes } from '../Constants/Defines';
+import { MAXIUMUM_PAGES_IN_STORAGE, DialogTypes } from '../Constants/Defines';
 import { randomKey } from '../Common/Common';
 import _ from 'lodash';
 import Storage from '../Common/Storage';
-import * as Actions from '../Constants/Actions';
+import * as Actions from '../Actions/Constants';
 
 const builderInitialState = {
   isLoadingScreenActive: true,
@@ -45,50 +45,56 @@ function builder (state = builderInitialState, action) {
   }
 
   switch (action.type) {
+    case Actions.RESTART_PAGE:
+      return _.assign({}, state, {
+        currentLocation: CurrentLocations.STARTSCREEN,
+        isPageSelected: false
+      });
+
     case Actions.OPEN_IMAGE_EDIT_MODAL:
       return _.assign({}, state, {
         isModalOpen: true,
-        modalType: ModalTypes.IMAGECHANGE,
+        modalType: DialogTypes.IMAGECHANGE,
         modalTarget: action.target
       });
 
     case Actions.OPEN_ICON_EDIT_MODAL:
       return _.assign({}, state, {
         isModalOpen: true,
-        modalType: ModalTypes.ICONCHANGE,
+        modalType: DialogTypes.ICONCHANGE,
         modalTarget: action.target
       });
 
     case Actions.OPEN_LINK_EDIT_MODAL:
       return _.assign({}, state, {
         isModalOpen: true,
-        modalType: ModalTypes.LINKCHANGE,
+        modalType: DialogTypes.LINKCHANGE,
         modalTarget: action.target
       });
 
     case Actions.OPEN_PREVIOUS_PAGES_SELECT_MODAL:
       return _.assign({}, state, {
         isModalOpen: true,
-        modalType: ModalTypes.PREVIOUSPAGES
+        modalType: DialogTypes.PREVIOUSPAGES
       });
 
     case Actions.OPEN_CONTENTBLOCK_SOURCE_EDIT_MODAL:
       return _.assign({}, state, {
         isModalOpen: true,
-        modalType: ModalTypes.CONTENTBLOCKSOURCE,
+        modalType: DialogTypes.CONTENTBLOCKSOURCE,
         modalTarget: action.currentHoverBlock
       });
 
     case Actions.OPEN_DOWNLOAD_MODAL:
       return _.assign({}, state, {
         isModalOpen: true,
-        modalType: ModalTypes.DOWNLOADPAGES
+        modalType: DialogTypes.DOWNLOADPAGES
       });
 
     case Actions.OPEN_RESTART_MODAL:
       return _.assign({}, state, {
         isModalOpen: true,
-        modalType: ModalTypes.RESTART
+        modalType: DialogTypes.RESTART
       });
 
     case Actions.CLOSE_MODAL:

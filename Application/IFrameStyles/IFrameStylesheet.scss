@@ -50,7 +50,7 @@ body {
 		&__text {
 				color: #FFF;
 				font-weight: 700;
-				background: $base-color;
+				background: $color-primary;
 		}
 
 		&__item {
@@ -156,7 +156,7 @@ body {
 						}
 
 						&.title {
-								background: $base-color;
+								background: $color-primary;
 								color: #FFF;
 								font-weight: 700;
 								@include rem(font-size, 16px);

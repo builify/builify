@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import Events from '../../Common/Events';
-import Ripple from './Ripple';
-import SvgIcon from './SvgIcon';
+import Events from '../../../Common/Events';
+import Ripple from '../Ripple';
+import SvgIcon from '../SvgIcon';
 
 class Button extends Component {
   static propTypes = {

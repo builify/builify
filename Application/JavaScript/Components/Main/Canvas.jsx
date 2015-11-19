@@ -19,7 +19,7 @@ class Canvas extends Component {
     const isStartScreenLocation = currentLocation === CurrentLocations.STARTSCREEN ? true : false;
     let prvMode = '';
     let lndcapeClassname = '';
-
+    
     if (previewMode === PreviewModes.DESKTOP) {
       prvMode = 'desktop';
     } else if (previewMode === PreviewModes.TABLET) {

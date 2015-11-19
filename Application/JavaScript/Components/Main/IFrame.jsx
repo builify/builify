@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM, { render, unmountComponentAtNode } from 'react-dom';
 import { connect } from 'react-redux';
-import { geThemeCustomStylesheetSheet, removeLoadingScreen } from '../../Actions/ActionCreators';
+import { geThemeCustomStylesheetSheet, removeLoadingScreen } from '../../Actions';
 import _ from 'lodash';
 
 class Frame extends Component {

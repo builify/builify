@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setPageTitle } from '../../Actions/ActionCreators';
+import { setPageTitle } from '../../Actions';
 import Input from './Input';
 
 class PageTools extends Component {
