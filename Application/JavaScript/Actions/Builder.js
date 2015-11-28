@@ -1,4 +1,4 @@
-import { getConfiguration, getTemplateMani, setSessionStoreParameters, randomKey, downloadPages } from '../Common/Common';
+import { getConfiguration, getTemplateMani, setSessionStoreParameters, randomKey } from '../Common/Common';
 import { getLocalizationFile } from './Localization';
 import { checkPreviousPagesInStorage, saveCurrentPage } from './Page';
 import Actions from './Constants';
@@ -97,5 +97,12 @@ export function returnTemplateData (data) {
   return {
     type: Actions.GET_TEMPLATE_DATA,
     data: data
+  }
+}
+
+export function downloadPages (pages) {
+  return {
+    type: Actions.DOWNLOAD_PAGES,
+    pages: pages
   }
 }

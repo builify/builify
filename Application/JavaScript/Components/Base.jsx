@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CurrentLocations } from '../Constants/Defines';
+import { CurrentLocations } from '../Constants';
 import { addNotification } from '../Actions';
 import cx from 'classnames';
 import Aside from './Aside/Aside';

@@ -1,9 +1,11 @@
+import * as Constants from '../../../Constants';
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM, { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
-import { restartPage, closeModal } from '../../../Actions';
+import { closeModal, updateContentBlockSource } from '../../../Actions';
 import cx from 'classnames';
 import _ from 'lodash';
+import Input from '../Input'
 import Button from '../Button';
 import Dropdown from '../Dropdown';
 import DialogWrapper from './DialogWrapper';
@@ -11,19 +13,49 @@ import DialogBody from './DialogBody';
 
 class DialogLinkChange extends Component {
   static propTypes = {
-    active: PropTypes.bool.isRequired
+    active: PropTypes.bool.isRequired,
+    editTarget: PropTypes.any.isRequired
   };
 
   dialogElement = null;
+  targetBlock = null;
+  labelValue = '';
 
   shouldComponentUpdate (nextProps, nextState) {
     return false;
   }
 
+  componentWillMount () {
+    const { editTarget, page } = this.props;
+    const { navigation, main, footer } = page;
+    const targetID = editTarget.getAttribute(Constants.CONTENTBLOCK_ATTR_ID);
+    const targetType = editTarget.getAttribute(Constants.CONTENTBLOCK_ATTR_TYPE);
+
+    if (targetType === 'navigation') {
+      this.targetBlock = navigation;
+      this.labelValue = navigation.source;
+    } else if (targetType === 'footer') {
+      this.targetBlock = footer;
+      this.labelValue = footer.source;
+    } else {
+      const indexSearchQuery = { id: targetID };
+      const itemIndex = _.findIndex(main, indexSearchQuery);
+
+      if (itemIndex >= 0) {
+        const block = main[itemIndex];
+
+        this.targetBlock = block;
+        this.labelValue = block.source;
+      } else {
+        throw Error('Something went wrong when querying item for source editing. ' + targetID);
+      }
+    }
+  }
+
   componentDidMount () {
     const { active } = this.props;
     const dialogRef = this.refs['dialog'];
-    const dialogElement = ReactDOM.findDOMNode(dialogRef);
+    const dialogElement = findDOMNode(dialogRef);
 
     this.dialogElement = dialogElement;
 
@@ -59,7 +91,7 @@ class DialogLinkChange extends Component {
       dialogElement = this.dialogElement;
     } else {
       const dialogRef = this.refs['dialog'];
-      dialogElement = ReactDOM.findDOMNode(dialogRef);
+      dialogElement = findDOMNode(dialogRef);
     }
 
     if (dialogElement) {
@@ -71,32 +103,32 @@ class DialogLinkChange extends Component {
     }, 300);
   }
 
-  noClick (e) {
+  cancelClick (e) {
     this.closeDialog();
   }
 
-  yesClick (e) {
-    const { onRestart } = this.props;
+  saveClick (e) {
+    const { editTarget, onUpdateContentBlockSource } = this.props;
+    const inputValue = this.refs.contentblocksource.getValue();
+
+    if (inputValue) {
+      onUpdateContentBlockSource(this.targetBlock, inputValue);
+    }
 
     this.closeDialog();
-
-    return onRestart();
   }
 
   renderActions () {
     const actions = [
-      { label: 'No', onClick: ::this.noClick },
-      { label: 'Yes', onClick: ::this.yesClick }
+      { label: 'Cancel', onClick: ::this.cancelClick },
+      { label: 'Save', onClick: ::this.saveClick }
     ];
 
     return this.renderButtons(actions);
   }
 
   render () {
-    const { editTarget } = this.props;
-    const className = cx('ab-dialog', 'medium');
-    const editTargetInnerHTML = editTarget.innerHTML;
-    const labelValue = editTargetInnerHTML || 'Source';
+    const className = cx('ab-dialog', 'contentblocksource');
 
     return (
       <DialogWrapper
@@ -106,7 +138,7 @@ class DialogLinkChange extends Component {
           <Input
             ref='contentblocksource'
             multiline
-            value={labelValue}
+            value={this.labelValue}
             label='Contentblock Source' />
         </DialogBody>
         <nav role='navigation' className='ab-dialog__navigation'>
@@ -127,6 +159,10 @@ function mapDispatchToProps (dispatch) {
   return {
     onCloseModal: () => {
       dispatch(closeModal());
+    },
+
+    onUpdateContentBlockSource: (block, newSource) => {
+      dispatch(updateContentBlockSource(block, newSource));
     }
   }
 }

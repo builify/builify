@@ -1,5 +1,4 @@
 import { getConfiguration, getTemplateMani, setSessionStoreParameters, randomKey, downloadPages } from '../Common/Common';
-import axios from 'axios';
 import Actions from './Constants';
 
 export function addNotification (notification) {
@@ -93,6 +92,7 @@ export function setFont (font) {
 
 export function loadContentBlockSource (source, blockType, blockName) {
   return (dispatch, getState) => {
+    const xmlhttp = new XMLHttpRequest();
     const contentBlockId = randomKey();
 
     dispatch(addNotification({
@@ -100,16 +100,23 @@ export function loadContentBlockSource (source, blockType, blockName) {
       id: contentBlockId
     }));
 
-    axios.get('/Template/' + String(source))
-      .then((response) => {
-        if (response.hasOwnProperty('data')) {
+    xmlhttp.onreadystatechange = () => {
+      if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
+        if (xmlhttp.status == 200) {
+          const response = xmlhttp.responseText;
+
           dispatch(eliminateNotification(contentBlockId));
-          dispatch(loadContentBlockToPage(response.data, blockType, blockName));
+          dispatch(loadContentBlockToPage(response, blockType, blockName));
+        } else if(xmlhttp.status == 400) {
+          throw Error('There was an error 400')
+        } else {
+          throw Error('something else other than 200 was returned')
         }
-      })
-      .catch((response) => {
-        throw Error(response);
-      });
+      }
+    }
+
+    xmlhttp.open('GET', '/Template/' + String(source), true);
+    xmlhttp.send();
   }
 }
 
@@ -127,6 +134,21 @@ export function blockWasRenderedToPage (block, elementReference) {
     type: Actions.BLOCK_WAS_RENDERED_TO_PAGE,
     block: block,
     elementReference: elementReference
+  }
+}
+
+export function updateContentBlockSource (block, newSource) {
+  return {
+    type: Actions.UPDATE_CONTENTBLOCK_SOURCE,
+    block: block,
+    newSource: newSource
+  }
+}
+
+export function contentBlockWasUpdated (block) {
+  return {
+    type: Actions.CONTENTBLOCK_WAS_UPDATED,
+    block: block
   }
 }
 

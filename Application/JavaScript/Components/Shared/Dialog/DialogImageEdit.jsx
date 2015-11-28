@@ -34,7 +34,7 @@ class DialogImageEdit extends Component {
     this.dialogElement = dialogElement;
 
     if (active) {
-      window.setTimeout(() => {
+      _.delay(() => {
         if (dialogElement) {
           dialogElement.classList.add('active');
         }
@@ -113,7 +113,7 @@ class DialogImageEdit extends Component {
       dialogElement.classList.remove('active');
     }
 
-    window.setTimeout(() => {
+    _.delay(() => {
       return onCloseModal();
     }, 300);
   }

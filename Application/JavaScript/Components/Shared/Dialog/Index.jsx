@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { DialogTypes } from '../../../Constants/Defines';
+import { DialogTypes } from '../../../Constants';
 import { randomKey } from '../../../Common/Common';
 import { loadPreviousPage } from '../../../Actions';
 import _ from 'lodash';

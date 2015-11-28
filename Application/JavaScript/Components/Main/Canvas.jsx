@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { CurrentLocations, PreviewModes } from '../../Constants/Defines';
+import { CurrentLocations, PreviewModes } from '../../Constants';
 import cx from 'classnames';
 import CanvasSuggestionBox from '../Shared/CanvasSuggestionBox';
 import Scrollbar from '../Shared/Scrollbar';
@@ -19,7 +19,7 @@ class Canvas extends Component {
     const isStartScreenLocation = currentLocation === CurrentLocations.STARTSCREEN ? true : false;
     let prvMode = '';
     let lndcapeClassname = '';
-    
+
     if (previewMode === PreviewModes.DESKTOP) {
       prvMode = 'desktop';
     } else if (previewMode === PreviewModes.TABLET) {

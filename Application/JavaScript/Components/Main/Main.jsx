@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CurrentLocations } from '../../Constants/Defines';
+import { CurrentLocations } from '../../Constants';
 import cx from 'classnames';
 import Canvas from './Canvas';
 import ProjectStartScreen from './ProjectStartScreen';

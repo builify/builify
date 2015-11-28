@@ -1,10 +1,11 @@
-import { CurrentLocations } from '../Constants/Defines';
+import { CurrentLocations } from '../Constants';
 import { setLanguage } from '../Common/Localization';
-import { MAXIUMUM_PAGES_IN_STORAGE, DialogTypes } from '../Constants/Defines';
+import { MAXIUMUM_PAGES_IN_STORAGE, DialogTypes } from '../Constants';
 import { randomKey } from '../Common/Common';
-import _ from 'lodash';
-import Storage from '../Common/Storage';
 import * as Actions from '../Actions/Constants';
+import _ from 'lodash';
+import DownloadPages from '../Common/DownloadPages';
+import Storage from '../Common/Storage';
 
 const builderInitialState = {
   isLoadingScreenActive: true,
@@ -45,6 +46,23 @@ function builder (state = builderInitialState, action) {
   }
 
   switch (action.type) {
+    case Actions.DOWNLOAD_PAGES: {
+      const { pages } = state;
+      const { pages: selectedPages } = action;
+      const selectPagesLength = selectedPages.length;
+      let queryPages = [];
+
+      if (selectPagesLength !== 0) {
+        for (let i = 0; i < selectPagesLength; i++) {
+          queryPages.push(pages[selectedPages[i]]);
+        }
+
+        DownloadPages.download(queryPages);
+      }
+
+      return state;
+    }
+
     case Actions.RESTART_PAGE:
       return _.assign({}, state, {
         currentLocation: CurrentLocations.STARTSCREEN,
@@ -125,8 +143,10 @@ function builder (state = builderInitialState, action) {
     case Actions.START_NEW_PAGE: {
       const { pageID, pagesInStorage } = action;
       const pageObject = {
-        id: pageID,
-        title: 'Unnamed',
+        pageID: pageID,
+        pageTitle: 'Page Title',
+        pageFileName: 'index.html',
+        pageFullSource: null,
 
         navigation: {},
         main: [],

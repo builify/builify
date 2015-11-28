@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { closeModal } from '../../Actions';
-import { DialogTypes } from '../../Constants/Defines';
+import { DialogTypes } from '../../Constants';
 import Dialog from '../Shared/Dialog';
 
 class DialogContainer extends Component {

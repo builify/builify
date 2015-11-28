@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { getString } from '../../Common/Localization';
 import { openTab, openPreview, openDownloadModal, openRestartModal } from '../../Actions';
-import { CurrentLocations } from '../../Constants/Defines';
+import { CurrentLocations } from '../../Constants';
 import cx from 'classnames';
 import SvgIcon from '../Shared/SvgIcon';
 
@@ -35,28 +35,41 @@ class PrimaryNavigationItem extends Component {
   render () {
     const { onGetHTML, onRestartClick, builder, navigationItemInformation } = this.props;
     const { id, icon, target } = navigationItemInformation;
-    const { currentLocation } = builder;
+    const { currentLocation, pages } = builder;
     let itemClassName = cx(currentLocation == CurrentLocations.STARTSCREEN ?
       (id !== 'pages' ? 'hide' : '') : '');
 
     if (id === 'gethtml') {
-      return (
-        <li
-          onClick={onGetHTML}
-          className='html'>
-          <SvgIcon icon='file-download' />
-          <span>{'Get HTML'}</span>
-        </li>
-      )
+      if (pages.length !== 0) {
+        return (
+          <li
+            onClick={onGetHTML}
+            className='html'>
+            <SvgIcon icon='file-download' />
+            <span>{'Get HTML'}</span>
+          </li>
+        );
+      } else {
+        return (
+          <li
+            className='html hide'>
+            <SvgIcon icon='file-download' />
+            <span>{'Get HTML'}</span>
+          </li>
+        );
+      }
     } else if (id=== 'restore') {
+      const clickFunc = currentLocation !== CurrentLocations.STARTSCREEN ?
+        onRestartClick : function () {};
+
       return (
         <li
           className={itemClassName}
-          onClick={onRestartClick}>
+          onClick={clickFunc}>
           <SvgIcon icon='restore' />
           <span>{'Restart'}</span>
         </li>
-      )
+      );
     } else {
       return (
         <li
@@ -65,7 +78,7 @@ class PrimaryNavigationItem extends Component {
           <SvgIcon icon={icon} />
           {getString('primarynavigation.' + id)}
         </li>
-      )
+      );
     }
   }
 }

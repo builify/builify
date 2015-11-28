@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { currentHoverBlock, blockWasRenderedToPage, removeContentBlock } from '../../Actions';
 import { findUpAttr } from '../../Common/Common';
 import { store } from '../Application';
+import { CONTENTBLOCK_ATTR_ID, CONTENTBLOCK_ATTR_FIRST_ELEMENT, CONTENTBLOCK_ATTR_TYPE } from '../../Constants';
 import _ from 'lodash';
-import AClass from '../../Common/AClass';
 import Events from '../../Common/Events';
 import ClickToolbox from '../Shared/ClickToolbox';
 import SectionToolBox from '../Shared/SectionToolBox';
@@ -14,18 +14,17 @@ class CanvasFrame extends Component {
   _blocks = {};
 
   componentWillReceiveProps (nextProps) {
-    const props = nextProps;
-    const { page: currentPage, builder } = props;
-    const { isPageSelected } = builder;
+    const { page: currentPage } = nextProps;
+    //const { isPageSelected } = builder;
     const blocks = _.assign({}, this._blocks, currentPage);
 
     this._blocks = blocks;
 
-    if (isPageSelected) {
+    //if (isPageSelected) {
       this.renderBlocks(blocks);
-    } else {
-      //this.cleanCanvas();
-    }
+    /*} else {
+      this.cleanCanvas();
+    }*/
   }
 
   cleanCanvas () {
@@ -36,30 +35,21 @@ class CanvasFrame extends Component {
     const mainElements = mainElementsContainer.children;
     const footerElements = footerContainer.children;
 
-    if (navigationElement.length > 0) {
-      _.map(navigationElement, element => {
+    _.map(navigationElement, element => {
+      element.remove();
+    });
+
+    _.map(mainElements, element => {
+      if (element !== null && element !== undefined) {
         element.remove();
-      });
-    }
-
-    if (mainElements.length > 0) {
-      for (let i = 0; i < mainElements.length; i++) {
-        const element = mainElements[i];
-
-        if (element !== null && element !== undefined) {
-          console.log(element);
-          element.remove();
-        } else {
-          throw Error(element);
-        }
+      } else {
+        throw Error(element);
       }
-    }
+    });
 
-    if (footerElements.length > 0) {
-      _.map(footerElements, element => {
-        element.remove();
-      });
-    }
+    _.map(footerElements, element => {
+      element.remove();
+    });
   }
 
   checkBlocks (blocks) {
@@ -80,50 +70,31 @@ class CanvasFrame extends Component {
     this.hoverBlocks();
   }
 
-  setElementAttributes (element, i: 0) {
-    const { id, type, blockName, elementReference } = element;
-    const { onCoreBlockHover } = this.props;
+  setElementAttributes (block, elementReference, updateMode: false) {
+    const { id, type, blockName } = block;
+    const { onCoreBlockHover, onBlockRenderToPage } = this.props;
 
-    if (elementReference === undefined || elementReference === null) {
-      return;
+    if (!block || elementReference === undefined || elementReference === null) {
+      throw Error('Something went wrong when setting block attributes. ' + block);
     }
 
-    elementReference.addEventListener('mouseenter', (e) => {
-      return onCoreBlockHover(element);
-    });
+    if (updateMode) {
 
-    elementReference.setAttribute('data-abc-i', i);
-    elementReference.setAttribute('data-abcblocknr', String(id));
-    elementReference.setAttribute('data-abccorent', 'true');
-    elementReference.setAttribute('data-abcblocktype', type);
-  }
+    } else {
+      elementReference.addEventListener('mouseenter', (e) => {
+        return onCoreBlockHover(block);
+      });
 
-  renderNavigation (navigationBlock) {
-    const navigationElement = this.refs.navigation;
+      elementReference.setAttribute(CONTENTBLOCK_ATTR_ID, id);
+      elementReference.setAttribute(CONTENTBLOCK_ATTR_FIRST_ELEMENT, 'true');
+      elementReference.setAttribute(CONTENTBLOCK_ATTR_TYPE, type);
 
-    if (_.values(navigationBlock).length !== 0) {
-      const { id, type, blockName, source, hasBeenRendered } = navigationBlock;
-
-      if (!id || !type || !blockName || !source) {
-        throw Error('Wrong navigation block. ' + navigationBlock);
-      }
-
-      if (!hasBeenRendered) {
-        navigationElement.innerHTML = '';
-        navigationElement.insertAdjacentHTML('beforeend', source);
-
-        navigationBlock.hasBeenRendered = true;
-        navigationBlock.elementReference = navigationElement.children[0];
-
-        this.setElementAttributes(navigationBlock);
-      }
+      onBlockRenderToPage(block, elementReference);
     }
-
-    this._blocks.navigation = navigationBlock;
   }
 
   renderMainBlocks (mainBlocks) {
-    const { onElementRemove, onBlockRenderToPage, page } = this.props;
+    const { onElementRemove, page } = this.props;
     const { blocksCount } = page;
     const mainElement = this.refs.main;
     const navigationBlock = this._blocks.navigation;
@@ -131,23 +102,37 @@ class CanvasFrame extends Component {
     let doesNavigationBlockExist = false;
 
     _.map(mainBlocks, (block, i) => {
-      let {
+      const {
         id,
         type,
         blockName,
         source,
         hasBeenRendered,
-        elementReference
+        elementReference,
+        updateBlock
       } = block;
 
       if (!hasBeenRendered) {
         mainElement.insertAdjacentHTML('beforeend', source);
 
-        this.setElementAttributes(block, i);
+        this.setElementAttributes(block, mainElement.children[i]);
+      } else if (updateBlock) {
+        function removeFirstTag (source) {
+          const reg = /(<([^>]+)>)/g;
+          const matches = source.match(reg);
+          let result = Array.from(matches);
 
-        window.setTimeout(() => {
-          onBlockRenderToPage(block, mainElement.children[i]);
-        }, 50);
+          result.shift();
+          result.pop();
+
+          result = result.join('');
+
+          return result;
+        }
+
+        elementReference.innerHTML = removeFirstTag(source);
+
+        //this.setElementAttributes(block, mainElement.children[i]);
       }
 
       if (_.has(block, 'updatePosition')) {
@@ -170,20 +155,42 @@ class CanvasFrame extends Component {
     this._blocks.main = mainBlocks;
   }
 
+  renderNavigation (navigationBlock) {
+    const navigationElement = this.refs.navigation;
+
+    if (_.values(navigationBlock).length !== 0) {
+      const { id, type, blockName, source, hasBeenRendered } = navigationBlock;
+
+      if (!id || !type || !blockName || !source) {
+        throw Error('Wrong navigation block. ' + navigationBlock);
+      }
+
+      if (!hasBeenRendered) {
+        navigationElement.innerHTML = '';
+        navigationElement.insertAdjacentHTML('beforeend', source);
+
+        this.setElementAttributes(navigationBlock, navigationElement.children[0]);
+      }
+    }
+
+    this._blocks.navigation = navigationBlock;
+  }
+
   renderFooter (footerBlock) {
     const footerElement = this.refs.footer;
 
     if (_.values(footerBlock).length !== 0) {
-      const { id, type, blockName, source, hasBeenRendered } = footerBlock;
+      const { id, type, blockName, source, hasBeenRendered, updateBlock } = footerBlock;
+
+      if (!id || !type || !blockName || !source) {
+        throw Error('Wrong footer block. ' + navigationBlock);
+      }
 
       if (!hasBeenRendered) {
         footerElement.innerHTML = '';
         footerElement.insertAdjacentHTML('beforeend', source);
 
-        footerBlock.hasBeenRendered = true;
-        footerBlock.elementReference = footerElement.children[0];
-
-        this.setElementAttributes(footerBlock);
+        this.setElementAttributes(footerBlock, footerElement.children[0]);
       }
     }
 
@@ -261,7 +268,6 @@ class CanvasFrame extends Component {
 
 function mapStateToProps (state) {
   return {
-    builder: state.builder,
     page: state.page
   }
 }

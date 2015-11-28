@@ -1,7 +1,5 @@
 import stripJSONComments from 'strip-json-comments';
-import JSZip from 'jszip';
 import _ from 'lodash';
-import { saveAs } from './FileSaver';
 import builderConfiguration from '../Data/Builder/Builder';
 import templateManifest from '../Data/Template/Manifest';
 
@@ -83,36 +81,6 @@ export function getOffset (element) {
 
 export function randomKey (str) {
   return _.uniqueId((str ? str : null));
-}
-
-export function getIframeWindow (iFrame) {
-  let doc;
-
-  if (iFrame.contentWindow) {
-    return iFrame.contentWindow;
-  }
-
-  if (iFrame.window) {
-    return iFrame.window;
-  }
-
-  if (!doc && iFrame.contentDocument) {
-    doc = iFrame.contentDocument;
-  }
-
-  if (!doc && iFrame.document) {
-    doc = iFrame.document;
-  }
-
-  if (doc && doc.defaultView) {
-   return doc.defaultView;
-  }
-
-  if (doc && doc.parentWindow) {
-    return doc.parentWindow;
-  }
-
-  return undefined;
 }
 
 export function getProperty (obj, prop) {

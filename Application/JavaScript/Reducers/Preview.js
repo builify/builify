@@ -1,4 +1,4 @@
-import { PreviewModes } from '../Constants/Defines';
+import { PreviewModes } from '../Constants';
 import _ from 'lodash';
 import * as Actions from '../Actions/Constants';
 

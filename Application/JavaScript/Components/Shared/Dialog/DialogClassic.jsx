@@ -8,9 +8,10 @@ import Button from '../Button';
 import DialogWrapper from './DialogWrapper';
 import DialogBody from './DialogBody';
 
-class DialogRestart extends Component {
+class DialogClassic extends Component {
   static propTypes = {
-    active: PropTypes.bool.isRequired
+    active: PropTypes.bool.isRequired,
+    title: PropTypes.string
   };
 
   dialogElement = null;
@@ -109,25 +110,4 @@ class DialogRestart extends Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    page: state.page
-  }
-}
-
-function mapDispatchToProps (dispatch) {
-  return {
-    onRestart: () => {
-      dispatch(restartPage());
-    },
-
-    onCloseModal: () => {
-      dispatch(closeModal());
-    }
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DialogRestart);
+export default DialogClassic;

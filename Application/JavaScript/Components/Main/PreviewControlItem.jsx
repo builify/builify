@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { PreviewModes } from '../../Constants/Defines';
+import { PreviewModes } from '../../Constants';
 import { setPreviewMode, closePreview, rotatePreviewView } from '../../Actions';
 import cx from 'classnames';
 import BackButton from '../Shared/BackButton';
@@ -63,14 +63,14 @@ class ControlItem extends Component {
           icon={icon}
           size={iconSize} />
       </li>
-    )
+    );
   }
 }
 
 function mapStateToProps (state) {
   return {
     preview: state.preview
-  }
+  };
 }
 
 function mapDispatchToProps (dispatch) {
@@ -82,7 +82,7 @@ function mapDispatchToProps (dispatch) {
     onRotatePreviewView: () => {
       dispatch(rotatePreviewView());
     }
-  }
+  };
 }
 
 export default connect(

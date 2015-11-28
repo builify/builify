@@ -1,87 +1,101 @@
 import { randomKey, replaceDataInHTML, getAbsPosition, addCSSRule } from '../Common/Common';
 import Storage from '../Common/Storage';
+import Random from '../Common/Random';
+import DOM from '../Common/DOM';
 import _ from 'lodash';
 import * as Actions from '../Actions/Constants';
 
 const pageInitialState = {
+  // Core
   pageID: null,
-  pageTitle: 'Test',
+  pageTitle: 'Page Title',
+  pageFileName: 'index.html',
+  pageFullSource: null,
 
+  // Blocks
   navigation: {},
   main: [],
   footer: {},
   blocksCount: 0,
-  mainBlocksCount: 0,
 
+  // Misc
   replaceInHTML: []
 };
+
+function resetBlockParameters (block) {
+  if (_.has(block, 'hasBeenRendered')) {
+    console.log(block);
+    block.hasBeenRendered = false;
+  }
+
+  if (_.has(block, 'elementReference')) {
+    block.elementReference = null;
+  }
+
+  return block;
+}
 
 function page (state = pageInitialState, action) {
   switch (action.type) {
     case Actions.RESTART_PAGE:
       return _.assign({}, state, {
         pageID: null,
-        pageTitle: 'Test',
+        pageTitle: 'Page Title',
+        pageFileName: 'index.html',
+        pageFullSource: null,
 
         navigation: {},
         main: [],
         footer: {},
-        blocksCount: 0,
-        mainBlocksCount: 0,
+        blocksCount: 0
       });
 
-    case Actions.START_NEW_PAGE:
+    case Actions.START_NEW_PAGE: {
       const { pageID } = action;
 
-      return Object.assign({}, state, {
+      return _.assign({}, state, {
         pageID: pageID
       });
+    }
 
     case Actions.SAVE_CURRENT_PAGE: {
-      const { pageID, blocksCount } = state;
-      let stateNavigation = state.navigation;
-      let stateMain = state.main;
-      let stateFooter = state.footer;
+      const { pageID, pageTitle, navigation, main, footer, blocksCount } = state;
+      const mainCopy = _.assign({}, state.main);
 
-      const resetBlockParameters = (block) => {
-        if (_.has(block, 'hasBeenRendered')) {
-          block.hasBeenRendered = false;
-        }
+      if (pageID) {
+        const pagesInStorage = Storage.get('ab-pages');
+        const queryString = { pageID: pageID };
+        const itemIndex = _.findIndex(pagesInStorage, queryString);
+        const pageInStorage = pagesInStorage[itemIndex];
 
-        if (_.has(block, 'elementReference')) {
-          block.elementReference = null;
-        }
+        if (pageInStorage) {
+          const pageTitle = 'Page Title';
+          const pageFileName = 'index-' + randomKey() + '.html';
 
-        return block;
-      };
+          const iFrame = DOM.getIFrame('ab-cfrm');
+          const iFrameWindow = DOM.getIFrameWindow(iFrame);
+          const pageFullSource = iFrameWindow.document.documentElement.innerHTML;
 
-      /*if (pageID) {
-        let pagesInStorage = Storage.get('ab-pages');
-        const itemIndex = _.findIndex(pagesInStorage, 'id', pageID);
-        let pageInStorage = pagesInStorage[itemIndex];
+          let newPages = pagesInStorage;
+          let newPage = pageInStorage;
 
-        if (pagesInStorage) {
-          stateMain = _.map(stateMain, block => {
-            block = resetBlockParameters(block);
-          });
+          newPage = _.assign({}, newPage, {
+            pageID: pageID,
+            pageTitle: pageTitle,
+            pageFileName: pageFileName,
+            pageFullSource: pageFullSource,
 
-          stateNavigation = resetBlockParameters(stateNavigation);
-          stateFooter = resetBlockParameters(stateFooter);
-
-          pageInStorage = _.assign({}, pageInStorage, {
-            navigation: stateNavigation,
-            main: stateMain,
-            footer: stateFooter,
+            navigation: navigation,
+            main: main,
+            footer: footer,
             blocksCount: blocksCount
           });
 
-          pagesInStorage[itemIndex] = pageInStorage;
+          newPages[itemIndex] = newPage;
 
-          Storage.set('ab-pages', pagesInStorage);
+          Storage.set('ab-pages', newPages);
         }
-      }*/
-
-      console.log(state);
+      }
 
       return state;
     }
@@ -137,21 +151,34 @@ function page (state = pageInitialState, action) {
     }
 
     case Actions.LOAD_CONTENTBLOCK_TO_PAGE: {
-      let { navigation, main, footer, blocksCount, mainBlocksCount } = state;
+      let { navigation, main, footer, blocksCount } = state;
 
       if (_.has(action, 'HTML')) {
         let { HTML, blockType, blockName } = action;
         const { replaceInHTML } = state;
-        const blockID = randomKey();
+        const sourceString = replaceDataInHTML(HTML, replaceInHTML).toString();
+        const blockID = Random.randomString(13);
         const blockInformation = {
           id: blockID,
           type: blockType,
           blockName: blockName,
-          source: replaceDataInHTML(HTML, replaceInHTML),
+          source: sourceString,
 
           hasBeenRendered: false,
-          elementReference: null
+          elementReference: null,
+          updateBlock: false
         };
+
+        function removeFirstTag (source) {
+          const reg = /(<([^>]+)>)/g;
+          const matches = source.match(reg);
+          let arr = Array.from(matches);
+
+          arr.shift();
+          arr.pop();
+        }
+
+        removeFirstTag(sourceString);
 
         if (blockType === 'navigation') {
           navigation = blockInformation;
@@ -159,7 +186,6 @@ function page (state = pageInitialState, action) {
           footer = blockInformation;
         } else {
           main.push(blockInformation);
-          mainBlocksCount++;
         }
 
         blocksCount++;
@@ -169,8 +195,7 @@ function page (state = pageInitialState, action) {
         navigation: navigation,
         footer: footer,
         main: main,
-        blocksCount: blocksCount,
-        mainBlocksCount: mainBlocksCount
+        blocksCount: blocksCount
       });
     }
 
@@ -220,7 +245,7 @@ function page (state = pageInitialState, action) {
 
     case Actions.BLOCK_WAS_RENDERED_TO_PAGE: {
       const { block, elementReference } = action;
-      const { blockType, id } = block;
+      const { type: blockType, id } = block;
       let { navigation, main, footer } = state;
 
       function setParameters (block) {
@@ -235,16 +260,10 @@ function page (state = pageInitialState, action) {
       } else {
         const indexSearchQuery = { id: id };
         const index = _.findKey(main, indexSearchQuery);
-
         let news = main[index];
 
-        news.hasBeenRendered = true;
-        news.elementReference = elementReference;
-
-        main[index] = _.assign({}, main[index], news);
+        main[index] = _.assign({}, main[index], setParameters(news));
       }
-
-      console.log(main);
 
       return _.assign({}, state, {
         navigation: navigation,
@@ -256,7 +275,7 @@ function page (state = pageInitialState, action) {
     case Actions.GET_CURRENT_PAGE_DATA:
       return state;
 
-    case Actions.SORT_CONTENTBLOCKS:
+    case Actions.SORT_CONTENTBLOCKS: {
       const { evt } = action;
       const { newIndex, oldIndex, item } = evt;
       const blockIdElement = item.querySelector('[data-blockid]');
@@ -279,6 +298,40 @@ function page (state = pageInitialState, action) {
       return _.assign({}, state, {
         main: main
       });
+    }
+
+    case Actions.UPDATE_CONTENTBLOCK_SOURCE: {
+      const { block, newSource } = action;
+      const { type } = block;
+      let { navigation: nav, main: mai, footer: ftr } = state;
+
+      if (type === 'navigation') {
+        nav.source = newSource;
+        mainBlock.updateBlock = true;
+      } else if (type === 'footer') {
+        ftr.source = newSource;
+        mainBlock.updateBlock = true;
+      } else {
+        const blockID = block.id;
+        const indexSearchQuery = { id: blockID };
+        const itemIndex = _.findIndex(mai, indexSearchQuery);
+
+        if (itemIndex >= 0) {
+          const mainBlock = mai[itemIndex];
+
+          mainBlock.source = newSource;
+          mainBlock.updateBlock = true;
+        } else {
+          throw Error('Could not find block from state main blocks. ' + block);
+        }
+      }
+
+      return _.assign({}, state, {
+        navigation: nav,
+        main: mai,
+        footer: ftr
+      });
+    }
   }
 
   return state;

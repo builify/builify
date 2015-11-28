@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM, { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
-import { restartPage, closeModal } from '../../../Actions';
+import { downloadPages, closeModal } from '../../../Actions';
 import cx from 'classnames';
 import _ from 'lodash';
 import Time from '../../../Common/Time';
@@ -33,6 +33,12 @@ class TablePages extends Component {
     this.setState({ selected });
   }
 
+  getSelected () {
+    const { selected } = this.state;
+
+    return selected;
+  }
+
   render () {
     return (
       <Table
@@ -59,12 +65,12 @@ class DialogDownloadPages extends Component {
   componentDidMount () {
     const { active } = this.props;
     const dialogRef = this.refs['dialog'];
-    const dialogElement = ReactDOM.findDOMNode(dialogRef);
+    const dialogElement = findDOMNode(dialogRef);
 
     this.dialogElement = dialogElement;
 
     if (active) {
-      window.setTimeout(() => {
+      _.delay(() => {
         dialogElement.classList.add('active');
       }, 16);
     }
@@ -93,34 +99,35 @@ class DialogDownloadPages extends Component {
       dialogElement = this.dialogElement;
     } else {
       const dialogRef = this.refs['dialog'];
-      dialogElement = ReactDOM.findDOMNode(dialogRef);
+      dialogElement = findDOMNode(dialogRef);
     }
 
     if (dialogElement) {
       dialogElement.classList.remove('active');
     }
 
-    window.setTimeout(() => {
+    _.delay(() => {
       return onCloseModal();
     }, 300);
   }
 
-  noClick (e) {
+  cancelClick (e) {
     this.closeDialog();
   }
 
-  yesClick (e) {
-    const { onRestart } = this.props;
+  downloadClick (e) {
+    const { onDownload } = this.props;
+    const selectedPages = this.refs['pages'].getSelected();
 
     this.closeDialog();
 
-    return onRestart();
+    return onDownload(selectedPages);
   }
 
   renderActions () {
     const actions = [
-      { label: 'No', onClick: ::this.noClick },
-      { label: 'Yes', onClick: ::this.yesClick }
+      { label: 'Cancel', onClick: ::this.cancelClick },
+      { label: 'Download', onClick: ::this.downloadClick }
     ];
 
     return this.renderButtons(actions);
@@ -137,49 +144,52 @@ class DialogDownloadPages extends Component {
     let pages = [];
 
     _.map(builderPages, (page, idx) => {
-      const { id, title } = page;
-      const time = new Date(+(id.split('-')[1]) * 1000);
+      const { pageID, pageTitle } = page;
+      const time = new Date(+(pageID.split('-')[1]) * 1000);
       const formatedTime = Time.formatDate(time, 'HH:mm:ss d/M/y');
-      const pageText = `${title} - (${formatedTime})`;
+      const pageText = `${pageTitle} - (${formatedTime})`;
 
       pages.push({
         name: pageText
       });
     });
 
-    return (
-      <DialogWrapper
-        className={className}
-        ref='dialog'>
-        <DialogBody title='Choose Pages to Download'>
-          <TablePages
-            model={pagesModel}
-            source={pages} />
-        </DialogBody>
-        <nav role='navigation' className='ab-dialog__navigation'>
-          { this.renderActions() }
-        </nav>
-      </DialogWrapper>
-    );
+    if (pages.length !== 0) {
+      return (
+        <DialogWrapper
+          className={className}
+          ref='dialog'>
+          <DialogBody title='Choose Pages to Download'>
+            <TablePages
+              ref='pages'
+              model={pagesModel}
+              source={pages} />
+          </DialogBody>
+          <nav role='navigation' className='ab-dialog__navigation'>
+            { this.renderActions() }
+          </nav>
+        </DialogWrapper>
+      );
+    }
   }
 }
 
 function mapStateToProps (state) {
   return {
     builder: state.builder
-  }
+  };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    onRestart: () => {
-      dispatch(restartPage());
+    onDownload: (pages) => {
+      dispatch(downloadPages(pages));
     },
 
     onCloseModal: () => {
       dispatch(closeModal());
     }
-  }
+  };
 }
 
 export default connect(
