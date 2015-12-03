@@ -30,10 +30,10 @@ var dependencies = [
   'redux',
   'redux-thunk',
   'strip-json-comments',
-  'axios',
   'classnames',
   'lodash',
-  'jszip'
+  'jszip',
+  'sortablejs'
 ];
 
 // Rewrite gulp.src for better error handling.

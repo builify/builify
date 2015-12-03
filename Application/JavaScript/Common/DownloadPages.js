@@ -1,4 +1,5 @@
 import { saveAs } from './FileSaver';
+import { TEMPLATE_PACKAGE_FILENAME, TEMPLATE_PACKAGE_EXTENSION } from '../Constants';
 import JSZip from 'jszip';
 import _ from 'lodash';
 
@@ -10,88 +11,12 @@ const exports = {
   },
 
   getFileName () {
-    return 'template.zip'
-  },
-
-  createHTMLStructureToBODYTag () {
-    return (
-      `
-      <!DOCTYPE HTML>
-      <html>
-        <head>
-        	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        	<title>Your Website</title>
-        </head>
-      <body>
-      `
-    );
-  },
-
-  finishHTMLBodyTag (HTML) {
-    return (
-      `
-      ${HTML}
-      </body>
-      </html>
-      `
-    );
-  },
-
-  addNavigation (HTML, navigation) {
-    if (Object.keys(navigation).length === 0) {
-      return HTML;
-    }
-
-    const { source } = navigation;
-
-    return (
-      `
-      ${HTML}
-      ${source}
-      `
-    );
-  },
-
-  addMain (HTML, main) {
-    if (main.length === 0) {
-      return HTML;
-    }
-
-    let mainBlocks = '';
-
-    _.map(main, (item, idx) => {
-      const { source } = item;
-      mainBlocks += source;
-    });
-
-    console.log(mainBlocks);
-
-    return (
-      `
-      ${HTML}
-      ${mainBlocks}
-      `
-    );
-  },
-
-  addFooter (HTML, footer) {
-    if (Object.keys(footer).length === 0) {
-      return HTML;
-    }
-
-    const { source } = footer;
-
-    return (
-      `
-      ${HTML}
-      ${source}
-      `
-    );
+    const fileName = `${TEMPLATE_PACKAGE_FILENAME}.${TEMPLATE_PACKAGE_EXTENSION}`;
+    return fileName;
   },
 
   getPageHTML (page) {
     const { pageFullSource } = page;
-    console.log(page);
     return pageFullSource;
   },
 

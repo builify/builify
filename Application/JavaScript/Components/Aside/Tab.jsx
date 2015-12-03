@@ -8,7 +8,7 @@ import ProccessedChildrenRender from '../Shared/ProccessedChildrenRender';
 import BackButton from '../Shared/BackButton';
 import Scrollbar from '../Shared/Scrollbar';
 
-class Tab extends ProccessedChildrenRender {
+export default class Tab extends ProccessedChildrenRender {
   static propTypes = {
     data: PropTypes.object,
     targetIndex: PropTypes.number
@@ -19,34 +19,39 @@ class Tab extends ProccessedChildrenRender {
     targetIndex: 0
   }
 
-  constructor (props) {
-    super(props);
+  childrenToRender = [];
 
-    this.childrenToRender = [];
+  componentWillMount () {
+    const { data } = this.props;
+
+    this.childrenToRender = proccessChildrenData(data);
   }
 
   closeTab (e) {
     return closeTab();
   }
 
+  children () {
+    return _.map(this.childrenToRender, item => {
+      return this.renderChildren(item);
+    });
+  }
+
   render () {
     const { data, targetIndex } = this.props;
-    this.childrenToRender = proccessChildrenData(data);
 
     return (
       <div
         className='ab-tab'
         data-target={targetIndex}>
-        <Scrollbar aside={true}>
+        <Scrollbar
+          aside
+          innerPadding>
           <BackButton clickFunction={this.closeTab} />
           <h1>{data.title}</h1>
-          {_.map(this.childrenToRender, item => {
-            return this.renderChildren(item);
-          })}
+          { this.children() }
         </Scrollbar>
       </div>
-    )
+    );
   }
 }
-
-export default Tab;

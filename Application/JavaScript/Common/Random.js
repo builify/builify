@@ -1,13 +1,16 @@
 const exports = {
   randomString (stringLength) {
     const cryptoObject = window.crypto || window.msCrypto;
-    const arr = new Uint8Array((stringLength || 40) / 2);
+    const intLen = Math.floor((stringLength || 40) / 2);
+    const intArr = new Uint8Array(intLen);
 
-    cryptoObject.getRandomValues(arr);
+    cryptoObject.getRandomValues(intArr);
 
-    return [].map.call(arr, (n) => {
+    const value = [].map.call(intArr, (n) => {
       return n.toString(16);
     }).join('');
+
+    return value;
   }
 };
 

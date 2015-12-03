@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Events from '../../../Common/Events';
 import Ripple from '../Ripple';
-import SvgIcon from '../SvgIcon';
+import Icon from '../Icon';
 
 class Button extends Component {
   static propTypes = {
@@ -61,7 +61,7 @@ class Button extends Component {
         className={className}
         onMouseDown={this.handleMouseDown}
         disabled={this.props.disabled || this.props.loading} >
-        { icon ? <SvgIcon className='ab-button__icon' name={icon} /> : null }
+        { icon ? <Icon className='ab-button__icon' name={icon} /> : null }
         { ripple ? <Ripple ref='ripple' loading={loading} /> : null }
         { label ? <abbr className='ab-button__label'>{label}</abbr> : null }
       </button>

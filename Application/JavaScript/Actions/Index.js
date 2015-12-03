@@ -8,8 +8,8 @@ import * as MiscActions from './Misc';
 import _ from 'lodash';
 
 const allActions = _.assign({},
-  ASideActions,
   BuilderActions,
+  ASideActions,
   LocalizationActions,
   DialogActions,
   PageActions,

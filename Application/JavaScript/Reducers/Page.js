@@ -70,11 +70,11 @@ function page (state = pageInitialState, action) {
 
         if (pageInStorage) {
           const pageTitle = 'Page Title';
-          const pageFileName = 'index-' + randomKey() + '.html';
+          const pageFileName = `index-${randomKey()}.html`;
 
-          const iFrame = DOM.getIFrame('ab-cfrm');
-          const iFrameWindow = DOM.getIFrameWindow(iFrame);
-          const pageFullSource = iFrameWindow.document.documentElement.innerHTML;
+          const iFrame = DOM.iframe.get('ab-cfrm');
+          const iFrameWindow = DOM.iframe.getWindow(iFrame);
+          const pageFullSource = DOM.iframe.getFullHTML(iFrameWindow);
 
           let newPages = pagesInStorage;
           let newPage = pageInStorage;

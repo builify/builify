@@ -80,7 +80,7 @@ export function setFont (font) {
 
     font.rel = 'stylesheet';
     font.type = 'text/css';
-    font.href = `https://fonts.googleapis.com/css?family={font}`;
+    font.href = `https://fonts.googleapis.com/css?family=${font}`;
     font.setAttribute('data-fontname', font);
     headElement.appendChild(font);
   }

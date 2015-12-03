@@ -4,7 +4,7 @@ import { getString } from '../../Common/Localization';
 import { openTab, openPreview, openDownloadModal, openRestartModal } from '../../Actions';
 import { CurrentLocations } from '../../Constants';
 import cx from 'classnames';
-import SvgIcon from '../Shared/SvgIcon';
+import Icon from '../Shared/Icon';
 
 class PrimaryNavigationItem extends Component {
   static propTypes = {
@@ -45,7 +45,7 @@ class PrimaryNavigationItem extends Component {
           <li
             onClick={onGetHTML}
             className='html'>
-            <SvgIcon icon='file-download' />
+            <Icon icon='file-download' />
             <span>{'Get HTML'}</span>
           </li>
         );
@@ -53,7 +53,7 @@ class PrimaryNavigationItem extends Component {
         return (
           <li
             className='html hide'>
-            <SvgIcon icon='file-download' />
+            <Icon icon='file-download' />
             <span>{'Get HTML'}</span>
           </li>
         );
@@ -66,7 +66,7 @@ class PrimaryNavigationItem extends Component {
         <li
           className={itemClassName}
           onClick={clickFunc}>
-          <SvgIcon icon='restore' />
+          <Icon icon='restore' />
           <span>{'Restart'}</span>
         </li>
       );
@@ -75,7 +75,7 @@ class PrimaryNavigationItem extends Component {
         <li
           className={itemClassName}
           onClick={::this.itemClick}>
-          <SvgIcon icon={icon} />
+          <Icon icon={icon} />
           {getString('primarynavigation.' + id)}
         </li>
       );

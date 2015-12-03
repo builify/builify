@@ -1,7 +1,9 @@
 import { getConfiguration, getTemplateMani, setSessionStoreParameters, randomKey } from '../Common/Common';
 import { getLocalizationFile } from './Localization';
 import { checkPreviousPagesInStorage, saveCurrentPage } from './Page';
+import IconPacksData from '../Data/Builder/IconPacks';
 import Actions from './Constants';
+import _ from 'lodash';
 
 export function runApplicationActions () {
   return (dispatch, getState) => {
@@ -13,9 +15,9 @@ export function runApplicationActions () {
       dispatch(proccessConfigurationLocalization());
       dispatch(getLocalizationFile());
       dispatch(initializeBuilder());
+      dispatch(getIconPacks());
+      dispatch(initializeEvents());
     });
-
-    dispatch(initializeEvents());
   }
 }
 
@@ -40,15 +42,11 @@ export function initialize () {
 
 export function removeLoadingScreen () {
   return (dispatch, getState) => {
-    window.setTimeout(() => {
+    _.delay(() => {
       dispatch({
         type: Actions.REMOVE_LOADING_SCREEN
       });
     }, 250);
-
-    window.setTimeout(() => {
-      dispatch(saveCurrentPage());
-    }, 15000);
   }
 }
 
@@ -104,5 +102,44 @@ export function downloadPages (pages) {
   return {
     type: Actions.DOWNLOAD_PAGES,
     pages: pages
+  }
+}
+
+export function getIconPacks () {
+  return (dispatch, getState) => {
+    if (_.has(IconPacksData, 'iconPacks')) {
+      const { iconPacks } = IconPacksData;
+
+      dispatch(addIconPackSourcesToHead(iconPacks));
+      dispatch({
+        type: Actions.GET_ICONPACKS,
+        iconPacks: iconPacks
+      });
+    } else {
+      throw Error('Iconpacks not found.');
+    }
+  }
+}
+
+export function addIconPackSourcesToHead (iconPacks) {
+  const headElement = document.getElementsByTagName('head')[0];
+
+  // Chromium bug. 
+  // Adding stylesheets at start results scrollbar not working.
+  _.delay(() => {
+    _.map(iconPacks, (iconPack) => {
+      const { iconSource } = iconPack;
+      let font = document.createElement('link');
+
+      font.rel = 'stylesheet';
+      font.type = 'text/css';
+      font.href = iconSource;
+
+      headElement.appendChild(font);
+    });
+  }, 1000);
+
+  return {
+    type: Actions.ADD_ICONPACK_SOURCES_TO_HEAD
   }
 }

@@ -5,7 +5,7 @@ import { openLinkEditModal, openImageEditModal, openIconEditModal, openContextme
 import _ from 'lodash';
 import cx from 'classnames';
 import Events from '../../Common/Events';
-import SvgIcon from './SvgIcon';
+import Icon from './Icon';
 
 class ClickToolBoxItem extends Component {
   static propTypes = {
@@ -29,7 +29,7 @@ class ClickToolBoxItem extends Component {
         onClick={onClick}>
         {(() => {
           if (icon !== null) {
-            return <SvgIcon icon={icon} />
+            return <Icon icon={icon} />
           }
         })()}
         <span>{text}</span>

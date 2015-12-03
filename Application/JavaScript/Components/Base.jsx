@@ -30,7 +30,7 @@ class Base extends Component {
         <DialogContainer />
         <NotificationContainer />
       </div>
-    )
+    );
   }
 }
 

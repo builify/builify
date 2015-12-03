@@ -1,14 +1,78 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { restartPage, closeModal } from '../../../Actions';
+import { closeModal } from '../../../Actions';
 import cx from 'classnames';
 import _ from 'lodash';
 import Button from '../Button';
 import DialogWrapper from './DialogWrapper';
 import DialogBody from './DialogBody';
+import Scrollbar from '../Scrollbar';
+import Input from '../Input';
 
-class DialogRestart extends Component {
+class IconsList extends Component {
+  static propTypes = {
+    iconPack: PropTypes.object.isRequired
+  }
+
+  renderIcons (icons, iconClass) {
+    return _.map(icons, (icon, idx) => {
+      const className = cx(iconClass, icon);
+
+      return (
+        <li
+          className='ab-iconChange__iconItem'
+          key={idx}>
+          <i
+            className={className}
+            title={icon} />
+        </li>
+      )
+    });
+  }
+
+  getScrollbarSize () {
+    return {
+      h: 300,
+      w: 700
+    }
+  }
+
+  render () {
+    const { iconPack } = this.props;
+    const { icons, iconInformation, iconPrefix, iconClass, iconFullname } = iconPack;
+    const { h: scrollbarHeight, w: scrollbarWeigth } = this.getScrollbarSize();
+    const iconsLength = icons.length;
+    const iconInformationText = `${iconsLength} icons in ${iconFullname} pack.`;
+
+    return (
+      <div>
+        <Input
+          icon='search'
+          label='Search' />
+        <div>
+          <span>{iconInformationText}</span>
+          <a
+            href={iconInformation}
+            target='_blank'>
+            <span>More info</span>
+          </a>
+        </div>
+        <div>
+          <Scrollbar
+            height={scrollbarHeight}
+            width={scrollbarWeigth}>
+            <ul>
+              { this.renderIcons(icons, iconClass) }
+            </ul>
+          </Scrollbar>
+        </div>
+      </div>
+    );
+  }
+}
+
+class IconChange extends Component {
   static propTypes = {
     active: PropTypes.bool.isRequired
   };
@@ -70,36 +134,33 @@ class DialogRestart extends Component {
     }, 300);
   }
 
-  noClick (e) {
+  cancelClick (e) {
     this.closeDialog();
-  }
-
-  yesClick (e) {
-    const { onRestart } = this.props;
-
-    this.closeDialog();
-
-    return onRestart();
   }
 
   renderActions () {
     const actions = [
-      { label: 'No', onClick: ::this.noClick },
-      { label: 'Yes', onClick: ::this.yesClick }
+      { label: 'Cancel', onClick: ::this.cancelClick }
     ];
 
     return this.renderButtons(actions);
   }
 
   render () {
-    const className = cx('ab-dialog', 'medium');
+    const { builder } = this.props;
+    const { iconPacks } = builder;
+    const className = cx('ab-dialog', 'large');
+    const icons = iconPacks[0];
 
     return (
       <DialogWrapper
         className={className}
         ref='dialog'>
-        <DialogBody title='Restart'>
-          <p>Do you want to go back to start screen and save current page?</p>
+        <DialogBody
+          title='Change Icon'
+          className='ab-iconChange'>
+          <IconsList
+            iconPack={icons} />
         </DialogBody>
         <nav role='navigation' className='ab-dialog__navigation'>
           { this.renderActions() }
@@ -111,16 +172,12 @@ class DialogRestart extends Component {
 
 function mapStateToProps (state) {
   return {
-    page: page.builder
+    builder: state.builder
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    onRestart: () => {
-      dispatch(restartPage());
-    },
-
     onCloseModal: () => {
       dispatch(closeModal());
     }
@@ -130,4 +187,4 @@ function mapDispatchToProps (dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DialogRestart);
+)(IconChange);

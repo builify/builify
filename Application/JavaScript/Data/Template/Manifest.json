@@ -1,14 +1,10 @@
 {
   "external": {
     "core": [
-      {"type": "css", "src": "http://pivot.mediumra.re/variant/css/variant-icons.css"},
-      {"type": "css", "src": "http://pivot.mediumra.re/variant/css/variant-social-icons.css"},
       {"type": "css", "src": "http://pivot.mediumra.re/variant/css/normalize.css"},
       {"type": "css", "src": "http://pivot.mediumra.re/variant/css/flexslider.min.css"},
       {"type": "css", "src": "http://pivot.mediumra.re/variant/css/style.css"},
       {"type": "css", "src": "http://fonts.googleapis.com/css?family=Roboto:400,500,700"},
-      {"type": "css", "src": "http://pivot.mediumra.re/variant/theme/css/line-icons.min.css"},
-      {"type": "css", "src": "http://pivot.mediumra.re/variant/theme/css/elegant-icons.min.css"},
       {"type": "css", "src": "http://pivot.mediumra.re/variant/theme/css/lightbox.min.css"},
       {"type": "css", "src": "http://pivot.mediumra.re/variant/theme/css/bootstrap.min.css"},
       {"type": "css", "src": "http://pivot.mediumra.re/variant/theme/css/theme.css"},

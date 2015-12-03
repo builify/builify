@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM, { render, unmountComponentAtNode } from 'react-dom';
 import { connect } from 'react-redux';
+import { JUNK_ATTR } from '../../Constants';
 import { geThemeCustomStylesheetSheet, removeLoadingScreen } from '../../Actions';
+import DOM from '../../Common/DOM';
 import _ from 'lodash';
 
 class Frame extends Component {
@@ -37,10 +39,12 @@ class Frame extends Component {
     if (!this._isFrameRendered) {
       const { template, title } = this.props;
       const frame = this.refs.frm;
-      const frameDoc = frame.contentWindow.document;
+      const frameDoc = DOM.iframe.getWindow(frame).document;
       const rootElement = document.createElement('div');
 
+      frameDoc.srcdoc = '<!DOCTYPE html>'
       frameDoc.title = title;
+
       this._documentElement = frameDoc;
       this._headElement = frameDoc.head;
       this._bodyElement = frameDoc.body;
@@ -82,7 +86,8 @@ class Frame extends Component {
     const { onRemoveLoadingScreen } = this.props;
     const frameCSS = {
       type: 'css',
-      src: '/IFrameStylesheet.css'
+      src: '/IFrameStylesheet.css',
+      junk: true
     };
 
     if (_.findKey(coreFiles, frameCSS) === undefined) {
@@ -113,6 +118,10 @@ class Frame extends Component {
       link.rel = 'stylesheet';
       link.type = 'text/css';
       link.href = styleSheet.src;
+
+      if (_.has(styleSheet, 'junk')) {
+        link.setAttribute(JUNK_ATTR, true);
+      }
 
       this._headElement.appendChild(link);
     }

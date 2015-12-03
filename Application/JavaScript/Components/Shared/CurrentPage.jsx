@@ -5,7 +5,7 @@ import { removeContentBlock, sortContentBlocks } from '../../Actions';
 import _ from 'lodash';
 import cx from 'classnames';
 import Sortable from './Sortable';
-import SvgIcon from './SvgIcon';
+import Icon from './Icon';
 import Input from './Input';
 import Button from './Button';
 
@@ -46,7 +46,7 @@ class CurrentPageItem extends Component {
               <div
                 className='handle'
                 title='Remove Element'>
-                <SvgIcon
+                <Icon
                   size={18}
                   icon='reorder' />
               </div>
@@ -56,7 +56,7 @@ class CurrentPageItem extends Component {
         <div className='ab-currentPage__item-title'>
           {blockName}
         </div>
-        <SvgIcon
+        <Icon
           onClick={onRemoveClick}
           className='remove'
           style={removeIconStyle}

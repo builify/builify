@@ -2,7 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Application } from './Components/Application';
 
-ReactDOM.render(
-  <Application />,
-  document.getElementById('react-js')
-);
+const targetElementQuery = '#react-js';
+const targetElement = document.querySelector(targetElementQuery);
+
+if (typeof targetElement !== undefined) {
+  ReactDOM.render(
+    <Application />,
+    targetElement
+  );
+} else {
+  throw Error(`Could not find "${targetElementQuery}" element.`);
+}

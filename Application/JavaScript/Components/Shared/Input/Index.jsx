@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Icon from './Icon';
 
 class Input extends Component {
   static propTypes = {
@@ -77,6 +78,7 @@ class Input extends Component {
     return (
       <div className={className}>
         { this.renderInput() }
+        { this.props.icon ? <Icon className='ab-input__icon' icon={this.props.icon} /> : null }
         <span className={'ab-input__bar'}></span>
         { this.props.label ? <label className={labelClassName}>{this.props.label}</label> : null }
         { this.props.error ? <span className={'ab-input__error'}>{this.props.error}</span> : null }

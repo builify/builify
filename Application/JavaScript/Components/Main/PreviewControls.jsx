@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { setPreviewMode, closePreview } from '../../Actions';
 import BackButton from '../Shared/BackButton';
-import SvgIcon from '../Shared/SvgIcon';
+import Icon from '../Shared/Icon';
 import ControlItem from './PreviewControlItem';
 
 class PreviewControls extends Component {

@@ -4,7 +4,7 @@ import { PreviewModes } from '../../Constants';
 import { setPreviewMode, closePreview, rotatePreviewView } from '../../Actions';
 import cx from 'classnames';
 import BackButton from '../Shared/BackButton';
-import SvgIcon from '../Shared/SvgIcon';
+import Icon from '../Shared/Icon';
 
 class ControlItem extends Component {
   render () {
@@ -59,7 +59,7 @@ class ControlItem extends Component {
           }
         }}
         title={title}>
-        <SvgIcon
+        <Icon
           icon={icon}
           size={iconSize} />
       </li>

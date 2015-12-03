@@ -39,7 +39,7 @@
     "lodash": "*",
     "react": "^0.14.2",
     "react-color": "*",
-    "react-custom-scrollbars": "*",
+    "react-custom-scrollbars": "^1.0.2",
     "react-dom": "^0.14.2",
     "react-redux": "*",
     "react-select": "*",

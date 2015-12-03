@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { removeContentBlock, openContentblockSourceEditModal } from '../../Actions';
 import cx from 'classnames';
-import SvgIcon from './SvgIcon';
+import Icon from './Icon';
 import Dropdown from './Dropdown';
 import Switch from './Switch';
 
@@ -29,7 +29,7 @@ class SectionToolBox extends Component {
         <ul className='settings'>
           <li
             title='Edit Source'>
-            <SvgIcon
+            <Icon
               onClick={(e) => {
                 return onOpenContentblockSourceEditModal(currentHoverBlock);
               }}
@@ -39,7 +39,7 @@ class SectionToolBox extends Component {
           </li>
           <li
             title='Remove Block'>
-            <SvgIcon
+            <Icon
               onClick={(e) => {
                 return onRemove(element);
               }}

@@ -1,5 +1,8 @@
 export const IS_DEMO_VERSION = true;
 
+export const TEMPLATE_PACKAGE_FILENAME = 'template';
+export const TEMPLATE_PACKAGE_EXTENSION = 'zip';
+
 export const MAXIUMUM_PAGES_IN_STORAGE_DEMO = 3;
 export const MAXIUMUM_PAGES_IN_STORAGE_FULL = 15;
 export const MAXIUMUM_PAGES_IN_STORAGE = IS_DEMO_VERSION ? MAXIUMUM_PAGES_IN_STORAGE_DEMO : MAXIUMUM_PAGES_IN_STORAGE_FULL;
@@ -7,6 +10,8 @@ export const MAXIUMUM_PAGES_IN_STORAGE = IS_DEMO_VERSION ? MAXIUMUM_PAGES_IN_STO
 export const CONTENTBLOCK_ATTR_ID = 'data-abcid';
 export const CONTENTBLOCK_ATTR_FIRST_ELEMENT = 'data-abccorent';
 export const CONTENTBLOCK_ATTR_TYPE = 'data-abctype';
+
+export const JUNK_ATTR = 'data-abcjunk';
 
 export const CurrentLocations = {
   STARTSCREEN: 0,

@@ -10,8 +10,8 @@ import Storage from '../Common/Storage';
 const builderInitialState = {
   isLoadingScreenActive: true,
   loadingScreenType: 0,
-
   currentLocation: 0,
+  iconPacks: [],
 
   // Tabs
   isTabOpened: false,
@@ -46,6 +46,14 @@ function builder (state = builderInitialState, action) {
   }
 
   switch (action.type) {
+    case Actions.GET_ICONPACKS: {
+      const { iconPacks } = action;
+
+      return _.assign({}, state, {
+        iconPacks: iconPacks
+      });
+    }
+
     case Actions.DOWNLOAD_PAGES: {
       const { pages } = state;
       const { pages: selectedPages } = action;

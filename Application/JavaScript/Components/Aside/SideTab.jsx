@@ -7,46 +7,46 @@ import BackButton from '../Shared/BackButton';
 import ProccessedChildrenRender from '../Shared/ProccessedChildrenRender';
 import Scrollbar from '../Shared/Scrollbar';
 
-class SideTab extends ProccessedChildrenRender {
+export default class SideTab extends ProccessedChildrenRender {
   static propTypes = {
-    data: PropTypes.object
+    data: PropTypes.object.isRequired
   }
 
-  static defaultProps = {
-    data: {}
-  }
+  childrenToRender = [];
 
-  constructor (props) {
-    super(props);
+  componentWillMount () {
+    const { data } = this.props;
 
-    this.childrenToRender = [];
+    this.childrenToRender = proccessChildrenData(data);
   }
 
   closeSidetab () {
     return closeSidetab();
   }
 
+  children () {
+    return _.map(this.childrenToRender, item => {
+      return this.renderChildren(item);
+    });
+  }
+
   render () {
     const { data } = this.props;
-
-    this.childrenToRender = proccessChildrenData(data);
 
     return (
       <div
         className='ab-sidetab'
         data-sidetabid={data.id}>
-        <Scrollbar aside={true}>
+        <Scrollbar
+          aside
+          innerPadding>
           <BackButton clickFunction={this.closeSidetab} />
           <h1>{getString(data.title)}
             <span>{getString(data.subtitle)}</span>
           </h1>
-          {_.map(this.childrenToRender, item => {
-            return this.renderChildren(item);
-          })}
+          { this.children() }
         </Scrollbar>
       </div>
-    )
+    );
   }
 }
-
-export default SideTab;

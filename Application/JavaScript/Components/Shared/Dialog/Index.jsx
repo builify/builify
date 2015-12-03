@@ -10,6 +10,7 @@ import DialogDownloadPages from './DialogDownloadPages';
 import DialogPreviousPages from './DialogPreviousPages';
 import DialogLinkChange from './DialogLinkChange';
 import DialogContentSource from './DialogContentSource';
+import IconChangeDialog from './IconChange';
 
 class Dialog extends Component {
   static propTypes = {
@@ -73,7 +74,10 @@ class Dialog extends Component {
         );
     }
 
-    return null;
+    return (
+      <IconChangeDialog
+        active={true} />
+    );
   }
 }
 
