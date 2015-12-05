@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Icon from './Icon';
+import Icon from '../Icon';
 
 class Input extends Component {
   static propTypes = {

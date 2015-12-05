@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const exports = {
   randomString (stringLength) {
     const cryptoObject = window.crypto || window.msCrypto;
@@ -11,6 +13,10 @@ const exports = {
     }).join('');
 
     return value;
+  },
+
+  randomKey (str) {
+    return _.uniqueId((str ? str : null));
   }
 };
 

@@ -1,3 +1,242 @@
+$modal-translate-y: 4 * $unit;
+$modal-color-white: #FFF;
+$modal-color-tablabel: #444;
+$modal-border-radius: .2 * $unit;
+$modal-navigation-padding: .8 * $unit;
+
+.#{$nameprefix}modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 9999999;
+		width: 100vw;
+		height: 100vh;
+		pointer-events: none;
+		@include flex-direction(column);
+		@include align-content(center);
+		@include align-items(center);
+		@include justify-content(center);
+		@include display(flex);
+
+		&__overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				opacity: 0;
+    		background: #000;
+				transition-property: opacity;
+				transition-timing-function: $animation-curve-default;
+				transition-duration: $animation-duration;
+				@include transition(opacity 0.3s ease);
+		}
+
+		&__content {
+				max-width: 96vw;
+				max-height: 96vh;
+				width: 800px;
+				min-height: 300px;
+				opacity: 0;
+				transition-property: opacity, transform, width;
+				transition-duration: $animation-duration;
+				transition-delay: $animation-delay;
+				transition-timing-function: $animation-curve-default;
+				background-color: $modal-color-white;
+				border-radius: $modal-border-radius;
+				box-shadow: $zdepth-shadow-5;
+				@include flex-direction(column);
+				@include display(flex);
+				@include transform(translateY(-$modal-translate-y));
+		}
+
+		$modal-tab-height: 70px;
+
+		&__tabside {
+				float: left;
+				width: 25%;
+				padding: 40px 0 40px 40px;
+				z-index: 2;
+
+				h2 {
+					font-weight: 700;
+					color: #3C3C3C;
+					@include rem(font-size, 16px);
+				}
+
+				&.sec {
+						padding: 40px !important;
+						width: 35% !important;
+				}
+		}
+
+		&__tabcontent {
+				float: right;
+				width: 75%;
+				min-height: 350px;
+				margin: 0px;
+				padding-left: 40px;
+				border-left: 1px solid #E1E1E1;
+
+				&.sec {
+					padding-left: 0;
+					width: 65% !important;
+				}
+		}
+
+		&__tabmenu {
+				float: left;
+				width: 100%;
+				margin-top: 10px;
+		}
+
+		&__tabitem {
+				cursor: pointer;
+				float: left;
+				width: 100%;
+				display: block;
+				color: #3C3C3C;
+				font-size: 14px;
+				line-height: 30px;
+				padding: 0px 10px;
+				text-transform: capitalize;
+
+				&.active {
+						border-color: #3C96A5;
+						border-right: 2px solid #3C96A5;
+						background: #F5F5F5;
+				}
+		}
+
+		&__tabs {
+				display: block;
+				width: 100%;
+				overflow: hidden;
+				height: $modal-tab-height;
+				padding: 0 40px;
+				background: #F5F5F5;
+				border-bottom: 1px solid;
+				border-bottom-color: #E1E1E1;
+
+				h2 {
+						float: left;
+						color: $modal-color-tablabel;
+						line-height: $modal-tab-height;
+						@include rem(font-size, 16px);
+				}
+
+				nav {
+						float: right;
+				}
+		}
+
+		&__tablabel {
+				user-select: none;
+				cursor: pointer;
+				display: inline-block;
+				margin-left: 15px;
+				//transition-property: color;
+				//transition-duration: $animation-duration;
+				//transition-timing-function: $animation-curve-default;
+				color: $modal-color-tablabel;
+				line-height: $modal-tab-height;
+
+				&.active {
+						color: $color-primary;
+				}
+
+				&:hover {
+						color: lighten($modal-color-tablabel, 9%);
+				}
+		}
+
+		&__tabimages {
+				float: left;
+				width: 100%;
+				height: 380px;
+				padding: 40px 0px 30px;
+		}
+
+		&__tabimage {
+				position: relative;
+				background: #E1E1E1;
+				width: 160px;
+				height: 100px;
+				float: left;
+				margin: 0px 10px 10px 0px;
+				border-radius: 3px;
+				cursor: pointer;
+				overflow: hidden;
+				text-align: center;
+				opacity: 1;
+				transition: opacity 0.4s ease 0s;
+
+				&.active {
+						&:before {
+								content: "Selected";
+								position: absolute;
+								top: 0;
+								left: 0;
+								right: 0;
+								bottom: 0;
+								width: 100%;
+								height: 100%;
+								line-height: 90px;
+								color: #FFF;
+								text-transform: uppercase;
+								background: rgba($color-black, 0.9);
+						}
+				}
+		}
+
+		&__pointer {
+				position: absolute;
+				width: 0px;
+				height: 0.2rem;
+				margin-top: -0.2rem;
+				background-color: #3F51B5;
+				transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+				transition-duration: 0.35s;
+				transition-property: left, width;
+		}
+
+		&__button {
+				min-width: 0;
+				padding-right: $modal-navigation-padding;
+				padding-left: $modal-navigation-padding;
+				margin-left: $modal-navigation-padding;
+		}
+
+		&__navigation {
+				border-top: 1px solid;
+				border-top-color: #E1E1E1;
+				flex-grow: 0;
+				text-align: right;
+				padding: $modal-navigation-padding;
+		}
+
+		&__imgholder {
+				padding: 40px;
+				width: 100%;
+				height: 350px;
+		}
+
+		&.active {
+			pointer-events: all;
+
+			.#{$nameprefix}modal {
+					&__overlay {
+							opacity: 0.5;
+					}
+
+					&__content {
+							opacity: 1;
+							@include transform(translateY(0%));
+					}
+			}
+		}
+}
+
 $dialog-border-radius: .2 * $unit;
 $dialog-color-title: $color-black !default;
 $dialog-color-white: #FFF !default;

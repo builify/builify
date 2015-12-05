@@ -11,6 +11,7 @@ import DialogPreviousPages from './DialogPreviousPages';
 import DialogLinkChange from './DialogLinkChange';
 import DialogContentSource from './DialogContentSource';
 import IconChangeDialog from './IconChange';
+import ImageEdit from './ImageEdit';
 
 class Dialog extends Component {
   static propTypes = {
@@ -35,10 +36,11 @@ class Dialog extends Component {
 
     switch (type) {
       case DialogTypes.IMAGECHANGE:
+
         return (
-          <DialogImageEdit
+          <ImageEdit
             active={active}
-            editTarget={editTarget} />
+            editTarget={editTarget}  />
         );
 
       case DialogTypes.RESTART:
@@ -75,9 +77,11 @@ class Dialog extends Component {
     }
 
     return (
-      <IconChangeDialog
+      <ImageEdit
         active={true} />
-    );
+    )
+
+    return null;
   }
 }
 
