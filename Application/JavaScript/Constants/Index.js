@@ -1,4 +1,6 @@
-export const IS_DEMO_VERSION = true;
+export const IS_DEMO_VERSION = false;
+
+export const TEMPLATE_PAGES_STORAGE_NAME = 'ab-pages';
 
 export const TEMPLATE_PACKAGE_FILENAME = 'template';
 export const TEMPLATE_PACKAGE_EXTENSION = 'zip';

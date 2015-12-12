@@ -65,42 +65,6 @@
 				@include rem(font-size, 24px);
 		}
 
-		h2 {
-				position: relative;
-				color: #555;
-				height: $base-padding / 1.5;
-				line-height: $base-padding / 1.5;
-				font-weight: 400;
-				margin-top: 20px;
-				margin-bottom: 0;
-				text-transform: uppercase;
-				padding-left: $base-padding;
-				padding-right: $base-padding;
-				@include rem(font-size, 18px);
-				@include transition(all 0.3s ease);
-
-				&.to-sidebar {
-						cursor: pointer;
-						margin-bottom: 30px;
-
-						&:after {
-								color: inherit;
-								position: absolute;
-								right: 0;
-								height: 22px;
-								line-height: 22px;
-								font-family: "Pe-icon-7-stroke";
-								content: "\e684";
-								@include rem(font-size, 30px);
-								@include transition(all 0.3s ease);
-						}
-
-						&:hover {
-								color: $color-primary;
-						}
-				}
-		}
-
 		.tip {
 				position: relative;
 				cursor: pointer;

@@ -1,14 +1,14 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM, { render, unmountComponentAtNode } from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { JUNK_ATTR } from '../../Constants';
 import { geThemeCustomStylesheetSheet, removeLoadingScreen } from '../../Actions';
 import DOM from '../../Common/DOM';
 import _ from 'lodash';
 
-class Frame extends Component {
+class Frame extends React.Component {
   static propTypes = {
-    title: PropTypes.string
+    title: React.PropTypes.string
   }
 
   static defaultProps = {
@@ -32,7 +32,7 @@ class Frame extends Component {
   }
 
   componentWillUnmount () {
-    unmountComponentAtNode(this._bodyElement);
+    ReactDOM.unmountComponentAtNode(this._bodyElement);
   }
 
   renderFrame () {
@@ -50,7 +50,7 @@ class Frame extends Component {
       this._bodyElement = frameDoc.body;
 
       this._bodyElement.appendChild(rootElement);
-      render(this._children, rootElement);
+      ReactDOM.render(this._children, rootElement);
 
       if (_.has(template, 'external.core')) {
         this.appendFiles(template.external.core);
@@ -167,7 +167,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Frame);
+export default connect(mapStateToProps, mapDispatchToProps)(Frame);

@@ -15,8 +15,6 @@ import Title from './Title';
 import ItemThatOpensSideTab from './ItemThatOpensSideTab';
 import FontSelection from './FontSelection';
 import Checkbox from './Checkbox';
-import PageFile from './PageFile';
-import PageTools from './PageTools';
 
 class ProccessedChildrenRender extends Component {
   shouldComponentUpdate (nextProps, nextState) {
@@ -124,15 +122,6 @@ class ProccessedChildrenRender extends Component {
 		)
   }
 
-  renderPageFile () {
-    const key = randomKey('pagefile');
-
-    return (
-			<PageFile
-				key={key} />
-		)
-  }
-
   renderPageTools () {
     const key = randomKey('pagetools');
 
@@ -178,9 +167,6 @@ class ProccessedChildrenRender extends Component {
 
         case 'filterblock':
           return this.renderFilter(item);
-
-        case 'pagefile':
-          return this.renderPageFile();
 
         case 'pagetools':
           return this.renderPageTools();

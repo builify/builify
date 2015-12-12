@@ -30,6 +30,7 @@ $switch-field-margin-bottom: 1.5 * $unit !default;
     height: $switch-track-height;
     margin-top: ($switch-total-height - $switch-track-height) / 2;
     border-radius: $switch-track-height;
+
 }
 
 %thumb-focus {
@@ -47,10 +48,8 @@ $switch-field-margin-bottom: 1.5 * $unit !default;
 }
 
 .#{$nameprefix}switch {
-    .disabled {
-
-    }
-
+    @include user-select(none);
+    
     .field {
         position: relative;
         display: block;

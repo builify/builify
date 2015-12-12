@@ -1,0 +1,22 @@
+.#{$nameprefix}title {
+		position: relative;
+		padding-left: $base-padding;
+		padding-right: $base-padding;
+
+		h2 {
+				position: relative;
+				color: #555;
+				height: $base-padding / 1.5;
+				line-height: $base-padding / 1.5;
+				font-weight: 400;
+				margin-top: 20px;
+				margin-bottom: 0;
+				text-transform: uppercase;
+				@include rem(font-size, 18px);
+				@include transition(all 0.3s ease);
+	}
+
+	p {
+			@include rem(font-size, 14px);
+	}
+}

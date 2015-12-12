@@ -1,29 +1,30 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+import ClassNames from 'classnames';
 import { getString } from '../../Common/Localization';
-import cx from 'classnames';
 
-class Title extends Component {
+export default class Title extends React.Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
-    className: PropTypes.string
-  }
-
-  static defaultProps = {
-    className: ''
-  }
+    title: React.PropTypes.string.isRequired,
+    description: React.PropTypes.string,
+    className: React.PropTypes.string
+  };
 
   render () {
-    const { title, className } = this.props;
-    const titleClassName = cx(className);
+    const { title, className, description } = this.props;
+    const titleClassName = ClassNames('ab-title', className ? className: null);
+    const descClassName = ClassNames('ab-title__desc');
 
-    return (
-      <div className='relav'>
-        <h2 className={titleClassName}>
-          <span>{getString(title)}</span>
-        </h2>
-      </div>
-    )
+    if (title) {
+      return (
+        <div className={titleClassName}>
+          <h2>
+            <span>{getString(title)}</span>
+          </h2>
+          { description ? <p className={descClassName}>{description}</p> : null }
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 }
-
-export default Title;

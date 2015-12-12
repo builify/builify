@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import AssetsManager from '../../Common/AssetsManager';
 import cx from 'classnames';
 import ImageSpinner from './ImageSpinner';
 
@@ -25,8 +24,6 @@ class ImageItem extends Component {
 
   loadedImage (e) {
     const { src } = this.props;
-
-    AssetsManager.addAsset(src);
 
     this.setState({
       isImageFileLoaded: true

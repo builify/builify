@@ -3,6 +3,7 @@
 @import "../Styles/mixins";
 @import "../Styles/core/colors";
 @import "../Styles/core/variables";
+@import "../Styles/shared/switch";
 
 * {
 		cursor: auto;
@@ -124,12 +125,16 @@ body {
 				list-style: none;
 				margin: 0;
 				padding: 0;
-				width: 170px;
+				width: 210px;
 				opacity: 0;
 				height: 0;
 				overflow: hidden;
 				@include transition(all 0.3s ease);
 				@include shadow-2dp();
+
+				label {
+						margin-top: 10px;
+				}
 
 				&.active {
 					height: auto;

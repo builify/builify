@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { removeContentBlock, openContentblockSourceEditModal } from '../../Actions';
+import { removeContentBlock, openContentblockSourceEditModal } from '../../../Actions';
 import cx from 'classnames';
-import Icon from './Icon';
-import Dropdown from './Dropdown';
-import Switch from './Switch';
+import Icon from '../Icon';
+import Dropdown from '../Dropdown';
+import Switch from '../Switch';
 
 class SectionToolBox extends Component {
+  state = {
+    settingsMenuOpened: false
+  }
+
   render () {
+    const { settingsMenuOpened } = this.state;
     const { canvas, onRemove, onOpenContentblockSourceEditModal } = this.props;
-    const { currentHoverBlock, isContentBlockSettingsMenuOpened } = canvas;
+    const { currentHoverBlock } = canvas;
     const { element, topX } = currentHoverBlock;
     const className = cx('ab-cstoolbox');
-    const dropdownClassname = cx('dropdown', isContentBlockSettingsMenuOpened ? 'active' : null);
+    const dropdownClassname = cx('dropdown', settingsMenuOpened ? 'active' : null);
     const iconSize = 24;
     const iconStyle = {
       fill: '#FFF'
@@ -28,21 +33,23 @@ class SectionToolBox extends Component {
         style={toolBoxStyle}>
         <ul className='settings'>
           <li
-            title='Edit Source'>
+            onClick={(e) => {
+              this.setState({
+                settingsMenuOpened: !this.state.settingsMenuOpened
+              });
+            }}
+            title='Settings'>
             <Icon
-              onClick={(e) => {
-                return onOpenContentblockSourceEditModal(currentHoverBlock);
-              }}
-              icon='pencil'
+              icon='settings'
               size={iconSize}
               style={iconStyle } />
           </li>
           <li
+            onClick={(e) => {
+              return onRemove(element);
+            }}
             title='Remove Block'>
             <Icon
-              onClick={(e) => {
-                return onRemove(element);
-              }}
               icon='remove'
               size={iconSize}
               style={iconStyle } />

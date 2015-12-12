@@ -1,17 +1,17 @@
-import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
+import React from 'react';
+import ClassNames from 'classnames';
 import _ from 'lodash';
 
-export default class Icon extends Component {
+export default class Icon extends React.Component {
   static propTypes = {
-    onClick: PropTypes.func,
-    icon: PropTypes.string.isRequired,
-    size: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
+    onClick: React.PropTypes.func,
+    icon: React.PropTypes.string.isRequired,
+    size: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
     ]),
-    style: PropTypes.object,
-    className: PropTypes.string
+    style: React.PropTypes.object,
+    className: React.PropTypes.string
   }
 
   static defaultProps = {
@@ -135,6 +135,11 @@ export default class Icon extends Component {
         return (
           <g><path d="M15.5 14h-.79l-.28-.27c.98-1.14 1.57-2.62 1.57-4.23 0-3.59-2.91-6.5-6.5-6.5s-6.5 2.91-6.5 6.5 2.91 6.5 6.5 6.5c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99 1.49-1.49-4.99-5zm-6 0c-2.49 0-4.5-2.01-4.5-4.5s2.01-4.5 4.5-4.5 4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5z"></path></g>
         );
+
+      case 'save':
+        return (
+          <g><path d="M17 3h-12c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-12l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10h-10v-4h10v4z"></path></g>
+        );
     }
 
     return null;
@@ -142,7 +147,7 @@ export default class Icon extends Component {
 
   render () {
     const { className, size, style, onClick } = this.props;
-    const cn = cx(className);
+    const cn = ClassNames(className);
     let styles = {
       fill: 'currentcolor',
       width: size, // CSS instead of the width attr to support non-pixel units

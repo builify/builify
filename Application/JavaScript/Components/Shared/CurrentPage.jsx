@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { randomKey } from '../../Common/Common';
-import { removeContentBlock, sortContentBlocks } from '../../Actions';
+import { removeContentBlock, sortContentBlocks, setPageTitle, setPageFilename } from '../../Actions';
 import _ from 'lodash';
 import cx from 'classnames';
 import Sortable from './Sortable';
 import Icon from './Icon';
 import Input from './Input';
 import Button from './Button';
+import Title from './Title';
 
 class CurrentPageDivider extends Component {
   render () {
@@ -67,7 +68,7 @@ class CurrentPageItem extends Component {
   }
 }
 
-class CurrentPage extends Component {
+class CurrentPageSections extends React.Component {
   render () {
     const { page, onRemove, onSortBlocks } = this.props;
     const { navigation, main, footer } = page;
@@ -139,8 +140,57 @@ class CurrentPage extends Component {
             })}
           </Sortable>
         </div>
-      )
+      );
     }
+  }
+}
+
+class CurrentPage extends React.Component {
+  changePageTitle () {
+    const { onSetPageTitle } = this.props;
+    const titleValue = this.refs['input-title'].getValue();
+
+    return onSetPageTitle(titleValue);
+  }
+
+  changePageFilename () {
+    const { onSetPageFilename } = this.props;
+    const filenameValue = this.refs['input-filename'].getValue();
+
+    return onSetPageFilename(filenameValue);
+  }
+
+  render () {
+    const { page, onRemove, onSortBlocks, onSetPageTitle, onSetPageFilename } = this.props;
+    const { pageTitle, pageFileName } = page;
+
+    console.log(page);
+
+    return (
+      <div>
+        <Title title='Sections' />
+        <CurrentPageSections
+          page={page}
+          onRemove={onRemove}
+          onSortBlocks={onSortBlocks} />
+        <Title
+          title='Website Title'
+          description="This is displayed in search results and in your browser's title bar." />
+        <Input
+          ref='input-title'
+          className='ab-itemwrap padding-top-1'
+          value={pageTitle}
+          onBlur={::this.changePageTitle} />
+        <Title
+          title='Filename'
+          description="This will be page's filename" />
+        <Input
+          ref='input-filename'
+          className='ab-itemwrap padding-top-1'
+          value={pageFileName}
+          onBlur={::this.changePageFilename} />
+      </div>
+    );
   }
 }
 
@@ -158,11 +208,16 @@ function mapDispatchToProps (dispatch) {
 
     onSortBlocks: (element) => {
       dispatch(sortContentBlocks(element));
+    },
+
+    onSetPageTitle: (title) => {
+      dispatch(setPageTitle(title));
+    },
+
+    onSetPageFilename: (filename) => {
+      dispatch(setPageFilename(filename));
     }
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CurrentPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CurrentPage);

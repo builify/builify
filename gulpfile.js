@@ -27,13 +27,15 @@ var dependencies = [
   'react-select',
   'react-redux',
   'react-custom-scrollbars',
+  'react-dropzone-component',
   'redux',
   'redux-thunk',
   'strip-json-comments',
   'classnames',
   'lodash',
   'jszip',
-  'sortablejs'
+  'sortablejs',
+  'js-search'
 ];
 
 // Rewrite gulp.src for better error handling.

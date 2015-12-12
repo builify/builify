@@ -4,14 +4,14 @@ import { DialogTypes } from '../../../Constants';
 import { randomKey } from '../../../Common/Common';
 import { loadPreviousPage } from '../../../Actions';
 import _ from 'lodash';
-import DialogImageEdit from './DialogImageEdit';
 import DialogRestart from './DialogRestart';
 import DialogDownloadPages from './DialogDownloadPages';
-import DialogPreviousPages from './DialogPreviousPages';
 import DialogLinkChange from './DialogLinkChange';
 import DialogContentSource from './DialogContentSource';
 import IconChangeDialog from './IconChange';
-import ImageEdit from './ImageEdit';
+
+import ImageEdit from '../../Modals/ImageChange';
+import PreviousPages from '../../Modals/PreviousPages';
 
 class Dialog extends Component {
   static propTypes = {
@@ -64,7 +64,7 @@ class Dialog extends Component {
 
       case DialogTypes.PREVIOUSPAGES:
         return (
-          <DialogPreviousPages
+          <PreviousPages
             active={active} />
         );
 
@@ -76,10 +76,6 @@ class Dialog extends Component {
         );
     }
 
-    return (
-      <ImageEdit
-        active={true} />
-    )
 
     return null;
   }

@@ -21,8 +21,6 @@ class Page extends Component {
     } else {
       const pagesLength = pages.length;
 
-      console.log(pages);
-
       if (pagesLength > 1) {
         return onPreviousPagesSelection();
       } else {

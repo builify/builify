@@ -1,4 +1,4 @@
-const exports = {
+export default {
   set (key, value) {
     $.jStorage.set(key, value);
   },
@@ -23,5 +23,3 @@ const exports = {
     return $.jStorage.storageAvailable();
   }
 };
-
-export default exports;

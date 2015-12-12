@@ -1,10 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { randomKey } from '../../Common/Common';
 import _ from 'lodash';
+import Random from '../../Common/Random';
 import PrimaryNavigationItem from './PrimaryNavigationItem';
 
-class PrimaryNavigation extends Component {
+class PrimaryNavigation extends React.Component {
 	shouldComponentUpdate (nextProps, nextState) {
     return false;
   }
@@ -15,17 +15,15 @@ class PrimaryNavigation extends Component {
 
     return (
       <ul className='ab-primarynav'>
-        {_.map(primarynavigation, (navigationItem, i) => {
-					const itemKey = randomKey('pni');
-
+        { _.map(primarynavigation, (navigationItem, i) => {
           return (
 						<PrimaryNavigationItem
-              key={itemKey}
+              key={Random.randomKey('pni')}
               target={i}
               language={localization}
               navigationItemInformation={navigationItem} />
 					)
-        })}
+        }) }
       </ul>
     )
   }

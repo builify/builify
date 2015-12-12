@@ -14,7 +14,7 @@ export function eliminateNotification (id) {
 
     window.setTimeout(function () {
       dispatch(removeNotification(id));
-    }, 500);
+    }, 1500);
   }
 }
 
@@ -100,23 +100,30 @@ export function loadContentBlockSource (source, blockType, blockName) {
       id: contentBlockId
     }));
 
-    xmlhttp.onreadystatechange = () => {
-      if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
-        if (xmlhttp.status == 200) {
-          const response = xmlhttp.responseText;
+    xmlhttp.onreadystatechange = function (e) {
+      if (this.readyState == XMLHttpRequest.DONE) {
+        if (this.status == 200) {
+          const response = this.responseText;
 
           dispatch(eliminateNotification(contentBlockId));
           dispatch(loadContentBlockToPage(response, blockType, blockName));
-        } else if(xmlhttp.status == 400) {
-          throw Error('There was an error 400')
+        } else if(this.status == 400) {
+          throw Error('There was an error 400');
         } else {
-          throw Error('something else other than 200 was returned')
+          throw Error('something else other than 200 was returned');
         }
       }
     }
 
-    xmlhttp.open('GET', '/Template/' + String(source), true);
+    xmlhttp.open('GET', `/Template/${source}`, true);
     xmlhttp.send();
+  }
+}
+
+export function selectImage (data) {
+  return {
+    type: Actions.SELECT_IMAGE,
+    data: data
   }
 }
 

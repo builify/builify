@@ -10,6 +10,7 @@ export default ActionMirror(true, [
   'GET_LOCALIZATION',
   'GET_ICONPACKS',
   'ADD_ICONPACK_SOURCES_TO_HEAD',
+  'UPLOADED_IMAGE',
 
   // Template's actions
   'GET_TEMPLATE_DATA',
@@ -23,6 +24,8 @@ export default ActionMirror(true, [
   'SAVE_CURRENT_PAGE',
   'DOWNLOAD_PAGES',
   'RESTART_PAGE',
+  'SET_PAGE_TITLE',
+  'SET_PAGE_FILENAME',
 
   // Tab's actions
   'OPEN_TAB',
@@ -57,6 +60,7 @@ export default ActionMirror(true, [
   'CURRENT_HOVER_BLOCK',
   'REMOVE_CONTENTBLOCK',
 
+  'SELECT_IMAGE',
   'OPEN_CONTENTBLOCK_SETTINGS',
   'SORT_CONTENTBLOCKS',
   'FILTER_CONTENTBLOCKS',

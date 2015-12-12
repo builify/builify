@@ -4,6 +4,7 @@ import Random from '../Common/Random';
 import DOM from '../Common/DOM';
 import _ from 'lodash';
 import * as Actions from '../Actions/Constants';
+import { TEMPLATE_PAGES_STORAGE_NAME } from '../Constants';
 
 const pageInitialState = {
   // Core
@@ -23,32 +24,47 @@ const pageInitialState = {
 };
 
 function resetBlockParameters (block) {
-  if (_.has(block, 'hasBeenRendered')) {
-    console.log(block);
-    block.hasBeenRendered = false;
-  }
+  if (_.isObject(block)) {
+    if (_.has(block, 'hasBeenRendered')) {
+      block.hasBeenRendered = false;
+    }
 
-  if (_.has(block, 'elementReference')) {
-    block.elementReference = null;
+    if (_.has(block, 'elementReference')) {
+      block.elementReference = null;
+    }
   }
 
   return block;
 }
 
+function resetBlocks (blocks) {
+  if (_.isArray(blocks)) {
+    return _.map(blocks, block => resetBlockParameters(block));
+  } else if (_.isObject(blocks)) {
+    return resetBlockParameters(blocks);
+  }
+}
+
 function page (state = pageInitialState, action) {
   switch (action.type) {
-    case Actions.RESTART_PAGE:
-      return _.assign({}, state, {
-        pageID: null,
-        pageTitle: 'Page Title',
-        pageFileName: 'index.html',
-        pageFullSource: null,
+    case Actions.SET_PAGE_TITLE: {
+      const { title } = action;
 
-        navigation: {},
-        main: [],
-        footer: {},
-        blocksCount: 0
+      return _.assign({}, state, {
+        pageTitle: title
       });
+    }
+
+    case Actions.SET_PAGE_FILENAME: {
+      const { filename } = action;
+
+      return _.assign({}, state, {
+        pageFileName: filename
+      });
+    }
+
+    case Actions.RESTART_PAGE:
+      return _.assign({}, state, _.omit(pageInitialState, 'replaceInHTML'));
 
     case Actions.START_NEW_PAGE: {
       const { pageID } = action;
@@ -59,41 +75,38 @@ function page (state = pageInitialState, action) {
     }
 
     case Actions.SAVE_CURRENT_PAGE: {
-      const { pageID, pageTitle, navigation, main, footer, blocksCount } = state;
+      const { pageTitle, pageFileName, pageID, navigation, main, footer, blocksCount } = state;
       const mainCopy = _.assign({}, state.main);
 
       if (pageID) {
-        const pagesInStorage = Storage.get('ab-pages');
+        const pagesInStorage = Storage.get(TEMPLATE_PAGES_STORAGE_NAME);
         const queryString = { pageID: pageID };
         const itemIndex = _.findIndex(pagesInStorage, queryString);
         const pageInStorage = pagesInStorage[itemIndex];
 
         if (pageInStorage) {
-          const pageTitle = 'Page Title';
-          const pageFileName = `index-${randomKey()}.html`;
-
           const iFrame = DOM.iframe.get('ab-cfrm');
           const iFrameWindow = DOM.iframe.getWindow(iFrame);
           const pageFullSource = DOM.iframe.getFullHTML(iFrameWindow);
-
-          let newPages = pagesInStorage;
-          let newPage = pageInStorage;
-
-          newPage = _.assign({}, newPage, {
+          const newPage = _.assign({}, pageInStorage, {
             pageID: pageID,
             pageTitle: pageTitle,
             pageFileName: pageFileName,
             pageFullSource: pageFullSource,
 
-            navigation: navigation,
-            main: main,
-            footer: footer,
+            navigation: resetBlocks(navigation),
+            main: resetBlocks(main),
+            footer: resetBlocks(footer),
             blocksCount: blocksCount
           });
 
-          newPages[itemIndex] = newPage;
+          pagesInStorage[itemIndex] = newPage;
 
-          Storage.set('ab-pages', newPages);
+          if (_.isArray(pagesInStorage)) {
+            Storage.set(TEMPLATE_PAGES_STORAGE_NAME, pagesInStorage);
+          } else {
+            throw Error('Pages localstorage data is wrong type.');
+          }
         }
       }
 
@@ -101,40 +114,23 @@ function page (state = pageInitialState, action) {
     }
 
     case Actions.LOAD_PREVIOUS_PAGE: {
-      const { idx } = action;
-      let { pageID, navigation, main, footer, blocksCount } = state;
-      const pagesInStorage = Storage.get('ab-pages');
-      let pageInStorage = null;
+      let { idx } = action;
+      const pagesInStorage = Storage.get(TEMPLATE_PAGES_STORAGE_NAME);
 
       if (!idx) {
-        pageInStorage = pagesInStorage[0];
-      } else {
-        const itemIndex = _.findIndex(pagesInStorage, 'id', idx);
-        pageInStorage = pagesInStorage[itemIndex];
-        pageID = idx;
+        if (pagesInStorage.length >= 1) {
+          idx = pagesInStorage[0].pageID;
+        }
       }
 
-      if (pageInStorage) {
-        const {
-          navigation: pageNavigation,
-          main: pageMain,
-          footer: pageFooter,
-          blocksCount: pageBlocksCount
-        } = pageInStorage;
+      const itemIndex = _.findIndex(pagesInStorage, 'pageID', idx);
+      const pageInStorage = pagesInStorage[itemIndex];
+      const pageID = idx;
 
-        navigation = pageNavigation;
-        main = pageMain;
-        footer = pageFooter;
-        blocksCount = pageBlocksCount;
-      }
+      console.log(pageInStorage);
 
       return _.assign({}, state, {
-        pageID: pageID,
-
-        navigation: navigation,
-        main: main,
-        footer: footer,
-        blocksCount: blocksCount
+        ...pageInStorage
       });
     }
 

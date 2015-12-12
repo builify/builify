@@ -32,12 +32,12 @@ class Switch extends Component {
   };
 
   handleClick = (event) => {
-    events.pauseEvent(event);
+    Events.pauseEvent(event);
     if (!this.props.disabled) this.handleChange(event);
   };
 
   handleInputClick = (event) => {
-    events.pauseEvent(event);
+    Events.pauseEvent(event);
   };
 
   handleMouseDown = (event) => {

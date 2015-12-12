@@ -109,12 +109,6 @@ class DialogRestart extends Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    page: page.builder
-  }
-}
-
 function mapDispatchToProps (dispatch) {
   return {
     onRestart: () => {
@@ -127,7 +121,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DialogRestart);
+export default connect(null,mapDispatchToProps)(DialogRestart);

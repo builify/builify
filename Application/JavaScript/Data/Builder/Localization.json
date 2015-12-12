@@ -1,31 +1,17 @@
 {
   "en": {
     "primarynavigation": {
-      "pages": "Pages",
+      "pages": "Page",
       "content": "Content",
       "design": "Design",
       "more": "More",
-      "preview": "Preview"
+      "preview": "Preview",
+      "save": "Save Page",
+      "restore": "Restart",
+      "gethtml": "Download Pages"
     },
 
     "sidetabs": {
-      "navigation": {
-        "title": "Content",
-        "subtitle": "Navigation"
-      },
-      "main": {
-        "title": "Content",
-        "subtitle": "Main"
-      },
-      "footer": {
-        "title": "Content",
-        "subtitle": "Footer"
-      },
-      "all": {
-        "title": "Content",
-        "subtitle": "All"
-      },
-
       "colors": {
         "title": "Design",
         "subtitle": "Colors"
@@ -36,8 +22,6 @@
       }
     },
 
-    "templateselection": "Choose your website template",
-
     "pages": {
       "titles": {
         "currentpage": "Current Page",
@@ -45,16 +29,7 @@
       },
       "newpage": "Start new page",
       "loadpage": "Load previous page",
-      "loadpages": "Load previous pages"
-    },
-
-    "content": {
-      "titles": {
-        "navigationblocks": "Navigation blocks",
-        "mainblocks": "Main blocks",
-        "footerblocks": "Footer blocks",
-        "allblocks": "All blocks"
-      }
+      "loadpages": "Load previous page"
     },
 
     "design": {
@@ -73,6 +48,7 @@
         "boxedlayout": "Boxed layout",
         "darkskin": "Dark skin"
       },
+
       "colors": {
         "body": "Body",
         "anchor": "Anchor",
@@ -85,6 +61,7 @@
         "header4": "Heading 4",
         "blockquote": "Blockquote"
       },
+
       "typography": {
         "fonts": {
           "header": "Headings font",

@@ -1,6 +1,6 @@
 import { CurrentLocations } from '../Constants';
 import { setLanguage } from '../Common/Localization';
-import { MAXIUMUM_PAGES_IN_STORAGE, DialogTypes } from '../Constants';
+import { MAXIUMUM_PAGES_IN_STORAGE, TEMPLATE_PAGES_STORAGE_NAME, DialogTypes } from '../Constants';
 import { randomKey } from '../Common/Common';
 import * as Actions from '../Actions/Constants';
 import _ from 'lodash';
@@ -35,7 +35,10 @@ const builderInitialState = {
   // Modal
   isModalOpen: false,
   modalType: null,
-  modalTarget: null
+  modalTarget: null,
+
+  // Images
+  uploadedImages: []
 };
 
 function builder (state = builderInitialState, action) {
@@ -46,6 +49,20 @@ function builder (state = builderInitialState, action) {
   }
 
   switch (action.type) {
+    case Actions.UPLOADED_IMAGE: {
+      const { data } = action;
+      const { fileSize, fileDimensions, fileName, fileType, fileData, lastModified } = data;
+
+      return _.assign({}, state, {
+        uploadedImages: [
+          ...state.uploadedImages,
+          {
+            ...data
+          }
+        ]
+      });
+    }
+
     case Actions.GET_ICONPACKS: {
       const { iconPacks } = action;
 
@@ -65,17 +82,31 @@ function builder (state = builderInitialState, action) {
           queryPages.push(pages[selectedPages[i]]);
         }
 
-        DownloadPages.download(queryPages);
+        DownloadPages.download(queryPages, state);
       }
 
       return state;
     }
 
-    case Actions.RESTART_PAGE:
+    case Actions.RESTART_PAGE: {
+      const pages = Storage.get(TEMPLATE_PAGES_STORAGE_NAME);
+      const previousPages = !!(pages && pages.length !== 0);
+
       return _.assign({}, state, {
         currentLocation: CurrentLocations.STARTSCREEN,
-        isPageSelected: false
+        isPageSelected: false,
+        pages: pages,
+        doPreviousPagesExistInStorage: previousPages
       });
+    }
+
+    case Actions.SAVE_CURRENT_PAGE: {
+      const pages = Storage.get(TEMPLATE_PAGES_STORAGE_NAME);
+
+      return _.assign({}, state, {
+        pages: pages
+      });
+    }
 
     case Actions.OPEN_IMAGE_EDIT_MODAL:
       return _.assign({}, state, {
@@ -136,7 +167,7 @@ function builder (state = builderInitialState, action) {
       });
 
     case Actions.DO_PREVIOUS_PAGES_EXIST_IN_STORAGE: {
-      const pagesInStorage = Storage.get('ab-pages');
+      const pagesInStorage = Storage.get(TEMPLATE_PAGES_STORAGE_NAME);
 
       if (pagesInStorage === null) {
         return state;
@@ -165,7 +196,7 @@ function builder (state = builderInitialState, action) {
 
       if (pagesInStorage === null) {
         pagesList.push(pageObject);
-        Storage.set('ab-pages', pagesList);
+        Storage.set(TEMPLATE_PAGES_STORAGE_NAME, pagesList);
       } else {
         const cleanStorageFromOldPages = (arr) => {
           let arrayLen = arr.length;
@@ -179,8 +210,12 @@ function builder (state = builderInitialState, action) {
         pagesList = pagesInStorage;
         cleanStorageFromOldPages(pagesList);
 
-        pagesList.push(pageObject);
-        Storage.set('ab-pages', pagesList);
+        if (_.isArray(pagesList)) {
+          pagesList.push(pageObject);
+          Storage.set(TEMPLATE_PAGES_STORAGE_NAME, pagesList);
+        } else {
+          throw Error('Pages data type mismatches with storage pages.');
+        }
       }
 
       return _.assign({}, state, {

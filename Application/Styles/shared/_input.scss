@@ -17,7 +17,8 @@ $input-icon-offset: 1.6 * $unit;
 
 .#{$nameprefix}input {
     position: relative;
-    padding: $input-padding 0;
+    padding-top: $input-padding;
+    padding-bottom: $input-padding;
 
     &__icon {
         position: absolute;

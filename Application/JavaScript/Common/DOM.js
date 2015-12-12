@@ -19,6 +19,12 @@ const DOM = {
 
     isNodeList (nodes) {
       return !!(typeof nodes.length !== undefined && nodes.item !== undefined)
+    },
+
+    isUrl (url) {
+      const reg = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/;
+
+      return url.test(reg);
     }
   },
 
@@ -132,8 +138,6 @@ const DOM = {
       }
 
       const HTML = addDcotypeToHTML(removeJunk(cloneDocElem).innerHTML);
-
-      console.log(HTML);
 
       return HTML;
     }

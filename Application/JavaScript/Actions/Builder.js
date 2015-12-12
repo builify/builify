@@ -31,6 +31,10 @@ export function initializeEvents () {
         dispatch(saveCurrentPage());
       }
     });
+
+    window.setInterval(() => {
+      dispatch(saveCurrentPage());
+    }, 60000);
   }
 }
 
@@ -98,6 +102,13 @@ export function returnTemplateData (data) {
   }
 }
 
+export function uploadImage (data) {
+  return {
+    type: Actions.UPLOADED_IMAGE,
+    data: data
+  }
+}
+
 export function downloadPages (pages) {
   return {
     type: Actions.DOWNLOAD_PAGES,
@@ -124,7 +135,7 @@ export function getIconPacks () {
 export function addIconPackSourcesToHead (iconPacks) {
   const headElement = document.getElementsByTagName('head')[0];
 
-  // Chromium bug. 
+  // Chromium bug.
   // Adding stylesheets at start results scrollbar not working.
   _.delay(() => {
     _.map(iconPacks, (iconPack) => {

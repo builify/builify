@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const exports = {
+export default {
   randomString (stringLength) {
     const cryptoObject = window.crypto || window.msCrypto;
     const intLen = Math.floor((stringLength || 40) / 2);
@@ -19,5 +19,3 @@ const exports = {
     return _.uniqueId((str ? str : null));
   }
 };
-
-export default exports;

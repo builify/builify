@@ -1,4 +1,4 @@
-const exports = {
+export default {
   getMousePosition (event) {
     return {
       x: event.pageX,
@@ -21,7 +21,7 @@ const exports = {
     event.returnValue = false;
     event.cancelBubble = true;
   },
-  
+
   addEventsToDocument (eventMap) {
     for (const key in eventMap) {
       document.addEventListener(key, eventMap[key], false);
@@ -43,5 +43,3 @@ const exports = {
     return false;
   }
 };
-
-export default exports;

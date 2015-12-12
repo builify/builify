@@ -3,7 +3,7 @@ import { TEMPLATE_PACKAGE_FILENAME, TEMPLATE_PACKAGE_EXTENSION } from '../Consta
 import JSZip from 'jszip';
 import _ from 'lodash';
 
-const exports = {
+export default {
   getFileSettings () {
     return {
       type: 'blob'
@@ -21,11 +21,14 @@ const exports = {
   },
 
   getPageFileName (page) {
-    return `${_.uniqueId('index')}.html`;
+    const { pageFileName } = page;
+    return pageFileName;
   },
 
-  download (pages) {
+  download (pages, builder) {
+    const { uploadedImages } = builder;
     const pagesLength = pages.length;
+    let i = 0;
 
     if (pagesLength === 0) {
       return;
@@ -35,7 +38,7 @@ const exports = {
     const fileSettings = this.getFileSettings();
     const zipFileName =  this.getFileName();
 
-    for (let i = 0; i < pagesLength; i++) {
+    for (; i < pagesLength; i++) {
       const page = pages[i];
       const { blocksCount } = page;
 
@@ -47,8 +50,15 @@ const exports = {
       }
     }
 
+    for (i = 0; i < uploadedImages.length; i++) {
+      const uploadedImage = uploadedImages[i];
+      const { fileType, fileData } = uploadedImage;
+
+      if (typeof fileType !== undefined && typeof fileData !== undefined) {
+        zip.file('test.png', fileData);
+      }
+    }
+
     saveAs(zip.generate(fileSettings), zipFileName);
   }
 };
-
-export default exports;

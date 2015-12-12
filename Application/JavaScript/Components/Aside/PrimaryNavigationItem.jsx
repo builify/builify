@@ -1,85 +1,94 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { getString } from '../../Common/Localization';
-import { openTab, openPreview, openDownloadModal, openRestartModal } from '../../Actions';
-import { CurrentLocations } from '../../Constants';
-import cx from 'classnames';
+import ClassNames from 'classnames';
+import _ from 'lodash';
 import Icon from '../Shared/Icon';
+import { getString } from '../../Common/Localization';
+import { saveCurrentPage, openTab, openPreview, openDownloadModal, openRestartModal } from '../../Actions';
+import { CurrentLocations } from '../../Constants';
 
-class PrimaryNavigationItem extends Component {
+class PrimaryNavigationItem extends React.Component {
   static propTypes = {
-    language: PropTypes.string,
-    navigationItemInformation: PropTypes.object
-  }
+    language: React.PropTypes.string,
+    navigationItemInformation: React.PropTypes.object
+  };
 
   static defaultProps = {
     language: 'en',
     navigationItemInformation: {}
-  }
+  };
 
   itemClick (e) {
     const { onOpenTab, onOpenPreview, target, builder, navigationItemInformation } = this.props;
     const { currentLocation } = builder;
 
     if (currentLocation == CurrentLocations.STARTSCREEN) {
-      if (navigationItemInformation.id !== 'pages') {
-        return false;
-      }
+      return false;
     }
 
-    return ((navigationItemInformation.target.indexOf('tab') !== -1) ?
-            onOpenTab(target) :
-            onOpenPreview(target));
+    if (_.has(navigationItemInformation, 'target')) {
+      return ((navigationItemInformation.target.indexOf('tab') !== -1) ?
+              onOpenTab(target) :
+              onOpenPreview(target));
+    } else {
+      throw Error(`No target defined for ${navigationItemInformation.id}.`);
+    }
   }
 
   render () {
-    const { onGetHTML, onRestartClick, builder, navigationItemInformation } = this.props;
+    const { onSaveClick, onGetHTML, onRestartClick, builder, navigationItemInformation } = this.props;
     const { id, icon, target } = navigationItemInformation;
     const { currentLocation, pages } = builder;
-    let itemClassName = cx(currentLocation == CurrentLocations.STARTSCREEN ?
-      (id !== 'pages' ? 'hide' : '') : '');
+    const itemClassName = ClassNames(currentLocation == CurrentLocations.STARTSCREEN ? 'hide' : '');
 
-    if (id === 'gethtml') {
-      if (pages.length !== 0) {
+    if (id === 'gethtml' || id === 'save' || id === 'restore') {
+      if (id === 'gethtml') {
+        const moreThanOnePage = !!(pages && pages.length !== 0);
+        const className = ClassNames('html', !moreThanOnePage ? 'hide' : null);
+        const emptyFunction = () => {};
+
         return (
           <li
-            onClick={onGetHTML}
-            className='html'>
-            <Icon icon='file-download' />
-            <span>{'Get HTML'}</span>
+            onClick={moreThanOnePage ? onGetHTML : emptyFunction}
+            className={className}>
+            <Icon icon={icon} />
+            <span>{getString('primarynavigation.' + id)}</span>
           </li>
         );
-      } else {
+      } else if (id === 'restore') {
+        const clickFunc = currentLocation !== CurrentLocations.STARTSCREEN ? onRestartClick : function () {};
+
         return (
           <li
-            className='html hide'>
-            <Icon icon='file-download' />
-            <span>{'Get HTML'}</span>
+            className={itemClassName}
+            onClick={clickFunc}>
+            <Icon icon={icon} />
+            <span>{getString('primarynavigation.' + id)}</span>
+          </li>
+        );
+      } else if (id === 'save') {
+        const clickFunc = currentLocation !== CurrentLocations.STARTSCREEN ? onSaveClick : function () {};
+        const className = ClassNames(itemClassName);
+
+        return (
+          <li
+            className={className}
+            onClick={clickFunc}>
+            <Icon icon={icon} />
+            <span>{getString('primarynavigation.' + id)}</span>
           </li>
         );
       }
-    } else if (id=== 'restore') {
-      const clickFunc = currentLocation !== CurrentLocations.STARTSCREEN ?
-        onRestartClick : function () {};
-
-      return (
-        <li
-          className={itemClassName}
-          onClick={clickFunc}>
-          <Icon icon='restore' />
-          <span>{'Restart'}</span>
-        </li>
-      );
-    } else {
-      return (
-        <li
-          className={itemClassName}
-          onClick={::this.itemClick}>
-          <Icon icon={icon} />
-          {getString('primarynavigation.' + id)}
-        </li>
-      );
     }
+
+    return (
+      <li
+        className={itemClassName}
+        onClick={::this.itemClick}>
+        <Icon icon={icon} />
+        <span>{getString('primarynavigation.' + id)}</span>
+      </li>
+    );
   }
 }
 
@@ -105,11 +114,12 @@ function mapDispatchToProps (dispatch) {
 
     onRestartClick: () => {
       dispatch(openRestartModal());
+    },
+
+    onSaveClick: () => {
+      dispatch(saveCurrentPage());
     }
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PrimaryNavigationItem);
+export default connect(mapStateToProps, mapDispatchToProps)(PrimaryNavigationItem);
