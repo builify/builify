@@ -159,17 +159,17 @@ export function contentBlockWasUpdated (block) {
   }
 }
 
-export function currentHoverBlock (element) {
+export function currentHoverBlock (block) {
   return {
     type: Actions.CURRENT_HOVER_BLOCK,
-    element: element
+    block: block
   }
 }
 
-export function removeContentBlock (blockElement) {
+export function removeContentBlock (block) {
   return {
     type: Actions.REMOVE_CONTENTBLOCK,
-    blockElement: blockElement
+    block: block
   }
 }
 

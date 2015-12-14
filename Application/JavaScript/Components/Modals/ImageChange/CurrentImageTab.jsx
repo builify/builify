@@ -60,7 +60,7 @@ export default class CurrentImageTab extends React.Component {
     return (
       <div className='ab-modal__tab'>
         <aside className='ab-modal__tabside sec'>
-          <h2>Edit Image Src</h2>
+          <h2>Edit Image Source</h2>
           <Input
             onBlur={::this.imageSourceInputEvent}
             ref='image-src'
@@ -71,8 +71,8 @@ export default class CurrentImageTab extends React.Component {
         </aside>
         <main className='ab-modal__tabcontent sec'>
           <Image
+            chalk
             className='ab-modal__imgholder'
-            backgroundImage
             src={imageUrl} />
         </main>
       </div>

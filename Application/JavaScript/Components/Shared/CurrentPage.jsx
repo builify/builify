@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { randomKey } from '../../Common/Common';
+import Random from '../../Common/Random';
 import { removeContentBlock, sortContentBlocks, setPageTitle, setPageFilename } from '../../Actions';
 import _ from 'lodash';
 import cx from 'classnames';
@@ -10,23 +11,15 @@ import Input from './Input';
 import Button from './Button';
 import Title from './Title';
 
-class CurrentPageDivider extends Component {
-  render () {
-    return (
-      <div className='ab-currentPage__divider' />
-    )
-  }
-}
-
-class CurrentPageItem extends Component {
+class CurrentPageItem extends React.Component {
   static propTypes = {
-    onRemoveClick: PropTypes.func,
-    data: PropTypes.object.isRequired
-  }
+    onRemoveClick: React.PropTypes.func,
+    data: React.PropTypes.object.isRequired
+  };
 
   static defaultProps = {
-    onRemoveClick: () => {}
-  }
+    onRemoveClick: function () {}
+  };
 
   render () {
     const { data, onRemoveClick } = this.props;
@@ -69,8 +62,42 @@ class CurrentPageItem extends Component {
 }
 
 class CurrentPageSections extends React.Component {
+  renderNotSortableItems (notSortableItems) {
+    const { onRemove } = this.props;
+
+    return _.map(notSortableItems, item => {
+      return (
+          <CurrentPageItem
+            onRemoveClick={(e) => {
+              return onRemove(item);
+            }}
+            data={item}
+            key={Random.randomKey('notsortableitem')} />
+      );
+    });
+  }
+
+  renderSortableItems (items) {
+    const { onRemove } = this.props;
+
+    return _.map(items, item => {
+      return (
+        <CurrentPageItem
+          onRemoveClick={(e) => {
+            return onRemove(item);
+          }}
+          data={item}
+          key={Random.randomKey('sortableitem')} />
+      );
+    });
+  }
+
+  renderPageDivider (notSortableItems) {
+    return notSortableItems.length > 0 ? <div className='ab-currentPage__divider' /> : null;
+  }
+
   render () {
-    const { page, onRemove, onSortBlocks } = this.props;
+    const { page, onSortBlocks } = this.props;
     const { navigation, main, footer } = page;
     const sortableOptions = {
       draggable: '.draggable',
@@ -95,50 +122,23 @@ class CurrentPageSections extends React.Component {
       notSortableItems.push(footer);
     }
 
-    if (_.values(navigation).length === 0 &&
-        _.values(footer).length === 0 &&
-        main.length === 0) {
-      return (
-        <span className='tip'>Your current page is empty :(</span>
-      )
+    if (_.values(navigation).length === 0 && _.values(footer).length === 0 && main.length === 0) {
+      return <span className='tip'>Your current page is empty :(</span>;
     } else {
       return (
         <div>
           <ul>
-          {_.map(notSortableItems, item => {
-            const key = randomKey('notsortableitem');
-
-            return (
-              <CurrentPageItem
-                data={item}
-                key={key} />
-            )
-          })}
+            { this.renderNotSortableItems(notSortableItems) }
           </ul>
-          {(() => {
-            if (notSortableItems.length > 0) {
-              return <CurrentPageDivider />
-            }
-          })()}
+          { this.renderPageDivider(notSortableItems) }
           <Sortable
             sortable={sortableOptions}
             component='ul'
             childElement='div'
             className='ab-currentPage'>
-            {_.map(items, (item) => {
-              const { elementReference } = item;
-              const key = randomKey('sortableitem');
-
-              return (
-                <CurrentPageItem
-                  onRemoveClick={(e) => {
-                    return onRemove(elementReference);
-                  }}
-                  data={item}
-                  key={key} />
-              )
-            })}
+            { this.renderSortableItems(items) }
           </Sortable>
+          { this.renderPageDivider(items) }
         </div>
       );
     }
@@ -160,11 +160,52 @@ class CurrentPage extends React.Component {
     return onSetPageFilename(filenameValue);
   }
 
+  renderTitleInput () {
+    const { page } = this.props;
+    const { pageID, pageTitle } = page;
+
+    if (pageID === null) {
+      return null;
+    } else {
+      return (
+        <div>
+          <Title
+            title='Website Title'
+            description="This is displayed in search results and in your browser's title bar." />
+          <Input
+            ref='input-title'
+            className='ab-itemwrap padding-top-1'
+            value={pageTitle}
+            onBlur={::this.changePageTitle} />
+        </div>
+      );
+    }
+  }
+
+  renderFilenameInput () {
+    const { page } = this.props;
+    const { pageID, pageFileName } = page;
+
+    if (pageID === null) {
+      return null;
+    } else {
+      return (
+        <div>
+          <Title
+            title='Filename'
+            description="This will be page's filename" />
+          <Input
+            ref='input-filename'
+            className='ab-itemwrap padding-top-1'
+            value={pageFileName}
+            onBlur={::this.changePageFilename} />
+        </div>
+      );
+    }
+  }
+
   render () {
     const { page, onRemove, onSortBlocks, onSetPageTitle, onSetPageFilename } = this.props;
-    const { pageTitle, pageFileName } = page;
-
-    console.log(page);
 
     return (
       <div>
@@ -173,22 +214,8 @@ class CurrentPage extends React.Component {
           page={page}
           onRemove={onRemove}
           onSortBlocks={onSortBlocks} />
-        <Title
-          title='Website Title'
-          description="This is displayed in search results and in your browser's title bar." />
-        <Input
-          ref='input-title'
-          className='ab-itemwrap padding-top-1'
-          value={pageTitle}
-          onBlur={::this.changePageTitle} />
-        <Title
-          title='Filename'
-          description="This will be page's filename" />
-        <Input
-          ref='input-filename'
-          className='ab-itemwrap padding-top-1'
-          value={pageFileName}
-          onBlur={::this.changePageFilename} />
+        { this.renderTitleInput() }
+        { this.renderFilenameInput() }
       </div>
     );
   }

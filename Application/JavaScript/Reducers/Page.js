@@ -114,24 +114,37 @@ function page (state = pageInitialState, action) {
     }
 
     case Actions.LOAD_PREVIOUS_PAGE: {
-      let { idx } = action;
+      const { idx } = action;
       const pagesInStorage = Storage.get(TEMPLATE_PAGES_STORAGE_NAME);
+      var pageToLoad = null;
 
       if (!idx) {
         if (pagesInStorage.length >= 1) {
-          idx = pagesInStorage[0].pageID;
+          pageToLoad = pageInStorage[0];
+        }
+      } else {
+        const searchQuery = { pageID: idx };
+        const itemIndex = _.findIndex(pagesInStorage, searchQuery);
+
+        if (itemIndex !== -1) {
+          pageToLoad = pagesInStorage[itemIndex];
         }
       }
 
-      const itemIndex = _.findIndex(pagesInStorage, 'pageID', idx);
-      const pageInStorage = pagesInStorage[itemIndex];
-      const pageID = idx;
+      if (pageToLoad !== null) {
+        let { navigation, main, footer } = pageToLoad;
 
-      console.log(pageInStorage);
+        // Reset parameters to avoid not rendering to canvas.
+        navigation = resetBlocks(navigation);
+        main = resetBlocks(main);
+        footer = resetBlocks(footer);
 
-      return _.assign({}, state, {
-        ...pageInStorage
-      });
+        return _.assign({}, state, {
+          ...pageToLoad
+        });
+      }
+
+      return state;
     }
 
     case Actions.GET_TEMPLATE_DATA: {
@@ -196,47 +209,42 @@ function page (state = pageInitialState, action) {
     }
 
     case Actions.REMOVE_CONTENTBLOCK: {
-      const { blockElement } = action;
-      let { navigation, main, footer, blocksCount } = state;
+      const { block } = action;
 
-      if (!blockElement) {
-        return state;
-      }
+      if (_.isObject(block) && _.has(block, 'elementReference')) {
+        const { id, type, elementReference } = block;
+        let { navigation, main, footer, blocksCount } = state;
 
-      const attr = blockElement.getAttribute('data-abcblocktype');
+        if (type === 'footer') {
+          footer = {};
+          blocksCount--;
+          elementReference.remove();
+        } else if (type === 'navigation') {
+          navigation = {};
+          blocksCount--;
+          elementReference.remove();
+        } else {
+          const searchQuery = { id: id };
+          const index = _.findIndex(main, searchQuery);
 
-      if (attr) {
-        const blockNumber = blockElement.getAttribute('data-abcblocknr');
-
-        if (blockNumber) {
-          if (attr == 'footer') {
-            footer = {};
+          if (index !== -1) {
+            main = _.without(main, main[index]);
             blocksCount--;
-          } else if (attr == 'navigation') {
-            navigation = {};
-            blocksCount--;
+            elementReference.remove();
           } else {
-            for (let i = main.length - 1; i >= 0; i--) {
-              let curItem = main[i];
-
-              if (curItem.id === blockNumber) {
-                main.splice(i, 1);
-                blocksCount--;
-                break;
-              }
-            }
+            throw Error('Could not find block from main to delete.');
           }
         }
+
+        return _.assign({}, state, {
+          navigation: navigation,
+          footer: footer,
+          main: main,
+          blocksCount: blocksCount
+        });
+      } else {
+        return state;
       }
-
-      blockElement.remove();
-
-      return _.assign({}, state, {
-        navigation: navigation,
-        footer: footer,
-        main: main,
-        blocksCount: blocksCount
-      });
     }
 
     case Actions.BLOCK_WAS_RENDERED_TO_PAGE: {

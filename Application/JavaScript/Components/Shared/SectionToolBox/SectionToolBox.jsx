@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { removeContentBlock, openContentblockSourceEditModal } from '../../../Actions';
-import cx from 'classnames';
+import _ from 'lodash';
+import ClassNames from 'classnames';
 import Icon from '../Icon';
 import Dropdown from '../Dropdown';
 import Switch from '../Switch';
+import { removeContentBlock, openContentblockSourceEditModal } from '../../../Actions';
 
-class SectionToolBox extends Component {
+class SectionToolBox extends React.Component {
   state = {
     settingsMenuOpened: false
   }
@@ -15,9 +16,9 @@ class SectionToolBox extends Component {
     const { settingsMenuOpened } = this.state;
     const { canvas, onRemove, onOpenContentblockSourceEditModal } = this.props;
     const { currentHoverBlock } = canvas;
-    const { element, topX } = currentHoverBlock;
-    const className = cx('ab-cstoolbox');
-    const dropdownClassname = cx('dropdown', settingsMenuOpened ? 'active' : null);
+    const { block, topX } = currentHoverBlock;
+    const className = ClassNames('ab-cstoolbox');
+    const dropdownClassname = ClassNames('dropdown', settingsMenuOpened ? 'active' : null);
     const iconSize = 24;
     const iconStyle = {
       fill: '#FFF'
@@ -25,6 +26,10 @@ class SectionToolBox extends Component {
     const toolBoxStyle = {
       top: topX
     };
+
+    if (_.values(block).length === 0 || !_.has(block, 'elementReference')) {
+      return null;
+    }
 
     return (
       <div
@@ -46,7 +51,7 @@ class SectionToolBox extends Component {
           </li>
           <li
             onClick={(e) => {
-              return onRemove(element);
+              return onRemove(block);
             }}
             title='Remove Block'>
             <Icon
@@ -65,7 +70,7 @@ class SectionToolBox extends Component {
           </li>
         </ul>
       </div>
-    )
+    );
   }
 }
 
@@ -87,7 +92,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SectionToolBox);
+export default connect(mapStateToProps,mapDispatchToProps)(SectionToolBox);

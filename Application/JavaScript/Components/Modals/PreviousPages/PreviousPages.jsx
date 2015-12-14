@@ -8,6 +8,7 @@ import BottomNavigation from './BottomNavigation';
 import Time from '../../../Common/Time';
 import Events from '../../../Common/Events';
 import Button from '../../Shared/Button';
+import Scrollbar from '../../Shared/Scrollbar';
 import { loadPreviousPage, closeModal } from '../../../Actions';
 
 class Content extends React.Component {
@@ -48,9 +49,11 @@ class Content extends React.Component {
             <p>{ pagesInformation }</p>
           </aside>
           <main className='ab-modal__tabcontent sec'>
-            <div className='ab-modal__tabpages'>
-              { this.renderPageItems(pages) }
-            </div>
+            <Scrollbar height={380}>
+              <div className='ab-modal__tabpages'>
+                { this.renderPageItems(pages) }
+              </div>
+            </Scrollbar>
           </main>
         </div>
       </ModalTab>

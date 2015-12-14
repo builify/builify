@@ -4,33 +4,38 @@ import * as Actions from '../Actions/Constants';
 
 const canvasInitialState = {
   currentHoverBlock: {
-    element: null,
+    block: {},
     topX: 10
-  },
-
-  isContentBlockSettingsMenuOpened: false
+  }
 };
 
 function canvas (state = canvasInitialState, action) {
   switch (action.type) {
-    case Actions.CURRENT_HOVER_BLOCK:
-      let { currentHoverBlock } = state;
-      const { element } = action;
-      const { elementReference } = element;
+    case Actions.CURRENT_HOVER_BLOCK: {
+      const { block } = action;
 
-      currentHoverBlock.element = elementReference;
-      currentHoverBlock.topX = getAbsPosition(elementReference)[0] + 10;
+      if (_.isObject(block)) {
+        const { elementReference } = block;
+        const topX = getAbsPosition(elementReference)[0] + 10;
 
+        return _.assign({}, state, {
+          currentHoverBlock: {
+            block: block,
+            topX: topX
+          }
+        });
+      }
+
+      return state;
+    }
+
+    case Actions.REMOVE_CONTENTBLOCK: {
       return _.assign({}, state, {
-        currentHoverBlock: currentHoverBlock
+        currentHoverBlock: {
+          block: {}
+        }
       });
-
-    case Actions.OPEN_CONTENTBLOCK_SETTINGS:
-      const { isContentBlockSettingsMenuOpened } = state;
-
-      return _.assign({}, state, {
-        isContentBlockSettingsMenuOpened: !isContentBlockSettingsMenuOpened
-      });
+    }
   }
 
   return state;
