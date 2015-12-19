@@ -1,13 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { CurrentLocations, PreviewModes } from '../../Constants';
-import cx from 'classnames';
-import CanvasSuggestionBox from '../Shared/CanvasSuggestionBox';
-import Scrollbar from '../Shared/Scrollbar';
+import ClassNames from 'classnames';
 import CanvasFrame from './CanvasFrame';
 import PreviewControls from './PreviewControls';
+import CanvasSuggestionBox from './CanvasSuggestionBox';
+import { CurrentLocations, PreviewModes } from '../../Constants';
 
-class Canvas extends Component {
+class Canvas extends React.Component {
   render () {
     const { page, builder, preview } = this.props;
     const { blocksCount } = page;
@@ -32,7 +31,7 @@ class Canvas extends Component {
       lndcapeClassname = 'landscape';
     }
 
-    const className = cx('ab-canvas', isStartScreenLocation ? 'hide' : null, prvClassname, prvMode, lndcapeClassname);
+    const className = ClassNames('ab-canvas', isStartScreenLocation ? 'hide' : null, prvClassname, prvMode, lndcapeClassname);
 
     return (
       <div className={className}>
@@ -40,7 +39,7 @@ class Canvas extends Component {
         <CanvasSuggestionBox display={displaySuggestionBox} />
         <CanvasFrame />
       </div>
-    )
+    );
   }
 }
 
@@ -52,6 +51,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(
-  mapStateToProps
-)(Canvas);
+export default connect(mapStateToProps)(Canvas);

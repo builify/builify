@@ -25,13 +25,10 @@ const pageInitialState = {
 
 function resetBlockParameters (block) {
   if (_.isObject(block)) {
-    if (_.has(block, 'hasBeenRendered')) {
-      block.hasBeenRendered = false;
-    }
-
-    if (_.has(block, 'elementReference')) {
-      block.elementReference = null;
-    }
+    return _.assign({}, block, {
+      hasBeenRendered: false,
+      elementReference: null
+    });
   }
 
   return block;
@@ -39,7 +36,9 @@ function resetBlockParameters (block) {
 
 function resetBlocks (blocks) {
   if (_.isArray(blocks)) {
-    return _.map(blocks, block => resetBlockParameters(block));
+    return _.map(blocks, block => {
+      return resetBlockParameters(block);
+    });
   } else if (_.isObject(blocks)) {
     return resetBlockParameters(blocks);
   }
@@ -119,8 +118,8 @@ function page (state = pageInitialState, action) {
       var pageToLoad = null;
 
       if (!idx) {
-        if (pagesInStorage.length >= 1) {
-          pageToLoad = pageInStorage[0];
+        if (_.size(pagesInStorage) >= 1) {
+          pageToLoad = pagesInStorage[0];
         }
       } else {
         const searchQuery = { pageID: idx };
@@ -134,10 +133,15 @@ function page (state = pageInitialState, action) {
       if (pageToLoad !== null) {
         let { navigation, main, footer } = pageToLoad;
 
-        // Reset parameters to avoid not rendering to canvas.
         navigation = resetBlocks(navigation);
         main = resetBlocks(main);
         footer = resetBlocks(footer);
+
+        pageToLoad = _.assign({}, pageToLoad, {
+          navigation: navigation,
+          main: main,
+          footer: footer
+        });
 
         return _.assign({}, state, {
           ...pageToLoad
@@ -249,30 +253,31 @@ function page (state = pageInitialState, action) {
 
     case Actions.BLOCK_WAS_RENDERED_TO_PAGE: {
       const { block, elementReference } = action;
-      const { type: blockType, id } = block;
-      let { navigation, main, footer } = state;
+      const { type } = block;
+      const { navigation, main, footer } = state;
+      let newFooter = _.assign({}, footer);
+      let newMain = main;
+      let newNavigation = _.assign({}, navigation);
 
-      function setParameters (block) {
-        block.hasBeenRendered = true;
-        block.elementReference = elementReference;
-      }
-
-      if (blockType === 'navigation') {
-        setParameters(navigation);
-      } else if (blockType === 'footer') {
-        setParameters(footer);
+      if (type == 'footer') {
+        newFooter.hasBeenRendered = true;
+        newFooter.elementReference = elementReference;
+      } else if (type == 'navigation') {
+        newNavigation.hasBeenRendered = true;
+        newNavigation.elementReference = elementReference;
       } else {
-        const indexSearchQuery = { id: id };
-        const index = _.findKey(main, indexSearchQuery);
-        let news = main[index];
+        const index = _.findIndex(newMain, _.pick(block, 'id'));
 
-        main[index] = _.assign({}, main[index], setParameters(news));
+        if (index !== -1) {
+          newMain[index].hasBeenRendered = true;
+          newMain[index].elementReference = elementReference;
+        }
       }
 
       return _.assign({}, state, {
-        navigation: navigation,
-        main: main,
-        footer: footer
+        navigation: newNavigation,
+        main: newMain,
+        footer: newFooter
       });
     }
 
@@ -281,6 +286,7 @@ function page (state = pageInitialState, action) {
 
     case Actions.SORT_CONTENTBLOCKS: {
       const { evt } = action;
+      const { main } = state;
       const { newIndex, oldIndex, item } = evt;
       const blockIdElement = item.querySelector('[data-blockid]');
       let temp = main[newIndex];

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
+import DOM from '../../Common/DOM';
 import { currentHoverBlock, blockWasRenderedToPage, removeContentBlock } from '../../Actions';
 import { findUpAttr } from '../../Common/Common';
 import { store } from '../Application';
 import { CONTENTBLOCK_ATTR_ID, CONTENTBLOCK_ATTR_FIRST_ELEMENT, CONTENTBLOCK_ATTR_TYPE } from '../../Constants';
-import _ from 'lodash';
 import Events from '../../Common/Events';
 import ClickToolbox from '../Shared/ClickToolbox';
 import SectionToolBox from '../Shared/SectionToolBox';
@@ -15,16 +16,11 @@ class CanvasFrame extends Component {
 
   componentWillReceiveProps (nextProps) {
     const { page: currentPage } = nextProps;
-    //const { isPageSelected } = builder;
     const blocks = _.assign({}, this._blocks, currentPage);
 
     this._blocks = blocks;
 
-    //if (isPageSelected) {
-      this.renderBlocks(blocks);
-    /*} else {
-      this.cleanCanvas();
-    }*/
+    this.renderBlocks(blocks);
   }
 
   cleanCanvas () {
@@ -74,127 +70,86 @@ class CanvasFrame extends Component {
     const { id, type, blockName } = block;
     const { onCoreBlockHover, onBlockRenderToPage } = this.props;
 
-    if (!block || elementReference === undefined || elementReference === null) {
-      throw Error('Something went wrong when setting block attributes. ' + block);
+    if (!block || !elementReference) {
+      throw Error(`Something went wrong when setting block attributes. ${JSON.stringify(block)}`);
     }
 
-    if (updateMode) {
-
-    } else {
-      elementReference.addEventListener('mouseenter', (e) => {
-        return onCoreBlockHover(block);
-      });
-
+    if (!updateMode) {
       elementReference.setAttribute(CONTENTBLOCK_ATTR_ID, id);
       elementReference.setAttribute(CONTENTBLOCK_ATTR_FIRST_ELEMENT, 'true');
       elementReference.setAttribute(CONTENTBLOCK_ATTR_TYPE, type);
 
-      onBlockRenderToPage(block, elementReference);
+      return onBlockRenderToPage(block, elementReference);
     }
   }
 
   renderMainBlocks (mainBlocks) {
-    const { onElementRemove, page } = this.props;
-    const { blocksCount } = page;
     const mainElement = this.refs.main;
-    const navigationBlock = this._blocks.navigation;
-    const mainBlocksLength = mainBlocks.length;
-    let doesNavigationBlockExist = false;
 
     _.map(mainBlocks, (block, i) => {
-      const {
-        id,
-        type,
-        blockName,
-        source,
-        hasBeenRendered,
-        elementReference,
-        updateBlock
-      } = block;
+      const { hasBeenRendered, source, updatePosition } = block;
 
       if (!hasBeenRendered) {
         mainElement.insertAdjacentHTML('beforeend', source);
 
         this.setElementAttributes(block, mainElement.children[i]);
-      } else if (updateBlock) {
-        function removeFirstTag (source) {
-          const reg = /(<([^>]+)>)/g;
-          const matches = source.match(reg);
-          let result = Array.from(matches);
-
-          result.shift();
-          result.pop();
-
-          result = result.join('');
-
-          return result;
-        }
-
-        elementReference.innerHTML = removeFirstTag(source);
-
-        //this.setElementAttributes(block, mainElement.children[i]);
       }
 
-      if (_.has(block, 'updatePosition')) {
-        const { oldPos, newPos } = block;
+      if (hasBeenRendered) {
+        if (updatePosition) {
+          if (_.has(block, 'newPos')) {
+            const { elementReference, newPos } = block;
+            elementReference.parentNode.insertBefore(elementReference, mainElement.children[newPos]);
 
-        if (newPos === 0) {
-          mainElement.insertBefore(mainElement.children[newPos], mainElement.children[oldPos]);
-          mainElement.insertBefore(mainElement.children[oldPos], mainElement.children[0]);
-        } else if (newPos === (mainBlocksLength - 1)) {
-          mainElement.insertBefore(mainElement.children[newPos], mainElement.children[oldPos]);
-          mainElement.appendChild(mainElement.children[oldPos]);
-        } else {
-
+            block.updatePosition = false;
+          }
         }
-
-        delete block.updatePosition;
       }
     });
 
     this._blocks.main = mainBlocks;
   }
 
-  renderNavigation (navigationBlock) {
-    const navigationElement = this.refs.navigation;
+  renderNavigation (block) {
+    const targetElement = this.refs.navigation;
 
-    if (_.values(navigationBlock).length !== 0) {
-      const { id, type, blockName, source, hasBeenRendered } = navigationBlock;
+    if (_.values(block).length !== 0) {
+      const { id, type, blockName, hasBeenRendered, source } = block;
 
       if (!id || !type || !blockName || !source) {
-        throw Error('Wrong navigation block. ' + navigationBlock);
+        throw Error(`Wrong navigation block. ${navigationBlock}`);
       }
 
       if (!hasBeenRendered) {
-        navigationElement.innerHTML = '';
-        navigationElement.insertAdjacentHTML('beforeend', source);
+        targetElement.innerHTML = '';
+        targetElement.insertAdjacentHTML('beforeend', source);
 
-        this.setElementAttributes(navigationBlock, navigationElement.children[0]);
+        this.setElementAttributes(block, targetElement.children[0]);
       }
     }
 
-    this._blocks.navigation = navigationBlock;
+    this._blocks.navigation = block;
   }
 
-  renderFooter (footerBlock) {
-    const footerElement = this.refs.footer;
+  renderFooter (block) {
+    const targetElement = this.refs.footer;
 
-    if (_.values(footerBlock).length !== 0) {
-      const { id, type, blockName, source, hasBeenRendered, updateBlock } = footerBlock;
+    if (_.values(block).length !== 0) {
+      const { id, type, blockName, source, hasBeenRendered } = block;
 
       if (!id || !type || !blockName || !source) {
-        throw Error('Wrong footer block. ' + navigationBlock);
+        throw Error(`Wrong navigation block. ${block}`);
       }
 
       if (!hasBeenRendered) {
-        footerElement.innerHTML = '';
-        footerElement.insertAdjacentHTML('beforeend', source);
+        targetElement.innerHTML = '';
+        targetElement.insertAdjacentHTML('beforeend', source);
 
-        this.setElementAttributes(footerBlock, footerElement.children[0]);
+        this.setElementAttributes(block, targetElement.children[0]);
       }
     }
 
-    this._blocks.footer = footerBlock;
+    this._blocks.footer = block;
   }
 
   hoverBlocksMouseEnter (e) {
@@ -288,7 +243,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CanvasFrame);
+export default connect(mapStateToProps, mapDispatchToProps)(CanvasFrame);

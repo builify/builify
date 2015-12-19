@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { CurrentLocations } from '../Constants';
 import { addNotification } from '../Actions';
-import cx from 'classnames';
+import ClassNames from 'classnames';
 import Aside from './Aside/Aside';
 import Main from './Main/Main';
 import LoadingScreen from './Shared/LoadingScreen';
@@ -10,13 +10,13 @@ import ColorPicker from './Shared/ColorPicker';
 import DialogContainer from './Containers/Dialog';
 import NotificationContainer from './Containers/Notifications';
 
-class Base extends Component {
+class Base extends React.Component {
   render () {
     const { builder, builderConfiguration} = this.props;
     const { currentLocation } = builder;
     const { defaultTheme } = builderConfiguration;
     const isPreviewModeActive = currentLocation === CurrentLocations.PREVIEW ? true : false;
-    const reactWrapClassname = cx('react-wrap', defaultTheme, isPreviewModeActive ? 'preview' : '');
+    const reactWrapClassname = ClassNames('react-wrap', defaultTheme, isPreviewModeActive ? 'preview' : '');
     const asideClassName = isPreviewModeActive ? 'hidden' : '';
 
     return (
@@ -41,6 +41,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(
-  mapStateToProps
-)(Base);
+export default connect(mapStateToProps)(Base);

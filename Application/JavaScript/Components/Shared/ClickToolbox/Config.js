@@ -1,0 +1,21 @@
+export const HTMLTagNamesToString = {
+  DIV: 'Div',
+  H1: 'Heading',
+  H2: 'Heading',
+  H3: 'Heading',
+  H4: 'Heading',
+  H5: 'Heading',
+  H6: 'Heading',
+  P: 'Paragraph',
+  SPAN: 'Span',
+  UL: 'Unordered List',
+  LI: 'List Item',
+  IMG: 'Image',
+  STRONG: 'Strong Text',
+  EM: 'Emphasised Text',
+  I: 'Icon',
+  A: 'Link',
+  INPUT: 'Input',
+  BLOCKQUOTE: 'Quote',
+  FIGCAPTION: 'Caption'
+};

@@ -1,13 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 
-class CanvasSuggestionBox extends Component {
+export default class CanvasSuggestionBox extends React.Component {
   static propTypes = {
-    display: PropTypes.bool
-  }
+    display: React.PropTypes.bool
+  };
 
   static defaultProps = {
     display: true
-  }
+  };
 
   render () {
     const { display } = this.props;
@@ -18,11 +18,9 @@ class CanvasSuggestionBox extends Component {
           <h1>This is where your page will appear</h1>
           <h2>So drop some contentblocks!</h2>
         </div>
-      )
+      );
     } else {
       return null;
     }
   }
 }
-
-export default CanvasSuggestionBox;

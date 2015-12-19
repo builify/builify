@@ -22,7 +22,7 @@ export function getString (query) {
   if (typeof result !== 'undefined') {
     return result;
   } else {
-    console.warn('Localization - "' + query + '" query not found!');
+    //console.warn('Localization - "' + query + '" query not found!');
     return query;
   }
 }

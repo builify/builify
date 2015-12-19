@@ -28,7 +28,45 @@ const DOM = {
     }
   },
 
+  events: {
+    add (elem, events, callback, bubbling: false) {
+      events = events.split(' ');
+
+      if (DOM.type.isElement(elem)) {
+        for (let j = 0; j < events.length; j++) {
+          elem.addEventListener(events[j], callback, bubbling);
+        }
+      } else if (DOM.type.isNodeList(elem)) {
+        for (let i = 0; i < elem.length; i++) {
+          const currentElem = elem[i];
+
+          for (let j = 0; j < events.length; j++) {
+            currentElem.addEventListener(events[j], callback, bubbling);
+          }
+        }
+      }
+    }
+  },
+
   element: {
+    is (elem, tags) {
+      tags = tags.toLowerCase().split(',');
+
+      if (DOM.type.isElement(elem)) {
+        const tagName = elem.tagName.toLowerCase();
+
+        for (let i = 0; i < tags.length; i++) {
+          const tag = tags[i].trim();
+
+          if (tagName === tag) {
+            return true;
+          }
+        }
+      }
+
+      return false;
+    },
+
     remove (elem) {
       const isElement = DOM.type.isElement(elem);
       const isNodeList = !isElement ? DOM.type.isNodeList(elem) : false;
@@ -61,6 +99,16 @@ const DOM = {
             for (let j = 0; j < removeWhat.length; j++) {
               currentElem.removeAttribute(removeWhat[j]);
             }
+          }
+        }
+      }
+    },
+
+    classes: {
+      add (elem, className) {
+        if (DOM.type.isElement(elem)) {
+          if ('classList' in elem) {
+            elem.classList.add(className);
           }
         }
       }
@@ -114,16 +162,25 @@ const DOM = {
       const cloneDocElem = iFrameDocumentElement.cloneNode(true);
 
       function removeJunk (doc) {
+        // Remove certain elements.
         const junkQuery = '[data-abcpanel], [data-abctoolbox]'
         const junkElements = doc.querySelectorAll(junkQuery);
 
         DOM.element.remove(junkElements);
 
+        // Remove certain attributes.
         const attributesToRemove = 'contenteditable';
         const attributeJunkQuery = '[contenteditable]';
         const attributeJunkElements = doc.querySelectorAll(attributeJunkQuery);
 
         DOM.element.attr.remove(attributeJunkElements, attributesToRemove);
+
+        // Remove certain classnames.
+        const classNamesJunk = 'ab-ch';
+        const classNamesJunkQuery = classNamesJunk.split(',');
+        //const classNamesJunkElements = doc.querySelectorAll();
+
+        //DOM.element.classes.remove()
 
         return doc;
       }

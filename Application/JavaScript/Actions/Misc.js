@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { getConfiguration, getTemplateMani, setSessionStoreParameters, randomKey, downloadPages } from '../Common/Common';
 import Actions from './Constants';
 
@@ -137,10 +138,33 @@ export function loadContentBlockToPage (data, blockType, blockName) {
 }
 
 export function blockWasRenderedToPage (block, elementReference) {
-  return {
-    type: Actions.BLOCK_WAS_RENDERED_TO_PAGE,
-    block: block,
-    elementReference: elementReference
+  return (dispatch, getState) => {
+    dispatch({
+      type: Actions.BLOCK_WAS_RENDERED_TO_PAGE,
+      block: block,
+      elementReference: elementReference
+    });
+
+    const state = getState();
+    const { page } = state;
+    const { navigation, main, footer} = page;
+    const { type } = block;
+    let targetBlock = null;
+
+    if (type === 'navigation') {
+      targetBlock = navigation;
+    } else if (type === 'footer') {
+      targetBlock = footer;
+    } else {
+      const index = _.findIndex(main, { id: block.id });
+      targetBlock = main[index];
+    }
+
+    if (targetBlock.elementReference !== null) {
+      targetBlock.elementReference.addEventListener('mouseenter', (e) => {
+        dispatch(currentHoverBlock(targetBlock));
+      });
+    }
   }
 }
 
