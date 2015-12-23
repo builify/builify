@@ -2,18 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { JUNK_ATTR } from '../../Constants';
-import { geThemeCustomStylesheetSheet, removeLoadingScreen } from '../../Actions';
+import { removeLoadingScreen } from '../../Actions';
 import DOM from '../../Common/DOM';
 import _ from 'lodash';
 
 class Frame extends React.Component {
   static propTypes = {
     title: React.PropTypes.string
-  }
+  };
 
   static defaultProps = {
     title: 'Page Title'
-  }
+  };
 
   _isFrameRendered = false;
   _documentElement = null;
@@ -56,29 +56,8 @@ class Frame extends React.Component {
         this.appendFiles(template.external.core);
       }
 
-      this.createThemeCustomStyleSheet();
-
       // Until we figure out how to make firefox work...
       //this._isFrameRendered = true;
-    }
-  }
-
-  createThemeCustomStyleSheet () {
-    let styleElement = document.createElement('style');
-    styleElement.type = 'text/css';
-    styleElement.id = 'customtemplatestylesheet';
-
-    this._headElement.appendChild(styleElement);
-    this._templateCustomStyleSheet = styleElement.sheet;
-
-    this.sendThemeCustomStylesheetToReducer();
-  }
-
-  sendThemeCustomStylesheetToReducer () {
-    const { onSendThemeCustomStylesheet } = this.props;
-
-    if (this._templateCustomStyleSheet !== null) {
-      onSendThemeCustomStylesheet(this._templateCustomStyleSheet);
     }
   }
 
@@ -145,7 +124,7 @@ class Frame extends React.Component {
         id='ab-cfrm'
         ref='frm'
         onLoad={::this.renderFrame} />
-    )
+    );
   }
 }
 
@@ -157,10 +136,6 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onSendThemeCustomStylesheet: (sheet) => {
-      dispatch(geThemeCustomStylesheetSheet(sheet));
-    },
-
     onRemoveLoadingScreen: () => {
       dispatch(removeLoadingScreen());
     }

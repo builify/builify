@@ -117,7 +117,7 @@ class CanvasFrame extends Component {
       const { id, type, blockName, hasBeenRendered, source } = block;
 
       if (!id || !type || !blockName || !source) {
-        throw Error(`Wrong navigation block. ${navigationBlock}`);
+        throw Error(`Something went wrong when setting block attributes. ${JSON.stringify(block)}`);
       }
 
       if (!hasBeenRendered) {
@@ -138,7 +138,7 @@ class CanvasFrame extends Component {
       const { id, type, blockName, source, hasBeenRendered } = block;
 
       if (!id || !type || !blockName || !source) {
-        throw Error(`Wrong navigation block. ${block}`);
+        throw Error(`Something went wrong when setting block attributes. ${JSON.stringify(block)}`);
       }
 
       if (!hasBeenRendered) {
@@ -217,7 +217,7 @@ class CanvasFrame extends Component {
           </div>
         </IFrame>
       </div>
-    )
+    );
   }
 }
 

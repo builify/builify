@@ -46,6 +46,10 @@ export function initialize () {
 
 export function removeLoadingScreen () {
   return (dispatch, getState) => {
+    dispatch({
+      type: Actions.LOGIC_INITIALIZED
+    });
+
     _.delay(() => {
       dispatch({
         type: Actions.REMOVE_LOADING_SCREEN

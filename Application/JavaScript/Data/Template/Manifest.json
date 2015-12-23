@@ -120,14 +120,14 @@
 
     "colors": {
       "body": "#333",
-      "anchor": "#444",
-      "ahchorhover": "#ee",
-      "anchorvisited": "#333",
-      "paragraph": "#444",
-      "header1": "#111",
-      "header2": "#222",
-      "header3": "#333",
-      "header4": "#444",
+      "a": "#444",
+      "a:hover": "#eee",
+      "a:visited": "#333",
+      "p": "#444",
+      "h1": "#111",
+      "h2": "#222",
+      "h3": "#333",
+      "h4": "#444",
       "blockquote": "#666"
     },
 

@@ -1,39 +1,21 @@
 const TPStylesheet = (function () {
-  let privateProps = new WeakMap();
-
-  var camel = /([a-z])([A-Z])/g;
-  var hyphens = '$1-$2';
-function parseStyles (styles) {
-  if (typeof styles === 'string') {
-    return styles;
-  }
-  if (Object.prototype.toString.call(styles) !== '[object Object]') {
-    return '';
-  }
-  return Object.keys(styles).map(function (key) {
-    var prop = key.replace(camel, hyphens).toLowerCase();
-    return prop + ':' + styles[key];
-  }).join(';');
-}
-
+  const PREFIXES = [
+    '-webkit-',
+    '-moz-',
+    '-ms-',
+    '-o-'
+  ];
+  const PREFIXES_LEN = PREFIXES.length;
 
   class TPStylesheet {
-    constructor () {
-      privateProps.set(this, {
-        stylesheet: this._initializeStyleElement()
-      });
-      
-      this.add([
-        ['h2', // Also accepts a second argument as an array of arrays instead
-          ['color', 'red'],
-          ['background-color', 'green', true] // 'true' for !important rules
-        ],
-        ['.myClass',
-          ['background-color', 'yellow']
-        ]
-      ]);
+    constructor (target) {
+      this._styleSheetEnabled = false;
+      this._stylesheet = this._initializeStyleElement(target);
+      this._rules = [];
+    }
 
-      console.log(privateProps.get(this).stylesheet);
+    _isString (value) {
+      return typeof value == 'string';
     }
 
     _isObject (obj) {
@@ -41,183 +23,223 @@ function parseStyles (styles) {
     }
 
     _isArray (arr) {
-      return !(Array.isArray(arr));
+      return !!(Array.isArray(arr));
     }
 
-    _initializeStyleElement () {
-      let style = document.createElement('style');
+    _isElement (node) {
+      return !!(node && (node.nodeName || (node.prop && node.attr && node.find)));
+    }
 
+    _initializeStyleElement (target) {
+      let style = document.createElement('style');
       style.type = 'text/css';
       style.appendChild(document.createTextNode(''));
 
-      document.head.appendChild(style);
+      if (!target && !this._isElement(target)) {
+        document.head.appendChild(style);
+      } else {
+        target.appendChild(style);
+      }
 
-      return style.sheet;
+      this._styleSheetEnabled = true;
+
+      return style.sheet ? style.sheet : style.styleSheet;
     }
 
-    _insertRule (selector, styles) {
-      const sheet = privateProps.get(this).stylesheet;
+    _dasherize (str) {
+      return str.replace(/([A-Z])/g, (str,m1) => {
+        return '-' + m1.toLowerCase();
+      });
+    }
+
+    _getVendrorPrefix (property) {
+      if (this.CACHED_STYLES.hasOwnProperty(property)) {
+        return property;
+      } else {
+        let prefixed;
+
+        for (let i = 0; i < PREFIXES_LEN; i++) {
+          prefixed = `${PREFIXES[i]}${property}`;
+
+          if (this.CACHED_STYLES.hasOwnProperty(prefixed)) {
+            return prefixed;
+          }
+        }
+      }
+
+      return property;
+    }
+
+    _normalizeProperty (property) {
+      const camel = /([a-z])([A-Z])/g;
+      const hyphens = '$1-$2';
+      const camelizedProperty = property.replace(camel, hyphens).toLowerCase();
+      const prefixed = this._getVendrorPrefix(camelizedProperty);
+
+      return prefixed;
+    }
+
+    _parseStyles (styles) {
+      if (this._isString(styles)) {
+        return styles;
+      } else if (!this._isObject(styles)) {
+        return '';
+      }
+
+      return Object.keys(styles).map((key) => {
+        const property = this._normalizeProperty(key);
+        const value = styles[key];
+        const declaration = `${property}:${value}`;
+
+        return declaration;
+      }).join(';');
+    }
+
+    _insertRule (selector, styles, isImportant) {
+      const sheet = this._stylesheet;
       const len = sheet.cssRules.length;
+      const styleRule = `${selector} { ${styles} ${isImportant ? '!important' : ''}}`;
+
+      this._rules.push({
+        selector: selector,
+        styles: styles,
+        isImportant: isImportant
+      });
 
       if (sheet.insertRule) {
-        sheet.insertRule(`${selector} { ${styles} }`, len);
+        sheet.insertRule(styleRule, len);
+      } else if (sheet.addRule) {
+        sheet.addRule(selector, styles, len);
       }
     }
 
     _insertArrayRules (rules) {
-      for (var i = 0, rl = rules.length; i < rl; i++) {
-        var j = 1, rule = rules[i], selector = rules[i][0], propStr = '';
+      for (let i = 0, rl = rules.length; i < rl; i++) {
+        var j = 1,
+          rule = rules[i],
+          selector = rules[i][0],
+          propStr = '',
+          ruleItem, value, declaration, isImportant;
 
-        if (Object.prototype.toString.call(rule[1][0]) === '[object Array]') {
+        if (this._isArray(rule[1][0])) {
           rule = rule[1];
           j = 0;
         }
 
-        for (var pl = rule.length; j < pl; j++) {
-          var prop = rule[j];
-          propStr += prop[0] + ':' + prop[1] + (prop[2] ? ' !important' : '') + ';\n';
+        for (let srl = rule.length; j < srl; j++) {
+          ruleItem = rule[j];
+          value = this._normalizeProperty(ruleItem[0]);
+          declaration = ruleItem[1];
+          isImportant = ruleItem[2] ? true : false;
+
+          propStr += `${value}:${declaration}${isImportant ? ' !important' : ''};\n`;
         }
 
         this._insertRule(selector, propStr);
       }
     }
 
-    add () {
-      const args = arguments;
-      const argsLen = args.length;
+    _insertObjectRules (rules) {
+      for (let rule in rules) {
+        if (rules.hasOwnProperty(rule)) {
+          const selector = rule;
+          const selectorStyles = rules[rule];
+          const parsedStyle = this._parseStyles(selectorStyles);
 
-      if (argsLen === 1) {
-        const firstArg = args[0];
-
-        if (this._isArray(firstArg)) {
-          this._insertArrayRules(firstArg);
-        }
-      } else if (argsLen === 2) {
-        const firstArg = args[0];
-        const secondArg = args[1];
-
-        if (firstArg && this._isObject(secondArg)) {
-          const css = parseStyles(secondArg);
-          this._insertRule(firstArg, css);
+          this._insertRule(selector, parsedStyle);
         }
       }
     }
-  }
 
-  function add (selector, styles) {
-    var css = parseStyles(styles);
-    var sheet = getStylesheet();
-    var len = sheet[rules].length;
-    if (sheet.insertRule) {
-      sheet.insertRule(selector + '{' + css + '}', len);
-    } else if (sheet.addRule) {
-      sheet.addRule(selector, css, len);
+    _insertStringAndObjectRules(selector, rules, isImportant: false) {
+      const parsedStyle = this._parseStyles(rules);
+
+      this._insertRule(selector, parsedStyle, isImportant);
+    }
+
+    _getCSSText () {
+      const style = this._stylesheet;
+      const { cssRules } = style;
+      const rulesLen = cssRules.length;
+      let cssText = [];
+
+      if (rulesLen === 0) {
+        return '';
+      }
+
+      for (let i = 0; i < rulesLen; i++) {
+        cssText.push(cssRules[i].cssText);
+      }
+
+      return cssText.join('\n');
+    }
+
+    _disableStylesheet () {
+      if (this._styleSheetEnabled) {
+        const sheet = this._stylesheet;
+
+        sheet.disabled = true;
+        this._styleSheetEnabled = false;
+      }
+    }
+
+    _enableStylesheet () {
+      if (!this._styleSheetEnabled) {
+        const sheet = this._stylesheet;
+
+        sheet.disabled = false;
+        this._styleSheetEnabled = true;
+      }
+    }
+
+    add () {
+      const args = arguments;
+      const argsLen = args.length;
+      const fArg = args[0];
+      const sArg = args[1];
+      const tArg = args[2];
+
+      switch (argsLen) {
+        case 1: {
+          if (this._isArray(fArg)) {
+            this._insertArrayRules(fArg);
+          } else if (this._isObject(fArg)) {
+            this._insertObjectRules(fArg);
+          }
+
+          break;
+        }
+
+        case 2: {
+          if (this._isString(fArg) && this._isObject(sArg)) {
+            this._insertStringAndObjectRules(fArg, sArg);
+          }
+        }
+
+        case 3: {
+          if (this._isString(fArg) && this._isObject(sArg) && typeof tArg === 'boolean') {
+            this._insertStringAndObjectRules(fArg, sArg, tArg);
+          }
+        }
+      }
+    }
+
+    disable () {
+      this._disableStylesheet();
+    }
+
+    enable () {
+      this._enableStylesheet();
+    }
+
+    get CSSText () {
+      return this._getCSSText();
     }
   }
+
+  TPStylesheet.prototype.CACHED_STYLES = window.getComputedStyle(document.documentElement);
 
   return TPStylesheet;
 })();
 
 export default TPStylesheet;
-
-
-/*
-for (var i = 0, rl = rules.length; i < rl; i++) {
-    var j = 1, rule = rules[i], selector = rules[i][0], propStr = '';
-    // If the second argument of a rule is an array of arrays, correct our variables.
-    if (Object.prototype.toString.call(rule[1][0]) === '[object Array]') {
-      rule = rule[1];
-      j = 0;
-    }
-
-    for (var pl = rule.length; j < pl; j++) {
-      var prop = rule[j];
-      propStr += prop[0] + ':' + prop[1] + (prop[2] ? ' !important' : '') + ';\n';
-    }
-
-    // Insert CSS Rule
-    styleSheet.insertRule(selector + '{' + propStr + '}', styleSheet.cssRules.length);
-  }
-addStylesheetRules([
-  ['h2', // Also accepts a second argument as an array of arrays instead
-    ['color', 'red'],
-    ['background-color', 'green', true] // 'true' for !important rules
-  ],
-  ['.myClass',
-    ['background-color', 'yellow']
-  ]
-])
-export default class TPStylesheet {
-  constructor () {
-    this.initializeStylesheetElement();
-  }
-
-  initializeStylesheetElement () {
-
-  }
-}
-let Person = (function () {
-  let privateProps = new WeakMap();
-
-  class Person {
-    constructor(name) {
-      this.name = name; // this is public
-      privateProps.set(this, {age: 20}); // this is private
-    }
-    greet() {
-      // Here we can access both name and age
-      console.log(`name: ${this.name}, age: ${privateProps.get(this).age}`);
-    }
-  }
-
-  return Person;
-})();
-/*
-const style = new TPStylesheet(<option target element to append>); // Creates <style> Place holder for styles
-
-style.add('a:hover{color:#eee}');
-style.property('#header', "color": "#000");
-
-ss("#header").property("color", "#000"); will change the header text colour to red. And, ss("a:hover{color:#eee}"); will create a
-
-style.addCSS({
-  body: {
-    color: #333
-    width: '55px'
-  }
-}
-});
-
-or
-
-style.set("body { color: #333; width: 55px }");
-
-style.remove('body, html')
-
-or
-
-style.removeCSS(['body', 'html'])
-
-style.removeAllCSS();
-
-*
-
-function TPStylesheet () {
-  this._initializeStyleElement();
-}
-
-TPStylesheet.prototype._initializeStyleElement = function () {
-
-};
-
-TPStylesheet.prototype.addCSS = function () {
-
-};
-
-TPStylesheet.prototype.removeCSS = function () {
-
-}
-
-TPStylesheet.prototype.removeAllCSS = function () {
-
-}*/

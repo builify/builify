@@ -1,5 +1,6 @@
-import { setRules } from '../Common/StyleSheet';
 import _ from 'lodash';
+import TPStylesheet from '../TPStylesheet';
+import DOM from '../Common/DOM';
 import * as Actions from '../Actions/Constants';
 
 const initialState = {
@@ -7,7 +8,7 @@ const initialState = {
   colorPickerSelectedElement: null,
   colorPickerSelectedElementColorElement: null,
 
-  customStylesheetElement: null,
+  templateStylesheet: null,
 
   design: {
     swatches: [],
@@ -29,19 +30,26 @@ const initialState = {
 };
 
 function template (state = initialState, action) {
-  let { customStylesheetElement } = state;
-
   switch (action.type) {
-    case Actions.GET_TEMPLATE_DATA:
-      let data = {};
+    case Actions.LOGIC_INITIALIZED: {
+      const iFrame = DOM.iframe.get('ab-cfrm');
+      const iFrameWindow = DOM.iframe.getWindow(iFrame);
+      const headElement = iFrameWindow.document.head;
 
+      return _.assign({}, state, {
+        templateStylesheet: new TPStylesheet(headElement)
+      });
+    }
+
+    case Actions.GET_TEMPLATE_DATA: {
       if (_.has(action, 'data')) {
-        data = action.data;
+        return _.assign({}, state, action.data);
       }
 
-      return _.assign({}, state, data);
+      return state;
+    }
 
-    case Actions.OPEN_COLORPICKER:
+    case Actions.OPEN_COLORPICKER: {
       let element = null;
       let target = null;
 
@@ -55,38 +63,40 @@ function template (state = initialState, action) {
         colorPickerSelectedElement: element,
         colorPickerSelectedElementColorElement: target
       });
+    }
 
-    case Actions.CLOSE_COLORPICKER:
+    case Actions.CLOSE_COLORPICKER: {
       return _.assign({}, state, {
         isColorPickerOpened: false,
         colorPickerSelectedElement: null,
         colorPickerSelectedElementColorElement: null
       });
+    }
 
-    case Actions.SET_COLOR_FROM_COLORPICKER:
+    case Actions.SET_COLOR_FROM_COLORPICKER: {
       const { color } = action;
-      let {
-        design,
-        colorPickerSelectedElementColorElement
-      } = state;
+      const { templateStylesheet } = state;
+      let { design,colorPickerSelectedElementColorElement } = state;
       const dataColorTarget = colorPickerSelectedElementColorElement.
                                     getAttribute('data-colortarget');
       const dataColor = colorPickerSelectedElementColorElement.
                                     getAttribute('data-color');
 
       if (dataColorTarget) {
-        if (design.colors[dataColorTarget]) {
-          design.colors[dataColorTarget] = '#' + color + '';
+        if (design.colors[dataColorTarget] && templateStylesheet !== null) {
+          const hexColor = `#${color}`;
+          design.colors[dataColorTarget] = hexColor;
 
-          setRules(customStylesheetElement, dataColorTarget, {
-            color: '#' + color
-          });
+          templateStylesheet.add(dataColorTarget, {
+            color: hexColor
+          }, true);
         }
       }
 
       return _.assign({}, state, {
         design: design
       });
+    }
 
     case Actions.SET_SWATCH:
       let designState = state.design;
@@ -97,15 +107,6 @@ function template (state = initialState, action) {
 
       return _.assign({}, state, {
         design: designState
-      });
-
-    case Actions.GET_THEME_CUSTOM_STYLESHEET_SHEET:
-      if (_.has(action, 'sheet')) {
-        customStylesheetElement = action.sheet;
-      }
-
-      return _.assign({}, state, {
-        customStylesheetElement: customStylesheetElement
       });
   }
 

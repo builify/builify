@@ -11,6 +11,7 @@ export default ActionMirror(true, [
   'GET_ICONPACKS',
   'ADD_ICONPACK_SOURCES_TO_HEAD',
   'UPLOADED_IMAGE',
+  'LOGIC_INITIALIZED',
 
   // Template's actions
   'GET_TEMPLATE_DATA',
@@ -73,6 +74,5 @@ export default ActionMirror(true, [
   'OPEN_PREVIOUS_PAGES_SELECT_MODAL',
   'OPEN_DOWNLOAD_MODAL',
   'OPEN_RESTART_MODAL',
-  'CLOSE_MODAL',
-  'GET_THEME_CUSTOM_STYLESHEET_SHEET'
+  'CLOSE_MODAL'
 ]);

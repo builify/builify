@@ -5,6 +5,7 @@
   "author": "Aphakeme",
   "license": "ISC",
   "scripts": {
+    "compile": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
@@ -14,14 +15,14 @@
     "browserify": "*",
     "eslint": "^1.7.3",
     "glob": "*",
-    "gulp": "*",
+    "gulp": "^3.9.0",
     "gulp-cssmin": "*",
     "gulp-if": "*",
     "gulp-jade": "*",
     "gulp-notify": "*",
     "gulp-plumber": "*",
     "gulp-postcss": "*",
-    "gulp-sass": "*",
+    "gulp-sass": "^2.1.1",
     "gulp-streamify": "*",
     "gulp-uglify": "*",
     "gulp-util": "*",
@@ -37,7 +38,7 @@
     "classnames": "*",
     "js-search": "^1.2.2",
     "jszip": "^2.5.0",
-    "lodash": "*",
+    "lodash": "^3.10.1",
     "react": "^0.14.2",
     "react-color": "*",
     "react-custom-scrollbars": "^1.0.2",

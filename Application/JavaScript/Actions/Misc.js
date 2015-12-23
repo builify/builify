@@ -229,13 +229,6 @@ export function sortContentBlocks (evt) {
   }
 }
 
-export function geThemeCustomStylesheetSheet (sheet) {
-  return {
-    type: Actions.GET_THEME_CUSTOM_STYLESHEET_SHEET,
-    sheet: sheet
-  }
-}
-
 export function openContentblockSourceEditModal (currentHoverBlock) {
   return {
     type: Actions.OPEN_CONTENTBLOCK_SOURCE_EDIT_MODAL,
