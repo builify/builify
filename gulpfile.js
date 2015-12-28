@@ -36,7 +36,7 @@ var dependencies = [
   'jszip',
   'sortablejs',
   'js-search',
-  'ttstylesheet',
+  //'ttstylesheet',
   'ttkeymirror'
 ];
 
