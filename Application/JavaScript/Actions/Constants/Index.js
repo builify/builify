@@ -1,6 +1,6 @@
-import ActionMirror from '../../Common/ActionMirror';
+import keyMirror from 'ttkeymirror';
 
-export default ActionMirror(true, [
+export default keyMirror([
   // Builder's actions
   'INITIALIZE',
   'REMOVE_LOADING_SCREEN',
@@ -10,6 +10,7 @@ export default ActionMirror(true, [
   'GET_LOCALIZATION',
   'GET_ICONPACKS',
   'ADD_ICONPACK_SOURCES_TO_HEAD',
+  'GET_IMAGESLIBRARY',
   'UPLOADED_IMAGE',
   'LOGIC_INITIALIZED',
 

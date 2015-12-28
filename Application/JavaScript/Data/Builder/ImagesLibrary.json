@@ -1,0 +1,65 @@
+{
+  "imageLibraryCategories": [
+    {
+      "category": "Architecture",
+      "images": [
+        "https://s3.amazonaws.com/branded.me/gallery/architecture/1.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/architecture/2.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/architecture/3.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/architecture/4.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/architecture/5.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/architecture/6.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/architecture/7.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/architecture/8.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/architecture/9.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/architecture/10.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/architecture/11.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/architecture/12.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/architecture/13.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/architecture/14.jpg"
+      ]
+    },
+    {
+      "category": "Business",
+      "images": [
+        "https://s3.amazonaws.com/branded.me/gallery/business/1.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/business/2.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/business/3.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/business/4.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/business/5.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/business/6.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/business/7.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/business/8.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/business/9.jpg"
+      ]
+    },
+    {
+      "category": "Colors",
+      "images": [
+        "https://s3.amazonaws.com/branded.me/gallery/colors/1.png",
+        "https://s3.amazonaws.com/branded.me/gallery/colors/2.png",
+        "https://s3.amazonaws.com/branded.me/gallery/colors/3.png",
+        "https://s3.amazonaws.com/branded.me/gallery/colors/4.png",
+        "https://s3.amazonaws.com/branded.me/gallery/colors/5.png",
+        "https://s3.amazonaws.com/branded.me/gallery/colors/6.png",
+        "https://s3.amazonaws.com/branded.me/gallery/colors/7.png",
+        "https://s3.amazonaws.com/branded.me/gallery/colors/8.png",
+        "https://s3.amazonaws.com/branded.me/gallery/colors/9.png"
+      ]
+    },
+    {
+      "category": "Textures",
+      "images": [
+        "https://s3.amazonaws.com/branded.me/gallery/textures/1.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/textures/2.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/textures/3.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/textures/4.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/textures/5.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/textures/6.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/textures/7.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/textures/8.jpg",
+        "https://s3.amazonaws.com/branded.me/gallery/textures/9.jpg"
+      ]
+    }
+  ]
+}

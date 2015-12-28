@@ -50,6 +50,8 @@
     "redux": "^3.0.4",
     "redux-thunk": "*",
     "sortablejs": "^1.4.2",
-    "strip-json-comments": "*"
+    "strip-json-comments": "*",
+    "ttkeymirror": "^1.0.0",
+    "ttstylesheet": "^1.0.0"
   }
 }

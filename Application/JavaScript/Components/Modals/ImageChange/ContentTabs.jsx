@@ -1,8 +1,8 @@
 import React from 'react';
-import UploadImageTab from './UploadImageTab';
-import UploadedImagesTab from './UploadedImagesTab';
-import CurrentImageTab from './CurrentImageTab';
-import LibraryTab from './LibraryTab';
+import UploadImageTab from './TabUploadImage';
+import UploadedImagesTab from './TabUploadedImages';
+import CurrentImageTab from './TabCurrentImage';
+import LibraryTab from './TabLibrary';
 
 export default class ContentTabs extends React.Component {
   static propTypes = {

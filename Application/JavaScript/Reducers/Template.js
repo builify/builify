@@ -1,5 +1,5 @@
+import TTStylesheet from 'ttstylesheet';
 import _ from 'lodash';
-import TPStylesheet from '../TPStylesheet';
 import DOM from '../Common/DOM';
 import * as Actions from '../Actions/Constants';
 
@@ -35,9 +35,10 @@ function template (state = initialState, action) {
       const iFrame = DOM.iframe.get('ab-cfrm');
       const iFrameWindow = DOM.iframe.getWindow(iFrame);
       const headElement = iFrameWindow.document.head;
+      const customStylesheet = new TTStylesheet(headElement);
 
       return _.assign({}, state, {
-        templateStylesheet: new TPStylesheet(headElement)
+        templateStylesheet: customStylesheet
       });
     }
 
@@ -85,11 +86,14 @@ function template (state = initialState, action) {
       if (dataColorTarget) {
         if (design.colors[dataColorTarget] && templateStylesheet !== null) {
           const hexColor = `#${color}`;
-          design.colors[dataColorTarget] = hexColor;
 
-          templateStylesheet.add(dataColorTarget, {
-            color: hexColor
-          }, true);
+          templateStylesheet.add({
+            [dataColorTarget]: {
+              color: hexColor
+            }
+          });
+
+          design.colors[dataColorTarget] = hexColor;
         }
       }
 

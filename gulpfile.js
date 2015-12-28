@@ -35,7 +35,9 @@ var dependencies = [
   'lodash',
   'jszip',
   'sortablejs',
-  'js-search'
+  'js-search',
+  'ttstylesheet',
+  'ttkeymirror'
 ];
 
 // Rewrite gulp.src for better error handling.

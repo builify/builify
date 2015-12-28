@@ -19,9 +19,9 @@ export default class ImageEditContentImages extends React.Component {
 
   componentWillMount () {
     const { builderConfiguration } = this.props;
-    const { imagesLibrary } = builderConfiguration;
+    const { imageLibraryCategories } = builderConfiguration;
 
-    this.defaultImages = _.sortBy(imagesLibrary, 'category');
+    this.defaultImages = _.sortBy(imageLibraryCategories, 'category');
   }
 
   renderCategories () {

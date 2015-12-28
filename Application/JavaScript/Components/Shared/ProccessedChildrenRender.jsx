@@ -16,7 +16,7 @@ import ItemThatOpensSideTab from './ItemThatOpensSideTab';
 import FontSelection from './FontSelection';
 import Checkbox from './Checkbox';
 
-class ProccessedChildrenRender extends Component {
+class ProccessedChildrenRender extends React.Component {
   shouldComponentUpdate (nextProps, nextState) {
     return false;
   }
@@ -30,7 +30,7 @@ class ProccessedChildrenRender extends Component {
         className={className}
 				title={text}
 				key={key} />
-		)
+		);
   }
 
   renderColors () {

@@ -15,6 +15,15 @@ function builderConfiguration (state = builderConfigurationInitialState, action)
       setLanguage(localization || 'en');
 
       return state;
+
+    case Actions.GET_IMAGESLIBRARY: {
+      const { data } = action;
+      const { imageLibraryCategories } = data;
+
+      return _.assign({}, state, {
+        imageLibraryCategories
+      });
+    }
   }
 
   return state;

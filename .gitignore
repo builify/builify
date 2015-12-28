@@ -4,3 +4,5 @@ node_modules
 DevelopmentBuild
 dist
 Build
+npm-debug.log
+coverage

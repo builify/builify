@@ -28,6 +28,34 @@ const DOM = {
     }
   },
 
+  find: {
+    toClassName (el, cx) {
+      let matchFlag = false;
+
+      if (cx[0] == '*') {
+        matchFlag = true;
+      }
+
+      cx = cx.split(' ');
+
+      while (el.parentNode) {
+        el = el.parentNode;
+
+        for (let i = 0; i < cx.length; i++) {
+          if (matchFlag ? el.className.indexOf(cx[i]) !== -1 : el.classList.contains(cx[i])) {
+            return el;
+          }
+        }
+
+        if (el.tagName === 'HTML') {
+          break;
+        }
+      }
+
+      return null;
+    }
+  },
+
   events: {
     add (elem, events, callback, bubbling: false) {
       events = events.split(' ');

@@ -2,6 +2,7 @@ import { getConfiguration, getTemplateMani, setSessionStoreParameters, randomKey
 import { getLocalizationFile } from './Localization';
 import { checkPreviousPagesInStorage, saveCurrentPage } from './Page';
 import IconPacksData from '../Data/Builder/IconPacks';
+import imagesLibraryJSON from '../Data/Builder/ImagesLibrary';
 import Actions from './Constants';
 import _ from 'lodash';
 
@@ -16,6 +17,7 @@ export function runApplicationActions () {
       dispatch(getLocalizationFile());
       dispatch(initializeBuilder());
       dispatch(getIconPacks());
+      dispatch(getImagesLibrary());
       dispatch(initializeEvents());
     });
   }
@@ -156,5 +158,12 @@ export function addIconPackSourcesToHead (iconPacks) {
 
   return {
     type: Actions.ADD_ICONPACK_SOURCES_TO_HEAD
+  }
+}
+
+export function getImagesLibrary () {
+  return {
+    type: Actions.GET_IMAGESLIBRARY,
+    data: imagesLibraryJSON
   }
 }

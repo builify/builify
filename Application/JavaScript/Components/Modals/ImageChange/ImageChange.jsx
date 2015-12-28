@@ -2,7 +2,7 @@ import React from 'react';
 import ClassNames from 'classnames';
 import { connect } from 'react-redux';
 import ModalWrapper from '../ModalWrapper';
-import TabNavigation from './TabNavigation';
+import NavigationForTabs from './NavigationForTabs';
 import BottomNavigation from './BottomNavigation';
 import { closeModal, uploadImage, selectImage } from '../../../Actions';
 
@@ -38,7 +38,7 @@ class ImageEdit extends React.Component {
         active={active}
         ref='modalWrapper'
         className={className}>
-        <TabNavigation
+        <NavigationForTabs
           onSelectImage={::this.selectImage}
           editTarget={editTarget}
           onUploadImage={onUploadImage}
