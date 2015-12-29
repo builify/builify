@@ -1,9 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
+import React from 'react';
 import { getString } from '../../Common/Localization';
-import { setFont, setSwatch, openColorPicker, openSidetab, closeTab } from '../../Actions';
-import { randomKey, getProperty } from '../../Common/Common';
-import cx from 'classnames';
+import Random from '../../Common/Random';
 import _ from 'lodash';
 import Filter from './Filter';
 import ContentBlocks from './ContentBlocks';
@@ -16,14 +13,14 @@ import ItemThatOpensSideTab from './ItemThatOpensSideTab';
 import FontSelection from './FontSelection';
 import Checkbox from './Checkbox';
 
-class ProccessedChildrenRender extends React.Component {
-  shouldComponentUpdate (nextProps, nextState) {
+export default class ProccessedChildrenRender extends React.Component {
+  shouldComponentUpdate () {
     return false;
   }
 
   renderTitle (item) {
 		const { text, className } = item;
-    const key = randomKey('title');
+    const key = Random.randomKey('title');
 
 		return (
 			<Title
@@ -34,26 +31,26 @@ class ProccessedChildrenRender extends React.Component {
   }
 
   renderColors () {
-		const key = randomKey('colors');
+		const key = Random.randomKey('colors');
 
     return (
 			<Colors
 				key={key} />
-		)
+		);
   }
 
   renderSwatch () {
-		const key = randomKey('swatches');
+		const key = Random.randomKey('swatches');
 
     return (
 			<Swatches
 				key={key} />
-		)
+		);
   }
 
   renderSwitch (item) {
 		const { action, text, state } = item;
-    const key = randomKey('checkbox');
+    const key = Random.randomKey('checkbox');
     const label = getString(text);
 
     return (
@@ -62,68 +59,68 @@ class ProccessedChildrenRender extends React.Component {
         action={action}
         label={label}
         checked={state} />
-    )
+    );
   }
 
   renderSize (item) {
-		const key = randomKey('size');
+		const key = Random.randomKey('size');
 
 		return (
 			<Size
 				item={item}
 				key={key} />
-		)
+		);
   }
 
   renderFont (item) {
-		const key = randomKey('fontselection');
+		const key = Random.randomKey('fontselection');
 
 		return (
 			<FontSelection
 				item={item}
 				key={key} />
-		)
+		);
   }
 
   renderSideTab (item) {
-    const key = randomKey('itemthatopenssidetab');
+    const key = Random.randomKey('itemthatopenssidetab');
 
     return (
       <ItemThatOpensSideTab
 				item={item}
 				key={key} />
-    )
+    );
   }
 
   renderPages () {
-    const key = randomKey('pages');
+    const key = Random.randomKey('pages');
 
     return (
       <CurrentPage
 				key={key} />
-    )
+    );
   }
 
   renderContentBlocks () {
-    const key = randomKey('contentblocks');
+    const key = Random.randomKey('contentblocks');
 
 		return (
 			<ContentBlocks
 				key={key} />
-		)
+		);
   }
 
   renderFilter () {
-    const key = randomKey('filter');
+    const key = Random.randomKey('filter');
 
     return (
 			<Filter
 				key={key} />
-		)
+		);
   }
 
   renderPageTools () {
-    const key = randomKey('pagetools');
+    const key = Random.randomKey('pagetools');
 
     return (
 			<PageTools
@@ -176,5 +173,3 @@ class ProccessedChildrenRender extends React.Component {
     return null;
   }
 }
-
-export default ProccessedChildrenRender;

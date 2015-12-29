@@ -29,20 +29,20 @@ const DOM = {
   },
 
   find: {
-    toClassName (el, cx) {
+    toClassName (el, classNames) {
       let matchFlag = false;
 
-      if (cx[0] == '*') {
+      if (classNames[0] == '*') {
         matchFlag = true;
       }
 
-      cx = cx.split(' ');
+      classNames = classNames.split(' ');
 
       while (el.parentNode) {
         el = el.parentNode;
 
-        for (let i = 0; i < cx.length; i++) {
-          if (matchFlag ? el.className.indexOf(cx[i]) !== -1 : el.classList.contains(cx[i])) {
+        for (let i = 0; i < classNames.length; i++) {
+          if (matchFlag ? el.className.indexOf(classNames[i]) !== -1 : el.classList.contains(classNames[i])) {
             return el;
           }
         }

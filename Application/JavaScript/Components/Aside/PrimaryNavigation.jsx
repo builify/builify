@@ -5,12 +5,12 @@ import Random from '../../Common/Random';
 import PrimaryNavigationItem from './PrimaryNavigationItem';
 
 class PrimaryNavigation extends React.Component {
-	shouldComponentUpdate (nextProps, nextState) {
+	shouldComponentUpdate () {
     return false;
-  }
+  };
 
 	render () {
-		const { builderConfiguration } = this.props;
+    const { builderConfiguration } = this.props;
     const { primarynavigation, localization } = builderConfiguration;
 
     return (
@@ -22,19 +22,17 @@ class PrimaryNavigation extends React.Component {
               target={i}
               language={localization}
               navigationItemInformation={navigationItem} />
-					)
+					);
         }) }
       </ul>
-    )
+    );
   }
 }
 
 function mapStateToProps (state) {
   return {
     builderConfiguration: state.builderConfiguration
-  }
+  };
 }
 
-export default connect(
-  mapStateToProps
-)(PrimaryNavigation);
+export default connect(mapStateToProps)(PrimaryNavigation);

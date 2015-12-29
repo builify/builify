@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 import Prefixer from '../../../Common/Prefixer';
 
 const defaults = {
@@ -92,7 +92,7 @@ const Ripple = (options = {}) => {
             ...other
           } = this.props;
 
-          const rippleClassName = ClassNames('ab-ripple__normal', {
+          const rippleClassName = classNames('ab-ripple__normal', {
             ['active']: this.state.active,
             ['restarting']: this.state.restarting
           }, className);

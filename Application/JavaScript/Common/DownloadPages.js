@@ -1,13 +1,12 @@
 import { saveAs } from './FileSaver';
 import { TEMPLATE_PACKAGE_FILENAME, TEMPLATE_PACKAGE_EXTENSION } from '../Constants';
 import JSZip from 'jszip';
-import _ from 'lodash';
 
 export default {
   getFileSettings () {
     return {
       type: 'blob'
-    }
+    };
   },
 
   getFileName () {

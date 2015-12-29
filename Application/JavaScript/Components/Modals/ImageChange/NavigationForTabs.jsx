@@ -1,7 +1,4 @@
 import React from 'react';
-import ClassNames from 'classnames';
-import _ from 'lodash';
-import Random from '../../../Common/Random';
 import ContentTabs from './ContentTabs';
 import ModalTab from '../ModalTab';
 import { defaultTabId, tabList } from './Config';

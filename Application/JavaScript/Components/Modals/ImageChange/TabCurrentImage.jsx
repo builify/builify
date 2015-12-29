@@ -15,7 +15,6 @@ export default class CurrentImageTab extends React.Component {
 
   componentWillMount () {
     const { editTarget } = this.props;
-    const inputSrc = this.refs['image-src'];
 
     if (typeof editTarget !== undefined && editTarget !== null) {
       if (editTarget.classList.contains('background-image-holder')) {

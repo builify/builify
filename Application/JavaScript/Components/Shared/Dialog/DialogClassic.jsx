@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { restartPage, closeModal } from '../../../Actions';
-import cx from 'classnames';
+import classNames from 'classnames';
 import _ from 'lodash';
 import Button from '../Button';
 import DialogWrapper from './DialogWrapper';
@@ -93,7 +93,7 @@ class DialogClassic extends Component {
   }
 
   render () {
-    const className = cx('ab-dialog', 'medium');
+    const className = classNames('ab-dialog', 'medium');
 
     return (
       <DialogWrapper

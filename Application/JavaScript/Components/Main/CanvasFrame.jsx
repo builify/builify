@@ -1,17 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import DOM from '../../Common/DOM';
 import { currentHoverBlock, blockWasRenderedToPage, removeContentBlock } from '../../Actions';
-import { findUpAttr } from '../../Common/Common';
 import { store } from '../Application';
-import { CONTENTBLOCK_ATTR_ID, CONTENTBLOCK_ATTR_FIRST_ELEMENT, CONTENTBLOCK_ATTR_TYPE } from '../../Constants';
+import {
+  CONTENTBLOCK_ATTR_ID,
+  CONTENTBLOCK_ATTR_FIRST_ELEMENT,
+  CONTENTBLOCK_ATTR_TYPE
+} from '../../Constants';
 import Events from '../../Common/Events';
 import ClickToolbox from '../Shared/ClickToolbox';
 import SectionToolBox from '../Shared/SectionToolBox';
 import IFrame from './IFrame';
 
-class CanvasFrame extends Component {
+class CanvasFrame extends React.Component {
   _blocks = {};
 
   componentWillReceiveProps (nextProps) {
@@ -48,14 +50,6 @@ class CanvasFrame extends Component {
     });
   }
 
-  checkBlocks (blocks) {
-    const { navigation, main, footer } = blocks;
-    const mainElementsContainer = this.refs['main'];
-    const mainElements = mainElementsContainer.children;
-    const mainElementsLength = mainElements.length;
-    const mainBlocksLength = main.length;
-  }
-
   renderBlocks (blocks) {
     const { navigation, main, footer } = blocks;
 
@@ -67,8 +61,8 @@ class CanvasFrame extends Component {
   }
 
   setElementAttributes (block, elementReference, updateMode: false) {
-    const { id, type, blockName } = block;
-    const { onCoreBlockHover, onBlockRenderToPage } = this.props;
+    const { id, type } = block;
+    const { onBlockRenderToPage } = this.props;
 
     if (!block || !elementReference) {
       throw Error(`Something went wrong when setting block attributes. ${JSON.stringify(block)}`);
@@ -99,7 +93,10 @@ class CanvasFrame extends Component {
         if (updatePosition) {
           if (_.has(block, 'newPos')) {
             const { elementReference, newPos } = block;
-            elementReference.parentNode.insertBefore(elementReference, mainElement.children[newPos]);
+            elementReference.parentNode.insertBefore(
+              elementReference,
+              mainElement.children[newPos]
+            );
 
             block.updatePosition = false;
           }
@@ -117,7 +114,10 @@ class CanvasFrame extends Component {
       const { id, type, blockName, hasBeenRendered, source } = block;
 
       if (!id || !type || !blockName || !source) {
-        throw Error(`Something went wrong when setting block attributes. ${JSON.stringify(block)}`);
+        throw Error(`
+          Something went wrong when setting block attributes.
+          ${JSON.stringify(block)}
+        `);
       }
 
       if (!hasBeenRendered) {
@@ -138,7 +138,10 @@ class CanvasFrame extends Component {
       const { id, type, blockName, source, hasBeenRendered } = block;
 
       if (!id || !type || !blockName || !source) {
-        throw Error(`Something went wrong when setting block attributes. ${JSON.stringify(block)}`);
+        throw Error(`
+          Something went wrong when setting block attributes.
+          ${JSON.stringify(block)}
+        `);
       }
 
       if (!hasBeenRendered) {
@@ -152,11 +155,11 @@ class CanvasFrame extends Component {
     this._blocks.footer = block;
   }
 
-  hoverBlocksMouseEnter (e) {
+  hoverBlocksMouseEnter () {
     this.classList.add('ab-ch');
   }
 
-  hoverBlocksMouseLeave (e) {
+  hoverBlocksMouseLeave () {
     this.classList.remove('ab-ch');
   }
 
@@ -165,14 +168,34 @@ class CanvasFrame extends Component {
   }
 
   hoverBlocks () {
-    const { onCoreBlockHover } = this.props;
-    const targets = 'p , span, a, h1, h2, h3, h4, h5, h6, strong, em, li, ul, div, i, img, input, textarea, blockquote, figcaption';
+    const targets = `
+      p ,
+      span,
+      a,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      strong,
+      em,
+      li,
+      ul,
+      div,
+      i,
+      img,
+      input,
+      textarea,
+      blockquote,
+      figcaption
+    `;
     const navigationElements = this.refs.navigation.querySelectorAll(targets);
     const mainElements = this.refs.main.querySelectorAll(targets);
     const footerElements = this.refs.footer.querySelectorAll(targets);
     const targetElements = _.union(navigationElements, mainElements, footerElements);
 
-    _.map(targetElements, (target, i) => {
+    _.map(targetElements, target => {
       if (target.tagName === 'A') {
         target.removeEventListener('click', ::this.aBlockClick);
         target.addEventListener('click', ::this.aBlockClick, false);
@@ -224,7 +247,7 @@ class CanvasFrame extends Component {
 function mapStateToProps (state) {
   return {
     page: state.page
-  }
+  };
 }
 
 function mapDispatchToProps (dispatch) {
@@ -240,7 +263,7 @@ function mapDispatchToProps (dispatch) {
     onBlockRenderToPage: (block, elementReference) => {
       dispatch(blockWasRenderedToPage(block, elementReference));
     }
-  }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CanvasFrame);

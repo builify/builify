@@ -1,7 +1,5 @@
 import { CurrentLocations } from '../Constants';
-import { setLanguage } from '../Common/Localization';
 import { MAXIUMUM_PAGES_IN_STORAGE, TEMPLATE_PAGES_STORAGE_NAME, DialogTypes } from '../Constants';
-import { randomKey } from '../Common/Common';
 import * as Actions from '../Actions/Constants';
 import _ from 'lodash';
 import DownloadPages from '../Common/DownloadPages';
@@ -51,7 +49,6 @@ function builder (state = builderInitialState, action) {
   switch (action.type) {
     case Actions.UPLOADED_IMAGE: {
       const { data } = action;
-      const { fileSize, fileDimensions, fileName, fileType, fileData, lastModified } = data;
 
       return _.assign({}, state, {
         uploadedImages: [
@@ -281,7 +278,9 @@ function builder (state = builderInitialState, action) {
       }
 
     case Actions.CLOSE_SIDETAB:
-      let closeSidetabElement = document.querySelector('[data-sidetabid="' + state.sidetabOpened + '"]');
+      let closeSidetabElement = document.querySelector(
+        '[data-sidetabid="' + state.sidetabOpened + '"]'
+      );
 
       if (closeSidetabElement) {
         closeSidetabElement.classList.remove('open');
@@ -313,7 +312,9 @@ function builder (state = builderInitialState, action) {
       return _.assign({}, state, {
         isColorPickerOpened: true,
         colorPickerSelectedElement: action.target,
-        colorPickerSelectedElementColorElement: action.target.querySelector('.ab-color__colorHolder')
+        colorPickerSelectedElementColorElement: action.target.querySelector(
+          '.ab-color__colorHolder'
+        )
       });
 
     case Actions.CLOSE_COLORPICKER:
@@ -335,7 +336,7 @@ function builder (state = builderInitialState, action) {
       let actionTarget = action.target;
 
       return _.assign({}, state, {
-       filterContentBlocksTarget: actionTarget
+        filterContentBlocksTarget: actionTarget
       });
 
     case Actions.OPEN_LINK_EDIT_MODAL:

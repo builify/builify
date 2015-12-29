@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 import Random from '../../../Common/Random';
 import Scrollbar from '../../Shared/Scrollbar';
 import Image from '../../Shared/Image';
@@ -31,12 +31,12 @@ export default class UploadedImagesTab extends React.Component {
           <Scrollbar height={380}>
             <div className='ab-modal__tabimages'>
               { _.map(uploadedImages, item => {
-                const className = ClassNames('ab-modal__tabimage');
+                const className = classNames('ab-modal__tabimage');
                 const { fileData } = item;
 
                 return (
                   <Image
-                    onClick={(e) => {
+                    onClick={() => {
                       return onSelectImage({
                         src: fileData
                       });

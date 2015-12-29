@@ -19,8 +19,8 @@ export default class CanvasSuggestionBox extends React.Component {
           <h2>So drop some contentblocks!</h2>
         </div>
       );
-    } else {
-      return null;
     }
+
+    return null;
   }
 }

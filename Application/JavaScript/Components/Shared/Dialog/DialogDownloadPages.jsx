@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM, { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { downloadPages, closeModal } from '../../../Actions';
-import cx from 'classnames';
+import classNames from 'classnames';
 import _ from 'lodash';
 import Time from '../../../Common/Time';
 import Button from '../Button';
@@ -134,7 +134,7 @@ class DialogDownloadPages extends Component {
   }
 
   render () {
-    const className = cx('ab-dialog', 'medium');
+    const className = classNames('ab-dialog', 'medium');
     const { builder } = this.props;
     const { pages: builderPages } = builder;
     const pagesModel = {

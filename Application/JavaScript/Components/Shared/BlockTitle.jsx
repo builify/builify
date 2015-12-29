@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import cx from 'classnames';
+import classNames from 'classnames';
 
 class BlockTitle extends Component {
 	render () {
     const { builder, data } = this.props;
     const { name } = data;
     const { filterContentBlocksTarget } = builder;
-    let titleBlockname = cx('blocktitle');
+    let titleBlockname = classNames('blocktitle');
 
     if (filterContentBlocksTarget != 'all') {
-      titleBlockname = cx('blocktitle', 'hide');
+      titleBlockname = classNames('blocktitle', 'hide');
     }
 
     return (

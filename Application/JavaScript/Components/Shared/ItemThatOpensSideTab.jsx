@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { openSidetab } from '../../Actions';
 import { getString } from '../../Common/Localization';
-import cx from 'classnames';
+import classNames from 'classnames';
 
 class ItemThatOpensSideTab extends Component {
   static propTypes = {
@@ -13,7 +13,7 @@ class ItemThatOpensSideTab extends Component {
     const { item, onOpenSideTab } = this.props;
     const { target, title, icon } = item;
     const doesItemHaveIcon = icon === null ? false : true;
-    const className = cx('ab-item', doesItemHaveIcon ? 'icon' : 'link');
+    const className = classNames('ab-item', doesItemHaveIcon ? 'icon' : 'link');
 
     return (
       <div

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
+import classNames from 'classnames';
 
 class DialogBody extends Component {
   static propTypes = {
@@ -9,7 +9,7 @@ class DialogBody extends Component {
 
   render () {
     const { children, title, className } = this.props;
-    const bodyClassName = cx('ab-dialog__body', className);
+    const bodyClassName = classNames('ab-dialog__body', className);
 
     return (
       <section role='body' className={bodyClassName}>

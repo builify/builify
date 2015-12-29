@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { restartPage, closeModal } from '../../../Actions';
-import cx from 'classnames';
+import classNames from 'classnames';
 import _ from 'lodash';
 import Input from '../Input';
 import Button from '../Button';
@@ -95,7 +95,7 @@ class DialogLinkChange extends Component {
 
   render () {
     const { editTarget } = this.props;
-    const className = cx('ab-dialog', 'medium', 'linkchange');
+    const className = classNames('ab-dialog', 'medium', 'linkchange');
     const targets = [
       { value: '_blank', label: 'Open in new tab'},
       { value: '_self', label: 'Open in current tab'}

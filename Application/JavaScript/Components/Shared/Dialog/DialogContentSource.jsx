@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM, { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { closeModal, updateContentBlockSource } from '../../../Actions';
-import cx from 'classnames';
+import classNames from 'classnames';
 import _ from 'lodash';
 import Input from '../Input'
 import Button from '../Button';
@@ -128,7 +128,7 @@ class DialogLinkChange extends Component {
   }
 
   render () {
-    const className = cx('ab-dialog', 'contentblocksource');
+    const className = classNames('ab-dialog', 'contentblocksource');
 
     return (
       <DialogWrapper

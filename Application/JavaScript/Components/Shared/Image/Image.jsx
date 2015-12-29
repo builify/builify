@@ -1,5 +1,5 @@
 import React from 'react';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 
 export default class ImageItem extends React.Component {
   static propTypes = {
@@ -28,7 +28,7 @@ export default class ImageItem extends React.Component {
       const imgStyle = {
         backgroundImage: `url("${src}")`
       };
-      const cn = ClassNames('ab-image', className);
+      const cn = classNames('ab-image', className);
       const style = {
         height: height,
         width: width
@@ -47,8 +47,8 @@ export default class ImageItem extends React.Component {
         </div>
       );
     } else {
-      const userCn = ClassNames(className);
-      const cn = ClassNames('ab-image', chalk ? 'chalk' : null);
+      const userCn = classNames(className);
+      const cn = classNames('ab-image', chalk ? 'chalk' : null);
 
       return (
         <div className={userCn}>

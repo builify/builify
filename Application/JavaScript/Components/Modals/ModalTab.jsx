@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 import Random from '../../Common/Random';
 
 export default class ModalTab extends React.Component {
@@ -19,7 +19,6 @@ export default class ModalTab extends React.Component {
   }
 
   renderNav () {
-    const uploadedImages = [];
     const { activeTab, onTabClick, nav, uploadedImagesLength } = this.props;
 
     if (nav) {
@@ -27,7 +26,7 @@ export default class ModalTab extends React.Component {
         <nav>
           { _.map(nav, tab => {
             const { label, id } = tab;
-            const className = ClassNames('ab-modal__tablabel', id === activeTab ? 'active' : null);
+            const className = classNames('ab-modal__tablabel', id === activeTab ? 'active' : null);
 
             if (_.has(tab, 'imagesUploaded') && uploadedImagesLength === 0) {
               return;
@@ -37,7 +36,7 @@ export default class ModalTab extends React.Component {
               <div
                 key={Random.randomKey('tab')}
                 className={className}
-                onClick={(e) => {
+                onClick={() => {
                   return onTabClick(id);
                 }}>
                 <span>{label}</span>
@@ -45,7 +44,7 @@ export default class ModalTab extends React.Component {
             );
           }) }
         </nav>
-      )
+      );
     }
 
     return null;

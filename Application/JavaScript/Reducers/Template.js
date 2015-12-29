@@ -1,4 +1,4 @@
-import TTStylesheet from 'ttstylesheet';
+import TTStylesheet from '../TTStylesheet';
 import _ from 'lodash';
 import DOM from '../Common/DOM';
 import * as Actions from '../Actions/Constants';
@@ -54,7 +54,7 @@ function template (state = initialState, action) {
       let element = null;
       let target = null;
 
-      if(_.has(action, 'target')) {
+      if (_.has(action, 'target')) {
         element = action.target;
         target = element.querySelector('.ab-color__colorHolder');
       }
@@ -80,8 +80,6 @@ function template (state = initialState, action) {
       let { design,colorPickerSelectedElementColorElement } = state;
       const dataColorTarget = colorPickerSelectedElementColorElement.
                                     getAttribute('data-colortarget');
-      const dataColor = colorPickerSelectedElementColorElement.
-                                    getAttribute('data-color');
 
       if (dataColorTarget) {
         if (design.colors[dataColorTarget] && templateStylesheet !== null) {

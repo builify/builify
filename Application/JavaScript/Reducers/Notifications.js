@@ -32,7 +32,7 @@ function notifications (state = notificationsInitialState, action) {
       if (index !== -1) {
         return [
           ...state.slice(0, index)
-        ]
+        ];
       }
 
       return state;

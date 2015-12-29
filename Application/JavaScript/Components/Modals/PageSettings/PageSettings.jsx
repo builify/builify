@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 import ModalWrapper from '../ModalWrapper';
 import { closeModal } from '../../../Actions';
 
 class PageSettings extends React.Component {
   render () {
     const { active, onCloseModal } = this.props;
-    const className = ClassNames('ab-modal', 'ab-modal__small');
+    const className = classNames('ab-modal', 'ab-modal__small');
 
     return (
       <ModalWrapper
@@ -26,7 +26,7 @@ function mapDispatchToProps (dispatch) {
     onCloseModal: () => {
       dispatch(closeModal());
     }
-  }
+  };
 }
 
 export default connect(null, mapDispatchToProps)(PageSettings);

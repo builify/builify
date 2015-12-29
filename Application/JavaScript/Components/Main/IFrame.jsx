@@ -42,7 +42,7 @@ class Frame extends React.Component {
       const frameDoc = DOM.iframe.getWindow(frame).document;
       const rootElement = document.createElement('div');
 
-      frameDoc.srcdoc = '<!DOCTYPE html>'
+      frameDoc.srcdoc = '<!DOCTYPE html>';
       frameDoc.title = title;
 
       this._documentElement = frameDoc;
@@ -86,7 +86,7 @@ class Frame extends React.Component {
       this._filesLoaded++;
     });
 
-    if (this._filesLoaded == this._filesLoaded) {
+    if (this._filesLoaded === this._filesLoaded) {
       onRemoveLoadingScreen();
     }
   }
@@ -131,7 +131,7 @@ class Frame extends React.Component {
 function mapStateToProps (state) {
   return {
     template: state.template
-  }
+  };
 }
 
 function mapDispatchToProps (dispatch) {
@@ -139,7 +139,7 @@ function mapDispatchToProps (dispatch) {
     onRemoveLoadingScreen: () => {
       dispatch(removeLoadingScreen());
     }
-  }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Frame);

@@ -1,16 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { CurrentLocations } from '../../Constants';
-import { startNewPage, loadPreviousPage } from '../../Actions';
-import { getString } from '../../Common/Localization';
-import cx from 'classnames';
+import classNames from 'classnames';
 import Page from './Page';
 
-class ProjectStartScreen extends Component {
+class ProjectStartScreen extends React.Component {
   render () {
     const { builder } = this.props;
     const { doPreviousPagesExistInStorage: previousPages, currentLocation } = builder;
-    const wrapperClassName = cx('ab-flex', 'full', 'center');
+    const wrapperClassName = classNames('ab-flex', 'full', 'center');
 
     if (currentLocation === CurrentLocations.STARTSCREEN) {
       return (
@@ -18,19 +16,17 @@ class ProjectStartScreen extends Component {
           <Page isNewPage={true} />
           { previousPages ? <Page isNewPage={false} /> : null }
         </div>
-      )
-    } else {
-      return null;
+      );
     }
+
+    return null;
   }
 }
 
 function mapStateToProps (state) {
   return {
     builder: state.builder
-  }
+  };
 }
 
-export default connect(
-  mapStateToProps
-)(ProjectStartScreen);
+export default connect(mapStateToProps)(ProjectStartScreen);

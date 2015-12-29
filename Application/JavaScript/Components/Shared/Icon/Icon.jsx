@@ -1,5 +1,5 @@
 import React from 'react';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 import _ from 'lodash';
 
 export default class Icon extends React.Component {
@@ -147,7 +147,7 @@ export default class Icon extends React.Component {
 
   render () {
     const { className, size, style, onClick } = this.props;
-    const cn = ClassNames(className);
+    const cn = classNames(className);
     let styles = {
       fill: 'currentcolor',
       width: size, // CSS instead of the width attr to support non-pixel units

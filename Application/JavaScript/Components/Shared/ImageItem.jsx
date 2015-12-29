@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
+import classNames from 'classnames';
 import ImageSpinner from './ImageSpinner';
 
 class ImageItem extends Component {
@@ -33,7 +33,7 @@ class ImageItem extends Component {
   render () {
     const { isImageFileLoaded } = this.state;
     const { src, alt } = this.props;
-    const loadImage = cx('ab-loadimage', this.state.isImageFileLoaded ? 'loaded' : '');
+    const loadImage = classNames('ab-loadimage', this.state.isImageFileLoaded ? 'loaded' : '');
     const imageSource = src;
 
     return (

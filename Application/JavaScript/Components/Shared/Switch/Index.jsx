@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
+import classNames from 'classnames';
 import Events from '../../../Common/Events';
 import Ripple from '../Ripple';
 
@@ -45,7 +45,7 @@ class Switch extends Component {
   };
 
   render () {
-    const labelClassName = cx('ab-switch',
+    const labelClassName = classNames('ab-switch',
       this.props.disabled ? 'disabled' : 'field',
       this.props.className ? this.props.className : null);
     const switchClassName = this.state.checked ? 'switch-on' : 'switch-off';

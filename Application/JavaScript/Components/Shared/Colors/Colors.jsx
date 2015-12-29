@@ -42,7 +42,7 @@ class Colors extends React.Component {
 function mapStateToProps (state) {
   return {
     template: state.template
-  }
+  };
 }
 
 function mapDispatchToProps (dispatch) {
@@ -50,7 +50,7 @@ function mapDispatchToProps (dispatch) {
     onColorClick: (target) => {
       dispatch(openColorPicker(target));
     }
-  }
+  };
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Colors);

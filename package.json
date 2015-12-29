@@ -1,12 +1,11 @@
 {
-  "name": "abuilder",
+  "name": "ttbuilder",
   "version": "1.0.0",
-  "description": "ABuilder",
+  "description": "TTBuilder",
   "author": "Aphakeme",
-  "license": "ISC",
+  "license": "GLP",
   "scripts": {
-    "compile": "gulp",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "gulp"
   },
   "devDependencies": {
     "babel-eslint": "^4.1.3",

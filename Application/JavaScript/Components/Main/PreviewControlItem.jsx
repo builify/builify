@@ -1,12 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { PreviewModes } from '../../Constants';
-import { setPreviewMode, closePreview, rotatePreviewView } from '../../Actions';
-import cx from 'classnames';
-import BackButton from '../Shared/BackButton';
+import { setPreviewMode, rotatePreviewView } from '../../Actions';
+import classNames from 'classnames';
 import Icon from '../Shared/Icon';
 
-class ControlItem extends Component {
+class ControlItem extends React.Component {
   render () {
     const { type, onSetPreviewMode, onRotatePreviewView, preview } = this.props;
     const { previewMode } = preview;
@@ -48,7 +47,7 @@ class ControlItem extends Component {
 
     return (
       <li
-        className={cx(active ? 'active' : '')}
+        className={classNames(active ? 'active' : '')}
         onClick={(e) => {
           e.preventDefault();
 
@@ -85,7 +84,4 @@ function mapDispatchToProps (dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ControlItem);
+export default connect(mapStateToProps,mapDispatchToProps)(ControlItem);

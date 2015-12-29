@@ -1,19 +1,19 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import DOM from '../../../Common/DOM';
 
-export default class Scrollbar extends Component {
+export default class Scrollbar extends React.Component {
   static propTypes = {
-    aside: PropTypes.bool,
-    innerPadding: PropTypes.bool,
-    height: PropTypes.number,
-    width: PropTypes.number
-  }
+    aside: React.PropTypes.bool,
+    innerPadding: React.PropTypes.bool,
+    height: React.PropTypes.number,
+    width: React.PropTypes.number
+  };
 
   static defaultProps = {
     aside: false,
     innerPadding: false
-  }
+  };
 
   getStyle ({ aside, height, width }) {
     if (aside) {

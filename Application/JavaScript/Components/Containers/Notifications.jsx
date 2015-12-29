@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { randomKey } from '../../Common/Common';
 import { eliminateNotification } from '../../Actions';
-import cx from 'classnames';
+import classNames from 'classnames';
 import LoadingIcon from '../Shared/LoadingIcon';
 import Icon from '../Shared/Icon';
 
 class NotificationWrapper extends Component {
   render () {
     const { children, onClose, id } = this.props;
-    const cn = cx('ab-notification__item');
+    const cn = classNames('ab-notification__item');
 
     return (
       <div
@@ -70,7 +70,7 @@ class NotificationContainer extends Component {
 
   render () {
     const { notifications } = this.props;
-    const cn = cx('ab-notification__container', 'top-right');
+    const cn = classNames('ab-notification__container', 'top-right');
 
     return (
       <div

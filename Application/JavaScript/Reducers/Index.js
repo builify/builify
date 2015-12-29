@@ -9,14 +9,14 @@ import canvas from './Canvas';
 import preview from './Preview';
 
 const allReducers = combineReducers({
-	localization,
-	builder,
-	builderConfiguration,
-	template,
-	notifications,
-	page,
-	canvas,
-	preview
+  localization,
+  builder,
+  builderConfiguration,
+  template,
+  notifications,
+  page,
+  canvas,
+  preview
 });
 
 export default allReducers;

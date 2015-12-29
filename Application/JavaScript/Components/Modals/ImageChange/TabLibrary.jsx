@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 import Random from '../../../Common/Random';
 import Scrollbar from '../../Shared/Scrollbar';
 import Image from '../../Shared/Image';
@@ -29,13 +29,13 @@ export default class ImageEditContentImages extends React.Component {
 
     return _.map(this.defaultImages, (item, idx) => {
       const { category } = item;
-      const className = ClassNames('ab-modal__tabitem', idx === activeCategory ? 'active' : null);
+      const className = classNames('ab-modal__tabitem', idx === activeCategory ? 'active' : null);
 
       return (
         <div
           key={Random.randomKey('tabitem')}
           className={className}
-          onClick={e => {
+          onClick={() => {
             this.setState({
               activeCategory: idx
             });
@@ -58,15 +58,15 @@ export default class ImageEditContentImages extends React.Component {
           }
 
           if (_.has(item, 'images')) {
-            return _.map(item.images, (url, imgIdx) => {
-              const className = ClassNames('ab-modal__tabimage');
+            return _.map(item.images, url => {
+              const className = classNames('ab-modal__tabimage');
 
               return (
                 <Image
                   className={className}
                   backgroundImage
                   src={url}
-                  onClick={e => {
+                  onClick={() => {
                     return onSelectImage({
                       src: url
                     });

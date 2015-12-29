@@ -1,5 +1,5 @@
 import React from 'react';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 import { getString } from '../../Common/Localization';
 
 export default class Title extends React.Component {
@@ -11,8 +11,8 @@ export default class Title extends React.Component {
 
   render () {
     const { title, className, description } = this.props;
-    const titleClassName = ClassNames('ab-title', className ? className: null);
-    const descClassName = ClassNames('ab-title__desc');
+    const titleClassName = classNames('ab-title', className ? className: null);
+    const descClassName = classNames('ab-title__desc');
 
     if (title) {
       return (
@@ -23,8 +23,8 @@ export default class Title extends React.Component {
           { description ? <p className={descClassName}>{description}</p> : null }
         </div>
       );
-    } else {
-      return null;
     }
+
+    return null;
   }
 }

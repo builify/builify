@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 import Icon from '../Icon';
-import Dropdown from '../Dropdown';
 import Switch from '../Switch';
 import { removeContentBlock, openContentblockSourceEditModal } from '../../../Actions';
 
@@ -14,11 +13,11 @@ class SectionToolBox extends React.Component {
 
   render () {
     const { settingsMenuOpened } = this.state;
-    const { canvas, onRemove, onOpenContentblockSourceEditModal } = this.props;
+    const { canvas, onRemove } = this.props;
     const { currentHoverBlock } = canvas;
     const { block, topX } = currentHoverBlock;
-    const className = ClassNames('ab-cstoolbox');
-    const dropdownClassname = ClassNames('dropdown', settingsMenuOpened ? 'active' : null);
+    const className = classNames('ab-cstoolbox');
+    const dropdownClassname = classNames('dropdown', settingsMenuOpened ? 'active' : null);
     const iconSize = 24;
     const iconStyle = {
       fill: '#FFF'
@@ -38,7 +37,7 @@ class SectionToolBox extends React.Component {
         style={toolBoxStyle}>
         <ul className='settings'>
           <li
-            onClick={(e) => {
+            onClick={() => {
               this.setState({
                 settingsMenuOpened: !this.state.settingsMenuOpened
               });
@@ -50,7 +49,7 @@ class SectionToolBox extends React.Component {
               style={iconStyle } />
           </li>
           <li
-            onClick={(e) => {
+            onClick={() => {
               return onRemove(block);
             }}
             title='Remove Block'>
@@ -77,7 +76,7 @@ class SectionToolBox extends React.Component {
 function mapStateToProps (state) {
   return {
     canvas: state.canvas
-  }
+  };
 }
 
 function mapDispatchToProps (dispatch) {
@@ -89,7 +88,7 @@ function mapDispatchToProps (dispatch) {
     onOpenContentblockSourceEditModal: (currentHoverBlock) => {
       dispatch(openContentblockSourceEditModal(currentHoverBlock.element));
     }
-  }
+  };
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(SectionToolBox);

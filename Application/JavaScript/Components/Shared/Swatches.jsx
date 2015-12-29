@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { setSwatch } from '../../Actions';
 import { randomKey } from '../../Common/Common';
 import _ from 'lodash';
-import cx from 'classnames';
+import classNames from 'classnames';
 
-class Swatches extends Component {
+class Swatches extends React.Component {
   render () {
     const { template, onSetSwatch } = this.props;
     let swatchesToRender = [];
@@ -22,7 +21,7 @@ class Swatches extends Component {
           text: name,
           colors: colors
         });
-      })
+      });
     }
 
     if (_.has(template, 'design.currentSwatch')) {
@@ -36,14 +35,14 @@ class Swatches extends Component {
             const { text, colors } = item;
             let color1, color2, colorsTitle = '';
             const key = randomKey('swatch');
-            const className = cx('ab-swatch', activeSwatch === text ? 'active' : '');
+            const className = classNames('ab-swatch', activeSwatch === text ? 'active' : '');
 
             if (typeof colors === 'object') {
-              if (colors.length == 1) {
+              if (colors.length === 1) {
                 color1 = color2 = colors[0];
 
                 colorsTitle = color1;
-              } else if (colors.length == 2) {
+              } else if (colors.length === 2) {
                 color1 = colors[0];
                 color2 = colors[1];
 
@@ -58,7 +57,7 @@ class Swatches extends Component {
               <div
                 className={className}
                 key={key}
-                onClick={(e) => {
+                onClick={() => {
                   return onSetSwatch(text);
                 }}>
                 <div
@@ -69,14 +68,14 @@ class Swatches extends Component {
                 <div
                   className='ab-swatch__color'
                   title={colorsTitle}>
-                  <span style={{backgroundColor: color1}}/>
-                  <span style={{backgroundColor: color2}}/>
+                  <span style={{ backgroundColor: color1 }}/>
+                  <span style={{ backgroundColor: color2 }}/>
                 </div>
               </div>
-            )
-          })}
+            );
+          }) }
         </div>
-      )
+      );
     }
 
     return null;
@@ -86,7 +85,7 @@ class Swatches extends Component {
 function mapStateToProps (state) {
   return {
     template: state.template
-  }
+  };
 }
 
 function mapDispatchToProps (dispatch) {
@@ -94,10 +93,7 @@ function mapDispatchToProps (dispatch) {
     onSetSwatch: (name) => {
       dispatch(setSwatch(name));
     }
-  }
+  };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Swatches);
+export default connect(mapStateToProps,mapDispatchToProps)(Swatches);

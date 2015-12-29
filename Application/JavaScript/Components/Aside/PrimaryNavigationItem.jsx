@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 import _ from 'lodash';
 import Icon from '../Shared/Icon';
 import { getString } from '../../Common/Localization';
-import { saveCurrentPage, openTab, openPreview, openDownloadModal, openRestartModal } from '../../Actions';
+import * as Actions from '../../Actions';
 import { CurrentLocations } from '../../Constants';
 
 class PrimaryNavigationItem extends React.Component {
@@ -18,11 +18,11 @@ class PrimaryNavigationItem extends React.Component {
     navigationItemInformation: {}
   };
 
-  itemClick (e) {
+  itemClick () {
     const { onOpenTab, onOpenPreview, target, builder, navigationItemInformation } = this.props;
     const { currentLocation } = builder;
 
-    if (currentLocation == CurrentLocations.STARTSCREEN) {
+    if (currentLocation === CurrentLocations.STARTSCREEN) {
       return false;
     }
 
@@ -36,15 +36,23 @@ class PrimaryNavigationItem extends React.Component {
   }
 
   render () {
-    const { onSaveClick, onGetHTML, onRestartClick, builder, navigationItemInformation } = this.props;
-    const { id, icon, target } = navigationItemInformation;
+    const {
+      onSaveClick,
+      onGetHTML,
+      onRestartClick,
+      builder,
+      navigationItemInformation
+    } = this.props;
+    const { id, icon } = navigationItemInformation;
     const { currentLocation, pages } = builder;
-    const itemClassName = ClassNames(currentLocation == CurrentLocations.STARTSCREEN ? 'hide' : '');
+    const itemClassName = classNames(
+      currentLocation === CurrentLocations.STARTSCREEN ? 'hide' : ''
+    );
 
     if (id === 'gethtml' || id === 'save' || id === 'restore') {
       if (id === 'gethtml') {
         const moreThanOnePage = !!(pages && pages.length !== 0);
-        const className = ClassNames('html', !moreThanOnePage ? 'hide' : null);
+        const className = classNames('html', !moreThanOnePage ? 'hide' : null);
         const emptyFunction = () => {};
 
         return (
@@ -56,7 +64,8 @@ class PrimaryNavigationItem extends React.Component {
           </li>
         );
       } else if (id === 'restore') {
-        const clickFunc = currentLocation !== CurrentLocations.STARTSCREEN ? onRestartClick : function () {};
+        const clickFunc = currentLocation !== CurrentLocations.STARTSCREEN ?
+          onRestartClick : function () {};
 
         return (
           <li
@@ -67,8 +76,9 @@ class PrimaryNavigationItem extends React.Component {
           </li>
         );
       } else if (id === 'save') {
-        const clickFunc = currentLocation !== CurrentLocations.STARTSCREEN ? onSaveClick : function () {};
-        const className = ClassNames(itemClassName);
+        const clickFunc = currentLocation !== CurrentLocations.STARTSCREEN ?
+          onSaveClick : function () {};
+        const className = classNames(itemClassName);
 
         return (
           <li
@@ -95,31 +105,31 @@ class PrimaryNavigationItem extends React.Component {
 function mapStateToProps (state) {
   return {
     builder: state.builder
-  }
+  };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     onOpenTab: target => {
-      dispatch(openTab(target));
+      dispatch(Actions.openTab(target));
     },
 
     onOpenPreview: target => {
-      dispatch(openPreview(target));
+      dispatch(Actions.openPreview(target));
     },
 
     onGetHTML: () => {
-      dispatch(openDownloadModal());
+      dispatch(Actions.openDownloadModal());
     },
 
     onRestartClick: () => {
-      dispatch(openRestartModal());
+      dispatch(Actions.openRestartModal());
     },
 
     onSaveClick: () => {
-      dispatch(saveCurrentPage());
+      dispatch(Actions.saveCurrentPage());
     }
-  }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PrimaryNavigationItem);

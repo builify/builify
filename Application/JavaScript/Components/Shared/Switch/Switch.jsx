@@ -1,5 +1,5 @@
 import React from 'react';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 import Thumb from './Thumb';
 
 class Switch extends React.Component {
@@ -36,7 +36,7 @@ class Switch extends React.Component {
   }
 
   render () {
-    const className = ClassNames('ab-switch', this.props.disabled ? 'disabled' : 'field');
+    const className = classNames('ab-switch', this.props.disabled ? 'disabled' : 'field');
     const switchClassName = this.props.checked ? 'switch-on' : 'switch-off';
     const { onChange, ...others } = this.props;
 

@@ -8,7 +8,7 @@ export default class Color extends React.Component {
     clickFunction: React.PropTypes.func.isRequired
   };
 
-  clickColor (e) {
+  clickColor () {
     const { clickFunction } = this.props;
 
     return clickFunction(this.refs['color']);

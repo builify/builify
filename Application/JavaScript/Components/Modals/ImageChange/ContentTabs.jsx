@@ -10,7 +10,14 @@ export default class ContentTabs extends React.Component {
   };
 
   render () {
-    const { onSelectImage, editTarget, activeTab, builder, builderConfiguration, onUploadImage } = this.props;
+    const {
+      onSelectImage,
+      editTarget,
+      activeTab,
+      builder,
+      builderConfiguration,
+      onUploadImage
+    } = this.props;
 
     switch (activeTab) {
       case 1:

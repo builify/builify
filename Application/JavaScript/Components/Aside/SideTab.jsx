@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { closeSidetab } from '../../Actions';
 import { getString } from '../../Common/Localization';
 import _ from 'lodash';
@@ -9,8 +9,8 @@ import Scrollbar from '../Shared/Scrollbar';
 
 export default class SideTab extends ProccessedChildrenRender {
   static propTypes = {
-    data: PropTypes.object.isRequired
-  }
+    data: React.PropTypes.object.isRequired
+  };
 
   childrenToRender = [];
 

@@ -4,7 +4,7 @@ import TPDOM from '../../../Common/DOM';
 import { findUpAttr, findUpClassName, getBrowserSize } from '../../../Common/Common';
 import { openLinkEditModal, openImageEditModal, openIconEditModal, openContextmenuToolbox, closeContextmenuToolbox } from '../../../Actions';
 import _ from 'lodash';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 import Events from '../../../Common/Events';
 import ClickToolBoxItem from './Item';
 import { HTMLTagNamesToString } from './Config';
@@ -298,7 +298,7 @@ class ClickToolbox extends React.Component {
 
   render () {
     const { panelOpen, panelCoordinates, targetName } = this.state;
-    const planelClassName = ClassNames('ab-crightpanel', panelOpen ? 'show' : '');
+    const planelClassName = classNames('ab-crightpanel', panelOpen ? 'show' : '');
     const panelStyle = {
       top: panelCoordinates.y,
       left: panelCoordinates.x

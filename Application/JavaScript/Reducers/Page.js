@@ -1,4 +1,4 @@
-import { randomKey, replaceDataInHTML, getAbsPosition, addCSSRule } from '../Common/Common';
+import { replaceDataInHTML } from '../Common/Common';
 import Storage from '../Common/Storage';
 import Random from '../Common/Random';
 import DOM from '../Common/DOM';
@@ -75,7 +75,14 @@ function page (state = pageInitialState, action) {
 
     case Actions.SAVE_CURRENT_PAGE: {
       const { pageTitle, pageFileName, pageID, navigation, main, footer, blocksCount } = state;
-      const mainCopy = _.assign({}, state.main);
+
+      function savePage (item) {
+        if (_.isArray(item)) {
+          Storage.set(TEMPLATE_PAGES_STORAGE_NAME, item);
+        } else {
+          throw Error('Pages localstorage data is wrong type.');
+        }
+      }
 
       if (pageID) {
         const pagesInStorage = Storage.get(TEMPLATE_PAGES_STORAGE_NAME);
@@ -101,11 +108,7 @@ function page (state = pageInitialState, action) {
 
           pagesInStorage[itemIndex] = newPage;
 
-          if (_.isArray(pagesInStorage)) {
-            Storage.set(TEMPLATE_PAGES_STORAGE_NAME, pagesInStorage);
-          } else {
-            throw Error('Pages localstorage data is wrong type.');
-          }
+          savePage(pagesInStorage);
         }
       }
 
@@ -259,10 +262,10 @@ function page (state = pageInitialState, action) {
       let newMain = main;
       let newNavigation = _.assign({}, navigation);
 
-      if (type == 'footer') {
+      if (type === 'footer') {
         newFooter.hasBeenRendered = true;
         newFooter.elementReference = elementReference;
-      } else if (type == 'navigation') {
+      } else if (type === 'navigation') {
         newNavigation.hasBeenRendered = true;
         newNavigation.elementReference = elementReference;
       } else {
@@ -287,8 +290,7 @@ function page (state = pageInitialState, action) {
     case Actions.SORT_CONTENTBLOCKS: {
       const { evt } = action;
       const { main } = state;
-      const { newIndex, oldIndex, item } = evt;
-      const blockIdElement = item.querySelector('[data-blockid]');
+      const { newIndex, oldIndex } = evt;
       let temp = main[newIndex];
 
       main[newIndex] = main[oldIndex];

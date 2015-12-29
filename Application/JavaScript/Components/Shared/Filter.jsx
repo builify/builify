@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { filterContentBlocks } from '../../Actions';
 import _ from 'lodash';
-import cx from 'classnames';
+import classNames from 'classnames';
 
-class Filter extends Component {
+class Filter extends React.Component {
   state = {
     isFilterOpened: false,
     activeTargetId: 0,
@@ -48,9 +48,8 @@ class Filter extends Component {
 
       return (
         <ul>
-          {_.map(items, (item, i) => {
+          { _.map(items, (item, i) => {
             const { name, target } = item;
-            let isActive = false;
 
             if (_.has(item, 'active')) {
               if (item.active) {
@@ -58,7 +57,7 @@ class Filter extends Component {
               }
             }
 
-            const itemClassName = cx(target == filterContentBlocksTarget ? 'active' : '');
+            const itemClassName = classNames(target === filterContentBlocksTarget ? 'active' : '');
 
             return (
               <li
@@ -73,17 +72,17 @@ class Filter extends Component {
                 className={itemClassName}>
                 {name}
               </li>
-            )
-          })}
+            );
+          }) }
         </ul>
-      )
+      );
     }
 
     return null;
   }
 
   render () {
-    const filterClassName = cx('ab-filter', this.state.isFilterOpened ? 'active' : '');
+    const filterClassName = classNames('ab-filter', this.state.isFilterOpened ? 'active' : '');
 
     return (
       <div className={filterClassName}>
@@ -96,7 +95,7 @@ class Filter extends Component {
           {this.renderFilterItems()}
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -104,7 +103,7 @@ function mapStateToProps (state) {
   return {
     template: state.template,
     builder: state.builder
-  }
+  };
 }
 
 function mapDispatchToProps (dispatch) {
@@ -112,10 +111,7 @@ function mapDispatchToProps (dispatch) {
     onFilterItemSelection: (target) => {
       dispatch(filterContentBlocks(target));
     }
-  }
+  };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Filter);
+export default connect(mapStateToProps,mapDispatchToProps)(Filter);

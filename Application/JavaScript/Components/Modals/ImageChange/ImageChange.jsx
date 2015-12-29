@@ -1,5 +1,5 @@
 import React from 'react';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import ModalWrapper from '../ModalWrapper';
 import NavigationForTabs from './NavigationForTabs';
@@ -29,8 +29,15 @@ class ImageEdit extends React.Component {
   }
 
   render () {
-    const { active, builderConfiguration, builder, editTarget, onUploadImage, onCloseModal } = this.props;
-    const className = ClassNames('ab-modal');
+    const {
+      active,
+      builderConfiguration,
+      builder,
+      editTarget,
+      onUploadImage,
+      onCloseModal
+    } = this.props;
+    const className = classNames('ab-modal');
 
     return (
       <ModalWrapper
@@ -55,7 +62,7 @@ function mapStateToProps (state) {
   return {
     builder: state.builder,
     builderConfiguration: state.builderConfiguration
-  }
+  };
 }
 
 function mapDispatchToProps (dispatch) {
@@ -71,10 +78,7 @@ function mapDispatchToProps (dispatch) {
     onSelectImage: (data) => {
       dispatch(selectImage(data));
     }
-  }
+  };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ImageEdit);
+export default connect(mapStateToProps,mapDispatchToProps)(ImageEdit);

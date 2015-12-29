@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { closeModal } from '../../../Actions';
-import cx from 'classnames';
+import classNames from 'classnames';
 import _ from 'lodash';
 import Button from '../Button';
 import DialogWrapper from './DialogWrapper';
@@ -17,7 +17,7 @@ class IconsList extends Component {
 
   renderIcons (icons, iconClass) {
     return _.map(icons, (icon, idx) => {
-      const className = cx(iconClass, icon);
+      const className = classNames(iconClass, icon);
 
       return (
         <li
@@ -149,7 +149,7 @@ class IconChange extends Component {
   render () {
     const { builder } = this.props;
     const { iconPacks } = builder;
-    const className = cx('ab-dialog', 'large');
+    const className = classNames('ab-dialog', 'large');
     const icons = iconPacks[0];
 
     return (

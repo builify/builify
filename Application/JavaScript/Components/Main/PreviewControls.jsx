@@ -1,14 +1,12 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { setPreviewMode, closePreview } from '../../Actions';
+import React from 'react';
+import { closePreview } from '../../Actions';
 import BackButton from '../Shared/BackButton';
-import Icon from '../Shared/Icon';
 import ControlItem from './PreviewControlItem';
 
-class PreviewControls extends Component {
+export default class PreviewControls extends React.Component {
   static propTypes = {
-    display: PropTypes.bool.isRequired
-  }
+    display: React.PropTypes.bool.isRequired
+  };
 
   closePreviewWindow () {
     return closePreview();
@@ -34,11 +32,9 @@ class PreviewControls extends Component {
             </ul>
           </div>
         </div>
-      )
-    } else {
-      return null;
+      );
     }
+
+    return null;
   }
 }
-
-export default PreviewControls;

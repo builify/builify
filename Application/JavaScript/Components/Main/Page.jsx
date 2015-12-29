@@ -1,19 +1,25 @@
-import React, { Component, PropTypes } from 'react';
+import React  from 'react';
 import { connect } from 'react-redux';
 import { startNewPage, loadPreviousPage, openPreviousPagesSelectionModal } from '../../Actions';
 import { getString } from '../../Common/Localization';
 
-class Page extends Component {
+class Page extends React.Component {
   static propTypes = {
-    isNewPage: PropTypes.bool.isRequired
-  }
+    isNewPage: React.PropTypes.bool.isRequired
+  };
 
-  shouldComponentUpdate (nextProps, nextState) {
+  shouldComponentUpdate () {
     return false;
   }
 
-  selectPage (e) {
-    const { onStartNewPage, onPreviousPagesSelection, onLoadPreviousPage, isNewPage, builder } = this.props;
+  selectPage () {
+    const {
+      onStartNewPage,
+      onPreviousPagesSelection,
+      onLoadPreviousPage,
+      isNewPage,
+      builder
+    } = this.props;
     const { pages } = builder;
 
     if (isNewPage) {
@@ -30,7 +36,7 @@ class Page extends Component {
   }
 
   render () {
-    const { isNewPage, dispatch, builder } = this.props;
+    const { isNewPage, builder } = this.props;
     const { pages } = builder;
     const pagesLength = pages.length;
     const previousPages = pagesLength > 1 ? 'pages.loadpages' : 'pages.loadpage';
@@ -42,7 +48,7 @@ class Page extends Component {
         onClick={::this.selectPage}>
         { getString(queryString) }
       </div>
-    )
+    );
   }
 }
 
@@ -50,7 +56,7 @@ function mapStateToProps (state) {
   return {
     builder: state.builder,
     localization: state.localizationData
-  }
+  };
 }
 
 function mapDispatchToProps (dispatch) {
@@ -66,10 +72,7 @@ function mapDispatchToProps (dispatch) {
     onLoadPreviousPage: () => {
       dispatch(loadPreviousPage());
     }
-  }
+  };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Page);
+export default connect(mapStateToProps,mapDispatchToProps)(Page);

@@ -1,15 +1,15 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 
-class Logo extends Component {
+export default class Logo extends React.Component {
   static propTypes = {
-    text: PropTypes.string
-  }
+    text: React.PropTypes.string
+  };
 
   static defaultProps = {
-    text: 'ABuilder'
-  }
+    text: 'TTBuilder'
+  };
 
-  shouldComponentUpdate (nextProps, nextState) {
+  shouldComponentUpdate () {
     return false;
   }
 
@@ -22,8 +22,6 @@ class Logo extends Component {
         </div>
         <div className='ab-logo__text'>{this.props.text}</div>
       </div>
-    )
+    );
   }
 }
-
-export default Logo;

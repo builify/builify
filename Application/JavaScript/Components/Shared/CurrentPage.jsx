@@ -4,7 +4,7 @@ import { randomKey } from '../../Common/Common';
 import Random from '../../Common/Random';
 import { removeContentBlock, sortContentBlocks, setPageTitle, setPageFilename } from '../../Actions';
 import _ from 'lodash';
-import cx from 'classnames';
+import classNames from 'classnames';
 import Sortable from './Sortable';
 import Icon from './Icon';
 import Input from './Input';
@@ -28,7 +28,7 @@ class CurrentPageItem extends React.Component {
       fill: '#ce4031'
     };
     const isNotSortable = type === 'navigation' || type === 'footer' ? true : false;
-    const itemClassName = cx('ab-currentPage__item', isNotSortable ? 'notsortable' : '');
+    const itemClassName = classNames('ab-currentPage__item', isNotSortable ? 'notsortable' : '');
 
     return (
       <li

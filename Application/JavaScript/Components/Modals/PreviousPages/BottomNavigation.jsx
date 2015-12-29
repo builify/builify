@@ -7,14 +7,16 @@ export default class BottomNavigation extends React.Component {
     return _.map(actions, (action, idx) => {
       let className = 'ab-modal__button';
 
-      if (action.className) className += ` ${action.className}`;
+      if (action.className) {
+        className += ` ${action.className}`;
+      }
 
       return (
         <Button
           key={idx}
           {...action}
           className={className} />
-      )
+      );
     });
   }
 

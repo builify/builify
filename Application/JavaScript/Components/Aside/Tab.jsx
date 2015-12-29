@@ -1,7 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { closeTab, openSidetab } from '../../Actions';
-import { randomKey } from '../../Common/Common';
+import React from 'react';
+import { closeTab } from '../../Actions';
 import _ from 'lodash';
 import proccessChildrenData from '../../Common/ProccessTabChildren';
 import ProccessedChildrenRender from '../Shared/ProccessedChildrenRender';
@@ -10,14 +8,14 @@ import Scrollbar from '../Shared/Scrollbar';
 
 export default class Tab extends ProccessedChildrenRender {
   static propTypes = {
-    data: PropTypes.object,
-    targetIndex: PropTypes.number
-  }
+    data: React.PropTypes.object,
+    targetIndex: React.PropTypes.number
+  };
 
   static defaultProps = {
     data: {},
     targetIndex: 0
-  }
+  };
 
   childrenToRender = [];
 
@@ -27,7 +25,7 @@ export default class Tab extends ProccessedChildrenRender {
     this.childrenToRender = proccessChildrenData(data);
   }
 
-  closeTab (e) {
+  closeTab () {
     return closeTab();
   }
 

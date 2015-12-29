@@ -5,7 +5,7 @@ export default class ImageEditContentUploadImage extends React.Component {
   static propTypes = {
     onUploadImage: React.PropTypes.func.isRequired
   };
-  
+
   dropzoneConfig = {
     uploadMultiple: false,
     parallelUploads: 1,
@@ -40,11 +40,11 @@ export default class ImageEditContentUploadImage extends React.Component {
 
   initCallback = (dropzone) => {
     var minSteps = 6,
-        maxSteps = 60,
-        timeBetweenSteps = 100,
-        bytesPerStep = 1000000;
+      maxSteps = 60,
+      timeBetweenSteps = 100,
+      bytesPerStep = 1000000;
 
-    dropzone.on("maxfilesexceeded", function(file) {
+    dropzone.on('maxfilesexceeded', function(file) {
       this.removeFile(file);
     });
 
@@ -53,7 +53,9 @@ export default class ImageEditContentUploadImage extends React.Component {
 
       for (let i = 0; i < files.length; i++) {
         var file = files[i],
-            totalSteps = Math.round(Math.min(maxSteps, Math.max(minSteps, file.size / bytesPerStep)));
+          totalSteps = Math.round(
+            Math.min(maxSteps, Math.max(minSteps, file.size / bytesPerStep))
+          );
 
         for (let step = 0; step < totalSteps; step++) {
           const duration = timeBetweenSteps * (step + 1);
@@ -68,17 +70,17 @@ export default class ImageEditContentUploadImage extends React.Component {
 
               self.emit('uploadprogress', file, file.upload.progress, file.upload.bytesSent);
 
-              if (file.upload.progress == 100) {
+              if (file.upload.progress === 100) {
                 file.status = Dropzone.SUCCESS;
-                self.emit("success", file, 'success', null);
-                self.emit("complete", file);
+                self.emit('success', file, 'success', null);
+                self.emit('complete', file);
                 self.processQueue();
               }
             };
           }(file, totalSteps, step), duration);
         }
       }
-    }
+    };
   };
 
   shouldComponentUpdate () {

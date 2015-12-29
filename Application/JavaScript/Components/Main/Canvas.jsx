@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 import CanvasFrame from './CanvasFrame';
 import PreviewControls from './PreviewControls';
 import CanvasSuggestionBox from './CanvasSuggestionBox';
@@ -31,7 +31,7 @@ class Canvas extends React.Component {
       lndcapeClassname = 'landscape';
     }
 
-    const className = ClassNames('ab-canvas', isStartScreenLocation ? 'hide' : null, prvClassname, prvMode, lndcapeClassname);
+    const className = classNames('ab-canvas', isStartScreenLocation ? 'hide' : null, prvClassname, prvMode, lndcapeClassname);
 
     return (
       <div className={className}>
