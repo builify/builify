@@ -1,6 +1,6 @@
-import _ from 'lodash';
-
 export default {
+  _idCounter: 0,
+
   randomString (stringLength) {
     const cryptoObject = window.crypto || window.msCrypto;
     const intLen = Math.floor((stringLength || 40) / 2);
@@ -16,6 +16,16 @@ export default {
   },
 
   randomKey (str) {
-    return _.uniqueId((str ? str : null));
+    var id = this._idCounter++;
+
+    function baseToString (value) {
+      if (typeof value === 'string') {
+        return value;
+      }
+
+      return value === null ? '' : (value + '');
+    }
+
+    return baseToString((str ? str : null)) + id;
   }
 };

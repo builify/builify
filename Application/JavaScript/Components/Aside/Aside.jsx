@@ -25,9 +25,35 @@ class Aside extends React.Component {
     return false;
   }
 
+  renderTabs () {
+    const { builderConfiguration } = this.props;
+    const { tabs } = builderConfiguration;
+
+    return _.map(tabs, (tab, index) => {
+      return (
+        <Tab
+          data={tab}
+          targetIndex={index}
+          key={index} />
+        );
+    });
+  }
+
+  renderSideTabs () {
+    const { builderConfiguration } = this.props;
+    const { sidetabs } = builderConfiguration;
+
+    return _.map(sidetabs, (sidetab, index) => {
+      return (
+        <SideTab
+          data={sidetab}
+          key={index} />
+        );
+    });
+  }
+
   render () {
-    const { builderConfiguration, cName } = this.props;
-    const { tabs, sidetabs } = builderConfiguration;
+    const { cName } = this.props;
     const asideClassName = classNames('ab-aside', cName);
 
     return (
@@ -39,21 +65,8 @@ class Aside extends React.Component {
             <Copyright />
           </AsideItem>
           <AsideItem>
-            {_.map(tabs, (tab, index) => {
-              return (
-                <Tab
-                  data={tab}
-                  targetIndex={index}
-                  key={index} />
-                );
-            })}
-            {_.map(sidetabs, (sidetab, index) => {
-              return (
-                <SideTab
-                  data={sidetab}
-                  key={index} />
-                );
-            })}
+            { this.renderTabs() }
+            { this.renderSideTabs() }
           </AsideItem>
         </div>
       </aside>

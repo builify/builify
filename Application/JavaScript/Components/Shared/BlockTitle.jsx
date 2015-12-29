@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-class BlockTitle extends Component {
+class BlockTitle extends React.Component {
 	render () {
     const { builder, data } = this.props;
     const { name } = data;
@@ -27,6 +27,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(
-  mapStateToProps
-)(BlockTitle);
+export default connect(mapStateToProps)(BlockTitle);

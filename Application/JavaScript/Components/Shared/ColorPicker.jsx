@@ -1,10 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { closeColorPicker, setColorFromColorPicker } from '../../Actions';
 import { getBrowserSize, getOffset } from '../../Common/Common';
 import ColorPick from 'react-color';
 
-class ColorPicker extends Component {
+class ColorPicker extends React.Component {
   handleClose () {
     const { dispatch } = this.props;
 
@@ -28,7 +28,7 @@ class ColorPicker extends Component {
       let browserSize = getBrowserSize();
       let elementOffset = getOffset(colorPickerSelectedElementColorElement);
       const { left, top } = elementOffset;
-      const { width, height } = browserSize;
+      const { height } = browserSize;
       const estimatedColorPickerHeight = 320; // Why not 420?
 
       defaultColor = colorPickerSelectedElementColorElement.getAttribute('data-color');
@@ -65,16 +65,14 @@ class ColorPicker extends Component {
         positionCSS={popupPosition}
         display={displayColorPicker}
         type='sketch' />
-    )
+    );
   }
 }
 
 function mapStateToProps (state) {
   return {
     builder: state.builder
-  }
+  };
 }
 
-export default connect(
-  mapStateToProps
-)(ColorPicker);
+export default connect(mapStateToProps)(ColorPicker);

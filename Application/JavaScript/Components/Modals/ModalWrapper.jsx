@@ -23,6 +23,18 @@ export default class ModalWrapper extends React.Component {
         }
       }, 16);
     }
+
+    window.addEventListener('mousedown', ::this.onDocumentClick, false);
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('mousedown', this.onDocumentClick);
+  }
+
+  onDocumentClick (e) {
+    if (e.target.getAttribute('data-modaloverlay')) {
+      this.closeDialog();
+    }
   }
 
   closeDialog () {
@@ -52,7 +64,7 @@ export default class ModalWrapper extends React.Component {
       <div
         ref='modalWrapper'
         className={className ? className : null}>
-        <div role='overlay' className='ab-modal__overlay' />
+        <div role='overlay' className='ab-modal__overlay' data-modaloverlay />
         <div role='content' className='ab-modal__content'>
           { children }
         </div>

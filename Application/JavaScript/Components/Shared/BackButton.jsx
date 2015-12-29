@@ -1,17 +1,17 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-class BackButton extends Component {
+class BackButton extends React.Component {
   static propTypes = {
-    clickFunction: PropTypes.func,
-    wrapperClassName: PropTypes.string
-  }
+    clickFunction: React.PropTypes.func,
+    wrapperClassName: React.PropTypes.string
+  };
 
   static defaultProps = {
     clickFunction: () => {},
     wrapperClassName: 'ab-tab__close'
-  }
+  };
 
   render () {
     const { dispatch } = this.props;
@@ -24,16 +24,14 @@ class BackButton extends Component {
         }, dispatch)}>
         <span>Go Back</span>
       </div>
-    )
+    );
   }
 }
 
 function mapStateToProps (state) {
   return {
     localization: state.localizationData
-  }
+  };
 }
 
-export default connect(
-  mapStateToProps
-)(BackButton);
+export default connect(mapStateToProps)(BackButton);

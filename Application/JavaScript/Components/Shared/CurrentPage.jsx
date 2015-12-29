@@ -1,14 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { randomKey } from '../../Common/Common';
 import Random from '../../Common/Random';
-import { removeContentBlock, sortContentBlocks, setPageTitle, setPageFilename } from '../../Actions';
+import * as Actions from '../../Actions';
 import _ from 'lodash';
 import classNames from 'classnames';
 import Sortable from './Sortable';
 import Icon from './Icon';
 import Input from './Input';
-import Button from './Button';
 import Title from './Title';
 
 class CurrentPageItem extends React.Component {
@@ -23,7 +21,7 @@ class CurrentPageItem extends React.Component {
 
   render () {
     const { data, onRemoveClick } = this.props;
-    const { id, type, blockName, elementReference, hasBeenRendered } = data;
+    const { id, type, blockName } = data;
     const removeIconStyle = {
       fill: '#ce4031'
     };
@@ -44,7 +42,7 @@ class CurrentPageItem extends React.Component {
                   size={18}
                   icon='reorder' />
               </div>
-            )
+            );
           }
         })()}
         <div className='ab-currentPage__item-title'>
@@ -57,7 +55,7 @@ class CurrentPageItem extends React.Component {
           size={24}
           icon='clear' />
       </li>
-    )
+    );
   }
 }
 
@@ -68,7 +66,7 @@ class CurrentPageSections extends React.Component {
     return _.map(notSortableItems, item => {
       return (
           <CurrentPageItem
-            onRemoveClick={(e) => {
+            onRemoveClick={() => {
               return onRemove(item);
             }}
             data={item}
@@ -83,7 +81,7 @@ class CurrentPageSections extends React.Component {
     return _.map(items, item => {
       return (
         <CurrentPageItem
-          onRemoveClick={(e) => {
+          onRemoveClick={() => {
             return onRemove(item);
           }}
           data={item}
@@ -106,7 +104,7 @@ class CurrentPageSections extends React.Component {
       onSort: (evt) => {
         return onSortBlocks(evt);
       }
-    }
+    };
     let items = [];
     let notSortableItems = [];
 
@@ -205,7 +203,7 @@ class CurrentPage extends React.Component {
   }
 
   render () {
-    const { page, onRemove, onSortBlocks, onSetPageTitle, onSetPageFilename } = this.props;
+    const { page, onRemove, onSortBlocks } = this.props;
 
     return (
       <div>
@@ -224,27 +222,27 @@ class CurrentPage extends React.Component {
 function mapStateToProps (state) {
   return {
     page: state.page
-  }
+  };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     onRemove: (element) => {
-      dispatch(removeContentBlock(element));
+      dispatch(Actions.removeContentBlock(element));
     },
 
     onSortBlocks: (element) => {
-      dispatch(sortContentBlocks(element));
+      dispatch(Actions.sortContentBlocks(element));
     },
 
     onSetPageTitle: (title) => {
-      dispatch(setPageTitle(title));
+      dispatch(Actions.setPageTitle(title));
     },
 
     onSetPageFilename: (filename) => {
-      dispatch(setPageFilename(filename));
+      dispatch(Actions.setPageFilename(filename));
     }
-  }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrentPage);

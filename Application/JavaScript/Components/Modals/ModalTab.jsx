@@ -16,38 +16,38 @@ export default class ModalTab extends React.Component {
     uploadedImagesLength: 0,
     activeTab: 0,
     onTabClick: function () {}
-  }
+  };
 
   renderNav () {
     const { activeTab, onTabClick, nav, uploadedImagesLength } = this.props;
 
-    if (nav) {
-      return (
-        <nav>
-          { _.map(nav, tab => {
-            const { label, id } = tab;
-            const className = classNames('ab-modal__tablabel', id === activeTab ? 'active' : null);
-
-            if (_.has(tab, 'imagesUploaded') && uploadedImagesLength === 0) {
-              return;
-            }
-
-            return (
-              <div
-                key={Random.randomKey('tab')}
-                className={className}
-                onClick={() => {
-                  return onTabClick(id);
-                }}>
-                <span>{label}</span>
-              </div>
-            );
-          }) }
-        </nav>
-      );
+    if (!nav) {
+      return null;
     }
 
-    return null;
+    return (
+      <nav>
+        { _.map(nav, tab => {
+          const { label, id } = tab;
+          const className = classNames('ab-modal__tablabel', id === activeTab ? 'active' : null);
+
+          if (_.has(tab, 'imagesUploaded') && uploadedImagesLength === 0) {
+            return;
+          }
+
+          return (
+            <div
+              key={Random.randomKey('tab')}
+              className={className}
+              onClick={() => {
+                return onTabClick(id);
+              }}>
+              <span>{label}</span>
+            </div>
+          );
+        }) }
+      </nav>
+    );
   }
 
   render () {

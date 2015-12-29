@@ -1,5 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import TTEditor from '../../TTEditor';
 import _ from 'lodash';
 import { currentHoverBlock, blockWasRenderedToPage, removeContentBlock } from '../../Actions';
 import { store } from '../Application';
@@ -12,6 +14,8 @@ import Events from '../../Common/Events';
 import ClickToolbox from '../Shared/ClickToolbox';
 import SectionToolBox from '../Shared/SectionToolBox';
 import IFrame from './IFrame';
+
+let onlyonce = false;
 
 class CanvasFrame extends React.Component {
   _blocks = {};
@@ -208,6 +212,23 @@ class CanvasFrame extends React.Component {
       target.addEventListener('mouseenter', this.hoverBlocksMouseEnter, false);
       target.addEventListener('mouseleave', this.hoverBlocksMouseLeave, false);
     });
+
+    var options = {
+      // toolbar: document.getElementById('custom-toolbar'),
+      editor: ReactDOM.findDOMNode(this.refs.main),
+      debug: true,
+      list: [
+        'insertimage', 'blockquote', 'h2', 'h3', 'p', 'code', 'insertorderedlist', 'insertunorderedlist', 'inserthorizontalrule',
+        'indent', 'outdent', 'bold', 'italic', 'underline', 'createlink'
+      ]
+    };
+
+    if (!onlyonce) {
+      var pen = window.pen = new Pen(options);
+      pen.focus();
+
+      onlyonce = true;
+    }
   }
 
   render () {

@@ -116,11 +116,11 @@ export default class {
   _insertRule(selector, styles, index) {
     const sheet = this._stylesheet;
 
-    if (!index) {
-      index = sheet.cssRules.length;
-    }
-
     styles = this._parseStyles(styles);
+
+    if (sheet.cssRules.length !== 0 && sheet.cssRules[index]) {
+      sheet.deleteRule(index );
+    }
 
     sheet.insertRule(`${selector} { ${styles} }`, index);
   }
@@ -147,14 +147,28 @@ export default class {
     return stylesToText;
   }
 
+  _getKey (key, replacer) {
+    if (key.indexOf('&') !== -1) {
+      key = key.replace('&', replacer);
+    } else {
+      key = replacer + ' ' + key;
+    }
+
+    return key;
+  }
+
   _flattenToOneLevel(data) {
     for (let key in data) {
       const styles = data[key];
 
       for (let _key in styles) {
         if (this._isObject(styles[_key])) {
-          data[_key.replace('&', key)] = styles[_key];
-          delete data[key][_key];
+          const oldKey = _key;
+
+          _key = this._getKey(_key, key);
+          data[_key] = styles[oldKey];
+
+          delete data[key][oldKey];
         }
       }
     }
