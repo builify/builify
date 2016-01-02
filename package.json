@@ -8,7 +8,10 @@
     "compile": "gulp"
   },
   "devDependencies": {
+    "babel-core": "^6.3.26",
     "babel-eslint": "^4.1.3",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
     "babelify": "^6.4.0",
     "browser-sync": "*",
     "browserify": "*",
@@ -51,6 +54,6 @@
     "sortablejs": "^1.4.2",
     "strip-json-comments": "*",
     "ttkeymirror": "^1.0.0",
-    "ttstylesheet": "^1.0.0"
+    "ttstylesheet": "^1.0.1"
   }
 }

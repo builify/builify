@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import TPDOM from '../../../Common/DOM';
-import { findUpAttr, findUpClassName, getBrowserSize } from '../../../Common/Common';
-import { openLinkEditModal, openImageEditModal, openIconEditModal, openContextmenuToolbox, closeContextmenuToolbox } from '../../../Actions';
-import _ from 'lodash';
+import TTDOM from '../../../Common/TTDOM';
+import { findUpAttr, getBrowserSize } from '../../../Common/Common';
+import * as Actions from '../../../Actions';
 import classNames from 'classnames';
 import Events from '../../../Common/Events';
 import ClickToolBoxItem from './Item';
+import Helpers from './Helpers';
 import { HTMLTagNamesToString } from './Config';
 
 class ClickToolbox extends React.Component {
@@ -27,7 +27,7 @@ class ClickToolbox extends React.Component {
     const panelElement = this.refs.panel;
     const clickTargetElement = panelElement.parentElement;
 
-    TPDOM.events.add(clickTargetElement, 'contextmenu click', (e) => {
+    TTDOM.events.add(clickTargetElement, 'contextmenu click', (e) => {
       const { type } = e;
 
       if (type === 'contextmenu') {
@@ -35,10 +35,6 @@ class ClickToolbox extends React.Component {
       } else if (type === 'click') {
         this.closePanel(e);
       }
-    });
-
-    TPDOM.events.add(window, 'resize', (e) => {
-      this._browserSize = getBrowserSize();
     });
   }
 
@@ -52,24 +48,6 @@ class ClickToolbox extends React.Component {
 
       panelElement.style.top = (y - +dif) + 'px';
     }
-  }
-
-  checkIfBackgroundImageHolderIsNear (target) {
-    if (target.getAttribute('data-abccorent')) {
-      const { children } = target;
-
-      for (let i = 0; i < children.length; i++) {
-        let currentChild = children[i];
-
-        if (currentChild.classList.contains('background-image-holder')) {
-          target = currentChild;
-          target.setAttribute('data-abcnotremoveable', true);
-          break;
-        }
-      }
-    }
-
-    return target;
   }
 
   getHTMLTagName (target) {
@@ -89,7 +67,6 @@ class ClickToolbox extends React.Component {
       x: e.clientX,
       y: e.clientY
     };
-    const panelElement = this.refs.panel;
     let target = e.target;
     let isElemenetChangeable = true;
     const findUp = findUpAttr(target, 'data-abctoolbox data-abcpanel');
@@ -101,7 +78,7 @@ class ClickToolbox extends React.Component {
       return false;
     }
 
-    target = this.checkIfBackgroundImageHolderIsNear(target);
+    target = Helpers.checkIfBackgroundImageHolderIsNear(target);
     const targetName = this.getHTMLTagName(target);
 
     if (targetName === undefined) {
@@ -132,7 +109,7 @@ class ClickToolbox extends React.Component {
     });
   }
 
-  closePanel (e) {
+  closePanel () {
     const { panelOpen } = this.state;
 
     if (panelOpen) {
@@ -183,11 +160,30 @@ class ClickToolbox extends React.Component {
     return onOpenImageEditModal(target);
   }
 
+  _expandColumn (e) {
+    const { target } = this.state;
+
+    Events.pauseEvent(e);
+
+    // Why is it reversed?
+    Helpers.replaceGridClassnames(target);
+  }
+
+  _shrinkColumn (e) {
+    const { target } = this.state;
+
+    Events.pauseEvent(e);
+
+    // Why is it reversed?
+    Helpers.replaceGridClassnames(target, true);
+  }
+
   listExpandColumn () {
     return (
       <ClickToolBoxItem
         text='Expand Column'
-        icon='format-indent-increase' />
+        icon='format-indent-increase'
+        onClick={::this._expandColumn} />
     );
   }
 
@@ -195,7 +191,8 @@ class ClickToolbox extends React.Component {
     return (
       <ClickToolBoxItem
         text='Shrink Column'
-        icon='format-indent-decrease' />
+        icon='format-indent-decrease'
+        onClick={::this._shrinkColumn} />
     );
   }
 
@@ -269,14 +266,7 @@ class ClickToolbox extends React.Component {
           elementOptions.showIconChange = true;
         }
 
-        if (TPDOM.element.is(targetElement, 'div, p, span, figure, article, img')) {
-          console.log(targetElement.className);
-          if (targetElement.className.indexOf('col-xs') !== -1) {
-            elementOptions.showExpandColumn = true;
-            elementOptions.showShrinkColumn = true;
-            console.log(targetElement)
-          }
-        }
+        elementOptions = Helpers.hasGridClassnames(targetElement, elementOptions);
       }
 
       if (targetElement.classList.contains('background-image-holder')) {
@@ -286,7 +276,9 @@ class ClickToolbox extends React.Component {
 
     return (
       <div>
-        { elementOptions.showChangeImage || elementOptions.showChangeBackgroundImage ? this.listImageChange() : null }
+        { (elementOptions.showChangeImage ||
+          elementOptions.showChangeBackgroundImage )?
+          this.listImageChange() : null }
         { elementOptions.showLinkChange ? this.listLinkChange() : null }
         { elementOptions.showIconChange ? this.listIconChange() : null}
         { elementOptions.showExpandColumn ? this.listExpandColumn() : null }
@@ -321,245 +313,28 @@ class ClickToolbox extends React.Component {
   }
 }
 
-/*function O(a) {
-        var b = $("." + a);
-        if ($(b).is("p , div, span, figure, article, img"))
-            if ($(b).is('[class*="medium-"]') || $(b).parent().is('div [class*="medium-"]')) {
-                if ($(b).parent().is('div [class*="medium-"]') && (b = $(b).parent()),
-                !$(b).hasClass("medium-12")) {
-                    if (b.hasClass("medium-11"))
-                        return void b.removeClass("medium-11").addClass("medium-12");
-                    if (b.hasClass("medium-10"))
-                        return void b.removeClass("medium-10").addClass("medium-11");
-                    if (b.hasClass("medium-9"))
-                        return void b.removeClass("medium-9").addClass("medium-10");
-                    if (b.hasClass("medium-8"))
-                        return void b.removeClass("medium-8").addClass("medium-9");
-                    if (b.hasClass("medium-7"))
-                        return void b.removeClass("medium-7").addClass("medium-8");
-                    if (b.hasClass("medium-6"))
-                        return void b.removeClass("medium-6").addClass("medium-7");
-                    if (b.hasClass("medium-5"))
-                        return void b.removeClass("medium-5").addClass("medium-6");
-                    if (b.hasClass("medium-4"))
-                        return void b.removeClass("medium-4").addClass("medium-5");
-                    if (b.hasClass("medium-3"))
-                        return void b.removeClass("medium-3").addClass("medium-4");
-                    if (b.hasClass("medium-2"))
-                        return void b.removeClass("medium-2").addClass("medium-3");
-                    if (b.hasClass("medium-1"))
-                        return void b.removeClass("medium-1").addClass("medium-2")
-                }
-            } else if ($(b).is('[class*="col-xs-"]:not([class*="col-md-"])') || $(b).parent().is('div [class*="col-xs-"]:not([class*="col-md-"])')) {
-                if ($(b).parent().is('div [class*="col-xs-"]:not([class*="col-md-"])') && (b = $(b).parent()),
-                !$(b).hasClass("col-xs-12")) {
-                    if (b.hasClass("col-xs-11"))
-                        return void b.removeClass("col-xs-11").addClass("col-xs-12");
-                    if (b.hasClass("col-xs-10"))
-                        return void b.removeClass("col-xs-10").addClass("col-xs-11");
-                    if (b.hasClass("col-xs-9"))
-                        return void b.removeClass("col-xs-9").addClass("col-xs-10");
-                    if (b.hasClass("col-xs-8"))
-                        return void b.removeClass("col-xs-8").addClass("col-xs-9");
-                    if (b.hasClass("col-xs-7"))
-                        return void b.removeClass("col-xs-7").addClass("col-xs-8");
-                    if (b.hasClass("col-xs-6"))
-                        return void b.removeClass("col-xs-6").addClass("col-xs-7");
-                    if (b.hasClass("col-xs-5"))
-                        return void b.removeClass("col-xs-5").addClass("col-xs-6");
-                    if (b.hasClass("col-xs-4"))
-                        return void b.removeClass("col-xs-4").addClass("col-xs-5");
-                    if (b.hasClass("col-xs-3"))
-                        return void b.removeClass("col-xs-3").addClass("col-xs-4");
-                    if (b.hasClass("col-xs-2"))
-                        return void b.removeClass("col-xs-2").addClass("col-xs-3");
-                    if (b.hasClass("col-xs-1"))
-                        return void b.removeClass("col-xs-1").addClass("col-xs-2")
-                }
-            } else if ($(b).is('[class*="col-sm-"]:not([class*="col-md-"])') || $(b).parent().is('div [class*="col-sm-"]:not([class*="col-md-"])')) {
-                if ($(b).parent().is('div [class*="col-sm-"]:not([class*="col-md-"])') && (b = $(b).parent()),
-                !$(b).hasClass("col-sm-12")) {
-                    if (b.hasClass("col-sm-11"))
-                        return void b.removeClass("col-sm-11").addClass("col-sm-12");
-                    if (b.hasClass("col-sm-10"))
-                        return void b.removeClass("col-sm-10").addClass("col-sm-11");
-                    if (b.hasClass("col-sm-9"))
-                        return void b.removeClass("col-sm-9").addClass("col-sm-10");
-                    if (b.hasClass("col-sm-8"))
-                        return void b.removeClass("col-sm-8").addClass("col-sm-9");
-                    if (b.hasClass("col-sm-7"))
-                        return void b.removeClass("col-sm-7").addClass("col-sm-8");
-                    if (b.hasClass("col-sm-6"))
-                        return void b.removeClass("col-sm-6").addClass("col-sm-7");
-                    if (b.hasClass("col-sm-5"))
-                        return void b.removeClass("col-sm-5").addClass("col-sm-6");
-                    if (b.hasClass("col-sm-4"))
-                        return void b.removeClass("col-sm-4").addClass("col-sm-5");
-                    if (b.hasClass("col-sm-3"))
-                        return void b.removeClass("col-sm-3").addClass("col-sm-4");
-                    if (b.hasClass("col-sm-2"))
-                        return void b.removeClass("col-sm-2").addClass("col-sm-3");
-                    if (b.hasClass("col-sm-1"))
-                        return void b.removeClass("col-sm-1").addClass("col-sm-2")
-                }
-            } else if (($(b).is('[class*="col-md-"]') || $(b).parent().is('div [class*="col-md-"]')) && ($(b).parent().is('div [class*="col-md-"]') && (b = $(b).parent()),
-            !$(b).hasClass("col-md-12"))) {
-                if (b.hasClass("col-md-11"))
-                    return void b.removeClass("col-md-11").addClass("col-md-12");
-                if (b.hasClass("col-md-10"))
-                    return void b.removeClass("col-md-10").addClass("col-md-11");
-                if (b.hasClass("col-md-9"))
-                    return void b.removeClass("col-md-9").addClass("col-md-10");
-                if (b.hasClass("col-md-8"))
-                    return void b.removeClass("col-md-8").addClass("col-md-9");
-                if (b.hasClass("col-md-7"))
-                    return void b.removeClass("col-md-7").addClass("col-md-8");
-                if (b.hasClass("col-md-6"))
-                    return void b.removeClass("col-md-6").addClass("col-md-7");
-                if (b.hasClass("col-md-5"))
-                    return void b.removeClass("col-md-5").addClass("col-md-6");
-                if (b.hasClass("col-md-4"))
-                    return void b.removeClass("col-md-4").addClass("col-md-5");
-                if (b.hasClass("col-md-3"))
-                    return void b.removeClass("col-md-3").addClass("col-md-4");
-                if (b.hasClass("col-md-2"))
-                    return void b.removeClass("col-md-2").addClass("col-md-3");
-                if (b.hasClass("col-md-1"))
-                    return void b.removeClass("col-md-1").addClass("col-md-2")
-            }
-        T()
-    }
-    function P(a) {
-        var b = $("." + a);
-        if ($(b).is("p , div, span, figure, article, img"))
-            if ($(b).is('[class*="medium-"]') || $(b).parent().is('div [class*="medium-"]')) {
-                if ($(b).parent().is('div [class*="medium-"]') && (b = $(b).parent()),
-                !$(b).hasClass("medium-1")) {
-                    if (b.hasClass("medium-12"))
-                        return void b.removeClass("medium-12").addClass("medium-11");
-                    if (b.hasClass("medium-11"))
-                        return void b.removeClass("medium-11").addClass("medium-10");
-                    if (b.hasClass("medium-10"))
-                        return void b.removeClass("medium-10").addClass("medium-9");
-                    if (b.hasClass("medium-9"))
-                        return void b.removeClass("medium-9").addClass("medium-8");
-                    if (b.hasClass("medium-8"))
-                        return void b.removeClass("medium-8").addClass("medium-7");
-                    if (b.hasClass("medium-7"))
-                        return void b.removeClass("medium-7").addClass("medium-6");
-                    if (b.hasClass("medium-6"))
-                        return void b.removeClass("medium-6").addClass("medium-5");
-                    if (b.hasClass("medium-5"))
-                        return void b.removeClass("medium-5").addClass("medium-4");
-                    if (b.hasClass("medium-4"))
-                        return void b.removeClass("medium-4").addClass("medium-3");
-                    if (b.hasClass("medium-3"))
-                        return void b.removeClass("medium-3").addClass("medium-2");
-                    if (b.hasClass("medium-2"))
-                        return void b.removeClass("medium-2").addClass("medium-1")
-                }
-            } else if ($(b).is('[class*="col-xs-"]:not([class*="col-md-"])') || $(b).parent().is('div [class*="col-xs-"]:not([class*="col-md-"])')) {
-                if ($(b).parent().is('div [class*="col-xs-"]:not([class*="col-md-"])') && (b = $(b).parent()),
-                !$(b).hasClass("col-xs-1")) {
-                    if (b.hasClass("col-xs-12"))
-                        return void b.removeClass("col-xs-12").addClass("col-xs-11");
-                    if (b.hasClass("col-xs-11"))
-                        return void b.removeClass("col-xs-11").addClass("col-xs-10");
-                    if (b.hasClass("col-xs-10"))
-                        return void b.removeClass("col-xs-10").addClass("col-xs-9");
-                    if (b.hasClass("col-xs-9"))
-                        return void b.removeClass("col-xs-9").addClass("col-xs-8");
-                    if (b.hasClass("col-xs-8"))
-                        return void b.removeClass("col-xs-8").addClass("col-xs-7");
-                    if (b.hasClass("col-xs-7"))
-                        return void b.removeClass("col-xs-7").addClass("col-xs-6");
-                    if (b.hasClass("col-xs-6"))
-                        return void b.removeClass("col-xs-6").addClass("col-xs-5");
-                    if (b.hasClass("col-xs-5"))
-                        return void b.removeClass("col-xs-5").addClass("col-xs-4");
-                    if (b.hasClass("col-xs-4"))
-                        return void b.removeClass("col-xs-4").addClass("col-xs-3");
-                    if (b.hasClass("col-xs-3"))
-                        return void b.removeClass("col-xs-3").addClass("col-xs-2");
-                    if (b.hasClass("col-xs-2"))
-                        return void b.removeClass("col-xs-2").addClass("col-xs-1")
-                }
-            } else if ($(b).is('[class*="col-sm-"]:not([class*="col-md-"])') || $(b).parent().is('div [class*="col-sm-"]:not([class*="col-md-"])')) {
-                if ($(b).parent().is('div [class*="col-sm-"]:not([class*="col-md-"])') && (b = $(b).parent()),
-                !$(b).hasClass("col-sm-1")) {
-                    if (b.hasClass("col-sm-12"))
-                        return void b.removeClass("col-sm-12").addClass("col-sm-11");
-                    if (b.hasClass("col-sm-11"))
-                        return void b.removeClass("col-sm-11").addClass("col-sm-10");
-                    if (b.hasClass("col-sm-10"))
-                        return void b.removeClass("col-sm-10").addClass("col-sm-9");
-                    if (b.hasClass("col-sm-9"))
-                        return void b.removeClass("col-sm-9").addClass("col-sm-8");
-                    if (b.hasClass("col-sm-8"))
-                        return void b.removeClass("col-sm-8").addClass("col-sm-7");
-                    if (b.hasClass("col-sm-7"))
-                        return void b.removeClass("col-sm-7").addClass("col-sm-6");
-                    if (b.hasClass("col-sm-6"))
-                        return void b.removeClass("col-sm-6").addClass("col-sm-5");
-                    if (b.hasClass("col-sm-5"))
-                        return void b.removeClass("col-sm-5").addClass("col-sm-4");
-                    if (b.hasClass("col-sm-4"))
-                        return void b.removeClass("col-sm-4").addClass("col-sm-3");
-                    if (b.hasClass("col-sm-3"))
-                        return void b.removeClass("col-sm-3").addClass("col-sm-2");
-                    if (b.hasClass("col-sm-2"))
-                        return void b.removeClass("col-sm-2").addClass("col-sm-1")
-                }
-            } else if (($(b).is('[class*="col-md-"]') || $(b).parent().is('div [class*="col-md-"]')) && ($(b).parent().is('div [class*="col-md-"]') && (b = $(b).parent()),
-            !$(b).hasClass("col-md-1"))) {
-                if (b.hasClass("col-md-12"))
-                    return void b.removeClass("col-md-12").addClass("col-md-11");
-                if (b.hasClass("col-md-11"))
-                    return void b.removeClass("col-md-11").addClass("col-md-10");
-                if (b.hasClass("col-md-10"))
-                    return void b.removeClass("col-md-10").addClass("col-md-9");
-                if (b.hasClass("col-md-9"))
-                    return void b.removeClass("col-md-9").addClass("col-md-8");
-                if (b.hasClass("col-md-8"))
-                    return void b.removeClass("col-md-8").addClass("col-md-7");
-                if (b.hasClass("col-md-7"))
-                    return void b.removeClass("col-md-7").addClass("col-md-6");
-                if (b.hasClass("col-md-6"))
-                    return void b.removeClass("col-md-6").addClass("col-md-5");
-                if (b.hasClass("col-md-5"))
-                    return void b.removeClass("col-md-5").addClass("col-md-4");
-                if (b.hasClass("col-md-4"))
-                    return void b.removeClass("col-md-4").addClass("col-md-3");
-                if (b.hasClass("col-md-3"))
-                    return void b.removeClass("col-md-3").addClass("col-md-2");
-                if (b.hasClass("col-md-2"))
-                    return void b.removeClass("col-md-2").addClass("col-md-1")
-            }
-        T()
-    }*/
-
 function mapDispatchToProps (dispatch) {
   return {
     onOpenContextMenu: () => {
-      dispatch(openContextmenuToolbox());
+      dispatch(Actions.openContextmenuToolbox());
     },
 
     onCloseContextMenu: () => {
-      dispatch(closeContextmenuToolbox());
+      dispatch(Actions.closeContextmenuToolbox());
     },
 
     onOpenLinkEditModal: (target) => {
-      dispatch(openLinkEditModal(target));
+      dispatch(Actions.openLinkEditModal(target));
     },
 
     onOpenIconEditModal: (target) => {
-      dispatch(openIconEditModal(target));
+      dispatch(Actions.openIconEditModal(target));
     },
 
     onOpenImageEditModal: (target) => {
-      dispatch(openImageEditModal(target));
+      dispatch(Actions.openImageEditModal(target));
     }
-  }
+  };
 }
 
 export default connect(null, mapDispatchToProps)(ClickToolbox);

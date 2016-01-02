@@ -1,6 +1,6 @@
 import Actions from './Constants';
 import Storage from '../Common/Storage';
-import DOM from '../Common/DOM';
+import TTDOM from '../Common/TTDOM';
 import { TEMPLATE_PAGES_STORAGE_NAME } from '../Constants';
 
 export function startNewPage () {
@@ -54,8 +54,8 @@ export function restartPage () {
 }
 
 export function setPageTitle (title) {
-  const iFrame = DOM.iframe.get('ab-cfrm');
-  const iFrameWindow = DOM.iframe.getWindow(iFrame);
+  const iFrame = TTDOM.iframe.get('ab-cfrm');
+  const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
 
   iFrameWindow.document.title = title;
   

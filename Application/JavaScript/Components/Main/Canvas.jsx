@@ -48,7 +48,7 @@ function mapStateToProps (state) {
     builder: state.builder,
     page: state.page,
     preview: state.preview
-  }
+  };
 }
 
 export default connect(mapStateToProps)(Canvas);

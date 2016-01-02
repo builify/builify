@@ -1,10 +1,10 @@
-const DOM = {
+const TTDOM = {
   browser: {
     size () {
       return {
         width: window.innerWidth || document.body.clientWidth,
         height: window.innerHeight || document.body.clientHeight
-      }
+      };
     }
   },
 
@@ -18,12 +18,11 @@ const DOM = {
     },
 
     isNodeList (nodes) {
-      return !!(typeof nodes.length !== undefined && nodes.item !== undefined)
+      return !!(typeof nodes.length !== undefined && nodes.item !== undefined);
     },
 
     isUrl (url) {
       const reg = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/;
-
       return url.test(reg);
     }
   },
@@ -32,7 +31,7 @@ const DOM = {
     toClassName (el, classNames) {
       let matchFlag = false;
 
-      if (classNames[0] == '*') {
+      if (classNames[0] === '*') {
         matchFlag = true;
       }
 
@@ -42,7 +41,9 @@ const DOM = {
         el = el.parentNode;
 
         for (let i = 0; i < classNames.length; i++) {
-          if (matchFlag ? el.className.indexOf(classNames[i]) !== -1 : el.classList.contains(classNames[i])) {
+          if (matchFlag ?
+            el.className.indexOf(classNames[i]) !== -1 :
+            el.classList.contains(classNames[i])) {
             return el;
           }
         }
@@ -60,11 +61,11 @@ const DOM = {
     add (elem, events, callback, bubbling: false) {
       events = events.split(' ');
 
-      if (DOM.type.isElement(elem)) {
+      if (TTDOM.type.isElement(elem)) {
         for (let j = 0; j < events.length; j++) {
           elem.addEventListener(events[j], callback, bubbling);
         }
-      } else if (DOM.type.isNodeList(elem)) {
+      } else if (TTDOM.type.isNodeList(elem)) {
         for (let i = 0; i < elem.length; i++) {
           const currentElem = elem[i];
 
@@ -80,7 +81,7 @@ const DOM = {
     is (elem, tags) {
       tags = tags.toLowerCase().split(',');
 
-      if (DOM.type.isElement(elem)) {
+      if (TTDOM.type.isElement(elem)) {
         const tagName = elem.tagName.toLowerCase();
 
         for (let i = 0; i < tags.length; i++) {
@@ -96,12 +97,9 @@ const DOM = {
     },
 
     remove (elem) {
-      const isElement = DOM.type.isElement(elem);
-      const isNodeList = !isElement ? DOM.type.isNodeList(elem) : false;
-
-      if (DOM.type.isElement(elem)) {
+      if (TTDOM.type.isElement(elem)) {
         elem.remove();
-      } else if (DOM.type.isNodeList(elem)) {
+      } else if (TTDOM.type.isNodeList(elem)) {
         for (let i = 0; i < elem.length; i++) {
           const currentElem = elem[i];
           currentElem.remove();
@@ -111,8 +109,8 @@ const DOM = {
 
     attr: {
       remove (elem, removeWhat) {
-        const isElement = DOM.type.isElement(elem);
-        const isNodeList = !isElement ? DOM.type.isNodeList(elem) : false;
+        const isElement = TTDOM.type.isElement(elem);
+        const isNodeList = !isElement ? TTDOM.type.isNodeList(elem) : false;
 
         removeWhat = removeWhat.split(',');
 
@@ -134,10 +132,28 @@ const DOM = {
 
     classes: {
       add (elem, className) {
-        if (DOM.type.isElement(elem)) {
+        if (TTDOM.type.isElement(elem)) {
           if ('classList' in elem) {
             elem.classList.add(className);
           }
+        }
+
+        return this;
+      },
+
+      remove (elem, className) {
+        if (TTDOM.type.isElement(elem)) {
+          if ('classList' in elem) {
+            elem.classList.remove(className);
+          }
+        }
+
+        return this;
+      },
+
+      has (elem, className) {
+        if ('classList' in elem) {
+          return elem.classList.contains(className);
         }
       }
     }
@@ -174,7 +190,7 @@ const DOM = {
       }
 
       if (doc && doc.defaultView) {
-       return doc.defaultView;
+        return doc.defaultView;
       }
 
       if (doc && doc.parentWindow) {
@@ -191,24 +207,17 @@ const DOM = {
 
       function removeJunk (doc) {
         // Remove certain elements.
-        const junkQuery = '[data-abcpanel], [data-abctoolbox]'
+        const junkQuery = '[data-abcpanel], [data-abctoolbox]';
         const junkElements = doc.querySelectorAll(junkQuery);
 
-        DOM.element.remove(junkElements);
+        TTDOM.element.remove(junkElements);
 
         // Remove certain attributes.
         const attributesToRemove = 'contenteditable';
         const attributeJunkQuery = '[contenteditable]';
         const attributeJunkElements = doc.querySelectorAll(attributeJunkQuery);
 
-        DOM.element.attr.remove(attributeJunkElements, attributesToRemove);
-
-        // Remove certain classnames.
-        const classNamesJunk = 'ab-ch';
-        const classNamesJunkQuery = classNamesJunk.split(',');
-        //const classNamesJunkElements = doc.querySelectorAll();
-
-        //DOM.element.classes.remove()
+        TTDOM.element.attr.remove(attributeJunkElements, attributesToRemove);
 
         return doc;
       }
@@ -227,6 +236,6 @@ const DOM = {
       return HTML;
     }
   }
-}
+};
 
-export default DOM;
+export default TTDOM;

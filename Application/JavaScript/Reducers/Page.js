@@ -1,7 +1,7 @@
 import { replaceDataInHTML } from '../Common/Common';
 import Storage from '../Common/Storage';
 import Random from '../Common/Random';
-import DOM from '../Common/DOM';
+import TTDOM from '../Common/TTDOM';
 import _ from 'lodash';
 import * as Actions from '../Actions/Constants';
 import { TEMPLATE_PAGES_STORAGE_NAME } from '../Constants';
@@ -91,9 +91,9 @@ function page (state = pageInitialState, action) {
         const pageInStorage = pagesInStorage[itemIndex];
 
         if (pageInStorage) {
-          const iFrame = DOM.iframe.get('ab-cfrm');
-          const iFrameWindow = DOM.iframe.getWindow(iFrame);
-          const pageFullSource = DOM.iframe.getFullHTML(iFrameWindow);
+          const iFrame = TTDOM.iframe.get('ab-cfrm');
+          const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
+          const pageFullSource = TTDOM.iframe.getFullHTML(iFrameWindow);
           const newPage = _.assign({}, pageInStorage, {
             pageID: pageID,
             pageTitle: pageTitle,

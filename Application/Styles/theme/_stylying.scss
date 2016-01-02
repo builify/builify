@@ -45,16 +45,6 @@ $themes: (
 }
 
 .light {
-	.#{$nameprefix}primarynav {
-		li {
-			color: #34495e;
-
-			&:hover {
-	            background: darken(#eee, 13%);
-	        }
-		}
-	}
-
 	.#{$nameprefix}swatch {
 		&__color {
 			background: darken(#eee, 13%);

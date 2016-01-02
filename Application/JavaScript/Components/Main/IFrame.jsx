@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { JUNK_ATTR } from '../../Constants';
 import { removeLoadingScreen } from '../../Actions';
-import DOM from '../../Common/DOM';
+import TTDOM from '../../Common/TTDOM';
 import _ from 'lodash';
 
 class Frame extends React.Component {
@@ -39,7 +39,7 @@ class Frame extends React.Component {
     if (!this._isFrameRendered) {
       const { template, title } = this.props;
       const frame = this.refs.frm;
-      const frameDoc = DOM.iframe.getWindow(frame).document;
+      const frameDoc = TTDOM.iframe.getWindow(frame).document;
       const rootElement = document.createElement('div');
 
       frameDoc.srcdoc = '<!DOCTYPE html>';
@@ -122,8 +122,7 @@ class Frame extends React.Component {
     return (
       <iframe
         id='ab-cfrm'
-        ref='frm'
-        onLoad={::this.renderFrame} />
+        ref='frm' />
     );
   }
 }

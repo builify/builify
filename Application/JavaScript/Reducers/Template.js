@@ -1,6 +1,6 @@
-import TTStylesheet from '../TTStylesheet';
+import TTStylesheet from 'ttstylesheet';
 import _ from 'lodash';
-import DOM from '../Common/DOM';
+import TTDOM from '../Common/TTDOM';
 import * as Actions from '../Actions/Constants';
 
 const initialState = {
@@ -32,8 +32,8 @@ const initialState = {
 function template (state = initialState, action) {
   switch (action.type) {
     case Actions.LOGIC_INITIALIZED: {
-      const iFrame = DOM.iframe.get('ab-cfrm');
-      const iFrameWindow = DOM.iframe.getWindow(iFrame);
+      const iFrame = TTDOM.iframe.get('ab-cfrm');
+      const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
       const headElement = iFrameWindow.document.head;
       const customStylesheet = new TTStylesheet(headElement);
 
@@ -90,6 +90,8 @@ function template (state = initialState, action) {
               color: hexColor
             }
           });
+
+          templateStylesheet.initCSS();
 
           design.colors[dataColorTarget] = hexColor;
         }

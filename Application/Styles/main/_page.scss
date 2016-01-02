@@ -1,13 +1,12 @@
 .#{$nameprefix}page-new {
     position: relative;
 		text-align: center;
-		border-radius: 5px;
 		cursor: pointer;
 		font-weight: 700;
 		text-transform: uppercase;
 		color: #333;
 		border: 5px dotted;
-		margin-right: 15px;
+		margin-right: 20px;
 		width: $default-pagenew-size;
 		line-height: $default-pagenew-size;
 		height: $default-pagenew-size;
@@ -20,6 +19,7 @@
 		}
 
 		&:hover {
+        @include transform(scale(1.1));
   			@include shadow-4dp();
 		}
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import TTEditor from '../../TTEditor';
 import _ from 'lodash';
 import { currentHoverBlock, blockWasRenderedToPage, removeContentBlock } from '../../Actions';
 import { store } from '../Application';
@@ -11,14 +10,23 @@ import {
   CONTENTBLOCK_ATTR_TYPE
 } from '../../Constants';
 import Events from '../../Common/Events';
+import TTDOM from '../../Common/TTDOM';
 import ClickToolbox from '../Shared/ClickToolbox';
 import SectionToolBox from '../Shared/SectionToolBox';
 import IFrame from './IFrame';
-
-let onlyonce = false;
+import TTEditor from '../../TTEditor';
 
 class CanvasFrame extends React.Component {
   _blocks = {};
+
+  componentDidMount () {
+    const iFrame = TTDOM.iframe.get('ab-cfrm');
+    const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
+
+    new TTEditor({
+      target: iFrameWindow
+    });
+  }
 
   componentWillReceiveProps (nextProps) {
     const { page: currentPage } = nextProps;
@@ -212,23 +220,6 @@ class CanvasFrame extends React.Component {
       target.addEventListener('mouseenter', this.hoverBlocksMouseEnter, false);
       target.addEventListener('mouseleave', this.hoverBlocksMouseLeave, false);
     });
-
-    var options = {
-      // toolbar: document.getElementById('custom-toolbar'),
-      editor: ReactDOM.findDOMNode(this.refs.main),
-      debug: true,
-      list: [
-        'insertimage', 'blockquote', 'h2', 'h3', 'p', 'code', 'insertorderedlist', 'insertunorderedlist', 'inserthorizontalrule',
-        'indent', 'outdent', 'bold', 'italic', 'underline', 'createlink'
-      ]
-    };
-
-    if (!onlyonce) {
-      var pen = window.pen = new Pen(options);
-      pen.focus();
-
-      onlyonce = true;
-    }
   }
 
   render () {

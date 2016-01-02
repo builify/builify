@@ -188,3 +188,75 @@ body {
 	    	right: 0;
     }
 }
+
+// TTEditor
+$toolbox-bg: #262625;
+$toolbox-height: 42px;
+$toolbox-width: (30px * 3) + 20px + 3px;
+$toolbox-padding: 5px 10px;
+$icon-size: 26px !default;
+$icon-color: #FFF !default;
+
+.tteditor {
+    position: absolute;
+    top: 100;
+    left: 100;
+    display: block;
+    z-index: 99999;
+
+		&__wrapper {
+				display: block;
+				position: relative;
+				border-radius: 4px;
+				height: $toolbox-height;
+				line-height: $toolbox-height;
+				padding: $toolbox-padding;
+				width: $toolbox-width;
+				background: $toolbox-bg;
+				@include transition(all 0.3s ease);
+
+				&:before {
+						content: "";
+						border-top: 5px solid $toolbox-bg;
+						border-bottom: 5px solid transparent;
+						border-right: 5px solid transparent;
+						border-left: 5px solid transparent;
+						position: absolute;
+						margin-left: -5px;
+						bottom: -10px;
+						height: 5px;
+						width: 0px;
+						left: 50%;
+				}
+		}
+
+		button {
+				display: block;
+				background: transparent;
+				cursor: pointer;
+				height: 100%;
+				width: 30px;
+				border: 0;
+				outline: 0;
+				float: left;
+				margin-right: 1px;
+				padding: 0;
+				font-size: 16px;
+				font-family: inherit;
+				color: inherit;
+				@include user-select(none);
+
+				&:hover {
+						svg {
+								fill: $color-green;
+						}
+				}
+
+				svg {
+						cursor: pointer;
+						height: $icon-size;
+						width: $icon-size;
+						fill: $icon-color;
+				}
+		}
+}

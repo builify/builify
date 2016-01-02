@@ -7,7 +7,6 @@ var gulpif = require('gulp-if');
 var uglify = require('gulp-uglify');
 var streamify = require('gulp-streamify');
 var notify = require('gulp-notify');
-var concat = require('gulp-concat');
 var cssmin = require('gulp-cssmin');
 var gutil = require('gulp-util');
 var sass = require('gulp-sass');
@@ -36,14 +35,14 @@ var dependencies = [
   'jszip',
   'sortablejs',
   'js-search',
-  //'ttstylesheet',
+  'ttstylesheet',
   'ttkeymirror'
 ];
 
 // Rewrite gulp.src for better error handling.
-var gulp_src = gulp.src;
+var gulpSrc = gulp.src;
 gulp.src = function () {
-  return gulp_src.apply(gulp, arguments)
+  return gulpSrc.apply(gulp, arguments)
     .pipe(plumber(function (error) {
       gutil.log(gutil.colors.red('Error (' + error.plugin + '): ' + error.message));
       this.emit('end');
@@ -55,7 +54,10 @@ function createJavaScript (options) {
     entries: [options.src],
     extensions: ['.jsx', '.jsx', '.json'],
     transform: [
-      babelify.configure({externalHelpers: true, stage: 0})
+      babelify.configure({
+        externalHelpers: true,
+        stage: 0
+      })
     ],
     debug: options.development,
     cache: {},
@@ -77,7 +79,9 @@ function createJavaScript (options) {
       .pipe(gulpif(!options.development, streamify(uglify())))
       .pipe(gulp.dest(options.dest))
       .pipe(notify(function () {
-        gutil.log(gutil.colors.bgGreen('[APPLICATION]Bundle built in ' + (Date.now() - start) + 'ms'));
+        gutil.log(
+          gutil.colors.bgGreen('[APPLICATION]Bundle built in ' + (Date.now() - start) + 'ms')
+        );
       }))
       .pipe(browserSync.stream({ match: '**/*.js' }));
   };
@@ -123,7 +127,9 @@ function createStylesheets (options) {
         .pipe(sass())
         .pipe(gulp.dest(options.dest))
         .pipe(notify(function () {
-          gutil.log(gutil.colors.bgGreen('[STYLEHSEET]Bundle built in ' + (Date.now() - start) + 'ms'));
+          gutil.log(
+            gutil.colors.bgGreen('[STYLEHSEET]Bundle built in ' + (Date.now() - start) + 'ms')
+          );
         }))
         .pipe(browserSync.stream({ match: '**/*.css' }));
     };
@@ -149,7 +155,9 @@ function createIFrameStylesheet (options) {
         .pipe(sass())
         .pipe(gulp.dest(options.dest))
         .pipe(notify(function () {
-          gutil.log(gutil.colors.bgGreen('[IFRAME STYLEHSEET]Bundle built in ' + (Date.now() - start) + 'ms'));
+          gutil.log(
+            gutil.colors.bgGreen('[IFRAME STYLEHSEET]Bundle built in ' + (Date.now() - start) + 'ms')
+          );
         }))
         .pipe(browserSync.stream({ match: '**/*.css' }));
     };
@@ -221,7 +229,7 @@ gulp.task('default', function () {
     development: true,
     src: './Application/IFrameStyles/IFrameStylesheet.scss',
     dest: './DevelopmentBuild'
-  })
+  });
 
   createJavaScript({
     development: true,

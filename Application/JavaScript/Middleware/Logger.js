@@ -1,11 +1,17 @@
-const logger = store => next => action => {
-  let currentTime = new Date();
-  let message = 'Action ' + action.type + ' @ ' + currentTime.getHours() + ':' + currentTime.getMinutes() + ':' + currentTime.getSeconds();
-  let result = next(action);
+export default function () {
+  return function (next) {
+    return function (action) {
+      const { type } = action;
+      const currentTime = new Date();
+      const currentHours = currentTime.getHours();
+      const currentMinutes = currentTime.getMinutes();
+      const currentSeconds = currentTime.getSeconds();
+      const timeString = `${currentHours}:${currentMinutes}:${currentSeconds}`;
+      const message = `Action ${type} @ ${timeString}`;
 
-  console.info(message);
+      console.log(`%c${message}`, 'background: #222; color: #bada55');
 
-  return result;
+      return next(action);
+    };
+  };
 };
-
-export default logger;

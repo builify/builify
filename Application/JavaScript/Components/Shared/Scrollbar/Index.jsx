@@ -1,6 +1,6 @@
 import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
-import DOM from '../../../Common/DOM';
+import TTDOM from '../../../Common/TTDOM';
 
 export default class Scrollbar extends React.Component {
   static propTypes = {
@@ -17,7 +17,7 @@ export default class Scrollbar extends React.Component {
 
   getStyle ({ aside, height, width }) {
     if (aside) {
-      const browserSize = DOM.browser.size();
+      const browserSize = TTDOM.browser.size();
       const { height } = browserSize;
       const asideWidth = 275;
 
