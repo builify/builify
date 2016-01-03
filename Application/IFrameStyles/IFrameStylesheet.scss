@@ -192,7 +192,7 @@ body {
 // TTEditor
 $toolbox-bg: #262625;
 $toolbox-height: 42px;
-$toolbox-width: (30px * 3) + 20px + 3px;
+$toolbox-width: (30px * 4) + 20px + 4px;
 $toolbox-padding: 5px 10px;
 $icon-size: 26px !default;
 $icon-color: #FFF !default;
@@ -201,8 +201,15 @@ $icon-color: #FFF !default;
     position: absolute;
     top: 100;
     left: 100;
-    display: block;
     z-index: 99999;
+
+		&__hide {
+				display: none;
+		}
+
+		&__show {
+				display: block;
+		}
 
 		&__wrapper {
 				display: block;
@@ -246,6 +253,11 @@ $icon-color: #FFF !default;
 				color: inherit;
 				@include user-select(none);
 
+				* {
+					 cursor: pointer;
+				}
+
+				&.active {,
 				&:hover {
 						svg {
 								fill: $color-green;
@@ -253,7 +265,6 @@ $icon-color: #FFF !default;
 				}
 
 				svg {
-						cursor: pointer;
 						height: $icon-size;
 						width: $icon-size;
 						fill: $icon-color;
