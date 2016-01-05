@@ -1,76 +1,11 @@
-class EventEmitter {
-  constructor () {
-    this.listeners = new Map();
-  }
-
-  isFunction (type) {
-    return !!(Object.prototype.toString.call(type) === '[object Function]');
-  }
-
-  addListener (label, callback) {
-    this.listeners.has(label) || this.listeners.set(label, []);
-    this.listeners.get(label).push(callback);
-  }
-
-  removeListener(label, callback) {
-    let listeners = this.listeners.get(label),
-      index;
-
-    if (listeners && listeners.length) {
-      index = listeners.reduce((i, listener, index) => {
-        return (this.isFunction(listener) && listener === callback) ? i = index : i;
-      }, -1);
-
-      if (index > -1) {
-        listeners.splice(index, 1);
-        this.listeners.set(label, listeners);
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  emit (label, ...args) {
-    let listeners = this.listeners.get(label);
-
-    if (listeners && listeners.length) {
-      listeners.forEach((listener) => {
-        listener(...args);
-      });
-
-      return true;
-    }
-
-    return false;
-  }
-}
+import EventEmitter from './EventEmitter';
+import Utilities from './Utilities';
+import * as Config from './Config';
 
 export default class {
   defaultProps = {
-    target: null,
-    toolboxItems: [
-      {
-        name: 'bold',
-        cmd: 'bold',
-        desc: 'Toggles bold on/off for the selection or at the insertion point.'
-      },
-      {
-        name: 'italic',
-        cmd: 'italic',
-        desc: 'Toggles italics on/off for the selection or at the insertion point.'
-      },
-      {
-        name: 'strike',
-        cmd: 'strikeThrough',
-        desc: 'Toggles strikethrough on/off for the selection or at the insertion point.'
-      },
-      {
-        name: 'underline',
-        cmd: 'underline',
-        desc: 'Toggles underline on/off for the selection or at the insertion point.'
-      }
-    ],
+    elementsContainer: null,
+    toolboxItems: Config.toolboxItems,
 
     classes: {
       'main': 'tteditor',
@@ -103,14 +38,15 @@ export default class {
   }
 
   _createElementRefrences () {
-    const { target } = this.userProps;
+    const { elementsContainer } = this.userProps;
 
-    this.windowObject = target;
+    this.windowObject = elementsContainer;
     this.documentElement = this.windowObject.document;
     this.bodyElement = this.documentElement.querySelector('body');
   }
 
   _getIcon (icon, pathString = '') {
+    /* eslint-disable */
     switch (icon) {
       case 'bold':
         pathString = '<g><path d="M15.6 10.79c.97-.67 1.65-1.77 1.65-2.79 0-2.26-1.75-4-4-4h-6.25v14h7.04c2.09 0 3.71-1.7 3.71-3.79 0-1.52-.86-2.82-2.15-3.42zm-5.6-4.29h3c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-3v-3zm3.5 9h-3.5v-3h3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5z"></path></g>';
@@ -120,14 +56,18 @@ export default class {
         pathString = '<g><path d="M10 4v3h2.21l-3.42 8h-2.79v3h8v-3h-2.21l3.42-8h2.79v-3z"></path></g>';
         break;
 
-      case 'strike':
-        pathString = '<g><path d="M10 19h4v-3h-4v3zm-5-15v3h5v3h4v-3h5v-3h-14zm-2 10h18v-2h-18v2z"></path></g>';
-        break;
-
       case 'underline':
         pathString = '<g><path d="M12 17c3.31 0 6-2.69 6-6v-8h-2.5v8c0 1.93-1.57 3.5-3.5 3.5s-3.5-1.57-3.5-3.5v-8h-2.5v8c0 3.31 2.69 6 6 6zm-7 2v2h14v-2h-14z"></path></g>';
         break;
+
+      case 'link':
+        pathString = '<g><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4v-1.9h-4c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9h-4c-1.71 0-3.1-1.39-3.1-3.1zm4.1 1h8v-2h-8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4v1.9h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></g>';
+        break;
+
+      default:
+        break;
     }
+    /* eslint-enable */
 
     let svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svgElement.setAttribute('viewBox','0 0 24 24');
@@ -138,24 +78,45 @@ export default class {
     return svgElement;
   }
 
-  findUpToAttr (el, attr) {
-    if (el.getAttribute(attr)) {
-      return el;
+  _addButtonEvent (button, item) {
+    if (!button || !item) {
+      return;
     }
 
-    while (el.parentNode) {
-      el = el.parentNode;
+    button.addEventListener('click', () => {
+      switch (item.name) {
+        case 'bold':
+        case 'italic':
+        case 'underline':
+          this.observable.emit('textstyling', button, item);
+          break;
 
-      if (el.getAttribute(attr)) {
-        return el;
-      }
+        case 'link':
+          this.observable.emit('linkchange', button, item);
+          break;
 
-      if (el.tagName === 'HTML') {
-        break;
+        default:
+          break;
       }
+    });
+  }
+
+  _createElement (tagName, options, children) {
+    const element = document.createElement(tagName.toString());
+
+    Config.elementAttributes.forEach((attribute) => {
+      const { org, attr } = attribute;
+
+      if (options.hasOwnProperty(org)) {
+        element.setAttribute(attr, options[org]);
+      }
+    });
+
+    if (children) {
+      element.appendChild(children);
     }
 
-    return null;
+    return element;
   }
 
   _attachToolbox () {
@@ -165,22 +126,22 @@ export default class {
     let toolboxWrapper = document.createElement('div');
 
     toolboxItems.forEach((item) => {
-      const { name, desc, cmd } = item;
+      const { name, desc } = item;
 
-      item = document.createElement('button');
+      const button = this._createElement('button', {
+        className: name,
+        title: desc
+      }, this._getIcon(name));
 
-      item.setAttribute('class', name);
-      item.setAttribute('title', desc);
-      item.appendChild(this._getIcon(name));
-
-      toolboxWrapper.appendChild(item);
-
-      this.toolboxButtons.push(item);
-
-      item.addEventListener('click', () => {
-        this.observable.emit('textstyling', item, cmd);
-      });
+      toolboxWrapper.appendChild(button);
+      this.toolboxButtons.push(button);
+      this._addButtonEvent(button, item);
     });
+
+    toolboxWrapper.appendChild(this._createElement('input', {
+      type: 'text',
+      placeholder: 'http://'
+    }));
 
     toolboxWrapper.setAttribute('class', wrapper);
     toolbox.setAttribute('class', `${main} ${hide}`);
@@ -196,14 +157,25 @@ export default class {
     this.observable.addListener('textselection', ::this._triggerTextSelection);
     this.observable.addListener('toggletoolboxdisplay', ::this._toggleToolboxDisplay);
     this.observable.addListener('textstyling', ::this._triggerTextStyling);
+    this.observable.addListener('linkchange', ::this._triggerLinkChange);
 
     this.documentElement.onmouseup = (e) => {
       this.observable.emit('textselection', e);
     };
   }
 
-  _triggerTextStyling (node, cmd) {
+  _triggerTextStyling (node, item) {
+    if (!item || !item.hasOwnProperty('cmd')) {
+      return;
+    }
+
+    const { cmd } = item;
+
     this.documentElement.execCommand(cmd, false, null);
+  }
+
+  _triggerLinkChange (button, item) {
+    this.toolboxElement.classList.add('link-change');
   }
 
   _getSelection () {
@@ -213,30 +185,6 @@ export default class {
   _getFocusNode () {
     return this._getSelection().focusNode;
   }
-
-  _getParent (node, condition, returnCallback) {
-    if (node === null) {
-      return;
-    }
-
-    while (node.parentNode) {
-      if (condition(node)) {
-        return returnCallback(node);
-      }
-
-			node = node.parentNode;
-		}
-	}
-
-	_getParentWithTag (node, nodeType) {
-  		var checkNodeType = function(node) { return node.nodeName.toLowerCase() === nodeType; }
-  		var returnNode = function(node) { return node; };
-  		return this.getParent(node, checkNodeType, returnNode);
-	}
-
-	hasParentWithTag (node, nodeType) {
-		return !!this._getParentWithTag(node, nodeType);
-	}
 
   _getTextPropertyForSelection (element) {
     var property;
@@ -257,7 +205,7 @@ export default class {
   _triggerTextSelection (event) {
     const selection = this._getSelection();
     const eventTarget = event.target || event.srcElement;
-    const isToolboxElement = this.findUpToAttr(eventTarget, 'data-tteditor');
+    const isToolboxElement = Utilities.findUpToAttr(eventTarget, 'data-tteditor');
 
     if (isToolboxElement !== null) {
       return this._reloadToolboxButtons();
@@ -307,17 +255,20 @@ export default class {
     const scrollPosition = this._getScrollPosition();
     const { top, right, left } = clientRectBounds;
     const { top: scrollTop } = scrollPosition;
-    let x = 0;
-    let y = 0;
+    let toolboxPosition = {
+      x: 0,
+      y: 0
+    };
+    const toolboxWidth = this.toolboxElement.offsetWidth;
 
-    this.toolboxWidth = this.toolboxElement.offsetWidth;
-
-    y = (top + scrollTop) - this.toolboxHeight;
-    x = Math.round(((right - left) / 2) + left) - (this.toolboxWidth / 2);
-
-    this._setToolbarPosition(y, x);
+    toolboxPosition = Object.assign({}, toolboxPosition, {
+      x: Math.round(((right - left) / 2) + left) - (toolboxWidth / 2),
+      y: (top + scrollTop) - this.toolboxHeight
+    });
 
     this.toolboxOpen = true;
+
+    this._setToolbarPosition(toolboxPosition);
 
     this.observable.emit('toggletoolboxdisplay');
   }
@@ -332,9 +283,9 @@ export default class {
     this.observable.emit('toggletoolboxdisplay');
   }
 
-  _setToolbarPosition (top, left) {
-    this.toolboxElement.style.top = `${top}px`;
-    this.toolboxElement.style.left = `${left}px`;
+  _setToolbarPosition ({ x, y }) {
+    this.toolboxElement.style.top = `${y}px`;
+    this.toolboxElement.style.left = `${x}px`;
   }
 
   _iterateToolboxButtons (callback) {
@@ -344,8 +295,5 @@ export default class {
   }
 
   _reloadToolboxButtons () {
-    const focusNode = this._getFocusNode();
-
-    console.log(focusNode);
   }
 };

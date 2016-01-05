@@ -6,6 +6,21 @@ import { removeLoadingScreen } from '../../Actions';
 import TTDOM from '../../Common/TTDOM';
 import _ from 'lodash';
 
+const Helpers = {
+  createStylesheet (source, target, notInClientProduct = false) {
+    let link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = source;
+
+    if (notInClientProduct) {
+      link.setAttribute(JUNK_ATTR, true);
+    }
+
+    target.appendChild(link);
+  }
+};
+
 class Frame extends React.Component {
   static propTypes = {
     title: React.PropTypes.string
@@ -15,7 +30,6 @@ class Frame extends React.Component {
     title: 'Page Title'
   };
 
-  _isFrameRendered = false;
   _documentElement = null;
   _headElement = null;
   _bodyElement = null;
@@ -28,15 +42,21 @@ class Frame extends React.Component {
   }
 
   componentDidMount () {
-    this.renderFrame();
+    setTimeout(this.renderFrame(), 0);
   }
 
   componentWillUnmount () {
-    ReactDOM.unmountComponentAtNode(this._bodyElement);
+    const doc = ReactDOM.findDOMNode(this).contentDocument;
+
+    if (doc) {
+      ReactDOM.unmountComponentAtNode(doc.body);
+    }
   }
 
   renderFrame () {
-    if (!this._isFrameRendered) {
+    var doc = ReactDOM.findDOMNode(this).contentDocument;
+
+    if (doc && doc.readyState === 'complete') {
       const { template, title } = this.props;
       const frame = this.refs.frm;
       const frameDoc = TTDOM.iframe.getWindow(frame).document;
@@ -50,14 +70,11 @@ class Frame extends React.Component {
       this._bodyElement = frameDoc.body;
 
       this._bodyElement.appendChild(rootElement);
-      ReactDOM.render(this._children, rootElement);
+      ReactDOM.render(this.props.children, rootElement);
 
-      if (_.has(template, 'external.core')) {
-        this.appendFiles(template.external.core);
-      }
-
-      // Until we figure out how to make firefox work...
-      //this._isFrameRendered = true;
+      this.appendFiles(template.external.core);
+    } else {
+      setTimeout(this.renderFrame, 0);
     }
   }
 
@@ -68,6 +85,10 @@ class Frame extends React.Component {
       src: '/IFrameStylesheet.css',
       junk: true
     };
+
+    if (!coreFiles || !_.isArray(coreFiles)) {
+      return;
+    }
 
     if (_.findKey(coreFiles, frameCSS) === undefined) {
       coreFiles.unshift(frameCSS);
@@ -80,7 +101,7 @@ class Frame extends React.Component {
       let type = file.type;
 
       if (type === 'css') {
-        this.createStylesheet(file);
+        Helpers.createStylesheet(file.src, this._headElement, file.junk ? file.junk : false);
       }
 
       this._filesLoaded++;
@@ -91,38 +112,14 @@ class Frame extends React.Component {
     }
   }
 
-  createStylesheet (styleSheet) {
-    if (_.has(styleSheet, 'src')) {
-      let link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.type = 'text/css';
-      link.href = styleSheet.src;
-
-      if (_.has(styleSheet, 'junk')) {
-        link.setAttribute(JUNK_ATTR, true);
-      }
-
-      this._headElement.appendChild(link);
-    }
-  }
-
-  createJavaScript (javaScript) {
-    if (_.has(javaScript, 'src')) {
-      let script = document.createElement('script');
-      script.src = javaScript.src;
-      script.async = true;
-
-      this._bodyElement.appendChild(script);
-    }
-  }
-
   render () {
     this._children = this.props.children;
 
     return (
       <iframe
         id='ab-cfrm'
-        ref='frm' />
+        ref='frm'
+        onLoad={::this.renderFrame} />
     );
   }
 }

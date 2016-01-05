@@ -1,14 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { currentHoverBlock, blockWasRenderedToPage, removeContentBlock } from '../../Actions';
 import { store } from '../Application';
-import {
-  CONTENTBLOCK_ATTR_ID,
-  CONTENTBLOCK_ATTR_FIRST_ELEMENT,
-  CONTENTBLOCK_ATTR_TYPE
-} from '../../Constants';
+import * as Actions from '../../Actions';
+import * as Constants from '../../Constants';
 import Events from '../../Common/Events';
 import TTDOM from '../../Common/TTDOM';
 import ClickToolbox from '../Shared/ClickToolbox';
@@ -24,7 +19,7 @@ class CanvasFrame extends React.Component {
     const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
 
     new TTEditor({
-      target: iFrameWindow
+      elementsContainer: iFrameWindow
     });
   }
 
@@ -81,9 +76,9 @@ class CanvasFrame extends React.Component {
     }
 
     if (!updateMode) {
-      elementReference.setAttribute(CONTENTBLOCK_ATTR_ID, id);
-      elementReference.setAttribute(CONTENTBLOCK_ATTR_FIRST_ELEMENT, 'true');
-      elementReference.setAttribute(CONTENTBLOCK_ATTR_TYPE, type);
+      elementReference.setAttribute(Constants.CONTENTBLOCK_ATTR_ID, id);
+      elementReference.setAttribute(Constants.CONTENTBLOCK_ATTR_FIRST_ELEMENT, 'true');
+      elementReference.setAttribute(Constants.CONTENTBLOCK_ATTR_TYPE, type);
 
       return onBlockRenderToPage(block, elementReference);
     }
@@ -123,14 +118,9 @@ class CanvasFrame extends React.Component {
     const targetElement = this.refs.navigation;
 
     if (_.values(block).length !== 0) {
-      const { id, type, blockName, hasBeenRendered, source } = block;
+      const { hasBeenRendered, source } = block;
 
-      if (!id || !type || !blockName || !source) {
-        throw Error(`
-          Something went wrong when setting block attributes.
-          ${JSON.stringify(block)}
-        `);
-      }
+      this.errorMessage(block);
 
       if (!hasBeenRendered) {
         targetElement.innerHTML = '';
@@ -147,14 +137,9 @@ class CanvasFrame extends React.Component {
     const targetElement = this.refs.footer;
 
     if (_.values(block).length !== 0) {
-      const { id, type, blockName, source, hasBeenRendered } = block;
+      const { source, hasBeenRendered } = block;
 
-      if (!id || !type || !blockName || !source) {
-        throw Error(`
-          Something went wrong when setting block attributes.
-          ${JSON.stringify(block)}
-        `);
-      }
+      this.errorMessage(block);
 
       if (!hasBeenRendered) {
         targetElement.innerHTML = '';
@@ -165,6 +150,17 @@ class CanvasFrame extends React.Component {
     }
 
     this._blocks.footer = block;
+  }
+
+  errorMessage (block) {
+    const { id, type, blockName, source } = block;
+
+    if (!id || !type || !blockName || !source) {
+      throw Error(`
+        Something went wrong when setting block attributes.
+        ${JSON.stringify(block)}
+      `);
+    }
   }
 
   hoverBlocksMouseEnter () {
@@ -265,15 +261,15 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     onCoreBlockHover: (element) => {
-      dispatch(currentHoverBlock(element));
+      dispatch(cActions.urrentHoverBlock(element));
     },
 
     onElementRemove: (element) => {
-      dispatch(removeContentBlock(element));
+      dispatch(Actions.removeContentBlock(element));
     },
 
     onBlockRenderToPage: (block, elementReference) => {
-      dispatch(blockWasRenderedToPage(block, elementReference));
+      dispatch(Actions.blockWasRenderedToPage(block, elementReference));
     }
   };
 }
