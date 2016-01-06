@@ -1,24 +1,24 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import Events from '../../../Common/Events';
 import Ripple from '../Ripple';
 
-class Checkbox extends Component {
+class Checkbox extends React.Component {
   static propTypes = {
-    checked: PropTypes.bool,
-    className: PropTypes.string,
-    disabled: PropTypes.bool,
-    label: PropTypes.any,
-    name: PropTypes.string,
-    onBlur: PropTypes.func,
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func
-  }
+    checked: React.PropTypes.bool,
+    className: React.PropTypes.string,
+    disabled: React.PropTypes.bool,
+    label: React.PropTypes.any,
+    name: React.PropTypes.string,
+    onBlur: React.PropTypes.func,
+    onChange: React.PropTypes.func,
+    onFocus: React.PropTypes.func
+  };
 
   static defaultProps = {
     checked: false,
     className: '',
     disabled: false
-  }
+  };
 
   handleClick (event) {
     Events.pauseEvent(event);
@@ -60,7 +60,7 @@ class Checkbox extends Component {
         </span>
         { this.props.label ? <span data-role='label' className='ab-checkbox__text'>{this.props.label}</span> : null }
       </label>
-    )
+    );
   }
 
   blur () {

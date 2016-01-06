@@ -18,7 +18,7 @@ $checkbox-transition-duration: .2s !default;
     margin-bottom: $checkbox-field-margin-bottom;
     white-space: nowrap;
     vertical-align: middle;
-    padding: 5px 40px 5px 28px;
+    padding: 5px 40px 5px 40px;
 
     &__check {
         position: relative;
@@ -92,6 +92,7 @@ $checkbox-transition-duration: .2s !default;
     }
 
     &__input {
+        display: none;
         width: 0;
         height: 0;
         overflow: hidden;

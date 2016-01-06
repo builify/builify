@@ -270,7 +270,7 @@ function builder (state = builderInitialState, action) {
         sidetabElement.classList.add('open');
 
         return _.assign({}, state, {
-          iisSidetabOpened: true,
+          isSidetabOpened: true,
           sidetabOpened: action.target
         });
       } else {

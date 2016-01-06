@@ -1,3 +1,11 @@
+function baseToString (value) {
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  return value === null ? '' : (value + '');
+}
+
 export default {
   _idCounter: 0,
 
@@ -17,14 +25,6 @@ export default {
 
   randomKey (str) {
     var id = this._idCounter++;
-
-    function baseToString (value) {
-      if (typeof value === 'string') {
-        return value;
-      }
-
-      return value === null ? '' : (value + '');
-    }
 
     return baseToString((str ? str : null)) + id;
   }

@@ -1,4 +1,4 @@
-import EventEmitter from './EventEmitter';
+import TTEventEmitter from '../TTEventEmitter';
 import Utilities from './Utilities';
 import * as Config from './Config';
 
@@ -24,7 +24,7 @@ export default class {
   toolboxWidth = 113;
   toolboxOpen = false;
   toolboxButtons = [];
-  observable = new EventEmitter();
+  observable = new TTEventEmitter();
 
   constructor (props) {
     this._setUserProps(props);

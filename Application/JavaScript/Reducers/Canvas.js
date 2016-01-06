@@ -1,4 +1,4 @@
-import { getAbsPosition } from '../Common/Common';
+import TTDOM from '../Common/TTDOM';
 import _ from 'lodash';
 import * as Actions from '../Actions/Constants';
 
@@ -16,7 +16,7 @@ function canvas (state = canvasInitialState, action) {
 
       if (_.isObject(block)) {
         const { elementReference } = block;
-        const topX = getAbsPosition(elementReference)[0] + 10;
+        const topX = TTDOM.misc.getAbsPosition(elementReference)[0] + 10;
 
         return _.assign({}, state, {
           currentHoverBlock: {

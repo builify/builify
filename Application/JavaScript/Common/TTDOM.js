@@ -57,6 +57,38 @@ const TTDOM = {
     }
   },
 
+  misc: {
+    getAbsPosition (el) {
+      var el2 = el;
+      var curtop = 0;
+      var curleft = 0;
+
+      if (el === undefined || el === null) {
+        return [0, 0];
+      }
+
+      if (document.getElementById || document.all) {
+        do  {
+          curleft += el.offsetLeft-el.scrollLeft;
+          curtop += el.offsetTop-el.scrollTop;
+          el = el.offsetParent;
+          el2 = el2.parentNode;
+
+          while (el2 !== el) {
+            curleft -= el2.scrollLeft;
+            curtop -= el2.scrollTop;
+            el2 = el2.parentNode;
+          }
+        } while (el.offsetParent);
+      } else if (document.layers) {
+        curtop += el.y;
+        curleft += el.x;
+      }
+
+      return [curtop, curleft];
+    }
+  },
+
   events: {
     add (elem, events, callback, bubbling: false) {
       events = events.split(' ');

@@ -13,6 +13,7 @@ import ItemThatOpensSideTab from './ItemThatOpensSideTab';
 import FontSelection from './FontSelection';
 import Checkbox from './Checkbox';
 
+/* eslint-disable */
 export default class ProccessedChildrenRender extends React.Component {
   shouldComponentUpdate () {
     return false;
@@ -49,16 +50,17 @@ export default class ProccessedChildrenRender extends React.Component {
   }
 
   renderSwitch (item) {
-		const { action, text, state } = item;
-    const key = Random.randomKey('checkbox');
+    const { action, text, state } = item;
     const label = getString(text);
+
+    console.log(item);
 
     return (
       <Checkbox
-        key={key}
-        action={action}
+        key={Random.randomKey('checkbox')}
         label={label}
-        checked={state} />
+        checked={state}
+        onChange={(e) => console.log(e)} />
     );
   }
 
@@ -173,3 +175,5 @@ export default class ProccessedChildrenRender extends React.Component {
     return null;
   }
 }
+
+/* eslint-enable */

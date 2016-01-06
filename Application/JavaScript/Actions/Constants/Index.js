@@ -13,6 +13,7 @@ export default keyMirror([
   'GET_IMAGESLIBRARY',
   'UPLOADED_IMAGE',
   'LOGIC_INITIALIZED',
+  'GET_FONTS',
 
   // Template's actions
   'GET_TEMPLATE_DATA',

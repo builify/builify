@@ -1,13 +1,18 @@
 import stripJSONComments from 'strip-json-comments';
 import _ from 'lodash';
 import builderConfiguration from '../Data/Builder/Builder';
+import fontsList from '../Data/Builder/Fonts';
 import templateManifest from '../Data/Template/Manifest';
 
 export function getConfiguration (callback) {
   callback(JSON.parse(stripJSONComments(JSON.stringify(builderConfiguration))));
 }
 
-export function getTemplateMani (callback) {
+export function getFontsList (callback) {
+  callback(JSON.parse(stripJSONComments(JSON.stringify(fontsList))));
+}
+
+export function getTemplateManifestFile (callback) {
   callback(JSON.parse(stripJSONComments(JSON.stringify(templateManifest))));
 }
 
@@ -18,37 +23,6 @@ export function setSessionStoreParameters (setWhat, value) {
       break;
 
     default:
-      break;
-  }
-}
-
-export function setURI (URI) {
-  location.hash = URI;
-}
-
-export function getURI () {
-  return location.hash;
-}
-
-export function setURI (type, value) {
-  switch (type) {
-    case 'PAGE':
-      let currentUrl = getURI();
-      let newUrl = currentUrl;
-      let pageInUrl = currentUrl.indexOf('page-7');
-
-      if (pageInUrl === -1) {
-        let lastCharacterOfUrl = currentUrl.slice(-1);
-
-        if (lastCharacterOfUrl == '/') {
-          newUrl = currentUrl + value.toString();
-        } else {
-          newUrl = currentUrl + '/' + value.toString();
-        }
-      }
-
-      setURI(newUrl);
-
       break;
   }
 }
@@ -122,35 +96,6 @@ export function replaceDataInHTML (HTML, arrayOfItemsToReplace) {
   });
 
   return HTML;
-}
-
-export function getAbsPosition (el) {
-    var el2 = el;
-    var curtop = 0;
-    var curleft = 0;
-
-    if (el === undefined || el === null) {
-      return [0, 0]
-    }
-
-    if (document.getElementById || document.all) {
-        do  {
-            curleft += el.offsetLeft-el.scrollLeft;
-            curtop += el.offsetTop-el.scrollTop;
-            el = el.offsetParent;
-            el2 = el2.parentNode;
-            while (el2 != el) {
-                curleft -= el2.scrollLeft;
-                curtop -= el2.scrollTop;
-                el2 = el2.parentNode;
-            }
-        } while (el.offsetParent);
-
-    } else if (document.layers) {
-        curtop += el.y;
-        curleft += el.x;
-    }
-    return [curtop, curleft];
 }
 
 export function findUpAttr (el, attr) {

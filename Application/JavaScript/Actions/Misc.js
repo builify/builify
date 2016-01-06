@@ -1,29 +1,29 @@
 import _ from 'lodash';
-import { getConfiguration, getTemplateMani, setSessionStoreParameters, randomKey, downloadPages } from '../Common/Common';
+import Random  from '../Common/Random';
 import Actions from './Constants';
 
 export function addNotification (notification) {
   return {
     type: Actions.ADD_NOTIFICATION,
     notification: notification
-  }
+  };
 }
 
 export function eliminateNotification (id) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(alertNotificationRemoval(id));
 
     window.setTimeout(function () {
       dispatch(removeNotification(id));
     }, 1500);
-  }
+  };
 }
 
 export function removeNotification (id) {
   return {
     type: Actions.REMOVE_NOTIFICATION,
     id: id
-  }
+  };
 }
 
 export function alertNotificationRemoval (id) {
@@ -36,40 +36,40 @@ export function alertNotificationRemoval (id) {
   return {
     type: Actions.ALERT_NOTIFICATION_FOR_REMOVAL,
     id: id
-  }
+  };
 }
 
 export function removeAllNotifications () {
   return {
     type: Actions.REMOVE_ALL_NOTIFICATIONS
-  }
+  };
 }
 
 export function openColorPicker (target) {
   return {
     type: Actions.OPEN_COLORPICKER,
     target: target
-  }
+  };
 }
 
 export function setColorFromColorPicker (color) {
   return {
     type: Actions.SET_COLOR_FROM_COLORPICKER,
     color: color
-  }
+  };
 }
 
 export function closeColorPicker () {
   return {
     type: Actions.CLOSE_COLORPICKER
-  }
+  };
 }
 
 export function setSwatch (swatch) {
   return {
     type: Actions.SET_SWATCH,
     swatch: swatch
-  }
+  };
 }
 
 export function setFont (font) {
@@ -88,44 +88,44 @@ export function setFont (font) {
 
   return {
     type: Actions.SET_FONT
-  }
+  };
 }
 
 export function loadContentBlockSource (source, blockType, blockName) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     const xmlhttp = new XMLHttpRequest();
-    const contentBlockId = randomKey();
+    const contentBlockId = Random.randomKey();
 
     dispatch(addNotification({
       type: 'loading',
       id: contentBlockId
     }));
 
-    xmlhttp.onreadystatechange = function (e) {
-      if (this.readyState == XMLHttpRequest.DONE) {
-        if (this.status == 200) {
+    xmlhttp.onreadystatechange = function () {
+      if (this.readyState === XMLHttpRequest.DONE) {
+        if (this.status === 200) {
           const response = this.responseText;
 
           dispatch(eliminateNotification(contentBlockId));
           dispatch(loadContentBlockToPage(response, blockType, blockName));
-        } else if(this.status == 400) {
+        } else if (this.status === 400) {
           throw Error('There was an error 400');
         } else {
           throw Error('something else other than 200 was returned');
         }
       }
-    }
+    };
 
     xmlhttp.open('GET', `/Template/${source}`, true);
     xmlhttp.send();
-  }
+  };
 }
 
 export function selectImage (data) {
   return {
     type: Actions.SELECT_IMAGE,
     data: data
-  }
+  };
 }
 
 export function loadContentBlockToPage (data, blockType, blockName) {
@@ -134,7 +134,7 @@ export function loadContentBlockToPage (data, blockType, blockName) {
     HTML: data,
     blockType: blockType,
     blockName: blockName
-  }
+  };
 }
 
 export function blockWasRenderedToPage (block, elementReference) {
@@ -147,7 +147,7 @@ export function blockWasRenderedToPage (block, elementReference) {
 
     const state = getState();
     const { page } = state;
-    const { navigation, main, footer} = page;
+    const { navigation, main, footer } = page;
     const { type } = block;
     let targetBlock = null;
 
@@ -161,11 +161,11 @@ export function blockWasRenderedToPage (block, elementReference) {
     }
 
     if (targetBlock.elementReference !== null) {
-      targetBlock.elementReference.addEventListener('mouseenter', (e) => {
+      targetBlock.elementReference.addEventListener('mouseenter', () => {
         dispatch(currentHoverBlock(targetBlock));
       });
     }
-  }
+  };
 }
 
 export function updateContentBlockSource (block, newSource) {
@@ -173,65 +173,65 @@ export function updateContentBlockSource (block, newSource) {
     type: Actions.UPDATE_CONTENTBLOCK_SOURCE,
     block: block,
     newSource: newSource
-  }
+  };
 }
 
 export function contentBlockWasUpdated (block) {
   return {
     type: Actions.CONTENTBLOCK_WAS_UPDATED,
     block: block
-  }
+  };
 }
 
 export function currentHoverBlock (block) {
   return {
     type: Actions.CURRENT_HOVER_BLOCK,
     block: block
-  }
+  };
 }
 
 export function removeContentBlock (block) {
   return {
     type: Actions.REMOVE_CONTENTBLOCK,
     block: block
-  }
+  };
 }
 
 export function filterContentBlocks (target) {
   return {
     type: Actions.FILTER_CONTENTBLOCKS,
     target: target
-  }
+  };
 }
 
 export function openContextmenuToolbox () {
   return {
     type: Actions.OPEN_CONTEXTMENU_TOOLBOX
-  }
+  };
 }
 
 export function closeContextmenuToolbox () {
   return {
     type: Actions.CLOSE_CONTEXTMENU_TOOLBOX
-  }
+  };
 }
 
 export function openContentBlockSettings () {
   return {
     type: Actions.OPEN_CONTENTBLOCK_SETTINGS
-  }
+  };
 }
 
 export function sortContentBlocks (evt) {
   return {
     type: Actions.SORT_CONTENTBLOCKS,
     evt: evt
-  }
+  };
 }
 
 export function openContentblockSourceEditModal (currentHoverBlock) {
   return {
     type: Actions.OPEN_CONTENTBLOCK_SOURCE_EDIT_MODAL,
     currentHoverBlock: currentHoverBlock
-  }
+  };
 }
