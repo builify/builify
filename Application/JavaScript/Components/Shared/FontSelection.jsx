@@ -1,4 +1,42 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { SimpleSelect, HighlightedText } from 'react-selectize';
+import _ from 'lodash';
+
+class FontSelection extends React.Component {
+  shouldComponentUpdate () {
+    return false;
+  }
+
+  render () {
+    const { builderConfiguration } = this.props;
+    const { fontsList } = builderConfiguration;
+    let { categories, fonts } = fontsList;
+
+    return (
+      <SimpleSelect
+        groups={categories}
+        options={_.take(fonts, 50)}
+        placeholder='Select a font'
+        renderNoResultsFound = {function(value, search){
+                return <div className="no-results-found" style={{fontSize: 13}}>
+                    {typeof self.req == "undefined" && self.state.search.length == 0 ?
+                    "type a few characters to kick off remote search":"No results found"}
+                </div>
+            }} />
+    );
+  }
+}
+
+function mapStateToProps (state) {
+  return {
+    builderConfiguration: state.builderConfiguration
+  };
+}
+
+export default connect(mapStateToProps)(FontSelection);
+
+/*import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setFont } from '../../Actions';
 import { getString } from '../../Common/Localization';
@@ -57,3 +95,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(FontSelection);
+*/

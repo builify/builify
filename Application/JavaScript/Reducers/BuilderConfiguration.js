@@ -24,6 +24,14 @@ function builderConfiguration (state = builderConfigurationInitialState, action)
         imageLibraryCategories
       });
     }
+
+    case Actions.GET_FONTS: {
+      const { data } = action;
+
+      return _.assign({}, state, {
+        fontsList: data
+      });
+    }
   }
 
   return state;

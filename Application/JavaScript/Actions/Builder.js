@@ -143,7 +143,7 @@ export function getFonts () {
     Common.getFontsList((data) => {
       dispatch({
         type: Actions.GET_FONTS,
-        fontsList: data
+        data: data
       });
     });
   };

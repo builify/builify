@@ -59,7 +59,7 @@ export default class ProccessedChildrenRender extends React.Component {
       <Checkbox
         key={Random.randomKey('checkbox')}
         label={label}
-        checked={state}
+        checked={true}
         onChange={(e) => console.log(e)} />
     );
   }

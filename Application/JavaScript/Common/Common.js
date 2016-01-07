@@ -1,7 +1,7 @@
 import stripJSONComments from 'strip-json-comments';
 import _ from 'lodash';
 import builderConfiguration from '../Data/Builder/Builder';
-import fontsList from '../Data/Builder/Fonts';
+import fontsList from '../Data/Builder/FontsList';
 import templateManifest from '../Data/Template/Manifest';
 
 export function getConfiguration (callback) {

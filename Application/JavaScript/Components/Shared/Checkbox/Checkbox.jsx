@@ -1,4 +1,5 @@
 import React from 'react';
+import ClassNames from 'classnames';
 import Events from '../../../Common/Events';
 import Ripple from '../Ripple';
 
@@ -44,6 +45,7 @@ class Checkbox extends React.Component {
     if (this.props.checked) checkboxClassName += ' checked';
     if (this.props.disabled) fieldClassName += ' disabled';
     if (this.props.className) fieldClassName += ` ${this.props.className}`;
+    
 
     return (
       <label

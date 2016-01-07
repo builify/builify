@@ -10,6 +10,7 @@ const builderInitialState = {
   loadingScreenType: 0,
   currentLocation: 0,
   iconPacks: [],
+  fontList: [],
 
   // Tabs
   isTabOpened: false,

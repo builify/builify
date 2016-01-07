@@ -24,6 +24,7 @@ var dependencies = [
   'react/addons',
   'react-color',
   'react-select',
+  'react-selectize',
   'react-redux',
   'react-custom-scrollbars',
   'react-dropzone-component',

@@ -37,6 +37,7 @@
     "json-loader": "^0.5.4",
     "livereactload": "*",
     "lost": "*",
+    "react-addons-css-transition-group": "^0.14.6",
     "react-hot-loader": "*",
     "vinyl-source-stream": "*",
     "watchify": "*"
@@ -56,6 +57,7 @@
     "react-dropzone-component": "^0.8.1",
     "react-redux": "^4.0.0",
     "react-select": "*",
+    "react-selectize": "^0.3.7",
     "redux": "^3.0.4",
     "redux-thunk": "*",
     "sortablejs": "^1.4.2",
