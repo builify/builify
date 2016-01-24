@@ -27,7 +27,7 @@ class ReactSortable extends Component {
   static defaultProps = {
     component: 'div',
     childElement: 'div'
-  }
+  };
 
   render () {
     var otherProps = _.assign({}, this.props);

@@ -11,7 +11,7 @@ export default class CurrentImageTab extends React.Component {
   state = {
     imageUrl: defaultImageUrl,
     isBackgroundImage: false
-  }
+  };
 
   componentWillMount () {
     const { editTarget } = this.props;

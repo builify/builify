@@ -5,16 +5,16 @@ class ImageSpinner extends Component {
     loading: React.PropTypes.bool,
     color: React.PropTypes.string,
     size: React.PropTypes.number
-  }
+  };
 
   static defaultProps = {
     loading: true,
     size: 50
-  }
+  };
 
   state = {
     loading: this.props.loading
-  }
+  };
 
   shouldComponentUpdate (nextProps, nextState) {
     return false;

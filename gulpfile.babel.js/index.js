@@ -1,20 +1,58 @@
-var gulp = require('gulp');
-var source = require('vinyl-source-stream');
-var browserify = require('browserify');
-var watchify = require('watchify');
-var babelify = require('babelify');
-var gulpif = require('gulp-if');
-var uglify = require('gulp-uglify');
-var streamify = require('gulp-streamify');
-var notify = require('gulp-notify');
-var cssmin = require('gulp-cssmin');
-var gutil = require('gulp-util');
-var sass = require('gulp-sass');
-var jade = require('gulp-jade');
-var gutil = require('gulp-util');
-var plumber = require('gulp-plumber');
-var browserSync = require('browser-sync').create();
-var watch = require('gulp-watch');
+import gulp from 'gulp';
+import source from 'vinyl-source-stream';
+import browserify from 'browserify';
+import watchify from 'watchify';
+import gulpif from 'gulp-if';
+import uglify from 'gulp-uglify';
+import streamify from 'gulp-streamify';
+import notify from 'gulp-notify';
+import cssmin from 'gulp-cssmin';
+import gutil from 'gulp-util';
+import sass from 'gulp-sass';
+import jade from 'gulp-jade';
+import plumber from 'gulp-plumber';
+import watch from 'gulp-watch';
+import browserSync from 'browser-sync';
+
+const LOGGER = {
+  START: 0,
+  END: 1,
+
+  TYPE: {
+    APPLICATION: 'Application',
+    SERVER: 'Server',
+    HTML: 'HTML',
+    CSS: 'Stylesheet'
+  }
+};
+
+function logger (type, target, timeStart = 0) {
+  let text = null;
+  let startMessageString = null;
+  let endMessageString = null;
+
+  switch (target) {
+    case LOGGER.TYPE.SERVER:
+      startMessageString = 'Starting server';
+      endMessageString = 'Server started in';
+      break;
+
+    default:
+      startMessageString = 'Building bundle';
+      endMessageString = 'Bundle built in';
+      break;
+  }
+
+  if (type === LOGGER.START) {
+    text = gutil.colors.bgBlue(`[${target}]${startMessageString}`);
+  } else if (type === LOGGER.END) {
+    text = gutil.colors.bgGreen(`[${target}]${endMessageString} ${(Date.now() - timeStart)}ms`);
+  }
+
+  if (text !== null) {
+    gutil.log(text);
+  }
+}
 
 var tasks = {};
 
@@ -53,16 +91,17 @@ gulp.src = function () {
 function createJavaScript (options) {
   var appBundler = browserify({
     entries: [options.src],
-    extensions: ['.jsx', '.jsx', '.json'],
-    transform: [
-      babelify.configure({
-        externalHelpers: true,
-        stage: 0
-      })
+    extensions: [
+      '.jsx',
+      '.jsx',
+      '.json'
     ],
-    debug: options.development,
+    transform: [
+      'babelify'
+    ],
     cache: {},
     packageCache: {},
+    debug: options.development,
     fullPaths: options.development
   });
 
@@ -73,16 +112,15 @@ function createJavaScript (options) {
   var rebundle = function () {
     var start = Date.now();
 
-    gutil.log(gutil.colors.bgGreen('[APPLICATION]Building bundle.'));
+    logger(LOGGER.START, LOGGER.TYPE.APPLICATION);
+
     appBundler.bundle()
       .on('error', gutil.log)
       .pipe(source('main.js'))
       .pipe(gulpif(!options.development, streamify(uglify())))
       .pipe(gulp.dest(options.dest))
       .pipe(notify(function () {
-        gutil.log(
-          gutil.colors.bgGreen('[APPLICATION]Bundle built in ' + (Date.now() - start) + 'ms')
-        );
+        logger(LOGGER.END, LOGGER.TYPE.APPLICATION, start);
       }))
       .pipe(browserSync.stream({ match: '**/*.js' }));
   };
@@ -121,28 +159,21 @@ function createJavaScript (options) {
 function createStylesheets (options) {
   if (options.development) {
     tasks.stylesheet = function () {
-      var start = new Date();
-      gutil.log(gutil.colors.bgGreen('[STYLEHSEET]Building bundle.'));
+      const timeStart = new Date();
+
+      logger(LOGGER.START, LOGGER.TYPE.CSS);
 
       gulp.src(options.src)
         .pipe(sass())
         .pipe(gulp.dest(options.dest))
         .pipe(notify(function () {
-          gutil.log(
-            gutil.colors.bgGreen('[STYLEHSEET]Bundle built in ' + (Date.now() - start) + 'ms')
-          );
+          logger(LOGGER.END, LOGGER.TYPE.CSS, timeStart);
         }))
         .pipe(browserSync.stream({ match: '**/*.css' }));
     };
 
     tasks.stylesheet();
     watch('./Application/Styles/**/*.scss', tasks.stylesheet);
-
-  } else {
-    gulp.src(options.src)
-      .pipe(sass())
-      .pipe(cssmin())
-      .pipe(gulp.dest(options.dest));
   }
 }
 
@@ -165,26 +196,21 @@ function createIFrameStylesheet (options) {
 
     tasks.stylesheet();
     watch('./Application/IFrameStyles/**/*.scss', tasks.stylesheet);
-
-  } else {
-    gulp.src(options.src)
-      .pipe(sass())
-      .pipe(cssmin())
-      .pipe(gulp.dest(options.dest));
   }
 }
 
 function createHTML (options) {
   if (options.development) {
     tasks.html = function () {
-      var start = new Date();
-      gutil.log(gutil.colors.bgGreen('[HTML]Building bundle.'));
+      const timeStart = new Date();
+
+      logger(LOGGER.START, LOGGER.TYPE.HTML);
 
       gulp.src(options.src)
         .pipe(jade())
         .pipe(gulp.dest(options.dest))
         .pipe(notify(function () {
-          gutil.log(gutil.colors.bgGreen('[HTML]Bundle built in ' + (Date.now() - start) + 'ms'));
+          logger(LOGGER.END, LOGGER.TYPE.HTML, timeStart);
         }));
     };
 
@@ -194,7 +220,11 @@ function createHTML (options) {
 }
 
 function createServer (options) {
-  browserSync.init({
+  const timeStart = new Date();
+
+  logger(LOGGER.START, LOGGER.TYPE.SERVER);
+
+  browserSync.create().init({
     logPrefix: 'BrowserSync',
     browser: ['google chrome'],
     open: 'external',
@@ -205,15 +235,11 @@ function createServer (options) {
   });
 
   watch('./DevelopmentBuild/*.html').on('change', browserSync.reload);
+
+  logger(LOGGER.END, LOGGER.TYPE.SERVER, timeStart);
 }
 
 gulp.task('default', function () {
-  process.env.NODE_ENV = 'development';
-
-  createServer({
-    src: './DevelopmentBuild'
-  });
-
   createHTML({
     development: true,
     src: './Application/Jade/*.jade',
@@ -236,5 +262,9 @@ gulp.task('default', function () {
     development: true,
     src: './Application/JavaScript/Main.jsx',
     dest: './DevelopmentBuild'
+  });
+
+  createServer({
+    src: './DevelopmentBuild'
   });
 });

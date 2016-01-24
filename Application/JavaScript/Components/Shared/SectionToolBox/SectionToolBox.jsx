@@ -9,7 +9,7 @@ import { removeContentBlock, openContentblockSourceEditModal } from '../../../Ac
 class SectionToolBox extends React.Component {
   state = {
     settingsMenuOpened: false
-  }
+  };
 
   render () {
     const { settingsMenuOpened } = this.state;

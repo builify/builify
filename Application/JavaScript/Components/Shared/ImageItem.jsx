@@ -7,31 +7,28 @@ class ImageItem extends Component {
     src: PropTypes.string.isRequired,
     alt: PropTypes.string,
     loaded: PropTypes.bool
-  }
+  };
 
   static defaultProps = {
     alt: '',
     loaded: false
-  }
+  };
 
   state = {
     isImageFileLoaded: this.props.loaded
-  }
+  };
 
   imageDrag (e) {
     e.preventDefault();
   }
 
-  loadedImage (e) {
-    const { src } = this.props;
-
+  loadedImage () {
     this.setState({
       isImageFileLoaded: true
     });
   }
 
   render () {
-    const { isImageFileLoaded } = this.state;
     const { src, alt } = this.props;
     const loadImage = classNames('ab-loadimage', this.state.isImageFileLoaded ? 'loaded' : '');
     const imageSource = src;
@@ -48,7 +45,7 @@ class ImageItem extends Component {
           alt={alt ? alt : 'Picture'}
           ref='image'/>
       </div>
-    )
+    );
   }
 }
 

@@ -13,7 +13,7 @@ export default class ImageEditContentImages extends React.Component {
 
   state = {
     activeCategory: 0
-  }
+  };
 
   defaultImages = [];
 

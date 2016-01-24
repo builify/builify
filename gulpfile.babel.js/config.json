@@ -1,0 +1,14 @@
+{
+  "root": {
+    "src": "./Application",
+    "devDest": "./DevelopmentBuild"
+  },
+
+  "tasks": {
+    "browserSync": {
+      "server": {
+        "baseDir": "public"
+      }
+    }
+  }
+}

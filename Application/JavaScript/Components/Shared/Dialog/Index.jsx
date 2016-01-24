@@ -22,14 +22,14 @@ class Dialog extends Component {
     type: PropTypes.number,
     onClose: PropTypes.func,
     editTarget: PropTypes.any
-  }
+  };
 
   static defaultProps = {
     actions: [],
     active: false,
     type: DialogTypes.CLASSIC,
     onClose: () => {}
-  }
+  };
 
   render () {
     const { type, title, children, actions, editTarget, active } = this.props;

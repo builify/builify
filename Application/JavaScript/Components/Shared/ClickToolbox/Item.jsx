@@ -6,13 +6,13 @@ export default class ClickToolBoxItem extends React.Component {
     icon: React.PropTypes.string,
     text: React.PropTypes.string,
     onClick: React.PropTypes.func
-  }
+  };
 
   static defaultProps = {
     icon: null,
     text: '',
     onClick: function () {}
-  }
+  };
 
   shouldComponentUpdate () {
     return false;
@@ -22,7 +22,7 @@ export default class ClickToolBoxItem extends React.Component {
     const { icon } = this.props;
 
     if (icon) {
-      return <Icon icon={icon} />
+      return <Icon icon={icon} />;
     } else {
       return null;
     }

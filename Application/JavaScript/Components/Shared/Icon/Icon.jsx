@@ -12,13 +12,13 @@ export default class Icon extends React.Component {
     ]),
     style: React.PropTypes.object,
     className: React.PropTypes.string
-  }
+  };
 
   static defaultProps = {
     onClick: () => {},
     size: 18,
     className: ''
-  }
+  };
 
   mergeStyles (...args) {
     return _.assign({}, ...args);

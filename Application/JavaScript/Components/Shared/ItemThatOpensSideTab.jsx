@@ -7,7 +7,7 @@ import classNames from 'classnames';
 class ItemThatOpensSideTab extends Component {
   static propTypes = {
     item: PropTypes.object.isRequired
-  }
+  };
 
   render () {
     const { item, onOpenSideTab } = this.props;
@@ -25,14 +25,14 @@ class ItemThatOpensSideTab extends Component {
         }}>
         <span>{getString(title)}</span>
       </div>
-    )
+    );
   }
 }
 
 function mapStateToProps (state) {
   return {
     builder: state.builder
-  }
+  };
 }
 
 function mapDispatchToProps (dispatch) {
@@ -40,7 +40,7 @@ function mapDispatchToProps (dispatch) {
     onOpenSideTab: (target) => {
       dispatch(openSidetab(target));
     }
-  }
+  };
 }
 
 export default connect(

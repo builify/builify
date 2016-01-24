@@ -13,7 +13,7 @@ import Input from '../Input';
 class IconsList extends Component {
   static propTypes = {
     iconPack: PropTypes.object.isRequired
-  }
+  };
 
   renderIcons (icons, iconClass) {
     return _.map(icons, (icon, idx) => {
