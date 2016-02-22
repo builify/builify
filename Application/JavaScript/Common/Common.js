@@ -1,8 +1,8 @@
 import stripJSONComments from 'strip-json-comments';
 import _ from 'lodash';
-import builderConfiguration from '../Data/Builder/Builder';
-import fontsList from '../Data/Builder/FontsList';
-import templateManifest from '../Data/Template/Manifest';
+import builderConfiguration from '../../Data/Builder/Builder';
+import fontsList from '../../Data/Builder/FontsList';
+import templateManifest from '../../Data/Template/manifest';
 
 export function getConfiguration (callback) {
   callback(JSON.parse(stripJSONComments(JSON.stringify(builderConfiguration))));
@@ -41,7 +41,7 @@ export function getBrowserSize () {
   return {
     width: window.innerWidth || document.body.clientWidth,
     height: window.innerHeight || document.body.clientHeight
-  }
+  };
 }
 
 export function getOffset (element) {
@@ -50,7 +50,7 @@ export function getOffset (element) {
   return {
     left: element.left + window.scrollX,
     top: element.top + window.scrollY
-  }
+  };
 }
 
 export function randomKey (str) {
@@ -59,15 +59,15 @@ export function randomKey (str) {
 
 export function getProperty (obj, prop) {
   var parts = prop.split('.'),
-  last = parts.pop(),
-  l = parts.length,
-  i = 1,
-  current = parts[0];
+    last = parts.pop(),
+    l = parts.length,
+    i = 1,
+    current = parts[0];
 
-  while((obj = obj[current]) && i < l) {
-    current = parts[i];
-    i++;
-  }
+    while ((obj = obj[current]) && i < l) {
+      current = parts[i];
+      i++;
+    }
 
   if(obj) {
     return obj[last];
@@ -76,7 +76,7 @@ export function getProperty (obj, prop) {
 
 export function replaceDataInHTML (HTML, arrayOfItemsToReplace) {
   if (!HTML || !arrayOfItemsToReplace || !arrayOfItemsToReplace.length) {
-    return;
+    return HTML;
   }
 
   if (arrayOfItemsToReplace.length === 0) {

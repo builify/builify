@@ -1,0 +1,113 @@
+{
+  "external": {
+    "core": [
+      {
+        "type": "css",
+        "src": "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+      },
+      {
+        "type": "css",
+        "src": "assets/template.css"
+      },
+      {
+        "type": "js",
+        "src": "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"
+      },
+      {
+        "type": "js",
+        "src": "assets/template.js"
+      }
+    ]
+  },
+  "blocks": [
+    {
+      "type": "navigation",
+      "items": [
+        {
+          "title": "Top Navigation",
+          "thumbnail": "http://pivot.mediumra.re/variant/img/sections/variant-personal-header-1.jpg",
+          "source": "<header class=\"navigation\">\n      <div class=\"navigation-wrapper\">\n        <div class=\"navigation-content\">\n          <div class=\"logo\">\n            <a href=\"#\"><img src=\"http://tympanus.net/Freebies/Sedna/img/sedna-logo.png\" alt=\"Sedna logo\"></a>\n          </div>\n          <div class=\"navigation-nav\">\n            <nav>\n              <ul class=\"primary-nav\">\n                <li><a href=\"#features\">Features</a></li>\n                <li><a href=\"#assets\">Assets</a></li>\n                <li><a href=\"#blog\">Blog</a></li>\n                <li><a href=\"#download\">Download</a></li>\n              </ul>\n            </nav>\n          </div>\n          <div class=\"navigation-icon\">\n            <a class=\"navigation-icon-toggle\" href=\"#\"><span></span></a>\n          </div>\n        </div>\n      </div>\n    </header>"
+        }
+      ]
+    },
+    {
+      "type": "cover",
+      "items": [
+        {
+          "title": "Video Cover",
+          "thumbnail": "http://pivot.mediumra.re/variant/img/sections/variant-personal-header-1.jpg",
+          "source": "<div class=\"block block-inverse block-video\">\n      <div class=\"block-background-cover-color zIndex-2\" style=\"background-color: #333; opacity: 0.7;\"></div>\n      <div class=\"block-video-holder zIndex-1\"></div>\n      <div class=\"block-align-middle\">\n        <div class=\"container\">\n          <div class=\"row\">\n            <div class=\"col-md-6 zIndex-3\">\n              <h1 class=\"display-4 text-uppercase m-b-0 text-split\">John Jr. David</h1>\n              <h4 class=\"m-b-2\">Hedge Fund CEO</h4>\n              <p class=\"lead text-muted m-b-1\">The best investment on Earth is Earth.</p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>"
+        },
+        {
+          "title": "Image Cover",
+          "thumbnail": "http://pivot.mediumra.re/variant/img/sections/variant-personal-header-1.jpg",
+          "source": "<div class=\"block block-inverse block-hero\" style=\"background-image: url(http://foundry.mediumra.re/img/fitness3.jpg);\">\n      <div class=\"block-background-cover-color\" style=\"background-color: #333; opacity: 0.7;\"></div>\n      <div class=\"block-align-middle\">\n        <div class=\"container\">\n          <div class=\"row\">\n            <div class=\"col-md-6\">\n              <h1 class=\"display-4 text-uppercase m-b-0 text-split\">John Jr. David</h1>\n              <h4 class=\"m-b-2\">Hedge Fund CEO</h4>\n              <p class=\"lead text-muted m-b-1\">The best investment on Earth is Earth.</p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>"
+        },
+        {
+          "title": "Background Color Cover",
+          "thumbnail": "http://pivot.mediumra.re/variant/img/sections/variant-personal-header-1.jpg",
+          "source": "<div class=\"block block-inverse block-hero\">\n      <div class=\"block-background-cover-color\" style=\"background-color: #333; opacity: 0.7;\"></div>\n      <div class=\"block-align-middle\">\n        <div class=\"container\">\n          <div class=\"row\">\n            <div class=\"col-md-12 text-xs-center\">\n              <h1 class=\"m-b-0\">We invest money to seed early-stage, emerging and growth companies</h1>\n            </div>\n          </div>\n          <div class=\"row block-absolute-bottom m-b-3\">\n            <div class=\"col-md-12 text-xs-center\">\n              <button class=\"btn btn-square btn-lg\">Contact Us!</button>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>"
+        }
+      ]
+    },
+    {
+      "type": "countdown",
+      "items": [
+        {
+          "title": "Countdown Cover",
+          "thumbnail": "http://pivot.mediumra.re/variant/img/sections/variant-personal-header-1.jpg",
+          "source": "<div class=\"block block-inverse block-hero\" style=\"background-image: url(http://foundry.mediumra.re/img/fitness3.jpg);\">\n      <div class=\"block-background-cover-color\" style=\"background-color: #333; opacity: 0.7;\"></div>\n      <div class=\"block-align-middle\">\n        <div class=\"container\">\n          <div class=\"row\">\n            <div class=\"col-md-12 text-xs-center\">\n              <h1 class=\"m-y-0 display-4 text-uppercase\">Launching in</h1>\n              <h2 class=\"m-y-2 countdown text-muted display-4 font-weight-light\" data-date=\"2016/03/01\" data-dateformat=\"%w weeks %d days %H:%M:%S\"></h2>\n              <p class=\"p-t-1\">We are launching our site soon. Sign-up via newsletter to get updates about our launch.</p>\n            </div>\n            <div class=\"row\">\n              <div class=\"col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-3\">\n                <div class=\"input-group\">\n                  <input class=\"form-control m-b-1 no-border-radius\" placeholder=\"Email Address\">\n                  <span class=\"input-group-btn\">\n                    <button class=\"btn btn-primary m-b-1 no-border-radius\">Get started</button>\n                  </span>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>"
+        }
+      ]
+    },
+    {
+      "type": "features",
+      "items": [
+        {
+          "title": "Basic Features",
+          "thumbnail": "http://pivot.mediumra.re/variant/img/sections/variant-personal-header-1.jpg",
+          "source": "<div class=\"block\">\n      <div class=\"container\">\n        <div class=\"row p-y-3\">\n          <div class=\"col-md-3\">\n            <div class=\"infobox\">\n              <header>\n                <i class=\"infobox-icon text-muted fa fa-rocket\"></i>\n                <div class=\"infobox-number\">100</div>\n                <div class=\"infobox-type\">Things</div>\n              </header>\n              <p>Designed, written, cooked and photographed.</p>\n            </div>\n          </div>\n          <div class=\"col-md-3\">\n            <div class=\"infobox\">\n              <header>\n                <i class=\"infobox-icon text-muted fa fa-percent\"></i>\n                <div class=\"infobox-number\">100</div>\n                <div class=\"infobox-type\">Things</div>\n              </header>\n              <p>Designed, written, cooked and photographed.</p>\n            </div>\n          </div>\n          <div class=\"col-md-3\">\n            <div class=\"infobox\">\n              <header>\n                <i class=\"infobox-icon text-muted fa fa-calendar\"></i>\n                <div class=\"infobox-number\">100</div>\n                <div class=\"infobox-type\">Things</div>\n              </header>\n              <p>Designed, written, cooked and photographed.</p>\n            </div>\n          </div>\n          <div class=\"col-md-3\">\n            <div class=\"infobox\">\n              <header>\n                <i class=\"infobox-icon text-muted fa fa-check\"></i>\n                <div class=\"infobox-number\">100</div>\n                <div class=\"infobox-type\">Things</div>\n              </header>\n              <p>Designed, written, cooked and photographed.</p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "items": [
+        {
+          "title": "Page Title",
+          "thumbnail": "http://pivot.mediumra.re/variant/img/sections/variant-personal-header-1.jpg",
+          "source": "<div class=\"block block-border-lg\">\n      <div class=\"container\">\n        <div class=\"row align-center\">\n          <div class=\"col-sm-6\">\n            <h1>Page Title</h1>\n          </div>\n          <div class=\"col-sm-6\">\n            <ul class=\"navigation-title text-xs-right\">\n              <li>Home</li>\n              <li>Category</li>\n              <li>Current page</li>\n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>"
+        }
+      ]
+    }
+  ],
+  "design": {
+    "colors": {
+      "body": "#333",
+      "a": "#444",
+      "a:hover": "#eee",
+      "a:visited": "#333",
+      "p": "#444",
+      "h1": "#111",
+      "h2": "#222",
+      "h3": "#333",
+      "h4": "#444",
+      "h5": "#555",
+      "h6": "#666",
+      "blockquote": "#666",
+      "b": "#333",
+      "i": "#444",
+      "em": "#444"
+    },
+    "typography": {
+      "fonts": {
+        "header": "lora",
+        "body": "roboto"
+      },
+      "size": {
+        "basefont": 16,
+        "baseline": 24
+      }
+    }
+  }
+}

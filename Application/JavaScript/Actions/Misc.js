@@ -92,8 +92,12 @@ export function setFont (font) {
 }
 
 export function loadContentBlockSource (source, blockType, blockName) {
-  return (dispatch) => {
-    const xmlhttp = new XMLHttpRequest();
+  return (dispatch, getState) => {
+    dispatch(loadContentBlockToPage(source, blockType, blockName));
+
+
+    console.log(source)
+    /*const xmlhttp = new XMLHttpRequest();
     const contentBlockId = Random.randomKey();
 
     dispatch(addNotification({
@@ -117,7 +121,7 @@ export function loadContentBlockSource (source, blockType, blockName) {
     };
 
     xmlhttp.open('GET', `/Template/${source}`, true);
-    xmlhttp.send();
+    xmlhttp.send();*/
   };
 }
 

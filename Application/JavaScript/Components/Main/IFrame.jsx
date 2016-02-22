@@ -18,6 +18,12 @@ const Helpers = {
     }
 
     target.appendChild(link);
+  },
+
+  createJavaScript (source, target) {
+    let link = document.createElement('script');
+    link.src = source;
+    target.appendChild(link);
   }
 };
 
@@ -102,6 +108,10 @@ class Frame extends React.Component {
 
       if (type === 'css') {
         Helpers.createStylesheet(file.src, this._headElement, file.junk ? file.junk : false);
+      } else if (type === 'js') {
+        _.delay(() => {
+          Helpers.createJavaScript(file.src, this._headElement);
+        }, 10000);
       }
 
       this._filesLoaded++;

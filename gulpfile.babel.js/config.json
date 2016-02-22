@@ -1,14 +1,43 @@
 {
   "root": {
-    "src": "./Application",
-    "devDest": "./DevelopmentBuild"
+    "development": {
+      "dest": "DevelopmentBuild"
+    }
   },
 
   "tasks": {
-    "browserSync": {
-      "server": {
-        "baseDir": "public"
-      }
+    "html": {
+      "src": "Application/Jade/*.jade"
+    },
+
+    "css": {
+      "src": "Application/Styles/Stylesheet.scss"
+    },
+
+    "js": {
+      "src": "Application/JavaScript/Main.jsx"
     }
-  }
+  },
+
+  "dependencies": [
+    "react",
+    "react-dom",
+    "react/addons",
+    "react-color",
+    "react-select",
+    "react-selectize",
+    "react-redux",
+    "react-custom-scrollbars",
+    "react-dropzone-component",
+    "redux",
+    "redux-thunk",
+    "strip-json-comments",
+    "classnames",
+    "lodash",
+    "jszip",
+    "sortablejs",
+    "js-search",
+    "ttstylesheet",
+    "ttkeymirror"
+  ]
 }
