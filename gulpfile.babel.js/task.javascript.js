@@ -8,6 +8,7 @@ import gutil from 'gulp-util';
 import notify from 'gulp-notify';
 import streamify from 'gulp-streamify';
 import { logger, LOGGER } from './logger';
+import { browserSync } from './task.server';
 
 var gulpConfig = require('./config.json');
 var dependencies = gulpConfig.dependencies;
@@ -45,7 +46,8 @@ export default function (options) {
       .pipe(gulp.dest(options.dest))
       .pipe(notify(function () {
         logger(LOGGER.END, LOGGER.TYPE.APPLICATION, start);
-      }));
+      }))
+      .pipe(browserSync.stream({ match: '**/*.js' }));
   };
 
   if (options.development) {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Icon from './Icon';
 
 class BackButton extends React.Component {
   static propTypes = {
@@ -22,6 +23,9 @@ class BackButton extends React.Component {
         {...bindActionCreators({
           onClick: ::this.props.clickFunction
         }, dispatch)}>
+        <Icon
+          icon='chevron-left'
+          size={30} />
         <span>Go Back</span>
       </div>
     );

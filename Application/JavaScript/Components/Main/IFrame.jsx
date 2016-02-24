@@ -88,7 +88,7 @@ class Frame extends React.Component {
     const { onRemoveLoadingScreen } = this.props;
     const frameCSS = {
       type: 'css',
-      src: '/IFrameStylesheet.css',
+      src: '/canvas-stylesheet.css',
       junk: true
     };
 

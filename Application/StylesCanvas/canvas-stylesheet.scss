@@ -45,7 +45,8 @@ body {
 				padding: 0 15px;
 				font-weight: 400;
 				text-align: left;
-				@include rem(font-size, 16px);
+				font-size: 16px;
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 		}
 
 		&__text {
@@ -57,7 +58,8 @@ body {
 		&__item {
 				background: #FFF;
 				color: #333;
-				@include rem(font-size, 14px);
+				font-size: 14px;
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 				@include animation-default();
 
 				&:hover {
@@ -98,6 +100,7 @@ body {
 						display: block;
 						margin: 0 4px;
 						border-radius: 100%;
+						font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 						background: rgba(#000, 0.3);
 						@include transition(all 0.3s ease);
 
@@ -153,7 +156,8 @@ body {
 						font-weight: 400;
 						text-align: left;
 						color: #333;
-						@include rem(font-size, 14px);
+						font-size: 14px;
+						font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 						&,
 						& * {
@@ -164,7 +168,7 @@ body {
 								background: $color-primary;
 								color: #FFF;
 								font-weight: 700;
-								@include rem(font-size, 16px);
+								font-size: 16px;
 						}
 				}
 		}

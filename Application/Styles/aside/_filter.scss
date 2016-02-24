@@ -19,15 +19,10 @@
 				padding: 0 $base-padding;
 				@include rem(font-size, 18px);
 
-				div {
-						&:after {
-							position: absolute;
-							content: "\e688";
-							font-family: "Pe-icon-7-stroke";
-							@include transform(rotate(0));
-							@include transition(transform 0.3s ease);
-							@include rem(font-size, 30px);
-						}
+				svg {
+						position: absolute;
+						right: $base-padding;
+						top: (($item-height * 2) / 2) - 12;
 				}
 		}
 
@@ -75,13 +70,6 @@
 
 		&.active {
 				.#{$nameprefix}filter {
-						&__text {
-								div:after {
-										margin-top: 2px;
-										@include transform(rotate(-180deg));
-								}
-						}
-
 						&__items {
 								display: block;
 						}

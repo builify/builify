@@ -3,9 +3,9 @@ import gulp from 'gulp';
 import gutil from 'gulp-util';
 import plumber from 'gulp-plumber';
 import createStylesheets from './task.css';
-import createHTML from './task.html';
-import createServer from './task.server';
+import { browserSync, createServer } from './task.server';
 import createJavaScript from './task.javascript';
+import createHTML from './task.html';
 
 const gulpConfig = require('./config.json');
 
@@ -23,6 +23,10 @@ gulp.src = function () {
 gulp.task('default', function () {
   const isDevelopment = true;
 
+  createServer({
+    src: path.join(__dirname, '../', gulpConfig.root.development.dest)
+  });
+
   createHTML({
     development: isDevelopment,
     src: path.join(__dirname, '../', gulpConfig.tasks.html.src),
@@ -32,16 +36,14 @@ gulp.task('default', function () {
   createStylesheets({
     development: isDevelopment,
     src: path.join(__dirname, '../', gulpConfig.tasks.css.src),
+    canvassrc: path.join(__dirname, '../', gulpConfig.tasks.canvascss.src),
     dest: path.join(__dirname, '../', gulpConfig.root.development.dest)
   });
 
   createJavaScript({
     development: isDevelopment,
     src: path.join(__dirname, '../', gulpConfig.tasks.js.src),
-    dest: path.join(__dirname, '../', gulpConfig.root.development.dest)
-  });
-
-  createServer({
-    src: path.join(__dirname, '../', gulpConfig.root.development.dest)
+    dest: path.join(__dirname, '../', gulpConfig.root.development.dest),
+    bs: browserSync
   });
 });

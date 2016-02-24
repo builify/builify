@@ -25,29 +25,25 @@
 				padding: 0 $base-padding;
 				@include transition(all 0.3s ease);
 
-				&:before {
-						display: block;
-						position: absolute;
-						top: 0;
-						text-align: left;
-						content: "\e687";
-						font-family: 'Pe-icon-7-stroke';
-						left: $base-padding;
-						height: $base-padding;
-						width: $base-padding;
-						@include rem(font-size, 32px);
+				svg {
+            position: absolute;
+            left: $base-padding;
+            color: inherit;
+            top: 5px;
+            margin-right: 10px;
 						@include transition(all 0.3s ease);
 						@include transform(scale3d(1, 1, 1));
-				}
+        }
 
 				span {
+						line-height: $base-padding;
 						padding-left: $base-padding;
 				}
 
 				&:hover {
 						color: $color-primary;
 
-						&:before {
+						svg {
 							@include transform(scale3d(1.2, 1.2, 1.2));
 						}
 				}

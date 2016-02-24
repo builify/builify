@@ -9,7 +9,8 @@ export const LOGGER = {
     VENDORS: 'Vendors',
     SERVER: 'Server',
     HTML: 'HTML',
-    CSS: 'Stylesheet'
+    CSS: 'Stylesheet',
+    CANVASCSS: 'Canvas Stylesheet'
   }
 };
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { filterContentBlocks } from '../../Actions';
+import Icon from './Icon';
 import _ from 'lodash';
 import classNames from 'classnames';
 
@@ -82,14 +83,23 @@ class Filter extends React.Component {
   }
 
   render () {
-    const filterClassName = classNames('ab-filter', this.state.isFilterOpened ? 'active' : '');
+    const { isFilterOpened } = this.state;
+    const filterClassName = classNames('ab-filter', isFilterOpened ? 'active' : '');
+    const filterIcon = () => {
+      return (
+        <Icon
+          icon={isFilterOpened ? 'expand-less' : 'expand-more'}
+          size='24' />
+      );
+    };
 
     return (
       <div className={filterClassName}>
         <div
           className='ab-filter__text'
           onClick={::this.filterEvent}>
-          <div>{'Filter'}</div>
+          <span>Filter</span>
+          { filterIcon() }
         </div>
         <div className='ab-filter__items'>
           {this.renderFilterItems()}
