@@ -96,13 +96,6 @@ export function removeLoadingScreen () {
   };
 }
 
-export function setPageTitle (title) {
-  return {
-    type: Actions.SET_PAGE_TITLE,
-    title: title
-  };
-}
-
 export function getBuilderConfiguration () {
   return {
     type: Actions.GET_BUILDER_CONFIGURATION

@@ -22,7 +22,7 @@ const TTDOM = {
     },
 
     isUrl (url) {
-      const reg = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/;
+      const reg = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/; //eslint-disable-line
       return url.test(reg);
     }
   },
@@ -58,34 +58,22 @@ const TTDOM = {
   },
 
   misc: {
-    getAbsPosition (el) {
-      var el2 = el;
-      var curtop = 0;
-      var curleft = 0;
+    getAbsPosition (elem, win) {
+      var box = elem.getBoundingClientRect();
 
-      if (el === undefined || el === null) {
-        return [0, 0];
-      }
+      var body = win.document.body;
+      var docEl = win.document.documentElement;
 
-      if (document.getElementById || document.all) {
-        do  {
-          curleft += el.offsetLeft-el.scrollLeft;
-          curtop += el.offsetTop-el.scrollTop;
-          el = el.offsetParent;
-          el2 = el2.parentNode;
+      var scrollTop = win.pageYOffset || docEl.scrollTop || body.scrollTop;
+      var scrollLeft = win.pageXOffset || docEl.scrollLeft || body.scrollLeft;
 
-          while (el2 !== el) {
-            curleft -= el2.scrollLeft;
-            curtop -= el2.scrollTop;
-            el2 = el2.parentNode;
-          }
-        } while (el.offsetParent);
-      } else if (document.layers) {
-        curtop += el.y;
-        curleft += el.x;
-      }
+      var clientTop = docEl.clientTop || body.clientTop || 0;
+      var clientLeft = docEl.clientLeft || body.clientLeft || 0;
 
-      return [curtop, curleft];
+      var top  = box.top +  scrollTop - clientTop;
+      var left = box.left + scrollLeft - clientLeft;
+
+      return [Math.round(top), Math.round(left)];
     }
   },
 

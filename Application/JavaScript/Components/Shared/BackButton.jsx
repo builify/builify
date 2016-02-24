@@ -24,7 +24,7 @@ class BackButton extends React.Component {
           onClick: ::this.props.clickFunction
         }, dispatch)}>
         <Icon
-          icon='chevron-left'
+          icon='arrow-back'
           size={30} />
         <span>Go Back</span>
       </div>

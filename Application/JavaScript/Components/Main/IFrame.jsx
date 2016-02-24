@@ -20,10 +20,16 @@ const Helpers = {
     target.appendChild(link);
   },
 
-  createJavaScript (source, target) {
-    let link = document.createElement('script');
-    link.src = source;
-    target.appendChild(link);
+  createJavaScript (source, target, shouldUpdate = false) {
+    let script = document.createElement('script');
+    script.src = source;
+    script.async = true;
+
+    if (shouldUpdate) {
+      script.setAttribute('data-update', true);
+    }
+
+    target.appendChild(script);
   }
 };
 
@@ -109,9 +115,14 @@ class Frame extends React.Component {
       if (type === 'css') {
         Helpers.createStylesheet(file.src, this._headElement, file.junk ? file.junk : false);
       } else if (type === 'js') {
-        _.delay(() => {
+        // Load jQuery first.
+        if (file.src.indexOf('jquery') !== -1) {
           Helpers.createJavaScript(file.src, this._headElement);
-        }, 10000);
+        } else {
+          _.delay(() => {
+            Helpers.createJavaScript(file.src, this._headElement, true);
+          }, 500);
+        }
       }
 
       this._filesLoaded++;

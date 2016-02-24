@@ -46,14 +46,10 @@
 				line-height: $item-height;
 				padding: 0 $base-padding;
 
-				&:after {
-						color: inherit;
+				svg {
 						position: absolute;
-						font-family: "Pe-icon-7-stroke";
-						content: "\e684";
+						top: 6px;
 						right: $base-padding;
-						@include rem(font-size, 30px);
-						@include transition(all 0.3s ease);
 				}
 		}
 }

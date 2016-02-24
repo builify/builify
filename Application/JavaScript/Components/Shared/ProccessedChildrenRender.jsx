@@ -53,8 +53,6 @@ export default class ProccessedChildrenRender extends React.Component {
     const { action, text, state } = item;
     const label = getString(text);
 
-    console.log(item);
-
     return (
       <Checkbox
         key={Random.randomKey('checkbox')}

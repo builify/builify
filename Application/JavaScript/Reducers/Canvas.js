@@ -3,6 +3,7 @@ import _ from 'lodash';
 import * as Actions from '../Actions/Constants';
 
 const canvasInitialState = {
+  iFrameWindow: null,
   currentHoverBlock: {
     block: {},
     topX: 10
@@ -11,12 +12,41 @@ const canvasInitialState = {
 
 function canvas (state = canvasInitialState, action) {
   switch (action.type) {
+    case Actions.LOGIC_INITIALIZED: {
+      const iFrame = TTDOM.iframe.get('ab-cfrm');
+      const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
+
+      return _.assign({}, state, {
+        iFrameWindow: iFrameWindow
+      });
+    }
+
+    case Actions.LOAD_CONTENTBLOCK_TO_PAGE: {
+      const { iFrameWindow } = state;
+      const filesToUpdate = iFrameWindow.document.querySelectorAll('[data-update]');
+
+      _.map(filesToUpdate, (file) => {
+        const fileSource = file.getAttribute('src');
+
+        // Check if
+        file.remove();
+
+        let script = iFrameWindow.document.createElement('script');
+        script.src = fileSource;
+        script.async = true;
+        script.setAttribute('data-update', true);
+
+        iFrameWindow.document.head.appendChild(script);
+      });
+    }
+
     case Actions.CURRENT_HOVER_BLOCK: {
       const { block } = action;
 
       if (_.isObject(block)) {
+        const { iFrameWindow } = state;
         const { elementReference } = block;
-        const topX = TTDOM.misc.getAbsPosition(elementReference)[0] + 10;
+        const topX = TTDOM.misc.getAbsPosition(elementReference, iFrameWindow)[0] + 10;
 
         return _.assign({}, state, {
           currentHoverBlock: {

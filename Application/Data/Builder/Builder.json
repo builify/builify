@@ -117,13 +117,6 @@
         },
         {
           "type": "block.colors",
-        },
-        {
-          "type": "block.title",
-          "title": "design.titles.swatches"
-        },
-        {
-          "type": "block.swatches"
         }
       ]
     },

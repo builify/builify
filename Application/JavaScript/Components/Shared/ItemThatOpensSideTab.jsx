@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { openSidetab } from '../../Actions';
 import { getString } from '../../Common/Localization';
 import classNames from 'classnames';
+import Icon from './Icon';
 
 class ItemThatOpensSideTab extends Component {
   static propTypes = {
@@ -24,6 +25,7 @@ class ItemThatOpensSideTab extends Component {
           return onOpenSideTab(target);
         }}>
         <span>{getString(title)}</span>
+        <Icon icon='arrow-forward' />
       </div>
     );
   }
@@ -43,7 +45,4 @@ function mapDispatchToProps (dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ItemThatOpensSideTab);
+export default connect(mapStateToProps,mapDispatchToProps)(ItemThatOpensSideTab);

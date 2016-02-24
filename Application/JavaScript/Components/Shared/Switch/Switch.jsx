@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import Thumb from './Thumb';
 
-class Switch extends React.Component {
+export default class Switch extends React.Component {
   static propTypes = {
     checked: React.PropTypes.bool,
     className: React.PropTypes.string,
@@ -21,7 +21,10 @@ class Switch extends React.Component {
   };
 
   handleToggle = (event) => {
-    if (event.pageX !== 0 && event.pageY !== 0) this.blur();
+    if (event.pageX !== 0 && event.pageY !== 0) {
+      this.blur();
+    }
+
     if (!this.props.disabled && this.props.onChange) {
       this.props.onChange(!this.props.checked, event);
     }
@@ -58,5 +61,3 @@ class Switch extends React.Component {
     );
   }
 }
-
-export default Switch;

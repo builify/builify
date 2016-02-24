@@ -9,48 +9,55 @@ export function startNewPage () {
   const uniqueKey = Math.random().toString(36).slice(-8);
   const pageID = `abpage-${currentTimestamp}-${uniqueKey}`;
 
-	return {
+  return {
     type: Actions.START_NEW_PAGE,
     pageID: pageID,
     pagesInStorage: pagesInStorage
-  }
+  };
 }
 
 export function loadPreviousPage (idx) {
   return {
     type: Actions.LOAD_PREVIOUS_PAGE,
     idx: idx
-  }
+  };
 }
 
 export function checkPreviousPagesInStorage () {
   return {
     type: Actions.DO_PREVIOUS_PAGES_EXIST_IN_STORAGE
-  }
+  };
+}
+
+export function setPageTitle (title) {
+  return {
+    type: Actions.SET_PAGE_TITLE,
+    title: title
+  };
 }
 
 export function getCurrentPageData () {
   return {
     type: Actions.GET_CURRENT_PAGE_DATA
-  }
+  };
 }
 
 export function saveCurrentPage () {
   return {
     type: Actions.SAVE_CURRENT_PAGE
-  }
+  };
 }
 
 export function downloadAsHTML () {
   return {
     type: Actions.DOWNLOAD_AS_HTML
-  }
+  };
 }
 
 export function restartPage () {
   return {
     type: Actions.RESTART_PAGE
-  }
+  };
 }
 
 export function setPageTitle (title) {
@@ -58,16 +65,16 @@ export function setPageTitle (title) {
   const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
 
   iFrameWindow.document.title = title;
-  
+
   return {
     type: Actions.SET_PAGE_TITLE,
     title: title
-  }
+  };
 }
 
 export function setPageFilename (filename) {
   return {
     type: Actions.SET_PAGE_FILENAME,
     filename: filename
-  }
+  };
 }

@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import Random  from '../Common/Random';
 import Actions from './Constants';
 
 export function addNotification (notification) {
@@ -27,7 +26,7 @@ export function removeNotification (id) {
 }
 
 export function alertNotificationRemoval (id) {
-  const element = document.getElementById('nid-' + String(id));
+  const element = document.getElementById(`nid-${String(id)}`);
 
   if (element) {
     element.classList.add('close');
@@ -92,36 +91,8 @@ export function setFont (font) {
 }
 
 export function loadContentBlockSource (source, blockType, blockName) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(loadContentBlockToPage(source, blockType, blockName));
-
-
-    console.log(source)
-    /*const xmlhttp = new XMLHttpRequest();
-    const contentBlockId = Random.randomKey();
-
-    dispatch(addNotification({
-      type: 'loading',
-      id: contentBlockId
-    }));
-
-    xmlhttp.onreadystatechange = function () {
-      if (this.readyState === XMLHttpRequest.DONE) {
-        if (this.status === 200) {
-          const response = this.responseText;
-
-          dispatch(eliminateNotification(contentBlockId));
-          dispatch(loadContentBlockToPage(response, blockType, blockName));
-        } else if (this.status === 400) {
-          throw Error('There was an error 400');
-        } else {
-          throw Error('something else other than 200 was returned');
-        }
-      }
-    };
-
-    xmlhttp.open('GET', `/Template/${source}`, true);
-    xmlhttp.send();*/
   };
 }
 
