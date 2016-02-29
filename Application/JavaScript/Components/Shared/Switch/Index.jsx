@@ -85,7 +85,9 @@ class Switch extends Component {
   }
 
   setValue (value) {
-    this.setState({checked: value});
+    this.setState({
+      checked: value
+    });
   }
 }
 

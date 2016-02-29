@@ -60,7 +60,7 @@ function proccessChildrenData (data) {
               childrenToRender.push(pagesBlock);
             } else if (blockType === 'switch') {
               let state = currentChildren.state === 'on' ? true : false;
-              let action = currentChildren.hasOwnProperty('action') ? currentChildren.action : {};
+              let action = currentChildren.hasOwnProperty('action') ? currentChildren.action : null;
               let switchBlock = {
                 type: 'switch',
                 state: state,

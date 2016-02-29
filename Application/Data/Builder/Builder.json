@@ -132,9 +132,10 @@
         {
           "type": "block.switch",
           "state": "off",
-          "name": "design.titles.verticalrythm"
+          "name": "design.titles.verticalrythm",
+          "action": "toggle.baseline"
         },
-        {
+        /*{
           "type": "block.title",
           "title": "design.titles.typography"
         },
@@ -145,7 +146,7 @@
         {
           "type": "block.font.body",
           "label": "design.typography.fonts.body"
-        },
+        },*/
         {
           "type": "block.title",
           "title": "design.titles.sizes"

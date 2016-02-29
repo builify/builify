@@ -1,6 +1,5 @@
 .#{$nameprefix}title {
 		position: relative;
-		margin-top: 15px;
 		margin-bottom: 5px;
 		padding-left: $base-padding;
 		padding-right: $base-padding;
@@ -21,6 +20,18 @@
 			@include rem(font-size, 14px);
 	}
 }
+
+.ab-sidetab,
+.ab-tab {
+		.#{$nameprefix}title {
+				margin-top: 25px;
+
+				&:first-child {
+						margin-top: 15px;
+				}
+		}
+}
+
 .react-selectize {
   color: #000;
   background-color: #fff;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { getString } from '../../Common/Localization';
 import Random from '../../Common/Random';
 import _ from 'lodash';
 import Filter from './Filter';
@@ -11,7 +10,7 @@ import Size from './Size';
 import Title from './Title';
 import ItemThatOpensSideTab from './ItemThatOpensSideTab';
 import FontSelection from './FontSelection';
-import Checkbox from './Checkbox';
+import CheckBoxWrapper from './CheckBoxWrapper';
 
 /* eslint-disable */
 export default class ProccessedChildrenRender extends React.Component {
@@ -50,15 +49,12 @@ export default class ProccessedChildrenRender extends React.Component {
   }
 
   renderSwitch (item) {
-    const { action, text, state } = item;
-    const label = getString(text);
+    const key = Random.randomKey('checkbox');
 
     return (
-      <Checkbox
-        key={Random.randomKey('checkbox')}
-        label={label}
-        checked={true}
-        onChange={(e) => console.log(e)} />
+      <CheckBoxWrapper
+        key={key}
+        item={item} />
     );
   }
 

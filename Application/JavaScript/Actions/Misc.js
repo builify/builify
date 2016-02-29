@@ -1,6 +1,13 @@
 import _ from 'lodash';
 import Actions from './Constants';
 
+export function toggleBaseline (checked) {
+  return {
+    type: Actions.TOGGLE_BASELINE,
+    checked: checked
+  };
+}
+
 export function addNotification (notification) {
   return {
     type: Actions.ADD_NOTIFICATION,

@@ -63,6 +63,10 @@ export default keyMirror([
   'CURRENT_HOVER_BLOCK',
   'REMOVE_CONTENTBLOCK',
 
+  // Checkbox's actions
+  'TOGGLE_BASELINE',
+
+  // Modal's/Dialog's actions
   'SELECT_IMAGE',
   'OPEN_CONTENTBLOCK_SETTINGS',
   'SORT_CONTENTBLOCKS',

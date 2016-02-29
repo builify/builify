@@ -19,7 +19,7 @@
     &.chalk {
         height: 100%;
         width: 100%;
-        background-image: url("Assets/GFX/checkerboard.png");
+        background-image: url("Assets/checkerboard.png");
         @include display(flex);
         @include align-items(center);
 

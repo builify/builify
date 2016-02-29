@@ -1,6 +1,7 @@
 import TTStylesheet from 'ttstylesheet';
 import _ from 'lodash';
 import TTDOM from '../Common/TTDOM';
+import TTBaseliner from '../TTBaseliner';
 import * as Actions from '../Actions/Constants';
 
 const initialState = {
@@ -17,16 +18,16 @@ const initialState = {
     colors: {},
 
     typography: {
-      fonts: {
-        header: '',
-        body: ''
-      },
       size: {
         basefont: 16,
         baseline: 24
       }
     }
-  }
+  },
+
+  iFrameWindow: null,
+  baseline: null,
+  drawBaseline: false
 };
 
 function template (state = initialState, action) {
@@ -36,9 +37,30 @@ function template (state = initialState, action) {
       const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
       const headElement = iFrameWindow.document.head;
       const customStylesheet = new TTStylesheet(headElement);
+      const baseline = new TTBaseliner({
+        gridTarget: iFrameWindow.document
+      });
+
+      baseline.off();
 
       return _.assign({}, state, {
+        iFrameWindow: iFrameWindow,
+        baseline: baseline,
         templateStylesheet: customStylesheet
+      });
+    }
+
+    case Actions.TOGGLE_BASELINE: {
+      const { checked } = action;
+
+      if (checked) {
+        state.baseline.on();
+      } else {
+        state.baseline.off();
+      }
+
+      return _.assign({}, state, {
+        drawBaseline: checked
       });
     }
 

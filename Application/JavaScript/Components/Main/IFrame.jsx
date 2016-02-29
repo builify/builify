@@ -85,6 +85,7 @@ class Frame extends React.Component {
       ReactDOM.render(this.props.children, rootElement);
 
       this.appendFiles(template.external.core);
+
     } else {
       setTimeout(this.renderFrame, 0);
     }

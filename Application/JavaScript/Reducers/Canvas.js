@@ -4,10 +4,13 @@ import * as Actions from '../Actions/Constants';
 
 const canvasInitialState = {
   iFrameWindow: null,
+
   currentHoverBlock: {
     block: {},
     topX: 10
-  }
+  },
+
+  drawBaseline: false
 };
 
 function canvas (state = canvasInitialState, action) {
@@ -21,6 +24,15 @@ function canvas (state = canvasInitialState, action) {
       });
     }
 
+    case Actions.TOGGLE_BASELINE: {
+      const { checked } = action;
+
+      return _.assign({}, state, {
+        drawBaseline: checked
+      });
+    }
+
+    case Actions.LOAD_PREVIOUS_PAGE:
     case Actions.LOAD_CONTENTBLOCK_TO_PAGE: {
       const { iFrameWindow } = state;
       const filesToUpdate = iFrameWindow.document.querySelectorAll('[data-update]');

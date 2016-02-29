@@ -25,6 +25,11 @@ const pageInitialState = {
 
 function resetBlockParameters (block) {
   if (_.isObject(block)) {
+    // Better check needed though, but works now.
+    if (_.size(block) < 5) {
+      return block = {};
+    }
+
     return _.assign({}, block, {
       hasBeenRendered: false,
       elementReference: null
@@ -283,9 +288,6 @@ function page (state = pageInitialState, action) {
         footer: newFooter
       });
     }
-
-    case Actions.GET_CURRENT_PAGE_DATA:
-      return state;
 
     case Actions.SORT_CONTENTBLOCKS: {
       const { evt } = action;

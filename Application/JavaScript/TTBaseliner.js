@@ -5,7 +5,7 @@ export default class {
     'gridOffset': 0,
     'gridOpacity': 100,
     'gridSpace': 1,
-    'gridTarget': document.body
+    'gridTarget': document
   };
 
   overlay = null;
@@ -29,9 +29,9 @@ export default class {
       gridTarget,
       gridOpacity
     } = this.userProps;
-    const svgURL = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='${gridSpace}' height='${gridHeight}'><rect style='fill:${gridColor};' width='1' height='0.25px' x='0' y='0'/></svg>")`;
+    const svgURL = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='${gridSpace}' height='${gridHeight}'><rect style='fill:${gridColor};' width='1' height='0.25px' x='0' y='0'/></svg>")`; //eslint-disable-line max-len
 
-    this.overlay = document.createElement('div');
+    this.overlay = gridTarget.createElement('div');
     this.overlay.id = 'ttbaseline';
     this.overlay.style.backgroundImage = svgURL;
     this.overlay.style.position = 'absolute';
@@ -41,20 +41,22 @@ export default class {
     this.overlay.style.pointerEvents = 'none';
     this.overlay.style.opacity = gridOpacity / 100;
 
-    gridTarget.appendChild(this.overlay);
+    gridTarget.body.appendChild(this.overlay);
 
     this.resize();
   }
 
   getSizeParameter(name) {
+    const { gridTarget } = this.userProps;
+
     name = name && name[0].toUpperCase() + name.slice(1);
 
     return Math.max(
-      document.documentElement[`client${name}`],
-      document.body[`scroll${name}`],
-      document.documentElement[`scroll${name}`],
-      document.body[`offset${name}`],
-      document.documentElement[`offset${name}`]
+      gridTarget.documentElement[`client${name}`],
+      gridTarget.body[`scroll${name}`],
+      gridTarget.documentElement[`scroll${name}`],
+      gridTarget.body[`offset${name}`],
+      gridTarget.documentElement[`offset${name}`]
     );
   }
 
@@ -88,6 +90,7 @@ export default class {
   }
 
   on () {
+    this.resize();
     this.overlay.style.display = 'block';
     return this;
   }
