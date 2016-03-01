@@ -142,6 +142,10 @@ class ClickToolbox extends React.Component {
     return onOpenLinkEditModal(target);
   }
 
+  _cloneItem (e) {
+    Events.pauseEvent(e);
+  }
+
   _openIconEditModal (e) {
     const { onOpenIconEditModal } = this.props;
     const { target } = this.state;
@@ -210,6 +214,15 @@ class ClickToolbox extends React.Component {
       <ClickToolBoxItem
         icon='link'
         text='Change Link'
+        onClick={::this._cloneItem} />
+    );
+  }
+
+  listClone () {
+    return (
+      <ClickToolBoxItem
+        icon='control-point-duplicate'
+        text='Clone'
         onClick={::this._openLinkEditModal} />
     );
   }
@@ -237,6 +250,7 @@ class ClickToolbox extends React.Component {
     let elementOptions = {
       showIconChange: false,
       showLinkChange: false,
+      showClone: true,
       showChangeImage: false,
       showChangeBackgroundImage: false,
       showRemove: false,
@@ -280,6 +294,7 @@ class ClickToolbox extends React.Component {
           elementOptions.showChangeBackgroundImage )?
           this.listImageChange() : null }
         { elementOptions.showLinkChange ? this.listLinkChange() : null }
+        { elementOptions.showClone ? this.listClone() : null }
         { elementOptions.showIconChange ? this.listIconChange() : null}
         { elementOptions.showExpandColumn ? this.listExpandColumn() : null }
         { elementOptions.showShrinkColumn ? this.listShrinkColumn() : null }

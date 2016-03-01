@@ -27,6 +27,11 @@ export default class Icon extends React.Component {
 
   renderGraphic () {
     switch (this.props.icon) {
+      case 'control-point-duplicate':
+        return (
+          <g><path d="M16 8h-2v3h-3v2h3v3h2v-3h3v-2h-3zm-14 4c0-2.79 1.64-5.2 4.01-6.32v-2.16c-3.49 1.24-6.01 4.57-6.01 8.48s2.52 7.24 6.01 8.48v-2.16c-2.37-1.12-4.01-3.53-4.01-6.32zm13-9c-4.96 0-9 4.04-9 9s4.04 9 9 9 9-4.04 9-9-4.04-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"></path></g>
+        );
+
       case 'clear':
         return (
           <g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g>
