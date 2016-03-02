@@ -2,8 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getProperty } from '../../Common/Common';
 import { getString } from '../../Common/Localization';
+import { changeBaseFontSize, changeBaselineValue } from '../../Actions';
+import Events from '../../Common/Events';
 
 class Size extends React.Component {
+  _item = null;
+
   state = {
     value: 0,
     isIE: false,
@@ -17,6 +21,8 @@ class Size extends React.Component {
     const defaultValue = getProperty(template, label);
     const isIE = !!navigator.userAgent.match(/Trident.*rv[ :]*11\./);
 
+    this._item = item;
+
     this.setState({
       value: defaultValue ? +defaultValue : 0,
       isIE: isIE,
@@ -27,15 +33,22 @@ class Size extends React.Component {
   }
 
   changeEvent (e) {
-    e.preventDefault();
-
+    const { sizeType } = this._item;
     let { target } = e;
     let { value } = target;
+
+    Events.pauseEvent(e);
 
     this.setState({
       ...this.state,
       value: +value
     });
+
+    if (sizeType === 'basefont') {
+      return this.props.onBaseFontSizeChange(+value);
+    } else if (sizeType === 'baseline') {
+      return this.props.onBaselineChange(+value);
+    }
   }
 
   render () {
@@ -68,4 +81,16 @@ function mapStateToProps (state) {
   };
 }
 
-export default connect(mapStateToProps)(Size);
+function mapDispatchToProps (dispatch) {
+  return {
+    onBaseFontSizeChange: (value) => {
+      dispatch(changeBaseFontSize(value));
+    },
+
+    onBaselineChange: (value) => {
+      dispatch(changeBaselineValue(value));
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Size);

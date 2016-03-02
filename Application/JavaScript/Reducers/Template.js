@@ -1,5 +1,5 @@
-import TTStylesheet from 'ttstylesheet';
 import _ from 'lodash';
+import TTStylesheet from 'ttstylesheet';
 import TTDOM from '../Common/TTDOM';
 import TTBaseliner from '../TTBaseliner';
 import * as Actions from '../Actions/Constants';
@@ -38,7 +38,8 @@ function template (state = initialState, action) {
       const headElement = iFrameWindow.document.head;
       const customStylesheet = new TTStylesheet(headElement);
       const baseline = new TTBaseliner({
-        gridTarget: iFrameWindow.document
+        gridTarget: iFrameWindow.document,
+        gridHeight: state.design.typography.size.baseline
       });
 
       baseline.off();
@@ -122,6 +123,27 @@ function template (state = initialState, action) {
       return _.assign({}, state, {
         design: design
       });
+    }
+
+    case Actions.CHANGE_BASE_FONT_SIZE: {
+      const { value } = action;
+      const { templateStylesheet } = state;
+
+      if (value) {
+        templateStylesheet.add({
+          html: {
+            fontSize: value
+          }
+        });
+
+        templateStylesheet.initCSS();
+
+        return _.assign({}, state, {
+
+        });
+      }
+
+      return state;
     }
 
     case Actions.SET_SWATCH:

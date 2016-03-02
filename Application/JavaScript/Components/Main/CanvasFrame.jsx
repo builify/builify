@@ -13,12 +13,13 @@ import TTEditor from '../../TTEditor';
 
 class CanvasFrame extends React.Component {
   _blocks = {};
+  _editor = null;
 
   componentDidMount () {
     const iFrame = TTDOM.iframe.get('ab-cfrm');
     const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
 
-    new TTEditor({
+    this._editor = new TTEditor({
       elementsContainer: iFrameWindow
     });
   }

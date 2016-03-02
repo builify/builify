@@ -60,5 +60,21 @@ export default {
       element.classList.remove(result);
       element.classList.add(result.replace(/(\d){1,2}?$/, number));
     }
+  },
+
+  cloneItem (element) {
+    const cloneElement = element.cloneNode(true);
+    const parent = element.parentNode;
+
+    if (TTDOM.element.is(parent, 'li')) {
+      const parentsParent = parent.parentNode;
+      const newListItem = document.createElement('li');
+
+      newListItem.appendChild(cloneElement);
+
+      parentsParent.insertBefore(newListItem, parent.nextSibling);
+    } else {
+      parent.insertBefore(cloneElement, element.nextSibling);
+    }
   }
 };

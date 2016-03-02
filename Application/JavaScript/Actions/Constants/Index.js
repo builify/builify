@@ -62,6 +62,9 @@ export default keyMirror([
   'CONTENTBLOCK_WAS_UPDATED',
   'CURRENT_HOVER_BLOCK',
   'REMOVE_CONTENTBLOCK',
+  'CLONE_ITEM',
+  'CHANGE_BASE_FONT_SIZE',
+  'CHANGE_BASELINE_VALUE',
 
   // Checkbox's actions
   'TOGGLE_BASELINE',

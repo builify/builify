@@ -71,7 +71,7 @@
           "type": "open.sidetab",
           "title": "design.titles.typography",
           "target": "design.typography"
-        },
+        }/*,
         {
           "type": "block.title",
           "title": "design.titles.misc"
@@ -94,7 +94,7 @@
           "type": "block.switch",
           "state": "off",
           "name": "design.titles.darkskin"
-        }
+        }*/
       ]
     }
   ],
@@ -154,13 +154,13 @@
         {
           "type": "block.size.basefont",
           "min": 8,
-          "max": 100,
+          "max": 50,
           "label": "design.typography.size.basefont"
         },
         {
           "type": "block.size.baseline",
-          "min": 8,
-          "max": 100,
+          "min": 0,
+          "max": 50,
           "label": "design.typography.size.baseline"
         }
       ]

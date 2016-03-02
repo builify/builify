@@ -51,6 +51,11 @@ function resetBlocks (blocks) {
 
 function page (state = pageInitialState, action) {
   switch (action.type) {
+    case Actions.CLONE_ITEM: {
+      // To update hovering events.
+      return _.assign({}, state);
+    }
+
     case Actions.SET_PAGE_TITLE: {
       const { title } = action;
 

@@ -143,7 +143,14 @@ class ClickToolbox extends React.Component {
   }
 
   _cloneItem (e) {
+    const { onCloneItem } = this.props;
+    const { target } = this.state;
+
     Events.pauseEvent(e);
+
+    Helpers.cloneItem(target);
+
+    return onCloneItem();
   }
 
   _openIconEditModal (e) {
@@ -214,7 +221,7 @@ class ClickToolbox extends React.Component {
       <ClickToolBoxItem
         icon='link'
         text='Change Link'
-        onClick={::this._cloneItem} />
+        onClick={::this._openLinkEditModal} />
     );
   }
 
@@ -223,7 +230,7 @@ class ClickToolbox extends React.Component {
       <ClickToolBoxItem
         icon='control-point-duplicate'
         text='Clone'
-        onClick={::this._openLinkEditModal} />
+        onClick={::this._cloneItem} />
     );
   }
 
@@ -348,6 +355,10 @@ function mapDispatchToProps (dispatch) {
 
     onOpenImageEditModal: (target) => {
       dispatch(Actions.openImageEditModal(target));
+    },
+
+    onCloneItem: () => {
+      dispatch(Actions.cloneItem());
     }
   };
 }

@@ -208,3 +208,23 @@ export function getImagesLibrary () {
     data: imagesLibraryJSON
   };
 }
+
+export function cloneItem () {
+  return {
+    type: Actions.CLONE_ITEM
+  };
+}
+
+export function changeBaseFontSize (value) {
+  return {
+    type: Actions.CHANGE_BASE_FONT_SIZE,
+    value: value
+  };
+}
+
+export function changeBaselineValue (value) {
+  return {
+    type: Actions.CHANGE_BASELINE_VALUE,
+    value: value
+  };
+}
