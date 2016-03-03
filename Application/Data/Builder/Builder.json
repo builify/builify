@@ -155,12 +155,14 @@
           "type": "block.size.basefont",
           "min": 8,
           "max": 50,
+          "step": 1,
           "label": "design.typography.size.basefont"
         },
         {
           "type": "block.size.baseline",
           "min": 0,
-          "max": 50,
+          "max": 15,
+          "step": 0.1,
           "label": "design.typography.size.baseline"
         }
       ]

@@ -24,9 +24,15 @@
       "type": "navigation",
       "items": [
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Top Navigation",
           "thumbnail": "assets/navigation-top-navigation.png",
-          "source": "<header class=\"navigation\" data-picture=\"1\">\n      <div class=\"navigation-wrapper\">\n        <div class=\"navigation-content\">\n          <div class=\"logo\">\n            <a href=\"#\">\n              <img src=\"assets/logo-placeholder.png\" alt=\"Your logo here\">\n            </a>\n          </div>\n          <div class=\"navigation-nav\">\n            <nav>\n              <ul class=\"primary-nav\">\n                <li><a href=\"#features\">Home</a></li>\n                <li><a href=\"#assets\">About</a></li>\n                <li><a href=\"#blog\">Blog</a></li>\n                <li><a href=\"#download\">Download</a></li>\n              </ul>\n            </nav>\n          </div>\n          <div class=\"navigation-icon\">\n            <a class=\"navigation-icon-toggle\" href=\"#\"><span></span></a>\n          </div>\n        </div>\n      </div>\n    </header>"
+          "source": "<header class=\"navigation\">\n      <div class=\"navigation-wrapper\">\n        <div class=\"navigation-content\">\n          <div class=\"logo\">\n            <a href=\"#\">\n              <img src=\"assets/logo-placeholder.png\" alt=\"Your logo here\">\n            </a>\n          </div>\n          <div class=\"navigation-nav\">\n            <nav>\n              <ul class=\"primary-nav\">\n                <li><a href=\"#features\">Home</a></li>\n                <li><a href=\"#assets\">About</a></li>\n                <li><a href=\"#blog\">Blog</a></li>\n                <li><a href=\"#download\">Download</a></li>\n              </ul>\n            </nav>\n          </div>\n          <div class=\"navigation-icon\">\n            <a class=\"navigation-icon-toggle\" href=\"#\"><span></span></a>\n          </div>\n        </div>\n      </div>\n    </header>"
         }
       ]
     },
@@ -34,19 +40,37 @@
       "type": "cover",
       "items": [
         {
+          "features": {
+            "videoBackground": true,
+            "imageBackground": false,
+            "colorBackground": true,
+            "countdown": false
+          },
           "title": "Video Cover",
           "thumbnail": "assets/cover-video-cover.png",
-          "source": "<div class=\"block block-inverse block-video\" data-picture=\"2\">\n      <div class=\"block-background-cover-color zIndex-2\" style=\"background-color: #333; opacity: 0.7;\"></div>\n      <div class=\"block-video-holder zIndex-1\" data-videoid=\"LSmgKRx5pBo\"></div>\n      <div class=\"block-align-middle\">\n        <div class=\"container\">\n          <div class=\"row\">\n            <div class=\"col-md-6 zIndex-3\">\n              <h1 class=\"display-4 text-uppercase m-b-0 text-split\">John Jr. David</h1>\n              <h4 class=\"m-b-2\">Hedge Fund CEO</h4>\n              <p class=\"lead text-muted m-b-1\">The best investment on Earth is Earth.</p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block block-inverse block-video\">\n      <div class=\"block-background-cover-color zIndex-2\" style=\"background-color: #333; opacity: 0.7;\"></div>\n      <div class=\"block-video-holder zIndex-1\" data-videoid=\"LSmgKRx5pBo\"></div>\n      <div class=\"block-align-middle\">\n        <div class=\"container\">\n          <div class=\"row\">\n            <div class=\"col-md-6 zIndex-3\">\n              <h1 class=\"display-4 text-uppercase m-b-0 text-split\">John Jr. David</h1>\n              <h4 class=\"m-b-2\">Hedge Fund CEO</h4>\n              <p class=\"lead text-muted m-b-1\">The best investment on Earth is Earth.</p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": true,
+            "colorBackground": true,
+            "countdown": false
+          },
           "title": "Image Cover",
           "thumbnail": "assets/cover-image-cover.png",
-          "source": "<div class=\"block block-inverse block-hero\" style=\"background-image: url(assets/image-1.jpg);\" data-picture=\"3\">\n      <div class=\"block-background-cover-color\" style=\"background-color: #444; opacity: 0.7;\"></div>\n      <div class=\"block-align-middle\">\n        <div class=\"container\">\n          <div class=\"row\">\n            <div class=\"col-md-6\">\n              <h1 class=\"display-4 text-uppercase m-b-0 text-split\">John Jr. David</h1>\n              <h4 class=\"m-b-2\">Hedge Fund CEO</h4>\n              <p class=\"lead text-muted m-b-1\">The best investment on Earth is Earth.</p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block block-inverse block-hero\" style=\"background-image: url(assets/image-1.jpg);\">\n      <div class=\"block-background-cover-color\" style=\"background-color: #444; opacity: 0.7;\"></div>\n      <div class=\"block-align-middle\">\n        <div class=\"container\">\n          <div class=\"row\">\n            <div class=\"col-md-6\">\n              <h1 class=\"display-4 text-uppercase m-b-0 text-split\">John Jr. David</h1>\n              <h4 class=\"m-b-2\">Hedge Fund CEO</h4>\n              <p class=\"lead text-muted m-b-1\">The best investment on Earth is Earth.</p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": true,
+            "countdown": false
+          },
           "title": "Background Color Cover",
           "thumbnail": "assets/cover-background-color-cover.png",
-          "source": "<div class=\"block block-inverse block-hero\" data-picture=\"4\">\n      <div class=\"block-background-cover-color\" style=\"background-color: #663fb5; opacity: 0.7;\"></div>\n      <div class=\"block-align-middle\">\n        <div class=\"container\">\n          <div class=\"row\">\n            <div class=\"col-md-12 text-xs-center\">\n              <h1 class=\"m-b-0\">We invest money to seed early-stage, emerging and growth companies</h1>\n            </div>\n          </div>\n          <div class=\"row block-absolute-bottom m-b-3\">\n            <div class=\"col-md-12 text-xs-center\">\n              <button class=\"btn btn-square btn-lg\">Contact Us!</button>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block block-inverse block-hero\">\n      <div class=\"block-background-cover-color\" style=\"background-color: #663fb5; opacity: 0.7;\"></div>\n      <div class=\"block-align-middle\">\n        <div class=\"container\">\n          <div class=\"row\">\n            <div class=\"col-md-12 text-xs-center\">\n              <h1 class=\"m-b-0\">We invest money to seed early-stage, emerging and growth companies</h1>\n            </div>\n          </div>\n          <div class=\"row block-absolute-bottom m-b-3\">\n            <div class=\"col-md-12 text-xs-center\">\n              <button class=\"btn btn-square btn-lg\">Contact Us!</button>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>"
         }
       ]
     },
@@ -54,14 +78,26 @@
       "type": "countdown",
       "items": [
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": true,
+            "colorBackground": true,
+            "countdown": true
+          },
           "title": "Countdown Cover",
           "thumbnail": "assets/countdown-countdown-cover.png",
-          "source": "<div class=\"block block-inverse block-hero\" style=\"background-image: url(assets/image-2.jpg);\" data-picture=\"5\">\n      <div class=\"block-background-cover-color\" style=\"background-color: #333; opacity: 0.7;\"></div>\n      <div class=\"block-align-middle\">\n        <div class=\"container\">\n          <div class=\"row\">\n            <div class=\"col-md-12 text-xs-center\">\n              <h1 class=\"m-y-0 display-4 text-uppercase\">Launching in</h1>\n              <h2 class=\"m-y-2 countdown text-muted display-4 font-weight-light\" data-date=\"2016/03/01\" data-dateformat=\"%w weeks %d days %H:%M:%S\"></h2>\n              <p class=\"p-t-1\">Sign-up via newsletter to get updates about our launch.</p>\n            </div>\n            <div class=\"row\">\n              <div class=\"col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-3\">\n                <div class=\"input-group\">\n                  <input class=\"form-control m-b-1 no-border-radius\" placeholder=\"Email Address\">\n                  <span class=\"input-group-btn\">\n                    <button class=\"btn btn-primary m-b-1 no-border-radius\">Get started</button>\n                  </span>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block block-inverse block-hero\" style=\"background-image: url(assets/image-2.jpg);\">\n      <div class=\"block-background-cover-color\" style=\"background-color: #333; opacity: 0.7;\"></div>\n      <div class=\"block-align-middle\">\n        <div class=\"container\">\n          <div class=\"row\">\n            <div class=\"col-md-12 text-xs-center\">\n              <h1 class=\"m-y-0 display-4 text-uppercase\">Launching in</h1>\n              <h2 class=\"m-y-2 countdown text-muted display-4 font-weight-light\" data-date=\"2016/03/01\" data-dateformat=\"%w weeks %d days %H:%M:%S\"></h2>\n              <p class=\"p-t-1\">Sign-up via newsletter to get updates about our launch.</p>\n            </div>\n            <div class=\"row\">\n              <div class=\"col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-3\">\n                <div class=\"input-group\">\n                  <input class=\"form-control m-b-1 no-border-radius\" placeholder=\"Email Address\">\n                  <span class=\"input-group-btn\">\n                    <button class=\"btn btn-primary m-b-1 no-border-radius\">Get started</button>\n                  </span>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": true
+          },
           "title": "Offer Countdown",
           "thumbnail": "assets/countdown-offer-countdown.png",
-          "source": "<div class=\"block block-inverse\" data-picture=\"17\">\n      <div class=\"block-background-icon fa fa-clock-o\"></div>\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-sm-12 text-xs-center\">\n            <h2 class=\"text-primary\">Time Left to Order</h2>\n            <h2 class=\"m-t-2 countdown text-muted\" data-date=\"2017/01/01\" data-dateformat=\"%w weeks %d days %H:%M:%S\"></h2>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block block-inverse\">\n      <div class=\"block-background-icon fa fa-clock-o\"></div>\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-sm-12 text-xs-center\">\n            <h2 class=\"text-primary\">Time Left to Order</h2>\n            <h2 class=\"m-t-2 countdown text-muted\" data-date=\"2017/01/01\" data-dateformat=\"%w weeks %d days %H:%M:%S\"></h2>\n          </div>\n        </div>\n      </div>\n    </div>"
         }
       ]
     },
@@ -69,9 +105,15 @@
       "type": "features",
       "items": [
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Basic Features",
           "thumbnail": "assets/features-basic-features.png",
-          "source": "<div class=\"block\" data-picture=\"6\">\n      <div class=\"container\">\n        <div class=\"row p-y-3\">\n          <div class=\"col-md-3\">\n            <div class=\"infobox\">\n              <header>\n                <i class=\"infobox-icon text-muted fa fa-percent\"></i>\n                <div class=\"infobox-number\">100</div>\n                <div class=\"infobox-type\">Percent</div>\n              </header>\n              <p>Designed, written, cooked and fast to deliver gibberish.</p>\n            </div>\n          </div>\n          <div class=\"col-md-3\">\n            <div class=\"infobox\">\n              <header>\n                <i class=\"infobox-icon text-muted fa fa-rocket\"></i>\n                <div class=\"infobox-number\">25000</div>\n                <div class=\"infobox-type\">Miles</div>\n              </header>\n              <p>Have been travelled by our next-generation rocket.</p>\n            </div>\n          </div>\n          <div class=\"col-md-3\">\n            <div class=\"infobox\">\n              <header>\n                <i class=\"infobox-icon text-muted fa fa-calendar\"></i>\n                <div class=\"infobox-number\">365</div>\n                <div class=\"infobox-type\">Days</div>\n              </header>\n              <p>Are found in calendar most of the time. Except for leap year.</p>\n            </div>\n          </div>\n          <div class=\"col-md-3\">\n            <div class=\"infobox\">\n              <header>\n                <i class=\"infobox-icon text-muted fa fa-check\"></i>\n                <div class=\"infobox-number\">99.9</div>\n                <div class=\"infobox-type\">Percent</div>\n              </header>\n              <p>Guarantee that we will solve all your world problems.</p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block\">\n      <div class=\"container\">\n        <div class=\"row p-y-3\">\n          <div class=\"col-md-3\">\n            <div class=\"infobox\">\n              <header>\n                <i class=\"infobox-icon text-muted fa fa-percent\"></i>\n                <div class=\"infobox-number\">100</div>\n                <div class=\"infobox-type\">Percent</div>\n              </header>\n              <p>Designed, written, cooked and fast to deliver gibberish.</p>\n            </div>\n          </div>\n          <div class=\"col-md-3\">\n            <div class=\"infobox\">\n              <header>\n                <i class=\"infobox-icon text-muted fa fa-rocket\"></i>\n                <div class=\"infobox-number\">25000</div>\n                <div class=\"infobox-type\">Miles</div>\n              </header>\n              <p>Have been travelled by our next-generation rocket.</p>\n            </div>\n          </div>\n          <div class=\"col-md-3\">\n            <div class=\"infobox\">\n              <header>\n                <i class=\"infobox-icon text-muted fa fa-calendar\"></i>\n                <div class=\"infobox-number\">365</div>\n                <div class=\"infobox-type\">Days</div>\n              </header>\n              <p>Are found in calendar most of the time. Except for leap year.</p>\n            </div>\n          </div>\n          <div class=\"col-md-3\">\n            <div class=\"infobox\">\n              <header>\n                <i class=\"infobox-icon text-muted fa fa-check\"></i>\n                <div class=\"infobox-number\">99.9</div>\n                <div class=\"infobox-type\">Percent</div>\n              </header>\n              <p>Guarantee that we will solve all your world problems.</p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>"
         }
       ]
     },
@@ -79,34 +121,70 @@
       "type": "title",
       "items": [
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Page Title",
           "thumbnail": "assets/title-page-title.png",
-          "source": "<div class=\"block\" data-picture=\"7\">\n      <div class=\"container\">\n        <div class=\"row align-center\">\n          <div class=\"col-sm-6\">\n            <h1>Page Title</h1>\n          </div>\n          <div class=\"col-sm-6\">\n            <ul class=\"navigation-title text-xs-right\">\n              <li>Home</li>\n              <li>Category</li>\n              <li>Current page</li>\n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block\">\n      <div class=\"container\">\n        <div class=\"row align-center\">\n          <div class=\"col-sm-6\">\n            <h1>Page Title</h1>\n          </div>\n          <div class=\"col-sm-6\">\n            <ul class=\"navigation-title text-xs-right\">\n              <li>Home</li>\n              <li>Category</li>\n              <li>Current page</li>\n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Page Title Big",
           "thumbnail": "assets/title-page-title-big.png",
-          "source": "<div class=\"block\" data-picture=\"8\">\n      <div class=\"container\">\n        <div class=\"row align-center p-y-2\">\n          <div class=\"col-sm-6\">\n            <h1 class=\"display-4\">Page Title</h1>\n            <h5 class=\"text-muted\">Some short description</h5>\n          </div>\n          <div class=\"col-sm-6\">\n            <ul class=\"navigation-title text-xs-right\">\n              <li>Home</li>\n              <li>Category</li>\n              <li>Current page</li>\n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block\">\n      <div class=\"container\">\n        <div class=\"row align-center p-y-2\">\n          <div class=\"col-sm-6\">\n            <h1 class=\"display-4\">Page Title</h1>\n            <h5 class=\"text-muted\">Some short description</h5>\n          </div>\n          <div class=\"col-sm-6\">\n            <ul class=\"navigation-title text-xs-right\">\n              <li>Home</li>\n              <li>Category</li>\n              <li>Current page</li>\n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": true,
+            "colorBackground": true,
+            "countdown": false
+          },
           "title": "Page Title w/ Background",
           "thumbnail": "assets/title-page-title-w-background.png",
-          "source": "<div class=\"block block-picture block-inverse\" style=\"background-image: url(assets/image-1.jpg);\" data-picture=\"9\">\n      <div class=\"block-background-cover-color\" style=\"background-color: #222; opacity: 0.9;\"></div>\n      <div class=\"container\">\n        <div class=\"row align-center\">\n          <div class=\"col-sm-6\">\n            <h1 class=\"display-4 text-muted\">Page Title</h1>\n            <h5 class=\"text-muted\">Some short description</h5>\n          </div>\n          <div class=\"col-sm-6\">\n            <ul class=\"navigation-title text-xs-right\">\n              <li>Home</li>\n              <li>Category</li>\n              <li>Current page</li>\n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block block-picture block-inverse\" style=\"background-image: url(assets/image-1.jpg);\">\n      <div class=\"block-background-cover-color\" style=\"background-color: #222; opacity: 0.9;\"></div>\n      <div class=\"container\">\n        <div class=\"row align-center\">\n          <div class=\"col-sm-6\">\n            <h1 class=\"display-4 text-muted\">Page Title</h1>\n            <h5 class=\"text-muted\">Some short description</h5>\n          </div>\n          <div class=\"col-sm-6\">\n            <ul class=\"navigation-title text-xs-right\">\n              <li>Home</li>\n              <li>Category</li>\n              <li>Current page</li>\n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Page Title Center",
           "thumbnail": "assets/title-page-title-center.png",
-          "source": "<div class=\"block\" data-picture=\"10\">\n      <div class=\"container\">\n        <div class=\"row text-xs-center\">\n          <div class=\"col-sm-12\">\n            <h1>Page Title</h1>\n          </div>\n        </div>\n        <div class=\"row m-t-2\">\n          <div class=\"col-sm-12\">\n            <ul class=\"navigation-title text-xs-center\">\n              <li>Home</li>\n              <li>Category</li>\n              <li>Current page</li>\n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block\">\n      <div class=\"container\">\n        <div class=\"row text-xs-center\">\n          <div class=\"col-sm-12\">\n            <h1>Page Title</h1>\n          </div>\n        </div>\n        <div class=\"row m-t-2\">\n          <div class=\"col-sm-12\">\n            <ul class=\"navigation-title text-xs-center\">\n              <li>Home</li>\n              <li>Category</li>\n              <li>Current page</li>\n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Page Title Center Big",
           "thumbnail": "assets/title-page-title-center-big.png",
-          "source": "<div class=\"block\" data-picture=\"11\">\n      <div class=\"container\">\n        <div class=\"row text-xs-center\">\n          <div class=\"col-sm-12\">\n            <h1 class=\"display-4\">Page Title</h1>\n          </div>\n        </div>\n        <div class=\"row m-t-2\">\n          <div class=\"col-sm-12\">\n            <ul class=\"navigation-title text-xs-center\">\n              <li>Home</li>\n              <li>Category</li>\n              <li>Current page</li>\n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block\">\n      <div class=\"container\">\n        <div class=\"row text-xs-center\">\n          <div class=\"col-sm-12\">\n            <h1 class=\"display-4\">Page Title</h1>\n          </div>\n        </div>\n        <div class=\"row m-t-2\">\n          <div class=\"col-sm-12\">\n            <ul class=\"navigation-title text-xs-center\">\n              <li>Home</li>\n              <li>Category</li>\n              <li>Current page</li>\n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": true,
+            "colorBackground": true,
+            "countdown": false
+          },
           "title": "Page Title Center w/ Background",
           "thumbnail": "assets/title-page-title-center-w-background.png",
-          "source": "<div class=\"block block-picture block-inverse\" style=\"background-image: url(assets/image-2.jpg);\" data-picture=\"12\">\n      <div class=\"block-background-cover-color\" style=\"background-color: #333; opacity: 0.9;\"></div>\n      <div class=\"container\">\n        <div class=\"row text-xs-center\">\n          <div class=\"col-sm-12\">\n            <h1>Page Title</h1>\n          </div>\n        </div>\n        <div class=\"row m-t-2\">\n          <div class=\"col-sm-12\">\n            <ul class=\"navigation-title text-xs-center\">\n              <li>Home</li>\n              <li>Category</li>\n              <li>Current page</li>\n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block block-picture block-inverse\" style=\"background-image: url(assets/image-2.jpg);\">\n      <div class=\"block-background-cover-color\" style=\"background-color: #333; opacity: 0.9;\"></div>\n      <div class=\"container\">\n        <div class=\"row text-xs-center\">\n          <div class=\"col-sm-12\">\n            <h1>Page Title</h1>\n          </div>\n        </div>\n        <div class=\"row m-t-2\">\n          <div class=\"col-sm-12\">\n            <ul class=\"navigation-title text-xs-center\">\n              <li>Home</li>\n              <li>Category</li>\n              <li>Current page</li>\n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>"
         }
       ]
     },
@@ -114,39 +192,81 @@
       "type": "feature",
       "items": [
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Description w/ Picture on Right",
           "thumbnail": "assets/feature-description-w-picture-on-right.png",
-          "source": "<div class=\"block block-picture\" data-picture=\"13\">\n      <div class=\"container\">\n        <div class=\"row align-center\">\n          <div class=\"col-sm-6\">\n            <h6 class=\"text-muted text-uppercase\">Super Important Feature</h6>\n            <h3 class=\"m-t-0\">This will help you do this in the most sophisticated way.</h3>\n            <p class=\"lead\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n          </div>\n          <div class=\"col-sm-5 col-sm-offset-1 hidden-sm-down\">\n            <img src=\"assets/phone-1.png\">\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block block-picture\">\n      <div class=\"container\">\n        <div class=\"row align-center\">\n          <div class=\"col-sm-6\">\n            <h6 class=\"text-muted text-uppercase\">Super Important Feature</h6>\n            <h3 class=\"m-t-0\">This will help you do this in the most sophisticated way.</h3>\n            <p class=\"lead\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n          </div>\n          <div class=\"col-sm-5 col-sm-offset-1 hidden-sm-down\">\n            <img src=\"assets/phone-1.png\">\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Description w/ Picture on Left",
           "thumbnail": "assets/feature-description-w-picture-on-left.png",
-          "source": "<div class=\"block block-picture\" data-picture=\"14\">\n      <div class=\"container\">\n        <div class=\"row align-center\">\n          <div class=\"col-sm-5 hidden-sm-down\">\n            <img src=\"assets/phone-1.png\">\n          </div>\n          <div class=\"col-sm-offset-1 col-sm-6\">\n            <h6 class=\"text-muted text-uppercase\">Super Important Feature</h6>\n            <h3 class=\"m-t-0\">This will help you do this in the most sophisticated way.</h3>\n            <p class=\"lead\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block block-picture\">\n      <div class=\"container\">\n        <div class=\"row align-center\">\n          <div class=\"col-sm-5 hidden-sm-down\">\n            <img src=\"assets/phone-1.png\">\n          </div>\n          <div class=\"col-sm-offset-1 col-sm-6\">\n            <h6 class=\"text-muted text-uppercase\">Super Important Feature</h6>\n            <h3 class=\"m-t-0\">This will help you do this in the most sophisticated way.</h3>\n            <p class=\"lead\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Description Basic",
           "thumbnail": "assets/feature-description-basic.png",
-          "source": "<div class=\"block block-inverse\" data-picture=\"15\">\n      <div class=\"container\">\n        <div class=\"row align-center\">\n          <div class=\"col-sm-12\">\n            <h6 class=\"text-muted text-uppercase\">Super Important Feature</h6>\n            <h3 class=\"m-t-2\">This will help you do this in the most sophisticated way.</h3>\n            <p class=\"lead text-muted m-b-2\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n            <button href=\"#\" class=\"btn btn-secondary btn-lg\">Read More</button>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block block-inverse\">\n      <div class=\"container\">\n        <div class=\"row align-center\">\n          <div class=\"col-sm-12\">\n            <h6 class=\"text-muted text-uppercase\">Super Important Feature</h6>\n            <h3 class=\"m-t-2\">This will help you do this in the most sophisticated way.</h3>\n            <p class=\"lead text-muted m-b-2\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n            <button href=\"#\" class=\"btn btn-secondary btn-lg\">Read More</button>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Companies List",
           "thumbnail": "assets/feature-companies-list.png",
-          "source": "<div class=\"block block-inverse block-brands\" data-picture=\"23\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-sm-12\">\n            <img src=\"assets/logo-placeholder.png\">\n            <img src=\"assets/logo-placeholder.png\">\n            <img src=\"assets/logo-placeholder.png\">\n            <img src=\"assets/logo-placeholder.png\">\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block block-inverse block-brands\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-sm-12\">\n            <img src=\"assets/logo-placeholder.png\">\n            <img src=\"assets/logo-placeholder.png\">\n            <img src=\"assets/logo-placeholder.png\">\n            <img src=\"assets/logo-placeholder.png\">\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Key Features",
           "thumbnail": "assets/feature-key-features.png",
-          "source": "<div class=\"block\" data-picture=\"23\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-sm-8 col-sm-offset-2 text-center m-t-1 m-b-3\">\n            <p class=\"lead m-x-auto\">With over <strong>20 years of collective experience</strong>, we take the unthinkable and make it just a couple quick taps away.</p>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-sm-6\">\n            <ul class=\"featured-list\">\n              <li class=\"m-b-3\">\n                <div class=\"featured-list-icon text-primary\">\n                  <span class=\"fa fa-fighter-jet\"></span>\n                </div>\n                <p class=\"featured-list-icon-text m-b-0\"><strong>Blazingly fast</strong></p>\n                <p class=\"featured-list-icon-text\">\n                  We process all the images you upload and take full advantage of modern cloud based storage to host them at blazing fast speeds.\n                </p>\n              </li>\n              <li class=\"m-b-2\">\n                <div class=\"featured-list-icon text-primary\">\n                  <span class=\"fa fa-picture-o\"></span>\n                </div>\n                <p class=\"featured-list-icon-text m-b-0\"><strong>Top-Level Customization</strong></p>\n                <p class=\"featured-list-icon-text\">\n                  This means you save tons of time by using our world class task manager and calendar and constantly reminds you how great it is.\n                </p>\n              </li>\n            </ul>\n          </div>\n          <div class=\"col-sm-6\">\n            <ul class=\"featured-list\">\n              <li class=\"m-b-3\">\n                <div class=\"featured-list-icon text-primary\">\n                  <span class=\"fa fa-check\"></span>\n                </div>\n                <p class=\"featured-list-icon-text m-b-0\"><strong>For everyone</strong></p>\n                <p class=\"featured-list-icon-text\">\n                  Do it over the cloud, from anywhere, on any device. Mochi is super fast and always available, to not only you, but all your friends\n                </p>\n              </li>\n              <li class=\"m-b-2\">\n                <div class=\"featured-list-icon text-primary\">\n                  <span class=\"fa fa-question\"></span>\n                </div>\n                <p class=\"featured-list-icon-text m-b-0\"><strong>Need help?</strong></p>\n                <p class=\"featured-list-icon-text\">\n                  Share with emoji anyone in the world. We've baked them directly into Mochi. These probably won't help with productivity though.\n                </p>\n              </li>\n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-sm-8 col-sm-offset-2 text-center m-t-1 m-b-3\">\n            <p class=\"lead m-x-auto\">With over <strong>20 years of collective experience</strong>, we take the unthinkable and make it just a couple quick taps away.</p>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-sm-6\">\n            <ul class=\"featured-list\">\n              <li class=\"m-b-3\">\n                <div class=\"featured-list-icon text-primary\">\n                  <span class=\"fa fa-fighter-jet\"></span>\n                </div>\n                <p class=\"featured-list-icon-text m-b-0\"><strong>Blazingly fast</strong></p>\n                <p class=\"featured-list-icon-text\">\n                  We process all the images you upload and take full advantage of modern cloud based storage to host them at blazing fast speeds.\n                </p>\n              </li>\n              <li class=\"m-b-2\">\n                <div class=\"featured-list-icon text-primary\">\n                  <span class=\"fa fa-picture-o\"></span>\n                </div>\n                <p class=\"featured-list-icon-text m-b-0\"><strong>Top-Level Customization</strong></p>\n                <p class=\"featured-list-icon-text\">\n                  This means you save tons of time by using our world class task manager and calendar and constantly reminds you how great it is.\n                </p>\n              </li>\n            </ul>\n          </div>\n          <div class=\"col-sm-6\">\n            <ul class=\"featured-list\">\n              <li class=\"m-b-3\">\n                <div class=\"featured-list-icon text-primary\">\n                  <span class=\"fa fa-check\"></span>\n                </div>\n                <p class=\"featured-list-icon-text m-b-0\"><strong>For everyone</strong></p>\n                <p class=\"featured-list-icon-text\">\n                  Do it over the cloud, from anywhere, on any device. Mochi is super fast and always available, to not only you, but all your friends\n                </p>\n              </li>\n              <li class=\"m-b-2\">\n                <div class=\"featured-list-icon text-primary\">\n                  <span class=\"fa fa-question\"></span>\n                </div>\n                <p class=\"featured-list-icon-text m-b-0\"><strong>Need help?</strong></p>\n                <p class=\"featured-list-icon-text\">\n                  Share with emoji anyone in the world. We've baked them directly into Mochi. These probably won't help with productivity though.\n                </p>\n              </li>\n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Basic List",
           "thumbnail": "assets/feature-basic-list.png",
-          "source": "<div class=\"block\" data-picture=\"24\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-md-4 text-xs-center\">\n            <div class=\"m-b-2\">\n              <i class=\"fa fa-check feature-icon-circle m-b-2\"></i>\n              <h4>Super Feature</h4>\n            </div>\n            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>\n          </div>\n          <div class=\"col-md-4 text-xs-center\">\n            <div class=\"m-b-2\">\n              <i class=\"fa fa-check feature-icon-circle m-b-2\"></i>\n              <h4>Super Feature</h4>\n            </div>\n            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>\n          </div>\n          <div class=\"col-md-4 text-xs-center\">\n            <div class=\"m-b-2\">\n              <i class=\"fa fa-check feature-icon-circle m-b-2\"></i>\n              <h4>Super Feature</h4>\n            </div>\n            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-md-4 text-xs-center\">\n            <div class=\"m-b-2\">\n              <i class=\"fa fa-check feature-icon-circle m-b-2\"></i>\n              <h4>Super Feature</h4>\n            </div>\n            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>\n          </div>\n          <div class=\"col-md-4 text-xs-center\">\n            <div class=\"m-b-2\">\n              <i class=\"fa fa-check feature-icon-circle m-b-2\"></i>\n              <h4>Super Feature</h4>\n            </div>\n            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>\n          </div>\n          <div class=\"col-md-4 text-xs-center\">\n            <div class=\"m-b-2\">\n              <i class=\"fa fa-check feature-icon-circle m-b-2\"></i>\n              <h4>Super Feature</h4>\n            </div>\n            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Basic List",
           "thumbnail": "assets/feature-basic-list.png",
-          "source": "<div class=\"block\" data-picture=\"25\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-sm-12 text-xs-center m-t-1 m-b-3\">\n            <h1>Industry leading software development</h1>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 m-t-1 text-xs-center\">\n            <div class=\"m-b-2\">\n              <i class=\"fa fa-check feature-icon-big m-b-2\"></i>\n              <h4>Super Feature</h4>\n            </div>\n            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>\n          </div>\n          <div class=\"col-md-6 text-xs-center\">\n            <div class=\"m-b-2\">\n              <i class=\"fa fa-check feature-icon-big m-b-2\"></i>\n              <h4>Super Feature</h4>\n            </div>\n            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-sm-12 text-xs-center m-t-1 m-b-3\">\n            <h1>Industry leading software development</h1>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 m-t-1 text-xs-center\">\n            <div class=\"m-b-2\">\n              <i class=\"fa fa-check feature-icon-big m-b-2\"></i>\n              <h4>Super Feature</h4>\n            </div>\n            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>\n          </div>\n          <div class=\"col-md-6 text-xs-center\">\n            <div class=\"m-b-2\">\n              <i class=\"fa fa-check feature-icon-big m-b-2\"></i>\n              <h4>Super Feature</h4>\n            </div>\n            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>\n          </div>\n        </div>\n      </div>\n    </div>"
         }
       ]
     },
@@ -154,24 +274,48 @@
       "type": "testimonial",
       "items": [
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Basic Testimonial",
           "thumbnail": "assets/testimonial-basic-testimonial.png",
-          "source": "<div class=\"block block-border-lg\" data-picture=\"16\">\n      <div class=\"container\">\n        <div class=\"row align-center p-y-2\">\n          <div class=\"col-md-6 col-md-offset-3\">\n            <blockquote class=\"blockquote-minimal text-xs-center\">\n              <div class=\"row p-b-2\">\n                <img class=\"img-circle\" src=\"assets/person-1.png\">\n              </div>\n              <cite class=\"text-uppercase font-weight-bold\">Jason D. Rollerfuller, Creator of Banana</cite>\n              <p class=\"p-y-2 text-muted\">\n                “Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”\n              </p>\n            </blockquote>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block block-border-lg\">\n      <div class=\"container\">\n        <div class=\"row align-center p-y-2\">\n          <div class=\"col-md-6 col-md-offset-3\">\n            <blockquote class=\"blockquote-minimal text-xs-center\">\n              <div class=\"row p-b-2\">\n                <img class=\"img-circle\" src=\"assets/person-1.png\">\n              </div>\n              <cite class=\"text-uppercase font-weight-bold\">Jason D. Rollerfuller, Creator of Banana</cite>\n              <p class=\"p-y-2 text-muted\">\n                “Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”\n              </p>\n            </blockquote>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Big Testimonial w/ Picure on Right",
           "thumbnail": "assets/testimonial-big-testimonial-w-picure-on-right.png",
-          "source": "<div class=\"block p-b-0\" data-picture=\"18\">\n      <div class=\"container\">\n        <div class=\"row align-center\">\n          <div class=\"col-sm-6 col-sm-push-5\">\n            <img src=\"assets/person-2.png\">\n          </div>\n          <div class=\"col-sm-5 col-sm-pull-6\">\n            <h6 class=\"text-muted text-uppercase\">Best Thing Ever</h6>\n            <h3 class=\"m-t-0 m-y-1\">“Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</h3>\n            <p class=\"text-muted\">Mila Donna, client</p>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block p-b-0\">\n      <div class=\"container\">\n        <div class=\"row align-center\">\n          <div class=\"col-sm-6 col-sm-push-5\">\n            <img src=\"assets/person-2.png\">\n          </div>\n          <div class=\"col-sm-5 col-sm-pull-6\">\n            <h6 class=\"text-muted text-uppercase\">Best Thing Ever</h6>\n            <h3 class=\"m-t-0 m-y-1\">“Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</h3>\n            <p class=\"text-muted\">Mila Donna, client</p>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Big Testimonial w/ Picure on Left",
           "thumbnail": "assets/testimonial-big-testimonial-w-picure-on-left.png",
-          "source": "<div class=\"block p-b-0\" data-picture=\"19\">\n      <div class=\"container\">\n        <div class=\"row align-center\">\n          <div class=\"col-sm-6\">\n            <img src=\"assets/person-2.png\">\n          </div>\n          <div class=\"col-sm-5 col-sm-push-1\">\n            <h6 class=\"text-muted text-uppercase\">Best Thing Ever</h6>\n            <h3 class=\"m-t-0 m-y-1\">“Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</h3>\n            <p class=\"text-muted\">Mila Donna, client</p>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block p-b-0\">\n      <div class=\"container\">\n        <div class=\"row align-center\">\n          <div class=\"col-sm-6\">\n            <img src=\"assets/person-2.png\">\n          </div>\n          <div class=\"col-sm-5 col-sm-push-1\">\n            <h6 class=\"text-muted text-uppercase\">Best Thing Ever</h6>\n            <h3 class=\"m-t-0 m-y-1\">“Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”</h3>\n            <p class=\"text-muted\">Mila Donna, client</p>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Big Testimonial",
           "thumbnail": "assets/testimonial-big-testimonial.png",
-          "source": "<div class=\"block block-inverse\" data-picture=\"20\">\n      <div class=\"container\">\n        <div class=\"row m-b-3 clearfix\">\n          <div class=\"col-md-12\">\n            <h1 class=\"text-xs-center\">What our customers say</h1>\n          </div>\n        </div>\n        <div class=\"row p-t-3 clearfix\">\n          <div class=\"col-md-4\">\n            <blockquote class=\"blockquote-minimal text-xs-center\">\n              <div class=\"row p-b-2\">\n                <img class=\"img-circle\" src=\"assets/person-1.png\">\n              </div>\n              <cite class=\"text-uppercase font-weight-bold\">Chuck Testa, client</cite>\n              <p class=\"p-y-2 text-muted\">\n                “Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”\n              </p>\n            </blockquote>\n          </div>\n          <div class=\"col-md-4\">\n            <blockquote class=\"blockquote-minimal text-xs-center\">\n              <div class=\"row p-b-2\">\n                <img class=\"img-circle\" src=\"assets/person-1.png\">\n              </div>\n              <cite class=\"text-uppercase font-weight-bold\">Chuck Testa, client</cite>\n              <p class=\"p-y-2 text-muted\">\n                “Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”\n              </p>\n            </blockquote>\n          </div>\n          <div class=\"col-md-4\">\n            <blockquote class=\"blockquote-minimal text-xs-center\">\n              <div class=\"row p-b-2\">\n                <img class=\"img-circle\" src=\"assets/person-1.png\">\n              </div>\n              <cite class=\"text-uppercase font-weight-bold\">Chuck Testa, client</cite>\n              <p class=\"p-y-2 text-muted\">\n                “Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”\n              </p>\n            </blockquote>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block block-inverse\">\n      <div class=\"container\">\n        <div class=\"row m-b-3 clearfix\">\n          <div class=\"col-md-12\">\n            <h1 class=\"text-xs-center\">What our customers say</h1>\n          </div>\n        </div>\n        <div class=\"row p-t-3 clearfix\">\n          <div class=\"col-md-4\">\n            <blockquote class=\"blockquote-minimal text-xs-center\">\n              <div class=\"row p-b-2\">\n                <img class=\"img-circle\" src=\"assets/person-1.png\">\n              </div>\n              <cite class=\"text-uppercase font-weight-bold\">Chuck Testa, client</cite>\n              <p class=\"p-y-2 text-muted\">\n                “Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”\n              </p>\n            </blockquote>\n          </div>\n          <div class=\"col-md-4\">\n            <blockquote class=\"blockquote-minimal text-xs-center\">\n              <div class=\"row p-b-2\">\n                <img class=\"img-circle\" src=\"assets/person-1.png\">\n              </div>\n              <cite class=\"text-uppercase font-weight-bold\">Chuck Testa, client</cite>\n              <p class=\"p-y-2 text-muted\">\n                “Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”\n              </p>\n            </blockquote>\n          </div>\n          <div class=\"col-md-4\">\n            <blockquote class=\"blockquote-minimal text-xs-center\">\n              <div class=\"row p-b-2\">\n                <img class=\"img-circle\" src=\"assets/person-1.png\">\n              </div>\n              <cite class=\"text-uppercase font-weight-bold\">Chuck Testa, client</cite>\n              <p class=\"p-y-2 text-muted\">\n                “Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”\n              </p>\n            </blockquote>\n          </div>\n        </div>\n      </div>\n    </div>"
         }
       ]
     },
@@ -179,14 +323,26 @@
       "type": "slider",
       "items": [
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Basic w/ Text",
           "thumbnail": "assets/slider-basic-w-text.png",
-          "source": "<div class=\"block\" data-picture=\"21\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-md-12\">\n            <div class=\"owl-carousel\">\n              <div class=\"block p-y-1\">\n                <div class=\"container\">\n                  <div class=\"row\">\n                    <div class=\"col-sm-8 col-sm-offset-2\">\n                      <p class=\"lead m-x-auto text-center\">\n                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                      </p>\n                    </div>\n                  </div>\n                  <img class=\"img-responsive m-t-3\" src=\"assets/phone-2.png\">\n                </div>\n              </div>\n              <div class=\"block p-y-1\">\n                <div class=\"container\">\n                  <div class=\"row\">\n                    <div class=\"col-sm-8 col-sm-offset-2\">\n                      <p class=\"lead m-x-auto text-center\">\n                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                      </p>\n                    </div>\n                  </div>\n                  <img class=\"img-responsive m-t-3\" src=\"assets/phone-2.png\">\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-md-12\">\n            <div class=\"owl-carousel\">\n              <div class=\"block p-y-1\">\n                <div class=\"container\">\n                  <div class=\"row\">\n                    <div class=\"col-sm-8 col-sm-offset-2\">\n                      <p class=\"lead m-x-auto text-center\">\n                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                      </p>\n                    </div>\n                  </div>\n                  <img class=\"img-responsive m-t-3\" src=\"assets/phone-2.png\">\n                </div>\n              </div>\n              <div class=\"block p-y-1\">\n                <div class=\"container\">\n                  <div class=\"row\">\n                    <div class=\"col-sm-8 col-sm-offset-2\">\n                      <p class=\"lead m-x-auto text-center\">\n                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n                      </p>\n                    </div>\n                  </div>\n                  <img class=\"img-responsive m-t-3\" src=\"assets/phone-2.png\">\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Basic w/ Text",
           "thumbnail": "assets/slider-basic-w-text.png",
-          "source": "<div class=\"block\" data-picture=\"22\">\n      <div class=\"container\">\n        <div class=\"row align-center\">\n          <div class=\"col-md-3 text-xs-right\">\n            <h3 class=\"m-t-0\">This text is bold for important reasons.</h3>\n            <p class=\"lead\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n          </div>\n          <div class=\"col-md-6\">\n            <div class=\"owl-carousel\">\n              <div class=\"block p-y-1\">\n                <div class=\"container\">\n                  <img class=\"img-responsive m-t-3\" src=\"assets/phone-2.png\">\n                </div>\n              </div>\n              <div class=\"block p-y-1\">\n                <div class=\"container\">\n                  <img class=\"img-responsive m-t-3\" src=\"assets/phone-2.png\">\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"col-md-3 text-xs-left\">\n            <h3 class=\"m-t-0\">This text is bold for important reasons.</h3>\n            <p class=\"lead\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block\">\n      <div class=\"container\">\n        <div class=\"row align-center\">\n          <div class=\"col-md-3 text-xs-right\">\n            <h3 class=\"m-t-0\">This text is bold for important reasons.</h3>\n            <p class=\"lead\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n          </div>\n          <div class=\"col-md-6\">\n            <div class=\"owl-carousel\">\n              <div class=\"block p-y-1\">\n                <div class=\"container\">\n                  <img class=\"img-responsive m-t-3\" src=\"assets/phone-2.png\">\n                </div>\n              </div>\n              <div class=\"block p-y-1\">\n                <div class=\"container\">\n                  <img class=\"img-responsive m-t-3\" src=\"assets/phone-2.png\">\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"col-md-3 text-xs-left\">\n            <h3 class=\"m-t-0\">This text is bold for important reasons.</h3>\n            <p class=\"lead\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n          </div>\n        </div>\n      </div>\n    </div>"
         }
       ]
     },
@@ -194,9 +350,15 @@
       "type": "form",
       "items": [
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Newsletter",
           "thumbnail": "assets/form-newsletter.png",
-          "source": "<div class=\"block block-border-top text-xs-center\" data-picture=\"26\">\n      <div class=\"container-fluid p-b-1\">\n        <p class=\"lead m-b-2\">\n          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor!\n        </p>\n        <form class=\"form-inline\">\n          <input class=\"form-control m-b-1\" placeholder=\"Email Address\">\n          <input class=\"form-control m-b-1\" placeholder=\"Create a Password\" type=\"password\">\n          <button class=\"btn btn-primary m-b-1\">Get started</button>\n        </form>\n        <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor <a href=\"#\">Terms of service</a></small>\n      </div>\n    </div>"
+          "source": "<div class=\"block block-border-top text-xs-center\">\n      <div class=\"container-fluid p-b-1\">\n        <p class=\"lead m-b-2\">\n          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor!\n        </p>\n        <form class=\"form-inline\">\n          <input class=\"form-control m-b-1\" placeholder=\"Email Address\">\n          <input class=\"form-control m-b-1\" placeholder=\"Create a Password\" type=\"password\">\n          <button class=\"btn btn-primary m-b-1\">Get started</button>\n        </form>\n        <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor <a href=\"#\">Terms of service</a></small>\n      </div>\n    </div>"
         }
       ]
     },
@@ -204,9 +366,15 @@
       "type": "pricing",
       "items": [
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Basic Pricing",
           "thumbnail": "assets/pricing-basic-pricing.png",
-          "source": "<section class=\"block block-faded text-xs-center\" data-picture=\"27\">\n      <div class=\"container\">\n        <h3>Manage your subscriptions</h3>\n        <div class=\"row p-y-3\">\n          <div class=\"col-md-4 p-t-md wp wp-5 animated fadeInRight\">\n            <div class=\"card pricing-box\">\n              <div class=\"card-header text-uppercase\">\n                Personal\n              </div>\n              <div class=\"card-block\">\n                <p class=\"card-title\">Sed risus feugiat fusce eu sit conubia venenatis aliquet nisl cras.</p>\n                <h4 class=\"card-text\">\n                  <sup class=\"pricing-box-currency\">$</sup>\n                  <span class=\"pricing-box-price\">19</span>\n                  <small class=\"text-muted text-uppercase\">/month</small>\n                </h4>\n              </div>\n              <ul class=\"list-group list-group-flush p-x\">\n                <li class=\"list-group-item\">Sed risus feugiat</li>\n                <li class=\"list-group-item\">Sed risus feugiat fusce eu sit</li>\n                <li class=\"list-group-item\">Sed risus feugiat fusce</li>\n              </ul>\n              <a href=\"#\" class=\"btn btn-primary-outline m-y-2\">Get Started</a>\n            </div>\n          </div>\n          <div class=\"col-md-4 stacking-top\">\n            <div class=\"card pricing-box pricing-best p-x-0\">\n              <div class=\"card-header text-uppercase\">\n                Professional\n              </div>\n              <div class=\"card-block\">\n                <p class=\"card-title\">Sed risus feugiat fusce eu sit conubia venenatis aliquet nisl cras.</p>\n                <h4 class=\"card-text\">\n                  <sup class=\"pricing-box-currency\">$</sup>\n                  <span class=\"pricing-box-price\">49</span>\n                  <small class=\"text-muted text-uppercase\">/month</small>\n                </h4>\n              </div>\n              <ul class=\"list-group list-group-flush p-x\">\n                <li class=\"list-group-item\">Sed risus feugiat</li>\n                <li class=\"list-group-item\">Sed risus feugiat fusce eu sit</li>\n                <li class=\"list-group-item\">Sed risus feugiat fusce</li>\n                <li class=\"list-group-item\">Sed risus feugiat</li>\n              </ul>\n              <a href=\"#\" class=\"btn btn-primary m-y-2\">Get Started</a>\n            </div>\n          </div>\n          <div class=\"col-md-4 p-t-md wp wp-6 animated fadeInLeft\">\n            <div class=\"card pricing-box\">\n              <div class=\"card-header text-uppercase\">\n                Enterprise\n              </div>\n              <div class=\"card-block\">\n                <p class=\"card-title\">Sed risus feugiat fusce eu sit conubia venenatis aliquet nisl cras.</p>\n                <h4 class=\"card-text\">\n                  <sup class=\"pricing-box-currency\">$</sup>\n                  <span class=\"pricing-box-price\">99</span>\n                  <small class=\"text-muted text-uppercase\">/month</small>\n                </h4>\n              </div>\n              <ul class=\"list-group list-group-flush p-x\">\n                <li class=\"list-group-item\">Sed risus feugiat</li>\n                <li class=\"list-group-item\">Sed risus feugiat fusce eu sit</li>\n                <li class=\"list-group-item\">Sed risus feugiat fusce</li>\n              </ul>\n              <a href=\"#\" class=\"btn btn-primary-outline m-y-2\">Get Started</a>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>"
+          "source": "<section class=\"block block-faded text-xs-center\">\n      <div class=\"container\">\n        <h3>Manage your subscriptions</h3>\n        <div class=\"row p-y-3\">\n          <div class=\"col-md-4 p-t-md wp wp-5 animated fadeInRight\">\n            <div class=\"card pricing-box\">\n              <div class=\"card-header text-uppercase\">\n                Personal\n              </div>\n              <div class=\"card-block\">\n                <p class=\"card-title\">Sed risus feugiat fusce eu sit conubia venenatis aliquet nisl cras.</p>\n                <h4 class=\"card-text\">\n                  <sup class=\"pricing-box-currency\">$</sup>\n                  <span class=\"pricing-box-price\">19</span>\n                  <small class=\"text-muted text-uppercase\">/month</small>\n                </h4>\n              </div>\n              <ul class=\"list-group list-group-flush p-x\">\n                <li class=\"list-group-item\">Sed risus feugiat</li>\n                <li class=\"list-group-item\">Sed risus feugiat fusce eu sit</li>\n                <li class=\"list-group-item\">Sed risus feugiat fusce</li>\n              </ul>\n              <a href=\"#\" class=\"btn btn-primary-outline m-y-2\">Get Started</a>\n            </div>\n          </div>\n          <div class=\"col-md-4 stacking-top\">\n            <div class=\"card pricing-box pricing-best p-x-0\">\n              <div class=\"card-header text-uppercase\">\n                Professional\n              </div>\n              <div class=\"card-block\">\n                <p class=\"card-title\">Sed risus feugiat fusce eu sit conubia venenatis aliquet nisl cras.</p>\n                <h4 class=\"card-text\">\n                  <sup class=\"pricing-box-currency\">$</sup>\n                  <span class=\"pricing-box-price\">49</span>\n                  <small class=\"text-muted text-uppercase\">/month</small>\n                </h4>\n              </div>\n              <ul class=\"list-group list-group-flush p-x\">\n                <li class=\"list-group-item\">Sed risus feugiat</li>\n                <li class=\"list-group-item\">Sed risus feugiat fusce eu sit</li>\n                <li class=\"list-group-item\">Sed risus feugiat fusce</li>\n                <li class=\"list-group-item\">Sed risus feugiat</li>\n              </ul>\n              <a href=\"#\" class=\"btn btn-primary m-y-2\">Get Started</a>\n            </div>\n          </div>\n          <div class=\"col-md-4 p-t-md wp wp-6 animated fadeInLeft\">\n            <div class=\"card pricing-box\">\n              <div class=\"card-header text-uppercase\">\n                Enterprise\n              </div>\n              <div class=\"card-block\">\n                <p class=\"card-title\">Sed risus feugiat fusce eu sit conubia venenatis aliquet nisl cras.</p>\n                <h4 class=\"card-text\">\n                  <sup class=\"pricing-box-currency\">$</sup>\n                  <span class=\"pricing-box-price\">99</span>\n                  <small class=\"text-muted text-uppercase\">/month</small>\n                </h4>\n              </div>\n              <ul class=\"list-group list-group-flush p-x\">\n                <li class=\"list-group-item\">Sed risus feugiat</li>\n                <li class=\"list-group-item\">Sed risus feugiat fusce eu sit</li>\n                <li class=\"list-group-item\">Sed risus feugiat fusce</li>\n              </ul>\n              <a href=\"#\" class=\"btn btn-primary-outline m-y-2\">Get Started</a>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>"
         }
       ]
     },
@@ -214,24 +382,48 @@
       "type": "footer",
       "items": [
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Basic Footer w/ About",
           "thumbnail": "assets/footer-basic-footer-w-about.png",
-          "source": "<div class=\"block block-inverse footer-normal\" data-picture=\"28\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-sm-2 m-b\">\n            <ul class=\"list-unstyled list-spaced\">\n              <li><h6 class=\"text-uppercase\">Products</h6></li>\n              <li>Todo</li>\n              <li>Calendario</li>\n              <li>Email Town</li>\n              <li>Pomodorotary</li>\n              <li>ChillTower</li>\n            </ul>\n          </div>\n          <div class=\"col-sm-2 m-b\">\n            <ul class=\"list-unstyled list-spaced\">\n              <li><h6 class=\"text-uppercase\">Extras</h6></li>\n              <li>AutotuneU</li>\n              <li>Freestyler</li>\n              <li>Chillaxation</li>\n            </ul>\n          </div>\n          <div class=\"col-sm-2 m-b\">\n            <ul class=\"list-unstyled list-spaced\">\n              <li><h6 class=\"text-uppercase\">Support</h6></li>\n              <li>Online Support</li>\n              <li>Telephone Sales</li>\n              <li>Help Desk</li>\n              <li>Workshops</li>\n            </ul>\n          </div>\n           <div class=\"col-sm-6\">\n            <h6 class=\"text-uppercase\">About</h6>\n            <p>Shoutout to Invision team for creating the <a href=\"http://www.invisionapp.com/do\">Do UI kit</a> that we used to fake our app screenshots. Also to the Dribbble community for providing phone mockups that look amazing.</p>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block block-inverse footer-normal\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-sm-2 m-b\">\n            <ul class=\"list-unstyled list-spaced\">\n              <li><h6 class=\"text-uppercase\">Products</h6></li>\n              <li>Todo</li>\n              <li>Calendario</li>\n              <li>Email Town</li>\n              <li>Pomodorotary</li>\n              <li>ChillTower</li>\n            </ul>\n          </div>\n          <div class=\"col-sm-2 m-b\">\n            <ul class=\"list-unstyled list-spaced\">\n              <li><h6 class=\"text-uppercase\">Extras</h6></li>\n              <li>AutotuneU</li>\n              <li>Freestyler</li>\n              <li>Chillaxation</li>\n            </ul>\n          </div>\n          <div class=\"col-sm-2 m-b\">\n            <ul class=\"list-unstyled list-spaced\">\n              <li><h6 class=\"text-uppercase\">Support</h6></li>\n              <li>Online Support</li>\n              <li>Telephone Sales</li>\n              <li>Help Desk</li>\n              <li>Workshops</li>\n            </ul>\n          </div>\n           <div class=\"col-sm-6\">\n            <h6 class=\"text-uppercase\">About</h6>\n            <p>Shoutout to Invision team for creating the <a href=\"http://www.invisionapp.com/do\">Do UI kit</a> that we used to fake our app screenshots. Also to the Dribbble community for providing phone mockups that look amazing.</p>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Big Footer",
           "thumbnail": "assets/footer-big-footer.png",
-          "source": "<div class=\"block footer-large\" data-picture=\"29\">\n      <div class=\"container\">\n        <div class=\"row links p-y-3\">\n          <div class=\"col-md-2\">\n            <h6 class=\"text-uppercase\">Support</h6>\n            <ul>\n              <li><a title=\"/solutions/critical-infrastructure-protection\" href=\"/solutions/critical-infrastructure-protection\">Critical Infrastructure</a></li>\n              <li><a title=\"/solutions/enterprise-security\" href=\"/solutions/enterprise-security\">Enterprise Security</a></li>\n              <li><a title=\"/solutions/hadoop-big-data-lakes\" href=\"/solutions/hadoop-big-data-lakes\">Hadoop Big Data Lakes</a></li>\n              <li><a title=\"Link: /solutions/data-breach-management\" href=\"/solutions/data-breach-management\">Data Breach Management</a><br></li>\n              <li><a title=\"Link: /solutions/insider-threat-mitigation\" href=\"/solutions/insider-threat-mitigation\">Insider Threat Mitigation</a></li>\n            </ul>\n          </div>\n          <div class=\"col-md-2\">\n            <h6 class=\"text-uppercase\">Support</h6>\n            <ul>\n              <li><a title=\"/solutions/critical-infrastructure-protection\" href=\"/solutions/critical-infrastructure-protection\">Critical Infrastructure</a></li>\n              <li><a title=\"/solutions/enterprise-security\" href=\"/solutions/enterprise-security\">Enterprise Security</a></li>\n              <li><a title=\"/solutions/hadoop-big-data-lakes\" href=\"/solutions/hadoop-big-data-lakes\">Hadoop Big Data Lakes</a></li>\n              <li><a title=\"Link: /solutions/data-breach-management\" href=\"/solutions/data-breach-management\">Data Breach Management</a><br></li>\n              <li><a title=\"Link: /solutions/insider-threat-mitigation\" href=\"/solutions/insider-threat-mitigation\">Insider Threat Mitigation</a></li>\n            </ul>\n          </div>\n          <div class=\"col-md-2\">\n            <h6 class=\"text-uppercase\">Support</h6>\n            <ul>\n              <li><a title=\"/solutions/critical-infrastructure-protection\" href=\"/solutions/critical-infrastructure-protection\">Critical Infrastructure</a></li>\n              <li><a title=\"/solutions/enterprise-security\" href=\"/solutions/enterprise-security\">Enterprise Security</a></li>\n              <li><a title=\"/solutions/hadoop-big-data-lakes\" href=\"/solutions/hadoop-big-data-lakes\">Hadoop Big Data Lakes</a></li>\n              <li><a title=\"Link: /solutions/data-breach-management\" href=\"/solutions/data-breach-management\">Data Breach Management</a><br></li>\n              <li><a title=\"Link: /solutions/insider-threat-mitigation\" href=\"/solutions/insider-threat-mitigation\">Insider Threat Mitigation</a></li>\n            </ul>\n          </div>\n          <div class=\"col-md-2\">\n            <h6 class=\"text-uppercase\">Support</h6>\n            <ul>\n              <li><a title=\"/solutions/critical-infrastructure-protection\" href=\"/solutions/critical-infrastructure-protection\">Critical Infrastructure</a></li>\n              <li><a title=\"/solutions/enterprise-security\" href=\"/solutions/enterprise-security\">Enterprise Security</a></li>\n              <li><a title=\"/solutions/hadoop-big-data-lakes\" href=\"/solutions/hadoop-big-data-lakes\">Hadoop Big Data Lakes</a></li>\n              <li><a title=\"Link: /solutions/data-breach-management\" href=\"/solutions/data-breach-management\">Data Breach Management</a><br></li>\n              <li><a title=\"Link: /solutions/insider-threat-mitigation\" href=\"/solutions/insider-threat-mitigation\">Insider Threat Mitigation</a></li>\n            </ul>\n          </div>\n          <div class=\"col-md-2\">\n            <h6 class=\"text-uppercase\">Support</h6>\n            <ul>\n              <li><a title=\"/solutions/critical-infrastructure-protection\" href=\"/solutions/critical-infrastructure-protection\">Critical Infrastructure</a></li>\n              <li><a title=\"/solutions/enterprise-security\" href=\"/solutions/enterprise-security\">Enterprise Security</a></li>\n              <li><a title=\"/solutions/hadoop-big-data-lakes\" href=\"/solutions/hadoop-big-data-lakes\">Hadoop Big Data Lakes</a></li>\n              <li><a title=\"Link: /solutions/data-breach-management\" href=\"/solutions/data-breach-management\">Data Breach Management</a><br></li>\n              <li><a title=\"Link: /solutions/insider-threat-mitigation\" href=\"/solutions/insider-threat-mitigation\">Insider Threat Mitigation</a></li>\n            </ul>\n          </div>\n          <div class=\"col-md-2\">\n            <h6 class=\"text-uppercase\">Our other company</h6>\n            <h6 class=\"text-uppercase\">Our other group</h6>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block footer-large\">\n      <div class=\"container\">\n        <div class=\"row links p-y-3\">\n          <div class=\"col-md-2\">\n            <h6 class=\"text-uppercase\">Support</h6>\n            <ul>\n              <li><a title=\"/solutions/critical-infrastructure-protection\" href=\"/solutions/critical-infrastructure-protection\">Critical Infrastructure</a></li>\n              <li><a title=\"/solutions/enterprise-security\" href=\"/solutions/enterprise-security\">Enterprise Security</a></li>\n              <li><a title=\"/solutions/hadoop-big-data-lakes\" href=\"/solutions/hadoop-big-data-lakes\">Hadoop Big Data Lakes</a></li>\n              <li><a title=\"Link: /solutions/data-breach-management\" href=\"/solutions/data-breach-management\">Data Breach Management</a><br></li>\n              <li><a title=\"Link: /solutions/insider-threat-mitigation\" href=\"/solutions/insider-threat-mitigation\">Insider Threat Mitigation</a></li>\n            </ul>\n          </div>\n          <div class=\"col-md-2\">\n            <h6 class=\"text-uppercase\">Support</h6>\n            <ul>\n              <li><a title=\"/solutions/critical-infrastructure-protection\" href=\"/solutions/critical-infrastructure-protection\">Critical Infrastructure</a></li>\n              <li><a title=\"/solutions/enterprise-security\" href=\"/solutions/enterprise-security\">Enterprise Security</a></li>\n              <li><a title=\"/solutions/hadoop-big-data-lakes\" href=\"/solutions/hadoop-big-data-lakes\">Hadoop Big Data Lakes</a></li>\n              <li><a title=\"Link: /solutions/data-breach-management\" href=\"/solutions/data-breach-management\">Data Breach Management</a><br></li>\n              <li><a title=\"Link: /solutions/insider-threat-mitigation\" href=\"/solutions/insider-threat-mitigation\">Insider Threat Mitigation</a></li>\n            </ul>\n          </div>\n          <div class=\"col-md-2\">\n            <h6 class=\"text-uppercase\">Support</h6>\n            <ul>\n              <li><a title=\"/solutions/critical-infrastructure-protection\" href=\"/solutions/critical-infrastructure-protection\">Critical Infrastructure</a></li>\n              <li><a title=\"/solutions/enterprise-security\" href=\"/solutions/enterprise-security\">Enterprise Security</a></li>\n              <li><a title=\"/solutions/hadoop-big-data-lakes\" href=\"/solutions/hadoop-big-data-lakes\">Hadoop Big Data Lakes</a></li>\n              <li><a title=\"Link: /solutions/data-breach-management\" href=\"/solutions/data-breach-management\">Data Breach Management</a><br></li>\n              <li><a title=\"Link: /solutions/insider-threat-mitigation\" href=\"/solutions/insider-threat-mitigation\">Insider Threat Mitigation</a></li>\n            </ul>\n          </div>\n          <div class=\"col-md-2\">\n            <h6 class=\"text-uppercase\">Support</h6>\n            <ul>\n              <li><a title=\"/solutions/critical-infrastructure-protection\" href=\"/solutions/critical-infrastructure-protection\">Critical Infrastructure</a></li>\n              <li><a title=\"/solutions/enterprise-security\" href=\"/solutions/enterprise-security\">Enterprise Security</a></li>\n              <li><a title=\"/solutions/hadoop-big-data-lakes\" href=\"/solutions/hadoop-big-data-lakes\">Hadoop Big Data Lakes</a></li>\n              <li><a title=\"Link: /solutions/data-breach-management\" href=\"/solutions/data-breach-management\">Data Breach Management</a><br></li>\n              <li><a title=\"Link: /solutions/insider-threat-mitigation\" href=\"/solutions/insider-threat-mitigation\">Insider Threat Mitigation</a></li>\n            </ul>\n          </div>\n          <div class=\"col-md-2\">\n            <h6 class=\"text-uppercase\">Support</h6>\n            <ul>\n              <li><a title=\"/solutions/critical-infrastructure-protection\" href=\"/solutions/critical-infrastructure-protection\">Critical Infrastructure</a></li>\n              <li><a title=\"/solutions/enterprise-security\" href=\"/solutions/enterprise-security\">Enterprise Security</a></li>\n              <li><a title=\"/solutions/hadoop-big-data-lakes\" href=\"/solutions/hadoop-big-data-lakes\">Hadoop Big Data Lakes</a></li>\n              <li><a title=\"Link: /solutions/data-breach-management\" href=\"/solutions/data-breach-management\">Data Breach Management</a><br></li>\n              <li><a title=\"Link: /solutions/insider-threat-mitigation\" href=\"/solutions/insider-threat-mitigation\">Insider Threat Mitigation</a></li>\n            </ul>\n          </div>\n          <div class=\"col-md-2\">\n            <h6 class=\"text-uppercase\">Our other company</h6>\n            <h6 class=\"text-uppercase\">Our other group</h6>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Minialistic Footer",
           "thumbnail": "assets/footer-minialistic-footer.png",
-          "source": "<div class=\"block block-inverse footer-simple\" data-picture=\"30\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-md-6 text-xs-left\">\n            <nav class=\"nav nav-inline\">\n              <a class=\"text-uppercase text-muted m-r-1\" href=\"#\">About</a>\n              <a class=\"text-uppercase text-muted m-r-1\" href=\"#\">Contact</a>\n            </nav>\n          </div>\n          <div class=\"col-md-6 text-xs-right\">\n            <nav class=\"nav nav-inline\">\n              <a class=\"fa fa-facebook text-muted icon m-l-1\" href=\"#\"></a>\n              <a class=\"fa fa-twitter text-muted icon m-l-1\" href=\"#\"></a>\n            </nav>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block block-inverse footer-simple\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-md-6 text-xs-left\">\n            <nav class=\"nav nav-inline\">\n              <a class=\"text-uppercase text-muted m-r-1\" href=\"#\">About</a>\n              <a class=\"text-uppercase text-muted m-r-1\" href=\"#\">Contact</a>\n            </nav>\n          </div>\n          <div class=\"col-md-6 text-xs-right\">\n            <nav class=\"nav nav-inline\">\n              <a class=\"fa fa-facebook text-muted icon m-l-1\" href=\"#\"></a>\n              <a class=\"fa fa-twitter text-muted icon m-l-1\" href=\"#\"></a>\n            </nav>\n          </div>\n        </div>\n      </div>\n    </div>"
         },
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Footer Modern",
           "thumbnail": "assets/footer-footer-modern.png",
-          "source": "<footer class=\"block footer-basic\" data-picture=\"32\">\n\t\t\t<div class=\"container\">\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col-md-5\">\n\t\t\t\t\t\t<h1 class=\"footer-logo\">\n\t\t\t\t\t\t  <img src=\"assets/logo-placeholder.png\" alt=\"Footer Logo Blue\">\n\t\t\t\t\t\t</h1>\n\t\t\t\t\t\t<p>Copyright © My Company 2016</p>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"col-md-7\">\n\t\t\t\t\t\t<ul class=\"footer-nav\">\n\t\t\t\t\t\t\t<li><a href=\"#about\">About</a></li>\n\t\t\t\t\t\t\t<li><a href=\"#features\">Features</a></li>\n\t\t\t\t\t\t\t<li><a href=\"#screenshots\">Screenshots</a></li>\n\t\t\t\t\t\t\t<li><a href=\"#download\">Download</a></li>\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</footer>"
+          "source": "<footer class=\"block footer-basic\">\n\t\t\t<div class=\"container\">\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col-md-5\">\n\t\t\t\t\t\t<h1 class=\"footer-logo\">\n\t\t\t\t\t\t  <img src=\"assets/logo-placeholder.png\" alt=\"Footer Logo Blue\">\n\t\t\t\t\t\t</h1>\n\t\t\t\t\t\t<p>Copyright © My Company 2016</p>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"col-md-7\">\n\t\t\t\t\t\t<ul class=\"footer-nav\">\n\t\t\t\t\t\t\t<li><a href=\"#about\">About</a></li>\n\t\t\t\t\t\t\t<li><a href=\"#features\">Features</a></li>\n\t\t\t\t\t\t\t<li><a href=\"#screenshots\">Screenshots</a></li>\n\t\t\t\t\t\t\t<li><a href=\"#download\">Download</a></li>\n\t\t\t\t\t\t</ul>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</footer>"
         }
       ]
     },
@@ -239,21 +431,27 @@
       "type": "new",
       "items": [
         {
+          "features": {
+            "videoBackground": false,
+            "imageBackground": false,
+            "colorBackground": false,
+            "countdown": false
+          },
           "title": "Link Box",
           "thumbnail": "assets/new-link-box.png",
-          "source": "<div class=\"block block-color\" data-picture=\"31\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-md-12 text-xs-center\">\n            <h1 class=\"p-b-2\">Seen Enough?</h1>\n            <button class=\"btn btn-square btn-lg\">Download!</button>\n          </div>\n        </div>\n      </div>\n    </div>"
+          "source": "<div class=\"block block-color\">\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-md-12 text-xs-center\">\n            <h1 class=\"p-b-2\">Seen Enough?</h1>\n            <button class=\"btn btn-square btn-lg\">Download!</button>\n          </div>\n        </div>\n      </div>\n    </div>"
         }
       ]
     }
   ],
   "design": {
     "colors": {
-      "body": "#333",
-      "a": "#444",
+      "body": "#373a3c",
+      "a": "#663fb5",
       "a:hover": "#eee",
       "a:visited": "#333",
       "p": "#444",
-      "h1": "#111",
+      "h1": "inherit",
       "h2": "#222",
       "h3": "#333",
       "h4": "#444",
@@ -265,13 +463,9 @@
       "em": "#444"
     },
     "typography": {
-      "fonts": {
-        "header": "lora",
-        "body": "roboto"
-      },
       "size": {
         "basefont": 16,
-        "baseline": 24
+        "baseline": 1.5
       }
     }
   }

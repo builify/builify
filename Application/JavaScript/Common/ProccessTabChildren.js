@@ -79,10 +79,11 @@ function proccessChildrenData (data) {
             } else if (blockType === 'size') {
               let sizeBlock = {
                 type: 'size',
-                min: currentChildren.min ? currentChildren.min : 0,
-                max: currentChildren.max ? currentChildren.max : 0,
-                label: currentChildren.label ? currentChildren.label : '',
-                sizeType: splitCurrentChildrenType[2] ? splitCurrentChildrenType[2] : null
+                min: currentChildren.min || 0,
+                max: currentChildren.max || 0,
+                step: currentChildren.step || 1,
+                label: currentChildren.label || '',
+                sizeType: splitCurrentChildrenType[2] ||  null
               };
 
               childrenToRender.push(sizeBlock);

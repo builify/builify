@@ -5,6 +5,7 @@ import ModalWrapper from '../ModalWrapper';
 import NavigationForTabs from './NavigationForTabs';
 import BottomNavigation from './BottomNavigation';
 import { closeModal, uploadImage, selectImage } from '../../../Actions';
+import TTDOM from '../../../Common/TTDOM';
 
 class ImageEdit extends React.Component {
   closeDialog () {
@@ -16,6 +17,7 @@ class ImageEdit extends React.Component {
     const { src } = data;
 
     if (typeof editTarget !== undefined) {
+      console.log(editTarget);
       if (editTarget.classList.contains('background-image-holder')) {
         editTarget.style.backgroundImage = `url(${src})`;
       } else if (editTarget.tagName === 'IMG') {

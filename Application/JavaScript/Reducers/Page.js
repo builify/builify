@@ -180,6 +180,7 @@ function page (state = pageInitialState, action) {
       let { navigation, main, footer, blocksCount } = state;
 
       if (_.has(action, 'HTML')) {
+        console.log(action);
         let { HTML, blockType, blockName } = action;
         const { replaceInHTML } = state;
         const sourceString = replaceDataInHTML(HTML, replaceInHTML).toString();

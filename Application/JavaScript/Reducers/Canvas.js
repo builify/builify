@@ -60,6 +60,7 @@ function canvas (state = canvasInitialState, action) {
         const { elementReference } = block;
         const topX = TTDOM.misc.getAbsPosition(elementReference, iFrameWindow)[0] + 10;
 
+        console.log(block);
         return _.assign({}, state, {
           currentHoverBlock: {
             block: block,

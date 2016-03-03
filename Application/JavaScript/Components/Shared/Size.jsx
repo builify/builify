@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { getProperty } from '../../Common/Common';
 import { getString } from '../../Common/Localization';
@@ -10,13 +11,14 @@ class Size extends React.Component {
 
   state = {
     value: 0,
+    step: 1,
     isIE: false,
     label: ''
   };
 
   componentWillMount () {
     const { template, item } = this.props;
-    const { label, min, max } = item;
+    const { label, min, max, step } = item;
     const defaultLabel = getString(label);
     const defaultValue = getProperty(template, label);
     const isIE = !!navigator.userAgent.match(/Trident.*rv[ :]*11\./);
@@ -28,7 +30,8 @@ class Size extends React.Component {
       isIE: isIE,
       label: defaultLabel,
       min: min,
-      max: max
+      max: max,
+      step: step
     });
   }
 
@@ -52,7 +55,10 @@ class Size extends React.Component {
   }
 
   render () {
-    const { value, isIE, label, min, max } = this.state;
+    const { value, isIE, label, min, max, step } = this.state;
+    const className = classNames('ab-size__output', {
+      'px': !!(this._item.sizeType === 'basefont')
+    });
 
     return (
       <div
@@ -62,12 +68,12 @@ class Size extends React.Component {
           onMouseUp={isIE ? ::this.changeEvent : () => {}}
           onChange={!isIE ? ::this.changeEvent : () => {}}
           defaultValue={value}
-          step={1}
+          step={step}
           min={min}
           max={max}
           type='range'
           name='range' />
-        <div className='ab-size__output'>
+        <div className={className}>
           {value}
         </div>
       </div>

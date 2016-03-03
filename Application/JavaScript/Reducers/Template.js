@@ -11,20 +11,6 @@ const initialState = {
 
   templateStylesheet: null,
 
-  design: {
-    swatches: [],
-    currentSwatch: '',
-
-    colors: {},
-
-    typography: {
-      size: {
-        basefont: 16,
-        baseline: 24
-      }
-    }
-  },
-
   iFrameWindow: null,
   baseline: null,
   drawBaseline: false
@@ -36,10 +22,14 @@ function template (state = initialState, action) {
       const iFrame = TTDOM.iframe.get('ab-cfrm');
       const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
       const headElement = iFrameWindow.document.head;
+      const baselineValue = state.design.typography.size.baseline;
+      const baseFontsize = state.design.typography.size.basefont;
+      const baselineToPxValue = baseFontsize * baselineValue;
+
       const customStylesheet = new TTStylesheet(headElement);
       const baseline = new TTBaseliner({
         gridTarget: iFrameWindow.document,
-        gridHeight: state.design.typography.size.baseline
+        gridHeight: baselineToPxValue
       });
 
       baseline.off();
@@ -53,9 +43,12 @@ function template (state = initialState, action) {
 
     case Actions.TOGGLE_BASELINE: {
       const { checked } = action;
+      const baselineValue = state.design.typography.size.baseline;
+      const baseFontsize = state.design.typography.size.basefont;
+      const baselineToPxValue = baseFontsize * baselineValue;
 
       if (checked) {
-        state.baseline.on();
+        state.baseline.setHeight(baselineToPxValue);
       } else {
         state.baseline.off();
       }
@@ -100,12 +93,14 @@ function template (state = initialState, action) {
     case Actions.SET_COLOR_FROM_COLORPICKER: {
       const { color } = action;
       const { templateStylesheet } = state;
-      let { design,colorPickerSelectedElementColorElement } = state;
+      let { design, colorPickerSelectedElementColorElement } = state;
       const dataColorTarget = colorPickerSelectedElementColorElement.
                                     getAttribute('data-colortarget');
 
       if (dataColorTarget) {
-        if (design.colors[dataColorTarget] && templateStylesheet !== null) {
+        if (design.colors &&
+          design.colors[dataColorTarget] &&
+          templateStylesheet !== null) {
           const hexColor = `#${color}`;
 
           templateStylesheet.add({
@@ -125,9 +120,32 @@ function template (state = initialState, action) {
       });
     }
 
+    case Actions.CHANGE_BASELINE_VALUE: {
+      const { value } = action;
+      const { design, templateStylesheet } = state;
+
+      if (value) {
+        templateStylesheet.add({
+          body: {
+            lineHeight: value
+          }
+        });
+
+        design.typography.size.baseline = value;
+
+        templateStylesheet.initCSS();
+
+        return _.assign({}, state, {
+          design: design
+        });
+      }
+
+      return state;
+    }
+
     case Actions.CHANGE_BASE_FONT_SIZE: {
       const { value } = action;
-      const { templateStylesheet } = state;
+      const { design, templateStylesheet } = state;
 
       if (value) {
         templateStylesheet.add({
@@ -136,10 +154,12 @@ function template (state = initialState, action) {
           }
         });
 
+        design.typography.size.basefont = value;
+
         templateStylesheet.initCSS();
 
         return _.assign({}, state, {
-
+          design: design
         });
       }
 
