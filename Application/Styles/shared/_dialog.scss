@@ -29,7 +29,6 @@ $modal-navigation-padding: .8 * $unit;
 				transition-property: opacity;
 				transition-timing-function: $animation-curve-default;
 				transition-duration: $animation-duration;
-				@include transition(opacity 0.3s ease);
 		}
 
 		&__content {

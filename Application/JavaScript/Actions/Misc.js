@@ -139,10 +139,13 @@ export function blockWasRenderedToPage (block, elementReference) {
       targetBlock = footer;
     } else {
       const index = _.findIndex(main, { id: block.id });
-      targetBlock = main[index];
+
+      if (index) {
+        targetBlock = main[index];
+      }
     }
 
-    if (targetBlock.elementReference !== null) {
+    if (targetBlock && targetBlock.elementReference !== null) {
       targetBlock.elementReference.addEventListener('mouseenter', () => {
         dispatch(currentHoverBlock(targetBlock));
       });

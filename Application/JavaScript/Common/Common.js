@@ -2,6 +2,7 @@ import stripJSONComments from 'strip-json-comments';
 import _ from 'lodash';
 import builderConfiguration from '../../Data/Builder/Builder';
 import fontsList from '../../Data/Builder/FontsList';
+import iconPacks from '../../Data/Builder/IconPacks';
 import templateManifest from '../../Data/Template/manifest';
 
 export function getConfiguration (callback) {
@@ -10,6 +11,10 @@ export function getConfiguration (callback) {
 
 export function getFontsList (callback) {
   callback(JSON.parse(stripJSONComments(JSON.stringify(fontsList))));
+}
+
+export function getIconPacks (callback) {
+  callback(JSON.parse(stripJSONComments(JSON.stringify(iconPacks))));
 }
 
 export function getTemplateManifestFile (callback) {

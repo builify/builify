@@ -1,34 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { loadContentBlockSource } from '../../../Actions';
-import cx from 'classnames';
+import Events from '../../../Common/Events';
+import classNames from 'classnames';
 import ImageItem from '../ImageItem';
 
-class ContentBlock extends Component {
+class ContentBlock extends React.Component {
   shouldComponentUpdate () {
     return true;
   }
 
-  selectContentBlock (e) {
+  selectContentBlock () {
     const { onContentBlockSelection, data } = this.props;
     const { source, blockType, name } = data;
+    console.log(data);
 
     return onContentBlockSelection(source, blockType, name);
   }
 
   dragContentBlock (e) {
-    e.preventDefault();
+    Events.pauseEvent(e);
   }
 
   render () {
     const { builder, data } = this.props;
-    const { name, thumbnail, blockType} = data;
+    const { name, thumbnail, blockType } = data;
     const { filterContentBlocksTarget } = builder;
-    let blockClassName = cx('ab-contentblocks__block');
+    let blockClassName = classNames('ab-contentblocks__block');
 
-    if (filterContentBlocksTarget != 'all') {
-      if (blockType != filterContentBlocksTarget) {
-        blockClassName = cx('ab-contentblocks__block', 'hide');
+    if (filterContentBlocksTarget !== 'all') {
+      if (blockType !== filterContentBlocksTarget) {
+        blockClassName = classNames('ab-contentblocks__block', 'hide');
       }
     }
 
@@ -44,14 +46,14 @@ class ContentBlock extends Component {
           <span>{name}</span>
         </figcaption>
       </figure>
-    )
+    );
   }
 }
 
 function mapStateToProps (state) {
   return {
     builder: state.builder
-  }
+  };
 }
 
 function mapDispatchToProps (dispatch) {
@@ -59,10 +61,7 @@ function mapDispatchToProps (dispatch) {
     onContentBlockSelection: (source, blockType, blockName) => {
       dispatch(loadContentBlockSource(source, blockType, blockName));
     }
-  }
+  };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ContentBlock);
+export default connect(mapStateToProps,mapDispatchToProps)(ContentBlock);

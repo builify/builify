@@ -25,6 +25,14 @@ function builderConfiguration (state = builderConfigurationInitialState, action)
       });
     }
 
+    case Actions.GET_ICONPACKS: {
+      const { iconPacks } = action;
+
+      return _.assign({}, state, {
+        iconPacks: iconPacks
+      });
+    }
+
     case Actions.GET_FONTS: {
       const { data } = action;
 

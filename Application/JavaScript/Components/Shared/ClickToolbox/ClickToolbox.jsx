@@ -283,7 +283,7 @@ class ClickToolbox extends React.Component {
           elementOptions.showLinkChange = true;
         }
 
-        if (tagName === 'I') {
+        if (tagName === 'I' || targetElement.classList.contains('icon')) {
           elementOptions.showIconChange = true;
         }
 
@@ -300,9 +300,9 @@ class ClickToolbox extends React.Component {
         { (elementOptions.showChangeImage ||
           elementOptions.showChangeBackgroundImage )?
           this.listImageChange() : null }
+        { elementOptions.showIconChange ? this.listIconChange() : null}
         { elementOptions.showLinkChange ? this.listLinkChange() : null }
         { elementOptions.showClone ? this.listClone() : null }
-        { elementOptions.showIconChange ? this.listIconChange() : null}
         { elementOptions.showExpandColumn ? this.listExpandColumn() : null }
         { elementOptions.showShrinkColumn ? this.listShrinkColumn() : null }
         { elementOptions.showRemove ? this.listItemRemove() : null }

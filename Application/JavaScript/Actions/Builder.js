@@ -1,27 +1,35 @@
-import * as Common from '../Common/Common';
-import { getLocalizationFile } from './Localization';
 import { checkPreviousPagesInStorage, saveCurrentPage } from './Page';
 import { closeTab, closeSidetab } from './Aside';
-import IconPacksData from '../../Data/Builder/IconPacks';
-import imagesLibraryJSON from '../../Data/Builder/ImagesLibrary';
 import Actions from './Constants';
 import _ from 'lodash';
 import TTEventEmitter from '../TTEventEmitter';
+
+import stripJSONComments from 'strip-json-comments';
+import IconPacksData from '../../Data/Builder/IconPacks';
+import imagesLibraryJSON from '../../Data/Builder/ImagesLibrary';
+import builderConfiguration from '../../Data/Builder/Builder';
+import fontsList from '../../Data/Builder/FontsList';
+import templateManifest from '../../Data/Template/manifest';
+import languageData from '../../Data/Builder/Localization';
 
 export function runApplicationActions () {
   return (dispatch) => {
     dispatch(initialize());
     dispatch(getBuilderConfiguration());
+    dispatch(receiveConfiguration());
+    dispatch(proccessConfigurationLocalization());
+    dispatch(getLocalizationFile());
+    dispatch(initializeBuilder());
+    dispatch(getIconPacks());
+    dispatch(getImagesLibrary());
+    dispatch(initializeEvents());
+  };
+}
 
-    Common.getConfiguration((data) => {
-      dispatch(receiveConfiguration(data));
-      dispatch(proccessConfigurationLocalization());
-      dispatch(getLocalizationFile());
-      dispatch(initializeBuilder());
-      dispatch(getIconPacks());
-      dispatch(getImagesLibrary());
-      dispatch(initializeEvents());
-    });
+export function getLocalizationFile () {
+  return {
+    type: Actions.GET_LOCALIZATION,
+    data: JSON.parse(stripJSONComments(JSON.stringify(languageData)))
   };
 }
 
@@ -102,10 +110,10 @@ export function getBuilderConfiguration () {
   };
 }
 
-export function receiveConfiguration (data) {
+export function receiveConfiguration () {
   return {
     type: Actions.RECEIVE_BUILDER_CONFIGURATION,
-    data: data
+    data: JSON.parse(stripJSONComments(JSON.stringify(builderConfiguration)))
   };
 }
 
@@ -124,42 +132,16 @@ export function initializeBuilder () {
 }
 
 export function getTemplateManifest () {
-  return (dispatch) => {
-    Common.getTemplateManifestFile((data) => {
-      dispatch(returnTemplateData(data));
-    });
+  return {
+    type: Actions.GET_TEMPLATE_DATA,
+    data: JSON.parse(stripJSONComments(JSON.stringify(templateManifest)))
   };
 }
 
 export function getFonts () {
-  return (dispatch) => {
-    Common.getFontsList((data) => {
-      dispatch({
-        type: Actions.GET_FONTS,
-        data: data
-      });
-    });
-  };
-}
-
-export function returnTemplateData (data) {
   return {
-    type: Actions.GET_TEMPLATE_DATA,
-    data: data
-  };
-}
-
-export function uploadImage (data) {
-  return {
-    type: Actions.UPLOADED_IMAGE,
-    data: data
-  };
-}
-
-export function downloadPages (pages) {
-  return {
-    type: Actions.DOWNLOAD_PAGES,
-    pages: pages
+    type: Actions.GET_FONTS,
+    data: JSON.parse(stripJSONComments(JSON.stringify(fontsList)))
   };
 }
 
@@ -176,6 +158,20 @@ export function getIconPacks () {
     } else {
       throw Error('Iconpacks not found.');
     }
+  };
+}
+
+export function uploadImage (data) {
+  return {
+    type: Actions.UPLOADED_IMAGE,
+    data: data
+  };
+}
+
+export function downloadPages (pages) {
+  return {
+    type: Actions.DOWNLOAD_PAGES,
+    pages: pages
   };
 }
 

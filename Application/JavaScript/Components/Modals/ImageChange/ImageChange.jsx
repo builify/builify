@@ -5,7 +5,6 @@ import ModalWrapper from '../ModalWrapper';
 import NavigationForTabs from './NavigationForTabs';
 import BottomNavigation from './BottomNavigation';
 import { closeModal, uploadImage, selectImage } from '../../../Actions';
-import TTDOM from '../../../Common/TTDOM';
 
 class ImageEdit extends React.Component {
   closeDialog () {

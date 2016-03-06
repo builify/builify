@@ -1,27 +1,23 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import { DialogTypes } from '../../../Constants';
-import { randomKey } from '../../../Common/Common';
-import { loadPreviousPage } from '../../../Actions';
-import _ from 'lodash';
 import DialogRestart from './DialogRestart';
 import DialogDownloadPages from './DialogDownloadPages';
 import DialogLinkChange from './DialogLinkChange';
 import DialogContentSource from './DialogContentSource';
-import IconChangeDialog from './IconChange';
 
 import ImageEdit from '../../Modals/ImageChange';
 import PreviousPages from '../../Modals/PreviousPages';
+import IconChange from '../../Modals/IconChange';
 
-class Dialog extends Component {
+export default class Dialog extends React.Component {
   static propTypes = {
-    actions: PropTypes.array,
-    active: PropTypes.bool,
-    className: PropTypes.string,
-    title: PropTypes.string,
-    type: PropTypes.number,
-    onClose: PropTypes.func,
-    editTarget: PropTypes.any
+    actions: React.PropTypes.array,
+    active: React.PropTypes.bool,
+    className: React.PropTypes.string,
+    title: React.PropTypes.string,
+    type: React.PropTypes.number,
+    onClose: React.PropTypes.func,
+    editTarget: React.PropTypes.any
   };
 
   static defaultProps = {
@@ -32,7 +28,7 @@ class Dialog extends Component {
   };
 
   render () {
-    const { type, title, children, actions, editTarget, active } = this.props;
+    const { type, editTarget, active } = this.props;
 
     switch (type) {
       case DialogTypes.IMAGECHANGE:
@@ -74,11 +70,15 @@ class Dialog extends Component {
             active={active}
             editTarget={editTarget} />
         );
-    }
 
+      case DialogTypes.ICONCHANGE:
+        return (
+          <IconChange
+            active={active}
+            editTarget={editTarget} />
+        );
+    }
 
     return null;
   }
 }
-
-export default Dialog;
