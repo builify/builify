@@ -168,11 +168,28 @@ $modal-navigation-padding: .8 * $unit;
 				}
 		}
 
-		&__tabimages {
+		&__tabimages,
+		&__icons {
 				float: left;
 				width: 100%;
 				height: 380px;
 				padding: 40px 0 30px;
+		}
+
+		&__icons {
+				$iconpack-item-size: 40px;
+
+				i {
+						color: #666;
+						cursor: pointer;
+						text-align: center;
+						margin-right: 5px;
+						margin-bottom: 5px;
+						width: $iconpack-item-size;
+						height: $iconpack-item-size;
+						line-height: $iconpack-item-size;
+						@include rem(font-size, 26px);
+				}
 		}
 
 		&__tabpages {

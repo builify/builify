@@ -26,14 +26,20 @@ export default class ImageEditContentImages extends React.Component {
 
   renderCategories () {
     const { activeCategory } = this.state;
+    let className = null;
+    let key = null;
 
     return _.map(this.defaultImages, (item, idx) => {
       const { category } = item;
-      const className = classNames('ab-modal__tabitem', idx === activeCategory ? 'active' : null);
+
+      className = classNames('ab-modal__tabitem', {
+        'active': !!(idx === activeCategory)
+      });
+      key = Random.randomKey('tabitem');
 
       return (
         <div
-          key={Random.randomKey('tabitem')}
+          key={key}
           className={className}
           onClick={() => {
             this.setState({
@@ -49,17 +55,18 @@ export default class ImageEditContentImages extends React.Component {
   renderImages () {
     const { activeCategory } = this.state;
     const { onSelectImage } = this.props;
+    let className = null;
 
     return (
       <div className='ab-modal__tabimages'>
         { _.map(this.defaultImages, (item, catIdx) => {
           if (catIdx !== activeCategory) {
-            return;
+            return null;
           }
 
           if (_.has(item, 'images')) {
             return _.map(item.images, url => {
-              const className = classNames('ab-modal__tabimage');
+              className = classNames('ab-modal__tabimage');
 
               return (
                 <Image
