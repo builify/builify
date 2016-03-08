@@ -81,7 +81,7 @@ const TTDOM = {
     add (elem, events, callback, bubbling: false) {
       events = events.split(' ');
 
-      if (TTDOM.type.isElement(elem)) {
+      if (TTDOM.type.isElement(elem) || elem === window) {
         for (let j = 0; j < events.length; j++) {
           elem.addEventListener(events[j], callback, bubbling);
         }
@@ -175,6 +175,30 @@ const TTDOM = {
         if ('classList' in elem) {
           return elem.classList.contains(className);
         }
+
+        return this;
+      },
+
+      alter (elem, removals, additions) {
+        removals = removals
+          .replace(/\*/g, '[A-Za-z0-9-_]+')
+          .split(' ')
+          .join('\\s|\\s');
+        const pattern = new RegExp(`\\s${removals}\\s`, 'g');
+
+        var cn = ` ${elem.className} `;
+
+        while (pattern.test(cn)) {
+          cn = cn.replace(pattern, ' ');
+        }
+
+        if (additions) {
+          cn += additions;
+        }
+
+        elem.className = cn.trim();
+
+        return this;
       }
     }
   },

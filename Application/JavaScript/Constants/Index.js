@@ -38,3 +38,6 @@ export const DialogTypes = {
   DOWNLOADPAGES: 6,
   RESTART: 7
 };
+
+// For tracking elements.
+export const TRACK_MODAL_CURENT_IMAGE_INPUT_ID = 'swagmodeon';

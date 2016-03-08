@@ -135,6 +135,7 @@ class CanvasFrame extends React.Component {
   }
 
   renderFooter (block) {
+    const { onCoreBlockHover } = this.props;
     const targetElement = this.refs.footer;
 
     if (_.values(block).length !== 0) {
@@ -178,7 +179,7 @@ class CanvasFrame extends React.Component {
 
   hoverBlocks () {
     const targets = `
-      p ,
+      p,
       span,
       a,
       h1,
@@ -205,17 +206,19 @@ class CanvasFrame extends React.Component {
     const targetElements = _.union(navigationElements, mainElements, footerElements);
 
     _.map(targetElements, target => {
-      if (target.tagName === 'A') {
-        target.removeEventListener('click', ::this.aBlockClick);
-        target.addEventListener('click', ::this.aBlockClick, false);
-      } else {
-        target.contentEditable = true;
-      }
+      if (!target.getAttribute('data-abccorent')) {
+        if (target.tagName === 'A') {
+          target.removeEventListener('click', ::this.aBlockClick);
+          target.addEventListener('click', ::this.aBlockClick, false);
+        } else {
+          target.contentEditable = true;
+        }
 
-      target.removeEventListener('mouseenter', this.hoverBlocksMouseEnter);
-      target.removeEventListener('mouseleave', this.hoverBlocksMouseLeave);
-      target.addEventListener('mouseenter', this.hoverBlocksMouseEnter, false);
-      target.addEventListener('mouseleave', this.hoverBlocksMouseLeave, false);
+        target.removeEventListener('mouseenter', this.hoverBlocksMouseEnter);
+        target.removeEventListener('mouseleave', this.hoverBlocksMouseLeave);
+        target.addEventListener('mouseenter', this.hoverBlocksMouseEnter, false);
+        target.addEventListener('mouseleave', this.hoverBlocksMouseLeave, false);
+      }
     });
   }
 
@@ -261,8 +264,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onCoreBlockHover: (element) => {
-      dispatch(cActions.urrentHoverBlock(element));
+    onCoreBlockHover: (block) => {
+      dispatch(Actions.currentHoverBlock(block));
     },
 
     onElementRemove: (element) => {

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import ReactDOM, { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { downloadPages, closeModal } from '../../../Actions';
@@ -10,10 +10,10 @@ import DialogWrapper from './DialogWrapper';
 import DialogBody from './DialogBody';
 import Table from '../Table';
 
-class TablePages extends Component {
+class TablePages extends React.Component {
   static propTypes = {
-    model: PropTypes.object.isRequired,
-    source: PropTypes.array.isRequired
+    model: React.PropTypes.object.isRequired,
+    source: React.PropTypes.array.isRequired
   };
 
   state = {
@@ -51,14 +51,14 @@ class TablePages extends Component {
   }
 }
 
-class DialogDownloadPages extends Component {
+class DialogDownloadPages extends React.Component {
   static propTypes = {
-    active: PropTypes.bool.isRequired
+    active: React.PropTypes.bool.isRequired
   };
 
   dialogElement = null;
 
-  shouldComponentUpdate (nextProps, nextState) {
+  shouldComponentUpdate () {
     return false;
   }
 

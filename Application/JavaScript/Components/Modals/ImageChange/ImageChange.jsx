@@ -1,9 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
+import TTDOM from '../../../Common/TTDOM';
 import ModalWrapper from '../ModalWrapper';
 import NavigationForTabs from './NavigationForTabs';
-import BottomNavigation from './BottomNavigation';
+import BottomNavigation from '../ModalBottomNavigation';
+import { TRACK_MODAL_CURENT_IMAGE_INPUT_ID } from '../../../Constants';
 import { closeModal, uploadImage, selectImage } from '../../../Actions';
 
 class ImageEdit extends React.Component {
@@ -15,11 +17,8 @@ class ImageEdit extends React.Component {
     const { editTarget, onSelectImage } = this.props;
     const { src } = data;
 
-    if (typeof editTarget !== undefined) {
-      console.log(editTarget);
-      if (editTarget.classList.contains('background-image-holder')) {
-        editTarget.style.backgroundImage = `url(${src})`;
-      } else if (editTarget.tagName === 'IMG') {
+    if (TTDOM.type.isElement(editTarget)) {
+      if (editTarget.tagName === 'IMG') {
         editTarget.setAttribute('src', src);
       }
     }
@@ -27,6 +26,24 @@ class ImageEdit extends React.Component {
     this.closeDialog();
 
     return onSelectImage(data);
+  }
+
+  saveImage () {
+    const { editTarget } = this.props;
+    const imageChangeElement = document.querySelector(`#${TRACK_MODAL_CURENT_IMAGE_INPUT_ID}`);
+    const value = imageChangeElement.value;
+
+    if (TTDOM.type.isElement(editTarget)) {
+      if (editTarget.tagName === 'IMG') {
+        const currentValue = editTarget.getAttribute('src');
+
+        if (currentValue !== value) {
+          this.selectImage({
+            src: value
+          });
+        }
+      }
+    }
   }
 
   render () {
@@ -39,6 +56,10 @@ class ImageEdit extends React.Component {
       onCloseModal
     } = this.props;
     const className = classNames('ab-modal');
+    const actions = [
+      { label: 'Cancel', onClick: ::this.closeDialog },
+      { label: 'Save', onClick: ::this.saveImage }
+    ];
 
     return (
       <ModalWrapper
@@ -53,7 +74,7 @@ class ImageEdit extends React.Component {
           builder={builder}
           builderConfiguration={builderConfiguration} />
         <BottomNavigation
-          closeDialog={::this.closeDialog} />
+          actions={actions} />
       </ModalWrapper>
     );
   }

@@ -1,22 +1,23 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+import classNames from 'classnames';
 import Icon from '../Icon';
 
-class Input extends Component {
+export default class Input extends React.Component {
   static propTypes = {
-    className: PropTypes.string,
-    disabled: PropTypes.bool,
-    error: PropTypes.string,
-    floating: PropTypes.bool,
-    icon: PropTypes.string,
-    label: PropTypes.string,
-    multiline: PropTypes.bool,
-    onBlur: PropTypes.func,
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    onKeyPress: PropTypes.func,
-    required: PropTypes.bool,
-    type: PropTypes.string,
-    value: PropTypes.any
+    className: React.PropTypes.string,
+    disabled: React.PropTypes.bool,
+    error: React.PropTypes.string,
+    floating: React.PropTypes.bool,
+    icon: React.PropTypes.string,
+    label: React.PropTypes.string,
+    multiline: React.PropTypes.bool,
+    onBlur: React.PropTypes.func,
+    onChange: React.PropTypes.func,
+    onFocus: React.PropTypes.func,
+    onKeyPress: React.PropTypes.func,
+    required: React.PropTypes.bool,
+    type: React.PropTypes.string,
+    value: React.PropTypes.any
   };
 
   static defaultProps = {
@@ -33,14 +34,19 @@ class Input extends Component {
   };
 
   onChange = (event) => {
-    this.setState({value: event.target.value}, () => {
-      if (this.props.onChange) this.props.onChange(event, this);
+    this.setState({
+      value: event.target.value
+    }, () => {
+      if (this.props.onChange) {
+        this.props.onChange(event, this);
+      }
     });
   };
 
   renderInput () {
-    let className = 'ab-input__input';
-    if (this.state.value && this.state.value.length > 0) className += ' filled';
+    const className = classNames('ab-input__input', {
+      'filled': !!(this.state.value && this.state.value.length > 0)
+    });
 
     if (this.props.multiline) {
       return (
@@ -66,14 +72,15 @@ class Input extends Component {
   }
 
   render () {
-    let className = 'ab-input';
-    let labelClassName = 'ab-input__label';
-    if (this.props.error) className += ' ab-input__error';
-    if (this.props.disabled) className += ' ab-input__disabled';
-    if (this.props.className) className += ` ${this.props.className}`;
-    if (this.props.type === 'hidden') className += ' hidden';
-    if (this.props.icon) className += ' with-icon';
-    if (!this.props.floating) labelClassName += ' fixed';
+    const className = classNames('ab-input', {
+      'ab-input__error': this.props.error,
+      'ab-input__disabled': this.props.disabled,
+      'hidden': !!(this.props.type === 'hidden'),
+      'with-icon': this.props.icon,
+    }, this.props.className);
+    const labelClassName = classNames('ab-input__label', {
+      'fixed': !this.props.floating
+    });
 
     return (
       <div className={className}>
@@ -83,7 +90,7 @@ class Input extends Component {
         { this.props.label ? <label className={labelClassName}>{this.props.label}</label> : null }
         { this.props.error ? <span className={'ab-input__error'}>{this.props.error}</span> : null }
       </div>
-    )
+    );
   }
 
   blur () {
@@ -99,8 +106,8 @@ class Input extends Component {
   }
 
   setValue (value) {
-    this.setState({value});
+    this.setState({
+      value
+    });
   }
 }
-
-export default Input;

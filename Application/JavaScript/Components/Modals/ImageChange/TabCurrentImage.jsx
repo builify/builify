@@ -1,6 +1,8 @@
 import React from 'react';
+import TTDOM from '../../../Common/TTDOM';
 import Input from '../../Shared/Input';
 import Image from '../../Shared/Image';
+import { TRACK_MODAL_CURENT_IMAGE_INPUT_ID } from '../../../Constants';
 import { defaultImageUrl } from './Config';
 
 export default class CurrentImageTab extends React.Component {
@@ -10,32 +12,26 @@ export default class CurrentImageTab extends React.Component {
 
   state = {
     imageUrl: defaultImageUrl,
-    isBackgroundImage: false
+    imageSize: {
+      width: 0,
+      height: 0
+    }
   };
 
   componentWillMount () {
     const { editTarget } = this.props;
 
-    if (typeof editTarget !== undefined && editTarget !== null) {
-      if (editTarget.classList.contains('background-image-holder')) {
-        const targetStyle = window.getComputedStyle(editTarget, null);
-        const backgroundStyleValue = targetStyle.getPropertyValue('background-image');
-
-        if (backgroundStyleValue) {
-          const targetUrl = backgroundStyleValue
-            .replace(/^url\(["']?/, '')
-            .replace(/["']?\)$/, '');
-
-          this.setState({
-            imageUrl: targetUrl,
-            isBackgroundImage: true
-          });
-        }
-      } else if (editTarget.tagName === 'IMG') {
+    if (TTDOM.type.isElement(editTarget)) {
+      if (editTarget.tagName === 'IMG') {
         const targetUrl = editTarget.getAttribute('src');
 
         this.setState({
-          imageUrl: targetUrl
+          ...this.state,
+          imageUrl: targetUrl,
+          imageSize: {
+            width: editTarget.width,
+            height: editTarget.height
+          }
         });
       }
     }
@@ -45,6 +41,7 @@ export default class CurrentImageTab extends React.Component {
     const value = this.getImgSrcValue();
 
     this.setState({
+      ...this.state,
       imageUrl: value
     });
   }
@@ -54,13 +51,15 @@ export default class CurrentImageTab extends React.Component {
   }
 
   render () {
-    const { imageUrl } = this.state;
+    const { imageUrl, imageSize } = this.state;
+
 
     return (
       <div className='ab-modal__tab'>
         <aside className='ab-modal__tabside sec'>
           <h2>Edit Image Source</h2>
           <Input
+            id={TRACK_MODAL_CURENT_IMAGE_INPUT_ID}
             onBlur={::this.imageSourceInputEvent}
             ref='image-src'
             type='text'
@@ -72,7 +71,8 @@ export default class CurrentImageTab extends React.Component {
           <Image
             chalk
             className='ab-modal__imgholder'
-            src={imageUrl} />
+            src={imageUrl}
+            sizeInfo={imageSize} />
         </main>
       </div>
     );

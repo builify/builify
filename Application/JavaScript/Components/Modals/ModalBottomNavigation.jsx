@@ -4,11 +4,7 @@ import Button from '../Shared/Button';
 
 export default class BottomNavigation extends React.Component {
   static propTypes = {
-    onClose: React.PropTypes.func
-  };
-
-  static defaultProps = {
-    onClose: () => {}
+    actions: React.PropTypes.array.isRequired
   };
 
   renderButtons (actions) {
@@ -28,17 +24,8 @@ export default class BottomNavigation extends React.Component {
     });
   }
 
-  saveClick () {
-    const { onClose } = this.props;
-    return onClose;
-  }
-
   renderActions () {
-    const { onClose } = this.props;
-    const actions = [
-      { label: 'Cancel', onClick: onClose },
-      { label: 'Save', onClick: ::this.saveClick }
-    ];
+    const { actions } = this.props;
 
     return this.renderButtons(actions);
   }

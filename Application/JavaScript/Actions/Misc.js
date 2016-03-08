@@ -127,6 +127,8 @@ export function blockWasRenderedToPage (block, elementReference) {
       elementReference: elementReference
     });
 
+    console.log(block);
+
     const state = getState();
     const { page } = state;
     const { navigation, main, footer } = page;
@@ -145,11 +147,11 @@ export function blockWasRenderedToPage (block, elementReference) {
       }
     }
 
-    if (targetBlock && targetBlock.elementReference !== null) {
+    /*if (targetBlock && targetBlock.elementReference !== null) {
       targetBlock.elementReference.addEventListener('mouseenter', () => {
         dispatch(currentHoverBlock(targetBlock));
       });
-    }
+    }*/
   };
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import TTDOM from '../../../Common/TTDOM';
-import { findUpAttr, getBrowserSize } from '../../../Common/Common';
+import { findUpAttr } from '../../../Common/Common';
 import * as Actions from '../../../Actions';
 import classNames from 'classnames';
 import Events from '../../../Common/Events';
@@ -21,11 +21,15 @@ class ClickToolbox extends React.Component {
   };
 
   _panelXPadding = 15;
-  _browserSize = getBrowserSize();
+  _browserSize = TTDOM.browser.size();
 
   componentDidMount () {
     const panelElement = this.refs.panel;
     const clickTargetElement = panelElement.parentElement;
+
+    TTDOM.events.add(window, 'resize', () => {
+      this._browserSize = TTDOM.browser.size();
+    });
 
     TTDOM.events.add(clickTargetElement, 'contextmenu click', (e) => {
       const { type } = e;

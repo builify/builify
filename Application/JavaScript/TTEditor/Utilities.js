@@ -6,7 +6,7 @@ export default {
       return el;
     }
 
-    while (el.parentNode) {
+    while (el && el.parentNode) {
       el = el.parentNode;
 
       if (el.getAttribute(attr)) {

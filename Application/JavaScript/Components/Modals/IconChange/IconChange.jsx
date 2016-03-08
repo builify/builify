@@ -1,12 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import ModalWrapper from '../ModalWrapper';
-import ModalTab from '../ModalTab';
 import BottomNavigation from '../ModalBottomNavigation';
 import TabIcons from './TabIcons';
 import { closeModal } from '../../../Actions';
+import TTDOM from '../../../Common/TTDOM';
 
 class IconChange extends React.Component {
   shouldComponentUpdate () {
@@ -22,17 +21,7 @@ class IconChange extends React.Component {
     const { iconClass, icon } = data;
 
     if (iconClass === 'fa') {
-      var patt = new RegExp( '\\s' +
-			'fa-*'.
-				replace( /\*/g, '[A-Za-z0-9-_]+' ).
-				split( ' ' ).
-				join( '\\s|\\s' ) + '\\s', 'g' );
-
-      var cn = ' ' + editTarget.className + ' ';
-  		while ( patt.test( cn ) ) {
-  			cn = cn.replace( patt, ' ' );
-  		}
-  		console.log(cn);
+      TTDOM.element.classes.alter(editTarget, 'fa-*', icon);
     }
   }
 
@@ -43,6 +32,9 @@ class IconChange extends React.Component {
       onCloseModal
     } = this.props;
     const className = classNames('ab-modal');
+    const actions = [
+      { label: 'Done', onClick: ::this.closeDialog }
+    ];
 
     return (
       <ModalWrapper
@@ -50,14 +42,11 @@ class IconChange extends React.Component {
         active={active}
         ref='modalWrapper'
         className={className}>
-        <ModalTab
-          title='Choose Icon'>
-          <TabIcons
-            onSelect={::this.selectIcon}
-            builderConfiguration={builderConfiguration} />
-        </ModalTab>
+        <TabIcons
+          onSelect={::this.selectIcon}
+          builderConfiguration={builderConfiguration} />
         <BottomNavigation
-          onClose={::this.closeDialog}/>
+          actions={actions} />
       </ModalWrapper>
     );
   }

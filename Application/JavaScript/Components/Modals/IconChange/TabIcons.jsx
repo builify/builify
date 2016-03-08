@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
+import JsSearch from 'js-search';
 import Random from '../../../Common/Random';
 import Scrollbar from '../../Shared/Scrollbar';
 
@@ -15,12 +16,36 @@ export default class TabIcons extends React.Component {
   };
 
   defaultIconPacks = [];
+  iconsToRender = [];
 
   componentWillMount () {
     const { builderConfiguration } = this.props;
     const { iconPacks } = builderConfiguration;
+    const { activeCategory } = this.state;
+    const activeIconPack = iconPacks[activeCategory];
+    const { icons } = activeIconPack;
+    let iconDocument = {};
+    let iconDocuments = [];
+
+    _.map(icons, (icon, idx) => {
+      iconDocument = {
+        idx: idx,
+        icon: icon
+      };
+
+      iconDocuments.push(iconDocument);
+    });
+
 
     this.defaultIconPacks = iconPacks;
+
+    const search = new JsSearch.Search('idx');
+
+    search.indexStrategy = new JsSearch.AllSubstringsIndexStrategy();
+    search.addIndex('icon');
+    search.addDocuments(iconDocuments);
+
+    this.iconsToRender = iconDocuments;
   }
 
   renderCategories () {
@@ -37,9 +62,11 @@ export default class TabIcons extends React.Component {
           key={Random.randomKey('tabitem')}
           className={className}
           onClick={() => {
-            this.setState({
-              activeCategory: idx
-            });
+            if (idx !== activeCategory) {
+              this.setState({
+                activeCategory: idx
+              });
+            }
           }}>
           <span>{iconFullname}</span>
         </div>
@@ -56,20 +83,20 @@ export default class TabIcons extends React.Component {
     let key = null;
 
     if (icons) {
-      return _.map(icons, (icon) => {
-        className = classNames(iconClass, icon);
+      return _.map(this.iconsToRender, (icon) => {
+        className = classNames(iconClass, icon.icon);
         key = Random.randomKey();
 
         return (
           <i
             key={key}
-            data-iconname={icon}
+            data-iconname={icon.icon}
             className={className}
-            title={icon}
+            title={icon.icon}
             onClick={() => {
               return onSelect({
                 iconClass: iconClass,
-                icon: icon
+                icon: icon.icon
               });
             }} />
         );
@@ -81,20 +108,25 @@ export default class TabIcons extends React.Component {
 
   render () {
     return (
-      <div className='ab-modal__tab'>
-        <aside className='ab-modal__tabside'>
-          <h2>Fonts</h2>
-          <nav className='ab-modal__tabmenu'>
-            { this.renderCategories() }
-          </nav>
-        </aside>
-        <main className='ab-modal__tabcontent'>
-          <Scrollbar height={380}>
-            <div className='ab-modal__icons'>
-              { this.renderFonts() }
-            </div>
-          </Scrollbar>
-        </main>
+      <div>
+        <header className='ab-modal__tabs'>
+          <h2>Choose Icon</h2>
+        </header>
+        <div className='ab-modal__tab'>
+          <aside className='ab-modal__tabside'>
+            <h2>Fonts</h2>
+            <nav className='ab-modal__tabmenu'>
+              { this.renderCategories() }
+            </nav>
+          </aside>
+          <main className='ab-modal__tabcontent'>
+            <Scrollbar height={380}>
+              <div className='ab-modal__icons'>
+                { this.renderFonts() }
+              </div>
+            </Scrollbar>
+          </main>
+        </div>
       </div>
     );
   }

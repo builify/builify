@@ -9,6 +9,7 @@ export default class ImageItem extends React.Component {
     chalk: React.PropTypes.bool,
     height: React.PropTypes.number,
     width: React.PropTypes.number,
+    sizeInfo: React.PropTypes.object,
     onClick: React.PropTypes.func
   };
 
@@ -18,11 +19,38 @@ export default class ImageItem extends React.Component {
     chalk: false,
     height: null,
     width: null,
+    sizeInfo: null,
     onClick: function () {}
   };
 
+  renderTextInfo () {
+    const { sizeInfo } = this.props;
+
+    if (sizeInfo === null ||
+        sizeInfo.width <= 0 ||
+        sizeInfo.height <= 0) {
+      return null;
+    }
+
+    return (
+      <div
+        className='ab-modal__imgholder-info'
+        title='Does not reflect original image size but image size that appears in the element.'>
+        <span>{`${sizeInfo.width}x${sizeInfo.height}`}</span>
+      </div>
+    );
+  }
+
   renderImage () {
-    const { src, height, width, chalk, backgroundImage, onClick, className } = this.props;
+    const {
+      src,
+      height,
+      width,
+      chalk,
+      backgroundImage,
+      onClick,
+      className
+    } = this.props;
 
     if (backgroundImage) {
       const imgStyle = {
@@ -58,6 +86,7 @@ export default class ImageItem extends React.Component {
             }}
             className={cn}>
             <img src={src} />
+            { this.renderTextInfo() }
           </div>
         </div>
       );
