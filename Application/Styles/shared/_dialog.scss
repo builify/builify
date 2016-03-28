@@ -96,6 +96,11 @@ $modal-navigation-padding: .8 * $unit;
 					padding-left: 0;
 					width: 65% !important;
 				}
+
+				&.full {
+						width: 100%;
+						padding-left: 0;
+				}
 		}
 
 		&__tabmenu {
@@ -166,6 +171,13 @@ $modal-navigation-padding: .8 * $unit;
 				&:hover {
 						color: lighten($modal-color-tablabel, 9%);
 				}
+		}
+
+		&__pages {
+				width: 100%;
+				float: left;
+				height: 380px;
+				padding: 40px 0 30px;
 		}
 
 		&__tabimages,

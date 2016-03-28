@@ -138,16 +138,17 @@ class DialogDownloadPages extends React.Component {
     const { builder } = this.props;
     const { pages: builderPages } = builder;
     const pagesModel = {
-      name: {type: String}
+      name: { type: String }
     };
 
     let pages = [];
 
-    _.map(builderPages, (page, idx) => {
-      const { pageID, pageTitle } = page;
+    _.map(builderPages, (page) => {
+      const { pageID, pageTitle, pageFileName } = page;
       const time = new Date(+(pageID.split('-')[1]) * 1000);
       const formatedTime = Time.formatDate(time, 'HH:mm:ss d/M/y');
-      const pageText = `${pageTitle} - (${formatedTime})`;
+      const pageText = `${pageTitle} (${pageFileName}) - (${formatedTime})`;
+
 
       pages.push({
         name: pageText

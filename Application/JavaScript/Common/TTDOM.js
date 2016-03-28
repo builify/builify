@@ -22,7 +22,7 @@ const TTDOM = {
     },
 
     isUrl (url) {
-      const reg = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/; //eslint-disable-line
+      const reg = /\(?(?:(http|https|ftp):\/\/)?(?:((?:[^\W\s]|\.|-|[:]{1})+)@{1})?((?:www.)?(?:[^\W\s]|\.|-)+[\.][^\W\s]{2,4}|localhost(?=\/)|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?::(\d*))?([\/]?[^\s\?]*[\/]{1})*(?:\/?([^\s\n\?\[\]\{\}\#]*(?:(?=\.)){1}|[^\s\n\?\[\]\{\}\.\#]*)?([\.]{1}[^\s\?\#]*)?)?(?:\?{1}([^\s\n\#\[\]]*))?([\#][^\s\n]*)?\)?/gi
       return url.test(reg);
     }
   },
@@ -251,14 +251,14 @@ const TTDOM = {
 
       function removeJunk (doc) {
         // Remove certain elements.
-        const junkQuery = '[data-abcpanel], [data-abctoolbox]';
+        const junkQuery = '[data-abcpanel], [data-abcjunk], [data-abctoolbox], [data-tteditor], [data-ttbaseline]';
         const junkElements = doc.querySelectorAll(junkQuery);
 
         TTDOM.element.remove(junkElements);
 
         // Remove certain attributes.
-        const attributesToRemove = 'contenteditable';
-        const attributeJunkQuery = '[contenteditable]';
+        const attributesToRemove = 'contenteditable, data-abctype, data-abccorent, data-abcid, data-reactid';
+        const attributeJunkQuery = '[contenteditable], [data-abctype], [data-abccorent], [data-abcid], [data-reactid]';
         const attributeJunkElements = doc.querySelectorAll(attributeJunkQuery);
 
         TTDOM.element.attr.remove(attributeJunkElements, attributesToRemove);
@@ -269,8 +269,8 @@ const TTDOM = {
       function addDcotypeToHTML (html) {
         return (
           `
-          <!DOCTYPE html>
-          ${html}
+<!DOCTYPE html>
+${html}
           `
         );
       }

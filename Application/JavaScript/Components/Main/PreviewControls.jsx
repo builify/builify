@@ -19,7 +19,7 @@ export default class PreviewControls extends React.Component {
       return (
         <div className='ab-preview__controls'>
           <BackButton
-            wrapperClassName={'ab-preview__close'}
+            wrapperClassName='ab-preview__close'
             clickFunction={this.closePreviewWindow} />
           <div className='ab-preview__responsive'>
             <ul>

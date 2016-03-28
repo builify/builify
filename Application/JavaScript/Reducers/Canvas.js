@@ -55,8 +55,6 @@ function canvas (state = canvasInitialState, action) {
     case Actions.CURRENT_HOVER_BLOCK: {
       const { block } = action;
 
-      console.log(block);
-
       if (_.isObject(block)) {
         const { iFrameWindow } = state;
         const { elementReference } = block;

@@ -6,16 +6,18 @@ import classNames from 'classnames';
 import ImageItem from '../ImageItem';
 
 class ContentBlock extends React.Component {
+  static propTypes = {
+    data: React.PropTypes.object.isRequired,
+    onContentBlockSelection: React.PropTypes.func.isRequired
+  };
+
   shouldComponentUpdate () {
     return true;
   }
 
   selectContentBlock () {
     const { onContentBlockSelection, data } = this.props;
-    const { source, blockType, name } = data;
-    console.log(data);
-
-    return onContentBlockSelection(source, blockType, name);
+    return onContentBlockSelection(data);
   }
 
   dragContentBlock (e) {
@@ -58,8 +60,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onContentBlockSelection: (source, blockType, blockName) => {
-      dispatch(loadContentBlockSource(source, blockType, blockName));
+    onContentBlockSelection: (data) => {
+      dispatch(loadContentBlockSource(data));
     }
   };
 }

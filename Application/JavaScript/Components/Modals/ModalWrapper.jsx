@@ -21,7 +21,7 @@ export default class ModalWrapper extends React.Component {
         if (dialogElement) {
           dialogElement.classList.add('active');
         }
-      }, 16);
+      }, 1);
     }
 
     window.addEventListener('mousedown', ::this.onDocumentClick, false);

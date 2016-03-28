@@ -180,8 +180,7 @@ function page (state = pageInitialState, action) {
       let { navigation, main, footer, blocksCount } = state;
 
       if (_.has(action, 'HTML')) {
-        console.log(action);
-        let { HTML, blockType, blockName } = action;
+        let { HTML, blockType, blockName, features } = action;
         const { replaceInHTML } = state;
         const sourceString = replaceDataInHTML(HTML, replaceInHTML).toString();
         const blockID = Random.randomString(13);
@@ -190,6 +189,7 @@ function page (state = pageInitialState, action) {
           type: blockType,
           blockName: blockName,
           source: sourceString,
+          features: features,
 
           hasBeenRendered: false,
           elementReference: null,

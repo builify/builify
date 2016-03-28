@@ -2,62 +2,74 @@ import { saveAs } from './FileSaver';
 import { TEMPLATE_PACKAGE_FILENAME, TEMPLATE_PACKAGE_EXTENSION } from '../Constants';
 import JSZip from 'jszip';
 
-export default {
-  getFileSettings () {
-    return {
-      type: 'blob'
+function getFileSettings () {
+  return {
+    type: 'blob'
+  };
+}
+
+function getFileName () {
+  return `${TEMPLATE_PACKAGE_FILENAME}.${TEMPLATE_PACKAGE_EXTENSION}`;
+}
+
+function get (url) {
+  return new Promise(function(resolve, reject) {
+    const request = new XMLHttpRequest();
+
+    request.onreadystatechange = function() {
+      if (request.readyState === 4) { // done
+        if (request.status === 200) { // complete
+          resolve(request.responseText);
+        }
+      }
     };
-  },
 
-  getFileName () {
-    const fileName = `${TEMPLATE_PACKAGE_FILENAME}.${TEMPLATE_PACKAGE_EXTENSION}`;
-    return fileName;
-  },
+    request.onerror = function (e) {
+      reject(e.target.status);
+    };
 
-  getPageHTML (page) {
-    const { pageFullSource } = page;
-    return pageFullSource;
-  },
+    request.open('GET', url, true);
+    request.send(null);
+  });
+}
 
-  getPageFileName (page) {
-    const { pageFileName } = page;
-    return pageFileName;
-  },
-
-  download (pages, builder) {
-    const { uploadedImages } = builder;
-    const pagesLength = pages.length;
-    let i = 0;
-
-    if (pagesLength === 0) {
-      return;
-    }
-
-    const zip = new JSZip();
-    const fileSettings = this.getFileSettings();
-    const zipFileName =  this.getFileName();
-
-    for (; i < pagesLength; i++) {
-      const page = pages[i];
+async function addPageFilesToPackage (pckg, pages) {
+  return new Promise(function(resolve) {
+    pages.map(function (page) {
       const { blocksCount } = page;
 
-      if (blocksCount !== 0) {
-        const pageHTML = this.getPageHTML(page);
-        const fileName = this.getPageFileName(page);
+      if (blocksCount > 0) {
+        const { pageFileName: fileName, pageFullSource: pageHTML } = page;
 
-        zip.file(fileName, pageHTML);
+        pckg.file(fileName, pageHTML);
       }
-    }
+    });
 
-    for (i = 0; i < uploadedImages.length; i++) {
-      const uploadedImage = uploadedImages[i];
-      const { fileType, fileData } = uploadedImage;
+    resolve(true);
+  });
+}
 
-      if (typeof fileType !== undefined && typeof fileData !== undefined) {
-        zip.file('test.png', fileData);
-      }
-    }
+async function downloadPages (pages) {
+  const zip = new JSZip();
+  const fileSettings = getFileSettings();
+  const zipFileName = getFileName();
+  const assetsFolder = zip.folder('assets');
 
-    saveAs(zip.generate(fileSettings), zipFileName);
+  const javascriptFile = await get('assets/template.js');
+  const stylesheetFile = await get('assets/template.css');
+
+  assetsFolder.file('template.js', javascriptFile);
+  assetsFolder.file('template.css', stylesheetFile);
+
+  const pagesResult = await addPageFilesToPackage(zip, pages); //eslint-disable-line
+
+  saveAs(zip.generate(fileSettings), zipFileName);
+}
+
+export default function (pages, state) {
+  if (pages.length === 0 || !state) {
+    return false;
   }
+
+  downloadPages(pages, state);
 };

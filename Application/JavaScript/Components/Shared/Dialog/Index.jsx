@@ -8,6 +8,7 @@ import DialogContentSource from './DialogContentSource';
 import ImageEdit from '../../Modals/ImageChange';
 import PreviousPages from '../../Modals/PreviousPages';
 import IconChange from '../../Modals/IconChange';
+import DownloadPages from '../../Modals/DownloadPages';
 
 export default class Dialog extends React.Component {
   static propTypes = {

@@ -1,6 +1,8 @@
 import Actions from './Constants';
 
 export function openTab (target) {
+  window.dispatchEvent(new Event('resize'));
+
   return {
     type: Actions.OPEN_TAB,
     target: target
@@ -14,6 +16,8 @@ export function closeTab () {
 }
 
 export function openSidetab (target) {
+  window.dispatchEvent(new Event('resize'));
+
   return {
     type: Actions.OPEN_SIDETAB,
     target: target

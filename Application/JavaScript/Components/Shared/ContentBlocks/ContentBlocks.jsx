@@ -1,96 +1,96 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { randomKey } from '../../../Common/Common';
+import Random from '../../../Common/Random';
 import _ from 'lodash';
 import BlockTitle from '../BlockTitle';
 import ContentBlock from './ContentBlock';
 
-class ContentBlocks extends Component {
+class ContentBlocks extends React.Component {
+  itemsToRender = [];
+
   shouldComponentUpdate () {
     return false;
   }
 
-  render () {
+  componentWillMount () {
     const { template } = this.props;
-    let itemsToRender = [];
 
     if (_.has(template, 'blocks')) {
       const { blocks } = template;
-      const blocksLength = blocks.length;
 
-      _.map(blocks, (block, i) => {
+      _.map(blocks, (block) => {
         if (_.has(block, 'type')) {
           const { type } = block;
 
-          itemsToRender.push({
+          this.itemsToRender.push({
             type: 'blocktitle',
             name: type
           });
 
           if (_.has(block, 'items')) {
             const blockItems = block.items;
-            const itemsLength = blockItems.length;
 
-            _.map(blockItems, (blockItem, i) => {
-              const { title, source } = blockItem;
+            _.map(blockItems, (blockItem) => {
+              const { title, source, features } = blockItem;
               let thumbnail = null;
 
               if (_.has(blockItem, 'thumbnail')) {
                 thumbnail = blockItem.thumbnail;
               }
 
-              itemsToRender.push({
+              this.itemsToRender.push({
                 type: 'block',
                 blockType: type,
                 name: title,
                 source: source,
-                thumbnail: thumbnail
+                thumbnail: thumbnail,
+                features: features
               });
-            })
+            });
           }
         } else {
-          throw Error('Missing type of ' + JSON.stringify(block));
+          throw Error(`Missing type of ${JSON.stringify(block)}`);
         }
       });
     }
+  }
 
+  renderItems () {
+    return _.map(this.itemsToRender, item => {
+      const { type } = item;
+
+      if (type === 'blocktitle') {
+        return (
+          <BlockTitle
+            key={Random.randomKey('blocktitle')}
+            data={item} />
+        );
+      } else if (type === 'block') {
+        return (
+          <ContentBlock
+            key={Random.randomKey('block')}
+            data={item} />
+        );
+      }
+    });
+  }
+
+  render () {
     return (
       <div
         className='ab-contentblocks'>
         <div className='ab-contentblocks__inner'>
-          {_.map(itemsToRender, item => {
-            const { type } = item;
-
-            if (type === 'blocktitle') {
-              const key = randomKey('blocktitle');
-
-              return (
-                <BlockTitle
-                  key={key}
-                  data={item} />
-              )
-            } else if (type === 'block') {
-              const key = randomKey('block');
-
-              return (
-                <ContentBlock
-                  key={key}
-                  data={item} />
-              )
-            }
-          })}
+          { this.renderItems() }
         </div>
       </div>
-    )
+    );
   }
 }
 
 function mapStateToProps (state) {
   return {
     template: state.template
-  }
+  };
 }
 
-export default connect(
-  mapStateToProps
-)(ContentBlocks);
+export default connect(mapStateToProps)(ContentBlocks);

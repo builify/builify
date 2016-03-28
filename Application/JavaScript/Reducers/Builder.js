@@ -70,6 +70,7 @@ function builder (state = builderInitialState, action) {
     }
 
     case Actions.DOWNLOAD_PAGES: {
+      const { currentState } = action;
       const { pages } = state;
       const { pages: selectedPages } = action;
       const selectPagesLength = selectedPages.length;
@@ -80,7 +81,7 @@ function builder (state = builderInitialState, action) {
           queryPages.push(pages[selectedPages[i]]);
         }
 
-        DownloadPages.download(queryPages, state);
+        DownloadPages(queryPages, currentState);
       }
 
       return state;
@@ -140,11 +141,23 @@ function builder (state = builderInitialState, action) {
         modalTarget: action.currentHoverBlock
       });
 
-    case Actions.OPEN_DOWNLOAD_MODAL:
-      return _.assign({}, state, {
-        isModalOpen: true,
-        modalType: DialogTypes.DOWNLOADPAGES
-      });
+    case Actions.OPEN_DOWNLOAD_MODAL: {
+      const { pages } = state;
+      const pagesSize = _.size(pages);
+
+      if (pagesSize === 1) {
+        const { currentState } = action;
+
+        DownloadPages(pages, currentState);
+      } else if (pagesSize > 1) {
+        return _.assign({}, state, {
+          isModalOpen: true,
+          modalType: DialogTypes.DOWNLOADPAGES
+        });
+      }
+
+      return state;
+    }
 
     case Actions.OPEN_RESTART_MODAL:
       return _.assign({}, state, {

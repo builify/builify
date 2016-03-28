@@ -28,8 +28,11 @@ export function openPreviousPagesSelectionModal () {
 }
 
 export function openDownloadModal () {
-  return {
-    type: Actions.OPEN_DOWNLOAD_MODAL
+  return (dispatch, getState) => {
+    dispatch({
+      type: Actions.OPEN_DOWNLOAD_MODAL,
+      currentState: getState()
+    });
   };
 }
 

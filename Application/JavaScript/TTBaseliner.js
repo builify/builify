@@ -41,6 +41,8 @@ export default class {
     this.overlay.style.pointerEvents = 'none';
     this.overlay.style.opacity = gridOpacity / 100;
 
+    this.overlay.setAttribute('data-ttbaseline', true);
+
     gridTarget.body.appendChild(this.overlay);
 
     this.resize();

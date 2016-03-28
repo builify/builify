@@ -10,17 +10,10 @@ $preview-controls-height: 60px;
     }
 
     &__close {
+        @extend .ab-tab__close;
         position: absolute;
-        display: block;
-        cursor: pointer;
-        height: $preview-controls-height;
-        line-height: $preview-controls-height;
         left: $base-padding;
-        @include transition(all 0.3s ease);
-
-        span {
-            padding-left: $base-padding;
-        }
+        margin-top: 10px;
 
         &:hover {
             color: $color-primary;

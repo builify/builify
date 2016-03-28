@@ -110,12 +110,15 @@ export function selectImage (data) {
   };
 }
 
-export function loadContentBlockToPage (data, blockType, blockName) {
+export function loadContentBlockToPage (blockData) {
+  const { blockType, features, name, source } = blockData;
+
   return {
     type: Actions.LOAD_CONTENTBLOCK_TO_PAGE,
-    HTML: data,
+    HTML: source,
     blockType: blockType,
-    blockName: blockName
+    blockName: name,
+    features: features
   };
 }
 
@@ -126,8 +129,6 @@ export function blockWasRenderedToPage (block, elementReference) {
       block: block,
       elementReference: elementReference
     });
-
-    console.log(block);
 
     const state = getState();
     const { page } = state;
@@ -146,6 +147,8 @@ export function blockWasRenderedToPage (block, elementReference) {
         targetBlock = main[index];
       }
     }
+
+    //console.log(block);
 
     /*if (targetBlock && targetBlock.elementReference !== null) {
       targetBlock.elementReference.addEventListener('mouseenter', () => {

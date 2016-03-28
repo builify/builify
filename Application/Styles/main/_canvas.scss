@@ -34,6 +34,11 @@
 		}
 
 		&.preview {
+				.#{$nameprefix}canvas__holder {
+						height: 90%;
+						box-shadow: 0 0 30px rgba(#000, 0.3);
+				}
+
 				&.desktop {
 						.#{$nameprefix}canvas__holder {
 								width: 100%;

@@ -169,9 +169,12 @@ export function uploadImage (data) {
 }
 
 export function downloadPages (pages) {
-  return {
-    type: Actions.DOWNLOAD_PAGES,
-    pages: pages
+  return (dispatch, getState) => {
+    dispatch({
+      type: Actions.DOWNLOAD_PAGES,
+      pages: pages,
+      currentState: getState()
+    });
   };
 }
 

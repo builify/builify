@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "axios": "^0.7.0",
+    "babel-polyfill": "^6.7.2",
     "classnames": "*",
     "js-search": "^1.2.2",
     "jszip": "^2.5.0",

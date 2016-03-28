@@ -3,19 +3,23 @@
     "core": [
       {
         "type": "css",
-        "src": "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+        "src": "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css",
+        "location": "external"
       },
       {
         "type": "css",
-        "src": "assets/template.css"
+        "src": "assets/template.css",
+        "location": "local"
       },
       {
         "type": "js",
-        "src": "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"
+        "src": "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js",
+        "location": "external"
       },
       {
         "type": "js",
-        "src": "assets/template.js"
+        "src": "assets/template.js",
+        "location": "local"
       }
     ]
   },
