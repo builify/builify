@@ -1,4 +1,113 @@
+$notification-width: 320px;
+$notification-shadow-opacity: 0.3;
+$notification-error: #ec3d3d;
+$notification-error-bg: #f4e9e9;
+$notification-error-color: #412f2f;
+
 .#{$nameprefix}notification {
+    &-item {
+        position: relative;
+        width: 100%;
+        cursor: pointer;
+        border-radius: 2px;
+        font-size: 13px;
+        margin: 10px 0 0;
+        padding: 10px;
+        display: block;
+        opacity: 0;
+        transition: all 0.3s ease;
+
+        &-hidden {
+            opacity: 0;
+        }
+
+        &-visible {
+            opacity: 1;
+        }
+
+        &-title {
+          font-size: 14px;
+          margin: 0 0 5px 0;
+          padding: 0;
+          font-weight: 700;
+        }
+
+        &-dismiss {
+            position: absolute;
+            top: 4px;
+            right: 5px;
+            height: 32px;
+            width: 32px;
+        }
+
+        &-error {
+          border-top: 2px solid $notification-error;
+          background: $notification-error-bg;
+          color: $notification-error-color;
+          box-shadow: 0 0 1px rgba($notification-error, $notification-shadow-opacity);
+        }
+    }
+
+    &-tl,
+    &-tr,
+    &-tc,
+    &-bl,
+    &-br,
+    &-bc {
+        font-family: inherit;;
+        position: fixed;
+        padding: 0 10px 10px 10px;
+        z-index: 9998;
+        height: auto;
+        width: $notification-width;
+    }
+
+    &-tl {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: auto;
+    }
+
+    &-tr {
+        top: 0;
+        bottom: auto;
+        left: auto;
+        right: 0;
+    }
+
+    &-tc {
+        top: 0;
+        bottom: auto;
+        margin: 0 auto;
+        left: 50%;
+        margin-left: -($notification-width / 2);
+    }
+
+    &-bl {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: auto;
+    }
+
+    &-br {
+        top: auto;
+        bottom: 0;
+        left: auto;
+        right: 0;
+    }
+
+    &-bc {
+        top: auto;
+        bottom: 0;
+        margin: 0 auto;
+        left: 50%;
+        margin-left: -($notification-width / 2);
+    }
+}
+
+/*.#{$nameprefix}notification {
     &__container {
         position: fixed;
         z-index: 999999;
@@ -67,4 +176,4 @@
             }
         }
     }
-}
+}*/

@@ -7,9 +7,26 @@ import Main from './Main/Main';
 import LoadingScreen from './Shared/LoadingScreen';
 import ColorPicker from './Shared/ColorPicker';
 import DialogContainer from './Containers/Dialog';
-import NotificationContainer from './Containers/Notifications';
+import NotificationContainer from './Notifications';
 
 class Base extends React.Component {
+  shouldComponentUpdate () {
+    return false;
+  }
+
+  componentDidMount () {
+    for (let i = 0; i < 5; i++) {
+      window.setTimeout(() => {
+        this.refs.notificationSystem.addNotification({
+          message: 'Notification message',
+          level: 'success',
+          position: 'br'
+        });
+      }, 1000 * i);
+    }
+
+  }
+
   render () {
     const { builder, builderConfiguration } = this.props;
     const { currentLocation } = builder;
@@ -31,7 +48,7 @@ class Base extends React.Component {
         <ColorPicker />
 
         <DialogContainer />
-        <NotificationContainer />
+        <NotificationContainer ref='notificationSystem' />
       </div>
     );
   }
