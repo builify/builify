@@ -2,6 +2,7 @@ import Actions from './Constants';
 import Storage from '../Common/Storage';
 import TTDOM from '../Common/TTDOM';
 import { TEMPLATE_PAGES_STORAGE_NAME } from '../Constants';
+import { addNotification } from './Notifications';
 
 export function startNewPage () {
   const pagesInStorage = Storage.get(TEMPLATE_PAGES_STORAGE_NAME);
@@ -43,8 +44,15 @@ export function getCurrentPageData () {
 }
 
 export function saveCurrentPage () {
-  return {
-    type: Actions.SAVE_CURRENT_PAGE
+  return (dispatch) => {
+    dispatch(addNotification({
+      message: 'Page saved',
+      level: 'success'
+    }));
+
+    dispatch({
+      type: Actions.SAVE_CURRENT_PAGE
+    });
   };
 }
 

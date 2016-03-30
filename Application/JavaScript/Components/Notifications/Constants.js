@@ -1,4 +1,6 @@
-var CONSTANTS = {
+const CONSTANTS = {
+  // Constants
+  defaultUid: 3400,
 
   // Positions
   positions: {
@@ -23,12 +25,11 @@ var CONSTANTS = {
     title: null,
     message: null,
     level: null,
-    position: 'tr',
+    position: 'br',
     autoDismiss: 5,
     dismissible: true,
     action: null
   }
 };
 
-
-module.exports = CONSTANTS;
+export default CONSTANTS;

@@ -1,41 +1,79 @@
 import _ from 'lodash';
 import * as Actions from '../Actions/Constants';
+import Constants from '../Components/Notifications/Constants';
 
 const notificationsInitialState = [];
-const notificationDefaultProps = {
-  type: null,
-  message: null,
-  timeout: null
-};
+const notificationDefaultProps = Constants.notification;
+
+var UID = Constants.defaultUid;
 
 function notifications (state = notificationsInitialState, action) {
   switch (action.type) {
-    case Actions.ADD_NOTIFICATION:
+    case Actions.ADD_NOTIFICATION: {
       const { notification } = action;
-      const notificaionItem = _.assign(notificationDefaultProps, notification);
+      var notifications = state;
+      const _notification = _.assign({}, Constants.notification, notification);
 
-      return [...state, notificaionItem];
+      if (!_notification.level) {
+        throw new Error('notification level is required.');
+      }
 
-    case Actions.REMOVE_NOTIFICATION:
-      const { id } = action;
-      let index = -1;
+      if (_.values(Constants.levels).indexOf(_notification.level) === -1) {
+        throw new Error(`"${_notification.level}" is not a valid level.`);
+      }
 
-      for (let i = 0; i < state.length; i++) {
-        const currentItem = state[i];
+      if (_.isNaN(_notification.autoDismiss)) {
+        throw new Error(`"autoDismiss" is not a valid position.`);
+      }
 
-        if (currentItem.id === id) {
-          index = i;
-          break;
+      if (_.values(Constants.positions).indexOf(_notification.position) === -1) {
+        throw new Error(`"${_notification.position}" is not a valid position.`);
+      }
+
+      // Some preparations
+      _notification.position = _notification.position.toLowerCase();
+      _notification.level = _notification.level.toLowerCase();
+      _notification.autoDismiss = parseInt(_notification.autoDismiss, 10);
+
+      _notification.uid = _notification.uid || UID;
+      _notification.ref = `notification-${_notification.uid}`;
+
+      UID += 1;
+
+      // do not add if the notification already exists based on supplied uid
+      for (let i = 0; i < notifications.length; i++) {
+        if (notifications[i].uid === _notification.uid) {
+          return false;
         }
       }
 
-      if (index !== -1) {
-        return [
-          ...state.slice(0, index)
-        ];
+      notifications.push(_notification);
+
+      if (_.isFunction(_notification.onAdd)) {
+        notification.onAdd(_notification);
       }
 
-      return state;
+      return [...notifications];
+    }
+
+    case Actions.REMOVE_NOTIFICATION: {
+      var { uid } = action;
+      var notification = null;
+
+      var notifications = state.filter((toCheck) => {
+        if (toCheck.uid === uid) {
+          notification = toCheck;
+        }
+
+        return toCheck.uid !== uid;
+      });
+
+      if (notification && notification.onRemove) {
+        notification.onRemove(notification);
+      }
+
+      return [...notifications];
+    }
   }
 
   return state;

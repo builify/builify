@@ -8,49 +8,6 @@ export function toggleBaseline (checked) {
   };
 }
 
-export function addNotification (notification) {
-  return {
-    type: Actions.ADD_NOTIFICATION,
-    notification: notification
-  };
-}
-
-export function eliminateNotification (id) {
-  return (dispatch) => {
-    dispatch(alertNotificationRemoval(id));
-
-    window.setTimeout(function () {
-      dispatch(removeNotification(id));
-    }, 1500);
-  };
-}
-
-export function removeNotification (id) {
-  return {
-    type: Actions.REMOVE_NOTIFICATION,
-    id: id
-  };
-}
-
-export function alertNotificationRemoval (id) {
-  const element = document.getElementById(`nid-${String(id)}`);
-
-  if (element) {
-    element.classList.add('close');
-  }
-
-  return {
-    type: Actions.ALERT_NOTIFICATION_FOR_REMOVAL,
-    id: id
-  };
-}
-
-export function removeAllNotifications () {
-  return {
-    type: Actions.REMOVE_ALL_NOTIFICATIONS
-  };
-}
-
 export function openColorPicker (target) {
   return {
     type: Actions.OPEN_COLORPICKER,
@@ -123,38 +80,10 @@ export function loadContentBlockToPage (blockData) {
 }
 
 export function blockWasRenderedToPage (block, elementReference) {
-  return (dispatch, getState) => {
-    dispatch({
-      type: Actions.BLOCK_WAS_RENDERED_TO_PAGE,
-      block: block,
-      elementReference: elementReference
-    });
-
-    const state = getState();
-    const { page } = state;
-    const { navigation, main, footer } = page;
-    const { type } = block;
-    let targetBlock = null;
-
-    if (type === 'navigation') {
-      targetBlock = navigation;
-    } else if (type === 'footer') {
-      targetBlock = footer;
-    } else {
-      const index = _.findIndex(main, { id: block.id });
-
-      if (index) {
-        targetBlock = main[index];
-      }
-    }
-
-    //console.log(block);
-
-    /*if (targetBlock && targetBlock.elementReference !== null) {
-      targetBlock.elementReference.addEventListener('mouseenter', () => {
-        dispatch(currentHoverBlock(targetBlock));
-      });
-    }*/
+  return {
+    type: Actions.BLOCK_WAS_RENDERED_TO_PAGE,
+    block: block,
+    elementReference: elementReference
   };
 }
 

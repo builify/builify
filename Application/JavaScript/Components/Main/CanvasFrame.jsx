@@ -11,6 +11,8 @@ import SectionToolBox from '../Shared/SectionToolBox';
 import IFrame from './IFrame';
 import TTEditor from '../../TTEditor';
 
+let BLOCKSID_CACHE = [];
+
 class CanvasFrame extends React.Component {
   _blocks = {};
   _editor = null;
@@ -58,14 +60,14 @@ class CanvasFrame extends React.Component {
     });
   }
 
-  renderBlocks (blocks) {
-    const { navigation, main, footer } = blocks;
+  renderBlocks (page) {
+    const { navigation, main, footer } = page;
 
     this.renderNavigation(navigation);
     this.renderMainBlocks(main);
     this.renderFooter(footer);
 
-    this.hoverBlocks();
+    this.hoverBlocks(page);
   }
 
   setElementAttributes (block, elementReference, updateMode: false) {
@@ -101,6 +103,7 @@ class CanvasFrame extends React.Component {
         if (updatePosition) {
           if (_.has(block, 'newPos')) {
             const { elementReference, newPos } = block;
+
             elementReference.parentNode.insertBefore(
               elementReference,
               mainElement.children[newPos]
@@ -121,7 +124,7 @@ class CanvasFrame extends React.Component {
     if (_.values(block).length !== 0) {
       const { hasBeenRendered, source } = block;
 
-      this.errorMessage(block);
+      this.validateBlock(block);
 
       if (!hasBeenRendered) {
         targetElement.innerHTML = '';
@@ -135,13 +138,12 @@ class CanvasFrame extends React.Component {
   }
 
   renderFooter (block) {
-    const { onCoreBlockHover } = this.props;
     const targetElement = this.refs.footer;
 
     if (_.values(block).length !== 0) {
       const { source, hasBeenRendered } = block;
 
-      this.errorMessage(block);
+      this.validateBlock(block);
 
       if (!hasBeenRendered) {
         targetElement.innerHTML = '';
@@ -154,14 +156,11 @@ class CanvasFrame extends React.Component {
     this._blocks.footer = block;
   }
 
-  errorMessage (block) {
+  validateBlock (block) {
     const { id, type, blockName, source } = block;
 
     if (!id || !type || !blockName || !source) {
-      throw Error(`
-        Something went wrong when setting block attributes.
-        ${JSON.stringify(block)}
-      `);
+      throw Error(`Something went wrong when setting block attributes. - ${JSON.stringify(block)}`);
     }
   }
 
@@ -177,33 +176,21 @@ class CanvasFrame extends React.Component {
     Events.pauseEvent(evt);
   }
 
-  hoverBlocks () {
-    const targets = `
-      p,
-      span,
-      a,
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6,
-      strong,
-      em,
-      li,
-      ul,
-      div,
-      i,
-      img,
-      input,
-      textarea,
-      blockquote,
-      figcaption
-    `;
+  hoverBlocks (page) {
+    const targets = [
+      'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+      'strong', 'em', 'i', 'span', 'p', 'a',
+      'li', 'ul',
+      'div',
+      'img', 'input', 'textarea', 'blockquote',
+      'figcaption'
+    ].join(',');
     const navigationElements = this.refs.navigation.querySelectorAll(targets);
     const mainElements = this.refs.main.querySelectorAll(targets);
     const footerElements = this.refs.footer.querySelectorAll(targets);
     const targetElements = _.union(navigationElements, mainElements, footerElements);
+    const { navigation, main, footer, blocksCount } = page;
+    const { onCoreBlockHover } = this.props;
 
     _.map(targetElements, target => {
       if (!target.getAttribute('data-abccorent')) {
@@ -218,6 +205,41 @@ class CanvasFrame extends React.Component {
         target.removeEventListener('mouseleave', this.hoverBlocksMouseLeave);
         target.addEventListener('mouseenter', this.hoverBlocksMouseEnter, false);
         target.addEventListener('mouseleave', this.hoverBlocksMouseLeave, false);
+      } else {
+        const blockID = target.getAttribute('data-abcid');
+
+        if (blockID) {
+          if (footer.id === blockID &&
+              footer.elementReference &&
+              _.indexOf(BLOCKSID_CACHE, blockID) === -1) {
+            footer.elementReference.addEventListener('mouseenter', () => {
+              return onCoreBlockHover(footer);
+            });
+
+            BLOCKSID_CACHE.push(blockID);
+          } else if (navigation.id === blockID &&
+                     navigation.elementReference &&
+                     blocksCount === 1 &&
+                     _.indexOf(BLOCKSID_CACHE, blockID) === -1) {
+            navigation.elementReference.addEventListener('mouseenter', () => {
+              return onCoreBlockHover(navigation);
+            });
+
+            BLOCKSID_CACHE.push(blockID);
+          } else {
+            _.map(main, (mainBlock) => {
+              if (mainBlock.id === blockID &&
+                  mainBlock.elementReference &&
+                  _.indexOf(BLOCKSID_CACHE, blockID) === -1) {
+                mainBlock.elementReference.addEventListener('mouseenter', () => {
+                  return onCoreBlockHover(mainBlock);
+                });
+
+                BLOCKSID_CACHE.push(blockID);
+              }
+            });
+          }
+        }
       }
     });
   }

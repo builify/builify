@@ -1,21 +1,37 @@
 $notification-width: 320px;
 $notification-shadow-opacity: 0.3;
+
 $notification-error: #ec3d3d;
 $notification-error-bg: #f4e9e9;
 $notification-error-color: #412f2f;
+
+$notification-success: $color-green;
+$notification-success-bg: $color-white;
+$notification-success-color: #31411c;
+
+$notification-warning: #ebad1a;
+$notification-warning-bg: #f9f6f0;
+$notification-warning-color: #5a5343;
+
+$notification-info: #369cc7;
+$notification-info-bg: #e8f0f4;
+$notification-info-color: #41555d;
 
 .#{$nameprefix}notification {
     &-item {
         position: relative;
         width: 100%;
         cursor: pointer;
-        border-radius: 2px;
-        font-size: 13px;
-        margin: 10px 0 0;
-        padding: 10px;
+        border-radius: 3px;
+        margin: 15px 0 0;
+        padding: 15px;
         display: block;
+        overflow: hidden;
         opacity: 0;
+        border: 1px solid #e4e4e4;
         transition: all 0.3s ease;
+        @include user-select(none);
+        @include rem(font-size, 14px);
 
         &-hidden {
             opacity: 0;
@@ -26,25 +42,55 @@ $notification-error-color: #412f2f;
         }
 
         &-title {
-          font-size: 14px;
-          margin: 0 0 5px 0;
-          padding: 0;
-          font-weight: 700;
+            margin: 0 0 3px 0;
+            padding: 0;
+            font-weight: 700;
+            @include rem(font-size, 16px);
         }
 
         &-dismiss {
             position: absolute;
-            top: 4px;
-            right: 5px;
-            height: 32px;
-            width: 32px;
+            top: 11px;
+            right: 11px;
+            height: 25px;
+            width: 25px;
+            cursor: pointer;
+            border: 2px solid #444;
+            border-radius: 100%;
+
+            svg {
+                display: block;
+                margin: 0 auto;
+                margin-top: 2px;
+            }
         }
 
         &-error {
-          border-top: 2px solid $notification-error;
-          background: $notification-error-bg;
-          color: $notification-error-color;
-          box-shadow: 0 0 1px rgba($notification-error, $notification-shadow-opacity);
+            border-top: 2px solid $notification-error;
+            background: $notification-error-bg;
+            color: $notification-error-color;
+            box-shadow: 0 0 1px rgba($notification-error, $notification-shadow-opacity);
+        }
+
+        &-success {
+            border-top: 2px solid $notification-success;
+            background: $notification-success-bg;
+            color: $notification-success-color;
+            box-shadow: 0 0 1px rgba($notification-success, $notification-shadow-opacity);
+        }
+
+        &-warning {
+            border-top: 2px solid $notification-warning;
+            background: $notification-warning-bg;
+            color: $notification-warning-color;
+            box-shadow: 0 0 1px rgba($notification-warning, $notification-shadow-opacity);
+          }
+
+        &-info {
+            border-top: 2px solid $notification-info;
+            background: $notification-info-bg;
+            color: $notification-info-color;
+            box-shadow: 0 0 1px rgba($notification-info, $notification-shadow-opacity);
         }
     }
 
@@ -106,74 +152,3 @@ $notification-error-color: #412f2f;
         margin-left: -($notification-width / 2);
     }
 }
-
-/*.#{$nameprefix}notification {
-    &__container {
-        position: fixed;
-        z-index: 999999;
-        pointer-events: none;
-
-        &.top-right {
-          top: $notification-container-margin - 10px;
-          right: $notification-container-margin;
-        }
-
-        &.bottom-right {
-            bottom: $notification-container-margin - 10px;
-            right: $notification-container-margin;
-        }
-    }
-
-    &__close {
-        position: absolute;
-        right: 5px;
-        top: 5px;
-        cursor: pointer;
-        text-align: center;
-        height: 25px;
-        width: 25px;
-        line-height: 25px;
-        overflow: hidden;
-        @include rem(font-size, 26px);
-    }
-
-    &__item {
-        position: relative;
-        pointer-events: auto;
-        overflow: hidden;
-        width: 230px;
-        border-radius: 3px;
-        padding: 10px;
-        opacity: 0.8;
-        margin-bottom: 10px;
-        color: #FFF;
-        box-shadow: 0 0 30px rgba(#000, 0.3);
-        background: $loadingscreen-bg;
-        @include transition(opacity 0.5s ease);
-
-        &.close {
-          opacity: 0;
-        }
-
-        &-inner,
-        &-inner > div {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            min-height: 50px;
-            @include display(flex);
-            @include align-items(center);
-            @include align-content(flex-start);
-            @include justify-content(center);
-            @include flex-direction(row);
-            @include flex-wrap(wrap);
-
-            h1 {
-                margin-left: 15px;
-                text-transform: uppercase;
-                font-weight: 700;
-                @include rem(font-size, 16px);
-            }
-        }
-    }
-}*/

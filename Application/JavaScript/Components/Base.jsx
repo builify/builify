@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { CurrentLocations } from '../Constants';
 import classNames from 'classnames';
 import Aside from './Aside/Aside';
 import Main from './Main/Main';
@@ -14,41 +13,21 @@ class Base extends React.Component {
     return false;
   }
 
-  componentDidMount () {
-    for (let i = 0; i < 5; i++) {
-      window.setTimeout(() => {
-        this.refs.notificationSystem.addNotification({
-          message: 'Notification message',
-          level: 'success',
-          position: 'br'
-        });
-      }, 1000 * i);
-    }
-
-  }
-
   render () {
-    const { builder, builderConfiguration } = this.props;
-    const { currentLocation } = builder;
+    const { builderConfiguration } = this.props;
     const { defaultTheme } = builderConfiguration;
-    const isPreviewModeActive = currentLocation === CurrentLocations.PREVIEW ? true : false;
-    const reactWrapClassname = classNames(
-      'react-wrap',
-      defaultTheme,
-      isPreviewModeActive ? 'preview' : ''
-    );
-    const asideClassName = isPreviewModeActive ? 'hidden' : '';
+    const className = classNames( 'react-wrap', defaultTheme);
 
     return (
-      <div className={reactWrapClassname}>
-        <Aside cName={asideClassName} />
+      <div className={className}>
+        <Aside/>
         <Main />
 
         <LoadingScreen />
         <ColorPicker />
 
         <DialogContainer />
-        <NotificationContainer ref='notificationSystem' />
+        <NotificationContainer />
       </div>
     );
   }
@@ -56,8 +35,7 @@ class Base extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    builderConfiguration: state.builderConfiguration,
-    builder: state.builder
+    builderConfiguration: state.builderConfiguration
   };
 }
 

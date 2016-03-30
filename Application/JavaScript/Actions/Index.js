@@ -5,6 +5,7 @@ import * as DialogActions from './Dialog';
 import * as PageActions from './Page';
 import * as PreviewActions from './Preview';
 import * as MiscActions from './Misc';
+import * as NotificationActions from './Notifications';
 import _ from 'lodash';
 
 const allActions = _.assign({},
@@ -14,7 +15,8 @@ const allActions = _.assign({},
   DialogActions,
   PageActions,
   PreviewActions,
-  MiscActions
+  MiscActions,
+  NotificationActions
 );
 
 export default allActions;

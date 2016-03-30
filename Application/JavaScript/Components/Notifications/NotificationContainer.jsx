@@ -1,7 +1,6 @@
 import React from 'react';
-import Random from '../../Common/Random';
-import Constants from './Constants';
 import NotificationItem from './NotificationItem';
+import Constants from './Constants';
 
 export default class NotificationContainer extends React.Component {
   static propTypes = {
@@ -10,29 +9,24 @@ export default class NotificationContainer extends React.Component {
   };
 
   render () {
-    var self = this;
-    var notifications;
-
     if ([Constants.positions.bl, Constants.positions.br, Constants.positions.bc].indexOf(this.props.position) > -1) {
       this.props.notifications.reverse();
     }
 
-    notifications = this.props.notifications.map(function(notification) {
+    const notifications = this.props.notifications.map((notification) => {
       return (
         <NotificationItem
-          ref={ 'notification-' + notification.uid }
-          key={Random.randomString(notification.uid)}
-          notification={ notification }
-          getStyles={ self.props.getStyles }
-          onRemove={ self.props.onRemove }
-          noAnimation={ self.props.noAnimation }
-          allowHTML={ self.props.allowHTML }
-        />
+          ref={`notification-${notification.uid}`}
+          key={notification.uid}
+          notification={notification}
+          onRemove={this.props.onRemove}
+          noAnimation={this.props.noAnimation}
+          allowHTML={this.props.allowHTML} />
       );
     });
 
     return (
-      <div className={ 'ab-notification-' + this.props.position } style={ this._style }>
+      <div className={`ab-notification-${this.props.position}`}>
         { notifications }
       </div>
     );

@@ -27,6 +27,21 @@ export default class Icon extends React.Component {
 
   renderGraphic () {
     switch (this.props.icon) {
+      case 'format-paint':
+        return (
+          <g><path d="M18 4v-1c0-.55-.45-1-1-1h-12c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-1h1v4h-10v11c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-9h8v-8h-3z"></path></g>
+        );
+
+      case 'video-collection':
+        return (
+          <g><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z"></path></g>
+        );
+
+      case 'exposure-plus-1':
+        return (
+          <g><path d="M10 7h-2v4h-4v2h4v4h2v-4h4v-2h-4v-4zm10 11h-2v-10.62l-3 1.02v-1.7l4.7-1.7h.3v13z"></path></g>
+        );
+
       case 'control-point-duplicate':
         return (
           <g><path d="M16 8h-2v3h-3v2h3v3h2v-3h3v-2h-3zm-14 4c0-2.79 1.64-5.2 4.01-6.32v-2.16c-3.49 1.24-6.01 4.57-6.01 8.48s2.52 7.24 6.01 8.48v-2.16c-2.37-1.12-4.01-3.53-4.01-6.32zm13-9c-4.96 0-9 4.04-9 9s4.04 9 9 9 9-4.04 9-9-4.04-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"></path></g>
@@ -181,8 +196,8 @@ export default class Icon extends React.Component {
     const cn = classNames(className);
     let styles = {
       fill: 'currentcolor',
-      width: size, // CSS instead of the width attr to support non-pixel units
-      height: size // Prevents scaling issue in IE
+      width: `${size}px`, // CSS instead of the width attr to support non-pixel units
+      height: `${size}px` // Prevents scaling issue in IE
     };
 
     return (
