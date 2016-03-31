@@ -1,7 +1,7 @@
 import Actions from './Constants';
 import Storage from '../Common/Storage';
 import TTDOM from '../Common/TTDOM';
-import { TEMPLATE_PAGES_STORAGE_NAME } from '../Constants';
+import { TEMPLATE_PAGES_STORAGE_NAME, CurrentLocations } from '../Constants';
 import { addNotification } from './Notifications';
 
 export function startNewPage () {
@@ -44,15 +44,20 @@ export function getCurrentPageData () {
 }
 
 export function saveCurrentPage () {
-  return (dispatch) => {
-    dispatch(addNotification({
-      message: 'Page saved',
-      level: 'success'
-    }));
+  return (dispatch, getState) => {
+    const { builder } = getState();
+    const { currentLocation } = builder;
 
-    dispatch({
-      type: Actions.SAVE_CURRENT_PAGE
-    });
+    if (currentLocation !== CurrentLocations.STARTSCREEN) {
+      dispatch({
+        type: Actions.SAVE_CURRENT_PAGE
+      });
+
+      dispatch(addNotification({
+        message: 'Page saved',
+        level: 'success'
+      }));
+    }
   };
 }
 

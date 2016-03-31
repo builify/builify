@@ -23,11 +23,6 @@ const builderInitialState = {
   doPreviousPagesExistInStorage: false,
   pages: [],
 
-  // Colorpicker
-  isColorPickerOpened: false,
-  colorPickerSelectedElement: null,
-  colorPickerSelectedElementColorElement: null,
-
   // Filter
   filterContentBlocksTarget: 'all',
 
@@ -321,30 +316,6 @@ function builder (state = builderInitialState, action) {
       return _.assign({}, state, {
         currentLocation: CurrentLocations.CANVAS
       });
-
-    case Actions.OPEN_COLORPICKER:
-      return _.assign({}, state, {
-        isColorPickerOpened: true,
-        colorPickerSelectedElement: action.target,
-        colorPickerSelectedElementColorElement: action.target.querySelector(
-          '.ab-color__colorHolder'
-        )
-      });
-
-    case Actions.CLOSE_COLORPICKER:
-      return _.assign({}, state, {
-        isColorPickerOpened: false,
-        colorPickerSelectedElement: null,
-        colorPickerSelectedElementColorElement: null
-      });
-
-    case Actions.SET_COLOR_FROM_COLORPICKER:
-      if (state.colorPickerTarget) {
-        const { color } = action;
-        state.colorPickerTarget.style.backgroundColor = '#' + color + '';
-      }
-
-      return state;
 
     case Actions.FILTER_CONTENTBLOCKS:
       let actionTarget = action.target;

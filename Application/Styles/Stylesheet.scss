@@ -11,18 +11,17 @@
 @import "core/commons";
 @import "core/reactjs";
 
-@import "aside/aside";
-@import "aside/logo";
-@import "aside/primarynav";
-@import "aside/tabs";
-@import "aside/copyright";
-@import "aside/size";
-@import "aside/filter";
-@import "aside/contentblocks";
-@import "aside/color";
-@import "aside/swatch";
-@import "aside/currentpage";
-@import "aside/items";
+@import "Aside/Aside";
+@import "Aside/Tabs";
+@import "Aside/Copyright";
+@import "Aside/Contentblocks";
+@import "Aside/logo";
+@import "Aside/primarynav";
+@import "Aside/size";
+@import "Aside/filter";
+@import "Aside/color";
+@import "Aside/currentpage";
+@import "Aside/items";
 
 @import "main/main";
 @import "main/canvas";
@@ -46,4 +45,4 @@
 @import "shared/title";
 @import "shared/image";
 
-@import "theme/stylying";
+@import "Theme/Light";

@@ -1,3 +1,6 @@
+//
+// Contentblocks
+// -----------------------------------------------------------------------------
 .#{$nameprefix}contentblocks {
 		position: relative;
 		padding: 0 ($base-padding / 1.6) 0 $base-padding;
@@ -15,7 +18,6 @@
 						margin-bottom: 5px;
 						font-weight: 200;
 						text-transform: uppercase;
-						color: #555;
 						@include rem(font-size, 18px);
 						@include clearfix;
 
@@ -65,8 +67,6 @@
 						margin: 0;
 						padding: 0;
 						width: 100%;
-						color: #FFF;
-						background: #333;
 						overflow: hidden;
 						padding: 0 15px;
 						bottom: -$contentblock-figcaption-height;

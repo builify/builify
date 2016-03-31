@@ -20,6 +20,12 @@ class ImageEdit extends React.Component {
     if (TTDOM.type.isElement(editTarget)) {
       if (editTarget.tagName === 'IMG') {
         editTarget.setAttribute('src', src);
+      } else if (editTarget.tagName === 'DIV') {
+        const backgroundImage = editTarget.style.backgroundImage;
+
+        if (backgroundImage) {
+          editTarget.style.backgroundImage = `url(${src})`;
+        }
       }
     }
 
@@ -38,6 +44,15 @@ class ImageEdit extends React.Component {
         const currentValue = editTarget.getAttribute('src');
 
         if (currentValue !== value) {
+          this.selectImage({
+            src: value
+          });
+        }
+      } else if (editTarget.tagName === 'DIV') {
+        const backgroundImage = editTarget.style.backgroundImage;
+        const url = backgroundImage ? backgroundImage.match(/url\(["|']?([^"']*)["|']?\)/)[1] : null;
+
+        if (url && url !== value) {
           this.selectImage({
             src: value
           });

@@ -1,17 +1,18 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { getString } from '../../../Common/Localization';
 
 export default class Color extends React.Component {
   static propTypes = {
     color: React.PropTypes.string.isRequired,
     colorTarget: React.PropTypes.string.isRequired,
-    clickFunction: React.PropTypes.func.isRequired
+    onClick: React.PropTypes.func.isRequired
   };
 
   clickColor () {
-    const { clickFunction } = this.props;
+    const node = ReactDOM.findDOMNode(this.refs['color']);
 
-    return clickFunction(this.refs['color']);
+    return this.props.onClick(node);
   }
 
   render () {
@@ -19,7 +20,7 @@ export default class Color extends React.Component {
     const colorHolderStyle = {
       backgroundColor: color
     };
-    const colorName = getString('design.colors.' + colorTarget);
+    const colorName = getString(`design.colors.${colorTarget}`);
 
     return (
       <div
@@ -29,7 +30,7 @@ export default class Color extends React.Component {
         <div
           className='ab-color__name'
           title={colorName}>
-          {colorName}
+          <span>{colorName}</span>
         </div>
         <div
           className='ab-color__circle'

@@ -7,9 +7,7 @@ import Color from './Color';
 
 class Colors extends React.Component {
   clickColor (element) {
-    const { onColorClick } = this.props;
-
-    return onColorClick(element);
+    return this.props.openColorPicker(element);
   }
 
   renderColors () {
@@ -25,7 +23,7 @@ class Colors extends React.Component {
          key={key}
          color={color}
          colorTarget={colorTarget}
-         clickFunction={::this.clickColor} />
+         onClick={::this.clickColor} />
       );
     });
   }
@@ -47,7 +45,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onColorClick: (target) => {
+    openColorPicker: (target) => {
       dispatch(openColorPicker(target));
     }
   };

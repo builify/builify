@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ModalWrapper from '../ModalWrapper';
 import BottomNavigation from '../ModalBottomNavigation';
 import TabIcons from './TabIcons';
-import { closeModal } from '../../../Actions';
+import { closeModal, addNotification } from '../../../Actions';
 import TTDOM from '../../../Common/TTDOM';
 
 class IconChange extends React.Component {
@@ -22,15 +22,18 @@ class IconChange extends React.Component {
 
     if (iconClass === 'fa') {
       TTDOM.element.classes.alter(editTarget, 'fa-*', icon);
+
+      return this.props.addNotification({
+        message: 'Icon changed!',
+        title: 'Icon Change',
+        level: 'info',
+        autoDismiss: 3
+      });
     }
   }
 
   render () {
-    const {
-      active,
-      builderConfiguration,
-      onCloseModal
-    } = this.props;
+    const { active, builderConfiguration, closeModal } = this.props;
     const className = classNames('ab-modal');
     const actions = [
       { label: 'Done', onClick: ::this.closeDialog }
@@ -38,7 +41,7 @@ class IconChange extends React.Component {
 
     return (
       <ModalWrapper
-        onClose={onCloseModal}
+        onClose={closeModal}
         active={active}
         ref='modalWrapper'
         className={className}>
@@ -60,8 +63,12 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onCloseModal: () => {
+    closeModal: () => {
       dispatch(closeModal());
+    },
+
+    addNotification: (notification) => {
+      dispatch(addNotification(notification));
     }
   };
 }

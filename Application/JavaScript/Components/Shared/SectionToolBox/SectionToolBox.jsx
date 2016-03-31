@@ -2,55 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import classNames from 'classnames';
-import Icon from '../Icon';
-import Switch from '../Switch';
-import { removeContentBlock, openContentblockSourceEditModal } from '../../../Actions';
+import Random from '../../../Common/Random';
+import ToolboxItem from './ToolboxItem';
+import * as Actions from '../../../Actions';
 
-class ToolboxItem extends React.Component {
-  static propTypes = {
-    title: React.PropTypes.string,
-    onClick: React.PropTypes.func,
-    icon: React.PropTypes.string
-  };
-
-  static defaultProps = {
-    title: '',
-    onClick: () => {}
-  };
-
-  render () {
-    const { onClick, title } = this.props;
-    const iconSize = 24;
-    const iconStyle = {
-      fill: '#FFF'
-    };
-    var icon = null;
-
-    if (this.props.icon) {
-      icon = (
-        <Icon
-          icon={this.props.icon}
-          size={iconSize}
-          style={iconStyle} />
-      );
-    }
-
-    return (
-      <li
-        onClick={onClick}
-        title={title}>
-        { icon }
-      </li>
-    );
-  }
-}
 class SectionToolBox extends React.Component {
-  state = {
-    settingsMenuOpened: false
-  };
-
   render () {
-    const { canvas, onRemove } = this.props;
+    const { canvas } = this.props;
     const { currentHoverBlock } = canvas;
     const { block, topX } = currentHoverBlock;
     const { features } = block;
@@ -71,7 +29,8 @@ class SectionToolBox extends React.Component {
             return (
               <ToolboxItem
                 title='Change Background Color'
-                icon='format-paint' />
+                icon='format-paint'
+                onClick={::this.changeBackgroundColor} />
             );
           } else if (feature === 'videoBackground') {
             return (
@@ -83,7 +42,8 @@ class SectionToolBox extends React.Component {
             return (
               <ToolboxItem
                 title='Change Background Image'
-                icon='photo' />
+                icon='photo'
+                onClick={::this.changeBackgroundImage} />
             );
           } else if (feature === 'countdown') {
             return (
@@ -106,26 +66,41 @@ class SectionToolBox extends React.Component {
         <ul className='settings'>
           { featureItems }
           <ToolboxItem
-            title='Settings'
-            icon='settings' />
-          <ToolboxItem
-           title='Remove Block'
-           icon='remove' />
+            title='Remove Block'
+            icon='remove'
+            onClick={::this.removeBlock} />
         </ul>
       </div>
     );
   }
-}
 
-/*<ul className={dropdownClassname}>
-  <li className='title'>
-    <span>Section Controls</span>
-  </li>
-  <li>
-    <Switch
-      label='Display on mobile' />
-  </li>
-</ul>*/
+  changeBackgroundImage () {
+    const { canvas } = this.props;
+    const { currentHoverBlock } = canvas;
+    const { block } = currentHoverBlock;
+    const { elementReference } = block;
+
+    return this.props.openImageEditModal(elementReference);
+  }
+
+  changeBackgroundColor () {
+    const { canvas } = this.props;
+    const { currentHoverBlock } = canvas;
+    const { block } = currentHoverBlock;
+    const { elementRefrence } = block;
+    const backgroundColor = elementRefrence.querySelector('block-background-cover-color');
+
+    console.log(backgroundColor);
+  }
+
+  removeBlock () {
+    const { canvas } = this.props;
+    const { currentHoverBlock } = canvas;
+    const { block } = currentHoverBlock;
+
+    return this.props.removeContentBlock(block);
+  }
+}
 
 function mapStateToProps (state) {
   return {
@@ -135,12 +110,16 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onRemove: (id) => {
-      dispatch(removeContentBlock(id));
+    removeContentBlock: (block) => {
+      dispatch(Actions.removeContentBlock(block));
     },
 
-    onOpenContentblockSourceEditModal: (currentHoverBlock) => {
-      dispatch(openContentblockSourceEditModal(currentHoverBlock.element));
+    openImageEditModal: (target) => {
+      dispatch(Actions.openImageEditModal(target));
+    },
+
+    openColorPicker: (target) => {
+      dispatch(Actions.openColorPicker(target));
     }
   };
 }

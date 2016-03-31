@@ -1,0 +1,104 @@
+$light-theme-color: $color-primary;
+$light-primary-text-color: #444;
+$light-secondary-text-color: #888;
+$light-primary-color: #FFF;
+$light-secondary-color: #eee;
+$light-primary-border-color: #ccc;
+$light-range-track-color: darken($light-secondary-color, 20%);
+$light-main-box-shadow: 0 0 20px rgba(#000, 0.3);
+
+.light {
+		background: $light-primary-color;
+
+		.#{$nameprefix} {
+				&main {
+						box-shadow: $light-main-box-shadow;
+						background: $light-primary-color;
+				}
+
+				&aside,
+				&tab,
+				&sidetab {
+						background: $light-secondary-color;
+				}
+
+				&tab,
+				&sidetab {
+						&__close {
+								&:hover {
+										color: $light-theme-color;
+								}
+						}
+
+						h1 {
+								color: $light-primary-text-color;
+						}
+				}
+
+				&sidetab {
+						&__title {
+								> span {
+										&:nth-child(2) {
+												color: $light-secondary-text-color;
+										}
+								}
+						}
+				}
+
+				&copyright {
+						h3 {
+								color: $light-secondary-text-color;
+						}
+				}
+
+				&contentblocks {
+						&__inner {
+								.blocktitle {
+										color: $light-primary-text-color;
+								}
+						}
+
+						&__block {
+								figcaption {
+										color: $light-primary-color;
+										background: $light-primary-text-color;
+								}
+						}
+				}
+
+				&page-new {
+						border-color: $light-primary-border-color;
+				}
+
+				&size {
+						input[type="range"] {
+								background: $light-secondary-color;
+
+								&::-moz-range-track {
+										background: $light-range-track-color;
+								}
+
+								&::-webkit-slider-runnable-track {
+										background: $light-range-track-color;
+								}
+
+								&::-ms-fill-lower,
+								&::-ms-fill-upper {
+										background: $light-range-track-color;
+								}
+
+								&::-moz-range-thumb {
+										background: $light-primary-color;
+								}
+
+								&::-webkit-slider-thumb {
+										background: $light-primary-color;
+								}
+
+								&::-ms-thumb {
+										background: $light-primary-color;
+								}
+						}
+				}
+		}
+}

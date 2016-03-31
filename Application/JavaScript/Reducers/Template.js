@@ -5,12 +5,15 @@ import TTBaseliner from '../TTBaseliner';
 import * as Actions from '../Actions/Constants';
 
 const initialState = {
+  // Colorpicker
   isColorPickerOpened: false,
   colorPickerSelectedElement: null,
   colorPickerSelectedElementColorElement: null,
 
+  // Template stylesheet
   templateStylesheet: null,
 
+  // Baseline related
   iFrameWindow: null,
   baseline: null,
   drawBaseline: false
@@ -67,7 +70,7 @@ function template (state = initialState, action) {
     }
 
     case Actions.OPEN_COLORPICKER: {
-      let element = null;
+      let element = action.target;
       let target = null;
 
       if (_.has(action, 'target')) {

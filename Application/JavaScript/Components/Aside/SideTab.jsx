@@ -41,7 +41,8 @@ export default class SideTab extends ProccessedChildrenRender {
           aside
           innerPadding>
           <BackButton clickFunction={this.closeSidetab} />
-          <h1>{getString(data.title)}
+          <h1 className='ab-sidetab__title'>
+            <span>{getString(data.title)}</span>
             <span>{getString(data.subtitle)}</span>
           </h1>
           { this.children() }

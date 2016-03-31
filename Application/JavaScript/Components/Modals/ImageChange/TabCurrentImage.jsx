@@ -33,6 +33,16 @@ export default class CurrentImageTab extends React.Component {
             height: editTarget.height
           }
         });
+      } else if (editTarget.tagName === 'DIV') {
+        const backgroundImage = editTarget.style.backgroundImage;
+        const url = backgroundImage.match(/url\(["|']?([^"']*)["|']?\)/)[1];
+
+        if (url) {
+          this.setState({
+            ...this.state,
+            imageUrl: url
+          });
+        }
       }
     }
   }
@@ -52,7 +62,6 @@ export default class CurrentImageTab extends React.Component {
 
   render () {
     const { imageUrl, imageSize } = this.state;
-
 
     return (
       <div className='ab-modal__tab'>
