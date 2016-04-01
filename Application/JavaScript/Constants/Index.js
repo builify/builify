@@ -36,7 +36,13 @@ export const DialogTypes = {
   PREVIOUSPAGES: 4,
   CONTENTBLOCKSOURCE: 5,
   DOWNLOADPAGES: 6,
-  RESTART: 7
+  RESTART: 7,
+  COUNTDOWN: 8
+};
+
+export const ColorPickerTargetTypes = {
+  COLOR: 0,
+  BACKGROUNDCOLOR: 1
 };
 
 // For tracking elements.

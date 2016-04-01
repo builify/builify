@@ -22,10 +22,8 @@ class Base extends React.Component {
       <div className={className}>
         <Aside/>
         <Main />
-
         <LoadingScreen />
         <ColorPicker />
-
         <DialogContainer />
         <NotificationContainer />
       </div>

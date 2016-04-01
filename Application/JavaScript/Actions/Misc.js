@@ -8,17 +8,19 @@ export function toggleBaseline (checked) {
   };
 }
 
-export function openColorPicker (target) {
+export function openColorPicker (target, sourceElement = null) {
   return {
     type: Actions.OPEN_COLORPICKER,
-    target: target
+    target: target,
+    sourceElement: sourceElement
   };
 }
 
-export function setColorFromColorPicker (color) {
+export function setColorFromColorPicker (color, targetType) {
   return {
     type: Actions.SET_COLOR_FROM_COLORPICKER,
-    color: color
+    color: color,
+    targetType: targetType
   };
 }
 

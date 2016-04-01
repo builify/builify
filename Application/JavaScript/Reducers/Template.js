@@ -3,12 +3,13 @@ import TTStylesheet from 'ttstylesheet';
 import TTDOM from '../Common/TTDOM';
 import TTBaseliner from '../TTBaseliner';
 import * as Actions from '../Actions/Constants';
+import * as Constants from '../Constants';
 
 const initialState = {
   // Colorpicker
-  isColorPickerOpened: false,
-  colorPickerSelectedElement: null,
-  colorPickerSelectedElementColorElement: null,
+  isColorPickerOpened: false, // Is colorpicker opened or not?
+  selectedCPElement: null, // Element whose position will be used for colorpicker position.
+  sourceCPElement: null, // Where the click orginates from. For section toolbox.
 
   // Template stylesheet
   templateStylesheet: null,
@@ -70,31 +71,63 @@ function template (state = initialState, action) {
     }
 
     case Actions.OPEN_COLORPICKER: {
-      let element = action.target;
-      let target = null;
-
-      if (_.has(action, 'target')) {
-        element = action.target;
-        target = element.querySelector('.ab-color__colorHolder');
-      }
-
       return _.assign({}, state, {
         isColorPickerOpened: true,
-        colorPickerSelectedElement: element,
-        colorPickerSelectedElementColorElement: target
+        selectedCPElement: action.target,
+        sourceCPElement: action.sourceElement
       });
     }
 
     case Actions.CLOSE_COLORPICKER: {
       return _.assign({}, state, {
         isColorPickerOpened: false,
-        colorPickerSelectedElement: null,
-        colorPickerSelectedElementColorElement: null
+        selectedCPElement: null,
+        sourceCPElement: null
       });
     }
 
     case Actions.SET_COLOR_FROM_COLORPICKER: {
-      const { color } = action;
+      const { color, targetType } = action;
+      const { selectedCPElement } = state;
+
+      if (!selectedCPElement) {
+        return state;
+      }
+
+      if (targetType === Constants.ColorPickerTargetTypes.COLOR) {
+        var { templateStylesheet, design } = state;
+        const { hex } = color;
+        const dataColorTarget = selectedCPElement.getAttribute('data-colortarget');
+
+        if (dataColorTarget && design.colors[dataColorTarget]) {
+          const colorCircleElement = selectedCPElement.querySelector('.ab-color__circle');
+          const hexColor = `#${hex}`;
+
+          design.colors[dataColorTarget] = hexColor;
+          colorCircleElement.style.backgroundColor = hexColor;
+
+          templateStylesheet.add({
+            [dataColorTarget]: {
+              color: hexColor
+            }
+          });
+
+          templateStylesheet.initCSS();
+
+          return _.assign({}, state, {
+            design: design
+          });
+        }
+      } else if (targetType === Constants.ColorPickerTargetTypes.BACKGROUNDCOLOR) {
+        const coverColorElement = selectedCPElement.querySelector('.block-background-cover-color');
+        const { hex, rgb } = color;
+
+        coverColorElement.style.backgroundColor = hex;
+        coverColorElement.style.opacity = rgb.a;
+      }
+
+      return state;
+      /*const { color } = action;
       const { templateStylesheet } = state;
       let { design, colorPickerSelectedElementColorElement } = state;
       const dataColorTarget = colorPickerSelectedElementColorElement.
@@ -120,7 +153,7 @@ function template (state = initialState, action) {
 
       return _.assign({}, state, {
         design: design
-      });
+      });*/
     }
 
     case Actions.CHANGE_BASELINE_VALUE: {

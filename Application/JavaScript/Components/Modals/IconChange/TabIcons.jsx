@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
-import JsSearch from 'js-search';
 import Random from '../../../Common/Random';
 import Scrollbar from '../../Shared/Scrollbar';
 
@@ -38,12 +37,6 @@ export default class TabIcons extends React.Component {
 
 
     this.defaultIconPacks = iconPacks;
-
-    const search = new JsSearch.Search('idx');
-
-    search.indexStrategy = new JsSearch.AllSubstringsIndexStrategy();
-    search.addIndex('icon');
-    search.addDocuments(iconDocuments);
 
     this.iconsToRender = iconDocuments;
   }

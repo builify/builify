@@ -21,6 +21,13 @@ export function openImageEditModal (target) {
   };
 }
 
+export function openCountdownEditModal (target) {
+  return {
+    type: Actions.OPEN_COUNTDOWN_EDIT_MODAL,
+    target: target
+  };
+}
+
 export function openPreviousPagesSelectionModal () {
   return {
     type: Actions.OPEN_PREVIOUS_PAGES_SELECT_MODAL

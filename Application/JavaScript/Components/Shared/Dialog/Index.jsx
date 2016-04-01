@@ -8,7 +8,7 @@ import DialogContentSource from './DialogContentSource';
 import ImageEdit from '../../Modals/ImageChange';
 import PreviousPages from '../../Modals/PreviousPages';
 import IconChange from '../../Modals/IconChange';
-import DownloadPages from '../../Modals/DownloadPages';
+import Countdown from '../../Modals/Countdown';
 
 export default class Dialog extends React.Component {
   static propTypes = {
@@ -75,6 +75,13 @@ export default class Dialog extends React.Component {
       case DialogTypes.ICONCHANGE:
         return (
           <IconChange
+            active={active}
+            editTarget={editTarget} />
+        );
+
+      case DialogTypes.COUNTDOWN:
+        return (
+          <Countdown
             active={active}
             editTarget={editTarget} />
         );

@@ -26,7 +26,6 @@
   "dependencies": [
     "react",
     "react-dom",
-    "react/addons",
     "react-color",
     "react-select",
     "react-selectize",
@@ -40,7 +39,6 @@
     "lodash",
     "jszip",
     "sortablejs",
-    "js-search",
     "ttstylesheet",
     "ttkeymirror"
   ]

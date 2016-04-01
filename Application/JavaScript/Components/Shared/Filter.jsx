@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { filterContentBlocks } from '../../Actions';
 import Icon from './Icon';
-import _ from 'lodash';
+import orderBy from 'lodash/orderby';
+import has from 'lodash/has';
+import map from 'lodash/map';
 import classNames from 'classnames';
 
 class Filter extends React.Component {
@@ -29,10 +31,10 @@ class Filter extends React.Component {
     const { filterContentBlocksTarget } = builder;
     let items = [];
 
-    if (_.has(template, 'blocks')) {
+    if (has(template, 'blocks')) {
       const { blocks } = template;
 
-      _.map(blocks, (block) => {
+      map(blocks, (block) => {
         const { type } = block;
         items.push({
           name: String(type),
@@ -40,7 +42,7 @@ class Filter extends React.Component {
         });
       });
 
-      items = _.sortByOrder(items, ['name'], 'asc');
+      items = orderBy(items, ['name'], 'asc');
 
       items.unshift({
         name: 'Show All',
@@ -49,10 +51,10 @@ class Filter extends React.Component {
 
       return (
         <ul>
-          { _.map(items, (item, i) => {
+          { map(items, (item, i) => {
             const { name, target } = item;
 
-            if (_.has(item, 'active')) {
+            if (has(item, 'active')) {
               if (item.active) {
                 isActive = true;
               }

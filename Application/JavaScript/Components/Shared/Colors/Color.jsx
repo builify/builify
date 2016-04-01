@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { getString } from '../../../Common/Localization';
 
 export default class Color extends React.Component {
@@ -9,10 +8,14 @@ export default class Color extends React.Component {
     onClick: React.PropTypes.func.isRequired
   };
 
-  clickColor () {
-    const node = ReactDOM.findDOMNode(this.refs['color']);
+  colorElement = null;
 
-    return this.props.onClick(node);
+  shouldComponentUpdate () {
+    return false;
+  }
+
+  clickColor () {
+    return this.props.onClick(this.colorElement);
   }
 
   render () {
@@ -24,7 +27,9 @@ export default class Color extends React.Component {
 
     return (
       <div
-        ref='color'
+        ref={(ref) => this.colorElement = ref}
+        data-abcolor={color}
+        data-colortarget={colorTarget}
         className='ab-color'
         onClick={::this.clickColor}>
         <div
@@ -34,12 +39,9 @@ export default class Color extends React.Component {
         </div>
         <div
           className='ab-color__circle'
-          title={color}>
-          <span
-            data-colortarget={colorTarget}
-            data-color={color}
-            className='ab-color__colorHolder'
-            style={colorHolderStyle} />
+          title={color}
+          data-color={color}
+          style={colorHolderStyle}>
         </div>
       </div>
     );

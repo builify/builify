@@ -6,6 +6,10 @@ import _ from 'lodash';
 import Color from './Color';
 
 class Colors extends React.Component {
+  shouldComponentUpdate () {
+    return false;
+  }
+
   clickColor (element) {
     return this.props.openColorPicker(element);
   }

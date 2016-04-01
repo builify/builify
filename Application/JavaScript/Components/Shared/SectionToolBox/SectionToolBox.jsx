@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import classNames from 'classnames';
@@ -7,6 +8,8 @@ import ToolboxItem from './ToolboxItem';
 import * as Actions from '../../../Actions';
 
 class SectionToolBox extends React.Component {
+  toolboxItemColorChange = null;
+
   render () {
     const { canvas } = this.props;
     const { currentHoverBlock } = canvas;
@@ -28,6 +31,7 @@ class SectionToolBox extends React.Component {
           if (feature === 'colorBackground') {
             return (
               <ToolboxItem
+                ref={(ref) => this.toolboxItemColorChange = ref}
                 title='Change Background Color'
                 icon='format-paint'
                 onClick={::this.changeBackgroundColor} />
@@ -49,7 +53,8 @@ class SectionToolBox extends React.Component {
             return (
               <ToolboxItem
                 title='Change Countdown'
-                icon='exposure-plus-1' />
+                icon='exposure-plus-1'
+                onClick={::this.changeCountdown} />
             );
           }
         }
@@ -87,10 +92,19 @@ class SectionToolBox extends React.Component {
     const { canvas } = this.props;
     const { currentHoverBlock } = canvas;
     const { block } = currentHoverBlock;
-    const { elementRefrence } = block;
-    const backgroundColor = elementRefrence.querySelector('block-background-cover-color');
+    const { elementReference } = block;
+    const sourceElement = ReactDOM.findDOMNode(this.toolboxItemColorChange);
 
-    console.log(backgroundColor);
+    return this.props.openColorPicker(elementReference, sourceElement);
+  }
+
+  changeCountdown () {
+    const { canvas } = this.props;
+    const { currentHoverBlock } = canvas;
+    const { block } = currentHoverBlock;
+    const { elementReference } = block;
+
+    return this.props.openCountdownEditModal(elementReference);
   }
 
   removeBlock () {
@@ -118,8 +132,12 @@ function mapDispatchToProps (dispatch) {
       dispatch(Actions.openImageEditModal(target));
     },
 
-    openColorPicker: (target) => {
-      dispatch(Actions.openColorPicker(target));
+    openCountdownEditModal: (target) => {
+      dispatch(Actions.openCountdownEditModal(target));
+    },
+
+    openColorPicker: (target, sourceElement) => {
+      dispatch(Actions.openColorPicker(target, sourceElement));
     }
   };
 }

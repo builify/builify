@@ -1,0 +1,50 @@
+.#{$nameprefix}timeinput {
+    display: inline-block;
+    width: 330px;
+    padding: 12px 15px;
+
+    &__options {
+        width: 100%;
+        display: inline-block;
+        margin-bottom: 4px;
+
+        button {
+            float: left;
+            width: 50%;
+            color: blue;
+            text-align: center;
+            font-size: 16px;
+            padding: 7px;
+            border: 1px solid blue;
+            border-radius: 3px;
+
+            &:first-child {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+
+            &:last-child {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
+            &.is-active {
+                color: #ffffff;
+                background-color: blue;
+            }
+        }
+    }
+
+    &__tab {
+        display: none;
+        height: 310px;
+
+        &.is-active {
+          display: block;
+        }
+    }
+
+    &__tabs {
+        margin-bottom: 11px;
+    }
+}

@@ -27,8 +27,8 @@ const builderInitialState = {
   filterContentBlocksTarget: 'all',
 
   // Modal
-  isModalOpen: false,
-  modalType: null,
+  isModalOpen: true,
+  modalType: 8,
   modalTarget: null,
 
   // Images
@@ -106,6 +106,13 @@ function builder (state = builderInitialState, action) {
       return _.assign({}, state, {
         isModalOpen: true,
         modalType: DialogTypes.IMAGECHANGE,
+        modalTarget: action.target
+      });
+
+    case Actions.OPEN_COUNTDOWN_EDIT_MODAL:
+      return _.assign({}, state, {
+        isModalOpen: true,
+        modalType: DialogTypes.COUNTDOWN,
         modalTarget: action.target
       });
 
