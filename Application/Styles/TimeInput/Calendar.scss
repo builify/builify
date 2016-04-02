@@ -11,12 +11,11 @@
         text-align: center;
         cursor: pointer;
         color: gray;
-        border: 1px solid gray;
+        border: 1px solid;
     }
 
     thead {
         td {
-            color: blue;
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
@@ -24,47 +23,32 @@
         }
     }
 
-    tbody td {
-        color: #666666;
-
-        &:hover {
-            background: blue;
-            border-color: blue;
-            color: white;
-        }
-    }
-
     .current-day {
-        color: blue;
-        font-weight: bold;
-    }
-
-    .prev-month,
-    .next-month {
-        color: #999999;
+        font-weight: 700;
     }
 
     &__toolbar {
         line-height: 30px;
-        color: blue;
         text-align: center;
         margin-bottom: 13px;
 
+        $timeinput-calendar-toolbar-button-size: 35px;
+
         button {
             position: relative;
-            width: 30px;
-            height: 30px;
-            line-height: 30px;
-            color: #ffffff;
-            border: 1px solid blue;
+            border: 1px solid;
             border-radius: 50%;
-            background: blue;
-            font-size: 20px;
             padding: 0;
-            text-align: center;
             outline: 0;
             z-index: 5;
             cursor: pointer;
+            height: $timeinput-calendar-toolbar-button-size;
+            width: $timeinput-calendar-toolbar-button-size;
+
+            svg {
+                margin: 0 auto;
+                display: block;
+            }
         }
 
         .prev-month {
@@ -73,10 +57,6 @@
 
         .next-month {
             float: right;
-        }
-
-        .current-date {
-            color: blue;
         }
     }
 }

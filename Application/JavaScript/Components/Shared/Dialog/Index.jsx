@@ -3,12 +3,12 @@ import { DialogTypes } from '../../../Constants';
 import DialogRestart from './DialogRestart';
 import DialogDownloadPages from './DialogDownloadPages';
 import DialogLinkChange from './DialogLinkChange';
-import DialogContentSource from './DialogContentSource';
 
 import ImageEdit from '../../Modals/ImageChange';
 import PreviousPages from '../../Modals/PreviousPages';
 import IconChange from '../../Modals/IconChange';
 import Countdown from '../../Modals/Countdown';
+import VideoEdit from '../../Modals/VideoEdit';
 
 export default class Dialog extends React.Component {
   static propTypes = {
@@ -65,13 +65,6 @@ export default class Dialog extends React.Component {
             active={active} />
         );
 
-      case DialogTypes.CONTENTBLOCKSOURCE:
-        return (
-          <DialogContentSource
-            active={active}
-            editTarget={editTarget} />
-        );
-
       case DialogTypes.ICONCHANGE:
         return (
           <IconChange
@@ -82,6 +75,13 @@ export default class Dialog extends React.Component {
       case DialogTypes.COUNTDOWN:
         return (
           <Countdown
+            active={active}
+            editTarget={editTarget} />
+        );
+
+      case DialogTypes.VIDEOEDIT:
+        return (
+          <VideoEdit
             active={active}
             editTarget={editTarget} />
         );

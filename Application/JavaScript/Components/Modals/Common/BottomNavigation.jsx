@@ -3,6 +3,10 @@ import _ from 'lodash';
 import Button from '../../Shared/Button';
 
 export default class BottomNavigation extends React.Component {
+  static propTypes = {
+    actions: React.PropTypes.array.isRequired
+  };
+
   renderButtons (actions) {
     return _.map(actions, (action, idx) => {
       let className = 'ab-modal__button';
@@ -21,10 +25,7 @@ export default class BottomNavigation extends React.Component {
   }
 
   renderActions () {
-    const { onClose } = this.props;
-    const actions = [
-      { label: 'Close', onClick: onClose },
-    ];
+    const { actions } = this.props;
 
     return this.renderButtons(actions);
   }

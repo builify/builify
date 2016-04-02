@@ -11,6 +11,85 @@ $light-main-box-shadow: 0 0 20px rgba(#000, 0.3);
 		background: $light-primary-color;
 
 		.#{$nameprefix} {
+				&timeinput {
+						&__options {
+								button {
+										color: $light-theme-color;
+										border-color: $light-theme-color;
+
+										&.is-active {
+				                color: $light-primary-color;
+				                background-color: $light-theme-color;
+				            }
+								}
+						}
+				}
+
+				&time {
+				    &__showtime {
+				        .time {
+				            background-color: $color-primary;
+				            color: #444;
+
+										&.is-active {
+											  color: $light-primary-color;
+										}
+				        }
+
+				        .separator {
+				            color: $color-primary;
+				        }
+				    }
+				}
+
+				&calendar {
+						thead {
+								td {
+										color: $light-theme-color;
+								}
+						}
+
+						tbody td {
+								border-color: $light-secondary-text-color;
+				        color: $light-secondary-text-color;
+
+				        &:hover {
+				            color: $light-theme-color;
+				        }
+
+								&.current-day:hover {
+										color: #FFF;
+								}
+				    }
+
+						.current-day {
+				        background: $light-theme-color;
+								color: $light-primary-color;
+				    }
+
+				    .prev-month,
+				    .next-month {
+				        color: $light-secondary-text-color;
+				    }
+
+				    &__toolbar {
+				        color: $light-theme-color;
+
+				        button {
+				            border: 1px solid $light-theme-color;
+				            background: $light-theme-color;
+
+										svg {
+												fill: $light-primary-color !important;
+										}
+				        }
+
+				        .current-date {
+				            color: $light-theme-color;
+				        }
+				    }
+				}
+
 				&main {
 						box-shadow: $light-main-box-shadow;
 						background: $light-primary-color;

@@ -1,12 +1,13 @@
 import React from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
-import Random from '../../Common/Random';
+import Random from '../../../Common/Random';
 
 export default class ModalTab extends React.Component {
   static propTypes = {
     nav: React.PropTypes.array,
     title: React.PropTypes.string,
+    info: React.PropTypes.string,
     activeTab: React.PropTypes.number,
     uploadedImagesLength: React.PropTypes.number,
     onTabClick: React.PropTypes.func
@@ -51,12 +52,13 @@ export default class ModalTab extends React.Component {
   }
 
   render () {
-    const { title, children } = this.props;
+    const { title, info, children } = this.props;
 
     return (
       <div>
         <header className='ab-modal__tabs'>
           { title ? <h2>{title}</h2> : null }
+          { info ? <h3>{info}</h3> : null }
           { this.renderNav() }
         </header>
         { children }

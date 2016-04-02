@@ -14,8 +14,6 @@ export default {
   },
 
   pauseEvent (event) {
-    event = event || window.event;
-
     event.stopPropagation();
     event.preventDefault();
     event.returnValue = false;
@@ -37,13 +35,9 @@ export default {
   targetIsDescendant (event, parent) {
     let node = event.target;
     while (node !== null) {
-      if (node === parent) {
-        return true;
-      }
-
+      if (node === parent) return true;
       node = node.parentNode;
     }
-
     return false;
   }
 };

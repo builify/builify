@@ -3,10 +3,19 @@ import classNames from 'classnames';
 import range from 'lodash/utility/range';
 import chunk from 'lodash/array/chunk';
 import Events from '../../Common/Events';
+import Icon from '../Shared/Icon';
 
 class Day extends React.Component {
+  static propTypes = {
+    onClick: React.PropTypes.func
+  };
+
+  static defaultProps = {
+    onClick: () => {}
+  };
+
   render () {
-    const { i, w, d } = this.props;
+    const { i, w, d, onClick } = this.props;
     const prevMonth = (w === 0 & i > 7);
     const nextMonth = (w >= 4 && i <= 14);
     const className = classNames({
@@ -15,7 +24,7 @@ class Day extends React.Component {
       'current-day': (!prevMonth && !nextMonth && (i === d))
     });
 
-    return <td className={className} {...this.props}>{i}</td>;
+    return <td onClick={onClick} className={className} {...this.props}>{i}</td>;
   }
 }
 
@@ -46,6 +55,8 @@ export default class Calendar extends React.Component {
     const prevMonth = (w === 0 & i > 7);
     const nextMonth = (w >= 4 && i <= 14);
 
+    console.log('d');
+
     time.date(i);
 
     if (prevMonth) {
@@ -72,16 +83,17 @@ export default class Calendar extends React.Component {
     );
     const weeks = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const className = classNames('ab-calendar', this.props.className);
+    const iconSize = 26;
 
     return (
       <div className={className}>
         <div className='ab-calendar__toolbar'>
           <button type='button' className='prev-month' onClick={::this.prevMonthClick}>
-           Prev
+            <Icon icon='chevron-left' size={iconSize} />
           </button>
           <span className='current-date'>{time.format('MMMM YYYY')}</span>
           <button type='button' className='next-month' onClick={::this.nextMonthClick}>
-           Next
+            <Icon icon='chevron-right' size={iconSize} />
           </button>
         </div>
         <table>
@@ -99,7 +111,9 @@ export default class Calendar extends React.Component {
                     i={i}
                     d={d}
                     w={w}
-                    onClick={this.selectDate.bind(null, i, w)} />
+                    onClick={() => {
+                      this.selectDate(i, w);
+                    }} />
                 )) }
               </tr>
             )) }

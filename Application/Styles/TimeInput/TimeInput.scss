@@ -1,22 +1,28 @@
 .#{$nameprefix}timeinput {
     display: inline-block;
-    width: 330px;
-    padding: 12px 15px;
+    width: 100%;
+    padding: 25px;
 
     &__options {
         width: 100%;
         display: inline-block;
-        margin-bottom: 4px;
+        margin-bottom: 15px;
 
         button {
             float: left;
             width: 50%;
-            color: blue;
             text-align: center;
             font-size: 16px;
             padding: 7px;
-            border: 1px solid blue;
+            border: 1px solid;
             border-radius: 3px;
+            background: transparent;
+            outline: none;
+
+            &:hover,
+            &:active {
+                outline: none;
+            }
 
             &:first-child {
                 border-top-right-radius: 0;
@@ -27,24 +33,20 @@
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;
             }
-
-            &.is-active {
-                color: #ffffff;
-                background-color: blue;
-            }
         }
     }
 
     &__tab {
         display: none;
-        height: 310px;
+        height: 350px;
+        overflow: hidden;
 
         &.is-active {
-          display: block;
+            display: block;
         }
     }
 
     &__tabs {
-        margin-bottom: 11px;
+        margin-bottom: 0;
     }
 }

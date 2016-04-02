@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import InputSlider from '../Shared/Size';
+import TimePicker from './TimePicker';
 
 export default class Time extends React.Component {
   static propTypes = {
@@ -15,17 +15,14 @@ export default class Time extends React.Component {
   };
 
   render () {
-    const className = classNames(this.props.className);
+    const { time, onChange } = this.props;
+    const className = classNames('ab-time', this.props.className);
 
     return (
       <div className={className}>
-        <InputSlider
-          item={{
-            label: 'test',
-            min: 0,
-            max: 10,
-            step: 1
-          }}/>
+        <TimePicker
+          time={time}
+          onChange={onChange} />
       </div>
     );
   }

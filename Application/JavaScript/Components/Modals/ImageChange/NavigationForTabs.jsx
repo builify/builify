@@ -1,6 +1,6 @@
 import React from 'react';
 import ContentTabs from './ContentTabs';
-import ModalTab from '../ModalTab';
+import ModalTab from '../Common/Tab';
 import { defaultTabId, tabList } from './Config';
 
 export default class TabNavigation extends React.Component {

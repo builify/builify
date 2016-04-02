@@ -2,9 +2,9 @@ import React from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import ModalWrapper from '../ModalWrapper';
-import ModalTab from '../ModalTab';
-import BottomNavigation from './BottomNavigation';
+import ModalWrapper from '../Common/Wrapper';
+import ModalTab from '../Common/Tab';
+import BottomNavigation from '../Common/BottomNavigation';
 import Time from '../../../Common/Time';
 import Scrollbar from '../../Shared/Scrollbar';
 import { loadPreviousPage, closeModal } from '../../../Actions';
@@ -67,6 +67,9 @@ class PreviousPages extends React.Component {
   render () {
     const { active, builder, onCloseModal, onLoadPreviousPage } = this.props;
     const className = classNames('ab-modal', 'ab-modal__small');
+    const actions = [
+      { label: 'Cancel', onClick: ::this.closeDialog }
+    ];
 
     return (
       <ModalWrapper
@@ -78,8 +81,7 @@ class PreviousPages extends React.Component {
           onClose={::this.closeDialog}
           onLoadPreviousPage={onLoadPreviousPage}
           builder={builder} />
-        <BottomNavigation
-          onClose={::this.closeDialog} />
+        <BottomNavigation actions={actions} />
       </ModalWrapper>
     );
   }

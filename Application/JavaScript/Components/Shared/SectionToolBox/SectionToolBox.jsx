@@ -27,39 +27,46 @@ class SectionToolBox extends React.Component {
 
     if (features) {
       featureItems = _.map(features, (featureValue, feature) => {
+        let title = null;
+        let icon = null;
+        let clickFunction = () => {};
+
         if (featureValue === true) {
           if (feature === 'colorBackground') {
-            return (
-              <ToolboxItem
-                ref={(ref) => this.toolboxItemColorChange = ref}
-                title='Change Background Color'
-                icon='format-paint'
-                onClick={::this.changeBackgroundColor} />
-            );
+            title = 'Change Background Color';
+            icon = 'format-paint';
+            clickFunction = ::this.changeBackgroundColor;
           } else if (feature === 'videoBackground') {
-            return (
-              <ToolboxItem
-                title='Change Background Video'
-                icon='video-collection' />
-            );
+            title = 'Change Background Video';
+            icon = 'video-collection';
+            clickFunction = ::this.changeBackgroundVideo;
           } else if (feature === 'imageBackground') {
-            return (
-              <ToolboxItem
-                title='Change Background Image'
-                icon='photo'
-                onClick={::this.changeBackgroundImage} />
-            );
+            title = 'Change Background Image';
+            icon = 'photo';
+            clickFunction = ::this.changeBackgroundImage;
           } else if (feature === 'countdown') {
-            return (
-              <ToolboxItem
-                title='Change Countdown'
-                icon='exposure-plus-1'
-                onClick={::this.changeCountdown} />
-            );
+            title = 'Change Countdown';
+            icon = 'exposure-plus-1';
+            clickFunction = ::this.changeCountdown;
           }
         }
 
-        return null;
+        if (title !== null) {
+          return (
+            <ToolboxItem
+              key={feature}
+              ref={(ref) => {
+                if (feature === 'colorBackground') {
+                  this.toolboxItemColorChange = ref;
+                }
+              }}
+              title={title}
+              icon={icon}
+              onClick={clickFunction} />
+          );
+        } else {
+          return null;
+        }
       });
     }
 
@@ -98,6 +105,15 @@ class SectionToolBox extends React.Component {
     return this.props.openColorPicker(elementReference, sourceElement);
   }
 
+  changeBackgroundVideo () {
+    const { canvas } = this.props;
+    const { currentHoverBlock } = canvas;
+    const { block } = currentHoverBlock;
+    const { elementReference } = block;
+
+    return this.props.openVideoEditModal(elementReference);
+  }
+
   changeCountdown () {
     const { canvas } = this.props;
     const { currentHoverBlock } = canvas;
@@ -130,6 +146,10 @@ function mapDispatchToProps (dispatch) {
 
     openImageEditModal: (target) => {
       dispatch(Actions.openImageEditModal(target));
+    },
+
+    openVideoEditModal: (target) => {
+      dispatch(Actions.openVideoEditModal(target));
     },
 
     openCountdownEditModal: (target) => {

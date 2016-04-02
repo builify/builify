@@ -172,6 +172,11 @@ export default class Icon extends React.Component {
           <g><path d="M17 3h-12c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-12l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10h-10v-4h10v4z"></path></g>
         );
 
+      case 'chevron-right':
+        return (
+          <g><path d="M10 6l-1.41 1.41 4.58 4.59-4.58 4.59 1.41 1.41 6-6z"></path></g>
+        );
+
       case 'chevron-left':
         return (
           <g><path d="M15.41 7.41l-1.41-1.41-6 6 6 6 1.41-1.41-4.58-4.59z"></path></g>
@@ -194,7 +199,7 @@ export default class Icon extends React.Component {
   render () {
     const { className, size, style, onClick } = this.props;
     const cn = classNames(className);
-    let styles = {
+    const styles = {
       fill: 'currentcolor',
       width: `${size}px`, // CSS instead of the width attr to support non-pixel units
       height: `${size}px` // Prevents scaling issue in IE

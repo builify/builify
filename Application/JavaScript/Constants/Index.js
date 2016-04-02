@@ -37,7 +37,8 @@ export const DialogTypes = {
   CONTENTBLOCKSOURCE: 5,
   DOWNLOADPAGES: 6,
   RESTART: 7,
-  COUNTDOWN: 8
+  COUNTDOWN: 8,
+  VIDEOEDIT: 9
 };
 
 export const ColorPickerTargetTypes = {

@@ -2,9 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import TTDOM from '../../../Common/TTDOM';
-import ModalWrapper from '../ModalWrapper';
+import ModalWrapper from '../Common/Wrapper';
 import NavigationForTabs from './NavigationForTabs';
-import BottomNavigation from '../ModalBottomNavigation';
+import BottomNavigation from '../Common/BottomNavigation';
 import { TRACK_MODAL_CURENT_IMAGE_INPUT_ID } from '../../../Constants';
 import { closeModal, uploadImage, selectImage } from '../../../Actions';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import ModalWrapper from '../ModalWrapper';
-import BottomNavigation from '../ModalBottomNavigation';
+import ModalWrapper from '../Common/Wrapper';
+import BottomNavigation from '../Common/BottomNavigation';
 import TabIcons from './TabIcons';
 import { closeModal, addNotification } from '../../../Actions';
 import TTDOM from '../../../Common/TTDOM';

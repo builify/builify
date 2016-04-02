@@ -21,6 +21,13 @@ export function openImageEditModal (target) {
   };
 }
 
+export function openVideoEditModal (target) {
+  return {
+    type: Actions.OPEN_VIDEO_EDIT_MODAL,
+    target: target
+  };
+}
+
 export function openCountdownEditModal (target) {
   return {
     type: Actions.OPEN_COUNTDOWN_EDIT_MODAL,

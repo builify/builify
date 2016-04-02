@@ -28,7 +28,7 @@ const builderInitialState = {
 
   // Modal
   isModalOpen: true,
-  modalType: 8,
+  modalType: 9,
   modalTarget: null,
 
   // Images
@@ -123,6 +123,13 @@ function builder (state = builderInitialState, action) {
         modalTarget: action.target
       });
 
+    case Actions.OPEN_VIDEO_EDIT_MODAL:
+      return _.assign({}, state, {
+        isModalOpen: true,
+        modalType: DialogTypes.VIDEOEDIT,
+        modalTarget: action.target
+      });
+
     case Actions.OPEN_LINK_EDIT_MODAL:
       return _.assign({}, state, {
         isModalOpen: true,
@@ -172,6 +179,13 @@ function builder (state = builderInitialState, action) {
         isModalOpen: false,
         modalType: null,
         modalTarget: null
+      });
+
+    case Actions.OPEN_LINK_EDIT_MODAL:
+      return _.assign({}, state, {
+        isModalOpen: true,
+        modalType: 'linkchange',
+        modalTarget: action.target
       });
 
     case Actions.REMOVE_LOADING_SCREEN:
@@ -329,22 +343,6 @@ function builder (state = builderInitialState, action) {
 
       return _.assign({}, state, {
         filterContentBlocksTarget: actionTarget
-      });
-
-    case Actions.OPEN_LINK_EDIT_MODAL:
-      let linkTarget= action.target;
-
-      return _.assign({}, state, {
-        isModalOpen: true,
-        modalType: 'linkchange',
-        modalTarget: linkTarget
-      });
-
-    case Actions.CLOSE_MODAL:
-      return _.assign({}, state, {
-        isModalOpen: false,
-        modalType: null,
-        modalTarget: null
       });
   }
 

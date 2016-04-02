@@ -48,7 +48,7 @@ export default class TimeInput extends React.Component {
            onClick={() => {
              this.changeTab(0);
            }}>
-           Date
+           <span>Date</span>
           </button>
           <button
            type='button'
@@ -56,7 +56,7 @@ export default class TimeInput extends React.Component {
            onClick={() => {
              this.changeTab(1);
            }}>
-           Time
+           <span>Time</span>
           </button>
         </div>
         <div className='ab-timeinput__tabs'>
