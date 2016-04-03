@@ -1,28 +1,14 @@
 import React from 'react';
 import Face from './ClockFace';
 import Hand from './ClockHand';
-
-function range (start = 0, stop = null, step = 1) {
-    let [_start, _stop] = [0, start];
-    if (stop !== null) {
-      [_start, _stop] = [start, stop];
-    }
-    const length = Math.max(Math.ceil((_stop - _start) / step), 0);
-    const range = Array(length);
-
-    for (let idx = 0; idx < length; idx++, _start += step) {
-      range[idx] = _start;
-    }
-
-    return range;
-}
+import range from 'lodash/range';
 
 const outerNumbers = [0, ...range(13, 24)];
 const innerNumbers = [12, ...range(1, 12)];
 const innerSpacing = 1.7;
 const step = 360 / 12;
 
-class Hours extends React.Component {
+export default class Hours extends React.Component {
   static propTypes = {
     center: React.PropTypes.object,
     format: React.PropTypes.oneOf(['24hr', 'ampm']),
@@ -39,7 +25,6 @@ class Hours extends React.Component {
 
   handleHandMove (degrees, radius) {
     const currentInner = radius < this.props.radius - this.props.spacing * innerSpacing;
-
     if (this.props.format === '24hr' && this.state.inner !== currentInner) {
       this.setState({
         inner: currentInner
@@ -55,6 +40,10 @@ class Hours extends React.Component {
     this.refs.hand.mouseStart(event);
   }
 
+  handleTouchStart (event) {
+    this.refs.hand.touchStart(event);
+  }
+
   valueFromDegrees (degrees) {
     if (this.props.format === 'ampm' || this.props.format === '24hr' && this.state.inner) {
       return innerNumbers[degrees / step];
@@ -67,6 +56,7 @@ class Hours extends React.Component {
     if (this.props.format === '24hr') {
       return (
         <Face
+          onTouchStart={::this.handleTouchStart}
           onMouseDown={::this.handleMouseDown}
           numbers={innerNumbers}
           spacing={this.props.spacing}
@@ -83,6 +73,7 @@ class Hours extends React.Component {
     return (
       <div>
           <Face
+            onTouchStart={::this.handleTouchStart}
             onMouseDown={::this.handleMouseDown}
             numbers={is24hr ? outerNumbers : innerNumbers}
             spacing={spacing}
@@ -101,5 +92,3 @@ class Hours extends React.Component {
     );
   }
 }
-
-export default Hours;

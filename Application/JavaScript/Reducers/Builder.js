@@ -28,7 +28,7 @@ const builderInitialState = {
 
   // Modal
   isModalOpen: true,
-  modalType: 9,
+  modalType: 8,
   modalTarget: null,
 
   // Images

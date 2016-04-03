@@ -1,7 +1,6 @@
 import React from 'react';
-import classNames from 'classnames';
-import Events from '../../Common/Events';
-import prefixer from '../../Common/Prefixer';
+import Events from '../../../Common/Events';
+import prefixer from '../../../Common/Prefixer';
 
 function angleFromPositions (cx, cy, ex, ey) {
   const theta = Math.atan2(ey - cy, ex - cx) + Math.PI / 2;
@@ -121,7 +120,7 @@ export default class Hand extends React.Component {
   }
 
   render () {
-    const className = classNames('ab-clock__hand', this.props.className);
+    const className = `tt-clock__hand ${this.props.className}`;
     const handStyle = prefixer({
       height: this.props.length - this.state.knobWidth / 2,
       transform: `rotate(${this.props.angle}deg)`
@@ -133,7 +132,7 @@ export default class Hand extends React.Component {
         style={handStyle}>
         <div
           ref='knob'
-          className='ab-clock__knob' />
+          className='tt-clock__knob' />
       </div>
     );
   }

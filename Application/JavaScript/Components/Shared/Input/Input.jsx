@@ -1,15 +1,18 @@
 import React from 'react';
-import classNames from 'classnames';
+import ClassNames from 'classnames';
 import Icon from '../Icon';
 
 export default class Input extends React.Component {
   static propTypes = {
+    children: React.PropTypes.any,
     className: React.PropTypes.string,
     disabled: React.PropTypes.bool,
-    error: React.PropTypes.string,
+    error: React.PropTypes.node,
     floating: React.PropTypes.bool,
-    icon: React.PropTypes.string,
+    hint: React.PropTypes.string,
+    icon: React.PropTypes.any,
     label: React.PropTypes.string,
+    maxLength: React.PropTypes.number,
     multiline: React.PropTypes.bool,
     onBlur: React.PropTypes.func,
     onChange: React.PropTypes.func,
@@ -22,6 +25,7 @@ export default class Input extends React.Component {
 
   static defaultProps = {
     className: '',
+    hint: '',
     disabled: false,
     floating: true,
     multiline: false,
@@ -29,69 +33,11 @@ export default class Input extends React.Component {
     type: 'text'
   };
 
-  state = {
-    value: this.props.value
-  };
-
-  onChange = (event) => {
-    this.setState({
-      value: event.target.value
-    }, () => {
-      if (this.props.onChange) {
-        this.props.onChange(event, this);
-      }
-    });
-  };
-
-  renderInput () {
-    const className = classNames('ab-input__input', {
-      'filled': !!(this.state.value && this.state.value.length > 0)
-    });
-
-    if (this.props.multiline) {
-      return (
-        <textarea
-          ref='input'
-          role='input'
-          {...this.props}
-          className={className}
-          onChange={this.onChange}
-          value={this.props.value} />
-      );
-    } else {
-      return (
-        <input
-          ref='input'
-          role='input'
-          {...this.props}
-          className={className}
-          value={this.props.value}
-          onChange={this.onChange} />
-      );
+  handleChange = (event) => {
+    if (this.props.onChange) {
+      this.props.onChange(event.target.value, event);
     }
-  }
-
-  render () {
-    const className = classNames('ab-input', {
-      'ab-input__error': this.props.error,
-      'ab-input__disabled': this.props.disabled,
-      'hidden': !!(this.props.type === 'hidden'),
-      'with-icon': this.props.icon,
-    }, this.props.className);
-    const labelClassName = classNames('ab-input__label', {
-      'fixed': !this.props.floating
-    });
-
-    return (
-      <div className={className}>
-        { this.renderInput() }
-        { this.props.icon ? <Icon className='ab-input__icon' icon={this.props.icon} /> : null }
-        <span className={'ab-input__bar'}></span>
-        { this.props.label ? <label className={labelClassName}>{this.props.label}</label> : null }
-        { this.props.error ? <span className={'ab-input__error'}>{this.props.error}</span> : null }
-      </div>
-    );
-  }
+  };
 
   blur () {
     this.refs.input.blur();
@@ -101,13 +47,55 @@ export default class Input extends React.Component {
     this.refs.input.focus();
   }
 
-  getValue () {
-    return this.state.value;
-  }
-
-  setValue (value) {
-    this.setState({
-      value
+  render () {
+    const { children, disabled, error, floating, hint, icon,
+            label: labelText, maxLength, multiline, required,
+            type, value, ...others
+    } = this.props;
+    const length = maxLength && value ? value.length : 0;
+    const labelClassName = ClassNames('tt-input__label', {
+      'fixed': !floating
     });
+
+    const className = ClassNames('tt-input', {
+      'tt-input--disabled': disabled,
+      'tt-input--error': error,
+      'tt-input--hidden': type === 'hidden',
+      'tt-input--withIcon': icon
+    }, this.props.className);
+
+    const valuePresent = value !== null && value !== undefined && value !== '' && !Number.isNaN(value);
+
+    const InputElement = React.createElement(multiline ? 'textarea' : 'input', {
+      ...others,
+      className: ClassNames('tt-input__input', {
+        'filled': valuePresent
+      }),
+      onChange: this.handleChange,
+      ref: 'input',
+      role: 'input',
+      disabled,
+      required,
+      type,
+      value,
+      maxLength
+    });
+
+    return (
+      <div className={className}>
+        {InputElement}
+        {icon ? <Icon className='tt-input__icon' icon={icon} /> : null}
+        <span className='bar'></span>
+        {labelText ?
+          <label className={labelClassName}>
+            {labelText}
+            {required ? <span className='required'> * </span> : null}
+          </label> : null}
+        {hint ? <span className='tt-input__hint'>{hint}</span> : null}
+        {error ? <span className='tt-input--error'>{error}</span> : null}
+        {maxLength ? <span className='tt-input--counter'>{length}/{maxLength}</span> : null}
+        {children}
+      </div>
+    );
   }
 }

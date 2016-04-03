@@ -1,0 +1,65 @@
+.tt-sliderinput {
+    margin: 20px 0;
+    position: relative;
+
+    &__fill,
+    &__handle {
+        position: absolute;
+    }
+
+    &,
+    &__fill {
+        display: block;
+        box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    &__handle {
+        border: 1px solid;
+        cursor: pointer;
+        display: inline-block;
+        position: absolute;
+        box-shadow: $zdepth-shadow-1;
+    }
+
+    &--horizontal {
+        height: 10px;
+        border-radius: 10px;
+
+        .tt-sliderinput__fill {
+            height: 100%;
+            border-radius: 10px;
+            top: 0;
+        }
+
+        .tt-sliderinput__handle {
+            width: 26px;
+            height: 26px;
+            border-radius: 40px;
+            top: -8px;
+        }
+    }
+
+    &--vertical {
+        margin: 20px auto;
+      	height: 150px;
+      	max-width: 10px;
+      	background: none;
+
+        .tt-sliderinput__fill {
+            width: 100%;
+            background: #27ae60;
+            box-shadow: none;
+            bottom: 0;
+        }
+
+        .tt-sliderinput__handle {
+            width: 30px;
+            height: 10px;
+            left: -10px;
+
+            &:active {
+                box-shadow: none;
+            }
+        }
+    }
+}

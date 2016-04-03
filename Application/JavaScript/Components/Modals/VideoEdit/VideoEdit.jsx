@@ -2,107 +2,76 @@ import { connect } from 'react-redux';
 import { closeModal } from '../../../Actions';
 import React from 'react';
 import classNames from 'classnames';
-import Mime from 'mime';
-import isNull from 'lodash/isnull';
 import QueryString from 'querystring';
+import isNull from 'lodash/isnull';
 import URL from 'url';
 import ModalWrapper from '../Common/Wrapper';
 import ModalTab from '../Common/Tab';
 import BottomNavigation from '../Common/BottomNavigation';
-
-class PreviewVideo extends React.Component {
-  static defaultProps = {
-    background: 'black'
-  };
-
-  state = {
-    type: null,
-    videoID: null
-  };
-
-  componentWillMount () {
-    this.updatePreview(this.props.src);
-  }
-
-  componentWillReceiveProps (props) {
-    if (props.src !== this.props.src) {
-      this.updatePreview(props.src);
-    }
-  }
-
-  updatePreview (source) {
-    const mimeType = Mime.lookup(source);
-    var type = this.state.type;
-    var videoID = this.state.videoID;
-
-    if (mimeType === 'application/octet-stream') {
-      const parsedURL = URL.parse(source);
-      const query = QueryString.parse(parsedURL.query);
-      const host = parsedURL.host.toLowerCase();
-
-      if (host.indexOf('youtube.com') >= 0) {
-        type = 'youtube';
-        videoID = query.v;
-      } else if (host.indexOf('youtu.be') >= 0) {
-        type = 'youtube';
-        videoID = parsedURL.path.substring(1);
-      }
-    }
-
-    this.setState({
-      type: type,
-      videoID: videoID
-    });
-  }
-
-  renderVideo () {
-    const { type, videoID } = this.state;
-
-    if (isNull(type) || isNull(videoID)) {
-      return null;
-    } else {
-      if (type === 'youtube') {
-        const source = `http://www.youtube.com/embed/${videoID}?autoplay=0`;
-
-        return (
-          <iframe
-            type='text/html'
-            width={this.props.width}
-            height={ this.props.height}
-            src={source}
-            frameBorder='0' />
-        );
-      }
-    }
-  }
-
-  render () {
-    const style = {
-      width: this.props.width,
-      height: this.props.height,
-      overflow: 'hidden',
-      background: this.props.background
-    };
-
-    return (
-      <div className='ab-previewview' style={style}>
-       { this.renderVideo() }
-      </div>
-    );
-  }
-}
+import Input from '../../Shared/Input';
+import PreviewVideo from '../../Shared/PreviewVideo';
 
 class VideoEdit extends React.Component {
+  state = {
+    url: 'https://www.youtube.com/watch?v=XNdNLNFZBmk'
+  };
+
   closeDialog () {
     return this.refs['modalWrapper'].closeDialog();
   }
 
+  saveVideo () {
+    const { url } = this.state;
+    const { editTarget } = this.props;
+    const videoHolderElement = editTarget.querySelector('.block-video-holder');
+
+    if (videoHolderElement) {
+      const parsedURL = URL.parse(url);
+      const query = QueryString.parse(parsedURL.query);
+      const host = parsedURL.host.toLowerCase();
+      let videoID = null;
+
+      if (host.indexOf('youtube.com') >= 0) {
+        videoID = query.v;
+      } else if (host.indexOf('youtu.be') >= 0) {
+        videoID = parsedURL.path.substring(1);
+      }
+
+      if (!isNull(videoID)) {
+        videoHolderElement.setAttribute('data-videoid', videoID);
+      }
+    }
+
+    this.closeDialog();
+  }
+
+  handleInputChange (value) {
+    this.setState({
+      url: value
+    });
+  }
+
+  componentWillMount () {
+    const { editTarget } = this.props;
+    const videoHolderElement = editTarget.querySelector('.block-video-holder');
+
+    if (videoHolderElement) {
+      const videoID = videoHolderElement.getAttribute('data-videoid');
+      const url = `https://www.youtube.com/watch?v=${videoID}`;
+
+      this.setState({
+        url: url
+      });
+    }
+  }
+
   render () {
+    const { url } = this.state;
     const { active, closeModal } = this.props;
     const className = classNames('ab-modal', 'ab-modal__small');
     const actions = [
       { label: 'Cancel', onClick: ::this.closeDialog },
-      { label: 'Save' }
+      { label: 'Save', onClick: ::this.saveVideo }
     ];
 
     return (
@@ -112,13 +81,21 @@ class VideoEdit extends React.Component {
         active={active}
         className={className}>
         <ModalTab
-          title='Change Video'>
+          title='Change Video Source'>
           <div className='ab-modal__tab'>
+            <Input
+              className='ab-modal__input'
+              type='text'
+              label='URL'
+              name='url'
+              value={url}
+              maxLength={128}
+              onChange={::this.handleInputChange} />
             <PreviewVideo
               background='white'
               width='600px'
               height='330px'
-              src={'https://www.youtube.com/watch?v=XNdNLNFZBmk'} />
+              src={url} />
           </div>
           <BottomNavigation actions={actions} />
         </ModalTab>

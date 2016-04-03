@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import TimePicker from './TimePicker';
+import TimePicker from '../Shared/TimePicker';
 
 export default class Time extends React.Component {
   static propTypes = {

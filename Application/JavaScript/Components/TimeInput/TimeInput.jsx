@@ -23,19 +23,34 @@ export default class TimeInput extends React.Component {
     });
   }
 
+  renderCalendar () {
+    const calendarClassName = classNames('ab-timeinput__tab', 'is-active');
+
+    return (
+      <Calendar
+        className={calendarClassName}
+        onChange={this.props.onChange}
+        time={this.props.time} />
+    );
+  }
+
+  renderTimePicker () {
+    const timeClassName = classNames('ab-timeinput__tab', 'is-active');
+
+    return (
+      <Time
+        className={timeClassName}
+        onChange={this.props.onChange}
+        time={this.props.time} />
+    );
+  }
+
   render () {
-    const { onChange } = this.props;
     const { tab } = this.state;
     const dateButtonClassName = classNames({
       'is-active': tab === 0
     });
     const timeButtonClassName = classNames({
-      'is-active': tab === 1
-    });
-    const calendarClassName = classNames('ab-timeinput__tab', {
-      'is-active': tab === 0
-    });
-    const timeClassName = classNames('ab-timeinput__tab', {
       'is-active': tab === 1
     });
 
@@ -60,14 +75,7 @@ export default class TimeInput extends React.Component {
           </button>
         </div>
         <div className='ab-timeinput__tabs'>
-          <Calendar
-            className={calendarClassName}
-            onChange={onChange}
-            time={this.props.time} />
-          <Time
-            className={timeClassName}
-            onChange={onChange}
-            time={this.props.time} />
+          { tab === 0 ? this.renderCalendar() : this.renderTimePicker() }
         </div>
       </div>
     );

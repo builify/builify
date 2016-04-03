@@ -1,9 +1,9 @@
 import React from 'react';
 import Face from './ClockFace';
 import Hand from './ClockHand';
-import _ from 'lodash';
+import range from 'lodash/range';
 
-const minutes = _.range(0, 60, 5);
+const minutes = range(0, 60, 5);
 const step = 360 / 60;
 
 export default class Minutes extends React.Component {
@@ -20,24 +20,24 @@ export default class Minutes extends React.Component {
     onChange: null
   };
 
-  handleHandMove = (degrees) => {
+  handleHandMove (degrees) {
     this.props.onChange(degrees / step);
-  };
+  }
 
-  handleMouseDown = (event) => {
+  handleMouseDown (event) {
     this.refs.hand.mouseStart(event);
-  };
+  }
 
-  handleTouchStart = (event) => {
+  handleTouchStart (event) {
     this.refs.hand.touchStart(event);
-  };
+  }
 
   render () {
     return (
       <div>
         <Face
-          onTouchStart={this.handleTouchStart}
-          onMouseDown={this.handleMouseDown}
+          onTouchStart={::this.handleTouchStart}
+          onMouseDown={::this.handleMouseDown}
           numbers={minutes}
           spacing={this.props.spacing}
           radius={this.props.radius}
@@ -47,7 +47,7 @@ export default class Minutes extends React.Component {
           className={minutes.indexOf(this.props.selected) === -1 ? 'small' : ''}
           angle={this.props.selected * step}
           length={this.props.radius - this.props.spacing}
-          onMove={this.handleHandMove}
+          onMove={::this.handleHandMove}
           origin={this.props.center}
           step={step} />
       </div>

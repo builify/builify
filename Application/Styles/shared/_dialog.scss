@@ -49,6 +49,10 @@ $modal-navigation-padding: .8 * $unit;
 				@include transform(translateY(-$modal-translate-y));
 		}
 
+		&__userselect {
+				@include user-select(none);
+		}
+
 		&__small {
 				.#{$nameprefix}modal {
 						&__content {
@@ -193,6 +197,10 @@ $modal-navigation-padding: .8 * $unit;
 				width: 100%;
 				height: 380px;
 				padding: 40px 0 30px;
+		}
+
+		&__input {
+				margin: 25px $base-padding;
 		}
 
 		&__icons {

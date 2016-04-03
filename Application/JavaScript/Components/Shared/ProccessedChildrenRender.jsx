@@ -6,11 +6,11 @@ import ContentBlocks from './ContentBlocks';
 import CurrentPage from './CurrentPage';
 import Swatches from './Swatches';
 import Colors from './Colors';
-import Size from './Size';
 import Title from './Title';
 import ItemThatOpensSideTab from './ItemThatOpensSideTab';
 import FontSelection from './FontSelection';
 import CheckBoxWrapper from './CheckBoxWrapper';
+import SliderInputWrapper from './SliderInputWrapper';
 
 /* eslint-disable */
 export default class ProccessedChildrenRender extends React.Component {
@@ -61,11 +61,11 @@ export default class ProccessedChildrenRender extends React.Component {
   renderSize (item) {
 		const key = Random.randomKey('size');
 
-		return (
-			<Size
-				item={item}
-				key={key} />
-		);
+    return (
+      <SliderInputWrapper
+        data={item}
+        key={key} />
+    );
   }
 
   renderFont (item) {

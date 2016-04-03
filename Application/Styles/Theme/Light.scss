@@ -10,6 +10,58 @@ $light-main-box-shadow: 0 0 20px rgba(#000, 0.3);
 .light {
 		background: $light-primary-color;
 
+		// Sliderinput
+		.tt-sliderinput {
+				background: $light-range-track-color;
+
+				&__handle {
+						background: $light-primary-color;
+						border-color: $light-secondary-color;
+				}
+
+				&--horizontal {
+						.tt-sliderinput__fill {
+								background: $light-theme-color;
+						}
+				}
+		}
+
+		// Timepicker
+		.tt-timepicker {
+				&__time {
+						background-color: $light-theme-color;
+						color: $light-primary-border-color;
+
+						&.is-active {
+								color: $light-primary-color;
+						}
+				}
+
+				&__separator {
+						color: $light-theme-color;
+				}
+		}
+
+		// Clock
+		.tt-clock {
+				&__wrapper {
+						background: #eee;
+						border: 1px solid #ccc;
+				}
+
+				&__hand {
+						background: $light-theme-color;
+
+						&:before {
+								background: $light-theme-color;
+						}
+				}
+
+				&__knob {
+						background: $light-theme-color;
+				}
+		}
+
 		.#{$nameprefix} {
 				&timeinput {
 						&__options {
@@ -23,23 +75,6 @@ $light-main-box-shadow: 0 0 20px rgba(#000, 0.3);
 				            }
 								}
 						}
-				}
-
-				&time {
-				    &__showtime {
-				        .time {
-				            background-color: $color-primary;
-				            color: #444;
-
-										&.is-active {
-											  color: $light-primary-color;
-										}
-				        }
-
-				        .separator {
-				            color: $color-primary;
-				        }
-				    }
 				}
 
 				&calendar {
@@ -147,37 +182,6 @@ $light-main-box-shadow: 0 0 20px rgba(#000, 0.3);
 
 				&page-new {
 						border-color: $light-primary-border-color;
-				}
-
-				&size {
-						input[type="range"] {
-								background: $light-secondary-color;
-
-								&::-moz-range-track {
-										background: $light-range-track-color;
-								}
-
-								&::-webkit-slider-runnable-track {
-										background: $light-range-track-color;
-								}
-
-								&::-ms-fill-lower,
-								&::-ms-fill-upper {
-										background: $light-range-track-color;
-								}
-
-								&::-moz-range-thumb {
-										background: $light-primary-color;
-								}
-
-								&::-webkit-slider-thumb {
-										background: $light-primary-color;
-								}
-
-								&::-ms-thumb {
-										background: $light-primary-color;
-								}
-						}
 				}
 		}
 }

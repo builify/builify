@@ -21,19 +21,21 @@ export default class Face extends React.Component {
     return {
       position: 'absolute',
       left: (rad + rad * Math.sin(360 * (Math.PI / 180) / 12 * (num - 1)) + this.props.spacing),
-      top: (rad - rad * Math.cos(360 * (Math.PI / 180) / 12 * (num - 1)) + this.props.spacing)
+      top:  (rad - rad * Math.cos(360 * (Math.PI / 180) / 12 * (num - 1)) + this.props.spacing)
     };
   }
 
   faceStyle () {
+    const size = this.props.radius * 2;
+
     return {
-      height: this.props.radius * 2,
-      width: this.props.radius * 2
+      height: size,
+      width: size
     };
   }
 
   renderNumber (number, idx) {
-    const className = classNames('ab-clock__number', {
+    const className = classNames('tt-clock__number', {
       'is-active': number === this.props.active
     });
 
@@ -51,11 +53,11 @@ export default class Face extends React.Component {
     return (
       <div
         ref='root'
-        className='ab-clock__face'
+        className='tt-clock__face'
         onTouchStart={this.props.onTouchStart}
         onMouseDown={this.props.onMouseDown}
-        style={this.faceStyle()} >
-        {this.props.numbers.map(this.renderNumber.bind(this))}
+        style={this.faceStyle()}>
+        {this.props.numbers.map(::this.renderNumber)}
       </div>
     );
   }

@@ -15,15 +15,18 @@ class Countdown extends React.Component {
 
   componentWillMount () {
     const { editTarget } = this.props;
-    const countdownElement = editTarget.querySelector('.countdown');
 
-    if (countdownElement) {
-      const dataDate = countdownElement.getAttribute('data-date');
-      const momentDate = moment(dataDate, 'YYYY-MM-DD');
+    if (editTarget) {
+      const countdownElement = editTarget.querySelector('.countdown');
 
-      this.setState({
-        time: momentDate
-      });
+      if (countdownElement) {
+        const dataDate = countdownElement.getAttribute('data-date');
+        const momentDate = moment(dataDate, 'YYYY-MM-DD');
+
+        this.setState({
+          time: momentDate
+        });
+      }
     }
   }
 
@@ -50,7 +53,7 @@ class Countdown extends React.Component {
 
   render () {
     const { active, closeModal } = this.props;
-    const className = classNames('ab-modal', 'ab-modal__small');
+    const className = classNames('ab-modal', 'ab-modal__small', 'ab-modal__userselect');
     const actions = [
       { label: 'Cancel', onClick: ::this.closeDialog },
       { label: 'Save', onClick: ::this.saveDate }
