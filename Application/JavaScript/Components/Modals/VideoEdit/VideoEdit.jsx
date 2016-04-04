@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { closeModal } from '../../../Actions';
+import { closeModal, addNotification } from '../../../Actions';
 import React from 'react';
 import classNames from 'classnames';
 import QueryString from 'querystring';
@@ -39,6 +39,13 @@ class VideoEdit extends React.Component {
 
       if (!isNull(videoID)) {
         videoHolderElement.setAttribute('data-videoid', videoID);
+
+        this.props.addNotification({
+          message: 'Video changed!',
+          title: 'Video Change',
+          level: 'info',
+          autoDismiss: 3
+        });
       }
     }
 
@@ -108,6 +115,10 @@ function mapDispatchToProps (dispatch) {
   return {
     closeModal: () => {
       dispatch(closeModal());
+    },
+
+    addNotification: (notification) => {
+      dispatch(addNotification(notification));
     }
   };
 }

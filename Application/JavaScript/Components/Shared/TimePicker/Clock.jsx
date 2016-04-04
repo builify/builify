@@ -2,26 +2,6 @@ import React from 'react';
 import Hours from './ClockHours';
 import Minutes from './ClockMinutes';
 
-function getTimeMode (d) {
-  return d.getHours() >= 12 ? 'pm' : 'am';
-}
-
-function clone (d) {
-  return new Date(d.getTime());
-}
-
-function setHours (d, hours) {
-  const newDate = clone(d);
-  newDate.setHours(hours);
-  return newDate;
-}
-
-function setMinutes (d, minutes) {
-  const newDate = clone(d);
-  newDate.setMinutes(minutes);
-  return newDate;
-}
-
 export default class Clock extends React.Component {
   static propTypes = {
     className: React.PropTypes.string,
@@ -29,14 +9,13 @@ export default class Clock extends React.Component {
     format: React.PropTypes.oneOf(['24hr', 'ampm']),
     onChange: React.PropTypes.func,
     onHandMoved: React.PropTypes.func,
-    time: React.PropTypes.object
+    time: React.PropTypes.object.isRequired
   };
 
   static defaultProps = {
     className: '',
     display: 'hours',
-    format: '24hr',
-    time: new Date()
+    format: '24hr'
   };
 
   state = {
@@ -59,14 +38,18 @@ export default class Clock extends React.Component {
   }
 
   handleHourChange (hours) {
-    if (this.props.time.getHours() !== hours) {
-      this.props.onChange(setHours(this.props.time, this.adaptHourToFormat(hours)));
+    if (this.props.time.hour() !== hours) {
+      this.props.onChange(
+        this.props.time.hour(hours)
+      );
     }
   }
 
   handleMinuteChange (minutes) {
-    if (this.props.time.getMinutes() !== minutes) {
-      this.props.onChange(setMinutes(this.props.time, minutes));
+    if (this.props.time.minutes() !== minutes) {
+      this.props.onChange(
+        this.props.time.minutes(minutes)
+      );
     }
   }
 
@@ -84,18 +67,6 @@ export default class Clock extends React.Component {
     });
   }
 
-  adaptHourToFormat (hour) {
-    if (this.props.format === 'ampm') {
-      if (getTimeMode(this.props.time) === 'pm') {
-        return hour < 12 ? hour + 12 : hour;
-      } else {
-        return hour === 12 ? 0 : hour;
-      }
-    } else {
-      return hour;
-    }
-  }
-
   renderHours () {
     return (
       <Hours
@@ -103,7 +74,7 @@ export default class Clock extends React.Component {
         format={this.props.format}
         onChange={::this.handleHourChange}
         radius={this.state.radius}
-        selected={this.props.time.getHours()}
+        selected={this.props.time.hour()}
         spacing={this.state.radius * 0.18}
         onHandMoved={this.props.onHandMoved} />
     );
@@ -115,7 +86,7 @@ export default class Clock extends React.Component {
         center={this.state.center}
         onChange={::this.handleMinuteChange}
         radius={this.state.radius}
-        selected={this.props.time.getMinutes()}
+        selected={this.props.time.minute()}
         spacing={this.state.radius * 0.18}
         onHandMoved={this.props.onHandMoved} />
     );

@@ -27,8 +27,8 @@ const builderInitialState = {
   filterContentBlocksTarget: 'all',
 
   // Modal
-  isModalOpen: true,
-  modalType: 8,
+  isModalOpen: false,
+  modalType: null,
   modalTarget: null,
 
   // Images

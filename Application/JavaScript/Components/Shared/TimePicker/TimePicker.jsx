@@ -3,10 +3,10 @@ import classNames from 'classnames';
 import Clock from './Clock';
 
 function toggleTimeMode (d) {
-  const newDate = this.clone(d);
-  const hours = newDate.getHours();
+  const newDate = d.clone();
+  const hours = newDate.hours();
 
-  newDate.setHours(hours - (hours > 12 ? -12 : 12));
+  newDate.hours(hours - (hours > 12 ? -12 : 12));
   return newDate;
 }
 
@@ -17,18 +17,18 @@ export default class TimePicker extends React.Component {
     format: React.PropTypes.oneOf(['24hr', 'ampm']),
     onDismiss: React.PropTypes.func,
     onSelect: React.PropTypes.func,
-    value: React.PropTypes.object
+    onChange: React.PropTypes.func,
+    time: React.PropTypes.object.isRequired
   };
 
   static defaultProps = {
     active: false,
-    format: '24hr',
-    value: new Date()
+    format: '24hr'
   };
 
   state = {
     display: 'hours',
-    displayTime: this.props.value
+    displayTime: this.props.time
   };
 
   componentWillUpdate (nextProps) {
@@ -41,6 +41,8 @@ export default class TimePicker extends React.Component {
     this.setState({
       displayTime: value
     });
+
+    return this.props.onChange(value);
   };
 
   handleSelect = (event) => {
@@ -67,14 +69,6 @@ export default class TimePicker extends React.Component {
     });
   };
 
-  formatHours () {
-    if (this.props.format === 'ampm') {
-      return this.state.displayTime.getHours() % 12 || 12;
-    } else {
-      return this.state.displayTime.getHours();
-    }
-  }
-
   renderAMPMLabels () {
     if (this.props.format === 'ampm') {
       return (
@@ -87,13 +81,15 @@ export default class TimePicker extends React.Component {
   }
 
   render () {
-    const { display } = this.state;
+    const { display, displayTime } = this.state;
     const hourClassName = classNames('tt-timepicker__time', {
       'is-active': display === 'hours'
     });
     const minuteClassName = classNames('tt-timepicker__time', {
       'is-active': display === 'minutes'
     });
+    const hourText = displayTime.format('HH');
+    const minuteText = displayTime.format('mm');
 
     return (
       <div className={this.props.className}>
@@ -101,13 +97,13 @@ export default class TimePicker extends React.Component {
           <span
             className={hourClassName}
             onClick={this.switchDisplay.bind(this, 'hours')}>
-            {('0' + this.formatHours()).slice(-2)}
+            {hourText}
           </span>
           <span className='tt-timepicker__separator'>:</span>
           <span
             className={minuteClassName}
             onClick={this.switchDisplay.bind(this, 'minutes')}>
-            {('0' + this.state.displayTime.getMinutes()).slice(-2)}
+            { minuteText }
           </span>
           { this.renderAMPMLabels() }
         </header>
@@ -117,7 +113,7 @@ export default class TimePicker extends React.Component {
           format={this.props.format}
           onChange={this.handleClockChange}
           onHandMoved={this.handleHandMoved}
-          time={this.state.displayTime} />
+          time={displayTime} />
       </div>
     );
   }

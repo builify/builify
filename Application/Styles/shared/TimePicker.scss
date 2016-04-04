@@ -29,7 +29,41 @@ $clock-knob-small-size: 1.2 * $unit;
 .tt-timepicker {
     position: relative;
     display: block;
-    height: 400px;
+
+    &__ampm {
+      position: absolute;
+top: 30%;
+right: 4rem;
+width: 6rem;
+height: 4.4rem;
+margin-top: -2.2rem;
+font-size: 1.6rem;
+line-height: 2.2rem;
+text-align: center;
+
+    }
+
+    &__am,
+    &__pm {
+        display: block;
+        cursor: pointer;
+        color: #FFF;
+        padding: 15px;
+        background: $color-primary;
+
+        &.is-active {
+            box-shadow: $zdepth-shadow-5;
+        }
+    }
+
+    &__am {
+        border-radius: 2px 2px 0 0;
+        border-bottom: 3px solid lighten($color-primary, 23%);
+    }
+
+    &__pm {
+        border-radius: 0 0 2px 2px;
+    }
 
     &__header {
         text-align: center;

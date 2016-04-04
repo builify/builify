@@ -42,10 +42,13 @@ class Countdown extends React.Component {
 
   saveDate () {
     const { editTarget } = this.props;
-    const countdownElement = editTarget.querySelector('.countdown');
 
-    if (countdownElement && countdownElement.getAttribute('data-date')) {
-      countdownElement.setAttribute('data-date', '2017/03/01');
+    if (editTarget) {
+      const countdownElement = editTarget.querySelector('.countdown');
+
+      if (countdownElement && countdownElement.getAttribute('data-date')) {
+        countdownElement.setAttribute('data-date', '2017/03/01');
+      }
     }
 
     this.closeDialog();
@@ -67,7 +70,7 @@ class Countdown extends React.Component {
         className={className}>
         <ModalTab
           title='Change Countdown Date'
-          info={`Date: ${this.state.time.format('llll')}`}>
+          info={this.state.time.format('dddd, MMMM Do YYYY, HH:mm')}>
           <div className='ab-modal__tab'>
             <TimeInput
               time={this.state.time}

@@ -127,33 +127,6 @@ function template (state = initialState, action) {
       }
 
       return state;
-      /*const { color } = action;
-      const { templateStylesheet } = state;
-      let { design, colorPickerSelectedElementColorElement } = state;
-      const dataColorTarget = colorPickerSelectedElementColorElement.
-                                    getAttribute('data-colortarget');
-
-      if (dataColorTarget) {
-        if (design.colors &&
-          design.colors[dataColorTarget] &&
-          templateStylesheet !== null) {
-          const hexColor = `#${color}`;
-
-          templateStylesheet.add({
-            [dataColorTarget]: {
-              color: hexColor
-            }
-          });
-
-          templateStylesheet.initCSS();
-
-          design.colors[dataColorTarget] = hexColor;
-        }
-      }
-
-      return _.assign({}, state, {
-        design: design
-      });*/
     }
 
     case Actions.CHANGE_BASELINE_VALUE: {

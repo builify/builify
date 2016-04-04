@@ -33,23 +33,26 @@ function canvas (state = canvasInitialState, action) {
     }
 
     case Actions.LOAD_PREVIOUS_PAGE:
-    case Actions.LOAD_CONTENTBLOCK_TO_PAGE: {
+    case Actions.LOAD_CONTENTBLOCK_TO_PAGE:
+    case Actions.CLOSE_MODAL: {
       const { iFrameWindow } = state;
       const filesToUpdate = iFrameWindow.document.querySelectorAll('[data-update]');
+      let script = null;
 
       _.map(filesToUpdate, (file) => {
         const fileSource = file.getAttribute('src');
 
-        // Check if
         file.remove();
 
-        let script = iFrameWindow.document.createElement('script');
+        script = iFrameWindow.document.createElement('script');
         script.src = fileSource;
         script.async = true;
         script.setAttribute('data-update', true);
 
         iFrameWindow.document.head.appendChild(script);
       });
+
+      return state;
     }
 
     case Actions.CURRENT_HOVER_BLOCK: {
