@@ -1,9 +1,8 @@
 import Actions from './Constants';
 
-export function openPreview (target) {
+export function openPreview () {
   return {
-    type: Actions.OPEN_PREVIEW,
-    target: target
+    type: Actions.OPEN_PREVIEW
   };
 }
 

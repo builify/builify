@@ -1,73 +1,30 @@
-import React from 'react';
 import { connect } from 'react-redux';
+import { closeTab } from '../../Actions';
+import React from 'react';
 import classNames from 'classnames';
-import _ from 'lodash';
 import Tab from './Tab';
-import SideTab from './SideTab';
-import PrimaryNavigation from './PrimaryNavigation';
-import Logo from '../Shared/Logo';
-import Copyright from '../Miscellaneous/Copyright';
-
-class AsideItem extends React.Component {
-  render () {
-    const { children } = this.props;
-
-    return (
-      <div className='ab-aside__item'>
-        {children}
-      </div>
-    );
-  }
-}
 
 class Aside extends React.Component {
-  shouldComponentUpdate () {
-    return false;
-  }
-
-  renderTabs () {
-    const { builderConfiguration } = this.props;
+  renderTab () {
+    const { builderConfiguration, closeTab } = this.props;
     const { tabs } = builderConfiguration;
 
-    return _.map(tabs, (tab, index) => {
-      return (
-        <Tab
-          data={tab}
-          targetIndex={index}
-          key={index} />
-        );
-    });
-  }
-
-  renderSideTabs () {
-    const { builderConfiguration } = this.props;
-    const { sidetabs } = builderConfiguration;
-
-    return _.map(sidetabs, (sidetab, index) => {
-      return (
-        <SideTab
-          data={sidetab}
-          key={index} />
-        );
-    });
+    return (
+      <Tab
+        onCloseTab={closeTab}
+        tabs={tabs} />
+    );
   }
 
   render () {
-    const { cName } = this.props;
-    const asideClassName = classNames('ab-aside', cName);
+    const className = classNames('ab-aside');
 
     return (
-      <aside className={asideClassName} >
-        <div className='ab-aside__itemwrapper'>
-          <AsideItem>
-            <Logo text='ABuilder'/>
-            <PrimaryNavigation />
-            <Copyright />
-          </AsideItem>
-          <AsideItem>
-            { this.renderTabs() }
-            { this.renderSideTabs() }
-          </AsideItem>
+      <aside className={className} >
+        <div className='ab-aside__wrapper'>
+          <div className='ab-aside__item'>
+            { this.renderTab() }
+          </div>
         </div>
       </aside>
     );
@@ -80,4 +37,12 @@ function mapStateToProps (state) {
   };
 }
 
-export default connect(mapStateToProps)(Aside);
+function mapDispatchToProps (dispatch) {
+  return {
+    closeTab: () => {
+      dispatch(closeTab());
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Aside);

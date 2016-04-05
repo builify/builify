@@ -9,6 +9,9 @@ function builderConfiguration (state = builderConfigurationInitialState, action)
     case Actions.RECEIVE_BUILDER_CONFIGURATION:
       return _.assign({}, state, action.data);
 
+    case Actions.RECEIVE_ASIDE_CONFIGURATION:
+      return _.assign({}, state, action.data);
+
     case Actions.PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION:
       const { localization } = state;
 

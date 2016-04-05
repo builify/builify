@@ -38,7 +38,7 @@
     }
   ],
 
-  "tabs": [
+  /*"tabs": [
     {
       "title": "Page",
       "children": [
@@ -71,7 +71,7 @@
           "type": "open.sidetab",
           "title": "design.titles.typography",
           "target": "design.typography"
-        }/*,
+        },
         {
           "type": "block.title",
           "title": "design.titles.misc"
@@ -94,7 +94,7 @@
           "type": "block.switch",
           "state": "off",
           "name": "design.titles.darkskin"
-        }*/
+        }
       ]
     }
   ],
@@ -130,12 +130,12 @@
           "title": "design.titles.misc"
         },
         {
-          "type": "block.switch",
+          "type": "block.checkbox",
           "state": "off",
-          "name": "design.titles.verticalrythm",
+          "label": "Verticalrythm",
           "action": "toggle.baseline"
         },
-        /*{
+        {
           "type": "block.title",
           "title": "design.titles.typography"
         },
@@ -146,7 +146,7 @@
         {
           "type": "block.font.body",
           "label": "design.typography.fonts.body"
-        },*/
+        },
         {
           "type": "block.title",
           "title": "design.titles.sizes"
@@ -167,5 +167,5 @@
         }
       ]
     }
-  ]
+  ]*/
 }

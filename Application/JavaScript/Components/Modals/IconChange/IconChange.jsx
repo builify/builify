@@ -1,6 +1,6 @@
+import { connect } from 'react-redux';
 import React from 'react';
 import classNames from 'classnames';
-import { connect } from 'react-redux';
 import ModalWrapper from '../Common/Wrapper';
 import BottomNavigation from '../Common/BottomNavigation';
 import TabIcons from './TabIcons';

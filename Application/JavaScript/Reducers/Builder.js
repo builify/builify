@@ -13,10 +13,7 @@ const builderInitialState = {
   fontList: [],
 
   // Tabs
-  isTabOpened: false,
-  tabOpened: -1,
-  isSidetabOpened: false,
-  sidetabOpened: -1,
+  currentTab: 'initial',
 
   // Pages
   isPageSelected: false,
@@ -43,6 +40,25 @@ function builder (state = builderInitialState, action) {
   }
 
   switch (action.type) {
+    case Actions.OPEN_TAB: {
+      const { target } = action;
+      const { currentTab, tabs } = state;
+      const tab = _.find(tabs, {
+        'id': target
+      });
+
+      if (_.isObject(tab) && !_.endsWith(currentTab, target)) {
+        return _.assign({}, state, {
+          currentTab: `${currentTab}.${target}`
+        });
+      }
+
+      return state;
+    }
+
+    case Actions.RECEIVE_ASIDE_CONFIGURATION:
+      return _.assign({}, state, action.data);
+
     case Actions.UPLOADED_IMAGE: {
       const { data } = action;
 
@@ -264,64 +280,19 @@ function builder (state = builderInitialState, action) {
         isPageSelected: true,
       });
 
-    case Actions.OPEN_TAB:
-      const { target } = action;
-      let openTabElement = document.querySelector('[data-target="' + target + '"]');
+    case Actions.CLOSE_TAB: {
+      const { currentTab } = state;
+      const splitCurrentTab = _.words(currentTab, /[^.]+/g);
+      const splitSize = _.size(splitCurrentTab);
 
-      if (openTabElement) {
-        openTabElement.classList.add('open');
-
-        return _.assign({}, state, {
-          isTabOpened: true,
-          tabOpened: target
-        });
+      if (splitSize === 1) {
+        return _.assign({}, state);
       } else {
-        return state;
-      }
-
-    case Actions.CLOSE_TAB:
-      let closeTabElement = document.querySelector('[data-target="' + state.tabOpened + '"]');
-
-      if (closeTabElement) {
-        closeTabElement.classList.remove('open');
-
         return _.assign({}, state, {
-          isTabOpened: false,
-          tabOpened: -1
+          currentTab: _.join(_.dropRight(splitCurrentTab), '.')
         });
-      } else {
-        return state;
       }
-
-    case Actions.OPEN_SIDETAB:
-      let sidetabElement = document.querySelector('[data-sidetabid="' + action.target + '"]');
-
-      if (sidetabElement) {
-        sidetabElement.classList.add('open');
-
-        return _.assign({}, state, {
-          isSidetabOpened: true,
-          sidetabOpened: action.target
-        });
-      } else {
-        return state;
-      }
-
-    case Actions.CLOSE_SIDETAB:
-      let closeSidetabElement = document.querySelector(
-        '[data-sidetabid="' + state.sidetabOpened + '"]'
-      );
-
-      if (closeSidetabElement) {
-        closeSidetabElement.classList.remove('open');
-
-        return _.assign({}, state, {
-          isSidetabOpened: false,
-          sidetabOpened: -1
-        });
-      } else {
-        return state;
-      }
+    }
 
     case Actions.OPEN_PREVIEW:
       if (state.currentLocation === CurrentLocations.TEMPLATESELECTION ||

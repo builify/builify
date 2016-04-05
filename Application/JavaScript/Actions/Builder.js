@@ -8,6 +8,7 @@ import stripJSONComments from 'strip-json-comments';
 import IconPacksData from '../../Data/Builder/IconPacks';
 import imagesLibraryJSON from '../../Data/Builder/ImagesLibrary';
 import builderConfiguration from '../../Data/Builder/Builder';
+import AsideData from '../../Data/Builder/Aside';
 import fontsList from '../../Data/Builder/FontsList';
 import templateManifest from '../../Data/Template/manifest';
 import languageData from '../../Data/Builder/Localization';
@@ -17,6 +18,7 @@ export function runApplicationActions () {
     dispatch(initialize());
     dispatch(getBuilderConfiguration());
     dispatch(receiveConfiguration());
+    dispatch(receiveAsideConfiguration());
     dispatch(proccessConfigurationLocalization());
     dispatch(getLocalizationFile());
     dispatch(initializeBuilder());
@@ -114,6 +116,13 @@ export function receiveConfiguration () {
   return {
     type: Actions.RECEIVE_BUILDER_CONFIGURATION,
     data: JSON.parse(stripJSONComments(JSON.stringify(builderConfiguration)))
+  };
+}
+
+export function receiveAsideConfiguration () {
+  return {
+    type: Actions.RECEIVE_ASIDE_CONFIGURATION,
+    data: JSON.parse(stripJSONComments(JSON.stringify(AsideData)))
   };
 }
 

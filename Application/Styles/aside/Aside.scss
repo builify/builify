@@ -10,10 +10,10 @@
     width: $aside-width;
     @include user-select(none);
 
-    &__itemwrapper {
+    &__wrapper {
         overflow: hidden;
         height: 100%;
-        width: $aside-width * 3;
+        width: $aside-width;
     }
 
     &__item {

@@ -1,55 +1,97 @@
+import { connect } from 'react-redux';
 import React from 'react';
-import { closeTab } from '../../Actions';
 import _ from 'lodash';
-import proccessChildrenData from '../../Common/ProccessTabChildren';
-import ProccessedChildrenRender from '../Shared/ProccessedChildrenRender';
+import proccessChildren from '../../Common/ProccessChildren';
+import renderProccessedChildren from '../../Common/RenderProccessedChildren';
 import BackButton from '../Shared/BackButton';
 import Scrollbar from '../Shared/Scrollbar';
 
-export default class Tab extends ProccessedChildrenRender {
-  static propTypes = {
-    data: React.PropTypes.object,
-    targetIndex: React.PropTypes.number
-  };
-
-  static defaultProps = {
-    data: {},
-    targetIndex: 0
-  };
-
-  childrenToRender = [];
-
-  componentWillMount () {
-    const { data } = this.props;
-
-    this.childrenToRender = proccessChildrenData(data);
-  }
-
+class Tab extends React.Component {
   closeTab () {
-    return closeTab();
+    return this.props.onCloseTab();
   }
 
-  children () {
-    return _.map(this.childrenToRender, item => {
-      return this.renderChildren(item);
-    });
+  renderBackButton (builder) {
+    const { tabs } = this.props;
+    const { currentTab: currentTabID } = builder;
+    const splitCurrentTab = _.words(currentTabID, /[^.]+/g);
+    const splitSize = _.size(splitCurrentTab);
+    let currentTab = null;
+
+    if (splitSize === 1) {
+      currentTab = _.find(tabs, {
+        'id': currentTabID
+      });
+    } else {
+      currentTab = _.find(tabs, {
+        'id': splitCurrentTab[splitSize - 1]
+      });
+    }
+
+    if (_.isObject(currentTab)) {
+      if (currentTab.id !== 'initial') {
+        return (
+          <div>
+            <BackButton onClick={::this.closeTab} />
+            <h1 className='ab-sidetab__title'>{currentTab.title}</h1>
+          </div>
+        );
+      }
+    }
+
+    return null;
+  }
+
+  renderContent (builder) {
+    const { tabs } = this.props;
+    const { currentTab: currentTabID } = builder;
+    const splitCurrentTab = _.words(currentTabID, /[^.]+/g);
+    const splitSize = _.size(splitCurrentTab);
+    let currentTab = null;
+
+    if (splitSize === 1) {
+      currentTab = _.find(tabs, {
+        'id': currentTabID
+      });
+    } else {
+      currentTab = _.find(tabs, {
+        'id': splitCurrentTab[splitSize - 1]
+      });
+    }
+
+    if (_.isObject(currentTab)) {
+      const { content } = currentTab;
+
+      if (content) {
+        var childrenToRender = proccessChildren(content);
+
+        return _.map(childrenToRender, (child) => {
+          return renderProccessedChildren(child);
+        });
+      }
+    }
+
+    return null;
   }
 
   render () {
-    const { data, targetIndex } = this.props;
+    const { builder } = this.props;
 
     return (
-      <div
-        className='ab-tab'
-        data-target={targetIndex}>
-        <Scrollbar
-          aside
-          innerPadding>
-          <BackButton clickFunction={this.closeTab} />
-          <h1>{data.title}</h1>
-          { this.children() }
+      <div className='ab-tab'>
+        <Scrollbar aside innerPadding>
+          { this.renderBackButton(builder) }
+          { this.renderContent(builder) }
         </Scrollbar>
       </div>
     );
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    builder: state.builder
+  };
+}
+
+export default connect(mapStateToProps)(Tab);

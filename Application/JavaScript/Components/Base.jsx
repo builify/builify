@@ -20,7 +20,7 @@ class Base extends React.Component {
 
     return (
       <div className={className}>
-        <Aside/>
+        <Aside />
         <Main />
         <LoadingScreen />
         <ColorPicker />

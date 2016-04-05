@@ -19,24 +19,21 @@ class CheckBoxWrapper extends React.Component {
   }
 
   handleChange () {
-    const { item, onToggleBaseline } = this.props;
-    const { action } = item;
     const newChecked = !this.state.checked;
 
     this.setState({
       checked: newChecked
     });
 
-    if (action === 'toggle.baseline') {
-      return onToggleBaseline(newChecked);
+    if (this.props.onClick === 'toggle.baseline') {
+      return this.props.toggleBaseline(newChecked);
     }
   }
 
   render () {
-    const { checked } = this.state;
     const { item } = this.props;
-    const { text } = item;
-    const label = getString(text);
+    const { checked } = this.state;
+    const label = getString(item.label);
 
     return (
       <Checkbox
@@ -49,7 +46,7 @@ class CheckBoxWrapper extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onToggleBaseline: (checked) => {
+    toggleBaseline: (checked) => {
       dispatch(toggleBaseline(checked));
     }
   };

@@ -1,0 +1,150 @@
+{
+  "navigation": [
+    {
+      "id": "page",
+      "title": "Page",
+      "icon": "content-copy",
+      "onClick": "open.page"
+    },
+    {
+      "id": "content",
+      "title": "Content",
+      "icon": "photo",
+      "onClick": "open.content"
+    },
+    {
+      "id": "design",
+      "title": "Design",
+      "icon": "format-paint",
+      "onClick": "open.design"
+    },
+    {
+      "id": "preview",
+      "title": "Preview",
+      "icon": "look",
+      "onClick": "run.preview"
+    },
+    {
+      "id": "save",
+      "title": "Save",
+      "icon": "save",
+      "onClick": "run.save"
+    },
+    {
+      "id": "restore",
+      "title": "Restore",
+      "icon": "eye",
+      "onClick": "run.restore"
+    },
+    {
+      "id": "gethtml",
+      "title": "Download",
+      "icon": "file-download",
+      "onClick": "run.download"
+    }
+  ],
+
+  "tabs": [
+    {
+      "id": "initial",
+      "title": null,
+      "content": [
+        {
+          "type": "block.logo"
+        },
+        {
+          "type": "block.navigation"
+        },
+        {
+          "type": "block.copyright"
+        }
+      ]
+    },
+    {
+      "id": "page",
+      "title": "Page",
+      "content": [
+        {
+          "type": "block.currentpage"
+        }
+      ]
+    },
+    {
+      "id": "content",
+      "title": "Content",
+      "content": [
+        {
+          "type": "block.filter"
+        },
+        {
+          "type": "block.contentblocks"
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "title": "Design",
+      "content": [
+        {
+          "type": "open.sidetab",
+          "title": "Colors",
+          "target": "design-colors"
+        },
+        {
+          "type": "open.sidetab",
+          "title": "Typography",
+          "target": "design-typography"
+        }
+      ]
+    },
+    {
+      "id": "design-colors",
+      "title": "Design",
+      "subtitle": "Colors",
+      "content": [
+        {
+          "type": "block.title",
+          "title": "Base colors"
+        },
+        {
+          "type": "block.colors"
+        }
+      ]
+    },
+    {
+      "id": "design-typography",
+      "title": "Design",
+      "subtitle": "Typography",
+      "content": [
+        {
+          "type": "block.title",
+          "title": "Misc"
+        },
+        {
+          "type": "block.checkbox",
+          "state": "off",
+          "label": "Verticalrythm",
+          "onClick": "toggle.baseline"
+        },
+        {
+          "type": "block.title",
+          "title": "Sizes"
+        },
+        {
+          "type": "block.sliderinput",
+          "min": 8,
+          "max": 50,
+          "step": 1,
+          "label": "Base Font Size"
+        },
+        {
+          "type": "block.sliderinput",
+          "min": 0,
+          "max": 15,
+          "step": 0.1,
+          "label": "Baseline"
+        }
+      ]
+    }
+  ]
+}
