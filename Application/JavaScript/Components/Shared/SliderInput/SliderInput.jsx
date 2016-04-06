@@ -1,5 +1,6 @@
 import React from 'react';
 import capitalize from 'lodash/capitalize';
+import round from 'lodash/round';
 import classNames from 'classnames';
 
 const maxmin = (pos, min, max) => (pos < min) ? min : (( pos > max ) ? max : pos);
@@ -112,7 +113,7 @@ export default class Slider extends React.Component {
       value = max - (step * Math.round(percentage * (max - min) / step) + min);
     }
 
-    return Math.round(value);
+    return step < 1 ? round(value, 2) : value;
   }
 
   position (e) {

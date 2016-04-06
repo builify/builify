@@ -8,7 +8,7 @@ import SliderInput from './SliderInput';
 
 class SliderInputWrapper extends React.Component {
   static propTypes = {
-    data: React.PropTypes.object.isRequired
+    item: React.PropTypes.object.isRequired
   };
 
   state = {
@@ -16,10 +16,16 @@ class SliderInputWrapper extends React.Component {
   };
 
   componentWillMount () {
-    const { template, data } = this.props;
-    const { min, max, step, label } = data;
+    const { template, item } = this.props;
+    const { min, max, step, label, onChange } = item;
     const defaultLabel = getString(label);
-    const defaultValue = getProperty(template, label) || this.state.value;
+    let defaultValue = this.state.value;
+
+    if (onChange === 'change.basefont') {
+      defaultValue = _.at(template, 'design.typography.size.basefont');
+    } else if (onChange === 'change.baseline') {
+      defaultValue = _.at(template, 'design.typography.size.baseline');
+    }
 
     this.setState({
       ...this.state,
@@ -32,25 +38,27 @@ class SliderInputWrapper extends React.Component {
   }
 
   onChange (value) {
-    const { data } = this.props;
-    const { sizeType } = data;
+    const { item } = this.props;
+    const { onChange } = item;
+
+    value = +value;
 
     this.setState({
       ...this.state,
       value: value
     });
 
-    if (sizeType === 'basefont') {
-      return this.props.changeBaseFontSize(+value);
-    } else if (sizeType === 'baseline') {
-      return this.props.changeBaselineValue(+value);
+    if (onChange === 'change.basefont') {
+      return this.props.changeBaseFontSize(value);
+    } else if (onChange === 'change.baseline') {
+      return this.props.changeBaselineValue(value);
     }
   }
 
   render () {
     const { min, max, step, label, value } = this.state;
     const className = classNames('ab-size__output', {
-      'px': !!(this.props.data.sizeType === 'basefont')
+      'px': !!(this.props.item.onChange === 'change.basefont')
     });
 
     return (

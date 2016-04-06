@@ -1,13 +1,13 @@
-import React from 'react';
 import { connect } from 'react-redux';
-import Random from '../../Common/Random';
-import * as Actions from '../../Actions';
+import React from 'react';
+import Random from '../../../Common/Random';
+import * as Actions from '../../../Actions';
 import _ from 'lodash';
 import classNames from 'classnames';
-import Sortable from './Sortable';
-import Icon from './Icon';
-import Input from './Input';
-import Title from './Title';
+import Sortable from '../Sortable';
+import Icon from '../Icon';
+import Input from '../Input';
+import Title from '../Title';
 
 class CurrentPageItem extends React.Component {
   static propTypes = {
@@ -144,76 +144,78 @@ class CurrentPageSections extends React.Component {
 }
 
 class CurrentPage extends React.Component {
-  changePageTitle () {
-    const { onSetPageTitle } = this.props;
-    const titleValue = this.refs['input-title'].getValue();
+  state = {
+    title: '',
+    fileName: ''
+  };
 
-    return onSetPageTitle(titleValue);
-  }
-
-  changePageFilename () {
-    const { onSetPageFilename } = this.props;
-    const filenameValue = this.refs['input-filename'].getValue();
-
-    return onSetPageFilename(filenameValue);
-  }
-
-  renderTitleInput () {
+  componentWillMount () {
     const { page } = this.props;
-    const { pageID, pageTitle } = page;
+    const { pageID, pageTitle, pageFileName } = page;
 
-    if (pageID === null) {
-      return null;
-    } else {
-      return (
-        <div>
-          <Title
-            title='Website Title'
-            description="This is displayed in search results and in your browser's title bar." />
-          <Input
-            ref='input-title'
-            className='ab-itemwrap padding-top-1'
-            value={pageTitle}
-            onBlur={::this.changePageTitle} />
-        </div>
-      );
+    if (!_.isNull(pageID)) {
+      this.setState({
+        title: pageTitle,
+        fileName: pageFileName
+      });
     }
   }
 
-  renderFilenameInput () {
-    const { page } = this.props;
-    const { pageID, pageFileName } = page;
+  handleInputChange (name, value) {
+    this.setState({
+      ...this.state,
+      [name]: value
+    });
 
-    if (pageID === null) {
-      return null;
-    } else {
+    return this.props[`setPage${_.capitalize(name)}`](value);
+  }
+
+  renderInput (type) {
+    const className = classNames('ab-itemwrap', 'm-b-3');
+    let title = null;
+    let description = null;
+    let value = null;
+    let clickFunction = null;
+
+    if (type === 'title') {
+      title = `Website Title`;
+      description = `This is displayed in search results and in your browser's title bar.`;
+      value = this.state.title;
+      clickFunction = this.handleInputChange.bind(this, type);
+    } else if (type === 'fileName') {
+      title = `Page's Filename`;
+      description = `This will be page's filename`;
+      value = this.state.fileName;
+      clickFunction = this.handleInputChange.bind(this, type);
+    }
+
+    if (!_.isNull(title) && !_.isNull(value) && !_.isNull(clickFunction)) {
       return (
         <div>
           <Title
-            title='Filename'
-            description="This will be page's filename" />
+            title={title}
+            description={description} />
           <Input
-            ref='input-filename'
-            className='ab-itemwrap padding-top-1'
-            value={pageFileName}
-            onBlur={::this.changePageFilename} />
+            className={className}
+            value={value}
+            onChange={clickFunction} />
         </div>
       );
     }
   }
 
   render () {
-    const { page, onRemove, onSortBlocks } = this.props;
+    const { page, removeContentBlock, sortContentBlocks } = this.props;
 
     return (
       <div>
         <Title title='Sections' />
         <CurrentPageSections
           page={page}
-          onRemove={onRemove}
-          onSortBlocks={onSortBlocks} />
-        { this.renderTitleInput() }
-        { this.renderFilenameInput() }
+          onRemove={removeContentBlock}
+          onSortBlocks={sortContentBlocks} />
+        { this.renderInput('title') }
+        { this.renderInput('fileName') }
       </div>
     );
   }
@@ -227,19 +229,19 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onRemove: (element) => {
+    removeContentBlock: (element) => {
       dispatch(Actions.removeContentBlock(element));
     },
 
-    onSortBlocks: (element) => {
+    sortContentBlocks: (element) => {
       dispatch(Actions.sortContentBlocks(element));
     },
 
-    onSetPageTitle: (title) => {
+    setPageTitle: (title) => {
       dispatch(Actions.setPageTitle(title));
     },
 
-    onSetPageFilename: (filename) => {
+    setPageFilename: (filename) => {
       dispatch(Actions.setPageFilename(filename));
     }
   };

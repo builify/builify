@@ -1,7 +1,7 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { getString } from '../../Common/Localization';
 import { toggleBaseline } from '../../Actions';
+import React from 'react';
 import Checkbox from './Checkbox';
 
 class CheckBoxWrapper extends React.Component {
@@ -19,13 +19,14 @@ class CheckBoxWrapper extends React.Component {
   }
 
   handleChange () {
+    const { item } = this.props;
     const newChecked = !this.state.checked;
 
     this.setState({
       checked: newChecked
     });
 
-    if (this.props.onClick === 'toggle.baseline') {
+    if (item.onClick === 'toggle.baseline') {
       return this.props.toggleBaseline(newChecked);
     }
   }

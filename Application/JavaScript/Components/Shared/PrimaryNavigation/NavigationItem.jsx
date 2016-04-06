@@ -1,17 +1,41 @@
 import { openTab, openDownloadModal, openPreview, openRestartModal, saveCurrentPage } from '../../../Actions';
 import { connect } from 'react-redux';
+import { CurrentLocations } from '../../../Constants';
 import React from 'react';
 import classNames from 'classnames';
 import _ from 'lodash';
 import Icon from '../Icon';
 
 class NavigationItem extends React.Component {
+  static propTypes = {
+    id: React.PropTypes.string.isRequired,
+    title: React.PropTypes.string.isRequired,
+    icon: React.PropTypes.string.isRequired,
+    onClick: React.PropTypes.string.isRequired,
+    currentLocation: React.PropTypes.number.isRequired
+  };
+
+  state = {
+    disableItem: false
+  };
+
+  componentWillMount () {
+    const { id, currentLocation } = this.props;
+
+    this.setState({
+      disableItem: !!((currentLocation === CurrentLocations.STARTSCREEN && id !== 'download') && true)
+    });
+  }
+
   clickEvent () {
+    const { disableItem } = this.state;
     const { onClick } = this.props;
     const command = _.words(onClick);
     const commandSize = _.size(command);
 
-    console.log(command);
+    if (disableItem === true) {
+      return false;
+    }
 
     if (commandSize === 2) {
       const cmd1 = command[0];
@@ -34,8 +58,11 @@ class NavigationItem extends React.Component {
   }
 
   render () {
+    const { disableItem } = this.state;
     const { icon, title } = this.props;
-    const className = classNames('');
+    const className = classNames({
+      'hide': disableItem
+    });
 
     return (
       <li

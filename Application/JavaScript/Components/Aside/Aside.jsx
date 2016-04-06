@@ -5,6 +5,10 @@ import classNames from 'classnames';
 import Tab from './Tab';
 
 class Aside extends React.Component {
+  shouldComponentUpdate () {
+    return false;
+  }
+
   renderTab () {
     const { builderConfiguration, closeTab } = this.props;
     const { tabs } = builderConfiguration;

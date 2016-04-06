@@ -5,7 +5,7 @@ import Random from '../../../Common/Random';
 import NavigationItem from './NavigationItem';
 
 class PrimaryNavigation extends React.Component {
-  renderNavigationItems (navigation) {
+  renderNavigationItems (navigation, currentLocation) {
     return _.map(navigation, (item) => {
       const { id, title, icon, onClick } = item;
 
@@ -15,18 +15,20 @@ class PrimaryNavigation extends React.Component {
           id={id}
           title={title}
           icon={icon}
-          onClick={onClick} />
+          onClick={onClick}
+          currentLocation={currentLocation} />
       );
     });
   }
 
   render () {
-    const { builderConfiguration } = this.props;
+    const { builder, builderConfiguration } = this.props;
     const { navigation } = builderConfiguration;
+    const { currentLocation } = builder;
 
     return (
       <ul className='ab-primarynav'>
-        { this.renderNavigationItems(navigation) }
+        { this.renderNavigationItems(navigation, currentLocation) }
       </ul>
     );
   }
@@ -34,7 +36,8 @@ class PrimaryNavigation extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    builderConfiguration: state.builderConfiguration
+    builderConfiguration: state.builderConfiguration,
+    builder: state.builder
   };
 }
 

@@ -70,7 +70,7 @@ export default function (item) {
 			case 'sliderinput':
 				return (
 					<SliderInputWrapper
-						data={item}
+						item={item}
 						key={key} />
 				);
 		}

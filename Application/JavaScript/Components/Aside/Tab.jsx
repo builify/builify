@@ -7,12 +7,31 @@ import BackButton from '../Shared/BackButton';
 import Scrollbar from '../Shared/Scrollbar';
 
 class Tab extends React.Component {
-  closeTab () {
-    return this.props.onCloseTab();
+  static propTypes = {
+    builder: React.PropTypes.object.isRequired,
+    tabs: React.PropTypes.array.isRequired,
+    onCloseTab: React.PropTypes.func.isRequired
+  };
+
+  state = {
+    currentTabID: null,
+    currentTab: null
+  };
+
+  shouldComponentUpdate (nextProps) {
+    return nextProps.builder.currentTab === this.state.currentTabID ? false : true;
   }
 
-  renderBackButton (builder) {
-    const { tabs } = this.props;
+  componentWillMount () {
+    this.initializeState(this.props);
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this.initializeState(nextProps);
+  }
+
+  initializeState (props) {
+    const { builder, tabs } = props;
     const { currentTab: currentTabID } = builder;
     const splitCurrentTab = _.words(currentTabID, /[^.]+/g);
     const splitSize = _.size(splitCurrentTab);
@@ -29,59 +48,70 @@ class Tab extends React.Component {
     }
 
     if (_.isObject(currentTab)) {
-      if (currentTab.id !== 'initial') {
+      this.setState({
+        currentTabID: currentTabID,
+        currentTab: currentTab
+      });
+    } else {
+      throw Error('Tab is not object.');
+    }
+  }
+
+  closeTab () {
+    return this.props.onCloseTab();
+  }
+
+  renderBackButton () {
+    const { currentTab } = this.state;
+
+    if (currentTab.id !== 'initial') {
+      return (
+        <div>
+          <BackButton onClick={::this.closeTab} />
+          { this.renderTitle(currentTab) }
+        </div>
+      );
+    }
+
+    return null;
+  }
+
+  renderTitle (currentTab) {
+    if (_.has(currentTab, 'title')) {
+      if (_.has(currentTab, 'subtitle')) {
         return (
-          <div>
-            <BackButton onClick={::this.closeTab} />
-            <h1 className='ab-sidetab__title'>{currentTab.title}</h1>
-          </div>
+          <h1 className='ab-sidetab__title'>
+            <span>{currentTab.title}</span>
+            <span>{currentTab.subtitle}</span>
+          </h1>
         );
+      } else {
+        return <h1 className='ab-sidetab__title'>{currentTab.title}</h1>;
       }
     }
 
     return null;
   }
 
-  renderContent (builder) {
-    const { tabs } = this.props;
-    const { currentTab: currentTabID } = builder;
-    const splitCurrentTab = _.words(currentTabID, /[^.]+/g);
-    const splitSize = _.size(splitCurrentTab);
-    let currentTab = null;
+  renderContent () {
+    const { currentTab } = this.state;
+    const { content } = currentTab;
 
-    if (splitSize === 1) {
-      currentTab = _.find(tabs, {
-        'id': currentTabID
+    if (content) {
+      return _.map(proccessChildren(content), (child) => {
+        return renderProccessedChildren(child);
       });
-    } else {
-      currentTab = _.find(tabs, {
-        'id': splitCurrentTab[splitSize - 1]
-      });
-    }
-
-    if (_.isObject(currentTab)) {
-      const { content } = currentTab;
-
-      if (content) {
-        var childrenToRender = proccessChildren(content);
-
-        return _.map(childrenToRender, (child) => {
-          return renderProccessedChildren(child);
-        });
-      }
     }
 
     return null;
   }
 
   render () {
-    const { builder } = this.props;
-
     return (
       <div className='ab-tab'>
         <Scrollbar aside innerPadding>
-          { this.renderBackButton(builder) }
-          { this.renderContent(builder) }
+          { this.renderBackButton() }
+          { this.renderContent() }
         </Scrollbar>
       </div>
     );

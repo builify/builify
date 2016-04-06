@@ -15,7 +15,7 @@
 		position: relative;
 		cursor: pointer;
 		width: 100%;
-		padding: 0 $base-padding;
+		padding: 0 $base-padding !important;
 }
 
 .#{$nameprefix}select {

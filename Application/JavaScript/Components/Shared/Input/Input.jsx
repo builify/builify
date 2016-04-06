@@ -1,5 +1,5 @@
 import React from 'react';
-import ClassNames from 'classnames';
+import classNames from 'classnames';
 import Icon from '../Icon';
 
 export default class Input extends React.Component {
@@ -53,11 +53,11 @@ export default class Input extends React.Component {
             type, value, ...others
     } = this.props;
     const length = maxLength && value ? value.length : 0;
-    const labelClassName = ClassNames('tt-input__label', {
+    const labelClassName = classNames('tt-input__label', {
       'fixed': !floating
     });
 
-    const className = ClassNames('tt-input', {
+    const className = classNames('tt-input', {
       'tt-input--disabled': disabled,
       'tt-input--error': error,
       'tt-input--hidden': type === 'hidden',
@@ -68,7 +68,7 @@ export default class Input extends React.Component {
 
     const InputElement = React.createElement(multiline ? 'textarea' : 'input', {
       ...others,
-      className: ClassNames('tt-input__input', {
+      className: classNames('tt-input__input', {
         'filled': valuePresent
       }),
       onChange: this.handleChange,
@@ -83,18 +83,18 @@ export default class Input extends React.Component {
 
     return (
       <div className={className}>
-        {InputElement}
-        {icon ? <Icon className='tt-input__icon' icon={icon} /> : null}
+        { InputElement }
+        { icon && <Icon className='tt-input__icon' icon={icon} /> }
         <span className='bar'></span>
-        {labelText ?
+        { labelText &&
           <label className={labelClassName}>
-            {labelText}
-            {required ? <span className='required'> * </span> : null}
-          </label> : null}
-        {hint ? <span className='tt-input__hint'>{hint}</span> : null}
-        {error ? <span className='tt-input--error'>{error}</span> : null}
-        {maxLength ? <span className='tt-input--counter'>{length}/{maxLength}</span> : null}
-        {children}
+            { labelText }
+            { required && <span className='required'> * </span> }
+          </label> }
+        { hint && <span className='tt-input__hint'>{hint}</span> }
+        { error && <span className='tt-input--error'>{error}</span> }
+        { maxLength && <span className='tt-input--counter'>{length}/{maxLength}</span> }
+        { children }
       </div>
     );
   }

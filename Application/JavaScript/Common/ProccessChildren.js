@@ -49,7 +49,8 @@ export default function (children) {
               min: child.min,
               max: child.max,
               step: child.step,
-              label: child.label
+              label: child.label,
+              onChange: child.onChange
             };
 
             break;
