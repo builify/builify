@@ -73,7 +73,16 @@ function page (state = pageInitialState, action) {
     }
 
     case Actions.RESTART_PAGE:
-      return _.assign({}, state, _.omit(pageInitialState, 'replaceInHTML'));
+      return _.assign({}, state, {
+        pageID: null,
+        pageTitle: 'Page Title',
+        pageFileName: 'index.html',
+        pageFullSource: null,
+        navigation: {},
+        main: [],
+        footer: {},
+        blocksCount: 0
+      });
 
     case Actions.START_NEW_PAGE: {
       const { pageID } = action;
