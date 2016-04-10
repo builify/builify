@@ -32,7 +32,6 @@ class CanvasFrame extends React.Component {
 
     this._blocks = blocks;
 
-    this.cleanCanvas();
     this.renderBlocks(blocks);
   }
 
@@ -43,12 +42,6 @@ class CanvasFrame extends React.Component {
     const navigationElement = navigationContainer.children;
     const mainElements = mainElementsContainer.children;
     const footerElements = footerContainer.children;
-
-    if (_.size(mainElements) !== 0) {
-      _.map(navigationElement, element => {
-        element.remove();
-      });
-    }
 
     console.log(navigationElement, mainElements, footerElements);
 
@@ -256,6 +249,8 @@ class CanvasFrame extends React.Component {
   render () {
     const { page } = this.props;
     const { pageTitle } = page;
+
+    console.log(page);
 
     return (
       <div className='ab-canvas__holder'>
