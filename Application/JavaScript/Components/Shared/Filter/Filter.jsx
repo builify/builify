@@ -1,7 +1,7 @@
-import React from 'react';
 import { connect } from 'react-redux';
-import { filterContentBlocks } from '../../Actions';
-import Icon from './Icon';
+import { filterContentBlocks } from '../../../Actions';
+import React from 'react';
+import Icon from '../Icon';
 import orderBy from 'lodash/orderby';
 import has from 'lodash/has';
 import map from 'lodash/map';
