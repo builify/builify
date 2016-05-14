@@ -3,6 +3,8 @@ jsconfig.json
 node_modules
 DevelopmentBuild
 dist
-Build
+public
+.public
+build
 npm-debug.log
 coverage

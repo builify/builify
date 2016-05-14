@@ -1,6 +1,5 @@
 var path = require('path');
 var webpack = require('webpack');
-var node_modules_dir = path.resolve(__dirname, 'node_modules');
 
 module.exports = {
   devtool: 'eval-source-map',
@@ -27,7 +26,7 @@ module.exports = {
     loaders: [
       {
         test: /\.(js|jsx)?$/,
-        exclude: [node_modules_dir],
+        exclude: [path.resolve(__dirname, 'node_modules')],
         loader: 'babel',
         query: {
           presets:[
