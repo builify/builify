@@ -1,20 +1,20 @@
 import React from 'react';
+import classNames from '../../common/classnames';
+import Page from './Page';
 import { connect } from 'react-redux';
 import { CurrentLocations } from '../../Constants';
-import classNames from 'classnames';
-import Page from './Page';
 
 class ProjectStartScreen extends React.Component {
   render () {
     const { builder } = this.props;
     const { doPreviousPagesExistInStorage: previousPages, currentLocation } = builder;
-    const wrapperClassName = classNames('ab-flex', 'full', 'center');
+    const wrapperClassName = classNames('flex', 'full', 'center');
 
     if (currentLocation === CurrentLocations.STARTSCREEN) {
       return (
         <div className={wrapperClassName}>
           <Page isNewPage={true} />
-          { previousPages ? <Page isNewPage={false} /> : null }
+          { previousPages && <Page isNewPage={false} /> }
         </div>
       );
     }

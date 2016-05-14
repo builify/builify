@@ -1,10 +1,10 @@
-import { replaceDataInHTML } from '../Common/Common';
-import Storage from '../Common/Storage';
-import Random from '../Common/Random';
-import TTDOM from '../Common/TTDOM';
+import Storage from '../common/storage';
+import Random from '../common/random';
+import TTDOM from '../common/TTDOM';
 import _ from 'lodash';
-import * as Actions from '../Actions/Constants';
-import { TEMPLATE_PAGES_STORAGE_NAME } from '../Constants';
+import * as Actions from '../actions/constants';
+import { replaceDataInHTML } from '../common/common';
+import { TEMPLATE_PAGES_STORAGE_NAME } from '../constants';
 
 const pageInitialState = {
   // Core
@@ -49,7 +49,7 @@ function resetBlocks (blocks) {
   }
 }
 
-function page (state = pageInitialState, action) {
+export default function page (state = pageInitialState, action) {
   switch (action.type) {
     case Actions.CLONE_ITEM: {
       // To update hovering events.
@@ -365,5 +365,3 @@ function page (state = pageInitialState, action) {
 
   return state;
 }
-
-export default page;

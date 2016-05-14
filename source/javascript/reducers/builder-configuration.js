@@ -1,16 +1,16 @@
-import { setLanguage } from '../Common/Localization';
-import _ from 'lodash';
+import assign from 'lodash/assign';
 import * as Actions from '../Actions/Constants';
+import { setLanguage } from '../Common/Localization';
 
 const builderConfigurationInitialState = {};
 
-function builderConfiguration (state = builderConfigurationInitialState, action) {
+export default function builderConfiguration (state = builderConfigurationInitialState, action) {
   switch (action.type) {
     case Actions.RECEIVE_BUILDER_CONFIGURATION:
-      return _.assign({}, state, action.data);
+      return assign({}, state, action.data);
 
     case Actions.RECEIVE_ASIDE_CONFIGURATION:
-      return _.assign({}, state, action.data);
+      return assign({}, state, action.data);
 
     case Actions.PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION:
       const { localization } = state;
@@ -23,7 +23,7 @@ function builderConfiguration (state = builderConfigurationInitialState, action)
       const { data } = action;
       const { imageLibraryCategories } = data;
 
-      return _.assign({}, state, {
+      return assign({}, state, {
         imageLibraryCategories
       });
     }
@@ -31,7 +31,7 @@ function builderConfiguration (state = builderConfigurationInitialState, action)
     case Actions.GET_ICONPACKS: {
       const { iconPacks } = action;
 
-      return _.assign({}, state, {
+      return assign({}, state, {
         iconPacks: iconPacks
       });
     }
@@ -39,7 +39,7 @@ function builderConfiguration (state = builderConfigurationInitialState, action)
     case Actions.GET_FONTS: {
       const { data } = action;
 
-      return _.assign({}, state, {
+      return assign({}, state, {
         fontsList: data
       });
     }
@@ -47,5 +47,3 @@ function builderConfiguration (state = builderConfigurationInitialState, action)
 
   return state;
 }
-
-export default builderConfiguration;

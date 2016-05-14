@@ -20,7 +20,7 @@ const initialState = {
   drawBaseline: false
 };
 
-function template (state = initialState, action) {
+export default function template (state = initialState, action) {
   switch (action.type) {
     case Actions.LOGIC_INITIALIZED: {
       const iFrame = TTDOM.iframe.get('ab-cfrm');
@@ -189,5 +189,3 @@ function template (state = initialState, action) {
 
   return state;
 }
-
-export default template;

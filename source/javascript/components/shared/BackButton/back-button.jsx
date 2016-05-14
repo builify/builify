@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from '../Icon';
+import classNames from '../../../common/classnames';
 
 export default class extends React.Component {
   static propTypes = {
@@ -9,7 +10,7 @@ export default class extends React.Component {
 
   static defaultProps = {
     onClick: function () {},
-    className: 'ab-tab__close'
+    className: classNames('tab__close')
   };
 
   shouldComponentUpdate () {
@@ -18,12 +19,8 @@ export default class extends React.Component {
 
   render () {
     return (
-      <div
-        className={this.props.className}
-        onClick={this.props.onClick}>
-        <Icon
-          icon='arrow-back'
-          size={30} />
+      <div className={this.props.className} onClick={this.props.onClick}>
+        <Icon icon='arrow-back' size={30} />
         <span>Go Back</span>
       </div>
     );

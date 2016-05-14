@@ -1,16 +1,14 @@
-import _ from 'lodash';
+import assign from 'lodash/assign';
 import * as Actions from '../Actions/Constants';
 
 const localizationInitialState = {};
 
-function localization (state = localizationInitialState, action) {
+export default function localization (state = localizationInitialState, action) {
   switch (action.type) {
     case Actions.GET_LOCALIZATION:
-      return _.assign({}, state, action.data);
+      return assign({}, state, action.data);
 
     default:
       return state;
   }
 }
-
-export default localization;

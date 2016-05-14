@@ -1,8 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import classNames from 'classnames';
+import classNames from '../../common/classnames';
 import Canvas from '../canvas';
 import ProjectStartScreen from './start-screen';
+import { connect } from 'react-redux';
 import { CurrentLocations } from '../../constants';
 
 class Main extends React.Component {
@@ -10,14 +10,13 @@ class Main extends React.Component {
     const { builder } = this.props;
     const { currentLocation } = builder;
 
-    const mainClassName = classNames('ab-main', {
+    const mainClassName = classNames('main', {
       'fullsize': currentLocation === CurrentLocations.TEMPLATESELECTION,
       'preview': currentLocation === CurrentLocations.PREVIEW
     });
 
     return (
-      <main
-        className={mainClassName}>
+      <main className={mainClassName}>
         <ProjectStartScreen />
         <Canvas />
       </main>

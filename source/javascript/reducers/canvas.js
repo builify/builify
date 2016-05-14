@@ -1,5 +1,7 @@
 import TTDOM from '../Common/TTDOM';
-import _ from 'lodash';
+import map from 'lodash/map';
+import assign from 'lodash/assign';
+import isObject from 'lodash/isobject';
 import * as Actions from '../Actions/Constants';
 
 const canvasInitialState = {
@@ -13,13 +15,13 @@ const canvasInitialState = {
   drawBaseline: false
 };
 
-function canvas (state = canvasInitialState, action) {
+export default function canvas (state = canvasInitialState, action) {
   switch (action.type) {
     case Actions.LOGIC_INITIALIZED: {
       const iFrame = TTDOM.iframe.get('ab-cfrm');
       const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
 
-      return _.assign({}, state, {
+      return assign({}, state, {
         iFrameWindow: iFrameWindow
       });
     }
@@ -27,7 +29,7 @@ function canvas (state = canvasInitialState, action) {
     case Actions.TOGGLE_BASELINE: {
       const { checked } = action;
 
-      return _.assign({}, state, {
+      return assign({}, state, {
         drawBaseline: checked
       });
     }
@@ -39,7 +41,7 @@ function canvas (state = canvasInitialState, action) {
       const filesToUpdate = iFrameWindow.document.querySelectorAll('[data-update]');
       let script = null;
 
-      _.map(filesToUpdate, (file) => {
+      map(filesToUpdate, (file) => {
         const fileSource = file.getAttribute('src');
 
         file.remove();
@@ -58,12 +60,12 @@ function canvas (state = canvasInitialState, action) {
     case Actions.CURRENT_HOVER_BLOCK: {
       const { block } = action;
 
-      if (_.isObject(block)) {
+      if (isObject(block)) {
         const { iFrameWindow } = state;
         const { elementReference } = block;
         const topX = TTDOM.misc.getAbsPosition(elementReference, iFrameWindow)[0] + 10;
 
-        return _.assign({}, state, {
+        return assign({}, state, {
           currentHoverBlock: {
             block: block,
             topX: topX
@@ -75,7 +77,7 @@ function canvas (state = canvasInitialState, action) {
     }
 
     case Actions.REMOVE_CONTENTBLOCK: {
-      return _.assign({}, state, {
+      return assign({}, state, {
         currentHoverBlock: {
           block: {}
         }
@@ -85,5 +87,3 @@ function canvas (state = canvasInitialState, action) {
 
   return state;
 }
-
-export default canvas;

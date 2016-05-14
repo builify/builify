@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import { CurrentLocations, MAXIUMUM_PAGES_IN_STORAGE, TEMPLATE_PAGES_STORAGE_NAME, DialogTypes } from '../constants';
-import * as Actions from '../actions/constants';
 import DownloadPages from '../common/DownloadPages';
 import Storage from '../common/storage';
+import * as Actions from '../actions/constants';
+import { CurrentLocations, MAXIUMUM_PAGES_IN_STORAGE, TEMPLATE_PAGES_STORAGE_NAME, DialogTypes } from '../constants';
 
 const builderInitialState = {
   isLoadingScreenActive: true,
@@ -31,7 +31,7 @@ const builderInitialState = {
   uploadedImages: []
 };
 
-function builder (state = builderInitialState, action) {
+export default function builder (state = builderInitialState, action) {
   let data = {};
 
   if (_.has(action, 'data')) {
@@ -318,5 +318,3 @@ function builder (state = builderInitialState, action) {
 
   return state;
 }
-
-export default builder;

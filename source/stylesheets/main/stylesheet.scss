@@ -6,49 +6,50 @@
 
 @import "mixins";
 
-@import "Core/Colors";
-@import "Core/Variables";
-@import "Core/Spacing";
-@import "Core/Common";
-@import "Core/ReactJS";
+@import "core/colors";
+@import "core/variables";
+@import "core/spacing";
+@import "core/common";
+@import "core/reactjs";
 
-@import "Aside/Aside";
-@import "Aside/Tabs";
-@import "Aside/Copyright";
-@import "Aside/Contentblocks";
-@import "Aside/logo";
-@import "Aside/primarynav";
-@import "Aside/filter";
-@import "Aside/color";
-@import "Aside/currentpage";
-@import "Aside/items";
+@import "aside/aside";
+@import "aside/tabs";
+@import "aside/copyright";
+@import "aside/contentblocks";
+@import "aside/logo";
+@import "aside/primarynav";
+@import "aside/filter";
+@import "aside/color";
+@import "aside/currentpage";
+@import "aside/items";
 
-@import "main/main";
-@import "main/canvas";
-@import "main/loadingscreen";
-@import "main/page";
-@import "main/preview";
+@import "components/main";
+@import "components/canvas";
+@import "components/loading-screen";
+@import "components/page";
+@import "components/preview";
 
-@import "shared/Input";
-@import "Shared/SliderInput";
-@import "Shared/SliderInputWrapper";
-@import "Shared/TimePicker";
-@import "shared/ripple";
-@import "shared/button";
-@import "shared/notifications";
-@import "shared/select";
-@import "shared/scrollbar";
-@import "shared/misc";
-@import "shared/dialog";
-@import "shared/imgviewer";
-@import "shared/checkbox";
-@import "shared/dropdown";
-@import "shared/switch";
-@import "shared/table";
-@import "shared/title";
-@import "shared/image";
+@import "components/input";
+@import "components/slider-input";
+@import "components/slider-input-wrapper";
+@import "components/time-picker";
+@import "components/ripple";
+@import "components/button";
+@import "components/notifications";
+@import "components/select";
+@import "components/scrollbar";
+@import "components/dialog";
+@import "components/imgviewer";
+@import "components/checkbox";
+@import "components/dropdown";
+@import "components/switch";
+@import "components/table";
+@import "components/title";
+@import "components/image";
 
-@import "TimeInput/TimeInput";
-@import "TimeInput/Calendar";
+@import "shared/flex";
 
-@import "Theme/Light";
+@import "time-input/time-input";
+@import "time-input/calendar";
+
+@import "theme/light";

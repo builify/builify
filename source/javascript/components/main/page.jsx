@@ -1,6 +1,6 @@
 import React  from 'react';
 import { connect } from 'react-redux';
-import { startNewPage, loadPreviousPage, openPreviousPagesSelectionModal } from '../../Actions';
+import { startNewPage, loadPreviousPage, openPreviousPagesSelectionModal } from '../../actions';
 import { getString } from '../../Common/Localization';
 
 class Page extends React.Component {
@@ -10,27 +10,21 @@ class Page extends React.Component {
 
   shouldComponentUpdate () {
     return false;
-  }
+  };
 
   selectPage () {
-    const {
-      onStartNewPage,
-      onPreviousPagesSelection,
-      onLoadPreviousPage,
-      isNewPage,
-      builder
-    } = this.props;
+    const { isNewPage, builder } = this.props;
     const { pages } = builder;
 
     if (isNewPage) {
-      return onStartNewPage();
+      return this.props.startNewPage();
     } else {
       const pagesLength = pages.length;
 
       if (pagesLength > 1) {
-        return onPreviousPagesSelection();
+        return this.props.openPreviousPagesSelectionModal();
       } else {
-        return onLoadPreviousPage();
+        return this.props.loadPreviousPage();
       }
     }
   }
@@ -43,10 +37,8 @@ class Page extends React.Component {
     const queryString = isNewPage ? 'pages.newpage' : previousPages;
 
     return (
-      <div
-        className='ab-page-new'
-        onClick={::this.selectPage}>
-        { getString(queryString) }
+      <div className='ab-page-new' onClick={::this.selectPage}>
+        <span>{getString(queryString)}</span>
       </div>
     );
   }
@@ -61,15 +53,15 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onStartNewPage: () => {
+    startNewPage: () => {
       dispatch(startNewPage());
     },
 
-    onPreviousPagesSelection: () => {
+    openPreviousPagesSelectionModal: () => {
       dispatch(openPreviousPagesSelectionModal());
     },
 
-    onLoadPreviousPage: () => {
+    loadPreviousPage: () => {
       dispatch(loadPreviousPage());
     }
   };

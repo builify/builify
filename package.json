@@ -20,7 +20,6 @@
   "devDependencies": {
     "babel-cli": "^6.8.0",
     "babel-core": "^6.3.26",
-    "babel-eslint": "^6.0.4",
     "babel-loader": "^6.2.1",
     "babel-plugin-add-module-exports": "^0.1.2",
     "babel-plugin-transform-async-to-generator": "^6.3.13",
@@ -32,8 +31,6 @@
     "babel-register": "^6.8.0",
     "babelify": "^7.3.0",
     "browser-sync": "^2.12.8",
-    "eslint": "^2.10.0",
-    "eslint-plugin-react": "^5.1.1",
     "glob": "*",
     "gulp": "^3.9.1",
     "gulp-cssmin": "*",
@@ -82,7 +79,7 @@
     "reselect": "^2.2.1",
     "sortablejs": "^1.4.2",
     "strip-json-comments": "*",
-    "tt-classnames": "^1.0.3",
+    "tt-classnames": "^1.0.4",
     "tt-event-emitter": "^1.0.0",
     "ttkeymirror": "^1.0.0",
     "ttstylesheet": "^1.0.1"

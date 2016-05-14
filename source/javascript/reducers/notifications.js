@@ -1,13 +1,13 @@
 import _ from 'lodash';
-import * as Actions from '../Actions/Constants';
 import Constants from '../Components/Notifications/Constants';
+import * as Actions from '../Actions/Constants';
 
 const notificationsInitialState = [];
 const notificationDefaultProps = Constants.notification;
 
 var UID = Constants.defaultUid;
 
-function notifications (state = notificationsInitialState, action) {
+export default function notifications (state = notificationsInitialState, action) {
   switch (action.type) {
     case Actions.ADD_NOTIFICATION: {
       const { notification } = action;
@@ -78,5 +78,3 @@ function notifications (state = notificationsInitialState, action) {
 
   return state;
 }
-
-export default notifications;

@@ -1,9 +1,8 @@
 import React from 'react';
-import ClassNames from 'classnames';
-import Events from '../../../Common/Events';
+import classNames from '../../../common/classnames';
 import Ripple from '../Ripple';
 
-class Checkbox extends React.Component {
+export default class Checkbox extends React.Component {
   static propTypes = {
     checked: React.PropTypes.bool,
     className: React.PropTypes.string,
@@ -22,7 +21,8 @@ class Checkbox extends React.Component {
   };
 
   handleClick (event) {
-    Events.pauseEvent(event);
+    event.stopPropagation();
+    event.preventDefault();
 
     if (!this.props.disabled && this.props.onChange) {
       this.props.onChange(event);
@@ -30,7 +30,8 @@ class Checkbox extends React.Component {
   }
 
   handleInputClick (event) {
-    Events.pauseEvent(event);
+    event.stopPropagation();
+    event.preventDefault();
   }
 
   handleMouseDown (event) {
@@ -40,12 +41,12 @@ class Checkbox extends React.Component {
   }
 
   render () {
-    let fieldClassName = 'ab-checkbox';
-    let checkboxClassName = 'ab-checkbox__check';
-    if (this.props.checked) checkboxClassName += ' checked';
-    if (this.props.disabled) fieldClassName += ' disabled';
-    if (this.props.className) fieldClassName += ` ${this.props.className}`;
-    
+    const fieldClassName = classNames('checkbox', {
+      'disabled': this.props.disabled
+    }, this.props.className);
+    const checkboxClassName = classNames('checkbox__check', {
+      'checked': this.props.checked
+    });
 
     return (
       <label
@@ -54,13 +55,13 @@ class Checkbox extends React.Component {
         <input
           ref='input'
           {...this.props}
-          className='ab-checkbox__input'
+          className={classNames('checkbox__input')}
           onClick={::this.handleInputClick}
           type='checkbox' />
         <span data-role='checkbox' className={checkboxClassName} onMouseDown={::this.handleMouseDown}>
-          <Ripple ref='ripple' data-role='ripple' className='ab-checkbox__ripple' spread={3} centered />
+          <Ripple ref='ripple' data-role='ripple' className={classNames('checkbox__ripple')} spread={3} centered />
         </span>
-        { this.props.label ? <span data-role='label' className='ab-checkbox__text'>{this.props.label}</span> : null }
+        { this.props.label ? <span data-role='label' className={classNames('checkbox__text')}>{this.props.label}</span> : null }
       </label>
     );
   }
@@ -73,5 +74,3 @@ class Checkbox extends React.Component {
     this.refs.input.focus();
   }
 }
-
-export default Checkbox;

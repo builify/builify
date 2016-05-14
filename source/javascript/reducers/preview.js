@@ -6,7 +6,7 @@ const initialState = {
   landscapeView: false
 };
 
-function preview (state = initialState, action) {
+export default function preview (state = initialState, action) {
   switch (action.type) {
     case Actions.SET_PREVIEW_MODE:
       return _.assign({}, state, {
@@ -22,5 +22,3 @@ function preview (state = initialState, action) {
       return state;
   }
 }
-
-export default preview;

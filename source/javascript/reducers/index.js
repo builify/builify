@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import localization from './localization';
 import builder from './builder';
 import builderConfiguration from './builder-configuration';
@@ -7,6 +6,7 @@ import notifications from './notifications';
 import page from './page';
 import canvas from './canvas';
 import preview from './preview';
+import { combineReducers } from 'redux';
 
 const allReducers = combineReducers({
   localization,
