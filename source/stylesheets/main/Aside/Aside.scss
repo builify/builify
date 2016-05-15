@@ -1,12 +1,10 @@
-//
-// Aside
-// -----------------------------------------------------------------------------
 .#{$nameprefix}aside {
     position: relative;
     height: 100%;
     float: left;
     overflow: hidden;
-    z-index: 10;
+    z-index: 70;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
     width: $aside-width;
     @include user-select(none);
 

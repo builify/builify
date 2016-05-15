@@ -1,15 +1,5 @@
-import { getProperty } from './Common';
+import TTLocalization from '../modules/tt-localization';
 
-let languageSetting = 'en';
+const loc = new TTLocalization();
 
-export function setLanguage (language) {
-  languageSetting = language;
-}
-
-export function getLanguage () {
-  return languageSetting;
-}
-
-export function getString (query) {
-  return query;
-}
+export default loc;

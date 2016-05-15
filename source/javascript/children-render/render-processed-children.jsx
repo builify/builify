@@ -1,26 +1,26 @@
 /* eslint-disable */
 import React from 'react';
 import Random from '../common/random';
-import isObject from 'lodash/isobject';
-import has from 'lodash/has';
+import _isObject from 'lodash/isobject';
+import _has from 'lodash/has';
 import Filter from '../components/shared/filter';
 import ContentBlocks from '../components/shared/ContentBlocks';
 import CurrentPage from '../components/shared/CurrentPage';
-import Colors from '../components/shared/Colors';
-import Title from '../components/shared/Title';
+import Colors from '../components/shared/colors';
+import Title from '../components/shared/title';
 import SideTabOpener from '../components/shared/SideTabOpener';
 import CheckBoxWrapper from '../components/shared/CheckBoxWrapper';
 import SliderInputWrapper from '../components/shared/SliderInputWrapper';
-import Copyright from '../components/shared/Copyright';
-import Logo from '../components/shared/Logo';
+import Copyright from '../components/shared/copyright';
+import Logo from '../components/shared/logo';
 import PrimaryNavigation from '../components/shared/PrimaryNavigation';
 
 export default function (item) {
-  if (!isObject(item)) {
+  if (!_isObject(item)) {
     throw Error('No item defined or not object.');
   }
 
-	if (has(item, 'type')) {
+	if (_has(item, 'type')) {
     const key = Random.randomKey('ch');
 
     switch (item.type) {

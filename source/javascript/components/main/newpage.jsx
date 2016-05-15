@@ -1,7 +1,8 @@
 import React  from 'react';
+import classNames from '../../common/classnames';
+import localization from '../../common/localization';
 import { connect } from 'react-redux';
 import { startNewPage, loadPreviousPage, openPreviousPagesSelectionModal } from '../../actions';
-import { getString } from '../../Common/Localization';
 
 class Page extends React.Component {
   static propTypes = {
@@ -37,8 +38,8 @@ class Page extends React.Component {
     const queryString = isNewPage ? 'pages.newpage' : previousPages;
 
     return (
-      <div className='ab-page-new' onClick={::this.selectPage}>
-        <span>{getString(queryString)}</span>
+      <div className={classNames('newpage')} onClick={::this.selectPage}>
+        <span>{localization(queryString)}</span>
       </div>
     );
   }
@@ -46,8 +47,7 @@ class Page extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    builder: state.builder,
-    localization: state.localizationData
+    builder: state.builder
   };
 }
 

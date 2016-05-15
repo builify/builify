@@ -7,6 +7,7 @@ import LoadingScreen from './loading-screen';
 import ColorPicker from './shared/ColorPicker';
 import Modals from './modals';
 import NotificationContainer from './notifications';
+import Upperbar from './upperbar';
 
 class Base extends React.Component {
   shouldComponentUpdate () {
@@ -21,6 +22,7 @@ class Base extends React.Component {
     return (
       <div className={className}>
         <Aside />
+        <Upperbar />
         <Main />
         <LoadingScreen />
         <ColorPicker />

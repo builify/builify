@@ -1,16 +1,16 @@
-import { connect } from 'react-redux';
 import React from 'react';
-import find from 'lodash/find';
-import words from 'lodash/words';
-import size from 'lodash/size';
-import isObject from 'lodash/isobject';
-import has from 'lodash/has';
-import map from 'lodash/map';
+import _find from 'lodash/find';
+import _words from 'lodash/words';
+import _size from 'lodash/size';
+import _isObject from 'lodash/isobject';
+import _has from 'lodash/has';
+import _map from 'lodash/map';
 import proccessChildren from '../../children-render/process-children';
 import renderProccessedChildren from '../../children-render/render-processed-children';
 import BackButton from '../shared/backbutton';
 import Scrollbar from '../shared/scrollbar';
 import classNames from '../../common/classnames';
+import { connect } from 'react-redux';
 
 class Tab extends React.Component {
   static propTypes = {
@@ -39,21 +39,21 @@ class Tab extends React.Component {
   initializeState (props) {
     const { builder, tabs } = props;
     const { currentTab: currentTabID } = builder;
-    const splitCurrentTab = words(currentTabID, /[^.]+/g);
-    const splitSize = size(splitCurrentTab);
+    const splitCurrentTab = _words(currentTabID, /[^.]+/g);
+    const splitSize = _size(splitCurrentTab);
     let currentTab = null;
 
     if (splitSize === 1) {
-      currentTab = find(tabs, {
+      currentTab = _find(tabs, {
         'id': currentTabID
       });
     } else {
-      currentTab = find(tabs, {
+      currentTab = _find(tabs, {
         'id': splitCurrentTab[splitSize - 1]
       });
     }
 
-    if (isObject(currentTab)) {
+    if (_isObject(currentTab)) {
       this.setState({
         currentTabID: currentTabID,
         currentTab: currentTab
@@ -83,16 +83,16 @@ class Tab extends React.Component {
   }
 
   renderTitle (currentTab) {
-    if (has(currentTab, 'title')) {
-      if (has(currentTab, 'subtitle')) {
+    if (_has(currentTab, 'title')) {
+      if (_has(currentTab, 'subtitle')) {
         return (
-          <h1 className={classNames('sidetab__title')}>
+          <h1 className={classNames('tab__title')}>
             <span>{currentTab.title}</span>
             <span>{currentTab.subtitle}</span>
           </h1>
         );
       } else {
-        return <h1 className={classNames('sidetab__title')}>{currentTab.title}</h1>;
+        return <h1 className={classNames('tab__title')}>{currentTab.title}</h1>;
       }
     }
 
@@ -104,7 +104,7 @@ class Tab extends React.Component {
     const { content } = currentTab;
 
     if (content) {
-      return map(proccessChildren(content), (child) => {
+      return _map(proccessChildren(content), (child) => {
         return renderProccessedChildren(child);
       });
     }

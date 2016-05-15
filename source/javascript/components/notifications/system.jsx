@@ -1,9 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import _ from 'lodash';
+import _map from 'lodash/map';
+import _values from 'lodash/values';
+import _filter from 'lodash/filter';
+import classNames from '../../common/classnames';
 import NotificationContainer from './container';
 import Constants from './constants';
 import { removeNotification } from '../../actions';
+import { connect } from 'react-redux';
 
 class NotificationSystem extends React.Component {
   static propTypes = {
@@ -29,11 +32,11 @@ class NotificationSystem extends React.Component {
 
   render () {
     const { notifications } = this.props;
-    var containers = null;
+    let containers = null;
 
     if (notifications.length) {
-      containers = _.map(_.values(Constants.positions), (position) => {
-        const _notifications = _.filter(notifications, (notification) => {
+      containers = _map(_values(Constants.positions), (position) => {
+        const _notifications = _filter(notifications, (notification) => {
           return position === notification.position;
         });
 
@@ -53,7 +56,7 @@ class NotificationSystem extends React.Component {
     }
 
     return (
-      <div className='ab-notification-wrapper'>
+      <div className={classNames('notification-wrapper')}>
         { containers }
       </div>
     );

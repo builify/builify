@@ -1,0 +1,10 @@
+.#{$nameprefix}main {
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    right: 0;
+    height: calc(100% - 50px);
+    z-index: 30;
+    left: $aside-width;
+    width: calc(100% - #{$aside-width});
+}

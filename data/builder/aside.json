@@ -19,12 +19,6 @@
       "onClick": "open.design"
     },
     {
-      "id": "preview",
-      "title": "Preview",
-      "icon": "look",
-      "onClick": "run.preview"
-    },
-    {
       "id": "save",
       "title": "Save",
       "icon": "save",

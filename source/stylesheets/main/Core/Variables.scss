@@ -1,5 +1,5 @@
 //-- Global variables
-$nameprefix: 'ab-';
+$nameprefix: "ab-";
 $base-padding: 40px;
 $unit: 1rem;
 $preferred-font: "Open Sans", sans-serif;
@@ -70,8 +70,10 @@ $logo-default-size: 4px;
 
 $item-height: 33px;
 
-$default-pagenew-size: 250px;
+// Page
+$pagenew-size: 300px;
 
+// Notification
 $notification-container-margin: 25px;
 
 $select-height: 40px;

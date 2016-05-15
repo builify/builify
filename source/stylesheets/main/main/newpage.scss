@@ -1,18 +1,22 @@
-.#{$nameprefix}page-new {
+.#{$nameprefix}newpage {
     position: relative;
 		text-align: center;
 		cursor: pointer;
-		font-weight: 700;
-		text-transform: uppercase;
-		color: #333;
-		border: 5px dotted;
+    background: #FFF;
 		margin-right: 20px;
-		width: $default-pagenew-size;
-		line-height: $default-pagenew-size;
-		height: $default-pagenew-size;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+		width: $pagenew-size;
+		line-height: $pagenew-size;
+		height: $pagenew-size;
 		@include transition(all 0.3s ease);
 		@include user-select(none);
 		@include clearfix;
+
+    span {
+        font-weight: 700;
+        color: #222;
+        text-transform: uppercase;
+    }
 
 		&:last-child {
 				margin-right: 0;

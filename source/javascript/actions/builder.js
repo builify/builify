@@ -10,7 +10,6 @@ import imagesLibraryJSON from '../../../data/builder/images-library';
 import builderConfiguration from '../../../data/builder/builder';
 import AsideData from '../../../data/builder/aside';
 import fontsList from '../../../data/builder/fonts-list';
-import languageData from '../../../data/builder/localization';
 import templateManifest from '../../../data/template/manifest';
 
 export function runApplicationActions () {
@@ -19,19 +18,10 @@ export function runApplicationActions () {
     dispatch(getBuilderConfiguration());
     dispatch(receiveConfiguration());
     dispatch(receiveAsideConfiguration());
-    dispatch(proccessConfigurationLocalization());
-    dispatch(getLocalizationFile());
     dispatch(initializeBuilder());
     dispatch(getIconPacks());
     dispatch(getImagesLibrary());
     dispatch(initializeEvents());
-  };
-}
-
-export function getLocalizationFile () {
-  return {
-    type: Actions.GET_LOCALIZATION,
-    data: JSON.parse(stripJSONComments(JSON.stringify(languageData)))
   };
 }
 
@@ -123,12 +113,6 @@ export function receiveAsideConfiguration () {
   return {
     type: Actions.RECEIVE_ASIDE_CONFIGURATION,
     data: JSON.parse(stripJSONComments(JSON.stringify(AsideData)))
-  };
-}
-
-export function proccessConfigurationLocalization () {
-  return {
-    type: Actions.PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION
   };
 }
 

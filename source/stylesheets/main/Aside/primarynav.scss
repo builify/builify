@@ -12,10 +12,10 @@
         width: 100%;
         text-transform: uppercase;
         font-weight: 400;
-        font-size: 18px;
         cursor: pointer;
-        color: $color-charcoal;
+        color: #333;
         padding: 10px $base-padding;
+        @include rem(font-size, 18px);
         @include user-select(none);
         @include transition(all 0.3s ease);
 

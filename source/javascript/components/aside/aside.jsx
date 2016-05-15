@@ -1,8 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { closeTab } from '../../actions';
 import classNames from '../../common/classnames';
 import Tab from './tab';
+import { connect } from 'react-redux';
+import { closeTab } from '../../actions';
 
 class Aside extends React.Component {
   shouldComponentUpdate () {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
+import classNames from '../../common/classnames';
 import PreviewControls from './preview-controls';
 import SuggestionBox from './suggestion-box';
 import Frame from './frame';
@@ -15,7 +15,7 @@ class Canvas extends React.Component {
     const previewModeActive = currentLocation === CurrentLocations.PREVIEW;
     const suggestionActive = blocksCount === 0;
 
-    const className = classNames('ab-canvas', {
+    const className = classNames('canvas', {
       'hide': currentLocation === CurrentLocations.STARTSCREEN,
 
       'landscape': landscapeView,

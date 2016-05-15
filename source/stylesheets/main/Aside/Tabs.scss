@@ -1,8 +1,4 @@
-//
-// Tabs
-// -----------------------------------------------------------------------------
-.#{$nameprefix}tab,
-.#{$nameprefix}sidetab {
+.#{$nameprefix}tab {
 		position: absolute;
 		top: 0;
 		right: 0;
@@ -77,9 +73,7 @@
 				margin: 0;
 				padding: 0;
 		}
-}
 
-.#{$nameprefix}sidetab {
 		&__title {
 				> span {
 						&:nth-child(1) {

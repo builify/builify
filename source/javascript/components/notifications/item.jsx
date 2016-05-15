@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import classNames from 'classnames';
+import classNames from '../../common/classnames';
 import Constants from './constants';
 import Timer from '../../modules/tt-timer';
 import Icon from '../shared/icon';
@@ -221,9 +221,11 @@ export default class NotificationItem extends React.Component {
       size: 16
     };
 
-    const className = classNames('ab-notification-item',
-    `ab-notification-item-${notification.level}`,
-    this.state.visible ? 'ab-notification-item-visible' : 'ab-notification-item-hidden');
+    const className = classNames([
+      'notification-item',
+      `notification-item-${notification.level}`,
+      `notification-item-${this.state.visible ? 'visible' : 'hidden'}`
+    ]);
 
     if (!this.state.visible && !this.state.removed) {
       notificationStyle[cssByPos.property] = cssByPos.value;
@@ -245,24 +247,24 @@ export default class NotificationItem extends React.Component {
     notificationStyle.opacity = this.state.visible ? 1 : 0;
 
     if (notification.title) {
-      title = <h4 className='ab-notification-item-title'>{ notification.title }</h4>;
+      title = <h4 className={classNames('notification-item-title')}>{ notification.title }</h4>;
     }
 
     if (notification.message) {
       if (this.props.allowHTML) {
         message = (
-          <div className='ab-notification-item-message' dangerouslySetInnerHTML={this._allowHTML(notification.message)}></div>
+          <div className={classNames('notification-item-message')} dangerouslySetInnerHTML={this._allowHTML(notification.message)}></div>
         );
       } else {
         message = (
-          <div className='ab-notification-item-message'>{notification.message}</div>
+          <div className={classNames('notification-item-message')}>{notification.message}</div>
         );
       }
     }
 
     if (notification.dismissible) {
       dismiss = (
-        <div className='ab-notification-item-dismiss'>
+        <div className={classNames('notification-item-dismiss')}>
           <Icon
             icon='clear'
             size={iconOptions.size} />

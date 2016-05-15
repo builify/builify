@@ -1,9 +1,9 @@
 import React from 'react';
+import Random from '../../../common/random';
+import _map from 'lodash/map';
+import Color from './color';
 import { connect } from 'react-redux';
 import { openColorPicker } from '../../../Actions';
-import Random from '../../../Common/Random';
-import _ from 'lodash';
-import Color from './Color';
 
 class Colors extends React.Component {
   shouldComponentUpdate () {
@@ -19,7 +19,7 @@ class Colors extends React.Component {
     const { design } = template;
     const { colors } = design;
 
-    return _.map(colors, (color, colorTarget) => {
+    return _map(colors, (color, colorTarget) => {
       const key = Random.randomKey('color');
 
       return (

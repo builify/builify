@@ -1,6 +1,8 @@
 import React from 'react';
+import _map from 'lodash/map';
 import NotificationItem from './item';
 import Constants from './constants';
+import classNames from '../../common/classnames';
 
 export default class NotificationContainer extends React.Component {
   static propTypes = {
@@ -13,7 +15,7 @@ export default class NotificationContainer extends React.Component {
       this.props.notifications.reverse();
     }
 
-    const notifications = this.props.notifications.map((notification) => {
+    const notifications = _map(this.props.notifications, (notification) => {
       return (
         <NotificationItem
           ref={`notification-${notification.uid}`}
@@ -25,8 +27,10 @@ export default class NotificationContainer extends React.Component {
       );
     });
 
+    const className = classNames(`notification-${this.props.position}`);
+
     return (
-      <div className={`ab-notification-${this.props.position}`}>
+      <div className={className}>
         { notifications }
       </div>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import classNames from '../../common/classnames';
 
 export default class LoadingIcon extends React.Component {
   static propTypes = {
@@ -16,7 +16,7 @@ export default class LoadingIcon extends React.Component {
 
   render () {
     const { size } = this.props;
-    const loaderClassName = classNames('ab-loadingScreen__loader', size);
+    const loaderClassName = classNames('loadingScreen__loader', size);
 
     return (
       <div className={loaderClassName}>

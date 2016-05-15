@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from '../../common/classnames';
-import Page from './Page';
+import Page from './newpage';
 import { connect } from 'react-redux';
-import { CurrentLocations } from '../../Constants';
+import { CurrentLocations } from '../../constants';
 
 class ProjectStartScreen extends React.Component {
   render () {

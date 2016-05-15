@@ -1,6 +1,6 @@
 import React from 'react';
-import classNames from '../../common/classnames';
-import { getString } from '../../Common/Localization';
+import classNames from '../../../common/classnames';
+import localization from '../../../common/localization';
 
 export default class Title extends React.Component {
   static propTypes = {
@@ -10,17 +10,19 @@ export default class Title extends React.Component {
   };
 
   render () {
-    const { title, className, description } = this.props;
-    const titleClassName = classNames('title', className ? className: null);
+    const { title, description } = this.props;
+    const titleClassName = classNames('title', this.props.className);
     const descClassName = classNames('title__desc');
+
+    console.log(localization(title));
 
     if (title) {
       return (
         <div className={titleClassName}>
           <h2>
-            <span>{getString(title)}</span>
+            <span>{localization(title)}</span>
           </h2>
-          { description ? <p className={descClassName}>{description}</p> : null }
+          { description && <p className={descClassName}>{description}</p> }
         </div>
       );
     }

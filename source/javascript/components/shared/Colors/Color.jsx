@@ -1,5 +1,5 @@
 import React from 'react';
-import { getString } from '../../../Common/Localization';
+import localization from '../../../common/localization';
 
 export default class Color extends React.Component {
   static propTypes = {
@@ -23,7 +23,7 @@ export default class Color extends React.Component {
     const colorHolderStyle = {
       backgroundColor: color
     };
-    const colorName = getString(`design.colors.${colorTarget}`);
+    const colorName = localization(`design.colors.${colorTarget}`);
 
     return (
       <div
@@ -32,9 +32,7 @@ export default class Color extends React.Component {
         data-colortarget={colorTarget}
         className='ab-color'
         onClick={::this.clickColor}>
-        <div
-          className='ab-color__name'
-          title={colorName}>
+        <div className='ab-color__name' itle={colorName}>
           <span>{colorName}</span>
         </div>
         <div

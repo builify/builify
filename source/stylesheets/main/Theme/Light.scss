@@ -1,8 +1,8 @@
 $light-theme-color: $color-primary;
 $light-primary-text-color: #444;
 $light-secondary-text-color: #888;
-$light-primary-color: #FFF;
-$light-secondary-color: #eee;
+$light-primary-color: #e7e7e7;
+$light-secondary-color: #fff;
 $light-primary-border-color: #ccc;
 $light-range-track-color: darken($light-secondary-color, 20%);
 $light-main-box-shadow: 0 0 20px rgba(#000, 0.3);
@@ -126,7 +126,6 @@ $light-main-box-shadow: 0 0 20px rgba(#000, 0.3);
 				}
 
 				&main {
-						box-shadow: $light-main-box-shadow;
 						background: $light-primary-color;
 				}
 

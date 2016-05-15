@@ -23,10 +23,12 @@
 @import "aside/currentpage";
 @import "aside/items";
 
-@import "components/main";
-@import "components/canvas";
+@import "main/main";
+@import "main/newpage";
+@import "main/canvas";
+@import "main/suggestion-box";
+
 @import "components/loading-screen";
-@import "components/page";
 @import "components/preview";
 
 @import "components/input";
@@ -46,6 +48,8 @@
 @import "components/table";
 @import "components/title";
 @import "components/image";
+@import "components/upperbar";
+@import "components/filepicker";
 
 @import "shared/flex";
 

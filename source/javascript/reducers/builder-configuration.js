@@ -1,6 +1,5 @@
 import assign from 'lodash/assign';
-import * as Actions from '../Actions/Constants';
-import { setLanguage } from '../Common/Localization';
+import * as Actions from '../actions/constants';
 
 const builderConfigurationInitialState = {};
 
@@ -11,13 +10,6 @@ export default function builderConfiguration (state = builderConfigurationInitia
 
     case Actions.RECEIVE_ASIDE_CONFIGURATION:
       return assign({}, state, action.data);
-
-    case Actions.PROCCESS_BUILDER_CONFIGURATION_LOCALIZATION:
-      const { localization } = state;
-
-      setLanguage(localization || 'en');
-
-      return state;
 
     case Actions.GET_IMAGESLIBRARY: {
       const { data } = action;
