@@ -6,7 +6,7 @@ $notification-error-bg: #f4e9e9;
 $notification-error-color: #412f2f;
 
 $notification-success: $color-green;
-$notification-success-bg: $color-white;
+$notification-success-bg: #FFF;
 $notification-success-color: #31411c;
 
 $notification-warning: #ebad1a;
@@ -22,7 +22,6 @@ $notification-info-color: #41555d;
         position: relative;
         width: 100%;
         cursor: pointer;
-        border-radius: 3px;
         margin: 15px 0 0;
         padding: 15px;
         display: block;

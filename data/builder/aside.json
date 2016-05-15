@@ -2,37 +2,37 @@
   "navigation": [
     {
       "id": "page",
-      "title": "Page",
+      "title": "navigation.pages",
       "icon": "content-copy",
       "onClick": "open.page"
     },
     {
       "id": "content",
-      "title": "Content",
+      "title": "navigation.content",
       "icon": "photo",
       "onClick": "open.content"
     },
     {
       "id": "design",
-      "title": "Design",
+      "title": "navigation.design",
       "icon": "format-paint",
       "onClick": "open.design"
     },
     {
       "id": "save",
-      "title": "Save",
+      "title": "navigation.save",
       "icon": "save",
       "onClick": "run.save"
     },
     {
       "id": "restore",
-      "title": "Restore",
+      "title": "navigation.restart",
       "icon": "eye",
       "onClick": "run.restore"
     },
     {
       "id": "download",
-      "title": "Download",
+      "title": "navigation.download",
       "icon": "file-download",
       "onClick": "run.download"
     }
@@ -47,9 +47,6 @@
         },
         {
           "type": "block.navigation"
-        },
-        {
-          "type": "block.copyright"
         }
       ]
     },

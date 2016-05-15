@@ -1,17 +1,17 @@
-import { connect } from 'react-redux';
 import React from 'react';
-import _ from 'lodash';
-import Random from '../../../Common/Random';
-import NavigationItem from './NavigationItem';
+import _map from 'lodash/map';
+import Random from '../../../common/random';
+import NavigationItem from './item';
+import { connect } from 'react-redux';
 
 class PrimaryNavigation extends React.Component {
   renderNavigationItems (navigation, currentLocation) {
-    return _.map(navigation, (item) => {
+    return _map(navigation, (item) => {
       const { id, title, icon, onClick } = item;
 
       return (
         <NavigationItem
-          key={Random.randomKey('nvi')}
+          key={Random.randomKey('navigation-item')}
           id={id}
           title={title}
           icon={icon}

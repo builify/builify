@@ -1,10 +1,12 @@
-import { openTab, openDownloadModal, openPreview, openRestartModal, saveCurrentPage } from '../../../Actions';
-import { connect } from 'react-redux';
-import { CurrentLocations } from '../../../Constants';
 import React from 'react';
 import classNames from 'classnames';
-import _ from 'lodash';
-import Icon from '../Icon';
+import _size from 'lodash/size';
+import _words from 'lodash/words';
+import localization from '../../../common/localization';
+import Icon from '../icon';
+import { openTab, openDownloadModal, openPreview, openRestartModal, saveCurrentPage } from '../../../Actions';
+import { connect } from 'react-redux';
+import { CurrentLocations } from '../../../constants';
 
 class NavigationItem extends React.Component {
   static propTypes = {
@@ -30,8 +32,8 @@ class NavigationItem extends React.Component {
   clickEvent () {
     const { disableItem } = this.state;
     const { onClick } = this.props;
-    const command = _.words(onClick);
-    const commandSize = _.size(command);
+    const command = _words(onClick);
+    const commandSize = _size(command);
 
     if (disableItem === true) {
       return false;
@@ -63,14 +65,12 @@ class NavigationItem extends React.Component {
     const className = classNames({
       'hide': disableItem
     });
+    const text = localization(title);
 
     return (
-      <li
-        className={className}
-        title={title}
-        onClick={::this.clickEvent}>
+      <li className={className} title={text} onClick={::this.clickEvent}>
         <Icon icon={icon} />
-        <span>{title}</span>
+        <span>{ text }</span>
       </li>
     );
   }

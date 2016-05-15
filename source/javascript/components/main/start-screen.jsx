@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from '../../common/classnames';
 import Page from './newpage';
+import Copyright from '../shared/copyright';
 import { connect } from 'react-redux';
 import { CurrentLocations } from '../../constants';
 
@@ -15,6 +16,7 @@ class ProjectStartScreen extends React.Component {
         <div className={wrapperClassName}>
           <Page isNewPage={true} />
           { previousPages && <Page isNewPage={false} /> }
+          <Copyright />
         </div>
       );
     }

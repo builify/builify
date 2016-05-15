@@ -1,14 +1,12 @@
 {
   "en": {
-    "primarynavigation": {
+    "navigation": {
       "pages": "Page",
       "content": "Content",
       "design": "Design",
-      "more": "More",
-      "preview": "Preview",
       "save": "Save",
-      "restore": "Restart",
-      "gethtml": "Download HTML"
+      "restart": "Restart",
+      "download": "Download"
     },
 
     "sidetabs": {

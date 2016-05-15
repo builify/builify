@@ -6,3 +6,38 @@
     z-index: 50;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
 }
+
+.#{$nameprefix}preview-controls {
+    position: relative;
+    float: right;
+    height: 100%;
+    max-width: 250px;
+    overflow: hidden;
+    margin-right: $base-padding;
+
+    ul {
+        list-style: none;
+        float: right;
+
+        li {
+            cursor: pointer;
+            display: inline-block;
+            height: 50px;
+            width: 50px;
+            text-align: center;
+            transition-property: background;
+            transition-timing-function: $animation-curve-default;
+            transition-duration: $animation-duration;
+
+            &:hover,
+            &.active {
+                background: #eee;
+                box-shadow: inset 0px 0px 15px -5px rgba(0,0,0,0.75);
+            }
+
+            svg {
+                margin-top: (50px - 24px) / 2;
+            }
+        }
+    }
+}
