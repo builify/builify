@@ -13,7 +13,7 @@ import CheckBoxWrapper from '../components/shared/CheckBoxWrapper';
 import SliderInputWrapper from '../components/shared/SliderInputWrapper';
 import Copyright from '../components/shared/copyright';
 import Logo from '../components/shared/logo';
-import PrimaryNavigation from '../components/shared/PrimaryNavigation';
+import PrimaryNavigation from '../components/shared/primary-navigation';
 
 export default function (item) {
   if (!_isObject(item)) {

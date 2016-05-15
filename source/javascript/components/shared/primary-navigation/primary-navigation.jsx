@@ -2,9 +2,15 @@ import React from 'react';
 import _map from 'lodash/map';
 import Random from '../../../common/random';
 import NavigationItem from './item';
+import classNames from '../../../common/classnames';
 import { connect } from 'react-redux';
 
 class PrimaryNavigation extends React.Component {
+  static propTypes = {
+    builder: React.PropTypes.object.isRequired,
+    builderConfiguration: React.PropTypes.object.isRequired
+  };
+
   renderNavigationItems (navigation, currentLocation) {
     return _map(navigation, (item) => {
       const { id, title, icon, onClick } = item;
@@ -27,7 +33,7 @@ class PrimaryNavigation extends React.Component {
     const { currentLocation } = builder;
 
     return (
-      <ul className='ab-primarynav'>
+      <ul className={classNames('primarynav')}>
         { this.renderNavigationItems(navigation, currentLocation) }
       </ul>
     );

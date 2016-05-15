@@ -4,7 +4,7 @@ import _size from 'lodash/size';
 import _words from 'lodash/words';
 import localization from '../../../common/localization';
 import Icon from '../icon';
-import { openTab, openDownloadModal, openPreview, openRestartModal, saveCurrentPage } from '../../../Actions';
+import { openTab, openDownloadModal, openRestartModal, saveCurrentPage } from '../../../Actions';
 import { connect } from 'react-redux';
 import { CurrentLocations } from '../../../constants';
 
@@ -14,7 +14,11 @@ class NavigationItem extends React.Component {
     title: React.PropTypes.string.isRequired,
     icon: React.PropTypes.string.isRequired,
     onClick: React.PropTypes.string.isRequired,
-    currentLocation: React.PropTypes.number.isRequired
+    currentLocation: React.PropTypes.number.isRequired,
+    openTab: React.PropTypes.func.isRequired,
+    openDownloadModal: React.PropTypes.func.isRequired,
+    openRestartModal: React.PropTypes.func.isRequired,
+    saveCurrentPage: React.PropTypes.func.isRequired
   };
 
   state = {
@@ -52,8 +56,6 @@ class NavigationItem extends React.Component {
           return this.props.openDownloadModal();
         } else if (cmd2 === 'save') {
           return this.props.saveCurrentPage();
-        } else if (cmd2 === 'preview') {
-          return this.props.openPreview();
         }
       }
     }
@@ -80,10 +82,6 @@ function mapDispatchToProps (dispatch) {
   return {
     openTab: (target) => {
       dispatch(openTab(target));
-    },
-
-    openPreview: () => {
-      dispatch(openPreview());
     },
 
     openDownloadModal: () => {

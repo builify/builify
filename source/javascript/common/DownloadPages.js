@@ -1,6 +1,7 @@
+import JSZip from 'jszip';
+import _map from 'lodash/map';
 import { saveAs } from './FileSaver';
 import { TEMPLATE_PACKAGE_FILENAME, TEMPLATE_PACKAGE_EXTENSION } from '../Constants';
-import JSZip from 'jszip';
 
 function getFileSettings () {
   return {
@@ -13,7 +14,7 @@ function getFileName () {
 }
 
 function get (url) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     const request = new XMLHttpRequest();
 
     request.onreadystatechange = function() {
@@ -35,7 +36,7 @@ function get (url) {
 
 async function addPageFilesToPackage (pckg, pages) {
   return new Promise(function(resolve) {
-    pages.map(function (page) {
+    _map(pages, function (page) {
       const { blocksCount } = page;
 
       if (blocksCount > 0) {
@@ -54,16 +55,20 @@ async function downloadPages (pages) {
   const fileSettings = getFileSettings();
   const zipFileName = getFileName();
   const assetsFolder = zip.folder('assets');
+  const templateFolder = assetsFolder.folder('template');
 
-  const javascriptFile = await get('assets/template.js');
-  const stylesheetFile = await get('assets/template.css');
+  const javascriptFile = await get('assets/template/template.js');
+  const stylesheetFile = await get('assets/template/template.css');
 
-  assetsFolder.file('template.js', javascriptFile);
-  assetsFolder.file('template.css', stylesheetFile);
+  templateFolder.file('template.js', javascriptFile);
+  templateFolder.file('template.css', stylesheetFile);
 
   const pagesResult = await addPageFilesToPackage(zip, pages); //eslint-disable-line
 
-  saveAs(zip.generate(fileSettings), zipFileName);
+  zip.generateAsync(fileSettings)
+    .then(function (content) {
+      saveAs(content, zipFileName);
+    });
 }
 
 export default function (pages, state) {
@@ -72,4 +77,4 @@ export default function (pages, state) {
   }
 
   downloadPages(pages, state);
-};
+}

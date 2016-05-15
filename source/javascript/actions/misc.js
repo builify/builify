@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import Actions from './Constants';
 
 export function toggleBaseline (checked) {

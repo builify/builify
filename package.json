@@ -33,6 +33,7 @@
     "babelify": "^7.3.0",
     "browser-sync": "^2.12.8",
     "eslint": "^2.10.1",
+    "eslint-plugin-react": "^5.1.1",
     "glob": "*",
     "gulp": "^3.9.1",
     "gulp-cssmin": "*",
@@ -62,7 +63,7 @@
   "dependencies": {
     "classnames": "^2.2.3",
     "input-moment": "^0.1.0",
-    "jszip": "^2.5.0",
+    "jszip": "^3.0.0",
     "lodash": "^4.7.0",
     "mime": "^1.3.4",
     "moment": "^2.12.0",

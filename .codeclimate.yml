@@ -10,4 +10,4 @@ ratings:
   - "**.jsx"
 exclude_paths:
 - test/**/*
-- DevelopmentBuild/**/*
+- public/**/*

@@ -1,15 +1,16 @@
-import isArray from 'lodash/isarray';
-import map from 'lodash/map';
-import isNull from 'lodash/isnull';
+/* eslint-disable */
+import _isArray from 'lodash/isarray';
+import _map from 'lodash/map';
+import _isNull from 'lodash/isnull';
 
 export default function (children) {
-  if (!isArray(children)) {
+  if (!_isArray(children)) {
     throw Error('No data defined.');
   }
 
   let childrenToRender = [];
 
-  map(children, (child) => {
+  _map(children, (child) => {
     const { type } = child;
 
     if (!type) {
@@ -83,7 +84,7 @@ export default function (children) {
             break;
         }
 
-        if (!isNull(blockData)) {
+        if (!_isNull(blockData)) {
           childrenToRender.push(blockData);
         }
 
@@ -114,7 +115,7 @@ export default function (children) {
             break;
         }
 
-        if (!isNull(blockData)) {
+        if (!_isNull(blockData)) {
           childrenToRender.push(blockData);
         }
       }
@@ -126,3 +127,4 @@ export default function (children) {
 
   return childrenToRender;
 }
+/* eslint-enable */
