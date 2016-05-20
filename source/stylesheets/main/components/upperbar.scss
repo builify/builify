@@ -25,14 +25,20 @@
             height: 50px;
             width: 50px;
             text-align: center;
+            user-select: none;
             transition-property: background;
             transition-timing-function: $animation-curve-default;
             transition-duration: $animation-duration;
 
-            &:hover,
+            &:not(.hidden):hover,
             &.active {
                 background: #eee;
                 box-shadow: inset 0px 0px 15px -5px rgba(0,0,0,0.75);
+            }
+
+            &.hidden {
+                opacity: 0.3;
+                cursor: not-allowed;
             }
 
             svg {

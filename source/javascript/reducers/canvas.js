@@ -1,8 +1,8 @@
-import TTDOM from '../Common/TTDOM';
-import map from 'lodash/map';
-import assign from 'lodash/assign';
-import isObject from 'lodash/isobject';
-import * as Actions from '../Actions/Constants';
+import _map from 'lodash/map';
+import _assign from 'lodash/assign';
+import _isObject from 'lodash/isobject';
+import TTDOM from '../common/TTDOM';
+import * as Actions from '../actions/constants';
 
 const canvasInitialState = {
   iFrameWindow: null,
@@ -21,16 +21,14 @@ export default function canvas (state = canvasInitialState, action) {
       const iFrame = TTDOM.iframe.get('ab-cfrm');
       const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
 
-      return assign({}, state, {
+      return _assign({}, state, {
         iFrameWindow: iFrameWindow
       });
     }
 
     case Actions.TOGGLE_BASELINE: {
-      const { checked } = action;
-
-      return assign({}, state, {
-        drawBaseline: checked
+      return _assign({}, state, {
+        drawBaseline: action.checked
       });
     }
 
@@ -41,7 +39,7 @@ export default function canvas (state = canvasInitialState, action) {
       const filesToUpdate = iFrameWindow.document.querySelectorAll('[data-update]');
       let script = null;
 
-      map(filesToUpdate, (file) => {
+      _map(filesToUpdate, (file) => {
         const fileSource = file.getAttribute('src');
 
         file.remove();
@@ -60,12 +58,12 @@ export default function canvas (state = canvasInitialState, action) {
     case Actions.CURRENT_HOVER_BLOCK: {
       const { block } = action;
 
-      if (isObject(block)) {
+      if (_isObject(block)) {
         const { iFrameWindow } = state;
         const { elementReference } = block;
         const topX = TTDOM.misc.getAbsPosition(elementReference, iFrameWindow)[0] + 10;
 
-        return assign({}, state, {
+        return _assign({}, state, {
           currentHoverBlock: {
             block: block,
             topX: topX
@@ -77,7 +75,7 @@ export default function canvas (state = canvasInitialState, action) {
     }
 
     case Actions.REMOVE_CONTENTBLOCK: {
-      return assign({}, state, {
+      return _assign({}, state, {
         currentHoverBlock: {
           block: {}
         }

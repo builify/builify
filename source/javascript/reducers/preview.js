@@ -1,21 +1,16 @@
-import _ from 'lodash';
-import * as Actions from '../Actions/Constants';
+import _assign from 'lodash/assign';
+import * as Actions from '../actions/constants';
+import { PreviewModes } from '../constants';
 
 const initialState = {
-  previewMode: 0,
-  landscapeView: false
+  previewMode: PreviewModes.INITIAL
 };
 
 export default function preview (state = initialState, action) {
   switch (action.type) {
     case Actions.SET_PREVIEW_MODE:
-      return _.assign({}, state, {
+      return _assign({}, state, {
         previewMode: action.mode
-      });
-
-    case Actions.PREVIEW_MODE_ROTATE:
-      return _.assign({}, state, {
-        landscapeView: !state.landscapeView
       });
 
     default:

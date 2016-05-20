@@ -23,7 +23,7 @@ export const CurrentLocations = {
 };
 
 export const PreviewModes = {
-  DESKTOP: 0,
+  INITIAL: 0,
   TABLET: 1,
   PHONE: 2
 };

@@ -1,32 +1,33 @@
-import _ from 'lodash';
-import Constants from '../Components/Notifications/Constants';
-import * as Actions from '../Actions/Constants';
+import _assign from 'lodash/assign';
+import _values from 'lodash/values';
+import _isNaN from 'lodash/isnan';
+import _isFunction from 'lodash/isfunction';
+import Constants from '../components/notifications/constants';
+import * as Actions from '../actions/constants';
 
 const notificationsInitialState = [];
-const notificationDefaultProps = Constants.notification;
-
-var UID = Constants.defaultUid;
+let UID = Constants.defaultUid;
 
 export default function notifications (state = notificationsInitialState, action) {
   switch (action.type) {
     case Actions.ADD_NOTIFICATION: {
       const { notification } = action;
       var notifications = state;
-      const _notification = _.assign({}, Constants.notification, notification);
+      const _notification = _assign({}, Constants.notification, notification);
 
       if (!_notification.level) {
         throw new Error('notification level is required.');
       }
 
-      if (_.values(Constants.levels).indexOf(_notification.level) === -1) {
+      if (_values(Constants.levels).indexOf(_notification.level) === -1) {
         throw new Error(`"${_notification.level}" is not a valid level.`);
       }
 
-      if (_.isNaN(_notification.autoDismiss)) {
+      if (_isNaN(_notification.autoDismiss)) {
         throw new Error(`"autoDismiss" is not a valid position.`);
       }
 
-      if (_.values(Constants.positions).indexOf(_notification.position) === -1) {
+      if (_values(Constants.positions).indexOf(_notification.position) === -1) {
         throw new Error(`"${_notification.position}" is not a valid position.`);
       }
 
@@ -49,7 +50,7 @@ export default function notifications (state = notificationsInitialState, action
 
       notifications.push(_notification);
 
-      if (_.isFunction(_notification.onAdd)) {
+      if (_isFunction(_notification.onAdd)) {
         notification.onAdd(_notification);
       }
 

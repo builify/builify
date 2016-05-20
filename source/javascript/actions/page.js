@@ -1,11 +1,10 @@
-import Actions from './Constants';
-import Storage from '../Common/Storage';
-import TTDOM from '../Common/TTDOM';
-import { TEMPLATE_PAGES_STORAGE_NAME, CurrentLocations } from '../Constants';
-import { addNotification } from './Notifications';
+import Actions from './constants';
+import TTStorage from '../modules/tt-storage';
+import { TEMPLATE_PAGES_STORAGE_NAME, CurrentLocations } from '../constants';
+import { addNotification } from './notifications';
 
 export function startNewPage () {
-  const pagesInStorage = Storage.get(TEMPLATE_PAGES_STORAGE_NAME);
+  const pagesInStorage = TTStorage.get(TEMPLATE_PAGES_STORAGE_NAME);
   const currentTimestamp = Math.floor(Date.now() / 1000);
   const uniqueKey = Math.random().toString(36).slice(-8);
   const pageID = `abpage-${currentTimestamp}-${uniqueKey}`;
@@ -30,13 +29,6 @@ export function checkPreviousPagesInStorage () {
   };
 }
 
-export function setPageTitle (title) {
-  return {
-    type: Actions.SET_PAGE_TITLE,
-    title: title
-  };
-}
-
 export function getCurrentPageData () {
   return {
     type: Actions.GET_CURRENT_PAGE_DATA
@@ -49,10 +41,7 @@ export function saveCurrentPage () {
     const { currentLocation } = builder;
 
     if (currentLocation !== CurrentLocations.STARTSCREEN) {
-      dispatch({
-        type: Actions.SAVE_CURRENT_PAGE
-      });
-
+      dispatch({ type: Actions.SAVE_CURRENT_PAGE });
       dispatch(addNotification({
         message: 'Page saved',
         level: 'success'
@@ -74,11 +63,6 @@ export function restartPage () {
 }
 
 export function setPageTitle (title) {
-  const iFrame = TTDOM.iframe.get('ab-cfrm');
-  const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
-
-  iFrameWindow.document.title = title;
-
   return {
     type: Actions.SET_PAGE_TITLE,
     title: title

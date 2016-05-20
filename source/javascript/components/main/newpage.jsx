@@ -6,12 +6,16 @@ import { startNewPage, loadPreviousPage, openPreviousPagesSelectionModal } from 
 
 class Page extends React.Component {
   static propTypes = {
-    isNewPage: React.PropTypes.bool.isRequired
+    builder: React.PropTypes.object.isRequired,
+    isNewPage: React.PropTypes.bool.isRequired,
+    startNewPage: React.PropTypes.func.isRequired,
+    openPreviousPagesSelectionModal: React.PropTypes.func.isRequired,
+    loadPreviousPage: React.PropTypes.func.isRequired
   };
 
   shouldComponentUpdate () {
     return false;
-  };
+  }
 
   selectPage () {
     const { isNewPage, builder } = this.props;

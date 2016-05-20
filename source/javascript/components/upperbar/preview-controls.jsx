@@ -1,58 +1,78 @@
 import React from 'react';
+import _map from 'lodash/map';
 import classNames from '../../common/classnames';
-import Icon from '../shared/icon';
-
-class PreviewControlsItem extends React.Component {
-  render () {
-    const { name } = this.props;
-    const iconSize = 24;
-    const className = classNames(null, {
-      'active': this.props.active
-    });
-    const style = {
-      fill: '#444'
-    };
-    let title = '';
-
-    switch (name) {
-      case 'desktop':
-        title = 'Set to Desktop View';
-        break;
-
-      case 'tablet':
-        title = 'Set to Tablet View';
-        break;
-
-      case 'phone':
-        title = 'Set to Phone View';
-        break;
-
-      case 'settings-applications':
-        title = 'Set to Editor Mode';
-        break;
-    }
-
-    return (
-      <li className={className} title={title}>
-        <Icon icon={name} style={style} size={iconSize} />
-      </li>
-    );
-  }
-}
+import random from '../../common/random';
+import PreviewControlsItem from './preview-controls-item';
+import { connect } from 'react-redux';
+import { CurrentLocations, PreviewModes } from '../../constants';
+import { setPreviewMode } from '../../actions';
 
 class PreviewControls extends React.Component {
+  static propTypes = {
+    builder: React.PropTypes.object.isRequired,
+    preview: React.PropTypes.object.isRequired,
+    setPreviewMode: React.PropTypes.func.isRequired
+  };
+
+  renderItems (items) {
+    const { builder, setPreviewMode, preview } = this.props;
+    const { currentLocation } = builder;
+    const { previewMode } = preview;
+    const hide = !!(currentLocation === CurrentLocations.STARTSCREEN && true);
+
+    return _map(items, (item, idx) => {
+      const { name } = item;
+      return (
+        <PreviewControlsItem
+          key={random.randomKey('pci')}
+          name={name}
+          onClick={setPreviewMode}
+          active={idx === previewMode}
+          hidden={idx !== 0 && hide} />
+      );
+    });
+  }
+
   render () {
+    const items = [
+      { name: 'settings-applications' },
+      { name: 'tablet' },
+      { name: 'phone' }
+    ];
+
     return (
       <div className={classNames('preview-controls')}>
         <ul>
-          <PreviewControlsItem name='settings-applications' active={true} />
-          <PreviewControlsItem name='desktop' />
-          <PreviewControlsItem name='tablet' />
-          <PreviewControlsItem name='phone' />
+          { this.renderItems(items) }
         </ul>
       </div>
     );
   }
 }
 
-export default PreviewControls;
+function mapStateToProps (state) {
+  return {
+    builder: state.builder,
+    preview: state.preview
+  };
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    setPreviewMode: (mode) => {
+      let previewType = PreviewModes.INITIAL;
+
+      if (mode === 'desktop') {
+        previewType = PreviewModes.DESKTOP;
+      } else if (mode === 'tablet') {
+        previewType = PreviewModes.TABLET;
+      } else if (mode === 'phone') {
+        previewType = PreviewModes.PHONE;
+      }
+
+      dispatch(setPreviewMode(previewType));
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PreviewControls);

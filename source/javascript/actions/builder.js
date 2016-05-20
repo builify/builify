@@ -1,9 +1,6 @@
-import { checkPreviousPagesInStorage, saveCurrentPage } from './page';
-import { closeTab, closeSidetab } from './aside';
 import Actions from './constants';
 import _ from 'lodash';
 import TTEventEmitter from 'tt-event-emitter';
-
 import stripJSONComments from 'strip-json-comments';
 import IconPacksData from '../../../data/builder/icon-packs';
 import imagesLibraryJSON from '../../../data/builder/images-library';
@@ -11,6 +8,8 @@ import builderConfiguration from '../../../data/builder/builder';
 import AsideData from '../../../data/builder/aside';
 import fontsList from '../../../data/builder/fonts-list';
 import templateManifest from '../../../data/template/manifest';
+import { checkPreviousPagesInStorage, saveCurrentPage } from './page';
+import { closeTab, closeSidetab } from './aside';
 
 export function runApplicationActions () {
   return (dispatch) => {

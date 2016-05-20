@@ -1,12 +1,18 @@
 import React from 'react';
 import ColorPicker from 'react-color';
+import TTDOM from '../../../Common/TTDOM';
+import * as Constants from '../../../Constants';
 import { connect } from 'react-redux';
 import { closeColorPicker, setColorFromColorPicker } from '../../../Actions';
-import * as Constants from '../../../Constants';
-import TTDOM from '../../../Common/TTDOM';
 
 class ColorPick extends React.Component {
   colorTargetType = null;
+
+  static propTypes = {
+    template: React.PropTypes.object.isRequired,
+    closeColorPicker: React.PropTypes.func.isRequired,
+    setColorFromColorPicker: React.PropTypes.func.isRequired
+  };
 
   onClose () {
     return this.props.closeColorPicker();

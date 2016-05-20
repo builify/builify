@@ -3,8 +3,8 @@
   "rules": {
     "strict": 0,
     "semi": [2, "always"],
-    jsx-quotes: [2, "prefer-single"],
-    "indent": [2, 2]
+    "jsx-quotes": [2, "prefer-single"],
+    "indent": [0, 2]
   },
   "plugins": [
     "react"

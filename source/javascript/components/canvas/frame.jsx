@@ -22,6 +22,22 @@ class Frame extends React.Component {
   _editor = null;
   _blocksCache = [];
 
+  static propTypes = {
+    page: React.PropTypes.object.isRequired,
+    renderBlockToCanvas: React.PropTypes.func.isRequired,
+    coreBlockHover: React.PropTypes.func.isRequired,
+    openContextMenu: React.PropTypes.func.isRequired,
+    closeContextMenu: React.PropTypes.func.isRequired,
+    openLinkEditModal: React.PropTypes.func.isRequired,
+    openIconEditModal: React.PropTypes.func.isRequired,
+    openImageEditModal: React.PropTypes.func.isRequired,
+    cloneItem: React.PropTypes.func.isRequired,
+    removeContentBlock: React.PropTypes.func.isRequired,
+    openVideoEditModal: React.PropTypes.func.isRequired,
+    openCountdownEditModal: React.PropTypes.func.isRequired,
+    openColorPicker: React.PropTypes.func.isRequired
+  };
+
   setCoreElementsAttributes () {
     this.refs.navigation.setAttribute(ATTR_CORE_ELEMENT, true);
     this.refs.main.setAttribute(ATTR_CORE_ELEMENT, true);
@@ -105,7 +121,9 @@ class Frame extends React.Component {
 
   removeChildren (parent) {
     map(parent.children, (child) => {
-      child.remove();
+      if (isElement(child)) {
+        child.remove();
+      }
     });
   }
 
@@ -231,7 +249,6 @@ class Frame extends React.Component {
               openCountdownEditModal={this.props.openCountdownEditModal}
               removeContentBlock={this.props.removeContentBlock}
               openColorPicker={this.props.openColorPicker}
-              openVideoEditModal={this.props.openVideoEditModal}
               openImageEditModal={this.props.openImageEditModal}
               store={store} />
           </div>

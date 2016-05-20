@@ -1,11 +1,16 @@
 import React from 'react';
-import Random from '../../../common/random';
 import _map from 'lodash/map';
+import Random from '../../../common/random';
 import Color from './color';
 import { connect } from 'react-redux';
 import { openColorPicker } from '../../../Actions';
 
 class Colors extends React.Component {
+  static propTypes = {
+    template: React.PropTypes.object.isRequired,
+    openColorPicker: React.PropTypes.func.isRequired
+  };
+
   shouldComponentUpdate () {
     return false;
   }

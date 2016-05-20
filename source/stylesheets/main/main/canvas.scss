@@ -33,30 +33,23 @@
 				}
 		}
 
-		&.preview {
+		&.desktop {
 				.#{$nameprefix}canvas__holder {
-						height: 90%;
-						box-shadow: 0 0 30px rgba(#000, 0.3);
+						width: 100%;
 				}
+		}
 
-				&.desktop {
-						.#{$nameprefix}canvas__holder {
-								width: 100%;
-						}
+		&.tablet {
+				.#{$nameprefix}canvas__holder {
+						width: 750px;
+						margin: 0 auto;
 				}
+		}
 
-				&.tablet {
-						.#{$nameprefix}canvas__holder {
-								width: 750px;
-								margin: 0 auto;
-						}
-				}
-
-				&.phone {
-					.#{$nameprefix}canvas__holder {
-							width: 520px;
-							margin: 0 auto;
-					}
-				}
+		&.phone {
+			.#{$nameprefix}canvas__holder {
+					width: 520px;
+					margin: 0 auto;
+			}
 		}
 }

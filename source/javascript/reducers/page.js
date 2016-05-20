@@ -1,4 +1,4 @@
-import Storage from '../common/storage';
+import TTStorage from '../modules/tt-storage';
 import Random from '../common/random';
 import TTDOM from '../common/TTDOM';
 import _ from 'lodash';
@@ -97,14 +97,14 @@ export default function page (state = pageInitialState, action) {
 
       function savePage (item) {
         if (_.isArray(item)) {
-          Storage.set(TEMPLATE_PAGES_STORAGE_NAME, item);
+          TTStorage.set(TEMPLATE_PAGES_STORAGE_NAME, item);
         } else {
           throw Error('Pages localstorage data is wrong type.');
         }
       }
 
       if (pageID) {
-        const pagesInStorage = Storage.get(TEMPLATE_PAGES_STORAGE_NAME);
+        const pagesInStorage = TTStorage.get(TEMPLATE_PAGES_STORAGE_NAME);
         const queryString = { pageID: pageID };
         const itemIndex = _.findIndex(pagesInStorage, queryString);
         const pageInStorage = pagesInStorage[itemIndex];
@@ -136,7 +136,7 @@ export default function page (state = pageInitialState, action) {
 
     case Actions.LOAD_PREVIOUS_PAGE: {
       const { idx } = action;
-      const pagesInStorage = Storage.get(TEMPLATE_PAGES_STORAGE_NAME);
+      const pagesInStorage = TTStorage.get(TEMPLATE_PAGES_STORAGE_NAME);
       var pageToLoad = null;
 
       if (!idx) {

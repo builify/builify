@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import _assign from 'lodash/assign';
+import _has from 'lodash/has';
 import TTStylesheet from 'ttstylesheet';
 import TTDOM from '../common/TTDOM';
 import TTBaseliner from '../modules/tt-baseliner';
@@ -38,7 +39,7 @@ export default function template (state = initialState, action) {
 
       baseline.off();
 
-      return _.assign({}, state, {
+      return _assign({}, state, {
         iFrameWindow: iFrameWindow,
         baseline: baseline,
         templateStylesheet: customStylesheet
@@ -57,21 +58,21 @@ export default function template (state = initialState, action) {
         state.baseline.off();
       }
 
-      return _.assign({}, state, {
+      return _assign({}, state, {
         drawBaseline: checked
       });
     }
 
     case Actions.GET_TEMPLATE_DATA: {
-      if (_.has(action, 'data')) {
-        return _.assign({}, state, action.data);
+      if (_has(action, 'data')) {
+        return _assign({}, state, action.data);
       }
 
       return state;
     }
 
     case Actions.OPEN_COLORPICKER: {
-      return _.assign({}, state, {
+      return _assign({}, state, {
         isColorPickerOpened: true,
         selectedCPElement: action.target,
         sourceCPElement: action.sourceElement
@@ -79,7 +80,7 @@ export default function template (state = initialState, action) {
     }
 
     case Actions.CLOSE_COLORPICKER: {
-      return _.assign({}, state, {
+      return _assign({}, state, {
         isColorPickerOpened: false,
         selectedCPElement: null,
         sourceCPElement: null
@@ -105,6 +106,7 @@ export default function template (state = initialState, action) {
 
           design.colors[dataColorTarget] = hexColor;
           colorCircleElement.style.backgroundColor = hexColor;
+          colorCircleElement.setAttribute('data-color', hexColor);
 
           templateStylesheet.add({
             [dataColorTarget]: {
@@ -114,7 +116,7 @@ export default function template (state = initialState, action) {
 
           templateStylesheet.initCSS();
 
-          return _.assign({}, state, {
+          return _assign({}, state, {
             design: design
           });
         }
@@ -144,7 +146,7 @@ export default function template (state = initialState, action) {
 
         templateStylesheet.initCSS();
 
-        return _.assign({}, state, {
+        return _assign({}, state, {
           design: design
         });
       }
@@ -167,7 +169,7 @@ export default function template (state = initialState, action) {
 
         templateStylesheet.initCSS();
 
-        return _.assign({}, state, {
+        return _assign({}, state, {
           design: design
         });
       }
@@ -178,11 +180,11 @@ export default function template (state = initialState, action) {
     case Actions.SET_SWATCH:
       let designState = state.design;
 
-      if (_.has(action, 'swatch')) {
+      if (_has(action, 'swatch')) {
         designState.currentSwatch = action.swatch;
       }
 
-      return _.assign({}, state, {
+      return _assign({}, state, {
         design: designState
       });
   }
