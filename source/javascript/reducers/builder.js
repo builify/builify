@@ -1,5 +1,4 @@
 import _assign from 'lodash/assign';
-import _has from 'lodash/has';
 import _find from 'lodash/find';
 import _isObject from 'lodash/isobject';
 import _endsWith from 'lodash/endswith';
@@ -200,13 +199,6 @@ export default function builder (state = builderInitialState, action) {
         modalTarget: null
       });
 
-    case Actions.OPEN_LINK_EDIT_MODAL:
-      return _assign({}, state, {
-        isModalOpen: true,
-        modalType: 'linkchange',
-        modalTarget: action.target
-      });
-
     case Actions.REMOVE_LOADING_SCREEN:
       return _assign({}, state, {
         isLoadingScreenActive: false
@@ -283,7 +275,7 @@ export default function builder (state = builderInitialState, action) {
     case Actions.LOAD_PREVIOUS_PAGE:
       return _assign({}, state, {
         currentLocation: CurrentLocations.CANVAS,
-        isPageSelected: true,
+        isPageSelected: true
       });
 
     case Actions.CLOSE_TAB: {
@@ -315,12 +307,11 @@ export default function builder (state = builderInitialState, action) {
         currentLocation: CurrentLocations.CANVAS
       });
 
-    case Actions.FILTER_CONTENTBLOCKS:
-      let actionTarget = action.target;
-
+    case Actions.FILTER_CONTENTBLOCKS: {
       return _assign({}, state, {
-        filterContentBlocksTarget: actionTarget
+        filterContentBlocksTarget: action.target
       });
+    }
   }
 
   return state;

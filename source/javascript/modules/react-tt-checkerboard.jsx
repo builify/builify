@@ -13,7 +13,8 @@ export default class TTCheckerBoard extends React.Component {
     height: React.PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.number
-    ])
+    ]),
+    children: React.PropTypes.node
   };
 
   static defaultProps = {

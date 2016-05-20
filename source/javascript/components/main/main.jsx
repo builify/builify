@@ -6,6 +6,10 @@ import { connect } from 'react-redux';
 import { CurrentLocations } from '../../constants';
 
 class Main extends React.Component {
+  static propTypes = {
+    builder: React.PropTypes.object.isRequired
+  };
+
   render () {
     const { builder } = this.props;
     const { currentLocation } = builder;

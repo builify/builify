@@ -1,8 +1,8 @@
 import React from 'react';
-import classNames from 'classnames';
 import _size from 'lodash/size';
 import _words from 'lodash/words';
 import localization from '../../../common/localization';
+import classNames from '../../../common/classnames';
 import Icon from '../icon';
 import { openTab, openDownloadModal, openRestartModal, saveCurrentPage } from '../../../Actions';
 import { connect } from 'react-redux';
@@ -62,10 +62,9 @@ class NavigationItem extends React.Component {
   }
 
   render () {
-    const { disableItem } = this.state;
     const { icon, title } = this.props;
-    const className = classNames({
-      'hide': disableItem
+    const className = classNames(null, {
+      'hide': this.state.disableItem
     });
     const text = localization(title);
 

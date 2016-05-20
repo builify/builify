@@ -8,12 +8,13 @@
     @include clearfix;
 
     li {
+        position: relative;
         display: block;
         width: 100%;
         text-transform: uppercase;
         font-weight: 400;
         cursor: pointer;
-        color: #333;
+        color: $base-text-color;
         padding: 10px $base-padding;
         @include rem(font-size, 18px);
         @include user-select(none);
@@ -37,7 +38,7 @@
         }
 
         &:hover {
-            background-color: #ccc;
+            background-color: #e3e5e9;
         }
     }
 }

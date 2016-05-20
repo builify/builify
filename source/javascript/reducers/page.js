@@ -1,7 +1,15 @@
+import _pick from 'lodash/pick';
+import _without from 'lodash/without';
+import _assign from 'lodash/assign';
+import _has from 'lodash/has';
+import _isObject from 'lodash/isobject';
+import _size from 'lodash/size';
+import _isArray from 'lodash/isarray';
+import _map from 'lodash/map';
+import _findIndex from 'lodash/findindex';
 import TTStorage from '../modules/tt-storage';
 import Random from '../common/random';
 import TTDOM from '../common/TTDOM';
-import _ from 'lodash';
 import * as Actions from '../actions/constants';
 import { replaceDataInHTML } from '../common/common';
 import { TEMPLATE_PAGES_STORAGE_NAME } from '../constants';
@@ -24,13 +32,13 @@ const pageInitialState = {
 };
 
 function resetBlockParameters (block) {
-  if (_.isObject(block)) {
+  if (_isObject(block)) {
     // Better check needed though, but works now.
-    if (_.size(block) < 5) {
+    if (_size(block) < 5) {
       return block = {};
     }
 
-    return _.assign({}, block, {
+    return _assign({}, block, {
       hasBeenRendered: false,
       elementReference: null
     });
@@ -40,40 +48,53 @@ function resetBlockParameters (block) {
 }
 
 function resetBlocks (blocks) {
-  if (_.isArray(blocks)) {
-    return _.map(blocks, block => {
+  if (_isArray(blocks)) {
+    return _map(blocks, block => {
       return resetBlockParameters(block);
     });
-  } else if (_.isObject(blocks)) {
+  } else if (_isObject(blocks)) {
     return resetBlockParameters(blocks);
   }
+}
+
+function savePage (item) {
+  if (_isArray(item)) {
+    TTStorage.set(TEMPLATE_PAGES_STORAGE_NAME, item);
+  } else {
+    throw Error('Pages localstorage data is wrong type.');
+  }
+}
+
+function removeFirstTag (source) {
+  const reg = /(<([^>]+)>)/g;
+  const matches = source.match(reg);
+  let arr = Array.from(matches);
+
+  arr.shift();
+  arr.pop();
 }
 
 export default function page (state = pageInitialState, action) {
   switch (action.type) {
     case Actions.CLONE_ITEM: {
       // To update hovering events.
-      return _.assign({}, state);
+      return _assign({}, state);
     }
 
     case Actions.SET_PAGE_TITLE: {
-      const { title } = action;
-
-      return _.assign({}, state, {
-        pageTitle: title
+      return _assign({}, state, {
+        pageTitle: action.title
       });
     }
 
     case Actions.SET_PAGE_FILENAME: {
-      const { filename } = action;
-
-      return _.assign({}, state, {
-        pageFileName: filename
+      return _assign({}, state, {
+        pageFileName: action.filename
       });
     }
 
     case Actions.RESTART_PAGE:
-      return _.assign({}, state, {
+      return _assign({}, state, {
         pageID: null,
         pageTitle: 'Page Title',
         pageFileName: 'index.html',
@@ -85,35 +106,25 @@ export default function page (state = pageInitialState, action) {
       });
 
     case Actions.START_NEW_PAGE: {
-      const { pageID } = action;
-
-      return _.assign({}, state, {
-        pageID: pageID
+      return _assign({}, state, {
+        pageID: action.pageID
       });
     }
 
     case Actions.SAVE_CURRENT_PAGE: {
       const { pageTitle, pageFileName, pageID, navigation, main, footer, blocksCount } = state;
 
-      function savePage (item) {
-        if (_.isArray(item)) {
-          TTStorage.set(TEMPLATE_PAGES_STORAGE_NAME, item);
-        } else {
-          throw Error('Pages localstorage data is wrong type.');
-        }
-      }
-
       if (pageID) {
         const pagesInStorage = TTStorage.get(TEMPLATE_PAGES_STORAGE_NAME);
         const queryString = { pageID: pageID };
-        const itemIndex = _.findIndex(pagesInStorage, queryString);
+        const itemIndex = _findIndex(pagesInStorage, queryString);
         const pageInStorage = pagesInStorage[itemIndex];
 
         if (pageInStorage) {
           const iFrame = TTDOM.iframe.get('ab-cfrm');
           const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
           const pageFullSource = TTDOM.iframe.getFullHTML(iFrameWindow);
-          const newPage = _.assign({}, pageInStorage, {
+          const newPage = _assign({}, pageInStorage, {
             pageID: pageID,
             pageTitle: pageTitle,
             pageFileName: pageFileName,
@@ -126,6 +137,8 @@ export default function page (state = pageInitialState, action) {
           });
 
           pagesInStorage[itemIndex] = newPage;
+
+          console.log(pagesInStorage)
 
           savePage(pagesInStorage);
         }
@@ -140,12 +153,12 @@ export default function page (state = pageInitialState, action) {
       var pageToLoad = null;
 
       if (!idx) {
-        if (_.size(pagesInStorage) >= 1) {
+        if (_size(pagesInStorage) >= 1) {
           pageToLoad = pagesInStorage[0];
         }
       } else {
         const searchQuery = { pageID: idx };
-        const itemIndex = _.findIndex(pagesInStorage, searchQuery);
+        const itemIndex = _findIndex(pagesInStorage, searchQuery);
 
         if (itemIndex !== -1) {
           pageToLoad = pagesInStorage[itemIndex];
@@ -159,13 +172,13 @@ export default function page (state = pageInitialState, action) {
         main = resetBlocks(main);
         footer = resetBlocks(footer);
 
-        pageToLoad = _.assign({}, pageToLoad, {
+        pageToLoad = _assign({}, pageToLoad, {
           navigation: navigation,
           main: main,
           footer: footer
         });
 
-        return _.assign({}, state, {
+        return _assign({}, state, {
           ...pageToLoad
         });
       }
@@ -176,11 +189,11 @@ export default function page (state = pageInitialState, action) {
     case Actions.GET_TEMPLATE_DATA: {
       let {  replaceInHTML } = state;
 
-      if (_.has(action, 'data.replacer')) {
+      if (_has(action, 'data.replacer')) {
         replaceInHTML = action.data.replacer;
       }
 
-      return _.assign({}, state, {
+      return _assign({}, state, {
         replaceInHTML: replaceInHTML
       });
     }
@@ -188,7 +201,7 @@ export default function page (state = pageInitialState, action) {
     case Actions.LOAD_CONTENTBLOCK_TO_PAGE: {
       let { navigation, main, footer, blocksCount } = state;
 
-      if (_.has(action, 'HTML')) {
+      if (_has(action, 'HTML')) {
         let { HTML, blockType, blockName, features } = action;
         const { replaceInHTML } = state;
         const sourceString = replaceDataInHTML(HTML, replaceInHTML).toString();
@@ -205,15 +218,6 @@ export default function page (state = pageInitialState, action) {
           updateBlock: false
         };
 
-        function removeFirstTag (source) {
-          const reg = /(<([^>]+)>)/g;
-          const matches = source.match(reg);
-          let arr = Array.from(matches);
-
-          arr.shift();
-          arr.pop();
-        }
-
         removeFirstTag(sourceString);
 
         if (blockType === 'navigation') {
@@ -227,7 +231,7 @@ export default function page (state = pageInitialState, action) {
         blocksCount++;
       }
 
-      return _.assign({}, state, {
+      return _assign({}, state, {
         navigation: navigation,
         footer: footer,
         main: main,
@@ -238,7 +242,7 @@ export default function page (state = pageInitialState, action) {
     case Actions.REMOVE_CONTENTBLOCK: {
       const { block } = action;
 
-      if (_.isObject(block) && _.has(block, 'elementReference')) {
+      if (_isObject(block) && _has(block, 'elementReference')) {
         const { id, type, elementReference } = block;
         let { navigation, main, footer, blocksCount } = state;
 
@@ -252,10 +256,10 @@ export default function page (state = pageInitialState, action) {
           elementReference.remove();
         } else {
           const searchQuery = { id: id };
-          const index = _.findIndex(main, searchQuery);
+          const index = _findIndex(main, searchQuery);
 
           if (index !== -1) {
-            main = _.without(main, main[index]);
+            main = _without(main, main[index]);
             blocksCount--;
             elementReference.remove();
           } else {
@@ -263,7 +267,7 @@ export default function page (state = pageInitialState, action) {
           }
         }
 
-        return _.assign({}, state, {
+        return _assign({}, state, {
           navigation: navigation,
           footer: footer,
           main: main,
@@ -278,9 +282,9 @@ export default function page (state = pageInitialState, action) {
       const { block, elementReference } = action;
       const { type } = block;
       const { navigation, main, footer } = state;
-      let newFooter = _.assign({}, footer);
+      let newFooter = _assign({}, footer);
       let newMain = main;
-      let newNavigation = _.assign({}, navigation);
+      let newNavigation = _assign({}, navigation);
 
       if (type === 'footer') {
         newFooter.hasBeenRendered = true;
@@ -289,7 +293,7 @@ export default function page (state = pageInitialState, action) {
         newNavigation.hasBeenRendered = true;
         newNavigation.elementReference = elementReference;
       } else {
-        const index = _.findIndex(newMain, _.pick(block, 'id'));
+        const index = _findIndex(newMain, _pick(block, 'id'));
 
         if (index !== -1) {
           newMain[index].hasBeenRendered = true;
@@ -297,7 +301,7 @@ export default function page (state = pageInitialState, action) {
         }
       }
 
-      return _.assign({}, state, {
+      return _assign({}, state, {
         navigation: newNavigation,
         main: newMain,
         footer: newFooter
@@ -311,54 +315,21 @@ export default function page (state = pageInitialState, action) {
       let temp = main[newIndex];
 
       main[newIndex] = main[oldIndex];
-      _.assign(main[newIndex], {
+      _assign(main[newIndex], {
         updatePosition: true,
         oldPos: oldIndex,
         newPos: newIndex
       });
 
       main[oldIndex] = temp;
-      _.assign(main[oldIndex], {
+      _assign(main[oldIndex], {
         updatePosition: true,
         oldPos: newIndex,
         newPos: oldIndex
       });
 
-      return _.assign({}, state, {
+      return _assign({}, state, {
         main: main
-      });
-    }
-
-    case Actions.UPDATE_CONTENTBLOCK_SOURCE: {
-      const { block, newSource } = action;
-      const { type } = block;
-      let { navigation: nav, main: mai, footer: ftr } = state;
-
-      if (type === 'navigation') {
-        nav.source = newSource;
-        mainBlock.updateBlock = true;
-      } else if (type === 'footer') {
-        ftr.source = newSource;
-        mainBlock.updateBlock = true;
-      } else {
-        const blockID = block.id;
-        const indexSearchQuery = { id: blockID };
-        const itemIndex = _.findIndex(mai, indexSearchQuery);
-
-        if (itemIndex >= 0) {
-          const mainBlock = mai[itemIndex];
-
-          mainBlock.source = newSource;
-          mainBlock.updateBlock = true;
-        } else {
-          throw Error('Could not find block from state main blocks. ' + block);
-        }
-      }
-
-      return _.assign({}, state, {
-        navigation: nav,
-        main: mai,
-        footer: ftr
       });
     }
   }
