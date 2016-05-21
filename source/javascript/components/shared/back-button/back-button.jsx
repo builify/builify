@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from '../Icon';
 import classNames from '../../../common/classnames';
 
-export default class extends React.Component {
+export default class BackButton extends React.Component {
   static propTypes = {
     onClick: React.PropTypes.func,
     className: React.PropTypes.string

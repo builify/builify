@@ -1,8 +1,8 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { runApplicationActions } from '../actions';
 import Base from './base';
 import configureStore from '../store/configure-store';
+import { Provider } from 'react-redux';
+import { runApplicationActions } from '../actions';
 
 export const store = configureStore();
 store.dispatch(runApplicationActions());

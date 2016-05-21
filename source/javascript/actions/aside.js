@@ -1,11 +1,9 @@
-import Actions from './Constants';
+import Actions from './constants';
 
 export function openTab (target) {
-  return (dispatch) => {
-    dispatch({
-      type: Actions.OPEN_TAB,
-      target: target
-    });
+  return {
+    type: Actions.OPEN_TAB,
+    target: target
   };
 }
 

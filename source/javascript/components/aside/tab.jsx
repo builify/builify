@@ -7,7 +7,7 @@ import _has from 'lodash/has';
 import _map from 'lodash/map';
 import proccessChildren from '../../children-render/process-children';
 import renderProccessedChildren from '../../children-render/render-processed-children';
-import BackButton from '../shared/backbutton';
+import BackButton from '../shared/back-button';
 import Scrollbar from '../shared/scrollbar';
 import classNames from '../../common/classnames';
 import { connect } from 'react-redux';

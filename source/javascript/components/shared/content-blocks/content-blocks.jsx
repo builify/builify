@@ -1,11 +1,19 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import Random from '../../../Common/Random';
-import _ from 'lodash';
+import Random from '../../../common/random';
+import _map from 'lodash/map';
+import _has from 'lodash/has';
 import BlockTitle from '../BlockTitle';
-import ContentBlock from './ContentBlock';
+import ContentBlock from './block';
+import { connect } from 'react-redux';
+import { loadContentBlockSource } from '../../../Actions';
 
 class ContentBlocks extends React.Component {
+  static propTypes = {
+    builder: React.PropTypes.object.isRequired,
+    template: React.PropTypes.object.isRequired,
+    loadContentBlockSource: React.PropTypes.func.isRequired
+  };
+
   itemsToRender = [];
 
   shouldComponentUpdate () {
@@ -15,11 +23,11 @@ class ContentBlocks extends React.Component {
   componentWillMount () {
     const { template } = this.props;
 
-    if (_.has(template, 'blocks')) {
+    if (_has(template, 'blocks')) {
       const { blocks } = template;
 
-      _.map(blocks, (block) => {
-        if (_.has(block, 'type')) {
+      _map(blocks, (block) => {
+        if (_has(block, 'type')) {
           const { type } = block;
 
           this.itemsToRender.push({
@@ -27,14 +35,14 @@ class ContentBlocks extends React.Component {
             name: type
           });
 
-          if (_.has(block, 'items')) {
+          if (_has(block, 'items')) {
             const blockItems = block.items;
 
-            _.map(blockItems, (blockItem) => {
+            _map(blockItems, (blockItem) => {
               const { title, source, features } = blockItem;
               let thumbnail = null;
 
-              if (_.has(blockItem, 'thumbnail')) {
+              if (_has(blockItem, 'thumbnail')) {
                 thumbnail = blockItem.thumbnail;
               }
 
@@ -56,7 +64,9 @@ class ContentBlocks extends React.Component {
   }
 
   renderItems () {
-    return _.map(this.itemsToRender, item => {
+    const { loadContentBlockSource } = this.props;
+
+    return _map(this.itemsToRender, item => {
       const { type } = item;
 
       if (type === 'blocktitle') {
@@ -69,7 +79,9 @@ class ContentBlocks extends React.Component {
         return (
           <ContentBlock
             key={Random.randomKey('block')}
-            data={item} />
+            data={item}
+            onClick={loadContentBlockSource}
+            builder={this.props.builder} />
         );
       }
     });
@@ -77,8 +89,7 @@ class ContentBlocks extends React.Component {
 
   render () {
     return (
-      <div
-        className='ab-contentblocks'>
+      <div className='ab-contentblocks'>
         <div className='ab-contentblocks__inner'>
           { this.renderItems() }
         </div>
@@ -89,8 +100,17 @@ class ContentBlocks extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    template: state.template
+    template: state.template,
+    builder: state.builder
   };
 }
 
-export default connect(mapStateToProps)(ContentBlocks);
+function mapDispatchToProps (dispatch) {
+  return {
+    loadContentBlockSource: (data) => {
+      dispatch(loadContentBlockSource(data));
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContentBlocks);

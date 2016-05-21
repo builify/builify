@@ -1,13 +1,13 @@
-import { connect } from 'react-redux';
 import React from 'react';
 import Random from '../../../Common/Random';
-import * as Actions from '../../../Actions';
 import _ from 'lodash';
 import classNames from 'classnames';
 import Sortable from '../Sortable';
 import Icon from '../Icon';
 import Input from '../Input';
 import Title from '../Title';
+import * as Actions from '../../../Actions';
+import { connect } from 'react-redux';
 
 class CurrentPageItem extends React.Component {
   static propTypes = {
@@ -147,6 +147,12 @@ class CurrentPage extends React.Component {
   state = {
     title: '',
     fileName: ''
+  };
+
+  static propTypes = {
+    page: React.PropTypes.object.isRequired,
+    removeContentBlock: React.PropTypes.func.isRequired,
+    sortContentBlocks: React.PropTypes.func.isRequired
   };
 
   componentWillMount () {

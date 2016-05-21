@@ -1,5 +1,6 @@
 import React from 'react';
-import Icon from '../Icon';
+import classNames from '../../../common/classnames';
+import Icon from '../icon';
 
 export default class ClickToolBoxItem extends React.Component {
   static propTypes = {
@@ -18,25 +19,11 @@ export default class ClickToolBoxItem extends React.Component {
     return false;
   }
 
-  renderIcon () {
-    const { icon } = this.props;
-
-    if (icon) {
-      return <Icon icon={icon} />;
-    } else {
-      return null;
-    }
-  }
-
   render () {
-    const { onClick, text } = this.props;
-
     return (
-      <div
-        className='ab-crightpanel__item'
-        onClick={onClick}>
-        { this.renderIcon() }
-        <span>{text}</span>
+      <div className={classNames('crightpanel__item')} onClick={this.props.onClick}>
+        { this.props.icon && <Icon icon={this.props.icon} /> }
+        <span>{ this.props.text}</span>
       </div>
     );
   }

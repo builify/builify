@@ -110,7 +110,8 @@ gulp.task('javascript:vendor', () => {
       .pipe(source('vendors.js'))
       .pipe(buffer())
       .pipe($size({ title: '[javascript:vendor]', gzip: true }))
-      .pipe(gulp.dest(config.javascripts.vendor.output));
+      .pipe(gulp.dest(config.javascripts.vendor.output))
+      .pipe(browserSync.stream({ match: '**/*.js' }));
   } else {
     b.bundle()
       .on('error', $util.log)
@@ -146,7 +147,8 @@ gulp.task('javascript:main', () => {
       .pipe(source('application.js'))
       .pipe(buffer())
       .pipe($size({ title: '[javascript:main]', gzip: true }))
-      .pipe(gulp.dest(config.javascripts.main.output));
+      .pipe(gulp.dest(config.javascripts.main.output))
+      .pipe(browserSync.stream({ match: '**/*.js' }));
   };
 
   if (config.env.debug) {
@@ -190,6 +192,6 @@ gulp.task('default', () => {
     .then(() => {
       sequence(...seq);
     }, (error) => {
-      console.log(error);
+      throw error;
     });
 });

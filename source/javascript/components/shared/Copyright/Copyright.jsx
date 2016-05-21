@@ -1,6 +1,7 @@
 import React from 'react';
+import classNames from '../../../common/classnames';
 
-export default class extends React.Component {
+export default class Copyright extends React.Component {
   shouldComponentUpdate () {
     return false;
   }
@@ -15,7 +16,7 @@ export default class extends React.Component {
     }
 
     return (
-      <div className='ab-copyright'>
+      <div className={classNames('copyright')}>
         <h3>Copyright {companyYear} - {companyName}</h3>
         <h3>All rights reserved</h3>
       </div>

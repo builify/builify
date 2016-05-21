@@ -1,20 +1,20 @@
-import * as ASideActions from './ASide';
-import * as BuilderActions from './Builder';
-import * as DialogActions from './Dialog';
-import * as PageActions from './Page';
-import * as PreviewActions from './Preview';
-import * as MiscActions from './Misc';
-import * as NotificationActions from './Notifications';
-import _ from 'lodash';
+import _assign from 'lodash/assign';
+import * as asideActions from './aSide';
+import * as builderActions from './builder';
+import * as dialogActions from './dialog';
+import * as pageActions from './page';
+import * as previewActions from './preview';
+import * as canvasActions from './canvas';
+import * as notificationActions from './notifications';
 
-const allActions = _.assign({},
-  BuilderActions,
-  ASideActions,
-  DialogActions,
-  PageActions,
-  PreviewActions,
-  MiscActions,
-  NotificationActions
+const allActions = _assign({},
+  builderActions,
+  asideActions,
+  dialogActions,
+  pageActions,
+  previewActions,
+  canvasActions,
+  notificationActions
 );
 
 export default allActions;

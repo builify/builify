@@ -4,12 +4,16 @@ import classNames from 'classnames';
 import Aside from './aside';
 import Main from './main';
 import LoadingScreen from './loading-screen';
-import ColorPicker from './shared/ColorPicker';
+import ColorPicker from './shared/color-picker';
 import Modals from './modals';
 import NotificationContainer from './notifications';
 import Upperbar from './upperbar';
 
 class Base extends React.Component {
+  static propTypes = {
+    builderConfiguration: React.PropTypes.object.isRequired
+  };
+
   shouldComponentUpdate () {
     return false;
   }

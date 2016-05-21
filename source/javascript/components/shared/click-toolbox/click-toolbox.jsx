@@ -142,7 +142,7 @@ export default class ClickToolbox extends React.Component {
   listShrinkColumn () {
     const clickEvent = () => {
       // Why is it reversed?
-      return Helpers.replaceGridClassnames(target, true);
+      return Helpers.replaceGridClassnames(this.state.target, true);
     };
 
     return <ClickToolBoxItem text='Shrink Column' icon='format-indent-decrease' onClick={clickEvent} />;

@@ -1,4 +1,4 @@
-import Actions from './Constants';
+import Actions from './constants';
 
 export function setPreviewMode (mode) {
   return {

@@ -138,8 +138,6 @@ export default function page (state = pageInitialState, action) {
 
           pagesInStorage[itemIndex] = newPage;
 
-          console.log(pagesInStorage)
-
           savePage(pagesInStorage);
         }
       }

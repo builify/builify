@@ -1,13 +1,19 @@
-import { connect } from 'react-redux';
-import { filterContentBlocks } from '../../../Actions';
 import React from 'react';
-import Icon from '../Icon';
-import orderBy from 'lodash/orderby';
-import has from 'lodash/has';
-import map from 'lodash/map';
+import Icon from '../icon';
+import _orderBy from 'lodash/orderby';
+import _has from 'lodash/has';
+import _map from 'lodash/map';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
+import { filterContentBlocks } from '../../../actions';
 
 class Filter extends React.Component {
+  static propTypes = {
+    template: React.PropTypes.object.isRequired,
+    builder: React.PropTypes.object.isRequired,
+    filterContentBlocks: React.PropTypes.func.isRequired
+  };
+
   state = {
     isFilterOpened: false,
     activeTargetId: 0,
@@ -27,14 +33,14 @@ class Filter extends React.Component {
   }
 
   renderFilterItems () {
-    const { template, builder, onFilterItemSelection } = this.props;
+    const { template, builder } = this.props;
     const { filterContentBlocksTarget } = builder;
     let items = [];
 
-    if (has(template, 'blocks')) {
+    if (_has(template, 'blocks')) {
       const { blocks } = template;
 
-      map(blocks, (block) => {
+      _map(blocks, (block) => {
         const { type } = block;
         items.push({
           name: String(type),
@@ -42,7 +48,7 @@ class Filter extends React.Component {
         });
       });
 
-      items = orderBy(items, ['name'], 'asc');
+      items = _orderBy(items, ['name'], 'asc');
 
       items.unshift({
         name: 'Show All',
@@ -51,16 +57,12 @@ class Filter extends React.Component {
 
       return (
         <ul>
-          { map(items, (item, i) => {
+          { _map(items, (item, i) => {
             const { name, target } = item;
 
-            if (has(item, 'active')) {
-              if (item.active) {
-                isActive = true;
-              }
-            }
-
-            const itemClassName = classNames(target === filterContentBlocksTarget ? 'active' : '');
+            const itemClassName = classNames({
+              'active': target === filterContentBlocksTarget
+            });
 
             return (
               <li
@@ -70,7 +72,7 @@ class Filter extends React.Component {
 
                   this.openOrCloseFilter();
 
-                  return onFilterItemSelection(target);
+                  return this.props.filterContentBlocks(target);
                 }}
                 className={itemClassName}>
                 {name}
@@ -87,21 +89,12 @@ class Filter extends React.Component {
   render () {
     const { isFilterOpened } = this.state;
     const filterClassName = classNames('ab-filter', isFilterOpened ? 'active' : '');
-    const filterIcon = () => {
-      return (
-        <Icon
-          icon={isFilterOpened ? 'expand-less' : 'expand-more'}
-          size='24' />
-      );
-    };
 
     return (
       <div className={filterClassName}>
-        <div
-          className='ab-filter__text'
-          onClick={::this.filterEvent}>
+        <div className='ab-filter__text' onClick={::this.filterEvent}>
           <span>Filter</span>
-          { filterIcon() }
+          <Icon icon={isFilterOpened ? 'expand-less' : 'expand-more'} size='24' />
         </div>
         <div className='ab-filter__items'>
           {this.renderFilterItems()}
@@ -120,7 +113,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onFilterItemSelection: (target) => {
+    filterContentBlocks: (target) => {
       dispatch(filterContentBlocks(target));
     }
   };

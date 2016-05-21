@@ -1,11 +1,9 @@
-import Actions from './Constants';
+import Actions from './constants';
 
 export function addNotification (notification) {
-  return (dispatch) => {
-    dispatch({
-      type: Actions.ADD_NOTIFICATION,
-      notification: notification
-    });
+  return {
+    type: Actions.ADD_NOTIFICATION,
+    notification: notification
   };
 }
 
