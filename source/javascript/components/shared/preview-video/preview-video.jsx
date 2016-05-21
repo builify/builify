@@ -1,10 +1,26 @@
 import React from 'react';
 import Mime from 'mime';
-import isNull from 'lodash/isnull';
+import _isNull from 'lodash/isnull';
 import QueryString from 'querystring';
 import URL from 'url';
 
 export default class PreviewVideo extends React.Component {
+  static propTypes = {
+    src: React.PropTypes.string,
+    width: React.PropTypes.oneOfType([
+      React.PropTypes.number,
+      React.PropTypes.string
+    ]),
+    height: React.PropTypes.oneOfType([
+      React.PropTypes.number,
+      React.PropTypes.string
+    ]),
+    background: React.PropTypes.oneOfType([
+      React.PropTypes.number,
+      React.PropTypes.string
+    ])
+  };
+
   static defaultProps = {
     background: 'black'
   };
@@ -52,7 +68,7 @@ export default class PreviewVideo extends React.Component {
   renderVideo () {
     const { type, videoID } = this.state;
 
-    if (isNull(type) || isNull(videoID)) {
+    if (_isNull(type) || _isNull(videoID)) {
       return null;
     } else {
       if (type === 'youtube') {
@@ -62,7 +78,7 @@ export default class PreviewVideo extends React.Component {
           <iframe
             type='text/html'
             width={this.props.width}
-            height={ this.props.height}
+            height={this.props.height}
             src={source}
             frameBorder='0' />
         );
@@ -80,7 +96,7 @@ export default class PreviewVideo extends React.Component {
 
     return (
       <div className='tt-previewview' style={style}>
-       { this.renderVideo() }
+        { this.renderVideo() }
       </div>
     );
   }

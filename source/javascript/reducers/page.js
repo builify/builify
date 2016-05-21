@@ -1,12 +1,15 @@
 import _pick from 'lodash/pick';
 import _without from 'lodash/without';
 import _assign from 'lodash/assign';
+import _isUndefined from 'lodash/isundefined';
 import _has from 'lodash/has';
 import _isObject from 'lodash/isobject';
 import _size from 'lodash/size';
 import _isArray from 'lodash/isarray';
 import _map from 'lodash/map';
 import _findIndex from 'lodash/findindex';
+import _isElement from 'lodash/iselement';
+import _isNull from 'lodash/isnull';
 import TTStorage from '../modules/tt-storage';
 import Random from '../common/random';
 import TTDOM from '../common/TTDOM';
@@ -36,6 +39,12 @@ function resetBlockParameters (block) {
     // Better check needed though, but works now.
     if (_size(block) < 5) {
       return block = {};
+    }
+
+    if (_isElement(block.elementReference)) {
+      const HTML = block.elementReference.outerHTML;
+
+      block.source = HTML;
     }
 
     return _assign({}, block, {
@@ -81,6 +90,40 @@ export default function page (state = pageInitialState, action) {
       return _assign({}, state);
     }
 
+    case Actions.SAVE_CURRENT_PAGE: {
+      const { pageTitle, pageFileName, pageID, navigation, main, footer, blocksCount } = state;
+
+      if (pageID) {
+        const pagesInStorage = TTStorage.get(TEMPLATE_PAGES_STORAGE_NAME);
+        const queryString = { pageID: pageID };
+        const itemIndex = _findIndex(pagesInStorage, queryString);
+        const pageInStorage = pagesInStorage[itemIndex];
+
+        if (!_isUndefined(pageInStorage)) {
+          const iFrame = TTDOM.iframe.get('ab-cfrm');
+          const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
+          const pageFullSource = TTDOM.iframe.getFullHTML(iFrameWindow);
+          const newPage = _assign({}, pageInStorage, {
+            pageID: pageID,
+            pageTitle: pageTitle,
+            pageFileName: pageFileName,
+            pageFullSource: pageFullSource,
+
+            navigation: resetBlocks(navigation),
+            main: resetBlocks(main),
+            footer: resetBlocks(footer),
+            blocksCount: blocksCount
+          });
+
+          pagesInStorage[itemIndex] = newPage;
+
+          savePage(pagesInStorage);
+        }
+      }
+
+      return state;
+    }
+
     case Actions.SET_PAGE_TITLE: {
       return _assign({}, state, {
         pageTitle: action.title
@@ -111,40 +154,6 @@ export default function page (state = pageInitialState, action) {
       });
     }
 
-    case Actions.SAVE_CURRENT_PAGE: {
-      const { pageTitle, pageFileName, pageID, navigation, main, footer, blocksCount } = state;
-
-      if (pageID) {
-        const pagesInStorage = TTStorage.get(TEMPLATE_PAGES_STORAGE_NAME);
-        const queryString = { pageID: pageID };
-        const itemIndex = _findIndex(pagesInStorage, queryString);
-        const pageInStorage = pagesInStorage[itemIndex];
-
-        if (pageInStorage) {
-          const iFrame = TTDOM.iframe.get('ab-cfrm');
-          const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
-          const pageFullSource = TTDOM.iframe.getFullHTML(iFrameWindow);
-          const newPage = _assign({}, pageInStorage, {
-            pageID: pageID,
-            pageTitle: pageTitle,
-            pageFileName: pageFileName,
-            pageFullSource: pageFullSource,
-
-            navigation: resetBlocks(navigation),
-            main: resetBlocks(main),
-            footer: resetBlocks(footer),
-            blocksCount: blocksCount
-          });
-
-          pagesInStorage[itemIndex] = newPage;
-
-          savePage(pagesInStorage);
-        }
-      }
-
-      return state;
-    }
-
     case Actions.LOAD_PREVIOUS_PAGE: {
       const { idx } = action;
       const pagesInStorage = TTStorage.get(TEMPLATE_PAGES_STORAGE_NAME);
@@ -163,7 +172,7 @@ export default function page (state = pageInitialState, action) {
         }
       }
 
-      if (pageToLoad !== null) {
+      if (!_isNull(pageToLoad)) {
         let { navigation, main, footer } = pageToLoad;
 
         navigation = resetBlocks(navigation);

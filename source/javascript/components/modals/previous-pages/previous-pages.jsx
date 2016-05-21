@@ -1,32 +1,37 @@
 import React from 'react';
-import _ from 'lodash';
-import classNames from 'classnames';
-import { connect } from 'react-redux';
+import _map from 'lodash/map';
+import classNames from '../../../common/classnames';
 import ModalWrapper from '../common/wrapper';
 import ModalTab from '../common/tab';
 import BottomNavigation from '../common/bottom-navigation';
 import Time from '../../../common/time';
 import Scrollbar from '../../shared/scrollbar';
+import TTStorage from '../../../modules/tt-storage';
 import { loadPreviousPage, closeModal } from '../../../actions';
+import { connect } from 'react-redux';
 
 class Content extends React.Component {
-  renderPageItems (pages) {
-    const { onClose, onLoadPreviousPage } = this.props;
+  static propTypes = {
+    builder: React.PropTypes.object.isRequired,
+    onClose: React.PropTypes.func.isRequired,
+    loadPreviousPage: React.PropTypes.func.isRequired
+  };
 
-    return _.map(pages, (page, idx) => {
+  renderPageItems (pages) {
+    const { onClose, loadPreviousPage } = this.props;
+
+    return _map(pages, (page, idx) => {
       const { pageID, pageTitle, pageFileName } = page;
       const time = new Date(+(pageID.split('-')[1]) * 1000);
       const formatedTime = Time.formatDate(time, 'HH:mm:ss yy/M/d');
       const pageText = `${pageFileName} (${formatedTime}): ${pageTitle}`;
+      const onClick = () => {
+        loadPreviousPage(pageID);
+        return onClose();
+      };
 
       return (
-        <div
-          onClick={() => {
-            onLoadPreviousPage(pageID);
-            return onClose();
-          }}
-          key={idx}
-          className='ab-modal__pageitem'>
+        <div onClick={onClick} key={idx} className={classNames('modal__pageitem')}>
           <span>{pageText}</span>
         </div>
       );
@@ -39,16 +44,18 @@ class Content extends React.Component {
     const pagesInformation = `You have ${pages.length} pages in localstorage.`;
 
     return (
-      <ModalTab
-        title='Select Page to Load'>
-        <div className='ab-modal__tab'>
-          <aside className='ab-modal__tabside sec'>
+      <ModalTab title='Select Page to Load'>
+        <div className={classNames('modal__tab')}>
+          <aside className={classNames('modal__tabside', 'sec')}>
             <h2>Pages</h2>
             <p>{ pagesInformation }</p>
+            <p onClick={() => {
+              TTStorage.flush();
+            }}>Flush Storage</p>
           </aside>
-          <main className='ab-modal__tabcontent sec'>
+          <main className={classNames('modal__tabcontent', 'sec')}>
             <Scrollbar height={380}>
-              <div className='ab-modal__tabpages'>
+              <div className={classNames('modal__tabpages')}>
                 { this.renderPageItems(pages) }
               </div>
             </Scrollbar>
@@ -60,13 +67,20 @@ class Content extends React.Component {
 }
 
 class PreviousPages extends React.Component {
+  static propTypes = {
+    builder: React.PropTypes.object.isRequired,
+    active: React.PropTypes.bool.isRequired,
+    closeModal: React.PropTypes.func.isRequired,
+    loadPreviousPage: React.PropTypes.func.isRequired
+  };
+
   closeDialog () {
     return this.refs['modalWrapper'].closeDialog();
   }
 
   render () {
-    const { active, builder, onCloseModal, onLoadPreviousPage } = this.props;
-    const className = classNames('ab-modal', 'ab-modal__small');
+    const { active, builder} = this.props;
+    const className = classNames(['modal', 'modal__small']);
     const actions = [
       { label: 'Cancel', onClick: ::this.closeDialog }
     ];
@@ -74,12 +88,12 @@ class PreviousPages extends React.Component {
     return (
       <ModalWrapper
         ref='modalWrapper'
-        onClose={onCloseModal}
+        onClose={this.props.closeModal}
         active={active}
         className={className}>
         <Content
           onClose={::this.closeDialog}
-          onLoadPreviousPage={onLoadPreviousPage}
+          loadPreviousPage={this.props.loadPreviousPage}
           builder={builder} />
         <BottomNavigation actions={actions} />
       </ModalWrapper>
@@ -95,11 +109,11 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onCloseModal: () => {
+    closeModal: () => {
       dispatch(closeModal());
     },
 
-    onLoadPreviousPage: (page) => {
+    loadPreviousPage: (page) => {
       dispatch(loadPreviousPage(page));
     }
   };

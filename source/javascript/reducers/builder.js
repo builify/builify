@@ -7,7 +7,7 @@ import _isArray from 'lodash/isarray';
 import _join from 'lodash/join';
 import _words from 'lodash/words';
 import _dropRight from 'lodash/dropright';
-import DownloadPages from '../common/DownloadPages';
+import DownloadPages from '../common/download-pages';
 import TTStorage from '../modules/tt-storage';
 import * as Actions from '../actions/constants';
 import { CurrentLocations, MAXIUMUM_PAGES_IN_STORAGE, TEMPLATE_PAGES_STORAGE_NAME, DialogTypes } from '../constants';

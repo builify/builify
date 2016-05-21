@@ -57,6 +57,7 @@ async function downloadPages (pages) {
   const assetsFolder = zip.folder('assets');
   const templateFolder = assetsFolder.folder('template');
 
+  // Get local asset files.
   const javascriptFile = await get('assets/template/template.js');
   const stylesheetFile = await get('assets/template/template.css');
 
