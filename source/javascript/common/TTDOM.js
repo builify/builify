@@ -235,7 +235,7 @@ const TTDOM = {
       const frame = window.frames[String(iFrameName)];
 
       if (frame === undefined) {
-        throw Error(`Could not find iFrame called "${iFrameName}"`);
+        console.warn(`Could not find iFrame called "${iFrameName}"`);
       }
 
       return frame;

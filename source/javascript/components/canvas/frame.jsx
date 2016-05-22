@@ -3,9 +3,9 @@ import _map from 'lodash/map';
 import _isElement from 'lodash/iselement';
 import _isObject from 'lodash/isobject';
 import _values from 'lodash/values';
-import TTDOM from '../../Common/TTDOM';
-import IFrame from './iframe';
+import TTDOM from '../../common/TTDOM';
 import TTEditor from '../../modules/tt-editor';
+import TTIFrame from '../../modules/react-tt-iframe';
 import ClickToolbox from '../shared/click-toolbox';
 import SectionToolBox from '../shared/section-toolbox';
 import classNames from '../../common/classnames';
@@ -14,16 +14,36 @@ import * as Constants from '../../constants';
 import { connect } from 'react-redux';
 import { store } from '../application-container';
 
-const ATTR_CORE_ELEMENT = 'data-abccorent';
-const EMPTY_STRING = '';
+function createStylesheet (source, target, notInClientProduct = false) {
+  let link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = source;
+
+  if (notInClientProduct) {
+    link.setAttribute(Constants.JUNK_ATTR, true);
+  }
+
+  target.appendChild(link);
+}
+
+function createJavaScript (source, target, shouldUpdate = false) {
+  let script = document.createElement('script');
+  script.src = source;
+  script.async = true;
+
+  if (shouldUpdate) {
+    script.setAttribute('data-update', true);
+  }
+
+  target.appendChild(script);
+}
 
 class Frame extends React.Component {
-  _blocks = {};
-  _editor = null;
-  _blocksCache = [];
-
   static propTypes = {
     page: React.PropTypes.object.isRequired,
+    template: React.PropTypes.object.isRequired,
+    removeLoadingScreen: React.PropTypes.func.isRequired,
     renderBlockToCanvas: React.PropTypes.func.isRequired,
     coreBlockHover: React.PropTypes.func.isRequired,
     openContextMenu: React.PropTypes.func.isRequired,
@@ -38,10 +58,24 @@ class Frame extends React.Component {
     openColorPicker: React.PropTypes.func.isRequired
   };
 
+  _blocks = {};
+  _editor = null;
+  _blocksCache = [];
+
   setCoreElementsAttributes () {
-    this.refs.navigation.setAttribute(ATTR_CORE_ELEMENT, true);
-    this.refs.main.setAttribute(ATTR_CORE_ELEMENT, true);
-    this.refs.footer.setAttribute(ATTR_CORE_ELEMENT, true);
+    const { navigation, main, footer } = this.refs;
+
+    if (_isElement(navigation)) {
+      this.refs.navigation.setAttribute(Constants.ATTR_CORE_ELEMENT, true);
+    }
+
+    if (_isElement(main)) {
+      main.setAttribute(Constants.ATTR_CORE_ELEMENT, true);
+    }
+
+    if (_isElement(footer)) {
+      footer.setAttribute(Constants.ATTR_CORE_ELEMENT, true);
+    }
   }
 
   renderNavigation () {
@@ -55,7 +89,7 @@ class Frame extends React.Component {
         if (hasBeenRendered === false) {
           const { navigation: childrenHolder } = this.refs;
 
-          childrenHolder.innerHTML = EMPTY_STRING;
+          childrenHolder.innerHTML = Constants.EMPTY_STRING;
           childrenHolder.insertAdjacentHTML('beforeend', source);
 
           this.setBlockAttributes(navigationBlock, childrenHolder.children[0]);
@@ -77,7 +111,7 @@ class Frame extends React.Component {
         if (hasBeenRendered === false) {
           const { footer: childrenHolder } = this.refs;
 
-          childrenHolder.innerHTML = EMPTY_STRING;
+          childrenHolder.innerHTML = Constants.EMPTY_STRING;
           childrenHolder.insertAdjacentHTML('beforeend', source);
 
           this.setBlockAttributes(footerBlock, childrenHolder.children[0]);
@@ -161,11 +195,14 @@ class Frame extends React.Component {
 
   initializeEditor () {
     const iFrame = TTDOM.iframe.get('ab-cfrm');
-    const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
 
-    this._editor = new TTEditor({
-      elementsContainer: iFrameWindow
-    });
+    if (iFrame) {
+      const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
+
+      this._editor = new TTEditor({
+        elementsContainer: iFrameWindow
+      });
+    }
   }
 
   addMouseEventsToCoreBlock (coreElementReference, block) {
@@ -196,8 +233,6 @@ class Frame extends React.Component {
       target.addEventListener('mouseleave', mouseLeaveEvent, false);
     });
 
-    console.log(block);
-
     // Add section hover event to core block.
     if (_isElement(coreElementReference)) {
       coreElementReference.addEventListener('mouseenter', () => {
@@ -216,6 +251,7 @@ class Frame extends React.Component {
   shouldComponentUpdate (nextProps) {
     if (nextProps.page.pageID !== this.props.page.pageID) {
       this.clearCanvas();
+      return false;
     }
 
     return true;
@@ -230,10 +266,42 @@ class Frame extends React.Component {
     this.drawCanvas();
   }
 
+  normalizeFrame (frameDocument) {
+    if (!frameDocument) {
+      return;
+    }
+
+    const { template } = this.props;
+    const { external } = template;
+    let { core: assets } = external;
+    const headElement = frameDocument.head;
+    const bodyElement = frameDocument.body;
+
+    if (_isElement(headElement) && _isElement(bodyElement)) {
+      assets.unshift({
+        type: 'css',
+        src: 'assets/static/canvas-stylesheet.css',
+        junk: true
+      });
+
+      _map(assets, (asset) => {
+        const { type, src } = asset;
+
+        if (type === 'css') {
+          createStylesheet(src, headElement);
+        } else if (type === 'js') {
+          createJavaScript(src, bodyElement);
+        }
+      });
+
+      return this.props.removeLoadingScreen();
+    }
+  }
+
   render () {
     return (
       <div className={classNames('canvas__holder')}>
-        <IFrame>
+        <TTIFrame id='ab-cfrm' ref='frame' contentDidMount={::this.normalizeFrame}>
           <div ref='root' className='tt-canvas-root'>
             <div ref='navigation' className='tt-canvas-navigation' />
             <div ref='main' className='tt-canvas-main' />
@@ -254,7 +322,7 @@ class Frame extends React.Component {
               openImageEditModal={this.props.openImageEditModal}
               store={store} />
           </div>
-        </IFrame>
+        </TTIFrame>
       </div>
     );
   }
@@ -262,12 +330,18 @@ class Frame extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    page: state.page
+    page: state.page,
+    template: state.template
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
+    // Frame events.
+    removeLoadingScreen: () => {
+      dispatch(Actions.removeLoadingScreen());
+    },
+
     // Canvas events.
     renderBlockToCanvas: (block, elementReference) => {
       dispatch(Actions.blockWasRenderedToPage(block, elementReference));

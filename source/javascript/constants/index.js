@@ -16,6 +16,9 @@ export const CONTENTBLOCK_ATTR_TYPE = 'data-abctype';
 
 export const JUNK_ATTR = 'data-abcjunk';
 
+export const ATTR_CORE_ELEMENT = 'data-abccorent';
+export const EMPTY_STRING = '';
+
 export const CurrentLocations = {
   STARTSCREEN: 0,
   CANVAS: 1,
