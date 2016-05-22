@@ -90,14 +90,12 @@ export default class ImageEditContentUploadImage extends React.Component {
   render () {
     const dropzoneEventHandlers = {
       init: this.initCallback,
-      addedfile: this.fileUploadCallback,
+      addedfile: this.fileUploadCallback
     };
 
     return (
       <div className='ab-modal__tab'>
-        <Dropzone
-          config={this.dropzoneConfig}
-          eventHandlers={dropzoneEventHandlers} />
+        <Dropzone config={this.dropzoneConfig} eventHandlers={dropzoneEventHandlers} />
       </div>
     );
   }

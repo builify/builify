@@ -1,9 +1,9 @@
 import React from 'react';
-import _ from 'lodash';
+import _map from 'lodash/map';
 import classNames from 'classnames';
-import Random from '../../../Common/Random';
-import Scrollbar from '../../Shared/Scrollbar';
-import Image from '../../Shared/Image';
+import Random from '../../../common/random';
+import Scrollbar from '../../shared/scrollbar';
+import Image from '../../shared/image';
 
 export default class UploadedImagesTab extends React.Component {
   static propTypes = {
@@ -30,7 +30,7 @@ export default class UploadedImagesTab extends React.Component {
         <main className='ab-modal__tabcontent'>
           <Scrollbar height={380}>
             <div className='ab-modal__tabimages'>
-              { _.map(uploadedImages, item => {
+              { _map(uploadedImages, item => {
                 const className = classNames('ab-modal__tabimage');
                 const { fileData } = item;
 

@@ -11,7 +11,7 @@ import { closeModal, uploadImage, selectImage } from '../../../actions';
 class ImageEdit extends React.Component {
   static propTypes = {
     onSelectImage: React.PropTypes.func.isRequired,
-    editTarget: React.PropTypes.node.isRequired
+    editTarget: React.PropTypes.element.isRequired
   };
 
   closeDialog () {

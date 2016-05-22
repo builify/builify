@@ -123,8 +123,9 @@ export default function template (state = initialState, action) {
       } else if (targetType === Constants.ColorPickerTargetTypes.BACKGROUNDCOLOR) {
         const coverColorElement = selectedCPElement.querySelector('.block-background-cover-color');
         const { hex, rgb } = color;
+        const hexColor = `#${hex}`;
 
-        coverColorElement.style.backgroundColor = hex;
+        coverColorElement.style.backgroundColor = hexColor;
         coverColorElement.style.opacity = rgb.a;
       }
 
