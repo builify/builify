@@ -251,7 +251,6 @@ class Frame extends React.Component {
   shouldComponentUpdate (nextProps) {
     if (nextProps.page.pageID !== this.props.page.pageID) {
       this.clearCanvas();
-      return false;
     }
 
     return true;
