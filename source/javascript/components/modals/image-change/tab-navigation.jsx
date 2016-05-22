@@ -4,7 +4,7 @@ import ModalTab from '../common/tab';
 import { defaultTabId, tabList } from './Config';
 
 export default class TabNavigation extends React.Component {
-  static defaultProps = {
+  static propTypes = {
     builder: React.PropTypes.object.isRequired
   };
 

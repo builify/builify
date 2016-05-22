@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
-import values from 'lodash/values';
-import has from 'lodash/has';
-import map from 'lodash/map';
-import isNull from 'lodash/isnull';
+import _values from 'lodash/values';
+import _has from 'lodash/has';
+import _map from 'lodash/map';
+import _isNull from 'lodash/isnull';
 import classNames from 'classnames';
 import ToolboxItem from './item';
+import { connect } from 'react-redux';
 
 class SectionToolBox extends React.Component {
   static propTypes = {
@@ -31,12 +31,12 @@ class SectionToolBox extends React.Component {
     };
     let featureItems = null;
 
-    if (values(block).length === 0 || !has(block, 'elementReference')) {
+    if (_values(block).length === 0 || !_has(block, 'elementReference')) {
       return null;
     }
 
     if (features) {
-      featureItems = map(features, (featureValue, feature) => {
+      featureItems = _map(features, (featureValue, feature) => {
         let title = null;
         let icon = null;
         let clickFunction = () => {};
@@ -61,7 +61,7 @@ class SectionToolBox extends React.Component {
           }
         }
 
-        if (!isNull(title)) {
+        if (!_isNull(title)) {
           return (
             <ToolboxItem
               key={feature}
@@ -93,8 +93,7 @@ class SectionToolBox extends React.Component {
   changeBackgroundImage () {
     const { canvas } = this.props;
     const { currentHoverBlock } = canvas;
-    const { block } = currentHoverBlock;
-    const { elementReference } = block;
+    const { elementReference } = currentHoverBlock;
 
     return this.props.openImageEditModal(elementReference);
   }
@@ -102,8 +101,7 @@ class SectionToolBox extends React.Component {
   changeBackgroundColor () {
     const { canvas } = this.props;
     const { currentHoverBlock } = canvas;
-    const { block } = currentHoverBlock;
-    const { elementReference } = block;
+    const { elementReference } = currentHoverBlock;
     const sourceElement = ReactDOM.findDOMNode(this.toolboxItemColorChange);
 
     return this.props.openColorPicker(elementReference, sourceElement);
@@ -112,8 +110,7 @@ class SectionToolBox extends React.Component {
   changeBackgroundVideo () {
     const { canvas } = this.props;
     const { currentHoverBlock } = canvas;
-    const { block } = currentHoverBlock;
-    const { elementReference } = block;
+    const { elementReference } = currentHoverBlock;
 
     return this.props.openVideoEditModal(elementReference);
   }
@@ -121,8 +118,7 @@ class SectionToolBox extends React.Component {
   changeCountdown () {
     const { canvas } = this.props;
     const { currentHoverBlock } = canvas;
-    const { block } = currentHoverBlock;
-    const { elementReference } = block;
+    const { elementReference } = currentHoverBlock;
 
     return this.props.openCountdownEditModal(elementReference);
   }

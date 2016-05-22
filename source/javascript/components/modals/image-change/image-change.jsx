@@ -9,6 +9,11 @@ import { TRACK_MODAL_CURENT_IMAGE_INPUT_ID } from '../../../constants';
 import { closeModal, uploadImage, selectImage } from '../../../actions';
 
 class ImageEdit extends React.Component {
+  static propTypes = {
+    onSelectImage: React.PropTypes.func.isRequired,
+    editTarget: React.PropTypes.node.isRequired
+  };
+
   closeDialog () {
     return this.refs['modalWrapper'].closeDialog();
   }
