@@ -92,6 +92,7 @@ export default function page (state = pageInitialState, action) {
 
     case Actions.FLUSH_PAGES_IN_STORAGE: {
       if (TTStorage.flush()) {
+        window.location.reload(false);
         return _assign({}, state);
       }
 
@@ -257,42 +258,57 @@ export default function page (state = pageInitialState, action) {
     case Actions.REMOVE_CONTENTBLOCK: {
       const { block } = action;
 
-      if (_isObject(block) && _has(block, 'elementReference')) {
-        const { id, type, elementReference } = block;
-        let { navigation, main, footer, blocksCount } = state;
-
-        console.log(block);
+      if (_isObject(block)) {
+        const { id, type } = block;
 
         if (type === 'footer') {
-          footer = {};
-          blocksCount--;
-          elementReference.remove();
-        } else if (type === 'navigation') {
-          navigation = {};
-          blocksCount--;
-          elementReference.remove();
-        } else {
-          const searchQuery = { id: id };
-          const index = _findIndex(main, searchQuery);
-
-          if (index !== -1) {
-            main = _without(main, main[index]);
-            blocksCount--;
-            elementReference.remove();
+          if (_has(block, 'elementReference') && _isElement(block.elementReference)) {
+            block.elementReference.remove();
           } else {
-            throw Error('Could not find block from main to delete.');
+            if (_isElement(state.footer.elementReference)) {
+              state.footer.elementReference.remove();
+            }
+          }
+
+          return _assign({}, state, {
+            footer: {},
+            blocksCount: state.blocksCount - 1
+          });
+        } else if (type === 'navigation') {
+          if (_has(block, 'elementReference') && _isElement(block.elementReference)) {
+            block.elementReference.remove();
+          } else {
+            if (_isElement(state.navigation.elementReference)) {
+              state.navigation.elementReference.remove();
+            }
+          }
+
+          return _assign({}, state, {
+            navigation: {},
+            blocksCount: state.blocksCount - 1
+          });
+        } else {
+          if (_has(block, 'elementReference') && _isElement(block.elementReference)) {
+            block.elementReference.remove();
+          } else {
+            const searchQuery = { id: id };
+            const index = _findIndex(state.main, searchQuery);
+
+            if (index !== -1) {
+              if (_isElement(state.main[index].elementReference)) {
+                state.main[index].elementReference.remove();
+              }
+
+              return _assign({}, state, {
+                main: _without(state.main, state.main[index]),
+                blocksCount: state.blocksCount - 1
+              });
+            }
           }
         }
-
-        return _assign({}, state, {
-          navigation: navigation,
-          footer: footer,
-          main: main,
-          blocksCount: blocksCount
-        });
-      } else {
-        return state;
       }
+
+      return state;
     }
 
     case Actions.BLOCK_WAS_RENDERED_TO_PAGE: {
