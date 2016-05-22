@@ -10,7 +10,7 @@ export default class ContentBlock extends React.Component {
   };
 
   shouldComponentUpdate () {
-    return true;
+    return false;
   }
 
   selectContentBlock () {

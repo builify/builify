@@ -58,7 +58,7 @@ export default function notifications (state = notificationsInitialState, action
     }
 
     case Actions.REMOVE_NOTIFICATION: {
-      var { uid } = action;
+      const { uid } = action;
       var notification = null;
 
       var notifications = state.filter((toCheck) => {

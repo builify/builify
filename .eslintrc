@@ -4,7 +4,8 @@
     "strict": 0,
     "semi": [2, "always"],
     "jsx-quotes": [2, "prefer-single"],
-    "indent": [0, 2]
+    "indent": [0, 2],
+    no-console: [1, { allow: ["warn", "error"] }]
   },
   "plugins": [
     "react"

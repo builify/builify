@@ -103,9 +103,10 @@ export function contentBlockWasUpdated (block) {
   };
 }
 
-export function currentHoverBlock (block) {
+export function currentHoverBlock (elementReference, block) {
   return {
     type: Actions.CURRENT_HOVER_BLOCK,
+    elementReference: elementReference,
     block: block
   };
 }

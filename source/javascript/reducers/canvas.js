@@ -1,5 +1,6 @@
 import _map from 'lodash/map';
 import _assign from 'lodash/assign';
+import _isElement from 'lodash/iselement';
 import _isObject from 'lodash/isobject';
 import TTDOM from '../common/TTDOM';
 import * as Actions from '../actions/constants';
@@ -9,6 +10,7 @@ const canvasInitialState = {
 
   currentHoverBlock: {
     block: {},
+    elementReference: null,
     topX: 10
   },
 
@@ -56,22 +58,22 @@ export default function canvas (state = canvasInitialState, action) {
     }
 
     case Actions.CURRENT_HOVER_BLOCK: {
-      const { block } = action;
+      const { elementReference, block } = action;
 
-      if (_isObject(block)) {
+      if (_isElement(elementReference) && _isObject(block)) {
         const { iFrameWindow } = state;
-        const { elementReference } = block;
         const topX = TTDOM.misc.getAbsPosition(elementReference, iFrameWindow)[0] + 10;
 
         return _assign({}, state, {
           currentHoverBlock: {
             block: block,
+            elementReference: elementReference,
             topX: topX
           }
         });
+      } else {
+        throw 'Missing element or object in hover object.';
       }
-
-      return state;
     }
 
     case Actions.REMOVE_CONTENTBLOCK: {

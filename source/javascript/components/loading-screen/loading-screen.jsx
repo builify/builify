@@ -4,6 +4,10 @@ import classNames from '../../common/classnames';
 import LoadingIcon from './icon';
 
 class LoadingScreen extends React.Component {
+  static propTypes = {
+    builder: React.PropTypes.object.isRequired
+  };
+
   render () {
     const { builder } = this.props;
     const { isLoadingScreenActive, loadingScreenType } = builder;

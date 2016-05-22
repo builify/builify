@@ -1,7 +1,8 @@
 import React from 'react';
-import _ from 'lodash';
-import classNames from 'classnames';
-import Random from '../../../Common/Random';
+import _map from 'lodash/map';
+import _has from 'lodash/has';
+import classNames from '../../../common/classnames';
+import Random from '../../../common/random';
 
 export default class ModalTab extends React.Component {
   static propTypes = {
@@ -10,7 +11,8 @@ export default class ModalTab extends React.Component {
     info: React.PropTypes.string,
     activeTab: React.PropTypes.number,
     uploadedImagesLength: React.PropTypes.number,
-    onTabClick: React.PropTypes.func
+    onTabClick: React.PropTypes.func,
+    children: React.PropTypes.node
   };
 
   static defaultProps = {
@@ -28,11 +30,13 @@ export default class ModalTab extends React.Component {
 
     return (
       <nav>
-        { _.map(nav, tab => {
+        { _map(nav, tab => {
           const { label, id } = tab;
-          const className = classNames('ab-modal__tablabel', id === activeTab ? 'active' : null);
+          const className = classNames('modal__tablabel', {
+            'active': id === activeTab
+          });
 
-          if (_.has(tab, 'imagesUploaded') && uploadedImagesLength === 0) {
+          if (_has(tab, 'imagesUploaded') && uploadedImagesLength === 0) {
             return;
           }
 
@@ -56,9 +60,9 @@ export default class ModalTab extends React.Component {
 
     return (
       <div>
-        <header className='ab-modal__tabs'>
-          { title ? <h2>{title}</h2> : null }
-          { info ? <h3>{info}</h3> : null }
+        <header className={classNames('modal__tabs')}>
+          { title && <h2>{title}</h2> }
+          { info && <h3>{info}</h3> }
           { this.renderNav() }
         </header>
         { children }

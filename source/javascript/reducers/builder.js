@@ -4,6 +4,7 @@ import _isObject from 'lodash/isobject';
 import _endsWith from 'lodash/endswith';
 import _size from 'lodash/size';
 import _isArray from 'lodash/isarray';
+import _isUndefined from 'lodash/isundefined';
 import _join from 'lodash/join';
 import _words from 'lodash/words';
 import _dropRight from 'lodash/dropright';
@@ -204,17 +205,21 @@ export default function builder (state = builderInitialState, action) {
         isLoadingScreenActive: false
       });
 
+    case Actions.FLUSH_PAGES_IN_STORAGE:
     case Actions.DO_PREVIOUS_PAGES_EXIST_IN_STORAGE: {
       const pagesInStorage = TTStorage.get(TEMPLATE_PAGES_STORAGE_NAME);
 
-      if (_isArray(pagesInStorage)) {
+      if (!_isUndefined(pagesInStorage) && _isArray(pagesInStorage)) {
         return _assign({}, state, {
           doPreviousPagesExistInStorage: true,
           pages: pagesInStorage
         });
       }
 
-      return state;
+      return _assign({}, state, {
+        doPreviousPagesExistInStorage: false,
+        pages: []
+      });
     }
 
     case Actions.START_NEW_PAGE: {

@@ -1,8 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import _ from 'lodash';
+import _delay from 'lodash/delay';
+import _isNull from 'lodash/isnull';
+import classNames from '../../../common/classnames';
 
 export default class ModalWrapper extends React.Component {
+  static propTypes = {
+    active: React.PropTypes.bool.isRequired,
+    onClose: React.PropTypes.func,
+    children: React.PropTypes.node,
+    className: React.PropTypes.string
+  };
+
   static defaultProps = {
     onClose: function () {}
   };
@@ -16,8 +25,8 @@ export default class ModalWrapper extends React.Component {
 
     this.dialogElement = dialogElement;
 
-    if (active) {
-      _.delay(() => {
+    if (active === true) {
+      _delay(() => {
         if (dialogElement) {
           dialogElement.classList.add('active');
         }
@@ -41,7 +50,7 @@ export default class ModalWrapper extends React.Component {
     const { onClose } = this.props;
     let dialogElement = null;
 
-    if (this.dialogElement !== null) {
+    if (!_isNull(this.dialogElement)) {
       dialogElement = this.dialogElement;
     } else {
       const dialogRef = this.refs['dialog'];
@@ -52,7 +61,7 @@ export default class ModalWrapper extends React.Component {
       dialogElement.classList.remove('active');
     }
 
-    _.delay(() => {
+    _delay(() => {
       return onClose();
     }, 300);
   }
@@ -61,11 +70,9 @@ export default class ModalWrapper extends React.Component {
     const { children, className } = this.props;
 
     return (
-      <div
-        ref='modalWrapper'
-        className={className ? className : null}>
-        <div role='overlay' className='ab-modal__overlay' data-modaloverlay />
-        <div role='content' className='ab-modal__content'>
+      <div ref='modalWrapper' className={className && className}>
+        <div role='overlay' className={classNames('modal__overlay')} data-modaloverlay />
+        <div role='content' className={classNames('modal__content')}>
           { children }
         </div>
       </div>

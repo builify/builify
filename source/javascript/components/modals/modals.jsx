@@ -1,18 +1,22 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { closeModal } from '../../actions';
-import { DialogTypes } from '../../constants';
 import ImageEdit from './image-change';
 import PreviousPages from './previous-pages';
 import IconChange from './icon-change';
 import Countdown from './countdown';
 import VideoEdit from './video-edit';
-
 import DialogRestart from '../shared/dialog/DialogRestart';
 import DialogDownloadPages from '../shared/dialog/DialogDownloadPages';
 import DialogLinkChange from '../shared/dialog/DialogLinkChange';
+import { connect } from 'react-redux';
+import { closeModal } from '../../actions';
+import { DialogTypes } from '../../constants';
 
 class Modals extends React.Component {
+  static propTypes = {
+    builder: React.PropTypes.object.isRequired,
+    closeModal: React.PropTypes.func.isRequired
+  };
+
   closeModal () {
     return this.props.closeModal();
   }

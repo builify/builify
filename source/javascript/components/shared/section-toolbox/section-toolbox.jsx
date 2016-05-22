@@ -10,11 +10,11 @@ import ToolboxItem from './item';
 
 class SectionToolBox extends React.Component {
   static propTypes = {
+    canvas: React.PropTypes.object.isRequired,
     openVideoEditModal: React.PropTypes.func.isRequired,
     openCountdownEditModal: React.PropTypes.func.isRequired,
     removeContentBlock: React.PropTypes.func.isRequired,
     openColorPicker: React.PropTypes.func.isRequired,
-    openVideoEditModal: React.PropTypes.func.isRequired,
     openImageEditModal: React.PropTypes.func.isRequired
   };
 

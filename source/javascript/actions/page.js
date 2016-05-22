@@ -29,6 +29,12 @@ export function checkPreviousPagesInStorage () {
   };
 }
 
+export function flushPagesInStorage () {
+  return {
+    type: Actions.FLUSH_PAGES_IN_STORAGE
+  };
+}
+
 export function getCurrentPageData () {
   return {
     type: Actions.GET_CURRENT_PAGE_DATA

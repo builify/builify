@@ -1,7 +1,8 @@
 import React from 'react';
-import Random from '../../../common/random';
 import _map from 'lodash/map';
 import _has from 'lodash/has';
+import Random from '../../../common/random';
+import classNames from '../../../common/classnames';
 import BlockTitle from '../BlockTitle';
 import ContentBlock from './block';
 import { connect } from 'react-redux';
@@ -16,7 +17,11 @@ class ContentBlocks extends React.Component {
 
   itemsToRender = [];
 
-  shouldComponentUpdate () {
+  shouldComponentUpdate (nextProps) {
+    if (nextProps.builder.filterContentBlocksTarget !== this.props.builder.filterContentBlocksTarget) {
+      return true;
+    }
+
     return false;
   }
 
@@ -70,11 +75,7 @@ class ContentBlocks extends React.Component {
       const { type } = item;
 
       if (type === 'blocktitle') {
-        return (
-          <BlockTitle
-            key={Random.randomKey('blocktitle')}
-            data={item} />
-        );
+        return <BlockTitle key={Random.randomKey('blocktitle')} data={item} />;
       } else if (type === 'block') {
         return (
           <ContentBlock
@@ -89,8 +90,8 @@ class ContentBlocks extends React.Component {
 
   render () {
     return (
-      <div className='ab-contentblocks'>
-        <div className='ab-contentblocks__inner'>
+      <div className={classNames('contentblocks')}>
+        <div className={classNames('contentblocks__inner')}>
           { this.renderItems() }
         </div>
       </div>

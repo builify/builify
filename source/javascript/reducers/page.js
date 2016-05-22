@@ -90,6 +90,14 @@ export default function page (state = pageInitialState, action) {
       return _assign({}, state);
     }
 
+    case Actions.FLUSH_PAGES_IN_STORAGE: {
+      if (TTStorage.flush()) {
+        return _assign({}, state);
+      }
+
+      return state;
+    }
+
     case Actions.SAVE_CURRENT_PAGE: {
       const { pageTitle, pageFileName, pageID, navigation, main, footer, blocksCount } = state;
 
@@ -253,6 +261,8 @@ export default function page (state = pageInitialState, action) {
         const { id, type, elementReference } = block;
         let { navigation, main, footer, blocksCount } = state;
 
+        console.log(block);
+
         if (type === 'footer') {
           footer = {};
           blocksCount--;
@@ -288,31 +298,38 @@ export default function page (state = pageInitialState, action) {
     case Actions.BLOCK_WAS_RENDERED_TO_PAGE: {
       const { block, elementReference } = action;
       const { type } = block;
-      const { navigation, main, footer } = state;
-      let newFooter = _assign({}, footer);
-      let newMain = main;
-      let newNavigation = _assign({}, navigation);
 
       if (type === 'footer') {
-        newFooter.hasBeenRendered = true;
-        newFooter.elementReference = elementReference;
+        return _assign({}, state, {
+          footer: _assign({}, state.footer, {
+            hasBeenRendered: true,
+            elementReference: elementReference
+          })
+        });
       } else if (type === 'navigation') {
-        newNavigation.hasBeenRendered = true;
-        newNavigation.elementReference = elementReference;
+        return _assign({}, state, {
+          navigation: _assign({}, state.navigation, {
+            hasBeenRendered: true,
+            elementReference: elementReference
+          })
+        });
       } else {
-        const index = _findIndex(newMain, _pick(block, 'id'));
+        var { main } = state;
+        const index = _findIndex(main, _pick(block, 'id'));
 
         if (index !== -1) {
-          newMain[index].hasBeenRendered = true;
-          newMain[index].elementReference = elementReference;
+          main[index] = _assign({}, main[index], {
+            hasBeenRendered: true,
+            elementReference: elementReference
+          });
+
+          return _assign({}, state, {
+            main: main
+          });
         }
       }
 
-      return _assign({}, state, {
-        navigation: newNavigation,
-        main: newMain,
-        footer: newFooter
-      });
+      return state;
     }
 
     case Actions.SORT_CONTENTBLOCKS: {

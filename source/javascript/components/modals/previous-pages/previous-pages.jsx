@@ -6,15 +6,15 @@ import ModalTab from '../common/tab';
 import BottomNavigation from '../common/bottom-navigation';
 import Time from '../../../common/time';
 import Scrollbar from '../../shared/scrollbar';
-import TTStorage from '../../../modules/tt-storage';
-import { loadPreviousPage, closeModal } from '../../../actions';
+import { loadPreviousPage, closeModal, flushPagesInStorage } from '../../../actions';
 import { connect } from 'react-redux';
 
 class Content extends React.Component {
   static propTypes = {
     builder: React.PropTypes.object.isRequired,
     onClose: React.PropTypes.func.isRequired,
-    loadPreviousPage: React.PropTypes.func.isRequired
+    loadPreviousPage: React.PropTypes.func.isRequired,
+    flushPagesInStorage: React.PropTypes.func.isRequired
   };
 
   renderPageItems (pages) {
@@ -50,7 +50,8 @@ class Content extends React.Component {
             <h2>Pages</h2>
             <p>{ pagesInformation }</p>
             <p onClick={() => {
-              TTStorage.flush();
+              this.props.flushPagesInStorage();
+              return this.props.onClose();
             }}>Flush Storage</p>
           </aside>
           <main className={classNames('modal__tabcontent', 'sec')}>
@@ -71,7 +72,8 @@ class PreviousPages extends React.Component {
     builder: React.PropTypes.object.isRequired,
     active: React.PropTypes.bool.isRequired,
     closeModal: React.PropTypes.func.isRequired,
-    loadPreviousPage: React.PropTypes.func.isRequired
+    loadPreviousPage: React.PropTypes.func.isRequired,
+    flushPagesInStorage: React.PropTypes.func.isRequired
   };
 
   closeDialog () {
@@ -94,6 +96,7 @@ class PreviousPages extends React.Component {
         <Content
           onClose={::this.closeDialog}
           loadPreviousPage={this.props.loadPreviousPage}
+          flushPagesInStorage={this.props.flushPagesInStorage}
           builder={builder} />
         <BottomNavigation actions={actions} />
       </ModalWrapper>
@@ -115,6 +118,10 @@ function mapDispatchToProps (dispatch) {
 
     loadPreviousPage: (page) => {
       dispatch(loadPreviousPage(page));
+    },
+
+    flushPagesInStorage: () => {
+      dispatch(flushPagesInStorage());
     }
   };
 }

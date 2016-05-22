@@ -1,18 +1,18 @@
 import React from 'react';
-import map from 'lodash/map';
-import isElement from 'lodash/iselement';
-import isObject from 'lodash/isobject';
-import values from 'lodash/values';
-import { connect } from 'react-redux';
-import { store } from '../application-container';
-import * as Actions from '../../Actions';
-import * as Constants from '../../Constants';
+import _map from 'lodash/map';
+import _isElement from 'lodash/iselement';
+import _isObject from 'lodash/isobject';
+import _values from 'lodash/values';
 import TTDOM from '../../Common/TTDOM';
 import IFrame from './iframe';
 import TTEditor from '../../modules/tt-editor';
 import ClickToolbox from '../shared/click-toolbox';
 import SectionToolBox from '../shared/section-toolbox';
 import classNames from '../../common/classnames';
+import * as Actions from '../../actions';
+import * as Constants from '../../constants';
+import { connect } from 'react-redux';
+import { store } from '../application-container';
 
 const ATTR_CORE_ELEMENT = 'data-abccorent';
 const EMPTY_STRING = '';
@@ -48,7 +48,7 @@ class Frame extends React.Component {
     const { page } = this.props;
     const { navigation: navigationBlock } = page;
 
-    if (values(navigationBlock).length !== 0) {
+    if (_values(navigationBlock).length !== 0) {
       if (this.isValidBlock(navigationBlock)) {
         const { hasBeenRendered, source } = navigationBlock;
 
@@ -70,7 +70,7 @@ class Frame extends React.Component {
     const { page } = this.props;
     const { footer: footerBlock } = page;
 
-    if (values(footerBlock).length !== 0) {
+    if (_values(footerBlock).length !== 0) {
       if (this.isValidBlock(footerBlock)) {
         const { hasBeenRendered, source } = footerBlock;
 
@@ -93,7 +93,7 @@ class Frame extends React.Component {
     const { main: pageMainBlocks } = page;
     const { main: childrenHolder } = this.refs;
 
-    map(pageMainBlocks, (block, i) => {
+    _map(pageMainBlocks, (block, i) => {
       const { hasBeenRendered, source, updatePosition } = block;
 
       if (hasBeenRendered === false) {
@@ -110,8 +110,6 @@ class Frame extends React.Component {
           );
 
           block.updatePosition = false;
-
-          console.log(block);
         }
       }
     });
@@ -120,8 +118,8 @@ class Frame extends React.Component {
   }
 
   removeChildren (parent) {
-    map(parent.children, (child) => {
-      if (isElement(child)) {
+    _map(parent.children, (child) => {
+      if (_isElement(child)) {
         child.remove();
       }
     });
@@ -144,11 +142,11 @@ class Frame extends React.Component {
   }
 
   setBlockAttributes (block, elementReference) {
-    if (!isObject(block)) {
+    if (!_isObject(block)) {
       throw Error('Block is not object.');
     }
 
-    if (!isElement(elementReference)) {
+    if (!_isElement(elementReference)) {
       throw Error('Reference point is not element.');
     }
 
@@ -156,9 +154,9 @@ class Frame extends React.Component {
     elementReference.setAttribute(Constants.CONTENTBLOCK_ATTR_FIRST_ELEMENT, true);
     elementReference.setAttribute(Constants.CONTENTBLOCK_ATTR_TYPE, block.type);
 
-    this.addMouseEventsToCoreBlock(elementReference, block);
+    this.props.renderBlockToCanvas(block, elementReference);
 
-    return this.props.renderBlockToCanvas(block, elementReference);
+    return this.addMouseEventsToCoreBlock(elementReference, block);
   }
 
   initializeEditor () {
@@ -189,7 +187,7 @@ class Frame extends React.Component {
     };
 
     // Add mouse events to elements inside core block.
-    map(targetElements, (target) => {
+    _map(targetElements, (target) => {
       target.contentEditable = true;
 
       target.removeEventListener('mouseenter', mouseEnterEvent);
@@ -198,10 +196,14 @@ class Frame extends React.Component {
       target.addEventListener('mouseleave', mouseLeaveEvent, false);
     });
 
+    console.log(block);
+
     // Add section hover event to core block.
-    coreElementReference.addEventListener('mouseenter', () => {
-      return this.props.coreBlockHover(block);
-    });
+    if (_isElement(coreElementReference)) {
+      coreElementReference.addEventListener('mouseenter', () => {
+        return this.props.coreBlockHover(coreElementReference, block);
+      });
+    }
   }
 
   drawCanvas () {
@@ -271,8 +273,8 @@ function mapDispatchToProps (dispatch) {
       dispatch(Actions.blockWasRenderedToPage(block, elementReference));
     },
 
-    coreBlockHover: (block) => {
-      dispatch(Actions.currentHoverBlock(block));
+    coreBlockHover: (elementReference, block) => {
+      dispatch(Actions.currentHoverBlock(elementReference, block));
     },
 
     // Click toolbox events.

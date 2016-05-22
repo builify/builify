@@ -3,7 +3,7 @@ import Icon from '../icon';
 import _orderBy from 'lodash/orderby';
 import _has from 'lodash/has';
 import _map from 'lodash/map';
-import classNames from 'classnames';
+import classNames from '../../../common/classnames';
 import { connect } from 'react-redux';
 import { filterContentBlocks } from '../../../actions';
 
@@ -20,16 +20,10 @@ class Filter extends React.Component {
     target: null
   };
 
-  openOrCloseFilter () {
+  toggleFilter () {
     this.setState({
       isFilterOpened: !this.state.isFilterOpened
     });
-  }
-
-  filterEvent (e) {
-    e.preventDefault();
-
-    this.openOrCloseFilter();
   }
 
   renderFilterItems () {
@@ -60,7 +54,7 @@ class Filter extends React.Component {
           { _map(items, (item, i) => {
             const { name, target } = item;
 
-            const itemClassName = classNames({
+            const itemClassName = classNames(null, {
               'active': target === filterContentBlocksTarget
             });
 
@@ -68,14 +62,11 @@ class Filter extends React.Component {
               <li
                 key={'filterItem-' + i}
                 onClick={(e) => {
-                  e.preventDefault();
-
-                  this.openOrCloseFilter();
-
+                  this.toggleFilter(e);
                   return this.props.filterContentBlocks(target);
                 }}
                 className={itemClassName}>
-                {name}
+                <span>{name}</span>
               </li>
             );
           }) }
@@ -88,16 +79,18 @@ class Filter extends React.Component {
 
   render () {
     const { isFilterOpened } = this.state;
-    const filterClassName = classNames('ab-filter', isFilterOpened ? 'active' : '');
+    const filterClassName = classNames('filter', {
+      'active': isFilterOpened
+    });
 
     return (
       <div className={filterClassName}>
-        <div className='ab-filter__text' onClick={::this.filterEvent}>
+        <div className={classNames('filter__text')} onClick={::this.toggleFilter}>
           <span>Filter</span>
           <Icon icon={isFilterOpened ? 'expand-less' : 'expand-more'} size='24' />
         </div>
-        <div className='ab-filter__items'>
-          {this.renderFilterItems()}
+        <div className={classNames('filter__items')}>
+          { this.renderFilterItems() }
         </div>
       </div>
     );
