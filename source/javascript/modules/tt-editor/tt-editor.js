@@ -174,7 +174,7 @@ export default class {
     this.documentElement.execCommand(cmd, false, null);
   }
 
-  _triggerLinkChange (button, item) {
+  _triggerLinkChange () {
     this.toolboxElement.classList.add('link-change');
   }
 
@@ -296,4 +296,4 @@ export default class {
 
   _reloadToolboxButtons () {
   }
-};
+}
