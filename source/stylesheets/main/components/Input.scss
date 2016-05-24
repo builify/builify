@@ -13,9 +13,10 @@ $input-text-disabled-text-color: $input-text-label-color !default;
 $input-text-error-color: rgb(222, 230, 38) !default;
 $input-text-required-color: rgb(222, 50, 38) !default;
 $input-underline-height:  2 * $unit;
+
 $input-icon-font-size: 2.4 * $unit;
-$input-icon-size: 2 * $input-icon-font-size;
-$input-icon-offset: 1.6 * $unit;
+$input-icon-size: 1 * $input-icon-font-size;
+$input-icon-offset: 3.1 * $unit;
 $input-chevron-offset: .8 * $unit;
 $input-hint-opacity: 1 !default;
 
@@ -24,13 +25,15 @@ $input-hint-opacity: 1 !default;
     padding: $input-padding 0;
 
     &--withIcon {
-        margin-left: $input-icon-size;
+        input {
+            padding-left: $input-icon-size;
+        }
     }
 
     &__icon {
         position: absolute;
         top: $input-icon-offset;
-        left: -$input-icon-size;
+        left: 0;
         display: block;
         width: $input-icon-size;
         height: $input-icon-size;

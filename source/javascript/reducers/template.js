@@ -1,6 +1,6 @@
 import _assign from 'lodash/assign';
 import _has from 'lodash/has';
-import TTStylesheet from 'ttstylesheet';
+import TTStylesheet from 'tt-stylesheet';
 import TTDOM from '../common/TTDOM';
 import TTBaseliner from '../modules/tt-baseliner';
 import * as Actions from '../actions/constants';

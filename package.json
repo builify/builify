@@ -72,6 +72,7 @@
     "react": "^15.0.2",
     "react-addons-css-transition-group": "^15.0.2",
     "react-color": "^1.3.7",
+    "react-colors-picker": "^2.3.1",
     "react-custom-scrollbars": "^3.1.0",
     "react-dom": "^15.0.2",
     "react-dropzone-component": "^1.0.0",
@@ -85,7 +86,7 @@
     "strip-json-comments": "*",
     "tt-classnames": "^1.0.4",
     "tt-event-emitter": "^1.0.0",
-    "ttkeymirror": "^1.0.0",
-    "ttstylesheet": "^1.0.1"
+    "tt-stylesheet": "^1.0.3",
+    "ttkeymirror": "^1.0.0"
   }
 }

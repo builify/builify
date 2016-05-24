@@ -1,10 +1,16 @@
-import { connect } from 'react-redux';
-import { getString } from '../../Common/Localization';
-import { toggleBaseline } from '../../Actions';
 import React from 'react';
-import Checkbox from './Checkbox';
+import _has from 'lodash/has';
+import Checkbox from './checkbox';
+import localization from '../../modules/tt-localization';
+import { connect } from 'react-redux';
+import { toggleBaseline } from '../../actions';
 
 class CheckBoxWrapper extends React.Component {
+  static propTypes = {
+    item: React.PropTypes.object.isRequired,
+    toggleBaseline: React.PropTypes.func.isRequired
+  };
+
   state = {
     checked: false
   };
@@ -34,14 +40,9 @@ class CheckBoxWrapper extends React.Component {
   render () {
     const { item } = this.props;
     const { checked } = this.state;
-    const label = getString(item.label);
+    const label = _has(item, 'label') ? localization(item.label) : '';
 
-    return (
-      <Checkbox
-        label={label}
-        checked={checked}
-        onChange={::this.handleChange} />
-    );
+    return <Checkbox label={label} checked={checked} onChange={::this.handleChange} />;
   }
 }
 

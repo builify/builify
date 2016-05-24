@@ -10,6 +10,11 @@ import { closeModal, uploadImage, selectImage } from '../../../actions';
 
 class ImageEdit extends React.Component {
   static propTypes = {
+    active: React.PropTypes.bool.isRequired,
+    builderConfiguration: React.PropTypes.object.isRequired,
+    builder: React.PropTypes.object.isRequired,
+    onUploadImage: React.PropTypes.func.isRequired,
+    onCloseModal: React.PropTypes.func.isRequired,
     onSelectImage: React.PropTypes.func.isRequired,
     editTarget: React.PropTypes.element.isRequired
   };

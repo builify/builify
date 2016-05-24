@@ -16,7 +16,7 @@ import { closeModal, addNotification } from '../../../actions';
 class VideoEdit extends React.Component {
   static propTypes = {
     active: React.PropTypes.bool.isRequired,
-    editTarget: React.PropTypes.node.isRequired,
+    editTarget: React.PropTypes.element.isRequired,
     addNotification: React.PropTypes.func.isRequired,
     closeModal: React.PropTypes.func.isRequired
   };
@@ -104,6 +104,7 @@ class VideoEdit extends React.Component {
               type='text'
               label='URL'
               name='url'
+              icon='post-youtube'
               value={url}
               maxLength={128}
               onChange={::this.handleInputChange} />

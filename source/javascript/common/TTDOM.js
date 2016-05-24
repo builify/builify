@@ -145,11 +145,20 @@ const TTDOM = {
 
     remove (elem) {
       if (TTDOM.type.isElement(elem)) {
-        elem.remove();
+        if (TTDOM.support.isRemoveSupported) {
+          elem.remove();
+        } else if (elem.parentNode) {
+          elem.parentNode.removeChild(elem);
+        }
       } else if (TTDOM.type.isNodeList(elem)) {
         for (let i = 0; i < elem.length; i++) {
-          const currentElem = elem[i];
-          currentElem.remove();
+          const currentElement = elem[i];
+
+          if (TTDOM.support.isRemoveSupported) {
+            currentElement.remove();
+          } else if (currentElement.parentNode) {
+            currentElement.parentNode.removeChild(currentElement);
+          }
         }
       }
     },

@@ -154,7 +154,7 @@ class Frame extends React.Component {
   removeChildren (parent) {
     _map(parent.children, (child) => {
       if (_isElement(child)) {
-        child.remove();
+        TTDOM.element.remove(child);
       }
     });
   }

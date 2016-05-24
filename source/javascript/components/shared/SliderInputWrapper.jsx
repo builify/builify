@@ -1,13 +1,17 @@
-import { connect } from 'react-redux';
-import { getString } from '../../common/localization';
-import { changeBaseFontSize, changeBaselineValue } from '../../actions';
 import React from 'react';
+import _at from 'lodash/at';
 import classNames from '../../common/classnames';
+import localization from '../../modules/tt-localization';
 import SliderInput from './sliderInput';
+import { connect } from 'react-redux';
+import { changeBaseFontSize, changeBaselineValue } from '../../actions';
 
 class SliderInputWrapper extends React.Component {
   static propTypes = {
-    item: React.PropTypes.object.isRequired
+    item: React.PropTypes.object.isRequired,
+    changeBaseFontSize: React.PropTypes.func.isRequired,
+    changeBaselineValue: React.PropTypes.func.isRequired,
+    template: React.PropTypes.object.isRequired
   };
 
   state = {
@@ -17,13 +21,13 @@ class SliderInputWrapper extends React.Component {
   componentWillMount () {
     const { template, item } = this.props;
     const { min, max, step, label, onChange } = item;
-    const defaultLabel = getString(label);
+    const defaultLabel = localization(label);
     let defaultValue = this.state.value;
 
     if (onChange === 'change.basefont') {
-      defaultValue = _.at(template, 'design.typography.size.basefont');
+      defaultValue = _at(template, 'design.typography.size.basefont');
     } else if (onChange === 'change.baseline') {
-      defaultValue = _.at(template, 'design.typography.size.baseline');
+      defaultValue = _at(template, 'design.typography.size.baseline');
     }
 
     this.setState({
@@ -71,7 +75,7 @@ class SliderInputWrapper extends React.Component {
           value={value}
           onChange={::this.onChange} />
         <div className={className}>
-          {value}
+          <span>{ value }</span>
         </div>
       </div>
     );

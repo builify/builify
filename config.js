@@ -108,7 +108,9 @@ export default {
     'mime',
     'moment',
     'sortablejs',
-    'ttstylesheet',
+    'tt-event-emitter',
+    'tt-classnames',
+    'tt-stylesheet',
     'ttkeymirror'
   ]
 };
