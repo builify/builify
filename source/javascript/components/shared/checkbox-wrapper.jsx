@@ -1,7 +1,7 @@
 import React from 'react';
 import _has from 'lodash/has';
 import Checkbox from './checkbox';
-import localization from '../../modules/tt-localization';
+import localization from '../../common/localization';
 import { connect } from 'react-redux';
 import { toggleBaseline } from '../../actions';
 

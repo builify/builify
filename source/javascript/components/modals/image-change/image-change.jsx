@@ -16,7 +16,7 @@ class ImageEdit extends React.Component {
     onUploadImage: React.PropTypes.func.isRequired,
     onCloseModal: React.PropTypes.func.isRequired,
     onSelectImage: React.PropTypes.func.isRequired,
-    editTarget: React.PropTypes.element.isRequired
+    editTarget: React.PropTypes.any.isRequired
   };
 
   closeDialog () {

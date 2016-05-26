@@ -1,3 +1,5 @@
+const isRemoveSupported = !!('remove' in document.createElement('p'));
+
 export default class {
   defaultProps = {
     'gridColor': [196, 196, 196],
@@ -41,7 +43,7 @@ export default class {
     this.overlay.style.pointerEvents = 'none';
     this.overlay.style.opacity = gridOpacity / 100;
 
-    this.overlay.setAttribute('data-ttbaseline', true);
+    this.overlay.setAttribute('data-tt-baseline', true);
 
     gridTarget.body.appendChild(this.overlay);
 
@@ -78,7 +80,12 @@ export default class {
 
   destoryGridOverlay () {
     if (this.overlay) {
-      this.overlay.remove();
+      if (isRemoveSupported) {
+        this.overlay.remove();
+      } else if (this.overlay.parentNode) {
+        this.overlay.parentNode.removeChild(this.overlay);
+      }
+
       this.overlay = null;
     }
   }

@@ -33,5 +33,5 @@ export default function (languagePreference) {
     console.warn(`Localization - "${orgQuery}" query not found!"`);
 
     return orgQuery;
-  }
+  };
 }

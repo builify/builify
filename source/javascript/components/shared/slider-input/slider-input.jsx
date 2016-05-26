@@ -10,12 +10,12 @@ const Constants = {
     horizontal: {
       dimension: 'width',
       direction: 'left',
-      coordinate: 'x',
+      coordinate: 'x'
     },
     vertical: {
       dimension: 'height',
       direction: 'top',
-      coordinate: 'y',
+      coordinate: 'y'
     }
   }
 };
@@ -28,7 +28,7 @@ export default class Slider extends React.Component {
     value: React.PropTypes.number,
     orientation: React.PropTypes.string,
     onChange: React.PropTypes.func,
-    className: React.PropTypes.string,
+    className: React.PropTypes.string
   };
 
   static defaultProps = {
@@ -36,12 +36,12 @@ export default class Slider extends React.Component {
     max: 100,
     step: 1,
     value: 0,
-    orientation: 'horizontal',
+    orientation: 'horizontal'
   };
 
   state = {
     limit: 0,
-    grab: 0,
+    grab: 0
   };
 
   componentDidMount () {
@@ -53,7 +53,7 @@ export default class Slider extends React.Component {
 
     this.setState({
       limit: sliderPos - handlePos,
-      grab: handlePos / 2,
+      grab: handlePos / 2
     });
   }
 
@@ -140,7 +140,7 @@ export default class Slider extends React.Component {
 
     return {
       fill: fillPosition,
-      handle: handlePosition,
+      handle: handlePosition
     };
   }
 
@@ -164,21 +164,9 @@ export default class Slider extends React.Component {
     };
 
     return (
-      <div
-        ref='slider'
-        className={className}
-        onMouseDown={::this.handleSliderMouseDown}
-        onClick={::this.handleNoop}>
-        <div
-          ref='fill'
-          className={fillClassName}
-          style={fillStyle} />
-        <div
-          ref='handle'
-          className={handleClassName}
-          onMouseDown={::this.handleKnobMouseDown}
-          onClick={::this.handleNoop}
-          style={handleStyle} />
+      <div ref='slider' className={className} onMouseDown={::this.handleSliderMouseDown} onClick={::this.handleNoop}>
+        <div ref='fill' className={fillClassName} style={fillStyle} />
+        <div ref='handle' className={handleClassName} onMouseDown={::this.handleKnobMouseDown} onClick={::this.handleNoop} style={handleStyle} />
       </div>
     );
   }

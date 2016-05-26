@@ -3730,11 +3730,9 @@ button.close {
     transition: transform .3s ease-out;
     transition: transform .3s ease-out, -webkit-transform .3s ease-out;
     -webkit-transform: translate(0, -25%);
-        -ms-transform: translate(0, -25%);
             transform: translate(0, -25%); }
   .modal.in .modal-dialog {
     -webkit-transform: translate(0, 0);
-        -ms-transform: translate(0, 0);
             transform: translate(0, 0); }
 
 .modal-open .modal {
@@ -5038,12 +5036,10 @@ body {
     top: 0; }
   .navigation-icon-toggle.active span:before {
     -webkit-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
             transform: rotate(45deg); }
   .navigation-icon-toggle.active span:after {
     top: 10px;
     -webkit-transform: translatey(-10px) rotate(-45deg);
-        -ms-transform: translatey(-10px) rotate(-45deg);
             transform: translatey(-10px) rotate(-45deg); }
 
 @media screen and (max-width: 1200px) {
@@ -5090,7 +5086,6 @@ body {
     position: relative;
     top: 45%;
     -webkit-transform: translatey(-45%);
-        -ms-transform: translatey(-45%);
             transform: translatey(-45%); }
     .navigation nav ul li {
       margin-bottom: 25px; }

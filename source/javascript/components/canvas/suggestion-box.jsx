@@ -10,10 +10,16 @@ export default class CanvasSuggestionBox extends React.Component {
     display: true
   };
 
-  render () {
-    const { display } = this.props;
+  shouldComponentUpdate (nextProps) {
+    if (nextProps.display !== this.props.display) {
+      return true;
+    }
 
-    if (display) {
+    return false;
+  }
+
+  render () {
+    if (this.props.display === true) {
       return (
         <div className={classNames('suggestion-box')}>
           <h1>This is where your page will appear</h1>

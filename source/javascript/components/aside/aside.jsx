@@ -5,6 +5,11 @@ import { connect } from 'react-redux';
 import { closeTab } from '../../actions';
 
 class Aside extends React.Component {
+  static propTypes = {
+    builderConfiguration: React.PropTypes.object.isRequired,
+    closeTab: React.PropTypes.func.isRequired
+  };
+
   shouldComponentUpdate () {
     return false;
   }

@@ -17,6 +17,7 @@ export default class Copyright extends React.Component {
 
     return (
       <div className={classNames('copyright')}>
+        <h3>TT-Builder v.1.0.0</h3>
         <h3>Copyright {companyYear} - {companyName}</h3>
         <h3>All rights reserved</h3>
       </div>

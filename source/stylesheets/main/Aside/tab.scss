@@ -5,7 +5,7 @@
 		left: 0;
 		bottom: 0;
 		z-index: 20;
-		overflow: auto;
+		overflow: hidden;
 		transform-style: preserve-3d;
 		backface-visibility: hidden;
 		@include transform(translateX(0px));

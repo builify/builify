@@ -1,8 +1,8 @@
 import React from 'react';
 import _at from 'lodash/at';
 import classNames from '../../common/classnames';
-import localization from '../../modules/tt-localization';
-import SliderInput from './sliderInput';
+import localization from '../../common/localization';
+import SliderInput from './slider-input';
 import { connect } from 'react-redux';
 import { changeBaseFontSize, changeBaselineValue } from '../../actions';
 
@@ -18,6 +18,14 @@ class SliderInputWrapper extends React.Component {
     value: 10
   };
 
+  shouldComponentUpdate (nextProps, nextState) {
+    if (nextState.value !== this.state.value) {
+      return true;
+    }
+
+    return false;
+  }
+
   componentWillMount () {
     const { template, item } = this.props;
     const { min, max, step, label, onChange } = item;
@@ -25,9 +33,9 @@ class SliderInputWrapper extends React.Component {
     let defaultValue = this.state.value;
 
     if (onChange === 'change.basefont') {
-      defaultValue = _at(template, 'design.typography.size.basefont');
+      defaultValue = _at(template, 'design.typography.size.basefont').toString();
     } else if (onChange === 'change.baseline') {
-      defaultValue = _at(template, 'design.typography.size.baseline');
+      defaultValue = _at(template, 'design.typography.size.baseline').toString();
     }
 
     this.setState({
@@ -36,7 +44,7 @@ class SliderInputWrapper extends React.Component {
       max: max,
       step: step,
       label: defaultLabel,
-      value: defaultValue
+      value: +defaultValue
     });
   }
 

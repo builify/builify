@@ -8,7 +8,7 @@ import { defaultImageUrl } from './config';
 
 export default class CurrentImageTab extends React.Component {
   static propTypes = {
-    editTarget: React.PropTypes.element.isRequired
+    editTarget: React.PropTypes.any.isRequired
   };
 
   state = {

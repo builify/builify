@@ -7,7 +7,7 @@ export default class TabNavigation extends React.Component {
   static propTypes = {
     builder: React.PropTypes.object.isRequired,
     builderConfiguration: React.PropTypes.object.isRequired,
-    editTarget: React.PropTypes.element.isRequired,
+    editTarget: React.PropTypes.any.isRequired,
     onUploadImage: React.PropTypes.func.isRequired,
     onSelectImage: React.PropTypes.func.isRequired
   };

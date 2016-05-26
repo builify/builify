@@ -12,9 +12,7 @@ const canvasInitialState = {
     block: {},
     elementReference: null,
     topX: 10
-  },
-
-  drawBaseline: false
+  }
 };
 
 export default function canvas (state = canvasInitialState, action) {
@@ -25,12 +23,6 @@ export default function canvas (state = canvasInitialState, action) {
 
       return _assign({}, state, {
         iFrameWindow: iFrameWindow
-      });
-    }
-
-    case Actions.TOGGLE_BASELINE: {
-      return _assign({}, state, {
-        drawBaseline: action.checked
       });
     }
 

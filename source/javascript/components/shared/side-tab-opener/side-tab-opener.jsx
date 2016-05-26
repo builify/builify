@@ -1,28 +1,24 @@
-import { connect } from 'react-redux';
-import { openTab } from '../../../Actions';
 import React from 'react';
-import Icon from '../Icon';
+import Icon from '../icon';
+import classNames from '../../../common/classnames';
+import { connect } from 'react-redux';
+import { openTab } from '../../../actions';
 
 class SideTabOpener extends React.Component {
   static propTypes = {
     title: React.PropTypes.string.isRequired,
-    onClick: React.PropTypes.string.isRequired // Better prop. naming?
+    onClick: React.PropTypes.string.isRequired,
+    openTab: React.PropTypes.func.isRequired
   };
 
   clickEvent () {
-    const { onClick: targetName } = this.props;
-
-    return this.props.openTab(targetName);
+    return this.props.openTab(this.props.onClick);
   }
 
   render () {
-    const { title } = this.props;
-
     return (
-      <div
-        className='ab-item link'
-        onClick={::this.clickEvent}>
-        <span>{title}</span>
+      <div className={classNames('item', 'link')} onClick={::this.clickEvent}>
+        <span>{this.props.title}</span>
         <Icon icon='arrow-forward' />
       </div>
     );

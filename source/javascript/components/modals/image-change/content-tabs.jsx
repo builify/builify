@@ -9,7 +9,7 @@ export default class ContentTabs extends React.Component {
     builder: React.PropTypes.object.isRequired,
     builderConfiguration: React.PropTypes.object.isRequired,
     activeTab: React.PropTypes.number.isRequired,
-    editTarget: React.PropTypes.element.isRequired,
+    editTarget: React.PropTypes.any.isRequired,
     onSelectImage: React.PropTypes.func.isRequired,
     onUploadImage: React.PropTypes.func.isRequired
   };

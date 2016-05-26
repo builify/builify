@@ -134,7 +134,7 @@ export default function template (state = initialState, action) {
 
     case Actions.CHANGE_BASELINE_VALUE: {
       const { value } = action;
-      const { design, templateStylesheet } = state;
+      const { design, templateStylesheet, drawBaseline, baseline } = state;
 
       if (value) {
         templateStylesheet.add({
@@ -146,6 +146,14 @@ export default function template (state = initialState, action) {
         design.typography.size.baseline = value;
 
         templateStylesheet.initCSS();
+
+        if (drawBaseline === true) {
+          const baselineValue = value;
+          const baseFontsize = state.design.typography.size.basefont;
+          const baselineToPxValue = baseFontsize * baselineValue;
+
+          baseline.setHeight(baselineToPxValue);
+        }
 
         return _assign({}, state, {
           design: design
@@ -178,7 +186,7 @@ export default function template (state = initialState, action) {
       return state;
     }
 
-    case Actions.SET_SWATCH:
+    case Actions.SET_SWATCH: {
       let designState = state.design;
 
       if (_has(action, 'swatch')) {
@@ -188,6 +196,7 @@ export default function template (state = initialState, action) {
       return _assign({}, state, {
         design: designState
       });
+    }
   }
 
   return state;

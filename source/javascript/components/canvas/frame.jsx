@@ -3,6 +3,7 @@ import _map from 'lodash/map';
 import _isElement from 'lodash/iselement';
 import _isObject from 'lodash/isobject';
 import _values from 'lodash/values';
+import _delay from 'lodash/delay';
 import TTDOM from '../../common/TTDOM';
 import TTEditor from '../../modules/tt-editor';
 import TTIFrame from '../../modules/react-tt-iframe';
@@ -13,31 +14,6 @@ import * as Actions from '../../actions';
 import * as Constants from '../../constants';
 import { connect } from 'react-redux';
 import { store } from '../application-container';
-
-function createStylesheet (source, target, notInClientProduct = false) {
-  let link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.type = 'text/css';
-  link.href = source;
-
-  if (notInClientProduct) {
-    link.setAttribute(Constants.JUNK_ATTR, true);
-  }
-
-  target.appendChild(link);
-}
-
-function createJavaScript (source, target, shouldUpdate = false) {
-  let script = document.createElement('script');
-  script.src = source;
-  script.async = true;
-
-  if (shouldUpdate) {
-    script.setAttribute('data-update', true);
-  }
-
-  target.appendChild(script);
-}
 
 class Frame extends React.Component {
   static propTypes = {
@@ -287,9 +263,31 @@ class Frame extends React.Component {
         const { type, src } = asset;
 
         if (type === 'css') {
-          createStylesheet(src, headElement);
+          const linkElement = document.createElement('link');
+          linkElement.rel = 'stylesheet';
+          linkElement.type = 'text/css';
+          linkElement.href = src;
+
+          if (asset.junk) {
+            linkElement.setAttribute(Constants.JUNK_ATTR, true);
+          }
+
+          headElement.appendChild(linkElement);
         } else if (type === 'js') {
-          createJavaScript(src, bodyElement);
+          const scriptElement = document.createElement('script');
+          scriptElement.src = src;
+
+          if (src.indexOf('jquery') !== -1) {
+            bodyElement.appendChild(scriptElement);
+          } else {
+            scriptElement.setAttribute('data-update', true);
+
+            // Let jQuery load first and other files later.
+            // Fixes issue #9.
+            _delay(() => {
+              bodyElement.appendChild(scriptElement);
+            }, 1000);
+          }
         }
       });
 
