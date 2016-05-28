@@ -1,14 +1,18 @@
 export default function (store) {
   return function (next) {
     return function (action) {
-      console.groupCollapsed(action.type);
+      if (process.env.NODE_ENV === 'development') {
+        console.groupCollapsed(action.type); // eslint-disable-line
 
-      let result = next(action);
+        let result = next(action);
 
-      console.log('next state', store.getState());
-      console.groupEnd(action.type);
+        console.log('next state', store.getState()); // eslint-disable-line
+        console.groupEnd(action.type); // eslint-disable-line
 
-      return result;
+        return result;
+      } else {
+        return next(action);
+      }
     };
   };
-}
+} 

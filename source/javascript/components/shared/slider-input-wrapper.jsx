@@ -1,5 +1,7 @@
 import React from 'react';
 import _at from 'lodash/at';
+import _toNumber from 'lodash/tonumber';
+import _round from 'lodash/round';
 import classNames from '../../common/classnames';
 import localization from '../../common/localization';
 import SliderInput from './slider-input';
@@ -28,14 +30,20 @@ class SliderInputWrapper extends React.Component {
 
   componentWillMount () {
     const { template, item } = this.props;
-    const { min, max, step, label, onChange } = item;
-    const defaultLabel = localization(label);
-    let defaultValue = this.state.value;
+    const { min, max, step, label: itemLabel, onChange } = item;
+    const label = localization(itemLabel);
+    let value = this.state.value;
+    let text = null;
 
     if (onChange === 'change.basefont') {
-      defaultValue = _at(template, 'design.typography.size.basefont').toString();
+      value = _toNumber(_at(template, 'design.typography.size.basefont'));
+      text = value;
     } else if (onChange === 'change.baseline') {
-      defaultValue = _at(template, 'design.typography.size.baseline').toString();
+      const fontsizeValue = _toNumber(_at(template, 'design.typography.size.basefont'));
+
+      value = _toNumber(_at(template, 'design.typography.size.baseline'));
+
+      text = `${value} (${fontsizeValue * value}px)`;
     }
 
     this.setState({
@@ -43,8 +51,9 @@ class SliderInputWrapper extends React.Component {
       min: min,
       max: max,
       step: step,
-      label: defaultLabel,
-      value: +defaultValue
+      label: label,
+      value: value,
+      text: text
     });
   }
 
@@ -52,29 +61,36 @@ class SliderInputWrapper extends React.Component {
     const { item } = this.props;
     const { onChange } = item;
 
-    value = +value;
-
-    this.setState({
-      ...this.state,
-      value: value
-    });
-
     if (onChange === 'change.basefont') {
+      this.setState({
+        ...this.state,
+        value: value,
+        text: value
+      });
+
       return this.props.changeBaseFontSize(value);
     } else if (onChange === 'change.baseline') {
+      const { template } = this.props;
+      const fontsizeValue = _toNumber(_at(template, 'design.typography.size.basefont'));
+
+      this.setState({
+        ...this.state,
+        value: value,
+        text: `${value} (${_round(fontsizeValue * value, 2)}px)`
+      });
+
       return this.props.changeBaselineValue(value);
     }
   }
 
   render () {
-    const { min, max, step, label, value } = this.state;
+    const { min, max, step, label, value, text } = this.state;
     const className = classNames('size__output', {
       'px': !!(this.props.item.onChange === 'change.basefont')
     });
 
     return (
-      <div
-        className={classNames('size')}>
+      <div className={classNames('size')}>
         <label>{label}</label>
         <SliderInput
           min={min}
@@ -83,7 +99,7 @@ class SliderInputWrapper extends React.Component {
           value={value}
           onChange={::this.onChange} />
         <div className={className}>
-          <span>{ value }</span>
+          <span>{ text }</span>
         </div>
       </div>
     );

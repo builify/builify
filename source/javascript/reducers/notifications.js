@@ -4,11 +4,12 @@ import _isNaN from 'lodash/isnan';
 import _isFunction from 'lodash/isfunction';
 import Constants from '../components/notifications/constants';
 import * as Actions from '../actions/constants';
+import { MAXIMUM_NOTIFICATIONS } from '../constants';
 
 const notificationsInitialState = [];
 let UID = Constants.defaultUid;
 
-export default function notifications (state = notificationsInitialState, action) {
+export default function notificationsReducer (state = notificationsInitialState, action) {
   switch (action.type) {
     case Actions.ADD_NOTIFICATION: {
       const { notification } = action;
@@ -41,11 +42,16 @@ export default function notifications (state = notificationsInitialState, action
 
       UID += 1;
 
+
       // do not add if the notification already exists based on supplied uid
       for (let i = 0; i < notifications.length; i++) {
         if (notifications[i].uid === _notification.uid) {
           return false;
         }
+      }
+
+      if (notifications.length > MAXIMUM_NOTIFICATIONS) {
+        notifications.shift();
       }
 
       notifications.push(_notification);
@@ -59,9 +65,9 @@ export default function notifications (state = notificationsInitialState, action
 
     case Actions.REMOVE_NOTIFICATION: {
       const { uid } = action;
-      var notification = null;
+      let notification = null;
 
-      var notifications = state.filter((toCheck) => {
+      const newlist = state.filter((toCheck) => {
         if (toCheck.uid === uid) {
           notification = toCheck;
         }
@@ -73,7 +79,7 @@ export default function notifications (state = notificationsInitialState, action
         notification.onRemove(notification);
       }
 
-      return [...notifications];
+      return [...newlist];
     }
   }
 

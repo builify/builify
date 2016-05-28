@@ -43,16 +43,28 @@ export function getCurrentPageData () {
 
 export function saveCurrentPage () {
   return (dispatch, getState) => {
-    const { builder } = getState();
+    const { builder, page } = getState();
     const { currentLocation } = builder;
+    const { blocksCount } = page;
 
-    if (currentLocation !== CurrentLocations.STARTSCREEN) {
-      dispatch({ type: Actions.SAVE_CURRENT_PAGE });
+    if (blocksCount === 0) {
       dispatch(addNotification({
-        message: 'Page saved',
-        level: 'success'
+        message: 'You cannot save empty page',
+        level: 'info'
       }));
+
+      return;
     }
+
+    if (currentLocation === CurrentLocations.STARTSCREEN) {
+      return;
+    }
+
+    dispatch({ type: Actions.SAVE_CURRENT_PAGE });
+    dispatch(addNotification({
+      message: 'Page saved',
+      level: 'success'
+    }));
   };
 }
 

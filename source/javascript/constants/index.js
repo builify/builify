@@ -1,5 +1,7 @@
 export const IS_DEMO_VERSION = false;
 
+export const MAXIMUM_NOTIFICATIONS = 7;
+
 export const TEMPLATE_PAGES_STORAGE_NAME = 'ab-pages';
 
 export const TEMPLATE_PACKAGE_FILENAME = 'template';

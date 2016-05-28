@@ -1,5 +1,5 @@
 import _pick from 'lodash/pick';
-import _without from 'lodash/without';
+import _remove from 'lodash/remove';
 import _assign from 'lodash/assign';
 import _isUndefined from 'lodash/isundefined';
 import _has from 'lodash/has';
@@ -259,7 +259,7 @@ export default function page (state = pageInitialState, action) {
       const { block } = action;
 
       if (_isObject(block)) {
-        const { id, type } = block;
+        const { type } = block;
 
         if (type === 'footer') {
           if (_has(block, 'elementReference') && _isElement(block.elementReference)) {
@@ -288,22 +288,22 @@ export default function page (state = pageInitialState, action) {
             blocksCount: state.blocksCount - 1
           });
         } else {
-          if (_has(block, 'elementReference') && _isElement(block.elementReference)) {
-            block.elementReference.remove();
-          } else {
-            const searchQuery = { id: id };
-            const index = _findIndex(state.main, searchQuery);
+          const { id } = block;
+          const searchQuery = { id: id };
+          const index = _findIndex(state.main, searchQuery);
 
-            if (index !== -1) {
-              if (_isElement(state.main[index].elementReference)) {
-                state.main[index].elementReference.remove();
-              }
-
-              return _assign({}, state, {
-                main: _without(state.main, state.main[index]),
-                blocksCount: state.blocksCount - 1
-              });
+          if (index !== -1) {
+            if (_isElement(state.main[index].elementReference)) {
+              state.main[index].elementReference.remove();
+              state.main[index].hasBeenRendered = false;
             }
+
+            return _assign({}, state, {
+              main: _remove(state.main, (obj) => {
+                return obj.id !== block.id;
+              }),
+              blocksCount: state.blocksCount - 1
+            });
           }
         }
       }

@@ -21,6 +21,10 @@ export default class Icon extends React.Component {
     className: ''
   };
 
+  shouldComponentUpdate () {
+    return false;
+  }
+
   mergeStyles (...args) {
     return _.assign({}, ...args);
   }

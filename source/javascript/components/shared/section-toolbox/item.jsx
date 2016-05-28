@@ -19,22 +19,10 @@ export default class ToolboxItem extends React.Component {
     const iconStyle = {
       fill: '#FFF'
     };
-    var icon = null;
-
-    if (this.props.icon) {
-      icon = (
-        <Icon
-          icon={this.props.icon}
-          size={iconSize}
-          style={iconStyle} />
-      );
-    }
 
     return (
-      <li
-        onClick={onClick}
-        title={title}>
-        { icon }
+      <li onClick={onClick} title={title}>
+        { this.props.icon && <Icon icon={this.props.icon} size={iconSize} style={iconStyle} /> }
       </li>
     );
   }

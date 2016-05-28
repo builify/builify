@@ -1,5 +1,6 @@
 import _assign from 'lodash/assign';
 import _has from 'lodash/has';
+import _round from 'lodash/round';
 import TTStylesheet from 'tt-stylesheet';
 import TTDOM from '../common/TTDOM';
 import TTBaseliner from '../modules/tt-baseliner';
@@ -29,7 +30,7 @@ export default function template (state = initialState, action) {
       const headElement = iFrameWindow.document.head;
       const baselineValue = state.design.typography.size.baseline;
       const baseFontsize = state.design.typography.size.basefont;
-      const baselineToPxValue = baseFontsize * baselineValue;
+      const baselineToPxValue = _round(baseFontsize * baselineValue, 2);
 
       const customStylesheet = new TTStylesheet(headElement);
       const baseline = new TTBaseliner({

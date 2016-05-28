@@ -4,8 +4,8 @@ import _isElement from 'lodash/iselement';
 import _isObject from 'lodash/isobject';
 import _values from 'lodash/values';
 import _delay from 'lodash/delay';
+import TTEditor from 'tt-editor';
 import TTDOM from '../../common/TTDOM';
-import TTEditor from '../../modules/tt-editor';
 import TTIFrame from '../../modules/react-tt-iframe';
 import ClickToolbox from '../shared/click-toolbox';
 import SectionToolBox from '../shared/section-toolbox';
@@ -176,7 +176,7 @@ class Frame extends React.Component {
       const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
 
       this._editor = new TTEditor({
-        elementsContainer: iFrameWindow
+        window: iFrameWindow
       });
     }
   }
