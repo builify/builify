@@ -70,7 +70,6 @@ class Content extends React.Component {
 class PreviousPages extends React.Component {
   static propTypes = {
     builder: React.PropTypes.object.isRequired,
-    active: React.PropTypes.bool.isRequired,
     closeModal: React.PropTypes.func.isRequired,
     loadPreviousPage: React.PropTypes.func.isRequired,
     flushPagesInStorage: React.PropTypes.func.isRequired
@@ -81,18 +80,14 @@ class PreviousPages extends React.Component {
   }
 
   render () {
-    const { active, builder} = this.props;
+    const { builder} = this.props;
     const className = classNames(['modal', 'modal__small']);
     const actions = [
       { label: 'Cancel', onClick: ::this.closeDialog }
     ];
 
     return (
-      <ModalWrapper
-        ref='modalWrapper'
-        onClose={this.props.closeModal}
-        active={active}
-        className={className}>
+      <ModalWrapper ref='modalWrapper' onClose={this.props.closeModal} className={className}>
         <Content
           onClose={::this.closeDialog}
           loadPreviousPage={this.props.loadPreviousPage}

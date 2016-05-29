@@ -72,6 +72,12 @@ gulp.task('server', () => {
   browserSync.init(config.server);
 });
 
+// Images task.
+gulp.task('images', () => {
+  return gulp.src(config.images.entry)
+    .pipe(gulp.dest(config.images.output));
+});
+
 // Compiles and deploys main stylesheet.
 gulp.task('stylesheet:main', () => {
   if (config.env.debug) {
@@ -232,6 +238,7 @@ gulp.task('watch', () => {
 gulp.task('default', () => {
   let seq = [
     'html',
+    'images',
     'files',
     'files:template',
     'stylesheet:main',

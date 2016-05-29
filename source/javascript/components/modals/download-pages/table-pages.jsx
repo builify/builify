@@ -1,5 +1,5 @@
 import React from 'react';
-import Table from '../../Shared/Table';
+import Table from '../../shared/Table';
 
 export default class TablePages extends React.Component {
   static propTypes = {
@@ -25,9 +25,7 @@ export default class TablePages extends React.Component {
   }
 
   getSelected () {
-    const { selected } = this.state;
-
-    return selected;
+    return this.state.selected;
   }
 
   render () {

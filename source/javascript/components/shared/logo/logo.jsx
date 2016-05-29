@@ -17,11 +17,7 @@ export default class Logo extends React.Component {
   render () {
     return (
       <div className={classNames('logo')}>
-        <div className={classNames('logo__icon')}>
-          <div className={classNames('logo__left')}></div>
-          <div className={classNames('logo__right')}></div>
-        </div>
-        <div className={classNames('logo__text')}>{this.props.text}</div>
+        <img src='assets/static/logo.png' />
       </div>
     );
   }

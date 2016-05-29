@@ -1,1 +1,1 @@
-export default from './DownloadPages';
+export default from './download-pages';

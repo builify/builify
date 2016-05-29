@@ -1,6 +1,7 @@
 import React from 'react';
 import ContentTabs from './content-tabs';
 import ModalTab from '../common/tab';
+import Table from '../../shared/Table';
 import { defaultTabId, tabList } from './Config';
 
 export default class TabNavigation extends React.Component {
@@ -16,9 +17,8 @@ export default class TabNavigation extends React.Component {
     activeTab: defaultTabId
   };
 
-  shouldComponentUpdate (nextProps) {
-    if (this.props.builder !== nextProps.builder ||
-        this.props.editTarget !== nextProps.editTarget) {
+  shouldComponentUpdate (nextProps, nextState) {
+    if (nextState.activeTab !== this.state.activeTab) {
       return true;
     }
 

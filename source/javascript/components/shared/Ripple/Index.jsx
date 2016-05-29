@@ -1,12 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 
-class Ripple extends Component {
+class Ripple extends React.Component {
   static propTypes = {
-    centered: PropTypes.bool,
-    className: PropTypes.string,
-    loading: PropTypes.bool,
-    spread: PropTypes.number
+    centered: React.PropTypes.bool,
+    className: React.PropTypes.string,
+    loading: React.PropTypes.bool,
+    spread: React.PropTypes.number
   };
 
   static defaultProps = {
@@ -23,6 +23,15 @@ class Ripple extends Component {
     left: null,
     width: null
   };
+
+  shouldComponenUpdate (nextProps, nextState) {
+    if (this.props !== nextProps ||
+        this.state !== nextState) {
+      return true;
+    }
+
+    return false;
+  }
 
   start = ({ pageX, pageY }) => {
     document.addEventListener('mouseup', this.handleEnd);
@@ -66,7 +75,7 @@ class Ripple extends Component {
           className={className}
           style={rippleStyle} />
       </span>
-    )
+    );
   }
 }
 

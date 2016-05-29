@@ -33,7 +33,7 @@ const builderInitialState = {
 
   // Modal
   isModalOpen: false,
-  modalType: null,
+  modalType: -1,
   modalTarget: null,
 
   // Images

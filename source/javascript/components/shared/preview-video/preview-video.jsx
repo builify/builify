@@ -30,6 +30,14 @@ export default class PreviewVideo extends React.Component {
     videoID: null
   };
 
+  shouldComponentUpdate (nextProps) {
+    if (this.props.src !== nextProps.src){
+      return true;
+    }
+
+    return false;
+  }
+
   componentWillMount () {
     this.updatePreview(this.props.src);
   }

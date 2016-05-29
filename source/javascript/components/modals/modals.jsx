@@ -4,8 +4,8 @@ import PreviousPages from './previous-pages';
 import IconChange from './icon-change';
 import Countdown from './countdown';
 import VideoEdit from './video-edit';
+import DownloadPages from './download-pages';
 import DialogRestart from '../shared/dialog/DialogRestart';
-import DialogDownloadPages from '../shared/dialog/DialogDownloadPages';
 import DialogLinkChange from '../shared/dialog/DialogLinkChange';
 import { connect } from 'react-redux';
 import { closeModal } from '../../actions';
@@ -32,58 +32,28 @@ class Modals extends React.Component {
 
     switch (type) {
       case DialogTypes.IMAGECHANGE:
-
-        return (
-          <ImageEdit
-            active={active}
-            editTarget={editTarget}  />
-        );
+        return <ImageEdit editTarget={editTarget}  />;
 
       case DialogTypes.RESTART:
-        return (
-          <DialogRestart
-            active={active} />
-        );
+        return <DialogRestart active={true} />;
 
       case DialogTypes.DOWNLOADPAGES:
-        return (
-          <DialogDownloadPages
-            active={active} />
-        );
+        return <DownloadPages />;
 
       case DialogTypes.LINKCHANGE:
-        return (
-          <DialogLinkChange
-            active={active}
-            editTarget={editTarget} />
-        );
+        return <DialogLinkChange active={true} editTarget={editTarget} />;
 
       case DialogTypes.PREVIOUSPAGES:
-        return (
-          <PreviousPages
-            active={active} />
-        );
+        return <PreviousPages />;
 
       case DialogTypes.ICONCHANGE:
-        return (
-          <IconChange
-            active={active}
-            editTarget={editTarget} />
-        );
+        return <IconChange editTarget={editTarget} />;
 
       case DialogTypes.COUNTDOWN:
-        return (
-          <Countdown
-            active={active}
-            editTarget={editTarget} />
-        );
+        return <Countdown editTarget={editTarget} />;
 
       case DialogTypes.VIDEOEDIT:
-        return (
-          <VideoEdit
-            active={active}
-            editTarget={editTarget} />
-        );
+        return <VideoEdit editTarget={editTarget} />;
     }
   }
 }

@@ -8,6 +8,13 @@ import { closeModal, addNotification } from '../../../actions';
 import TTDOM from '../../../common/TTDOM';
 
 class IconChange extends React.Component {
+  static propTypes = {
+    editTarget: React.PropTypes.any.isRequired,
+    builderConfiguration: React.PropTypes.object.isRequired,
+    addNotification: React.PropTypes.func.isRequired,
+    closeModal: React.PropTypes.func.isRequired
+  };
+
   shouldComponentUpdate () {
     return false;
   }
@@ -33,23 +40,16 @@ class IconChange extends React.Component {
   }
 
   render () {
-    const { active, builderConfiguration, closeModal } = this.props;
+    const { builderConfiguration, closeModal } = this.props;
     const className = classNames('ab-modal');
     const actions = [
       { label: 'Done', onClick: ::this.closeDialog }
     ];
 
     return (
-      <ModalWrapper
-        onClose={closeModal}
-        active={active}
-        ref='modalWrapper'
-        className={className}>
-        <TabIcons
-          onSelect={::this.selectIcon}
-          builderConfiguration={builderConfiguration} />
-        <BottomNavigation
-          actions={actions} />
+      <ModalWrapper onClose={closeModal} ref='modalWrapper' className={className}>
+        <TabIcons onSelect={::this.selectIcon} builderConfiguration={builderConfiguration} />
+        <BottomNavigation actions={actions} />
       </ModalWrapper>
     );
   }

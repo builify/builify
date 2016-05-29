@@ -1,7 +1,6 @@
 import React from 'react';
 import QueryString from 'querystring';
 import _isNull from 'lodash/isnull';
-import _isUndefined from 'lodash/isundefined';
 import _isElement from 'lodash/iselement';
 import URL from 'url';
 import classNames from '../../../common/classnames';
@@ -15,8 +14,7 @@ import { closeModal, addNotification } from '../../../actions';
 
 class VideoEdit extends React.Component {
   static propTypes = {
-    active: React.PropTypes.bool.isRequired,
-    editTarget: React.PropTypes.element.isRequired,
+    editTarget: React.PropTypes.any.isRequired,
     addNotification: React.PropTypes.func.isRequired,
     closeModal: React.PropTypes.func.isRequired
   };
@@ -25,6 +23,14 @@ class VideoEdit extends React.Component {
     url: 'https://www.youtube.com/watch?v=XNdNLNFZBmk'
   };
 
+  shouldComponentUpdate (nextProps, nextState) {
+    if (nextState.url !== this.state.url) {
+      return true;
+    }
+
+    return false;
+  }
+
   closeDialog () {
     return this.refs['modalWrapper'].closeDialog();
   }
@@ -32,9 +38,14 @@ class VideoEdit extends React.Component {
   saveVideo () {
     const { url } = this.state;
     const { editTarget } = this.props;
+
+    if (!_isElement(editTarget)) {
+      return;
+    }
+
     const videoHolderElement = editTarget.querySelector('.block-video-holder');
 
-    if (!_isUndefined(videoHolderElement) && _isElement(videoHolderElement)) {
+    if (_isElement(videoHolderElement)) {
       const parsedURL = URL.parse(url);
       const query = QueryString.parse(parsedURL.query);
       const host = parsedURL.host.toLowerCase();
@@ -69,21 +80,24 @@ class VideoEdit extends React.Component {
 
   componentWillMount () {
     const { editTarget } = this.props;
-    const videoHolderElement = editTarget.querySelector('.block-video-holder');
 
-    if (!_isUndefined(videoHolderElement) && _isElement(videoHolderElement)) {
-      const videoID = videoHolderElement.getAttribute('data-videoid');
-      const url = `https://www.youtube.com/watch?v=${videoID}`;
+    if (_isElement(editTarget)) {
+      const videoHolderElement = editTarget.querySelector('.block-video-holder');
 
-      this.setState({
-        url: url
-      });
+      if (_isElement(videoHolderElement)) {
+        const videoID = videoHolderElement.getAttribute('data-videoid');
+        const url = `https://www.youtube.com/watch?v=${videoID}`;
+
+        this.setState({
+          url: url
+        });
+      }
     }
   }
 
   render () {
     const { url } = this.state;
-    const { active, closeModal } = this.props;
+    const { closeModal } = this.props;
     const className = classNames(['modal', 'modal__small']);
     const actions = [
       { label: 'Cancel', onClick: ::this.closeDialog },
@@ -91,20 +105,15 @@ class VideoEdit extends React.Component {
     ];
 
     return (
-      <ModalWrapper
-        ref='modalWrapper'
-        onClose={closeModal}
-        active={active}
-        className={className}>
-        <ModalTab
-          title='Change Video Source'>
+      <ModalWrapper ref='modalWrapper' onClose={closeModal} className={className}>
+        <ModalTab title='Change Video Source'>
           <div className={classNames('modal__tab')}>
             <Input
               className={classNames('modal__input')}
               type='text'
               label='URL'
               name='url'
-              icon='post-youtube'
+              icon='youtube'
               value={url}
               maxLength={128}
               onChange={::this.handleInputChange} />

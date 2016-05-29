@@ -31,7 +31,7 @@ export default class Icon extends React.Component {
 
   renderGraphic () {
     switch (this.props.icon) {
-      case 'post-youtube':
+      case 'youtube':
         return (
           <g><path d="M20 2h-16c-1.1 0-1.99.9-1.99 2l-.01 16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-16c0-1.1-.9-2-2-2zm-1.49 15.5c-.45.15-3.73.5-6.51.5-2.77 0-6.05-.35-6.5-.5-1.17-.39-1.5-2.8-1.5-5.5s.33-5.11 1.5-5.5c.45-.15 3.73-.5 6.5-.5 2.78 0 6.06.36 6.51.51 1.17.39 1.49 2.79 1.49 5.49s-.32 5.11-1.49 5.5zm-8.51-2l5.5-3.5-5.5-3.5v7z"></path></g>
         );

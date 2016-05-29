@@ -10,7 +10,6 @@ import { closeModal, uploadImage, selectImage } from '../../../actions';
 
 class ImageEdit extends React.Component {
   static propTypes = {
-    active: React.PropTypes.bool.isRequired,
     builderConfiguration: React.PropTypes.object.isRequired,
     builder: React.PropTypes.object.isRequired,
     onUploadImage: React.PropTypes.func.isRequired,
@@ -73,7 +72,6 @@ class ImageEdit extends React.Component {
 
   render () {
     const {
-      active,
       builderConfiguration,
       builder,
       editTarget,
@@ -87,19 +85,14 @@ class ImageEdit extends React.Component {
     ];
 
     return (
-      <ModalWrapper
-        onClose={onCloseModal}
-        active={active}
-        ref='modalWrapper'
-        className={className}>
+      <ModalWrapper onClose={onCloseModal} ref='modalWrapper' className={className}>
         <TabNavigation
           onSelectImage={::this.selectImage}
           editTarget={editTarget}
           onUploadImage={onUploadImage}
           builder={builder}
           builderConfiguration={builderConfiguration} />
-        <BottomNavigation
-          actions={actions} />
+        <BottomNavigation actions={actions} />
       </ModalWrapper>
     );
   }

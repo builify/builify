@@ -3,51 +3,13 @@
     display: block;
     overflow: hidden;
     margin: 0 auto;
-    margin-top: $base-padding * 1.5;
-    margin-bottom: $base-padding * 1.3;
-    height: $logo-default-height;
-    width: $logo-default-width;
+    margin-top: $base-padding;
+    margin-bottom: $base-padding * 1.5;
+    height: 50px;
+    width: 150px;
     @include clearfix;
 
-    &__icon {
-        position: relative;
-        display: block;
-        overflow: hidden;
-        float: left;
-        border: $logo-default-size solid $logo-default-color;
-        height: $logo-default-height;
-        width: $logo-default-height;
-    }
-
-    &__left,
-    &__right {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        border-style: solid;
-        border-width: $logo-default-size;
-        border-color: transparent;
-    }
-
-    &__left {
-        width: 70%;
-        height: 70%;
-        border-left-color: lighten($logo-default-color, 13%);
-        border-top-color: lighten($logo-default-color, 13%);
-    }
-
-    &__right {
-        width: 35%;
-        height: 35%;
-        border-left-color: lighten($logo-default-color, 23%);
-        border-top-color: lighten($logo-default-color, 23%);
-    }
-
-    &__text {
-        display: inline-block;
-        text-transform: uppercase;
-        margin-left: 10px;
-        font-weight: 700;
-        line-height: $logo-default-height;
-    }
+		img {
+				width: 100%;
+		}
 }

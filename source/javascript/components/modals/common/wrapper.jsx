@@ -6,7 +6,6 @@ import classNames from '../../../common/classnames';
 
 export default class ModalWrapper extends React.Component {
   static propTypes = {
-    active: React.PropTypes.bool.isRequired,
     onClose: React.PropTypes.func,
     children: React.PropTypes.node,
     className: React.PropTypes.string
@@ -18,24 +17,25 @@ export default class ModalWrapper extends React.Component {
 
   dialogElement = null;
 
-  shouldComponentUpdate () {
+  shouldComponentUpdate (nextProps) {
+    if (this.props.children !== nextProps.children) {
+      return true;
+    }
+
     return false;
   }
 
   componentDidMount () {
-    const { active } = this.props;
     const dialogRef = this.refs['modalWrapper'];
     const dialogElement = ReactDOM.findDOMNode(dialogRef);
 
     this.dialogElement = dialogElement;
 
-    if (active === true) {
-      _delay(() => {
-        if (dialogElement) {
-          dialogElement.classList.add('active');
-        }
-      }, 1);
-    }
+    _delay(() => {
+      if (dialogElement) {
+        dialogElement.classList.add('active');
+      }
+    }, 1);
 
     window.addEventListener('mousedown', ::this.onDocumentClick, false);
   }
@@ -71,13 +71,13 @@ export default class ModalWrapper extends React.Component {
   }
 
   render () {
-    const { children, className } = this.props;
+    const { className } = this.props;
 
     return (
       <div ref='modalWrapper' className={className && className}>
         <div role='overlay' className={classNames('modal__overlay')} data-modaloverlay />
         <div role='content' className={classNames('modal__content')}>
-          { children }
+          { this.props.children }
         </div>
       </div>
     );

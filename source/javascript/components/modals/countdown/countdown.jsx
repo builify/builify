@@ -9,6 +9,11 @@ import BottomNavigation from '../common/bottom-navigation';
 import TimeInput from '../../time-input';
 
 class Countdown extends React.Component {
+  static propTypes = {
+    editTarget: React.PropTypes.any.isRequired,
+    closeModal: React.PropTypes.func.isRequired
+  };
+
   state = {
     time: moment()
   };
@@ -55,7 +60,7 @@ class Countdown extends React.Component {
   }
 
   render () {
-    const { active, closeModal } = this.props;
+    const { closeModal } = this.props;
     const className = classNames('ab-modal', 'ab-modal__small', 'ab-modal__userselect');
     const actions = [
       { label: 'Cancel', onClick: ::this.closeDialog },
@@ -63,18 +68,12 @@ class Countdown extends React.Component {
     ];
 
     return (
-      <ModalWrapper
-        ref='modalWrapper'
-        onClose={closeModal}
-        active={active}
-        className={className}>
+      <ModalWrapper ref='modalWrapper' onClose={closeModal} className={className}>
         <ModalTab
           title='Change Countdown Date'
           info={this.state.time.format('dddd, MMMM Do YYYY, HH:mm')}>
           <div className='ab-modal__tab'>
-            <TimeInput
-              time={this.state.time}
-              onChange={::this.handleChange} />
+            <TimeInput time={this.state.time} onChange={::this.handleChange} />
           </div>
           <BottomNavigation actions={actions} />
         </ModalTab>

@@ -31,6 +31,11 @@ export default {
     }
   },
 
+  images: {
+    entry: path.join(sourceDir, 'images', '**', '*.*'),
+    output: path.join(buildDir, 'assets', 'static')
+  },
+
   files: {
     entry: path.join(sourceDir, 'files', '**/*.*'),
     output: path.join(buildDir, 'assets', 'static'),
@@ -59,12 +64,12 @@ export default {
   stylesheets: {
     main: {
       entry: path.join(sourceDir, 'stylesheets', 'main', 'stylesheet.scss'),
-      output: path.join(buildDir, 'assets', 'static'),
+      output: path.join(buildDir, 'assets', 'static')
     },
 
     canvas: {
       entry: path.join(sourceDir, 'stylesheets', 'canvas', 'canvas-stylesheet.scss'),
-      output: path.join(buildDir, 'assets', 'static'),
+      output: path.join(buildDir, 'assets', 'static')
     },
 
     sass: {
@@ -78,6 +83,9 @@ export default {
 
   watch: {
     entries: [{
+      files: path.join('images', '**', '*.*'),
+      tasks: ['images']
+    }, {
       files: path.join('stylesheets', 'main', '**', '*.{css,scss,sass}'),
       tasks: ['stylesheet:main']
     }, {

@@ -1,5 +1,6 @@
 import JSZip from 'jszip';
 import _map from 'lodash/map';
+import Random from './random';
 import { saveAs } from './FileSaver';
 import { TEMPLATE_PACKAGE_FILENAME, TEMPLATE_PACKAGE_EXTENSION } from '../Constants';
 
@@ -35,12 +36,20 @@ function get (url) {
 }
 
 async function addPageFilesToPackage (pckg, pages) {
-  return new Promise(function(resolve) {
-    _map(pages, function (page) {
+  let _pageFileNames = [];
+
+  return new Promise((resolve) => {
+    _map(pages, (page) => {
       const { blocksCount } = page;
 
       if (blocksCount > 0) {
-        const { pageFileName: fileName, pageFullSource: pageHTML } = page;
+        let { pageFileName: fileName, pageFullSource: pageHTML } = page;
+
+        if (_pageFileNames.indexOf(fileName) !== -1) {
+          fileName = `${Random.randomKey(fileName.split('.').pop())}.html`;
+        }
+
+        _pageFileNames.push(fileName);
 
         pckg.file(fileName, pageHTML);
       }
@@ -67,7 +76,7 @@ async function downloadPages (pages) {
   const pagesResult = await addPageFilesToPackage(zip, pages); //eslint-disable-line
 
   zip.generateAsync(fileSettings)
-    .then(function (content) {
+    .then((content) => {
       saveAs(content, zipFileName);
     });
 }
