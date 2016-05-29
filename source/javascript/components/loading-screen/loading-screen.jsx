@@ -8,6 +8,15 @@ class LoadingScreen extends React.Component {
     builder: React.PropTypes.object.isRequired
   };
 
+  shouldComponentUpdate (nextProps) {
+    if (this.props.builder.isLoadingScreenActive !== nextProps.builder.isLoadingScreenActive ||
+        this.props.builder.loadingScreenType !== nextProps.builder.loadingScreenType) {
+      return true;
+    }
+
+    return false;
+  }
+
   render () {
     const { builder } = this.props;
     const { isLoadingScreenActive, loadingScreenType } = builder;

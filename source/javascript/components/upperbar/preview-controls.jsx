@@ -14,6 +14,15 @@ class PreviewControls extends React.Component {
     setPreviewMode: React.PropTypes.func.isRequired
   };
 
+  shouldComponentUpdate (nextProps) {
+    if (this.props.builder.currentLocation !== nextProps.builder.currentLocation ||
+        this.props.preview.previewMode !== nextProps.preview.previewMode) {
+      return true;
+    }
+
+    return false;
+  }
+
   renderItems (items) {
     const { builder, setPreviewMode, preview } = this.props;
     const { currentLocation } = builder;

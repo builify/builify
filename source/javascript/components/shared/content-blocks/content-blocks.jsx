@@ -3,7 +3,7 @@ import _map from 'lodash/map';
 import _has from 'lodash/has';
 import Random from '../../../common/random';
 import classNames from '../../../common/classnames';
-import BlockTitle from '../BlockTitle';
+import BlockTitle from './block-title';
 import ContentBlock from './block';
 import { connect } from 'react-redux';
 import { loadContentBlockSource } from '../../../Actions';

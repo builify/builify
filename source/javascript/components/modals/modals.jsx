@@ -26,6 +26,10 @@ class Modals extends React.Component {
     const { isModalOpen: active, modalType, modalTarget: editTarget } = builder;
     const type = modalType || DialogTypes.CLASSIC;
 
+    if (active === false) {
+      return null;
+    }
+
     switch (type) {
       case DialogTypes.IMAGECHANGE:
 
@@ -81,8 +85,6 @@ class Modals extends React.Component {
             editTarget={editTarget} />
         );
     }
-
-    return null;
   }
 }
 

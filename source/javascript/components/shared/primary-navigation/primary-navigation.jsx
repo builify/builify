@@ -11,6 +11,14 @@ class PrimaryNavigation extends React.Component {
     builderConfiguration: React.PropTypes.object.isRequired
   };
 
+  shouldComponentUpdate (nextProps) {
+    if (this.props.builder.currentLocation !== nextProps.builder.currentLocation) {
+      return true;
+    }
+
+    return false;
+  }
+
   renderNavigationItems (navigation, currentLocation) {
     return _map(navigation, (item) => {
       const { id, title, icon, onClick } = item;

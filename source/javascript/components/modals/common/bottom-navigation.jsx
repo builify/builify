@@ -8,6 +8,10 @@ export default class BottomNavigation extends React.Component {
     actions: React.PropTypes.array.isRequired
   };
 
+  shouldComponentUpdate () {
+    return false;
+  }
+
   renderButtons (actions) {
     return _map(actions, (action, idx) => {
       const className = classNames('modal__button', action.className);

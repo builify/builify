@@ -16,6 +16,15 @@ export default class TabNavigation extends React.Component {
     activeTab: defaultTabId
   };
 
+  shouldComponentUpdate (nextProps) {
+    if (this.props.builder !== nextProps.builder ||
+        this.props.editTarget !== nextProps.editTarget) {
+      return true;
+    }
+
+    return false;
+  }
+
   render () {
     const { onSelectImage, builder, builderConfiguration, editTarget, onUploadImage } = this.props;
     const { uploadedImages } = builder;

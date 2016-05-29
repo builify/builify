@@ -12,6 +12,18 @@ class Canvas extends React.Component {
     preview: React.PropTypes.object.isRequired
   };
 
+  shouldComponentUpdate (nextProps) {
+    if (this.props.page.footer !== nextProps.page.footer ||
+        this.props.page.navigation !== nextProps.page.navigation ||
+        this.props.builder !== nextProps.builder ||
+        this.props.page !== nextProps.page ||
+        this.props.preview !== nextProps.preview) {
+      return true;
+    }
+
+    return false;
+  }
+
   render () {
     const { page, builder, preview } = this.props;
     const { blocksCount } = page;

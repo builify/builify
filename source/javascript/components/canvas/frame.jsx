@@ -38,6 +38,18 @@ class Frame extends React.Component {
   _editor = null;
   _blocksCache = [];
 
+  shouldComponentUpdate (nextProps) {
+    if (nextProps.page.pageID !== this.props.page.pageID) {
+      this.clearCanvas();
+    }
+
+    if (this.props.page !== nextProps.page || this.props.template !== nextProps.template) {
+      return true;
+    }
+
+    return false;
+  }
+
   setCoreElementsAttributes () {
     const { navigation, main, footer } = this.refs;
 
@@ -222,14 +234,6 @@ class Frame extends React.Component {
     this.renderNavigation();
     this.renderMainBlocks();
     this.renderFooter();
-  }
-
-  shouldComponentUpdate (nextProps) {
-    if (nextProps.page.pageID !== this.props.page.pageID) {
-      this.clearCanvas();
-    }
-
-    return true;
   }
 
   componentDidMount () {

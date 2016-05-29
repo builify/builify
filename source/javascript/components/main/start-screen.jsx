@@ -10,6 +10,14 @@ class ProjectStartScreen extends React.Component {
     builder: React.PropTypes.object.isRequired
   };
 
+  shouldComponentUpdate (nextProps) {
+    if (this.props.builder.currentLocation !== nextProps.currentLocation) {
+      return true;
+    }
+
+    return false;
+  }
+
   render () {
     const { builder } = this.props;
     const { doPreviousPagesExistInStorage: previousPages, currentLocation } = builder;

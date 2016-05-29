@@ -15,13 +15,6 @@ export default class LoadingIcon extends React.Component {
   }
 
   render () {
-    const { size } = this.props;
-    const loaderClassName = classNames('loadingScreen__loader', size);
-
-    return (
-      <div className={loaderClassName}>
-        <div />
-       </div>
-    );
+    return <div className={classNames('loadingScreen__loader', this.props.size)}><div /></div>;
   }
 }

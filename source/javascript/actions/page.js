@@ -47,16 +47,16 @@ export function saveCurrentPage () {
     const { currentLocation } = builder;
     const { blocksCount } = page;
 
+    if (currentLocation === CurrentLocations.STARTSCREEN) {
+      return;
+    }
+
     if (blocksCount === 0) {
       dispatch(addNotification({
         message: 'You cannot save empty page',
         level: 'info'
       }));
 
-      return;
-    }
-
-    if (currentLocation === CurrentLocations.STARTSCREEN) {
       return;
     }
 

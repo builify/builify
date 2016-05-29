@@ -18,6 +18,10 @@ export default class ModalWrapper extends React.Component {
 
   dialogElement = null;
 
+  shouldComponentUpdate () {
+    return false;
+  }
+
   componentDidMount () {
     const { active } = this.props;
     const dialogRef = this.refs['modalWrapper'];

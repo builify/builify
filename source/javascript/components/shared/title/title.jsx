@@ -9,6 +9,10 @@ export default class Title extends React.Component {
     className: React.PropTypes.string
   };
 
+  shouldComponentUpdate () {
+    return false;
+  }
+
   render () {
     const { title, description } = this.props;
     const titleClassName = classNames('title', this.props.className);

@@ -11,6 +11,10 @@ class SideTabOpener extends React.Component {
     openTab: React.PropTypes.func.isRequired
   };
 
+  shouldComponentUpdate () {
+    return false;
+  }
+
   clickEvent () {
     return this.props.openTab(this.props.onClick);
   }

@@ -15,6 +15,14 @@ class CheckBoxWrapper extends React.Component {
     checked: false
   };
 
+  shouldComponentUpdate (nextProps, nextState) {
+    if (this.state.checked !== nextState.state.checked) {
+      return true;
+    }
+
+    return false;
+  }
+
   componentWillMount () {
     const { item } = this.props;
     const { state } = item;
