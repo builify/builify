@@ -29,6 +29,8 @@ export default keyMirror([
   'RESTART_PAGE',
   'SET_PAGE_TITLE',
   'SET_PAGE_FILENAME',
+  'IMPORT_PAGE',
+  'EXPORT_PAGE',
 
   // Tab's actions
   'OPEN_TAB',

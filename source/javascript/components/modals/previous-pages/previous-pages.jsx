@@ -6,7 +6,8 @@ import ModalTab from '../common/tab';
 import BottomNavigation from '../common/bottom-navigation';
 import Time from '../../../common/time';
 import Scrollbar from '../../shared/scrollbar';
-import { loadPreviousPage, closeModal, flushPagesInStorage } from '../../../actions';
+import Button from '../../shared/button';
+import { loadPreviousPage, closeModal, flushPagesInStorage, importPage } from '../../../actions';
 import { connect } from 'react-redux';
 
 class Content extends React.Component {
@@ -14,7 +15,8 @@ class Content extends React.Component {
     builder: React.PropTypes.object.isRequired,
     onClose: React.PropTypes.func.isRequired,
     loadPreviousPage: React.PropTypes.func.isRequired,
-    flushPagesInStorage: React.PropTypes.func.isRequired
+    flushPagesInStorage: React.PropTypes.func.isRequired,
+    importPage: React.PropTypes.func.isRequired
   };
 
   renderPageItems (pages) {
@@ -38,21 +40,42 @@ class Content extends React.Component {
     });
   }
 
+  flushStorage () {
+    this.props.flushPagesInStorage();
+    return this.props.onClose();
+  }
+
+  importPage (data) {
+    this.props.importPage(data);
+    return this.props.onClose();
+  }
+
+  componentDidMount () {
+    this.refs.fileInput.addEventListener('change', () => {
+      const file = this.refs.fileInput.files[0];
+      var reader = new FileReader();
+
+      reader.onload = () => {
+        this.importPage(reader.result);
+			};
+
+			reader.readAsText(file);
+    }, false);
+  }
+
   render () {
     const { builder } = this.props;
     const { pages } = builder;
     const pagesInformation = `You have ${pages.length} pages in localstorage.`;
 
     return (
-      <ModalTab title='Select Page to Load'>
+      <ModalTab title='Select or import previous page'>
         <div className={classNames('modal__tab')}>
           <aside className={classNames('modal__tabside', 'sec')}>
             <h2>Pages</h2>
             <p>{ pagesInformation }</p>
-            <p onClick={() => {
-              this.props.flushPagesInStorage();
-              return this.props.onClose();
-            }}>Flush Storage</p>
+            <Button label='Flush Storage' onClick={::this.flushStorage} />
+            <input type='file' ref='fileInput' />
           </aside>
           <main className={classNames('modal__tabcontent', 'sec')}>
             <Scrollbar height={380}>
@@ -72,7 +95,8 @@ class PreviousPages extends React.Component {
     builder: React.PropTypes.object.isRequired,
     closeModal: React.PropTypes.func.isRequired,
     loadPreviousPage: React.PropTypes.func.isRequired,
-    flushPagesInStorage: React.PropTypes.func.isRequired
+    flushPagesInStorage: React.PropTypes.func.isRequired,
+    importPage: React.PropTypes.func.isRequired
   };
 
   closeDialog () {
@@ -92,6 +116,7 @@ class PreviousPages extends React.Component {
           onClose={::this.closeDialog}
           loadPreviousPage={this.props.loadPreviousPage}
           flushPagesInStorage={this.props.flushPagesInStorage}
+          importPage={this.props.importPage}
           builder={builder} />
         <BottomNavigation actions={actions} />
       </ModalWrapper>
@@ -117,6 +142,10 @@ function mapDispatchToProps (dispatch) {
 
     flushPagesInStorage: () => {
       dispatch(flushPagesInStorage());
+    },
+
+    importPage: (data) => {
+      dispatch(importPage(data));
     }
   };
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from '../../../common/classnames';
-import Icon from '../icon';
+import Icon from '../../shared/icon';
 
 export default class ClickToolBoxItem extends React.Component {
   static propTypes = {

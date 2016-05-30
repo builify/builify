@@ -113,6 +113,7 @@ export default {
     'lodash',
     'jszip',
     'querystring',
+    'file-saver',
     'mime',
     'moment',
     'sortablejs',

@@ -93,3 +93,16 @@ export function setPageFilename (filename) {
     filename: filename
   };
 }
+
+export function importPage (data) {
+  return {
+    type: Actions.IMPORT_PAGE,
+    data: data
+  };
+}
+
+export function exportPage () {
+  return {
+    type: Actions.EXPORT_PAGE
+  };
+}

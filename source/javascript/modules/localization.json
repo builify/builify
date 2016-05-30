@@ -9,6 +9,13 @@
       "download": "Download"
     },
 
+    "canvas": {
+      "suggestionbox": {
+        "h1": "This is where your page will appear",
+        "h2": "So drop some contentblocks!"
+      }
+    },
+
     "sidetabs": {
       "colors": {
         "title": "Design",
@@ -27,7 +34,7 @@
       },
       "newpage": "Start new page",
       "loadpage": "Load previous page",
-      "loadpages": "Load previous page"
+      "loadpages": "Import or load previous pages"
     },
 
     "design": {

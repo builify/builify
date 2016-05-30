@@ -13,6 +13,7 @@ import _isNull from 'lodash/isnull';
 import TTStorage from '../modules/tt-storage';
 import Random from '../common/random';
 import TTDOM from '../common/TTDOM';
+import { exportPage, importPage } from '../common/export-page';
 import * as Actions from '../actions/constants';
 import { replaceDataInHTML } from '../common/common';
 import { TEMPLATE_PAGES_STORAGE_NAME } from '../constants';
@@ -88,6 +89,33 @@ export default function page (state = pageInitialState, action) {
     case Actions.CLONE_ITEM: {
       // To update hovering events.
       return _assign({}, state);
+    }
+
+    case Actions.EXPORT_PAGE: {
+      const { pageTitle, pageFileName, pageID, navigation, main, footer, blocksCount } = state;
+      const iFrame = TTDOM.iframe.get('ab-cfrm');
+      const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
+      const pageFullSource = TTDOM.iframe.getFullHTML(iFrameWindow);
+      const pageObject = _assign({}, state, {
+        pageID: pageID,
+        pageTitle: pageTitle,
+        pageFileName: pageFileName,
+        pageFullSource: pageFullSource,
+
+        navigation: resetBlocks(navigation),
+        main: resetBlocks(main),
+        footer: resetBlocks(footer),
+        blocksCount: blocksCount
+      });
+
+      exportPage(pageObject);
+
+      return state;
+    }
+
+    case Actions.IMPORT_PAGE: {
+      const { data } = action;
+      return _assign({}, state, importPage(data));
     }
 
     case Actions.FLUSH_PAGES_IN_STORAGE: {

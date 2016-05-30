@@ -1,13 +1,12 @@
 import React from 'react';
 import _ from 'lodash';
-import classNames from 'classnames';
-import Input from '../Input';
-import Title from '../Title';
-import * as Actions from '../../../Actions';
-import { connect } from 'react-redux';
-
+import classNames from '../../../common/classnames';
+import Input from '../input';
+import Title from '../title';
 import CurrentPageSections from './current-page-sections';
-
+import Button from '../button';
+import * as Actions from '../../../actions';
+import { connect } from 'react-redux';
 
 class CurrentPage extends React.Component {
   state = {
@@ -18,7 +17,8 @@ class CurrentPage extends React.Component {
   static propTypes = {
     page: React.PropTypes.object.isRequired,
     removeContentBlock: React.PropTypes.func.isRequired,
-    sortContentBlocks: React.PropTypes.func.isRequired
+    sortContentBlocks: React.PropTypes.func.isRequired,
+    exportPage: React.PropTypes.func.isRequired
   };
 
   componentWillMount () {
@@ -42,8 +42,12 @@ class CurrentPage extends React.Component {
     return this.props[`setPage${_.capitalize(name)}`](value);
   }
 
+  exportPage () {
+    return this.props.exportPage();
+  }
+
   renderInput (type) {
-    const className = classNames('ab-itemwrap', 'm-b-3');
+    const className = classNames('itemwrap', 'm-b-3');
     let title = null;
     let description = null;
     let value = null;
@@ -80,6 +84,10 @@ class CurrentPage extends React.Component {
         <CurrentPageSections page={page} onRemove={removeContentBlock} onSortBlocks={sortContentBlocks} />
         { this.renderInput('title') }
         { this.renderInput('fileName') }
+        <div className={classNames('currentPage__divider')} />
+        <div className='wrap'>
+          <Button label='Export Page' onClick={::this.exportPage} />
+        </div>
       </div>
     );
   }
@@ -107,6 +115,10 @@ function mapDispatchToProps (dispatch) {
 
     setPageFilename: (filename) => {
       dispatch(Actions.setPageFilename(filename));
+    },
+
+    exportPage: () => {
+      dispatch(Actions.exportPage());
     }
   };
 }

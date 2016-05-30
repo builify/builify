@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '../Icon';
+import Icon from '../../shared/icon';
 
 export default class ToolboxItem extends React.Component {
   static propTypes = {

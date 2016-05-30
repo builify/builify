@@ -1,7 +1,7 @@
 import JSZip from 'jszip';
 import _map from 'lodash/map';
 import Random from './random';
-import { saveAs } from './FileSaver';
+import { saveAs } from 'file-saver';
 import { TEMPLATE_PACKAGE_FILENAME, TEMPLATE_PACKAGE_EXTENSION } from '../Constants';
 
 function getFileSettings () {

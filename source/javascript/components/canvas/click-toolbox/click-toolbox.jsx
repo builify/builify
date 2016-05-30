@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import TTDOM from '../../../common/TTDOM';
-import { findUpAttr } from '../../../Common/Common';
+import { findUpAttr } from '../../../common/common';
 import ClickToolBoxItem from './item';
 import Helpers from './helpers';
 import { HTMLTagNamesToString } from './config';

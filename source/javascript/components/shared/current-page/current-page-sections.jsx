@@ -21,7 +21,7 @@ export default class CurrentPageSections extends React.Component {
               return this.props.onRemove(item);
             }}
             data={item}
-            key={Random.randomKey('curren-page-item')} />
+            key={Random.randomKey('current-page-item')} />
       );
     });
   }

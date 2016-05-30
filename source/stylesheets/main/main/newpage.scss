@@ -5,7 +5,7 @@
     background: #FFF;
 		margin-right: 20px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-		width: $pagenew-size;
+		width: $pagenew-size + 20;
 		line-height: $pagenew-size;
 		height: $pagenew-size;
 		@include transition(all 0.3s ease);
@@ -16,6 +16,7 @@
         font-weight: 700;
         color: #222;
         text-transform: uppercase;
+        @include rem(font-size, 16px);
     }
 
 		&:last-child {

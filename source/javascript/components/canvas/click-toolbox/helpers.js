@@ -1,4 +1,4 @@
-import TTDOM from '../../../Common/TTDOM';
+import TTDOM from '../../../common/TTDOM';
 
 export default {
   checkIfBackgroundImageHolderIsNear (target) {

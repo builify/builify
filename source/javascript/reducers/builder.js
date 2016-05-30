@@ -8,7 +8,7 @@ import _isUndefined from 'lodash/isundefined';
 import _join from 'lodash/join';
 import _words from 'lodash/words';
 import _dropRight from 'lodash/dropright';
-import DownloadPages from '../common/download-pages';
+import downloadPages from '../common/download-pages';
 import TTStorage from '../modules/tt-storage';
 import * as Actions from '../actions/constants';
 import { CurrentLocations, MAXIUMUM_PAGES_IN_STORAGE, TEMPLATE_PAGES_STORAGE_NAME, DialogTypes } from '../constants';
@@ -95,7 +95,7 @@ export default function builder (state = builderInitialState, action) {
           queryPages.push(pages[selectedPages[i]]);
         }
 
-        DownloadPages(queryPages, currentState);
+        downloadPages(queryPages, currentState);
       }
 
       return state;
@@ -176,7 +176,7 @@ export default function builder (state = builderInitialState, action) {
       if (pagesSize === 1) {
         const { currentState } = action;
 
-        DownloadPages(pages, currentState);
+        downloadPages(pages, currentState);
       } else if (pagesSize > 1) {
         return _assign({}, state, {
           isModalOpen: true,
@@ -277,6 +277,7 @@ export default function builder (state = builderInitialState, action) {
       });
     }
 
+    case Actions.IMPORT_PAGE:
     case Actions.LOAD_PREVIOUS_PAGE:
       return _assign({}, state, {
         currentLocation: CurrentLocations.CANVAS,
