@@ -75,7 +75,10 @@ class Content extends React.Component {
             <h2>Pages</h2>
             <p>{ pagesInformation }</p>
             <Button label='Flush Storage' onClick={::this.flushStorage} />
-            <input type='file' ref='fileInput' />
+            <div className='tt-filebutton'>
+              <input className='tt-filebutton__input' id='fileInput' type='file' ref='fileInput' />
+              <label className='tt-filebutton__label' htmlFor='fileInput'>Import a Page</label> 
+            </div>
           </aside>
           <main className={classNames('modal__tabcontent', 'sec')}>
             <Scrollbar height={380}>

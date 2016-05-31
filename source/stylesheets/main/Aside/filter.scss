@@ -2,7 +2,6 @@
 		position: relative;
 		width: 100%;
 		margin-bottom: 30px;
-		background: $base-color;
 		height: $item-height * 2;
 		line-height: $item-height * 2;
 		@include clearfix;
@@ -10,12 +9,11 @@
 		&__text {
 				cursor: pointer;
 				display: block;
-				height: $item-height * 2;
-				line-height: $item-height * 2;
 				text-transform: uppercase;
-				color: #FFF;
 				font-weight: 700;
 				overflow: hidden;
+				height: $item-height * 2;
+				line-height: $item-height * 2;
 				padding: 0 $base-padding;
 				@include rem(font-size, 18px);
 
@@ -31,8 +29,6 @@
 				position: absolute;
 				width: 100%;
 				min-height: 40px;
-				background: #fff;
-				box-shadow: 0 0 30px rgba(#000, 0.3);
 				z-index: 500;
 				padding: ($base-padding / 3) 0;
 
@@ -63,7 +59,6 @@
 								&.active,
 								&:hover {
 										font-weight: 700;
-										color: $base-color;
 								}
 						}
 				}

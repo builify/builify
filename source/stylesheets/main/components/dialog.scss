@@ -25,7 +25,6 @@ $modal-navigation-padding: .8 * $unit;
 				width: 100%;
 				height: 100%;
 				opacity: 0;
-    		background: #000;
 				transition-property: opacity;
 				transition-timing-function: $animation-curve-default;
 				transition-duration: $animation-duration;
@@ -41,7 +40,6 @@ $modal-navigation-padding: .8 * $unit;
 				transition-duration: $animation-duration;
 				transition-delay: $animation-delay;
 				transition-timing-function: $animation-curve-default;
-				background-color: $modal-color-white;
 				border-radius: $modal-border-radius;
 				box-shadow: $zdepth-shadow-5;
 				@include flex-direction(column);
@@ -70,9 +68,8 @@ $modal-navigation-padding: .8 * $unit;
 				z-index: 2;
 
 				h2 {
-					font-weight: 700;
-					color: #3C3C3C;
-					@include rem(font-size, 16px);
+						font-weight: 700;
+						@include rem(font-size, 16px);
 				}
 
 				&.sec {
@@ -83,7 +80,6 @@ $modal-navigation-padding: .8 * $unit;
 				p {
 						line-height: 24px;
 						margin: 10px 0;
-						color: #5A5A5A;
 						@include rem(font-size, 14px);
 				}
 		}
@@ -94,7 +90,6 @@ $modal-navigation-padding: .8 * $unit;
 				min-height: 350px;
 				margin: 0px;
 				padding-left: 40px;
-				border-left: 1px solid #E1E1E1;
 
 				&.sec {
 					padding-left: 0;
@@ -123,12 +118,6 @@ $modal-navigation-padding: .8 * $unit;
 				line-height: 30px;
 				padding: 0px 10px;
 				text-transform: capitalize;
-
-				&.active {
-						border-color: #3C96A5;
-						border-right: 2px solid #3C96A5;
-						background: #F5F5F5;
-				}
 		}
 
 		&__tabs {
@@ -169,19 +158,7 @@ $modal-navigation-padding: .8 * $unit;
 				cursor: pointer;
 				display: inline-block;
 				margin-left: 15px;
-				//transition-property: color;
-				//transition-duration: $animation-duration;
-				//transition-timing-function: $animation-curve-default;
-				color: $modal-color-tablabel;
 				line-height: $modal-tab-height;
-
-				&.active {
-						color: $color-primary;
-				}
-
-				&:hover {
-						color: lighten($modal-color-tablabel, 9%);
-				}
 		}
 
 		&__pages {

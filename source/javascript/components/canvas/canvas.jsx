@@ -13,7 +13,8 @@ class Canvas extends React.Component {
   };
 
   shouldComponentUpdate (nextProps) {
-    if (this.props.page.footer !== nextProps.page.footer ||
+    if (this.props !== this.props ||
+        this.props.page.footer !== nextProps.page.footer ||
         this.props.page.navigation !== nextProps.page.navigation ||
         this.props.builder !== nextProps.builder ||
         this.props.page !== nextProps.page ||

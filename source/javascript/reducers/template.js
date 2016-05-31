@@ -47,6 +47,13 @@ export default function template (state = initialState, action) {
       });
     }
 
+    case Actions.START_NEW_PAGE:
+    case Actions.RESTART_PAGE:
+    case Actions.LOAD_PREVIOUS_PAGE:
+     return _assign({}, state, {
+       drawBaseline: false
+     });
+
     case Actions.TOGGLE_BASELINE: {
       const { checked } = action;
       const baselineValue = state.design.typography.size.baseline;

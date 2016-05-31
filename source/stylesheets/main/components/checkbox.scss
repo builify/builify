@@ -14,11 +14,11 @@ $checkbox-transition-duration: .2s !default;
 .#{$nameprefix}checkbox {
     position: relative;
     display: block;
-    height: $checkbox-size;
-    margin-bottom: $checkbox-field-margin-bottom;
     white-space: nowrap;
     vertical-align: middle;
     padding: 5px 40px 5px 40px;
+    height: $checkbox-size;
+    margin-bottom: $checkbox-field-margin-bottom;
 
     &__check {
         position: relative;
@@ -36,9 +36,6 @@ $checkbox-transition-duration: .2s !default;
         transition-property: background-color;
 
         &.checked {
-            background-color: $checkbox-color;
-            border-color: $checkbox-color;
-
             &:after {
                 position: absolute;
                 top: -.1 * $unit;
@@ -69,7 +66,6 @@ $checkbox-transition-duration: .2s !default;
     }
 
     &__ripple {
-        background-color: $checkbox-color;
         opacity: .3;
         transition-duration: $checkbox-ripple-duration;
     }
@@ -79,7 +75,7 @@ $checkbox-transition-duration: .2s !default;
             color: $checkbox-disabled-color;
         }
 
-        > .check {
+        > .#{$nameprefix}checkbox__check {
             cursor: auto;
             border-color: $checkbox-disabled-color;
 
@@ -98,7 +94,7 @@ $checkbox-transition-duration: .2s !default;
         overflow: hidden;
         opacity: 0;
 
-        &:focus:not(&:active) + .check {
+        &:focus:not(&:active) + .#{$nameprefix}checkbox__check {
             &:before {
                 position: absolute;
                 top: 50%;
@@ -113,26 +109,22 @@ $checkbox-transition-duration: .2s !default;
                 background-color: $checkbox-focus-color;
                 border-radius: 50%;
             }
-
-            &.checked:before {
-                background-color: $checkbox-focus-checked-color;
-            }
         }
     }
 }
 
 @keyframes checkmark-expand {
-  0% {
-    top: .9 * $unit;
-    left: .6 * $unit;
-    width: 0;
-    height: 0;
-  }
+    0% {
+        top: .9 * $unit;
+        left: .6 * $unit;
+        width: 0;
+        height: 0;
+    }
 
-  100% {
-    top: -.1 * $unit;
-    left: .4 * $unit;
-    width: .7 * $unit;
-    height: 1.2 * $unit;
-  }
+    100% {
+        top: -.1 * $unit;
+        left: .4 * $unit;
+        width: .7 * $unit;
+        height: 1.2 * $unit;
+    }
 }

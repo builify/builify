@@ -1,4 +1,4 @@
-$light-theme-color: $base-color;
+$light-theme-color: rgb(221, 44, 57);
 $light-primary-text-color: #444;
 $light-secondary-text-color: #888;
 $light-primary-color: #e7e7e7;
@@ -6,6 +6,141 @@ $light-secondary-color: #fff;
 $light-primary-border-color: #ccc;
 $light-range-track-color: darken($light-secondary-color, 20%);
 $light-main-box-shadow: 0 0 20px rgba(#000, 0.3);
+
+.light {
+		// Primary navigation.
+		.#{$nameprefix}primarynav {
+				li {
+						color: #333;
+
+						&:hover {
+								background-color: #e4e4e4;
+						}
+				}
+		}
+
+	  // Filter.
+		.#{$nameprefix}filter {
+				background: $light-theme-color;
+
+				&__text {
+						color: #FFF;
+				}
+
+				&__items {
+						background: #FFF;
+						box-shadow: 0 0 30px rgba(#000, 0.3);
+
+						ul li.active,
+						ul li:hover {
+								color: $light-theme-color;
+						}
+				}
+		}
+
+		// Color.
+		.#{$nameprefix}color {
+				&__circle {
+						box-shadow: 0 2px 6px rgba(#000, 0.3);
+				}
+
+				&.active,
+				&:hover {
+						background-color: #e4e4e4;
+				}
+		}
+
+		// Fileinput.
+		.tt-filebutton {
+				&__label {
+						color: $light-theme-color;
+
+						&:hover {
+								background: rgba($light-theme-color, 0.2);
+						}
+				}
+		}
+
+		// Button.
+		.#{$nameprefix}button {
+				&.primary:not([disabled]) {
+						color: $light-theme-color;
+
+						&:hover,
+						&:focus:not(:active) {
+								background: rgba($light-theme-color, 0.2);
+						}
+				}
+		}
+
+		// Checkbox.
+		.#{$nameprefix}checkbox {
+				&__check {
+						&.checked {
+								background-color: $light-theme-color;
+								border-color: $light-theme-color;
+						}
+				}
+
+				&__ripple {
+						background-color: $light-theme-color;
+				}
+
+				&__input {
+						&:focus:not(&:active) + .check.checked:before {
+								background-color: rgba($light-theme-color, 0.3);
+						}
+				}
+		}
+
+		// Modal.
+		.#{$nameprefix}modal {
+				&__overlay {
+						background: #000;
+				}
+
+				&__content {
+						background-color: #FFF;
+				}
+
+				&__tabside {
+						h2 {
+								color: #333;
+						}
+
+						p {
+								color: #444;
+						}
+				}
+
+				&__tabcontent {
+						border-lef: 1px solid #e4e4e4;
+				}
+
+				&__tabitem {
+						color: #333;
+
+						&.active {
+								border-right: 2px solid $light-theme-color;
+								background: #f5f5f5;
+								font-weight: 700;
+						}
+				}
+
+				&__tablabel {
+						color: #333;
+
+						&.active {
+								font-weight: 700;
+								color: $light-theme-color;
+						}
+
+						&:hover {
+								color: #555;
+						}
+				}
+		}
+}
 
 .light {
 		background: $light-primary-color;

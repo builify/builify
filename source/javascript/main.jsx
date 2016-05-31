@@ -7,11 +7,11 @@ import { ApplicationContainer } from './components/application-container';
 
 const targetElementQuery = '#react-js';
 const targetElement = document.querySelector(targetElementQuery);
-
+/*
 if (process.env.NODE_ENV === 'development') {
   const whyDidYouUpdate = require('why-did-you-update').whyDidYouUpdate;
   whyDidYouUpdate(React);
-}
+}*/
 
 if (_isElement(targetElement)) {
   ReactDOM.render(<ApplicationContainer />, targetElement);

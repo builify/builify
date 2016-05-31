@@ -35,7 +35,6 @@ class Frame extends React.Component {
   };
 
   _blocks = {};
-  _editor = null;
   _blocksCache = [];
 
   shouldComponentUpdate (nextProps) {
@@ -181,18 +180,6 @@ class Frame extends React.Component {
     return this.addMouseEventsToCoreBlock(elementReference, block);
   }
 
-  initializeEditor () {
-    const iFrame = TTDOM.iframe.get('ab-cfrm');
-
-    if (iFrame) {
-      const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
-
-      this._editor = new TTEditor({
-        window: iFrameWindow
-      });
-    }
-  }
-
   addMouseEventsToCoreBlock (coreElementReference, block) {
     const targets = [
       'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
@@ -237,7 +224,6 @@ class Frame extends React.Component {
   }
 
   componentDidMount () {
-    this.initializeEditor();
     this.drawCanvas();
   }
 

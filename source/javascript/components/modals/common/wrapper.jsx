@@ -17,11 +17,7 @@ export default class ModalWrapper extends React.Component {
 
   dialogElement = null;
 
-  shouldComponentUpdate (nextProps) {
-    if (this.props.children !== nextProps.children) {
-      return true;
-    }
-
+  shouldComponentUpdate () {
     return false;
   }
 

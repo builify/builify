@@ -4,8 +4,6 @@ $button-squared-min-width: 9 * $unit;
 $button-squared-padding: 0 $unit * 1.2;
 $button-flat-color-hover: rgba($color-black, 0.26) !default;
 $button-default-text-color: $color-black !default;
-$button-primary-color: $color-primary !default;
-$button-primary-color-hover: rgba($color-primary, 0.20) !default;
 
 %button {
     position: relative;
@@ -21,8 +19,8 @@ $button-primary-color-hover: rgba($color-primary, 0.20) !default;
     color: $button-default-text-color;
     height: $button-height;
     transition: box-shadow .2s $animation-curve-fast-out-linear-in,
-                  background-color .2s $animation-curve-default,
-                  color .2s $animation-curve-default;
+                background-color .2s $animation-curve-default,
+                color .2s $animation-curve-default;
     @include flex-direction(row);
     @include align-content(center);
     @include justify-content(center);
@@ -58,16 +56,4 @@ $button-primary-color-hover: rgba($color-primary, 0.20) !default;
             background: $button-flat-color-hover;
         }
     }
-}
-
-.primary:not([disabled]) {
-  &.flat {
-    color: $button-primary-color;
-    &:hover {
-      background: $button-primary-color-hover;
-    }
-    &:focus:not(:active) {
-      background: $button-primary-color-hover;
-    }
-  }
 }
