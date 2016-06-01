@@ -20,6 +20,14 @@ class Filter extends React.Component {
     target: null
   };
 
+  shouldComponentUpdate (nextProps, nextState) {
+    if (this.state.isFilterOpened !== nextState.isFilterOpened) {
+      return true;
+    }
+
+    return false;
+  }
+
   toggleFilter () {
     this.setState({
       isFilterOpened: !this.state.isFilterOpened

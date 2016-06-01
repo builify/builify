@@ -41,7 +41,7 @@ export default class Switch extends React.Component {
   render () {
     const className = classNames('ab-switch', this.props.disabled ? 'disabled' : 'field');
     const switchClassName = this.props.checked ? 'switch-on' : 'switch-off';
-    const { onChange, ...others } = this.props;
+    const { ...others } = this.props;
 
     return (
       <label className={className}>
@@ -52,11 +52,11 @@ export default class Switch extends React.Component {
           readOnly
           className='input'
           ref='input'
-          type='checkbox'  />
+          type='checkbox' />
         <span role='switch' className={switchClassName}>
           <Thumb disabled={this.props.disabled} />
         </span>
-        {this.props.label ? <span className=''>{this.props.label}</span> : null}
+        { this.props.label && <span>{this.props.label}</span> }
       </label>
     );
   }

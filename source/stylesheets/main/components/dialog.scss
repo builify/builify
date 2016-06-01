@@ -31,9 +31,8 @@ $modal-navigation-padding: .8 * $unit;
 		}
 
 		&__content {
-				max-width: 96vw;
 				max-height: 96vh;
-				width: 800px;
+				width: 900px;
 				min-height: 300px;
 				opacity: 0;
 				transition-property: opacity, transform, width;
@@ -210,8 +209,8 @@ $modal-navigation-padding: .8 * $unit;
 		&__tabimage {
 				position: relative;
 				background: #E1E1E1;
-				width: 160px;
-				height: 100px;
+				width: 190px;
+				height: 130px;
 				float: left;
 				margin: 0px 10px 10px 0px;
 				border-radius: 3px;

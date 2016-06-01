@@ -8,6 +8,10 @@ export const store = configureStore();
 store.dispatch(runApplicationActions());
 
 export class ApplicationContainer extends React.Component {
+  shouldComponentUpdate () {
+    return false;
+  }
+
   render() {
     return (
       <Provider store={store}>

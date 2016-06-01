@@ -5,6 +5,7 @@ import notifications from './notifications';
 import page from './page';
 import canvas from './canvas';
 import preview from './preview';
+import assets from './assets';
 import { combineReducers } from 'redux';
 
 const allReducers = combineReducers({
@@ -14,7 +15,8 @@ const allReducers = combineReducers({
   notifications,
   page,
   canvas,
-  preview
+  preview,
+  assets
 });
 
 export default allReducers;

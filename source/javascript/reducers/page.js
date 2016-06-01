@@ -291,10 +291,10 @@ export default function page (state = pageInitialState, action) {
 
         if (type === 'footer') {
           if (_has(block, 'elementReference') && _isElement(block.elementReference)) {
-            block.elementReference.remove();
+            TTDOM.element.remove(block.elementReference);
           } else {
             if (_isElement(state.footer.elementReference)) {
-              state.footer.elementReference.remove();
+              TTDOM.element.remove(state.footer.elementReference);
             }
           }
 
@@ -304,10 +304,10 @@ export default function page (state = pageInitialState, action) {
           });
         } else if (type === 'navigation') {
           if (_has(block, 'elementReference') && _isElement(block.elementReference)) {
-            block.elementReference.remove();
+            TTDOM.element.remove(block.elementReference);
           } else {
             if (_isElement(state.navigation.elementReference)) {
-              state.navigation.elementReference.remove();
+              TTDOM.element.remove(state.navigation.elementReference);
             }
           }
 
@@ -322,7 +322,7 @@ export default function page (state = pageInitialState, action) {
 
           if (index !== -1) {
             if (_isElement(state.main[index].elementReference)) {
-              state.main[index].elementReference.remove();
+              TTDOM.element.remove(state.main[index].elementReference);
               state.main[index].hasBeenRendered = false;
             }
 

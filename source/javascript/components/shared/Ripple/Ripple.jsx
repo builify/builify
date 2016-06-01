@@ -1,126 +1,76 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import classNames from 'classnames';
-import Prefixer from '../../../Common/Prefixer';
 
-const defaults = {
-  centered: false,
-  className: '',
-  spread: 2
-};
-
-const Ripple = (options = {}) => {
-  const {
-    centered: defaultCentered,
-    className: defaultClassName,
-    spread: defaultSpread
-  } = {...defaults, ...options};
-
-  return ComposedComponent => {
-    return class RippledComponent extends React.Component {
-      static propTypes = {
-        children: React.PropTypes.any,
-        disabled: React.PropTypes.bool,
-        ripple: React.PropTypes.bool,
-        rippleCentered: React.PropTypes.bool,
-        rippleClassName: React.PropTypes.string,
-        rippleSpread: React.PropTypes.number
-      };
-
-      static defaultProps = {
-        disabled: false,
-        ripple: true,
-        rippleCentered: defaultCentered,
-        rippleClassName: defaultClassName,
-        rippleSpread: defaultSpread
-      };
-
-      state = {
-        active: false,
-        left: null,
-        restarting: false,
-        top: null,
-        width: null
-      };
-
-      handleEnd = () => {
-        document.removeEventListener(this.touch ? 'touchend' : 'mouseup', this.handleEnd);
-        this.setState({active: false});
-      };
-
-      start = ({pageX, pageY}, touch = false) => {
-        if (!this._isTouchRippleReceivingMouseEvent(touch)) {
-          this.touch = touch;
-          document.addEventListener(this.touch ? 'touchend' : 'mouseup', this.handleEnd);
-          const {top, left, width} = this._getDescriptor(pageX, pageY);
-          this.setState({active: false, restarting: true, top, left, width}, () => {
-            this.refs.ripple.offsetWidth;  //eslint-disable-line no-unused-expressions
-            this.setState({active: true, restarting: false});
-          });
-        }
-      };
-
-      _isTouchRippleReceivingMouseEvent (touch) {
-        return this.touch && !touch;
-      }
-
-      _getDescriptor (pageX, pageY) {
-        const {left, top, height, width} = ReactDOM.findDOMNode(this).getBoundingClientRect();
-        const {rippleCentered: centered, rippleSpread: spread} = this.props;
-        return {
-          left: centered ? 0 : pageX - left - width / 2 - window.scrollX,
-          top: centered ? 0 : pageY - top - height / 2 - window.scrollY,
-          width: width * spread
-        };
-      }
-
-      handleMouseDown = (event) => {
-        if (!this.props.disabled) this.start(event);
-        if (this.props.onMouseDown) this.props.onMouseDown(event);
-      };
-
-      render () {
-        if (!this.props.ripple) {
-          return <ComposedComponent {...this.props} />;
-        } else {
-          const {
-            children,
-            ripple,
-            rippleClassName: className,
-            rippleCentered: centered,
-            rippleSpread: spread,
-            ...other
-          } = this.props;
-
-          const rippleClassName = classNames('ab-ripple__normal', {
-            ['active']: this.state.active,
-            ['restarting']: this.state.restarting
-          }, className);
-
-          const { left, top, width } = this.state;
-          const scale = this.state.restarting ? 0 : 1;
-          const rippleStyle = Prefixer({
-              transform: `translate3d(${-width / 2 + left}px, ${-width / 2 + top}px, 0) scale(${scale})`
-          }, {width, height: width});
-
-          return (
-            <ComposedComponent
-              {...other}
-              onMouseDown={this.handleMouseDown}>
-              {children ? children : null}
-              <span className='ab-ripple__wrapper'>
-                <span
-                  ref='ripple'
-                  role='ripple'
-                  className={rippleClassName}
-                  style={rippleStyle} />
-              </span>
-            </ComposedComponent>
-          );
-        }
-      }
-    };
+export default class Ripple extends React.Component {
+  static propTypes = {
+    centered: React.PropTypes.bool,
+    className: React.PropTypes.string,
+    loading: React.PropTypes.bool,
+    spread: React.PropTypes.number
   };
-};
 
-export default Ripple;
+  static defaultProps = {
+    centered: false,
+    className: '',
+    loading: false,
+    spread: 2
+  };
+
+  state = {
+    active: false,
+    restarting: false,
+    top: null,
+    left: null,
+    width: null
+  };
+
+  shouldComponenUpdate (nextProps, nextState) {
+    if (this.props !== nextProps ||
+        this.state !== nextState) {
+      return true;
+    }
+
+    return false;
+  }
+
+  start = ({ pageX, pageY }) => {
+    document.addEventListener('mouseup', this.handleEnd);
+
+    const {top, left, width} = this._getDescriptor(pageX, pageY);
+
+    this.setState({active: false, restarting: true, width: 0}, () => {
+      this.refs.ripple.offsetWidth;  //eslint-disable-line no-unused-expressions
+      this.setState({active: true, restarting: false, top, left, width});
+    });
+  };
+
+  handleEnd = () => {
+    document.removeEventListener('mouseup', this.handleEnd);
+    this.setState({active: false});
+  };
+
+  _getDescriptor (pageX, pageY) {
+    const { left, top, height, width } = ReactDOM.findDOMNode(this).getBoundingClientRect();
+    return {
+      left: this.props.centered ? width / 2 : pageX - left,
+      top: this.props.centered ? height / 2 : pageY - top,
+      width: width * this.props.spread
+    };
+  }
+
+  render () {
+    const { left, top, width } = this.state;
+    const rippleStyle = { left, top, width, height: width };
+    let className = this.props.loading ? 'ab-ripple__loading' : 'ab-ripple__normal';
+
+    if (this.state.active) className += ' active';
+    if (this.state.restarting) className += ' restarting';
+    if (this.props.className) className += ` ${this.props.className}`;
+
+    return (
+      <span className='ab-ripple__wrapper'>
+        <span ref='ripple' className={className} style={rippleStyle} />
+      </span>
+    );
+  }
+}

@@ -78,12 +78,8 @@ export default class CurrentImageTab extends React.Component {
             floating={false} />
         </aside>
         <main className='ab-modal__tabcontent sec'>
-          <TTCheckerBoard width={519} height={350} rows={42} columns={52}>
-            <Image
-              chalk
-              className='ab-modal__imgholder'
-              src={imageUrl}
-              sizeInfo={imageSize} />
+          <TTCheckerBoard width={585} height={350} rows={42} columns={52}>
+            <Image chalk className='ab-modal__imgholder' src={imageUrl} sizeInfo={imageSize} />
           </TTCheckerBoard>
         </main>
       </div>

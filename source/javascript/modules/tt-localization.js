@@ -30,7 +30,9 @@ export default function (languagePreference) {
       return result;
     }
 
-    console.warn(`Localization - "${orgQuery}" query not found!"`);
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(`Localization - "${orgQuery}" query not found!"`);
+    }
 
     return orgQuery;
   };

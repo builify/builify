@@ -36,7 +36,7 @@ export default function canvas (state = canvasInitialState, action) {
       _map(filesToUpdate, (file) => {
         const fileSource = file.getAttribute('src');
 
-        file.remove();
+        TTDOM.element.remove(file);
 
         script = iFrameWindow.document.createElement('script');
         script.src = fileSource;

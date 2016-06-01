@@ -32,7 +32,7 @@ export default class Color extends React.Component {
         data-colortarget={colorTarget}
         className='ab-color'
         onClick={::this.clickColor}>
-        <div className='ab-color__name' itle={colorName}>
+        <div className='ab-color__name' title={colorName}>
           <span>{colorName}</span>
         </div>
         <div

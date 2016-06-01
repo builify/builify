@@ -75,7 +75,7 @@ class ContentBlocks extends React.Component {
       const { type } = item;
 
       if (type === 'blocktitle') {
-        return <BlockTitle key={Random.randomKey('blocktitle')} data={item} />;
+        return <BlockTitle key={Random.randomKey('blocktitle')} data={item} builder={this.props.builder} />;
       } else if (type === 'block') {
         return (
           <ContentBlock

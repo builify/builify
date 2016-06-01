@@ -1,13 +1,19 @@
-import React, { Component } from 'react';
-import ReactDOM, { unmountComponentAtNode, render, findDOMNode } from 'react-dom';
-import _ from 'lodash';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import _assign from 'lodash/assign';
 import Sortable from 'sortablejs';
 
-class ReactSortable extends Component {
-  componentDidMount () {
-    var options = _.assign({}, this.props.sortable);
+class ReactSortable extends React.Component {
+  static propTypes = {
+    sortable: React.PropTypes.object,
+    component: React.PropTypes.any,
+    children: React.PropTypes.any
+  };
 
-    this.sortable = Sortable.create(findDOMNode(this), options);
+  componentDidMount () {
+    var options = _assign({}, this.props.sortable);
+
+    this.sortable = Sortable.create(ReactDOM.findDOMNode(this), options);
     this.renderList();
   }
 
@@ -16,9 +22,8 @@ class ReactSortable extends Component {
   }
 
   componentWillUnmount () {
-    for (var _iterator = findDOMNode(this).childNodes[Symbol.iterator](), _step; !(_step = _iterator.next()).done;) {
-      var child = _step.value;
-      unmountComponentAtNode(child);
+    for (var _iterator = ReactDOM.findDOMNode(this).childNodes[Symbol.iterator](), _step; !(_step = _iterator.next()).done;) {
+      ReactDOM.unmountComponentAtNode(_step.value);
     }
 
     this.sortable.destroy();
@@ -30,7 +35,7 @@ class ReactSortable extends Component {
   };
 
   render () {
-    var otherProps = _.assign({}, this.props);
+    var otherProps = _assign({}, this.props);
 
     var consumedProps = ["sortable", "component", "childElement", "children"];
     for (var i = 0; i < consumedProps.length; i++) {
@@ -43,28 +48,30 @@ class ReactSortable extends Component {
   renderList () {
     var _this = this;
     var domChildMap = {};
-    for (var i = 0; i < findDOMNode(this).childNodes.length; i++) {
-      var child = findDOMNode(this).childNodes[i];
+    for (var i = 0; i < ReactDOM.findDOMNode(this).childNodes.length; i++) {
+      var child = ReactDOM.findDOMNode(this).childNodes[i];
       domChildMap[child.dataset.id] = child;
     }
 
     React.Children.forEach(this.props.children, function (reactChild) {
       var domChild = domChildMap[reactChild.key];
       delete domChildMap[reactChild.key];
+
       if (!domChild) {
         domChild = document.createElement(_this.props.childElement);
         if (_this.props.sortable.draggable) {
           domChild.className = _this.props.sortable.draggable.slice(1);
         }
         domChild.dataset.id = reactChild.key;
-        findDOMNode(_this).appendChild(domChild);
+        ReactDOM.findDOMNode(_this).appendChild(domChild);
       }
-      render(reactChild, domChild);
+
+      ReactDOM.render(reactChild, domChild);
     });
 
     for (var key in domChildMap) {
-      unmountComponentAtNode(domChildMap[key]);
-      findDOMNode(this).removeChild(domChildMap[key]);
+      ReactDOM.unmountComponentAtNode(domChildMap[key]);
+      ReactDOM.findDOMNode(this).removeChild(domChildMap[key]);
     }
   }
 }

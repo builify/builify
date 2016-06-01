@@ -1,12 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
-import { connect } from 'react-redux';
 
-class BlockTitle extends React.Component {
+export default class BlockTitle extends React.Component {
 	static propTypes = {
 		builder: React.PropTypes.object.isRequired,
 		data: React.PropTypes.object.isRequired
 	};
+
+	shouldComponentUpdate () {
+		return false;
+	}
 
 	render () {
     const { builder, data } = this.props;
@@ -14,7 +17,7 @@ class BlockTitle extends React.Component {
     const { filterContentBlocksTarget } = builder;
     let titleBlockname = classNames('blocktitle');
 
-    if (filterContentBlocksTarget != 'all') {
+    if (filterContentBlocksTarget !== 'all') {
       titleBlockname = classNames('blocktitle', 'hide');
     }
 
@@ -25,11 +28,3 @@ class BlockTitle extends React.Component {
     );
   }
 }
-
-function mapStateToProps (state) {
-  return {
-    builder: state.builder
-  };
-}
-
-export default connect(mapStateToProps)(BlockTitle);
