@@ -6,6 +6,7 @@ import * as pageActions from './page';
 import * as previewActions from './preview';
 import * as canvasActions from './canvas';
 import * as notificationActions from './notifications';
+import * as assetsActions from './assets';
 
 const allActions = _assign({},
   builderActions,
@@ -14,7 +15,8 @@ const allActions = _assign({},
   pageActions,
   previewActions,
   canvasActions,
-  notificationActions
+  notificationActions,
+  assetsActions
 );
 
 export default allActions;

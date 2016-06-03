@@ -87,8 +87,8 @@ class Tab extends React.Component {
       if (_has(currentTab, 'subtitle')) {
         return (
           <h1 className={classNames('tab__title')}>
-            <span>{currentTab.title}</span>
-            <span>{currentTab.subtitle}</span>
+            <span>{ currentTab.title }</span>
+            <span>{ currentTab.subtitle }</span>
           </h1>
         );
       } else {

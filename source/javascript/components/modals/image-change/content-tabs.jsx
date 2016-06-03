@@ -19,7 +19,6 @@ export default class ContentTabs extends React.Component {
       onSelectImage,
       editTarget,
       activeTab,
-      builder,
       builderConfiguration,
       onUploadImage
     } = this.props;
@@ -31,7 +30,7 @@ export default class ContentTabs extends React.Component {
     } else if (activeTab === 3) {
       return <UploadImageTab onUploadImage={onUploadImage} />;
     } else if (activeTab === 4) {
-      return <UploadedImagesTab onSelectImage={onSelectImage} builder={builder} />;
+      return <UploadedImagesTab onSelectImage={onSelectImage} />;
     }
 
     return null;

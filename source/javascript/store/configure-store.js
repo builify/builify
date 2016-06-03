@@ -4,8 +4,7 @@ import allReducers from '../reducers';
 import { createStore, applyMiddleware } from 'redux';
 
 const createStoreWithMiddleware = applyMiddleware(
-  thunkMiddleware,
-  loggerMiddleware
+  thunkMiddleware
 )(createStore);
 
 export default function configureStore (initialState) {

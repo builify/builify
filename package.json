@@ -81,7 +81,7 @@
     "react-colors-picker": "^2.3.1",
     "react-custom-scrollbars": "^4.0.0-beta.2",
     "react-dom": "^15.0.2",
-    "react-dropzone-component": "^1.0.0",
+    "react-dropzone-component": "^1.0.4",
     "react-redux": "^4.4.1",
     "react-select": "*",
     "react-selectize": "^0.3.7",

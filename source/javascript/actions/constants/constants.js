@@ -14,6 +14,9 @@ export default keyMirror([
   'LOGIC_INITIALIZED',
   'GET_FONTS',
 
+  // Assets' actions.
+  'UPLOAD_FILE',
+
   // Template's actions
   'GET_TEMPLATE_DATA',
 

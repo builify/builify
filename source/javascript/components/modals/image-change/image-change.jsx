@@ -6,12 +6,13 @@ import ModalWrapper from '../common/Wrapper';
 import TabNavigation from './tab-navigation';
 import BottomNavigation from '../common/bottom-navigation';
 import { TRACK_MODAL_CURENT_IMAGE_INPUT_ID } from '../../../constants';
-import { closeModal, uploadImage, selectImage } from '../../../actions';
+import { closeModal, uploadFile, selectImage } from '../../../actions';
 
 class ImageEdit extends React.Component {
   static propTypes = {
     builderConfiguration: React.PropTypes.object.isRequired,
     builder: React.PropTypes.object.isRequired,
+    assets: React.PropTypes.array.isRequired,
     onUploadImage: React.PropTypes.func.isRequired,
     onCloseModal: React.PropTypes.func.isRequired,
     onSelectImage: React.PropTypes.func.isRequired,
@@ -74,6 +75,7 @@ class ImageEdit extends React.Component {
     const {
       builderConfiguration,
       builder,
+      assets,
       editTarget,
       onUploadImage,
       onCloseModal
@@ -91,6 +93,7 @@ class ImageEdit extends React.Component {
           editTarget={editTarget}
           onUploadImage={onUploadImage}
           builder={builder}
+          assets={assets}
           builderConfiguration={builderConfiguration} />
         <BottomNavigation actions={actions} />
       </ModalWrapper>
@@ -101,6 +104,7 @@ class ImageEdit extends React.Component {
 function mapStateToProps (state) {
   return {
     builder: state.builder,
+    assets: state.assets,
     builderConfiguration: state.builderConfiguration
   };
 }
@@ -112,7 +116,7 @@ function mapDispatchToProps (dispatch) {
     },
 
     onUploadImage: (data) => {
-      dispatch(uploadImage(data));
+      dispatch(uploadFile(data));
     },
 
     onSelectImage: (data) => {
