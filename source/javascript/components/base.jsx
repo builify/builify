@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import classNames from 'classnames';
 import Aside from './aside';
 import Main from './main';
@@ -8,10 +7,11 @@ import ColorPicker from './shared/color-picker';
 import Modals from './modals';
 import NotificationContainer from './notifications';
 import Upperbar from './upperbar';
+import { connect } from 'react-redux';
 
 class Base extends React.Component {
   static propTypes = {
-    builderConfiguration: React.PropTypes.object.isRequired
+    defaultTheme: React.PropTypes.string.isRequired
   };
 
   shouldComponentUpdate () {
@@ -19,9 +19,7 @@ class Base extends React.Component {
   }
 
   render () {
-    const { builderConfiguration } = this.props;
-    const { defaultTheme } = builderConfiguration;
-    const className = classNames('react-wrap', defaultTheme);
+    const className = classNames('react-wrap', this.props.defaultTheme);
 
     return (
       <div className={className}>
@@ -38,8 +36,11 @@ class Base extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { builderConfiguration } = state;
+  const { defaultTheme } = builderConfiguration;
+
   return {
-    builderConfiguration: state.builderConfiguration
+    defaultTheme: defaultTheme
   };
 }
 

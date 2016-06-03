@@ -6,7 +6,7 @@ import { closeTab } from '../../actions';
 
 class Aside extends React.Component {
   static propTypes = {
-    builderConfiguration: React.PropTypes.object.isRequired,
+    tabs: React.PropTypes.array.isRequired,
     closeTab: React.PropTypes.func.isRequired
   };
 
@@ -14,19 +14,12 @@ class Aside extends React.Component {
     return false;
   }
 
-  renderTab () {
-    const { builderConfiguration, closeTab } = this.props;
-    const { tabs } = builderConfiguration;
-
-    return <Tab onCloseTab={closeTab} tabs={tabs} />;
-  }
-
   render () {
     return (
       <aside className={classNames('aside')}>
         <div className={classNames('aside__wrapper')}>
           <div className={classNames('aside__item')}>
-            { this.renderTab() }
+            <Tab onCloseTab={this.props.closeTab} tabs={this.props.tabs} />
           </div>
         </div>
       </aside>
@@ -35,8 +28,11 @@ class Aside extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { builderConfiguration } = state;
+  const { tabs } = builderConfiguration;
+
   return {
-    builderConfiguration: state.builderConfiguration
+    tabs: tabs
   };
 }
 

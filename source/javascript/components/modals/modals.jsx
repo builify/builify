@@ -5,71 +5,70 @@ import IconChange from './icon-change';
 import Countdown from './countdown';
 import VideoEdit from './video-edit';
 import DownloadPages from './download-pages';
-import DialogRestart from '../shared/dialog/DialogRestart';
-import DialogLinkChange from '../shared/dialog/DialogLinkChange';
+import DialogRestart from './dialog-restart';
 import { connect } from 'react-redux';
-import { closeModal } from '../../actions';
 import { DialogTypes } from '../../constants';
 
 class Modals extends React.Component {
   static propTypes = {
-    builder: React.PropTypes.object.isRequired,
-    closeModal: React.PropTypes.func.isRequired
+    isModalOpen: React.PropTypes.bool.isRequired,
+    modalType: React.PropTypes.number.isRequired,
+    modalTarget: React.PropTypes.object
   };
 
-  closeModal () {
-    return this.props.closeModal();
+  shouldComponentUpdate (nextProps) {
+    if (this.props.isModalOpen !== nextProps.isModalOpen) {
+      return true;
+    }
+
+    return false;
   }
 
   render () {
-    const { builder } = this.props;
-    const { isModalOpen: active, modalType, modalTarget: editTarget } = builder;
+    const { isModalOpen, modalType, modalTarget } = this.props;
     const type = modalType || DialogTypes.CLASSIC;
 
-    if (active === false) {
+    if (isModalOpen === false) {
       return null;
     }
 
     switch (type) {
       case DialogTypes.IMAGECHANGE:
-        return <ImageEdit editTarget={editTarget}  />;
+        return <ImageEdit editTarget={modalTarget}  />;
 
       case DialogTypes.RESTART:
-        return <DialogRestart active={true} />;
+        return <DialogRestart />;
 
       case DialogTypes.DOWNLOADPAGES:
         return <DownloadPages />;
-
-      case DialogTypes.LINKCHANGE:
-        return <DialogLinkChange active={true} editTarget={editTarget} />;
 
       case DialogTypes.PREVIOUSPAGES:
         return <PreviousPages />;
 
       case DialogTypes.ICONCHANGE:
-        return <IconChange editTarget={editTarget} />;
+        return <IconChange editTarget={modalTarget} />;
 
       case DialogTypes.COUNTDOWN:
-        return <Countdown editTarget={editTarget} />;
+        return <Countdown editTarget={modalTarget} />;
 
       case DialogTypes.VIDEOEDIT:
-        return <VideoEdit editTarget={editTarget} />;
+        return <VideoEdit editTarget={modalTarget} />;
+
+      default:
+        return null;
     }
   }
 }
 
 function mapStateToProps (state) {
+  const { builder } = state;
+  const { isModalOpen, modalType, modalTarget } = builder;
+
   return {
-    builder: state.builder
+    isModalOpen: isModalOpen,
+    modalType: modalType,
+    modalTarget: modalTarget
   };
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    closeModal: () => {
-      dispatch(closeModal());
-    }
-  };
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(Modals);
+export default connect(mapStateToProps)(Modals);

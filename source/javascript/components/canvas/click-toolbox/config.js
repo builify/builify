@@ -17,5 +17,6 @@ export const HTMLTagNamesToString = {
   A: 'Link',
   INPUT: 'Input',
   BLOCKQUOTE: 'Quote',
-  FIGCAPTION: 'Caption'
+  FIGCAPTION: 'Caption',
+  BUTTON: 'Button'
 };

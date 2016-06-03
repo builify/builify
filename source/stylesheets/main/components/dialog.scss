@@ -58,6 +58,19 @@ $modal-navigation-padding: .8 * $unit;
 				}
 		}
 
+		&__dialog {
+				.#{$nameprefix}modal {
+						&__content {
+								min-height: 100px;
+								width: 600px;
+						}
+
+						&__navigation {
+							border-top: 0;
+						}
+				}
+		}
+
 		$modal-tab-height: 70px;
 
 		&__tabside {

@@ -24,7 +24,6 @@ class Frame extends React.Component {
     coreBlockHover: React.PropTypes.func.isRequired,
     openContextMenu: React.PropTypes.func.isRequired,
     closeContextMenu: React.PropTypes.func.isRequired,
-    openLinkEditModal: React.PropTypes.func.isRequired,
     openIconEditModal: React.PropTypes.func.isRequired,
     openImageEditModal: React.PropTypes.func.isRequired,
     cloneItem: React.PropTypes.func.isRequired,
@@ -297,7 +296,6 @@ class Frame extends React.Component {
             <ClickToolbox
               openContextMenu={this.props.openContextMenu}
               closeContextMenu={this.props.closeContextMenu}
-              openLinkEditModal={this.props.openLinkEditModal}
               openIconEditModal={this.props.openIconEditModal}
               openImageEditModal={this.props.openImageEditModal}
               cloneItem={this.props.cloneItem} />
@@ -345,10 +343,6 @@ function mapDispatchToProps (dispatch) {
 
     closeContextMenu: () => {
       dispatch(Actions.closeContextmenuToolbox());
-    },
-
-    openLinkEditModal: (target) => {
-      dispatch(Actions.openLinkEditModal(target));
     },
 
     openIconEditModal: (target) => {

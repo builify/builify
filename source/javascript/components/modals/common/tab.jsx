@@ -61,8 +61,8 @@ export default class ModalTab extends React.Component {
     return (
       <div>
         <header className={classNames('modal__tabs')}>
-          { title && <h2>{title}</h2> }
-          { info && <h3>{info}</h3> }
+          { title && <h2>{ title }</h2> }
+          { info && <h3>{ info }</h3> }
           { this.renderNav() }
         </header>
         { children }

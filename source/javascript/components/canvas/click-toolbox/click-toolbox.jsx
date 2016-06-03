@@ -10,7 +10,6 @@ export default class ClickToolbox extends React.Component {
   static propTypes = {
     openContextMenu: React.PropTypes.func.isRequired,
     closeContextMenu: React.PropTypes.func.isRequired,
-    openLinkEditModal: React.PropTypes.func.isRequired,
     openIconEditModal: React.PropTypes.func.isRequired,
     openImageEditModal: React.PropTypes.func.isRequired,
     cloneItem: React.PropTypes.func.isRequired
@@ -182,19 +181,10 @@ export default class ClickToolbox extends React.Component {
     return <ClickToolBoxItem icon='clear' text='Remove' onClick={clickEvent} />;
   }
 
-  listLinkChange () {
-    const clickEvent = () => {
-      return this.props.openLinkEditModal(this.state.target);
-    };
-
-    return <ClickToolBoxItem  icon='link' text='Change Link' onClick={clickEvent} />;
-  }
-
   renderChildren () {
     const targetElement = this.state.target;
     var elementOptions = {
       showIconChange: false,
-      showLinkChange: false,
       showClone: true,
       showChangeImage: false,
       showChangeBackgroundImage: false,
@@ -217,10 +207,6 @@ export default class ClickToolbox extends React.Component {
           elementOptions.showChangeImage = true;
         }
 
-        if (tagName === 'A') {
-          elementOptions.showLinkChange = true;
-        }
-
         if (tagName === 'I' || targetElement.classList.contains('icon')) {
           elementOptions.showIconChange = true;
         }
@@ -235,11 +221,8 @@ export default class ClickToolbox extends React.Component {
 
     return (
       <div>
-        { (elementOptions.showChangeImage ||
-          elementOptions.showChangeBackgroundImage) ?
-          this.listImageChange() : null }
+        { (elementOptions.showChangeImage || elementOptions.showChangeBackgroundImage) && this.listImageChange() }
         { elementOptions.showIconChange && this.listIconChange() }
-        { elementOptions.showLinkChange && this.listLinkChange() }
         { elementOptions.showClone && this.listClone() }
         { elementOptions.showExpandColumn && this.listExpandColumn() }
         { elementOptions.showShrinkColumn && this.listShrinkColumn() }

@@ -1,12 +1,5 @@
 import Actions from './constants';
 
-export function openLinkEditModal (target) {
-  return {
-    type: Actions.OPEN_LINK_EDIT_MODAL,
-    target: target
-  };
-}
-
 export function openIconEditModal (target) {
   return {
     type: Actions.OPEN_ICON_EDIT_MODAL,

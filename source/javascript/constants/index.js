@@ -35,15 +35,14 @@ export const PreviewModes = {
 
 export const DialogTypes = {
   CLASSIC: 0,
-  LINKCHANGE: 1,
-  IMAGECHANGE: 2,
-  ICONCHANGE: 3,
-  PREVIOUSPAGES: 4,
-  CONTENTBLOCKSOURCE: 5,
-  DOWNLOADPAGES: 6,
-  RESTART: 7,
-  COUNTDOWN: 8,
-  VIDEOEDIT: 9
+  IMAGECHANGE: 1,
+  ICONCHANGE: 2,
+  PREVIOUSPAGES: 3,
+  CONTENTBLOCKSOURCE: 4,
+  DOWNLOADPAGES: 5,
+  RESTART: 6,
+  COUNTDOWN: 7,
+  VIDEOEDIT: 8
 };
 
 export const ColorPickerTargetTypes = {
