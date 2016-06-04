@@ -46,10 +46,7 @@ export default class ModalTab extends React.Component {
           }
 
           return (
-            <div
-              key={Random.randomKey('tab')}
-              className={className}
-              onClick={() => { onTabClick(id); }}>
+            <div key={Random.randomKey('tab')} className={className} onClick={() => { onTabClick(id); }}>
               <span>{ label }</span>
             </div>
           );

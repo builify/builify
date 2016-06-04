@@ -1,17 +1,21 @@
 import config from './config';
-import has from 'lodash/has';
+import _has from 'lodash/has';
+import _keys from 'lodash/keys';
+import _isEmpty from 'lodash/isempty';
+import _endsWith from 'lodash/endswith';
 import gulp from 'gulp';
+import path from 'path';
 import sequence from 'run-sequence';
 import rimraf from 'rimraf-promise';
 import browserify from 'browserify';
-import envify from 'loose-envify';
+import envify from 'loose-envify/custom';
 import babelify from 'babelify';
 import watchify from 'watchify';
 import source from 'vinyl-source-stream';
 import buffer from 'vinyl-buffer';
 import server from 'browser-sync';
-import w3cjs from 'w3cjs';
-import mapStream from 'map-stream';
+import $rev from 'gulp-rev';
+import $replace from 'gulp-replace';
 import $jade from 'gulp-jade';
 import $size from 'gulp-size';
 import $util from 'gulp-util';
@@ -19,38 +23,14 @@ import $plumber from 'gulp-plumber';
 import $sass from 'gulp-sass';
 import $sourcemaps from 'gulp-sourcemaps';
 import $uglify from 'gulp-uglify';
+import $hint from 'gulp-htmlhint';
 import $cleanCSS from 'gulp-clean-css';
 
 // Set environment variable.
-if (config.env.debug) {
+if (config.env.debug === true) {
   process.env.NODE_ENV = 'development';
 } else {
   process.env.NODE_ENV = 'production';
-}
-
-// HTML validation with W3C standards.
-function validate (file){
-  const validationFeedback = (file) => {
-    return result => {
-      var messages = result.messages;
-      //exclude the info messages
-      messages = messages.filter(message => message.type !== 'info');
-      if (messages && messages.length) {
-        $util.log($util.colors.red(file.path));
-        messages.forEach(message => {
-          $util.log($util.colors.red(message.message));
-          $util.log(message.extract);
-        });
-      } else {
-        $util.log(file.path + $util.colors.green(' [  OK  ]'));
-      }
-    };
-  };
-
-  w3cjs.validate({
-    input: file.contents,
-    callback: validationFeedback(file)
-  });
 }
 
 // Create browserSync.
@@ -135,6 +115,7 @@ gulp.task('html', () => {
   if (config.env.debug) {
     return gulp.src(config.html.entry)
       .pipe($jade())
+      .pipe($hint())
       .pipe($size({ title: '[html]', gzip: true }))
       .pipe(gulp.dest(config.html.output));
   } else {
@@ -192,7 +173,11 @@ gulp.task('javascript:main', () => {
     fullPaths: config.env.debug
   })
   .transform(babelify)
-  .transform(envify)
+  .transform(envify({
+    _: 'purge',
+    NODE_ENV: config.env.debug ? 'development' : 'production',
+    DEMO: config.env.demo ? true : false
+  }))
   .external(config.vendors); // Specify all vendors as external source
 
   const rebundle = () => {
@@ -222,9 +207,54 @@ gulp.task('javascript:main', () => {
   }
 });
 
+// Revision
+gulp.task('rev', (callback) => {
+  gulp.src(config.rev.entry)
+    .pipe($rev())
+    .pipe(gulp.dest(config.rev.output))
+    .pipe($rev.manifest(config.rev.manifestFile))
+    .pipe(gulp.dest(config.rev.output))
+    .on('end', () => {
+      const manifestFile = path.join(config.rev.output, config.rev.manifestFile);
+      const manifest = require(manifestFile);
+      let removables = [];
+      let pattern = (_keys(manifest)).join('|');
+
+      for (let v in manifest) {
+        if (v !== manifest[v]) {
+          removables.push(path.join(config.rev.output, v));
+        }
+      }
+
+      removables.push(manifestFile);
+
+      rimraf(`{${removables.join(',')}}`)
+        .then(() => {
+          if (!_isEmpty(config.cdn)) {
+            gulp.src(config.rev.replace)
+              .pipe($replace(new RegExp(`((?:\\.?\\.\\/?)+)?([\\/\\da-z\\.-]+)(${pattern})`, 'gi'), (m) => {
+                let k = m.match(new RegExp(pattern, 'i'))[0];
+                let v = manifest[k];
+                return m.replace(k, v).replace(/^((?:\.?\.?\/?)+)?/, _endsWith(config.cdn, '/') ? config.cdn : `${config.cdn}/`);
+              }))
+              .pipe(gulp.dest(config.rev.output))
+              .on('end', callback)
+              .on('error', callback);
+          } else {
+            gulp.src(config.rev.replace)
+              .pipe($replace(new RegExp(`${pattern}`, 'gi'), (m) => (manifest[m])))
+              .pipe(gulp.dest(config.rev.output))
+              .on('end', callback)
+              .on('error', callback);
+          }
+        });
+    })
+    .on('error', callback);
+});
+
 // Watch for file changes.
 gulp.task('watch', () => {
-  if (has(config, 'watch.entries')) {
+  if (_has(config, 'watch.entries')) {
     config.watch.entries.map((entry) => {
       gulp.watch(entry.files, { cwd: config.sourceDir }, entry.tasks);
     });
@@ -247,9 +277,11 @@ gulp.task('default', () => {
     'javascript:main'
   ];
 
-  if (config.env.debug) {
+  if (config.env.debug === true) {
     seq.push('watch');
     seq.push('server');
+  } else {
+    seq.push('rev');
   }
 
   rimraf(config.buildDir)

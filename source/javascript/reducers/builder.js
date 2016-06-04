@@ -17,8 +17,6 @@ const builderInitialState = {
   isLoadingScreenActive: true,
   loadingScreenType: 0,
   currentLocation: 0,
-  iconPacks: [],
-  fontList: [],
 
   // Tabs
   currentTab: 'initial',
@@ -34,10 +32,7 @@ const builderInitialState = {
   // Modal
   isModalOpen: false,
   modalType: -1,
-  modalTarget: null,
-
-  // Images
-  uploadedImages: []
+  modalTarget: null
 };
 
 export default function builder (state = builderInitialState, action) {
@@ -60,27 +55,6 @@ export default function builder (state = builderInitialState, action) {
 
     case Actions.RECEIVE_ASIDE_CONFIGURATION: {
       return _assign({}, state, action.data);
-    }
-
-    case Actions.UPLOADED_IMAGE: {
-      const { data } = action;
-
-      return _assign({}, state, {
-        uploadedImages: [
-          ...state.uploadedImages,
-          {
-            ...data
-          }
-        ]
-      });
-    }
-
-    case Actions.GET_ICONPACKS: {
-      const { iconPacks } = action;
-
-      return _assign({}, state, {
-        iconPacks: iconPacks
-      });
     }
 
     case Actions.DOWNLOAD_PAGES: {

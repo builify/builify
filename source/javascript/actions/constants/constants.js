@@ -16,6 +16,7 @@ export default keyMirror([
 
   // Assets' actions.
   'UPLOAD_FILE',
+  'SELECT_IMAGE_FILE',
 
   // Template's actions
   'GET_TEMPLATE_DATA',
@@ -72,7 +73,6 @@ export default keyMirror([
   'TOGGLE_BASELINE',
 
   // Modal's/Dialog's actions
-  'SELECT_IMAGE',
   'OPEN_CONTENTBLOCK_SETTINGS',
   'SORT_CONTENTBLOCKS',
   'FILTER_CONTENTBLOCKS',

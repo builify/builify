@@ -1,4 +1,6 @@
 import Actions from './constants';
+import { addNotification } from './notifications';
+import { IS_DEMO_VERSION } from '../constants';
 
 export function openIconEditModal (target) {
   return {
@@ -36,10 +38,18 @@ export function openPreviousPagesSelectionModal () {
 
 export function openDownloadModal () {
   return (dispatch, getState) => {
-    dispatch({
-      type: Actions.OPEN_DOWNLOAD_MODAL,
-      currentState: getState()
-    });
+    if (IS_DEMO_VERSION) {
+      dispatch(addNotification({
+        level: 'warning',
+        title: 'Demo Version',
+        message: 'Buy full version to get access'
+      }));
+    } else {
+      dispatch({
+        type: Actions.OPEN_DOWNLOAD_MODAL,
+        currentState: getState()
+      });
+    }
   };
 }
 

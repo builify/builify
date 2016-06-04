@@ -11,12 +11,12 @@ import BackButton from '../shared/back-button';
 import Scrollbar from '../shared/scrollbar';
 import classNames from '../../common/classnames';
 import { connect } from 'react-redux';
+import { closeTab } from '../../actions';
 
 class Tab extends React.Component {
   static propTypes = {
-    builder: React.PropTypes.object.isRequired,
-    tabs: React.PropTypes.array.isRequired,
-    onCloseTab: React.PropTypes.func.isRequired
+    currentTab: React.PropTypes.string.isRequired,
+    closeTab: React.PropTypes.func.isRequired
   };
 
   state = {
@@ -25,7 +25,7 @@ class Tab extends React.Component {
   };
 
   shouldComponentUpdate (nextProps) {
-    return nextProps.builder.currentTab === this.state.currentTabID ? false : true;
+    return nextProps.currentTab === this.state.currentTabID ? false : true;
   }
 
   componentWillMount () {
@@ -37,8 +37,7 @@ class Tab extends React.Component {
   }
 
   initializeState (props) {
-    const { builder, tabs } = props;
-    const { currentTab: currentTabID } = builder;
+    const { currentTab: currentTabID, tabs } = props;
     const splitCurrentTab = _words(currentTabID, /[^.]+/g);
     const splitSize = _size(splitCurrentTab);
     let currentTab = null;
@@ -64,7 +63,7 @@ class Tab extends React.Component {
   }
 
   closeTab () {
-    return this.props.onCloseTab();
+    return this.props.closeTab();
   }
 
   renderBackButton () {
@@ -125,9 +124,22 @@ class Tab extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { builderConfiguration, builder } = state;
+  const { tabs } = builderConfiguration;
+  const { currentTab } = builder;
+
   return {
-    builder: state.builder
+    tabs: tabs,
+    currentTab: currentTab
   };
 }
 
-export default connect(mapStateToProps)(Tab);
+function mapDispatchToProps (dispatch) {
+  return {
+    closeTab: () => {
+      dispatch(closeTab());
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tab);

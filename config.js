@@ -9,7 +9,8 @@ const modulesDir = path.join(currentDir, 'node_modules');
 
 // Supported CLI options.
 const env = {
-  debug: !!($env.env === 'debug' || process.env.NODE_ENV === 'development')
+  debug: !!($env.env === 'debug' || process.env.NODE_ENV === 'development'),
+  demo: !!($env.env === 'demo')
 };
 
 export default {
@@ -32,7 +33,7 @@ export default {
   },
 
   images: {
-    entry: path.join(sourceDir, 'images', '**', '*.*'),
+    entry: path.join(sourceDir, 'images', '**', '*.{png,jpg,icon,svg,jpeg}'),
     output: path.join(buildDir, 'assets', 'static')
   },
 
@@ -79,6 +80,13 @@ export default {
         path.join(sourceDir, 'stylesheets', 'main')
       ]
     }
+  },
+
+  rev: {
+    entry: path.join(buildDir, '**', '*.{css,jpg,jpeg,gif,png,svg,js,eot,svg,ttf,woff,woff2,ogv,mp4}'),
+    output: buildDir,
+    manifestFile: 'rev-manifest.json',
+    replace: path.join(buildDir, '**', '*.{css,scss,sass,js,html}')
   },
 
   watch: {

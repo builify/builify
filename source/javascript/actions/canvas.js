@@ -61,13 +61,6 @@ export function loadContentBlockSource (source, blockType, blockName) {
   };
 }
 
-export function selectImage (data) {
-  return {
-    type: Actions.SELECT_IMAGE,
-    data: data
-  };
-}
-
 export function loadContentBlockToPage (blockData) {
   const { blockType, features, name, source } = blockData;
 

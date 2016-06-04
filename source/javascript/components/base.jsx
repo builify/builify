@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import classNames from '../common/classnames';
 import Aside from './aside';
 import Main from './main';
 import LoadingScreen from './loading-screen';
@@ -8,6 +8,7 @@ import Modals from './modals';
 import NotificationContainer from './notifications';
 import Upperbar from './upperbar';
 import { connect } from 'react-redux';
+import { IS_DEMO_VERSION, BUY_LINK } from '../constants';
 
 class Base extends React.Component {
   static propTypes = {
@@ -19,7 +20,14 @@ class Base extends React.Component {
   }
 
   render () {
-    const className = classNames('react-wrap', this.props.defaultTheme);
+    const className = classNames(null, 'react-wrap', this.props.defaultTheme);
+    const SaleButton = () => {
+      return (
+        <a href={BUY_LINK} target='_blank' className={classNames('salebutton')}>
+          <span>Buy Now</span>
+        </a>
+      );
+    };
 
     return (
       <div className={className}>
@@ -30,6 +38,7 @@ class Base extends React.Component {
         <ColorPicker />
         <Modals />
         <NotificationContainer />
+        { IS_DEMO_VERSION && <SaleButton /> }
       </div>
     );
   }

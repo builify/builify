@@ -1,12 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
-import { connect } from 'react-redux';
+import _isObject from 'lodash/isobject';
+import _has from 'lodash/has';
+import _isNull from 'lodash/isnull';
 import TTDOM from '../../../common/TTDOM';
 import ModalWrapper from '../common/Wrapper';
 import TabNavigation from './tab-navigation';
 import BottomNavigation from '../common/bottom-navigation';
 import { TRACK_MODAL_CURENT_IMAGE_INPUT_ID } from '../../../constants';
-import { closeModal, uploadFile, selectImage } from '../../../actions';
+import { closeModal, uploadFile, selectImageFile } from '../../../actions';
+import { connect } from 'react-redux';
 
 class ImageEdit extends React.Component {
   static propTypes = {
@@ -15,7 +18,7 @@ class ImageEdit extends React.Component {
     assets: React.PropTypes.array.isRequired,
     onUploadImage: React.PropTypes.func.isRequired,
     onCloseModal: React.PropTypes.func.isRequired,
-    onSelectImage: React.PropTypes.func.isRequired,
+    selectImage: React.PropTypes.func.isRequired,
     editTarget: React.PropTypes.any.isRequired
   };
 
@@ -23,25 +26,35 @@ class ImageEdit extends React.Component {
     return this.refs['modalWrapper'].closeDialog();
   }
 
-  selectImage (data) {
-    const { editTarget, onSelectImage } = this.props;
-    const { src } = data;
+  selectImage (image) {
+    const { editTarget } = this.props;
+    let source = null;
 
-    if (TTDOM.type.isElement(editTarget)) {
-      if (editTarget.tagName === 'IMG') {
-        editTarget.setAttribute('src', src);
-      } else if (editTarget.tagName === 'DIV') {
-        const backgroundImage = editTarget.style.backgroundImage;
+    if (_isObject(image)) {
+      if (_has(image, 'fileData')) {
+        source = image.fileData;
 
-        if (backgroundImage) {
-          editTarget.style.backgroundImage = `url(${src})`;
+        this.props.selectImage(image);
+      } else if (_has(image, 'src')) {
+        source = image.src;
+      }
+    }
+
+    if (!_isNull(source)) {
+      if (TTDOM.type.isElement(editTarget)) {
+        if (editTarget.tagName === 'IMG') {
+          editTarget.setAttribute('src', source);
+        } else if (editTarget.tagName === 'DIV') {
+          const backgroundImage = editTarget.style.backgroundImage;
+
+          if (backgroundImage) {
+            editTarget.style.backgroundImage = `url(${source})`;
+          }
         }
       }
     }
 
     this.closeDialog();
-
-    return onSelectImage(data);
   }
 
   saveImage () {
@@ -119,8 +132,8 @@ function mapDispatchToProps (dispatch) {
       dispatch(uploadFile(data));
     },
 
-    onSelectImage: (data) => {
-      dispatch(selectImage(data));
+    selectImage: (file) => {
+      dispatch(selectImageFile(file));
     }
   };
 }

@@ -25,10 +25,6 @@ export default class TTCheckerBoard extends React.Component {
     height: 100
   };
 
-  shouldComponentUpdate () {
-    return false;
-  }
-
   componentDidMount () {
     const { rows, columns, color } = this.props;
     const canvas = this.refs.canvas;

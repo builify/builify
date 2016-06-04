@@ -19,6 +19,10 @@ export default class CurrentImageTab extends React.Component {
     }
   };
 
+  shouldComponentUpdate () {
+    return true;
+  }
+
   componentWillMount () {
     const { editTarget } = this.props;
 
@@ -48,21 +52,17 @@ export default class CurrentImageTab extends React.Component {
     }
   }
 
-  imageSourceInputEvent () {
-    const value = this.getImgSrcValue();
-
+  handleInputChange (value) {
     this.setState({
       ...this.state,
       imageUrl: value
     });
   }
 
-  getImgSrcValue () {
-    return this.refs['image-src'].getValue();
-  }
-
   render () {
     const { imageUrl, imageSize } = this.state;
+
+    console.log(imageUrl);
 
     return (
       <div className='ab-modal__tab'>
@@ -70,7 +70,7 @@ export default class CurrentImageTab extends React.Component {
           <h2>Edit Image Source</h2>
           <Input
             id={TRACK_MODAL_CURENT_IMAGE_INPUT_ID}
-            onBlur={::this.imageSourceInputEvent}
+            onChange={::this.handleInputChange}
             ref='image-src'
             type='text'
             label='Image Source'

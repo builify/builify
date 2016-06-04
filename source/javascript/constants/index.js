@@ -1,8 +1,10 @@
-export const IS_DEMO_VERSION = false;
+export const IS_DEMO_VERSION = process.env.DEMO;
+export const BUY_LINK = 'http://genert.github.io';
 
 export const MAXIMUM_NOTIFICATIONS = 7;
 
-export const TEMPLATE_PAGES_STORAGE_NAME = 'ab-pages';
+export const TEMPLATE_ASSETS_STORAGE_NAME = 'builify-assets';
+export const TEMPLATE_PAGES_STORAGE_NAME = 'builify-pages';
 
 export const TEMPLATE_PACKAGE_FILENAME = 'template';
 export const TEMPLATE_PACKAGE_EXTENSION = 'zip';

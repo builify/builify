@@ -16,7 +16,9 @@ export default class Button extends React.Component {
     primary: React.PropTypes.bool,
     ripple: React.PropTypes.bool,
     type: React.PropTypes.string,
-    onMouseDown: React.PropTypes.func
+    onMouseDown: React.PropTypes.func,
+    href: React.PropTypes.string,
+    children: React.PropTypes.any
   };
 
   static defaultProps = {
@@ -48,6 +50,8 @@ export default class Button extends React.Component {
       primary,
       accent,
       kind,
+      href,
+      children,
       ...others
     } = this.props;
     const className = classNames('button', {
@@ -56,16 +60,21 @@ export default class Button extends React.Component {
       'primary': (!primary && !accent), // eslint-disable-line
     }, kind, this.props.className);
 
-    return (
-      <button
-        {...others}
-        className={className}
-        onMouseDown={this.handleMouseDown}
-        disabled={this.props.disabled || this.props.loading} >
-        { icon && <Icon className={classNames('button__icon')} name={icon} /> }
-        { ripple && <Ripple ref='ripple' loading={loading} /> }
-        { label && <abbr className={classNames('button__label')}>{label}</abbr> }
-      </button>
+    const element = href ? 'a' : 'button';
+
+    const props = {
+      ...others,
+      href,
+      ref: 'button',
+      className: className,
+      onMouseDown: this.handleMouseDown
+    };
+
+    return React.createElement(element, props,
+      icon && <Icon className={classNames('button__icon')} name={icon} />,
+      ripple && <Ripple ref='ripple' loading={loading} />,
+      label && <abbr className={classNames('button__label')}>{label}</abbr>,
+      children
     );
   }
 }

@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 class UploadedImagesTab extends React.Component {
   static propTypes = {
     assets: React.PropTypes.array.isRequired,
-    onSelectImage: React.PropTypes.func.isRequired
+    selectImage: React.PropTypes.func.isRequired
   };
 
   shouldComponentUpdate () {
@@ -17,15 +17,15 @@ class UploadedImagesTab extends React.Component {
   }
 
   renderImages (assets) {
-    const { onSelectImage } = this.props;
-
     return _map(assets, (asset) => {
       const { fileData } = asset;
 
       return (
         <Image
           backgroundImage
-          onClick={() => { onSelectImage({ src: fileData }); }}
+          onClick={() => {
+            return this.props.selectImage(asset);
+          }}
           key={Random.randomKey('upimg')}
           className={classNames('ab-modal__tabimage')}
           src={fileData} />
@@ -63,21 +63,3 @@ function mapStateToProps (state) {
 }
 
 export default connect(mapStateToProps)(UploadedImagesTab);
-
-/*{ _map(assets, item => {
-  const className = classNames('ab-modal__tabimage');
-  const { fileData } = item;
-
-  return (
-    <Image
-      onClick={() => {
-        return onSelectImage({
-          src: fileData
-        });
-      }}
-      key={Random.randomKey('upimg')}
-      className={className}
-      backgroundImage
-      src={fileData} />
-  );
-}) }*/

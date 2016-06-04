@@ -52,7 +52,7 @@ body {
 		&__text {
 				color: #FFF;
 				font-weight: 700;
-				background: $color-primary;
+				background: $light-theme-color;
 		}
 
 		&__item {
@@ -165,7 +165,7 @@ body {
 						}
 
 						&.title {
-								background: $color-primary;
+								background: $light-theme-color;
 								color: #FFF;
 								font-weight: 700;
 								font-size: 16px;
@@ -191,124 +191,4 @@ body {
 	    	left: 0;
 	    	right: 0;
     }
-}
-
-// TTEditor
-$toolbox-bg: #181818;
-$toolbox-secondary: $color-orange;
-$toolbox-height: 42px;
-$toolbox-width: (30px * 4) + 20px + 4px;
-$toolbox-padding: 5px 10px;
-$icon-size: 26px !default;
-$icon-color: #FFF !default;
-
-.tteditor {
-    position: absolute;
-    top: 100;
-    left: 100;
-    z-index: 99999;
-
-		&__hide {
-				display: none;
-		}
-
-		&__show {
-				display: block;
-		}
-
-		&__wrapper {
-				display: block;
-				position: relative;
-				border-radius: 4px;
-				height: $toolbox-height;
-				line-height: $toolbox-height;
-				padding: $toolbox-padding;
-				width: $toolbox-width;
-				background: $toolbox-bg;
-				@include transition(all 0.3s ease);
-
-				&:before {
-						content: "";
-						border-top: 5px solid $toolbox-bg;
-						border-bottom: 5px solid transparent;
-						border-right: 5px solid transparent;
-						border-left: 5px solid transparent;
-						position: absolute;
-						margin-left: -5px;
-						bottom: -10px;
-						height: 5px;
-						width: 0px;
-						left: 50%;
-				}
-		}
-
-		input {
-				border-radius: 3px;
-				overflow: hidden;
-				outline: 0px;
-				height: 30px;
-				padding: 0px;
-				margin: 0px;
-				border: 0px;
-				float: left;
-				width: 0px;
-		}
-
-		button {
-				display: block;
-				background: transparent;
-				cursor: pointer;
-				height: 100%;
-				width: 30px;
-				border: 0;
-				outline: 0;
-				float: left;
-				margin-right: 1px;
-				padding: 0;
-				font-size: 16px;
-				font-family: inherit;
-				color: inherit;
-				@include user-select(none);
-
-				* {
-					 cursor: pointer;
-				}
-
-				&.active,
-				&:hover {
-						svg {
-								fill: $toolbox-secondary;
-						}
-				}
-
-				svg {
-						height: $icon-size;
-						width: $icon-size;
-						fill: $icon-color;
-				}
-		}
-
-		&.link-change {
-				.tteditor {
-						&__wrapper {
-								width: 200px;
-						}
-				}
-
-				button {
-						width: 0;
-						overflow: hidden;
-					  margin-right: 0px;
-					  opacity: 0;
-				}
-
-				input {
-						border-left: 2px solid transparent;
-						padding-right: 5px;
-						padding-left: 5px;
-						width: 155px;
-						background: transparent;
-						color: #fff;
-				}
-		}
 }

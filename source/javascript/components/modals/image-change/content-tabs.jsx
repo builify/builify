@@ -30,7 +30,7 @@ export default class ContentTabs extends React.Component {
     } else if (activeTab === 3) {
       return <UploadImageTab onUploadImage={onUploadImage} />;
     } else if (activeTab === 4) {
-      return <UploadedImagesTab onSelectImage={onSelectImage} />;
+      return <UploadedImagesTab selectImage={onSelectImage} />;
     }
 
     return null;

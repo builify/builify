@@ -1,0 +1,25 @@
+.#{$nameprefix}salebutton {
+    position: fixed !important;
+    bottom: 25px;
+    left: 65px;
+    z-index: 9999;
+    height: 50px;
+    line-height: 50px;
+    width: 160px;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    opacity: 1;
+    text-decoration: none;
+    cursor: pointer;
+    text-shadow: 0 0 2px rgba(#000, 0.5);
+    background: $color-green;
+    box-shadow: $zdepth-shadow-1;
+    @include transition(all 0.3s ease);
+
+    &:hover,
+    &:active {
+        box-shadow: $zdepth-shadow-2;
+    }
+}

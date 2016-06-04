@@ -1,6 +1,6 @@
 import Actions from './constants';
 import TTStorage from '../modules/tt-storage';
-import { TEMPLATE_PAGES_STORAGE_NAME, CurrentLocations } from '../constants';
+import { IS_DEMO_VERSION, TEMPLATE_PAGES_STORAGE_NAME, CurrentLocations } from '../constants';
 import { addNotification } from './notifications';
 
 export function startNewPage () {
@@ -102,7 +102,15 @@ export function importPage (data) {
 }
 
 export function exportPage () {
-  return {
-    type: Actions.EXPORT_PAGE
+  return (dispatch) => {
+    if (IS_DEMO_VERSION) {
+      dispatch(addNotification({
+        level: 'warning',
+        title: 'Demo Version',
+        message: 'Buy full version to get access'
+      }));
+    } else {
+      dispatch({ type: Actions.EXPORT_PAGE });
+    }
   };
 }
