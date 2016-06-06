@@ -25,6 +25,8 @@ import $sourcemaps from 'gulp-sourcemaps';
 import $uglify from 'gulp-uglify';
 import $hint from 'gulp-htmlhint';
 import $cleanCSS from 'gulp-clean-css';
+import $autoprefixer from 'gulp-prefixer';
+import $csscomb from 'gulp-csscomb';
 
 // Set environment variable.
 if (config.env.debug === true) {
@@ -64,6 +66,7 @@ gulp.task('stylesheet:main', () => {
     return gulp.src(config.stylesheets.main.entry)
       .pipe($sourcemaps.init())
       .pipe($sass(config.stylesheets.sass).on('error', $sass.logError))
+      .pipe($csscomb())
       .pipe($sourcemaps.write('/'))
       .pipe($size({ title: '[stylesheet:main]', gzip: true }))
       .pipe(gulp.dest(config.stylesheets.main.output))
@@ -72,6 +75,7 @@ gulp.task('stylesheet:main', () => {
     return gulp.src(config.stylesheets.main.entry)
       .pipe($sass(config.stylesheets.sass).on('error', $sass.logError))
       .pipe($cleanCSS({ compatibility: 'ie8' }))
+      .pipe($autoprefixer(config.stylesheets.autoprefixer))
       .pipe($size({ title: '[stylesheet:main]', gzip: true }))
       .pipe(gulp.dest(config.stylesheets.main.output));
   }
