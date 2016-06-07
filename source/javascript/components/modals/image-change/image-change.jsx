@@ -107,7 +107,8 @@ class ImageEdit extends React.Component {
           onUploadImage={onUploadImage}
           builder={builder}
           assets={assets}
-          builderConfiguration={builderConfiguration} />
+          builderConfiguration={builderConfiguration}
+          onClose={::this.closeDialog} />
         <BottomNavigation actions={actions} />
       </ModalWrapper>
     );

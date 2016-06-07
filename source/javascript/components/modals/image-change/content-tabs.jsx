@@ -11,7 +11,8 @@ export default class ContentTabs extends React.Component {
     activeTab: React.PropTypes.number.isRequired,
     editTarget: React.PropTypes.any.isRequired,
     onSelectImage: React.PropTypes.func.isRequired,
-    onUploadImage: React.PropTypes.func.isRequired
+    onUploadImage: React.PropTypes.func.isRequired,
+    onClose: React.PropTypes.func.isRequired
   };
 
   render () {
@@ -20,7 +21,8 @@ export default class ContentTabs extends React.Component {
       editTarget,
       activeTab,
       builderConfiguration,
-      onUploadImage
+      onUploadImage,
+      onClose
     } = this.props;
 
     if (activeTab === 1) {
@@ -30,7 +32,7 @@ export default class ContentTabs extends React.Component {
     } else if (activeTab === 3) {
       return <UploadImageTab onUploadImage={onUploadImage} />;
     } else if (activeTab === 4) {
-      return <UploadedImagesTab selectImage={onSelectImage} />;
+      return <UploadedImagesTab selectImage={onSelectImage} onClose={onClose} />;
     }
 
     return null;

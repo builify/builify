@@ -56,6 +56,12 @@ export default function assets (state = initialState, action) {
 
       return state;
     }
+
+    case Actions.DELETE_ALL_ASSETS: {
+      storage.deleteKey(TEMPLATE_ASSETS_STORAGE_NAME);
+
+      return [];
+    }
   }
 
   return state;

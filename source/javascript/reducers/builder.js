@@ -37,6 +37,9 @@ const builderInitialState = {
 
 export default function builder (state = builderInitialState, action) {
   switch (action.type) {
+    case Actions.UPLOAD_FILE:
+     return _assign({}, state, {});
+
     case Actions.OPEN_TAB: {
       const { target } = action;
       const { currentTab, tabs } = state;

@@ -4,12 +4,16 @@ import classNames from 'classnames';
 import Random from '../../../common/random';
 import Scrollbar from '../../shared/scrollbar';
 import Image from '../../shared/image';
+import Button from '../../shared/button';
 import { connect } from 'react-redux';
+import { deleteAllAssets } from '../../../actions';
 
 class UploadedImagesTab extends React.Component {
   static propTypes = {
     assets: React.PropTypes.array.isRequired,
-    selectImage: React.PropTypes.func.isRequired
+    selectImage: React.PropTypes.func.isRequired,
+    deleteAllAssets: React.PropTypes.func.isRequired,
+    onClose: React.PropTypes.func.isRequired
   };
 
   shouldComponentUpdate () {
@@ -17,6 +21,10 @@ class UploadedImagesTab extends React.Component {
   }
 
   renderImages (assets) {
+    if (assets.length === 0) {
+      return <p>This seems place seems empty...</p>;
+    }
+
     return _map(assets, (asset) => {
       const { fileData } = asset;
 
@@ -33,6 +41,11 @@ class UploadedImagesTab extends React.Component {
     });
   }
 
+  deleteAssets () {
+    this.props.deleteAllAssets();
+    return this.props.onClose();
+  }
+
   render () {
     const { assets } = this.props;
     const imagesUploaded = assets.length;
@@ -43,6 +56,7 @@ class UploadedImagesTab extends React.Component {
         <aside className='ab-modal__tabside'>
           <h2>Uploaded</h2>
           <p>{ uploadedInformation }</p>
+          <Button label='Delete All Images' onClick={::this.deleteAssets}/>
         </aside>
         <main className='ab-modal__tabcontent'>
           <Scrollbar height={380}>
@@ -62,4 +76,12 @@ function mapStateToProps (state) {
   };
 }
 
-export default connect(mapStateToProps)(UploadedImagesTab);
+function mapDispatchToProps (dispatch) {
+  return {
+    deleteAllAssets: () => {
+      dispatch(deleteAllAssets());
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UploadedImagesTab);

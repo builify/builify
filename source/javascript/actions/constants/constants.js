@@ -17,6 +17,7 @@ export default keyMirror([
   // Assets' actions.
   'UPLOAD_FILE',
   'SELECT_IMAGE_FILE',
+  'DELETE_ALL_ASSETS',
 
   // Template's actions
   'GET_TEMPLATE_DATA',

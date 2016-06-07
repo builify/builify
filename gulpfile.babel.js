@@ -25,15 +25,11 @@ import $sourcemaps from 'gulp-sourcemaps';
 import $uglify from 'gulp-uglify';
 import $hint from 'gulp-htmlhint';
 import $cleanCSS from 'gulp-clean-css';
-import $autoprefixer from 'gulp-prefixer';
+import $autoprefixer from 'gulp-autoprefixer';
 import $csscomb from 'gulp-csscomb';
 
 // Set environment variable.
-if (config.env.debug === true) {
-  process.env.NODE_ENV = 'development';
-} else {
-  process.env.NODE_ENV = 'production';
-}
+process.env.NODE_ENV = config.env.debug ? 'development' : 'production';
 
 // Create browserSync.
 const browserSync = server.create();

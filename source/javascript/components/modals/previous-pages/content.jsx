@@ -87,7 +87,7 @@ class Content extends React.Component {
           <aside className={classNames('modal__tabside', 'sec')}>
             <h2>Pages</h2>
             <p>{ pagesInformation }</p>
-            <Button label='Flush Storage' onClick={::this.flushStorage} />
+            <Button label='Delete All Pages' onClick={::this.flushStorage} />
             <div className='tt-filebutton'>
               <input onClick={::this.fileInputClick} className='tt-filebutton__input' id='fileInput' type='file' ref='fileInput' />
               <label className='tt-filebutton__label' htmlFor='fileInput'>Import a Page</label>

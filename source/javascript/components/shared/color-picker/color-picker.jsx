@@ -1,18 +1,19 @@
 import React from 'react';
 import ColorPicker from 'react-color';
-import TTDOM from '../../../Common/TTDOM';
-import * as Constants from '../../../Constants';
+import _isElement from 'lodash/iselement';
+import TTDOM from '../../../common/TTDOM';
+import * as Constants from '../../../constants';
 import { connect } from 'react-redux';
-import { closeColorPicker, setColorFromColorPicker } from '../../../Actions';
+import { closeColorPicker, setColorFromColorPicker } from '../../../actions';
 
 class ColorPick extends React.Component {
-  colorTargetType = null;
-
   static propTypes = {
     template: React.PropTypes.object.isRequired,
     closeColorPicker: React.PropTypes.func.isRequired,
     setColorFromColorPicker: React.PropTypes.func.isRequired
   };
+
+  colorTargetType = null;
 
   onClose () {
     return this.props.closeColorPicker();
@@ -29,13 +30,18 @@ class ColorPick extends React.Component {
     let xPos = 0;
     let yPos = 0;
 
-    if (selectedCPElement) {
+    if (_isElement(selectedCPElement)) {
       const browserSize = TTDOM.browser.size();
       const { height: browserHeight } = browserSize;
       const estimatedColorPickerHeight = 320;
 
       if (selectedCPElement.getAttribute('data-abcolor')) {
         const colorCircleElement = selectedCPElement.querySelector('.ab-color__circle');
+
+        if (!_isElement(colorCircleElement)) {
+          return;
+        }
+
         const colorCirclePosition = colorCircleElement.getBoundingClientRect();
         const { left, top } = colorCirclePosition;
 
@@ -47,6 +53,11 @@ class ColorPick extends React.Component {
         this.colorTargetType = Constants.ColorPickerTargetTypes.COLOR;
       } else if (selectedCPElement.getAttribute(Constants.CONTENTBLOCK_ATTR_FIRST_ELEMENT)) {
         const coverColorElement = selectedCPElement.querySelector('.block-background-cover-color');
+
+        if (!_isElement(coverColorElement)) {
+          return;
+        }
+  
         const toolboxItemPosition = sourceCPElement.getBoundingClientRect();
         const { top, right } = toolboxItemPosition;
         var coverColor = coverColorElement.style.backgroundColor;

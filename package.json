@@ -9,7 +9,9 @@
   "scripts": {
     "precommit": "npm run test",
     "development": "gulp --env debug",
+    "dev": "npm run development",
     "production": "gulp --env production",
+    "prod": "npm run production",
     "demo": "gulp --env demo",
     "test": "mocha --require test/setup.js --compilers js:babel-register --recursive --bail",
     "tdd": "npm run test -- --watch"

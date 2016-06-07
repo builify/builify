@@ -119,11 +119,11 @@ export default function page (state = pageInitialState, action) {
     }
 
     case Actions.FLUSH_PAGES_IN_STORAGE: {
-      if (TTStorage.flush()) {
-        window.location.reload(false);
-        return _assign({}, state);
-      }
+      TTStorage.deleteKey(TEMPLATE_PAGES_STORAGE_NAME);
 
+      window.location.reload(false);
+
+      // Unreachable code.
       return state;
     }
 
