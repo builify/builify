@@ -1,10 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import TTDOM from '../../../common/TTDOM';
-import { findUpAttr } from '../../../common/common';
 import ClickToolBoxItem from './item';
 import Helpers from './helpers';
-import { HTMLTagNamesToString } from './config';
+import HTMLTagNamesToString from './html-tagnames';
+import { findUpAttr } from '../../../common/common';
 
 export default class ClickToolbox extends React.Component {
   static propTypes = {
@@ -52,15 +52,15 @@ export default class ClickToolbox extends React.Component {
     const panelElementHeight = panelElement.offsetHeight;
     const { y } = this.state.panelCoordinates;
 
-    if ((y + panelElementHeight) >= (this._browserSize.height - this._panelXPadding)) {
-      const dif = (y + panelElementHeight) - (this._browserSize.height - this._panelXPadding);
+    if ((y + panelElementHeight) > (this._browserSize.height - this._panelXPadding - 50)) {
+      const dif = Math.abs((y + panelElementHeight) - (this._browserSize.height - this._panelXPadding - 50));
 
-      panelElement.style.top = (y - +dif) + 'px';
+      panelElement.style.top = `${y - dif}px`;
     }
   }
 
   getHTMLTagName (target) {
-    return HTMLTagNamesToString[target.tagName];
+    return HTMLTagNamesToString[target.tagName.toLowerCase()];
   }
 
   openPanel (e) {
@@ -174,7 +174,7 @@ export default class ClickToolbox extends React.Component {
 
   listItemRemove () {
     const clickEvent = () => {
-      this.state.target.remove();
+      TTDOM.element.remove(this.state.target);
       return this.closePanel();
     };
 

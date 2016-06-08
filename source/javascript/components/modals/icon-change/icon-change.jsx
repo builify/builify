@@ -1,16 +1,15 @@
-import { connect } from 'react-redux';
 import React from 'react';
 import classNames from 'classnames';
 import ModalWrapper from '../common/wrapper';
+import TTDOM from '../../../common/TTDOM';
 import BottomNavigation from '../common/bottom-navigation';
 import TabIcons from './tab-icons';
+import { connect } from 'react-redux';
 import { closeModal, addNotification } from '../../../actions';
-import TTDOM from '../../../common/TTDOM';
 
 class IconChange extends React.Component {
   static propTypes = {
     editTarget: React.PropTypes.any.isRequired,
-    builderConfiguration: React.PropTypes.object.isRequired,
     addNotification: React.PropTypes.func.isRequired,
     closeModal: React.PropTypes.func.isRequired
   };
@@ -40,7 +39,7 @@ class IconChange extends React.Component {
   }
 
   render () {
-    const { builderConfiguration, closeModal } = this.props;
+    const { closeModal } = this.props;
     const className = classNames('ab-modal');
     const actions = [
       { label: 'Done', onClick: ::this.closeDialog }
@@ -48,17 +47,11 @@ class IconChange extends React.Component {
 
     return (
       <ModalWrapper onClose={closeModal} ref='modalWrapper' className={className}>
-        <TabIcons onSelect={::this.selectIcon} builderConfiguration={builderConfiguration} />
+        <TabIcons onSelect={::this.selectIcon}  />
         <BottomNavigation actions={actions} />
       </ModalWrapper>
     );
   }
-}
-
-function mapStateToProps (state) {
-  return {
-    builderConfiguration: state.builderConfiguration
-  };
 }
 
 function mapDispatchToProps (dispatch) {
@@ -73,4 +66,4 @@ function mapDispatchToProps (dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(IconChange);
+export default connect(null, mapDispatchToProps)(IconChange);

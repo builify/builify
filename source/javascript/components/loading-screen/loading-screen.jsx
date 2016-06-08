@@ -1,16 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import classNames from '../../common/classnames';
-import LoadingIcon from './icon';
+import { connect } from 'react-redux';
 
 class LoadingScreen extends React.Component {
   static propTypes = {
-    builder: React.PropTypes.object.isRequired
+    isLoadingScreenActive: React.PropTypes.bool.isRequired,
+    loadingScreenType: React.PropTypes.number.isRequired
   };
 
   shouldComponentUpdate (nextProps) {
-    if (this.props.builder.isLoadingScreenActive !== nextProps.builder.isLoadingScreenActive ||
-        this.props.builder.loadingScreenType !== nextProps.builder.loadingScreenType) {
+    if (this.props.isLoadingScreenActive !== nextProps.isLoadingScreenActive ||
+        this.props.loadingScreenType !== nextProps.loadingScreenType) {
       return true;
     }
 
@@ -18,8 +18,7 @@ class LoadingScreen extends React.Component {
   }
 
   render () {
-    const { builder } = this.props;
-    const { isLoadingScreenActive, loadingScreenType } = builder;
+    const { isLoadingScreenActive, loadingScreenType } = this.props;
 
     if (loadingScreenType === 0) {
       const loadingScreenClassName = classNames('loadingScreen', {
@@ -28,7 +27,7 @@ class LoadingScreen extends React.Component {
 
       return (
         <div id={classNames('loadingScreen')} className={loadingScreenClassName}>
-          <LoadingIcon />
+          <div className={classNames('loadingScreen__loader', 'big')}><div /></div>
           <div className={classNames('loadingScreen__loading')}>Loading builder</div>
           <div className={classNames('loadingScreen__info')}>Please wait...</div>
         </div>
@@ -38,8 +37,12 @@ class LoadingScreen extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { builder } = state;
+  const { isLoadingScreenActive, loadingScreenType } = builder;
+
   return {
-    builder: state.builder
+    isLoadingScreenActive: isLoadingScreenActive,
+    loadingScreenType: loadingScreenType
   };
 }
 

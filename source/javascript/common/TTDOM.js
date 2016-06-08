@@ -305,10 +305,36 @@ const TTDOM = {
 
         TTDOM.element.attr.remove(attributeJunkElements, attributesToRemove);
 
+        // Fix asset locations for production builds.
+        const linkElements = doc.querySelectorAll('link');
+        const scriptElements = doc.querySelectorAll('script');
+
+        for (let i = 0; i < linkElements.length; i++) {
+          const cur = linkElements[i];
+          const href = cur.getAttribute('href');
+
+          if (href) {
+            if (href.indexOf('assets/template/template') !== -1) {
+              cur.setAttribute('href', 'assets/template/template.css');
+            }
+          }
+        }
+
+        for (let i = 0; i < scriptElements.length; i++) {
+          const cur = scriptElements[i];
+          const src = cur.getAttribute('src');
+
+          if (src) {
+            if (src.indexOf('assets/template/template')) {
+              cur.setAttribute('src', 'assets/template/template.js');
+            }
+          }
+        }
+
         return doc;
       }
 
-      function addDcotypeToHTML (html) {
+      function addDoctypeToHTML (html) {
         return (
           `
 <!DOCTYPE html>
@@ -317,7 +343,7 @@ ${html}
         );
       }
 
-      const HTML = addDcotypeToHTML(removeJunk(cloneDocElem).innerHTML);
+      const HTML = addDoctypeToHTML(removeJunk(cloneDocElem).innerHTML);
 
       return HTML;
     }

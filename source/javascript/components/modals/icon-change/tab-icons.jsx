@@ -1,13 +1,14 @@
 import React from 'react';
-import _ from 'lodash';
+import _map from 'lodash/map';
 import classNames from 'classnames';
 import Random from '../../../common/random';
 import Scrollbar from '../../shared/scrollbar';
+import { connect } from 'react-redux';
 
-export default class TabIcons extends React.Component {
+class TabIcons extends React.Component {
   static propTypes = {
     onSelect: React.PropTypes.func.isRequired,
-    builderConfiguration: React.PropTypes.object.isRequired
+    iconPacks: React.PropTypes.array.isRequired
   };
 
   state = {
@@ -17,16 +18,19 @@ export default class TabIcons extends React.Component {
   defaultIconPacks = [];
   iconsToRender = [];
 
+  shouldComponentUpdate () {
+    return false;
+  }
+
   componentWillMount () {
-    const { builderConfiguration } = this.props;
-    const { iconPacks } = builderConfiguration;
+    const { iconPacks } = this.props;
     const { activeCategory } = this.state;
     const activeIconPack = iconPacks[activeCategory];
     const { icons } = activeIconPack;
     let iconDocument = {};
     let iconDocuments = [];
 
-    _.map(icons, (icon, idx) => {
+    _map(icons, (icon, idx) => {
       iconDocument = {
         idx: idx,
         icon: icon
@@ -44,7 +48,7 @@ export default class TabIcons extends React.Component {
   renderCategories () {
     const { activeCategory } = this.state;
 
-    return _.map(this.defaultIconPacks, (item, idx) => {
+    return _map(this.defaultIconPacks, (item, idx) => {
       const { iconFullname } = item;
       const className = classNames('ab-modal__tabitem', {
         'active': !!(idx === activeCategory)
@@ -76,7 +80,7 @@ export default class TabIcons extends React.Component {
     let key = null;
 
     if (icons) {
-      return _.map(this.iconsToRender, (icon) => {
+      return _map(this.iconsToRender, (icon) => {
         className = classNames(iconClass, icon.icon);
         key = Random.randomKey();
 
@@ -124,3 +128,14 @@ export default class TabIcons extends React.Component {
     );
   }
 }
+
+function mapStateToProps (state) {
+  const { builderConfiguration } = state;
+  const { iconPacks } = builderConfiguration;
+
+  return {
+    iconPacks: iconPacks
+  };
+}
+
+export default connect(mapStateToProps)(TabIcons);

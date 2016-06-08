@@ -22,7 +22,7 @@ class UploadedImagesTab extends React.Component {
 
   renderImages (assets) {
     if (assets.length === 0) {
-      return <p>This seems place seems empty...</p>;
+      return <p>Upload some images! :-D</p>;
     }
 
     return _map(assets, (asset) => {

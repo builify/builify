@@ -51,7 +51,9 @@ class TabNavigation extends React.Component {
       let { label } = tab;
 
       if (_has(tab, 'imagesUploaded')) {
-        label = `${label} (${assets.length})`;
+        if (assets.length !== 0) {
+          label = `${label} (${assets.length})`;
+        }
       }
 
       return (
