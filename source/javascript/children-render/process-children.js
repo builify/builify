@@ -1,4 +1,3 @@
-/* eslint-disable */
 import _isArray from 'lodash/isarray';
 import _map from 'lodash/map';
 import _isNull from 'lodash/isnull';
@@ -40,7 +39,7 @@ export default function (children) {
           case 'colors':
           case 'logo': {
             blockData = {
-              type: blockType,
+              type: blockType
             };
 
             break;
@@ -118,6 +117,8 @@ export default function (children) {
         if (!_isNull(blockData)) {
           childrenToRender.push(blockData);
         }
+
+        break;
       }
 
       default:
@@ -127,4 +128,3 @@ export default function (children) {
 
   return childrenToRender;
 }
-/* eslint-enable */

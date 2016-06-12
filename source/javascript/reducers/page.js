@@ -15,7 +15,6 @@ import Random from '../common/random';
 import TTDOM from '../common/TTDOM';
 import { exportPage, importPage } from '../common/export-page';
 import * as Actions from '../actions/constants';
-import { replaceDataInHTML } from '../common/common';
 import { TEMPLATE_PAGES_STORAGE_NAME } from '../constants';
 
 const pageInitialState = {
@@ -34,6 +33,30 @@ const pageInitialState = {
   // Misc
   replaceInHTML: []
 };
+
+function replaceDataInHTML (HTML, arrayOfItemsToReplace) {
+  if (!HTML || !arrayOfItemsToReplace || !arrayOfItemsToReplace.length) {
+    return HTML;
+  }
+
+  if (arrayOfItemsToReplace.length === 0) {
+    return HTML;
+  }
+
+  arrayOfItemsToReplace.map((replacer) => {
+    const { findWhat, replaceWith } = replacer;
+
+    if (!findWhat || !replaceWith) {
+      return;
+    }
+
+    const reg = new RegExp(findWhat, 'g');
+
+    HTML = HTML.replace(reg, replaceWith);
+  });
+
+  return HTML;
+}
 
 function resetBlockParameters (block) {
   if (_isObject(block)) {

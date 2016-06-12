@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import Random from '../common/random';
 import _isObject from 'lodash/isobject';
@@ -15,7 +14,7 @@ import Copyright from '../components/shared/copyright';
 import Logo from '../components/shared/logo';
 import PrimaryNavigation from '../components/shared/primary-navigation';
 
-export default function (item) {
+export default function renderProcessedChildren (item) {
   if (!_isObject(item)) {
     throw Error('No item defined or not object.');
   }
@@ -25,10 +24,10 @@ export default function (item) {
 
     switch (item.type) {
       case 'logo':
-        return <Logo key={key} />
+        return <Logo key={key} />;
 
       case 'copyright':
-        return <Copyright key={key} />
+        return <Copyright key={key} />;
 
       case 'navigation':
         return <PrimaryNavigation key={key} />;
@@ -61,4 +60,3 @@ export default function (item) {
 
   return null;
 }
-/* eslint-enable */

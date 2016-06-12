@@ -4,7 +4,6 @@ import TTDOM from '../../../common/TTDOM';
 import ClickToolBoxItem from './item';
 import Helpers from './helpers';
 import HTMLTagNamesToString from './html-tagnames';
-import { findUpAttr } from '../../../common/common';
 
 export default class ClickToolbox extends React.Component {
   static propTypes = {
@@ -77,7 +76,7 @@ export default class ClickToolbox extends React.Component {
     };
     let target = e.target;
     let isElemenetChangeable = true;
-    const findUp = findUpAttr(target, 'data-abctoolbox data-abcpanel');
+    const findUp = TTDOM.find.findUpAttr(target, 'data-abctoolbox data-abcpanel');
 
     if (findUp !== null ||
       target.getAttribute('data-abctoolbox') ||

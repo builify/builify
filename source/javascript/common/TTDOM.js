@@ -81,6 +81,32 @@ const TTDOM = {
       }
 
       return null;
+    },
+
+    findUpAttr (el, attr) {
+      attr = attr.split(' ');
+
+      for (let i = 0; i < attr.length; i++) {
+        if (el.getAttribute(el[i])) {
+          return el;
+        }
+      }
+
+      while (el.parentNode) {
+        el = el.parentNode;
+
+        for (let i = 0; i < attr.length; i++) {
+          if (el.getAttribute(attr[i])) {
+            return el;
+          }
+        }
+
+        if (el.tagName === 'HTML') {
+          break;
+        }
+      }
+
+      return null;
     }
   },
 

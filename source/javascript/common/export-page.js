@@ -19,7 +19,9 @@ export function exportPage (currentPage) {
   }
 
   const encoded = utoa(JSON.stringify(currentPage));
-  const data = new Blob([encoded], { type: 'text/plain;charset=utf-8' });
+  const data = new Blob([encoded], {
+    type: 'text/plain;charset=utf-8'
+  });
 
   saveAs(data, 'page.fbuilify');
 }
