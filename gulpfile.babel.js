@@ -1,4 +1,5 @@
 import config from './config';
+import pckg from './package';
 import _has from 'lodash/has';
 import _keys from 'lodash/keys';
 import _isEmpty from 'lodash/isempty';
@@ -176,7 +177,8 @@ gulp.task('javascript:main', () => {
   .transform(envify({
     _: 'purge',
     NODE_ENV: config.env.debug ? 'development' : 'production',
-    DEMO: config.env.demo ? true : false
+    DEMO: config.env.demo ? true : false,
+    VERSION: pckg.version
   }))
   .external(config.vendors); // Specify all vendors as external source
 

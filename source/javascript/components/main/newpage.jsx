@@ -6,7 +6,7 @@ import { startNewPage, loadPreviousPage, openPreviousPagesSelectionModal } from 
 
 class Page extends React.Component {
   static propTypes = {
-    builder: React.PropTypes.object.isRequired,
+    pages: React.PropTypes.array.isRequired,
     isNewPage: React.PropTypes.bool.isRequired,
     startNewPage: React.PropTypes.func.isRequired,
     openPreviousPagesSelectionModal: React.PropTypes.func.isRequired,
@@ -18,8 +18,7 @@ class Page extends React.Component {
   }
 
   selectPage () {
-    const { isNewPage, builder } = this.props;
-    const { pages } = builder;
+    const { isNewPage, pages } = this.props;
 
     if (isNewPage) {
       return this.props.startNewPage();
@@ -35,8 +34,7 @@ class Page extends React.Component {
   }
 
   render () {
-    const { isNewPage, builder } = this.props;
-    const { pages } = builder;
+    const { isNewPage, pages } = this.props;
     const pagesLength = pages.length;
     const previousPages = pagesLength > 1 ? 'pages.loadpages' : 'pages.loadpage';
     const queryString = isNewPage ? 'pages.newpage' : previousPages;
@@ -50,8 +48,11 @@ class Page extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { builder } = state;
+  const { pages } = builder;
+
   return {
-    builder: state.builder
+    pages: pages
   };
 }
 

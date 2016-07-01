@@ -7,11 +7,11 @@ import { CurrentLocations } from '../../constants';
 
 class Main extends React.Component {
   static propTypes = {
-    builder: React.PropTypes.object.isRequired
+    currentLocation: React.PropTypes.number.isRequired
   };
 
   shouldComponentUpdate (nextProps) {
-    if (this.props.builder.currentLocation !== nextProps.builder.currentLocation) {
+    if (this.props.currentLocation !== nextProps.currentLocation) {
       return true;
     }
 
@@ -19,8 +19,7 @@ class Main extends React.Component {
   }
 
   render () {
-    const { builder } = this.props;
-    const { currentLocation } = builder;
+    const { currentLocation } = this.props;
 
     const mainClassName = classNames('main', {
       'fullsize': currentLocation === CurrentLocations.TEMPLATESELECTION,
@@ -37,8 +36,11 @@ class Main extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { builder } = state;
+  const { currentLocation } = builder;
+
   return {
-    builder: state.builder
+    currentLocation: currentLocation
   };
 }
 

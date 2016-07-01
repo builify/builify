@@ -9,14 +9,14 @@ import { setPreviewMode } from '../../actions';
 
 class PreviewControls extends React.Component {
   static propTypes = {
-    builder: React.PropTypes.object.isRequired,
-    preview: React.PropTypes.object.isRequired,
+    currentLocation: React.PropTypes.number.isRequired,
+    previewMode: React.PropTypes.number.isRequired,
     setPreviewMode: React.PropTypes.func.isRequired
   };
 
   shouldComponentUpdate (nextProps) {
-    if (this.props.builder.currentLocation !== nextProps.builder.currentLocation ||
-        this.props.preview.previewMode !== nextProps.preview.previewMode) {
+    if (this.props.currentLocation !== nextProps.currentLocation ||
+        this.props.previewMode !== nextProps.previewMode) {
       return true;
     }
 
@@ -24,9 +24,7 @@ class PreviewControls extends React.Component {
   }
 
   renderItems (items) {
-    const { builder, setPreviewMode, preview } = this.props;
-    const { currentLocation } = builder;
-    const { previewMode } = preview;
+    const { currentLocation, setPreviewMode, previewMode } = this.props;
     const hide = !!(currentLocation === CurrentLocations.STARTSCREEN && true);
 
     return _map(items, (item, idx) => {
@@ -60,9 +58,13 @@ class PreviewControls extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { builder, preview } = state;
+  const { currentLocation } = builder;
+  const { previewMode } = preview;
+
   return {
-    builder: state.builder,
-    preview: state.preview
+    currentLocation: currentLocation,
+    previewMode: previewMode
   };
 }
 

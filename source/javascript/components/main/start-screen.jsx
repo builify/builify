@@ -7,11 +7,12 @@ import { CurrentLocations } from '../../constants';
 
 class ProjectStartScreen extends React.Component {
   static propTypes = {
-    builder: React.PropTypes.object.isRequired
+    previousPagesInStorage: React.PropTypes.bool.isRequired,
+    currentLocation: React.PropTypes.number.isRequired
   };
 
   shouldComponentUpdate (nextProps) {
-    if (this.props.builder.currentLocation !== nextProps.currentLocation) {
+    if (this.props.currentLocation !== nextProps.currentLocation) {
       return true;
     }
 
@@ -19,15 +20,14 @@ class ProjectStartScreen extends React.Component {
   }
 
   render () {
-    const { builder } = this.props;
-    const { doPreviousPagesExistInStorage: previousPages, currentLocation } = builder;
+    const { previousPagesInStorage, currentLocation } = this.props;
     const wrapperClassName = classNames('flex', 'full', 'center');
 
     if (currentLocation === CurrentLocations.STARTSCREEN) {
       return (
         <div className={wrapperClassName}>
           <Page isNewPage={true} />
-          { previousPages && <Page isNewPage={false} /> }
+          { previousPagesInStorage && <Page isNewPage={false} /> }
           <Copyright />
         </div>
       );
@@ -38,8 +38,12 @@ class ProjectStartScreen extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { builder } = state;
+  const { doPreviousPagesExistInStorage: previousPagesInStorage, currentLocation } = builder;
+
   return {
-    builder: state.builder
+    previousPagesInStorage: previousPagesInStorage,
+    currentLocation: currentLocation
   };
 }
 
