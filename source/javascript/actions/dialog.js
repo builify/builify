@@ -59,6 +59,12 @@ export function openRestartModal () {
   };
 }
 
+export function openFeedbackModal () {
+  return {
+    type: Actions.OPEN_FEEDBACK_MODAL
+  };
+}
+
 export function closeModal () {
   return {
     type: Actions.CLOSE_MODAL

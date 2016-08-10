@@ -19,35 +19,23 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
-    })
+    }),
+    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
   ],
 
   module: {
-    loaders: [
-      {
-        test: /\.(js|jsx)?$/,
-        exclude: [path.resolve(__dirname, 'node_modules')],
-        loader: 'babel',
-        query: {
-          presets:[
-            'es2015',
-            'stage-0',
-            'react'
-          ]
-        }
-      },
-      {
-        test: /\.json?$/,
-        loader: 'json-loader'
-      }
-    ]
+    loaders: [{
+      test: /\.(js|jsx)?$/,
+      exclude: [path.resolve(__dirname, 'node_modules')],
+      loader: 'babel'
+    },
+    {
+      test: /\.json?$/,
+      loader: 'json-loader'
+    }]
   },
 
   resolve: {
     extensions: ['', '.js', '.json', '.jsx']
-  },
-
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
-  ]
+  }
 };

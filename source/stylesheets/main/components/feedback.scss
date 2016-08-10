@@ -1,0 +1,18 @@
+.tt-feedback {
+    position: fixed;
+    bottom: 0;
+    left: 300px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    color: #333;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px 3px 0 0;
+    border: 1px solid darken($color-green, 9%);
+    width: 150px;
+    background: $color-green;
+    z-index: 5000;
+}

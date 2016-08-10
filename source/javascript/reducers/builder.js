@@ -170,6 +170,12 @@ export default function builder (state = builderInitialState, action) {
         modalType: DialogTypes.RESTART
       });
 
+    case Actions.OPEN_FEEDBACK_MODAL:
+      return _assign({}, state, {
+        isModalOpen: true,
+        modalType: DialogTypes.FEEDBACK
+      });
+
     case Actions.CLOSE_MODAL:
       return _assign({}, state, {
         isModalOpen: false,

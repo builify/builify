@@ -4,6 +4,7 @@ import PreviousPages from './previous-pages';
 import IconChange from './icon-change';
 import Countdown from './countdown';
 import VideoEdit from './video-edit';
+import Feedback from './feedback';
 import DownloadPages from './download-pages';
 import DialogRestart from './dialog-restart';
 import { connect } from 'react-redux';
@@ -53,6 +54,9 @@ class Modals extends React.Component {
 
       case DialogTypes.VIDEOEDIT:
         return <VideoEdit editTarget={modalTarget} />;
+
+      case DialogTypes.FEEDBACK:
+       return <Feedback />;
 
       default:
         return null;

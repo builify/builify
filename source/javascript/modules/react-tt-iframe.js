@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _assign from 'lodash/assign';
+import _omit from 'lodash/omit';
 
 export default class IFrame extends React.Component {
   static propTypes = {
@@ -23,7 +24,9 @@ export default class IFrame extends React.Component {
   _document = null;
 
   render () {
-    return React.createElement('iframe', _assign({}, this.props, { children: undefined }));
+    const props = _omit(this.props, ['contentDidMount', 'contentDidUpdate', 'initialContent']);
+
+    return React.createElement('iframe', _assign({}, props, { children: undefined }));
   }
 
   componentDidMount () {

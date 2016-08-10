@@ -224,7 +224,6 @@ export default class Icon extends React.Component {
         onClick={onClick}
         viewBox='0 0 24 24'
         preserveAspectRatio='xMidYMid meet'
-        fit
         style={this.mergeStyles(
           styles,
           style // This lets the parent pass custom styles

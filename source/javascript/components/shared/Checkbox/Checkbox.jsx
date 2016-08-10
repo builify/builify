@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from '../../../common/classnames';
-import Ripple from '../Ripple';
+import Ripple from '../ripple';
 
 export default class Checkbox extends React.Component {
   static propTypes = {
@@ -49,9 +49,7 @@ export default class Checkbox extends React.Component {
     });
 
     return (
-      <label
-        className={fieldClassName}
-        onClick={::this.handleClick}>
+      <label className={fieldClassName} onClick={::this.handleClick}>
         <input
           ref='input'
           {...this.props}

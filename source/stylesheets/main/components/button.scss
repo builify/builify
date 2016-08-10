@@ -57,3 +57,36 @@ $button-default-text-color: $color-black !default;
         }
     }
 }
+
+.tt-filebutton {
+    position: relative;
+    width: 100%;
+    display: block;
+    overflow: hidden;
+
+    &__input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    &__label {
+        @extend %button;
+        @extend %squared;
+        text-transform: uppercase;
+        background: transparent;
+        @include typo-button();
+        line-height: $button-height;
+
+        &:hover {
+            background: $button-flat-color-hover;
+        }
+
+        &:focus:not(:active) {
+            background: $button-flat-color-hover;
+        }
+    }
+}

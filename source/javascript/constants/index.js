@@ -44,7 +44,8 @@ export const DialogTypes = {
   DOWNLOADPAGES: 5,
   RESTART: 6,
   COUNTDOWN: 7,
-  VIDEOEDIT: 8
+  VIDEOEDIT: 8,
+  FEEDBACK: 9
 };
 
 export const ColorPickerTargetTypes = {

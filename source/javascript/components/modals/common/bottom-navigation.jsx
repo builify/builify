@@ -1,5 +1,6 @@
 import React from 'react';
 import _map from 'lodash/map';
+import _omit from 'lodash/omit';
 import classNames from '../../../common/classnames';
 import Button from '../../shared/button';
 
@@ -25,8 +26,10 @@ export default class BottomNavigation extends React.Component {
   }
 
   render () {
+    const props = _omit(this.props, ['actions']);
+
     return (
-      <nav role='navigation' className={classNames('modal__navigation')}>
+      <nav role='navigation' className={classNames('modal__navigation')} {...props}>
         { this.renderActions() }
       </nav>
     );

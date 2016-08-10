@@ -12,7 +12,6 @@ export default class Button extends React.Component {
     kind: React.PropTypes.string,
     label: React.PropTypes.string,
     loading: React.PropTypes.bool,
-    mini: React.PropTypes.bool,
     primary: React.PropTypes.bool,
     ripple: React.PropTypes.bool,
     type: React.PropTypes.string,
@@ -26,7 +25,6 @@ export default class Button extends React.Component {
     className: '',
     kind: 'flat',
     loading: false,
-    mini: false,
     primary: false,
     ripple: true
   };
