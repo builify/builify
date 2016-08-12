@@ -13,6 +13,7 @@ export default keyMirror([
   'UPLOADED_IMAGE',
   'LOGIC_INITIALIZED',
   'GET_FONTS',
+  'SEND_FEEDBACK',
 
   // Assets' actions.
   'UPLOAD_FILE',
@@ -88,5 +89,6 @@ export default keyMirror([
   'OPEN_DOWNLOAD_MODAL',
   'OPEN_RESTART_MODAL',
   'OPEN_FEEDBACK_MODAL',
+  'OPEN_MAPS_MODAL',
   'CLOSE_MODAL'
 ]);

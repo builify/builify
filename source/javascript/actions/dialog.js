@@ -65,6 +65,12 @@ export function openFeedbackModal () {
   };
 }
 
+export function openMapsModal () {
+  return {
+    type: Actions.OPEN_MAPS_MODAL
+  };
+}
+
 export function closeModal () {
   return {
     type: Actions.CLOSE_MODAL

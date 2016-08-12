@@ -10,6 +10,7 @@ import fontsList from '../../../data/builder/fonts-list';
 import templateManifest from '../../../data/template/manifest';
 import { checkPreviousPagesInStorage, saveCurrentPage } from './page';
 import { closeTab, closeSidetab } from './aside';
+import { addNotification } from './notifications';
 
 export function runApplicationActions () {
   return (dispatch) => {
@@ -217,5 +218,16 @@ export function changeBaselineValue (value) {
   return {
     type: Actions.CHANGE_BASELINE_VALUE,
     value: value
+  };
+}
+
+export function sendFeedBack (payload) {
+  return (dispatch) => {
+    dispatch({ type: Actions.SEND_FEEDBACK });
+
+    dispatch(addNotification({
+      message: 'Feedback sent!',
+      level: 'info'
+    }));
   };
 }

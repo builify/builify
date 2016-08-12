@@ -5,7 +5,7 @@ import _has from 'lodash/has';
 import _isNull from 'lodash/isnull';
 import TTDOM from '../../../common/TTDOM';
 import ModalWrapper from '../common/Wrapper';
-import TabNavigation from './tab-navigation';
+import TabNavigation from './modal';
 import BottomNavigation from '../common/bottom-navigation';
 import { TRACK_MODAL_CURENT_IMAGE_INPUT_ID } from '../../../constants';
 import { closeModal, uploadFile, selectImageFile } from '../../../actions';

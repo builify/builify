@@ -5,6 +5,7 @@ import IconChange from './icon-change';
 import Countdown from './countdown';
 import VideoEdit from './video-edit';
 import Feedback from './feedback';
+import Maps from './maps';
 import DownloadPages from './download-pages';
 import DialogRestart from './dialog-restart';
 import { connect } from 'react-redux';
@@ -57,6 +58,9 @@ class Modals extends React.Component {
 
       case DialogTypes.FEEDBACK:
        return <Feedback />;
+
+      case DialogTypes.MAPS:
+        return <Maps editTarget={modalTarget} />;
 
       default:
         return null;

@@ -6,11 +6,12 @@ import ModalTab from '../common/tab';
 import BottomNavigation from '../common/bottom-navigation';
 import Input from '../../shared/input';
 import { connect } from 'react-redux';
-import { closeModal } from '../../../actions';
+import { closeModal, sendFeedBack } from '../../../actions';
 
 class Feedback extends React.Component {
   static propTypes = {
-    closeModal: React.PropTypes.func.isRequired
+    closeModal: React.PropTypes.func.isRequired,
+    sendFeedBack: React.PropTypes.func.isRequired
   };
 
   state = {
@@ -28,10 +29,21 @@ class Feedback extends React.Component {
     });
   }
 
+  sendFeedBack () {
+    const { issue } = this.state;
+    const payload = {
+      issue: issue
+    };
+
+    this.closeDialog();
+
+    return this.props.sendFeedBack(payload);
+  }
+
   render () {
     const actions = [
       { label: 'Cancel', onClick: ::this.closeDialog },
-      { label: 'Send' }
+      { label: 'Send', onClick: ::this.sendFeedBack }
     ];
     const containerStyle = {
       background: '#f5f5f5'
@@ -81,6 +93,10 @@ function mapDispatchToProps (dispatch) {
   return {
     closeModal: () => {
       dispatch(closeModal());
+    },
+
+    sendFeedBack: (payload) => {
+      dispatch(sendFeedBack(payload));
     }
   };
 }

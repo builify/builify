@@ -1,4 +1,6 @@
 export const IS_DEMO_VERSION = process.env.DEMO;
+export const IS_DEV_VERSION = !!(process.env.NODE_ENV === 'development');
+
 export const BUY_LINK = 'http://genert.github.io';
 
 export const MAXIMUM_NOTIFICATIONS = 7;
@@ -45,7 +47,8 @@ export const DialogTypes = {
   RESTART: 6,
   COUNTDOWN: 7,
   VIDEOEDIT: 8,
-  FEEDBACK: 9
+  FEEDBACK: 9,
+  MAPS: 10
 };
 
 export const ColorPickerTargetTypes = {
