@@ -94,7 +94,7 @@ export default {
   },
 
   rev: {
-    entry: path.join(buildDir, '**', '*.{css,jpg,jpeg,gif,png,svg,js,eot,svg,ttf,woff,woff2,ogv,mp4}'),
+    entry: path.join(buildDir, '**', '*.{css,js,eot,ttf,woff,woff2,ogv,mp4}'),
     output: buildDir,
     manifestFile: 'rev-manifest.json',
     replace: path.join(buildDir, '**', '*.{css,scss,sass,js,html}')

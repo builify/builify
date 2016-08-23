@@ -1,7 +1,6 @@
 .gitconfig
 jsconfig.json
 node_modules
-DevelopmentBuild
 dist
 public
 .public

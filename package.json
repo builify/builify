@@ -8,11 +8,13 @@
   "main": "gulpfile.babel.js",
   "scripts": {
     "precommit": "npm run test",
+    "revision": "gulp revision",
     "start": "gulp --env debug",
-    "build": "gulp --env production",
-    "build:demo": "gulp --env demo",
+    "build": "gulp --env production && npm run revision",
+    "build:demo": "gulp --env demo && npm run revision",
     "test": "mocha --require test/setup.js --compilers js:babel-register --recursive --bail",
-    "tdd": "npm run test -- --watch"
+    "tdd": "npm run test -- --watch",
+    "task": "eslint --init"
   },
   "engines": {
     "node": "6.1.0",

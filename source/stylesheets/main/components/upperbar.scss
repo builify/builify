@@ -1,10 +1,27 @@
+$upperbar-height: 60px;
+$upperbar-background: #fff;
+
 .#{$nameprefix}upperbar {
-    height: 50px;
-    background: #fff;
     width: 100%;
     position: relative;
     z-index: 50;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    height: $upperbar-height;
+    background: $upperbar-background;
+
+    &__pcontrols {
+        position: relative;
+        display: inline-block;
+        float: left;
+        margin-left: $base-padding;
+
+        .tt-input {
+            display: inline-block;
+            margin-top: 5px;
+            margin-left: 25px;
+            padding: 0;
+        }
+    }
 }
 
 .#{$nameprefix}preview-controls {
@@ -13,6 +30,7 @@
     height: 100%;
     max-width: 250px;
     overflow: hidden;
+    display: inline-block;
     margin-right: $base-padding;
 
     ul {
@@ -22,8 +40,8 @@
         li {
             cursor: pointer;
             display: inline-block;
-            height: 50px;
-            width: 50px;
+            height: $upperbar-height;
+            width: $upperbar-height;
             text-align: center;
             user-select: none;
             transition-property: background;
@@ -42,7 +60,7 @@
             }
 
             svg {
-                margin-top: (50px - 24px) / 2;
+                margin-top: ($upperbar-height - 20px) / 2;
             }
         }
     }

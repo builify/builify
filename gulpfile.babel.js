@@ -267,6 +267,11 @@ gulp.task('watch', () => {
   });
 });
 
+gulp.task('revision', () => {
+  const seq = ['rev'];
+  sequence(...seq);
+});
+
 gulp.task('default', () => {
   let seq = [
     'html',
@@ -282,8 +287,6 @@ gulp.task('default', () => {
   if (config.env.debug === true) {
     seq.push('watch');
     seq.push('server');
-  } else {
-    seq.push('rev');
   }
 
   rimraf(config.buildDir)

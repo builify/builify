@@ -18,7 +18,7 @@ export default class PreviewControlsItem extends React.Component {
 
   render () {
     const { name } = this.props;
-    const iconSize = 24;
+    const iconSize = 20;
     const className = classNames(null, {
       'active': this.props.active,
       'hidden': this.props.hidden

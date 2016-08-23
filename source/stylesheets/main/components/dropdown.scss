@@ -1,125 +1,129 @@
-$dropdown-offset: 1.6 * $unit;
-$dropdown-color-white: $color-white;
-$dropdown-color-primary: $color-primary;
-$dropdown-color-primary-contrast: #132123;
-$dropdown-value-hover-background: #eee;
-$dropdown-overflow-max-height: 45vh;
-$dropdown-value-border-radius: .2 * $unit;
-
 .#{$nameprefix}dropdown {
+    display: inline-block;
+    float: left;
     position: relative;
-    width: inherit;
-    margin-bottom: $dropdown-offset;
-    color: $color-text;
-    cursor: pointer;
-    border-bottom: 1px solid #e4e4e4;
+    width: 200px;
+    margin-top:20px;
 
-    &:not(.active) {
-        > .#{$nameprefix}dropdown__values {
-            max-height: 0;
-            visibility: hidden;
-        }
-    }
+    &__wrapper {
+        position: relative;
+        width: 100%;
+        height: 30px;
+        display: inline-block;
+        border-bottom: 1px solid #ddd;
 
-    &.active {
-        > .#{$nameprefix}dropdown__label,
-        > .#{$nameprefix}dropdown__value {
-            opacity: .5;
-        }
-
-        > .#{$nameprefix}dropdown__values {
-            max-height: $dropdown-overflow-max-height;
-            visibility: visible;
-            box-shadow: $zdepth-shadow-1;
-        }
-    }
-
-    &.disabled {
-        //color: $color-text-secondary;
-        pointer-events: none;
-        cursor: normal;
-        border-bottom-style: dotted;
-
-        > .#{$nameprefix}dropdown__value:after {
-            transform: scale(0);
+        &:hover {
+            cursor: pointer;
         }
     }
 
     &__label {
-        /*font-size: $font-size-tiny;
-        color: $color-text-secondary;*/
-    }
-
-    &__values {
         position: absolute;
-        z-index: 2;
-        overflow-x: hidden;
-        overflow-y: scroll;
-        list-style: none;
-        background-color: $dropdown-color-white;
-        border-radius: $dropdown-value-border-radius;
-        transition-timing-function: $animation-curve-default;
-        transition-duration: $animation-duration;
-        transition-property: max-height, box-shadow;
+        bottom: 8px;
+        font-size: 15px;
+        color: #a0a0a0;
+    }
 
-        > * {
-            position: relative;
-            padding: $unit;
-            overflow: hidden;
+    &__label--float {
+        position: absolute;
+        font-size: 11px;
+        bottom: 27px;
+        color: #888;
+        @include transition(300ms all ease);
+    }
+
+    &__selected-option {
+        position: absolute;
+        height: 25px;
+        line-height: 35px;
+        font-size: 15px;
+    }
+
+    &__button {
+        position: absolute;
+        right: 5px;
+        top: 12px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 5px 6px 0 6px;
+        border-color: #dddddd transparent transparent transparent;
+
+        &:hover {
             cursor: pointer;
-
-            &:hover {
-                background-color: $dropdown-value-hover-background;
-            }
-
-            &.selected {
-                color: $dropdown-color-primary;
-            }
-        }
-
-        &:not(.up) {
-            top: 0;
-            bottom: auto;
-        }
-
-        &.up {
-            top: auto;
-            bottom: 0;
         }
     }
 
-    &__value {
+    &__options {
+        position: absolute;
+        top: 3px;
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+        overflow: hidden;
+        padding-bottom: 15px;
+        float: left;
+        background-color: #fff;
+        z-index: 999;
+        box-shadow: $zdepth-shadow-1;
+        @include transition(150ms all ease);
+    }
+
+    &__options--hidden {
+        position: absolute;
+        top: -7.5px;
+        width: 100%;
+        height: 0px;
+        padding-bottom: 0;
+        padding-top: 0;
+        background-color: #fff;
+        overflow: hidden;
+        box-shadow: 0px 0px 6px #ddd;
+        @include transition(150ms all ease);
+    }
+
+    &__option {
         display: block;
+        width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        height: 30px;
+        line-height: 30px;
+        float: left;
+        @include transition(100ms all ease);
 
-        > span {
-            display: inline-block;
-            height: $input-field-height;
-            font-size: $input-field-font-size;
-            line-height: $input-field-height;
+        &:hover {
+            background-color: #eee;
         }
 
-        > :not(span) {
-            margin: ($dropdown-offset / 2) 0;
-        }
-
-        &:after {
-            $size: ($input-field-height / 7);
-            $border: $size solid transparent;
-            position: absolute;
-            right: ($dropdown-offset / 2);
-            bottom: $dropdown-offset;
-            width: 0;
-            height: 0;
-            content: "";
-            border-top: $size solid $color-divider;
-            border-right: $border;
-            border-left: $border;
-            transition: transform $animation-duration $animation-curve-default;
+        &--active {
+            color: $light-theme-color;
         }
     }
 
-    .ripple {
-        z-index: 0;
-        background-color: $color-divider;
+    &__ripple {
+        position: relative;
+        overflow: hidden;
+    }
+
+    &__ripple--active {
+        position: absolute;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        background: white;
+        animation: ripple-animation 1.8s;
+    }
+}
+
+@include keyframes (ripple-animation) {
+    0% {
+        opacity: 0.4;
+        @include transform(scale(1));
+    }
+
+    100% {
+        opacity: 0;
+        @include transform(scale(100));
     }
 }

@@ -19,6 +19,12 @@
     @include transition(all 0.3s ease);
 
     &:hover,
+    &:focus,
+    &:visited {
+        color: #fff;
+    }
+
+    &:hover,
     &:active {
         box-shadow: $zdepth-shadow-2;
     }
