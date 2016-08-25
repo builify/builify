@@ -1,6 +1,8 @@
 import React from 'react';
 import _isFunction from 'lodash/isfunction';
 import _map from 'lodash/map';
+import _isObject from 'lodash/isobject';
+import _find from 'lodash/find';
 import classNames from '../../../common/classnames';
 import Scrollbar from '../scrollbar';
 
@@ -11,6 +13,7 @@ export default class FontPicker extends React.Component {
     previews: React.PropTypes.bool,
     activeColor: React.PropTypes.string,
     value: React.PropTypes.string,
+    height: React.PropTypes.number,
     onChange: React.PropTypes.func
   };
 
@@ -31,6 +34,7 @@ export default class FontPicker extends React.Component {
     ],
     activeColor: '#64B5F6',
     value: '',
+    height: 200,
     onChange: () => {}
   };
 
@@ -115,7 +119,7 @@ export default class FontPicker extends React.Component {
 
   render () {
     const { label } = this.props;
-    var value = this.props.value || this.state.selectedOption;
+    let value = this.props.value || this.state.selectedOption;
     const selectedOptionsClassName = classNames({
       'dropdown__label': this.state.selectedOption === '',
       'dropdown__label--float': this.state.selectedOption !== ''
@@ -124,6 +128,13 @@ export default class FontPicker extends React.Component {
       'dropdown__options': this.state.isOptionsVisible,
       'dropdown__options--hidden': !this.state.isOptionsVisible
     });
+    const valueObject = _find(this.props.options, { value: value });
+
+    if (_isObject(valueObject)) {
+      const { text } = valueObject;
+
+      value = text;
+    }
 
     return (
 			<div className={classNames('dropdown')}>
@@ -134,7 +145,7 @@ export default class FontPicker extends React.Component {
 					</div>
 					<div className={classNames('dropdown__button')} />
 					<div className={optionsClassName}>
-            <Scrollbar height={200} >
+            <Scrollbar height={this.props.height} >
               { this.renderOptions() }
             </Scrollbar>
 					</div>
