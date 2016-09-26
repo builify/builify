@@ -43,20 +43,10 @@ export function getCurrentPageData () {
 
 export function saveCurrentPage () {
   return (dispatch, getState) => {
-    const { builder, page } = getState();
+    const { builder } = getState();
     const { currentLocation } = builder;
-    const { blocksCount } = page;
 
     if (currentLocation === CurrentLocations.STARTSCREEN) {
-      return;
-    }
-
-    if (blocksCount === 0) {
-      dispatch(addNotification({
-        message: 'You cannot save empty page',
-        level: 'info'
-      }));
-
       return;
     }
 

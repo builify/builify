@@ -32,7 +32,7 @@ export default function renderProcessedChildren (item) {
       case 'navigation':
         return <PrimaryNavigation key={key} />;
 
-			case 'colors':
+      case 'colors':
 				return <Colors key={key} />;
 
 			case 'filter':

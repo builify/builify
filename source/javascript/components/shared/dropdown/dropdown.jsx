@@ -3,6 +3,7 @@ import _isFunction from 'lodash/isfunction';
 import _map from 'lodash/map';
 import _isObject from 'lodash/isobject';
 import _find from 'lodash/find';
+import _isEmpty from 'lodash/isempty';
 import classNames from '../../../common/classnames';
 import Scrollbar from '../scrollbar';
 
@@ -44,6 +45,10 @@ export default class FontPicker extends React.Component {
   };
 
   onWrapperClick () {
+    if (!this.state.isOptionsVisible && this.props.options.length === 0) {
+      return;
+    }
+
     this.setState({
       isOptionsVisible: !this.state.isOptionsVisible
     });
@@ -90,6 +95,10 @@ export default class FontPicker extends React.Component {
     const { options, activeColor, previews } = this.props;
     const stateValue = this.props.value || this.state.selectedOption;
 
+    if (options.length === 0) {
+      return null;
+    }
+
     return _map(options, (option, i) => {
       const { text, value } = option;
 
@@ -121,14 +130,16 @@ export default class FontPicker extends React.Component {
     const { label } = this.props;
     let value = this.props.value || this.state.selectedOption;
     const selectedOptionsClassName = classNames({
-      'dropdown__label': this.state.selectedOption === '',
-      'dropdown__label--float': this.state.selectedOption !== ''
+      'dropdown__label': _isEmpty(this.state.selectedOption),
+      'dropdown__label--float': !_isEmpty(this.state.selectedOption)
     });
     const optionsClassName = classNames({
       'dropdown__options': this.state.isOptionsVisible,
       'dropdown__options--hidden': !this.state.isOptionsVisible
     });
     const valueObject = _find(this.props.options, { value: value });
+
+    console.log(this.state.selectedOption);
 
     if (_isObject(valueObject)) {
       const { text } = valueObject;

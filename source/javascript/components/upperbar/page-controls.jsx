@@ -5,24 +5,52 @@ import _size from 'lodash/size';
 import classNames from '../../common/classnames';
 import Dropdown from '../shared/dropdown';
 import { connect } from 'react-redux';
+import { loadPreviousPage, saveCurrentPage } from '../../actions';
 
 class PageControls extends React.Component {
   static propTypes = {
-    pages: React.PropTypes.array.isRequired
+    pages: React.PropTypes.array.isRequired,
+    pageID: React.PropTypes.any.isRequired,
+    loadPreviousPage: React.PropTypes.func.isRequired,
+    saveCurrentPage: React.PropTypes.func.isRequired
   };
 
   state = {
-    page: ''
+    pageID: null
   };
 
-  chnagePage (page) {
-    this.setState({
-      page: page
-    });
+  _options = [];
+  _dropdownHeight = [];
+
+  shouldComponentUpdate () {
+    return true;
   }
 
-  render () {
-    const { pages } = this.props;
+  componentWillMount () {
+    this.updateOptions();
+  }
+
+  componentWillReceiveProps () {
+    this.updateOptions();
+  }
+
+  changePage (pageID) {
+    if (pageID === this.state.pageID) {
+      return;
+    } else {
+      this.props.saveCurrentPage();
+
+      this.setState({
+        pageID: pageID
+      });
+
+      return this.props.loadPreviousPage(pageID);
+    }
+  }
+
+  updateOptions () {
+    const { pages, pageID } = this.props;
+    const optionItemHeight = 30;
     let options = [];
 
     if (_size(pages) > 0) {
@@ -38,21 +66,52 @@ class PageControls extends React.Component {
       });
     }
 
+    this._options = options;
+    this._dropdownHeight = optionItemHeight * options.length;
+
+    if (pageID === null) {
+      this.setState({
+        pageID: null
+      });
+    }
+  }
+
+  render () {
     return (
       <div className={classNames('upperbar__pcontrols')}>
-        <Dropdown options={options} label="Select Page" value={this.state.page} previews={false} onChange={::this.chnagePage} />
+        <Dropdown
+          options={this._options}
+          label="Select Page"
+          value={this.state.pageID}
+          previews={false}
+          onChange={::this.changePage}
+          height={this._dropdownHeight} />
       </div>
     );
   }
 }
 
 function mapStateToProps (state) {
-  const { builder } = state;
+  const { builder, page } = state;
   const { pages } = builder;
+  const { pageID } = page;
 
   return {
-    pages: pages
+    pages: pages,
+    pageID: pageID
   };
 }
 
-export default connect(mapStateToProps)(PageControls);
+function mapDispatchToProps (dispatch) {
+  return {
+    loadPreviousPage: (page) => {
+      dispatch(loadPreviousPage(page));
+    },
+
+    saveCurrentPage: () => {
+      dispatch(saveCurrentPage());
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PageControls);
