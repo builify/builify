@@ -39,7 +39,7 @@ class Base extends React.Component {
         <ColorPicker />
         <Modals />
         <NotificationContainer />
-
+        
         { (IS_DEV_VERSION || IS_DEMO_VERSION) && <FeedBack /> }
         { IS_DEMO_VERSION && <SaleButton /> }
       </div>

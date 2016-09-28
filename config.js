@@ -2,7 +2,7 @@ import path from 'path';
 import { env as $env } from 'gulp-util';
 
 // Common paths used throughout the Gulp pipeline.
-const currentDir = __dirname;
+const currentDir = __dirname.toLowerCase();
 const sourceDir = path.join(currentDir, 'source');
 const buildDir = path.join(currentDir, 'public');
 const modulesDir = path.join(currentDir, 'node_modules');
@@ -23,8 +23,7 @@ export default {
 
   server: {
     logPrefix: 'BrowserSync',
-    browser: ['google chrome'],
-    open: 'external',
+    open: 'local',
     notify: false,
     reloadDebounce: 1000,
     server: {
@@ -48,7 +47,7 @@ export default {
   },
 
   html: {
-    entry: path.join(sourceDir, 'html', '*.{jade,html}'),
+    entry: path.join(sourceDir, 'html', '*.{pug,jade,html}'),
     output: path.join(buildDir)
   },
 
@@ -111,12 +110,13 @@ export default {
       files: path.join('stylesheets', 'canvas', '**', '*.{css,scss,sass}'),
       tasks: ['stylesheet:canvas']
     },{
-      files: path.join('html', '**', '*.{jade,html}'),
+      files: path.join('html', '**', '*.{pug,jade,html}'),
       tasks: ['html']
     }]
   },
 
   vendors: [
+    // React
     'react',
     'react-dom',
     'react-color',
@@ -125,20 +125,31 @@ export default {
     'react-redux',
     'react-custom-scrollbars',
     'react-dropzone-component',
+    'react-addons-css-transition-group',
+    'react-addons-shallow-compare',
+    'react-gmaps',
+
+    // Redux
     'redux',
     'redux-thunk',
-    'strip-json-comments',
+
+    // Core
     'classnames',
     'lodash',
+    'strip-json-comments',
+
+    // Trip-Trax
+    'tt-event-emitter',
+    'tt-classnames',
+    'tt-stylesheet',
+    'ttkeymirror',
+
+    // Misc
     'jszip',
     'querystring',
     'file-saver',
     'mime',
     'moment',
-    'sortablejs',
-    'tt-event-emitter',
-    'tt-classnames',
-    'tt-stylesheet',
-    'ttkeymirror'
+    'sortablejs'
   ]
 };

@@ -1,16 +1,18 @@
-var path = require('path');
-var webpack = require('webpack');
+import webpack from 'webpack';
+import config from './config';
+import pckg from './package';
 
-module.exports = {
-  devtool: 'eval-source-map',
+export default {
+  cache: config.env.debug,
+  debug: config.env.debug,
   entry: {
-    app: path.join(__dirname, 'Application/JavaScript/Main.jsx'),
-    vendors: ['react']
+    app: config.javascripts.main.entry,
+    vendors: config.vendors
   },
 
   output: {
-    path: path.join(__dirname, '/dist/'),
-    filename: 'main.js'
+    path: config.javascripts.main.output,
+    filename: 'application.js'
   },
 
   plugins: [
@@ -18,7 +20,9 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
+      'process.env.NODE_ENV': JSON.stringify(config.env.debug ? 'development' : 'production'),
+      'process.env.DEMO': JSON.stringify(config.env.demo ? true : false),
+      'process.env.VERSION': JSON.stringify(pckg.version)
     }),
     new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
   ],
@@ -26,16 +30,24 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.(js|jsx)?$/,
-      exclude: [path.resolve(__dirname, 'node_modules')],
-      loader: 'babel'
-    },
-    {
+      exclude: /(node_modules)/,
+      loader: 'babel-loader'
+    }, {
       test: /\.json?$/,
       loader: 'json-loader'
     }]
   },
 
   resolve: {
-    extensions: ['', '.js', '.json', '.jsx']
+    extensions: ['', '.js', '.json', '.es6', '.jsx'],
+    modulesDirectories: [
+      'source',
+      'source/javascript',
+      'node_modules'
+    ]
+  },
+
+  node: {
+    fs: 'empty'
   }
 };
