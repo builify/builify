@@ -2,9 +2,12 @@ import webpack from 'webpack';
 import config from './config';
 import pckg from './package';
 
+var DashboardPlugin = require('webpack-dashboard/plugin');
+
 export default {
   cache: config.env.debug,
   debug: config.env.debug,
+  watch: config.env.debug,
   entry: {
     app: config.javascripts.main.entry,
     vendors: config.vendors
@@ -24,7 +27,8 @@ export default {
       'process.env.DEMO': JSON.stringify(config.env.demo ? true : false),
       'process.env.VERSION': JSON.stringify(pckg.version)
     }),
-    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
+    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
+    new DashboardPlugin()
   ],
 
   module: {

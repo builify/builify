@@ -9,7 +9,8 @@ const modulesDir = path.join(currentDir, 'node_modules');
 
 // Supported CLI options.
 const env = {
-  debug: !!($env.env === 'debug' || process.env.NODE_ENV === 'development'),
+  debug: true,
+  //debug: !!($env.env === 'debug' || process.env.NODE_ENV === 'development'),
   demo: !!($env.env === 'demo')
 };
 

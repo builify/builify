@@ -124,11 +124,13 @@ gulp.task('html', () => {
 gulp.task('javascript:webpack', (callback) => {
   let guard = false;
 
-  if (config.env.debug) {
+  webpack(webpackConfig).run(build(callback));
+
+  /*if (config.env.debug) {
     webpack(webpackConfig).watch(100, build(callback));
   } else {
     webpack(webpackConfig).run(build(callback));
-  }
+  }*/
 
   function build (done) {
     return (err, stats) => {
