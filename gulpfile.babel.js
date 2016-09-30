@@ -1,12 +1,17 @@
 import config from './config';
-import webpackConfig from './webpack.config';
+import pckg from './package';
 import _has from 'lodash/has';
 import _keys from 'lodash/keys';
 import _isEmpty from 'lodash/isempty';
 import _endsWith from 'lodash/endswith';
 import gulp from 'gulp';
 import path from 'path';
-import webpack from 'webpack';
+import browserify from 'browserify';
+import envify from 'loose-envify/custom';
+import babelify from 'babelify';
+import watchify from 'watchify';
+import source from 'vinyl-source-stream';
+import buffer from 'vinyl-buffer';
 import sequence from 'run-sequence';
 import rimraf from 'rimraf-promise';
 import server from 'browser-sync';
@@ -21,6 +26,7 @@ import $sourcemaps from 'gulp-sourcemaps';
 import $hint from 'gulp-htmlhint';
 import $cleanCSS from 'gulp-clean-css';
 import $autoprefixer from 'gulp-autoprefixer';
+import $uglify from 'gulp-uglify';
 
 // Set environment variable.
 process.env.NODE_ENV = config.env.debug ? 'development' : 'production';
@@ -119,35 +125,6 @@ gulp.task('html', () => {
   }
 });
 
-// Javascript webpack compiler.
-// Compiles and deploys javascript files.
-gulp.task('javascript:webpack', (callback) => {
-  let guard = false;
-
-  webpack(webpackConfig).run(build(callback));
-
-  /*if (config.env.debug) {
-    webpack(webpackConfig).watch(100, build(callback));
-  } else {
-    webpack(webpackConfig).run(build(callback));
-  }*/
-
-  function build (done) {
-    return (err, stats) => {
-      if (err) {
-        throw new $util.PluginError('webpack', err);
-      } else {
-        $util.log($util.colors.green('[webpack]'), stats.toString());
-      }
-
-      if (!guard && done) {
-        guard = true;
-        done();
-      }
-    };
-  }
-});
-
 // Revision
 gulp.task('rev', (callback) => {
   gulp.src(config.rev.entry)
@@ -193,6 +170,89 @@ gulp.task('rev', (callback) => {
     .on('error', callback);
 });
 
+
+// Compiles and deploys vendor javascript file.
+gulp.task('javascript:vendor', () => {
+  const b = browserify({
+    debug: config.env.debug,
+    transform: envify
+  });
+
+  config.vendors.forEach(lib => {
+    b.require(lib);
+  });
+
+  if (config.env.debug) {
+    b.bundle()
+      .on('error', $util.log)
+      .pipe(source('vendors.js'))
+      .pipe(buffer())
+      .pipe($size({ title: '[javascript:vendor]', gzip: true }))
+      .pipe(gulp.dest(config.javascripts.vendor.output))
+      .pipe(browserSync.stream({ match: '**/*.js' }));
+  } else {
+    b.bundle()
+      .on('error', $util.log)
+      .pipe(source('vendors.js'))
+      .pipe(buffer())
+      .pipe($uglify())
+      .pipe($size({ title: '[javascript:vendor]', gzip: true }))
+      .pipe(gulp.dest(config.javascripts.vendor.output));
+  }
+});
+
+// Compiles and deploys main javascript file.
+gulp.task('javascript:main', () => {
+  var appBundler = browserify({
+    entries: [
+      config.javascripts.main.entry
+    ],
+    extensions: [
+      '.js',
+      '.jsx',
+      '.json'
+    ],
+    cache: {},
+    packageCache: {},
+    debug: config.env.debug,
+    fullPaths: config.env.debug
+  })
+  .transform(babelify)
+  .transform(envify({
+    _: 'purge',
+    NODE_ENV: config.env.debug ? 'development' : 'production',
+    DEMO: config.env.demo ? true : false,
+    VERSION: pckg.version
+  }))
+  .external(config.vendors); // Specify all vendors as external source
+
+  const rebundle = () => {
+    appBundler.bundle()
+      .on('error', $util.log)
+      .pipe(source('application.js'))
+      .pipe(buffer())
+      .pipe($size({ title: '[javascript:main]', gzip: true }))
+      .pipe(gulp.dest(config.javascripts.main.output))
+      .pipe(browserSync.stream({ match: '**/*.js' }));
+  };
+
+  if (config.env.debug) {
+    appBundler = watchify(appBundler);
+    appBundler.on('update', rebundle);
+
+    rebundle();
+  } else {
+    appBundler.bundle()
+      .on('error', $util.log)
+      .pipe(source('application.js'))
+      .pipe(buffer())
+      .pipe($uglify())
+      .pipe($size({ title: '[javascript:main]', gzip: true }))
+      .pipe(gulp.dest(config.javascripts.main.output))
+      .pipe(browserSync.stream({ match: '**/*.js' }));
+  }
+});
+
 // Watch for file changes.
 gulp.task('watch', () => {
   if (_has(config, 'watch.entries')) {
@@ -219,7 +279,8 @@ gulp.task('default', () => {
     'files:template',
     'stylesheet:main',
     'stylesheet:canvas',
-    'javascript:webpack'
+    'javascript:vendor',
+    'javascript:main'
   ];
 
   if (config.env.debug === true) {

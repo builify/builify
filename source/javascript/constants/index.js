@@ -1,13 +1,10 @@
 export const IS_DEMO_VERSION = process.env.DEMO;
 export const IS_DEV_VERSION = !!(process.env.NODE_ENV === 'development');
-
 export const BUY_LINK = 'http://genert.github.io';
-
 export const MAXIMUM_NOTIFICATIONS = 7;
 
 export const TEMPLATE_ASSETS_STORAGE_NAME = 'builify-assets';
 export const TEMPLATE_PAGES_STORAGE_NAME = 'builify-pages';
-
 export const TEMPLATE_PACKAGE_FILENAME = 'template';
 export const TEMPLATE_PACKAGE_EXTENSION = 'zip';
 
@@ -19,10 +16,9 @@ export const MAXIUMUM_PAGES_IN_STORAGE = IS_DEMO_VERSION ?
 export const CONTENTBLOCK_ATTR_ID = 'data-abcid';
 export const CONTENTBLOCK_ATTR_FIRST_ELEMENT = 'data-abccorent';
 export const CONTENTBLOCK_ATTR_TYPE = 'data-abctype';
-
 export const JUNK_ATTR = 'data-abcjunk';
-
 export const ATTR_CORE_ELEMENT = 'data-abccorent';
+
 export const EMPTY_STRING = '';
 
 export const CurrentLocations = {

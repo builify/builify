@@ -1,7 +1,0 @@
-1.0.x -
-  Client:
-  * Optimize speed
-  
-  Development:
-  * Move from Jade to PUG
-  * Move to TypeScript

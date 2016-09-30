@@ -1,5 +1,10 @@
+# Git
 .gitconfig
+
+# Configuration
 jsconfig.json
+
+# Node and generated
 node_modules
 dist
 public
