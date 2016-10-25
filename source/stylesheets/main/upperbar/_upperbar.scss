@@ -1,0 +1,22 @@
+.#{$nameprefix}upperbar {
+    width: 100%;
+    position: relative;
+    z-index: 50;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    height: $upperbar-height;
+    background: $upperbar-background;
+
+    &__pcontrols {
+        position: relative;
+        display: inline-block;
+        float: left;
+        margin-left: $base-padding;
+
+        .tt-input {
+            display: inline-block;
+            margin-top: 5px;
+            margin-left: 25px;
+            padding: 0;
+        }
+    }
+}

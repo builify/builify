@@ -1,17 +1,17 @@
 .#{$nameprefix}currentPage {
     position: relative;
     list-style: none;
-		margin: 0;
-		padding: 0;
+    margin: 0;
+    padding: 0;
 
     &__item {
-				position: relative;
-				width: 100%;
+        position: relative;
+        width: 100%;
         overflow: hidden;
         height: $item-height;
-		    line-height: $item-height;
-		    padding: 0 $base-padding;
-				@include user-select(none);
+        line-height: $item-height;
+        padding: 0 $base-padding;
+        @include user-select(none);
 
         &-title {
             display: block;
@@ -24,7 +24,7 @@
             float: right;
             width: ($aside-width - (2 * $base-padding)) - 30px;
             @include user-select(text);
-						@include rem(font-size, 14px);
+            @include rem(font-size, 14px);
 
             &:before {
                 opacity: 0;
@@ -42,45 +42,45 @@
             }
         }
 
-				.handle {
-						height: 18px;
-						width: 18px;
-						display: block;
-						position: relative;
-						margin-right: 5px;
-						cursor: move;
+        .handle {
+            height: 18px;
+            width: 18px;
+            display: block;
+            position: relative;
+            margin-right: 5px;
+            cursor: move;
             float: left;
 
-						svg {
-							position: relative;
-							top: 3px;
-						}
-				}
+            svg {
+                position: relative;
+                top: 3px;
+            }
+        }
 
-				.remove {
-						opacity: 0;
-						position: absolute;
-						top: 4px;
-						text-align: right;
-						cursor: pointer;
-						right: $base-padding / 2;
-						@include transition(all 0.3s ease);
-				}
+        .remove {
+            opacity: 0;
+            position: absolute;
+            top: 4px;
+            text-align: right;
+            cursor: pointer;
+            right: $base-padding / 2;
+            @include transition(all 0.3s ease);
+        }
 
         &.notsortable {
-          .#{$nameprefix}currentPage__item {
-              &-title {
-                  width: 100%;
-              }
-          }
+            .#{$nameprefix}currentPage__item {
+                &-title {
+                    width: 100%;
+                }
+            }
         }
 
         &:hover {
             background-color: #ccc;
 
-						.remove {
-								opacity: 1;
-						}
+            .remove {
+                opacity: 1;
+            }
 
             .#{$nameprefix}currentPage__item {
                 &-title {
@@ -89,7 +89,7 @@
                     }
                 }
             }
-				}
+        }
     }
 
     &__divider {

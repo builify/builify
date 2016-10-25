@@ -1,15 +1,15 @@
 .#{$nameprefix}logo {
-		position: relative;
+    position: relative;
     display: block;
     overflow: hidden;
     margin: 0 auto;
-    margin-top: $base-padding;
-    margin-bottom: $base-padding * 1.5;
     height: 50px;
     width: 150px;
+    margin-top: $base-padding;
+    margin-bottom: $base-padding * 1.5;
     @include clearfix;
 
-		img {
-				width: 100%;
-		}
+    img {
+        width: 100%;
+    }
 }

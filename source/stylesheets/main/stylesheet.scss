@@ -1,37 +1,50 @@
+//-- Variables
+@import "variables";
+
+//-- Bourbon
 @import "bourbon/bourbon";
 
+//-- Dependencies
 @import "dependencies/normalize";
 @import "dependencies/shadows";
 @import "dependencies/rem";
 
-@import "mixins";
+//-- Mixins
+@import "mixins/spacing";
+@import "mixins/animations";
+@import "mixins/shadows";
+@import "mixins/typography";
 
-@import "core/colors";
-@import "core/variables";
-@import "core/spacing";
-@import "core/common";
-@import "core/reactjs";
-@import "core/noscript";
+//-- Base
+@import "base/base";
+@import "base/react-js";
+@import "base/noscript";
 
+//-- Aside
 @import "aside/aside";
 @import "aside/tab";
-@import "aside/contentblocks";
+@import "aside/content-blocks";
 @import "aside/logo";
-@import "aside/primarynav";
+@import "aside/primary-navigation";
 @import "aside/filter";
 @import "aside/color";
-@import "aside/currentpage";
+@import "aside/current-page";
 @import "aside/items";
 
+//-- Upperbar
+@import "upperbar/upperbar";
+@import "upperbar/preview-controls";
+
+//-- Main
 @import "main/main";
 @import "main/newpage";
 @import "main/canvas";
 @import "main/suggestion-box";
 @import "main/copyright";
 
+//-- Components
 @import "components/loading-screen";
 @import "components/preview";
-
 @import "components/input";
 @import "components/slider-input";
 @import "components/slider-input-wrapper";
@@ -49,7 +62,6 @@
 @import "components/table";
 @import "components/title";
 @import "components/image";
-@import "components/upperbar";
 @import "components/filepicker";
 @import "components/loadimage";
 @import "components/feedback";

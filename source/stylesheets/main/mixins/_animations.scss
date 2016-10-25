@@ -1,0 +1,20 @@
+//-- Animations
+@mixin animation-fast-out-slow-in ($duration: .2s) {
+  transition-timing-function: $animation-curve-fast-out-slow-in;
+  transition-duration: $duration;
+}
+
+@mixin animation-linear-out-slow-in ($duration: .2s) {
+  transition-timing-function: $animation-curve-linear-out-slow-in;
+  transition-duration: $duration;
+}
+
+@mixin animation-fast-out-linear-in ($duration: .2s) {
+  transition-timing-function: $animation-curve-fast-out-linear-in;
+  transition-duration: $duration;
+}
+
+@mixin animation-default ($duration: .2s) {
+  transition-timing-function: $animation-curve-default;
+  transition-duration: $duration;
+}

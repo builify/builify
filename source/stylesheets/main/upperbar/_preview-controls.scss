@@ -1,0 +1,41 @@
+.#{$nameprefix}preview-controls {
+    position: relative;
+    float: right;
+    height: 100%;
+    max-width: 250px;
+    overflow: hidden;
+    display: inline-block;
+    margin-right: $base-padding;
+
+    ul {
+        list-style: none;
+        float: right;
+
+        li {
+            cursor: pointer;
+            display: inline-block;
+            height: $upperbar-height;
+            width: $upperbar-height;
+            text-align: center;
+            user-select: none;
+            transition-property: background;
+            transition-timing-function: $animation-curve-default;
+            transition-duration: $animation-duration;
+
+            &:not(.hidden):hover,
+            &.active {
+                background: #eee;
+                box-shadow: inset 0px 0px 15px -5px rgba(0,0,0,0.3);
+            }
+
+            &.hidden {
+                opacity: 0.3;
+                cursor: not-allowed;
+            }
+
+            svg {
+                margin-top: ($upperbar-height - 20px) / 2;
+            }
+        }
+    }
+}

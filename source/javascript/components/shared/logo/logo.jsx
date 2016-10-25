@@ -9,7 +9,7 @@ export default class Logo extends React.Component {
   render () {
     return (
       <div className={classNames('logo')}>
-        <img src='assets/static/logo.png' />
+        <img height="35px" src='assets/static/logo.svg' />
       </div>
     );
   }

@@ -5,17 +5,27 @@ $unit: 1rem;
 $preferred-font: "Open Sans", sans-serif;
 $base-color: #00000C;
 
-$base-text-color: #2e5266;
+//-- Core colors (iOS 7 based)
+$color-charcoal:      #2B2B2B;
+$color-red:           #FF3B30;
+$color-orange:        #FF9500;
+$color-yellow:        #FFCC00;
+$color-green:         #4CD964;
+$color-lightBlue:     #34AADC;
+$color-blue:          #007AFF;
+$color-purple:        #5856D6;
+$color-magenta:       #FF2D55;
+$color-spaceGray:     #8E8E93;
+$color-gray:          #C7C7CC;
+$color-black:         #1F1F21;
+$color-white:         #F7F7F7;
+$color-midnightBlue:  #2c3e50;
 
-// Theme
-$light-theme-color: #03031B;
-$light-primary-text-color: #444;
-$light-secondary-text-color: #888;
-$light-primary-color: #e7e7e7;
-$light-secondary-color: #fff;
-$light-primary-border-color: #ccc;
-$light-range-track-color: darken($light-secondary-color, 20%);
-$light-main-box-shadow: 0 0 20px rgba(#000, 0.3);
+//- Text color configuration
+$color-text: $color-black;
+$color-primary: $color-blue;
+
+$base-text-color: #2e5266;
 
 //-- Color configuration
 $color-divider: #e4e4e4 !default;
@@ -25,9 +35,20 @@ $color-text: #333 !default;
 $color-text-secondary: #666 !default;
 $color-overlay: $color-black;
 $color-overlay-opacity: 0.5;
-
+$color-dark-contrast: $color-white !default;
+$color-light-contrast: $color-black !default;
 $color-primary-contrast: $color-dark-contrast !default;
 $color-accent-contrast: $color-dark-contrast !default;
+
+//-- Light theme variables
+$light-theme-color: #03031B;
+$light-primary-text-color: #444;
+$light-secondary-text-color: #888;
+$light-primary-color: #e7e7e7;
+$light-secondary-color: #fff;
+$light-primary-border-color: #ccc;
+$light-range-track-color: darken($light-secondary-color, 20%);
+$light-main-box-shadow: 0 0 20px rgba(#000, 0.3);
 
 //-- Animation
 $animation-duration: .35s;
@@ -56,7 +77,7 @@ $z-index-normal: 1;
 $z-index-low: -100;
 $z-index-lower: -200;
 
-//-- Loadingscreen
+//-- Loading screen variables
 $loadingscreen-bg: #00000C;
 $loadingscreen-loader-border-thickness: 5px;
 $loadingscreen-loader-corner-radio: 8px;
@@ -69,24 +90,28 @@ $loadingscreen-loader-mask-size-big: $loadingscreen-loader-size-big / 1.618;
 $loadingscreen-loader-size-small: 50px;
 $loadingscreen-loader-mask-size-small: $loadingscreen-loader-size-small / 3;
 
-//-- Aside
+//-- Aside variables
 $aside-width: 275px !default;
 
-//-- Contentblock
+//-- Upperbar variables
+$upperbar-height: 50px;
+$upperbar-background: #fff;
+
+//-- Contentblock variables
 $contentblock-figcaption-height: 35px;
 
-//-- Logo
+//-- Logo variables
 $logo-default-width: 145px;
 $logo-default-height: 40px;
 $logo-default-color: #333;
 $logo-default-size: 4px;
 
+//-- Page variables
+$pagenew-size: 300px;
 $item-height: 33px;
 
-// Page
-$pagenew-size: 300px;
-
-// Notification
+//-- Notification variables
 $notification-container-margin: 25px;
 
+//-- Select variables
 $select-height: 40px;
