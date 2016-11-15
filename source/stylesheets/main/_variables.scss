@@ -2,8 +2,8 @@
 $nameprefix: "ab-";
 $base-padding: 40px;
 $unit: 1rem;
-$preferred-font: "Open Sans", sans-serif;
-$base-color: #00000C;
+$preferred-font: "Lato", sans-serif;
+$base-color: #ff7f2a;
 
 //-- Core colors (iOS 7 based)
 $color-charcoal:      #2B2B2B;
@@ -41,7 +41,7 @@ $color-primary-contrast: $color-dark-contrast !default;
 $color-accent-contrast: $color-dark-contrast !default;
 
 //-- Light theme variables
-$light-theme-color: #03031B;
+$light-theme-color: #ff7f2a;
 $light-primary-text-color: #444;
 $light-secondary-text-color: #888;
 $light-primary-color: #e7e7e7;

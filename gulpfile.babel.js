@@ -22,7 +22,6 @@ import $size from 'gulp-size';
 import $util from 'gulp-util';
 import $plumber from 'gulp-plumber';
 import $sass from 'gulp-sass';
-import $sourcemaps from 'gulp-sourcemaps';
 import $hint from 'gulp-htmlhint';
 import $cleanCSS from 'gulp-clean-css';
 import $autoprefixer from 'gulp-autoprefixer';
@@ -60,9 +59,7 @@ gulp.task('images', () => {
 gulp.task('stylesheet:main', () => {
   if (config.env.debug) {
     return gulp.src(config.stylesheets.main.entry)
-      .pipe($sourcemaps.init())
       .pipe($sass(config.stylesheets.sass).on('error', $sass.logError))
-      .pipe($sourcemaps.write('/'))
       .pipe($size({ title: '[stylesheet:main]', gzip: true }))
       .pipe(gulp.dest(config.stylesheets.main.output))
       .pipe(browserSync.stream({ match: '**/*.css' }));
@@ -80,9 +77,7 @@ gulp.task('stylesheet:main', () => {
 gulp.task('stylesheet:canvas', () => {
   if (config.env.debug) {
     return gulp.src(config.stylesheets.canvas.entry)
-      .pipe($sourcemaps.init())
       .pipe($sass(config.stylesheets.sass).on('error', $sass.logError))
-      .pipe($sourcemaps.write('/'))
       .pipe($size({ title: '[stylesheet:canvas]', gzip: true }))
       .pipe(gulp.dest(config.stylesheets.canvas.output))
       .pipe(browserSync.stream({ match: '**/*.css' }));

@@ -1,312 +1,312 @@
 .light {
-		// Primary navigation.
-		.#{$nameprefix}primarynav {
-				li {
-						color: #333;
+	// Primary navigation.
+	.#{$nameprefix}primarynav {
+		li {
+			color: #333;
 
-						&:hover {
-								background-color: #e4e4e4;
-						}
-				}
+			&:hover {
+				background-color: #e4e4e4;
+			}
+		}
+	}
+	
+	// Filter.
+	.#{$nameprefix}filter {
+		background: $light-theme-color;
+
+		&__text {
+			color: #FFF;
 		}
 
-	  // Filter.
-		.#{$nameprefix}filter {
-				background: $light-theme-color;
+		&__items {
+			background: #FFF;
+			box-shadow: 0 0 30px rgba(#000, 0.3);
 
-				&__text {
-						color: #FFF;
-				}
+			ul li.active,
+			ul li:hover {
+				color: $light-theme-color;
+			}
+		}
+	}
 
-				&__items {
-						background: #FFF;
-						box-shadow: 0 0 30px rgba(#000, 0.3);
-
-						ul li.active,
-						ul li:hover {
-								color: $light-theme-color;
-						}
-				}
+	// Color.
+	.#{$nameprefix}color {
+		&__circle {
+			box-shadow: 0 2px 6px rgba(#000, 0.3);
 		}
 
-		// Color.
-		.#{$nameprefix}color {
-				&__circle {
-						box-shadow: 0 2px 6px rgba(#000, 0.3);
-				}
+		&.active,
+		&:hover {
+			background-color: #e4e4e4;
+		}
+	}
 
-				&.active,
-				&:hover {
-						background-color: #e4e4e4;
-				}
+	// Fileinput.
+	.tt-filebutton {
+		&__label {
+			color: $light-theme-color;
+
+			&:hover {
+				background: rgba($light-theme-color, 0.2);
+			}
+		}
+	}
+
+	// Button.
+	.#{$nameprefix}button {
+		&.primary:not([disabled]) {
+			color: $light-theme-color;
+
+			&:hover,
+			&:focus:not(:active) {
+				background: rgba($light-theme-color, 0.2);
+			}
+		}
+	}
+
+	// Checkbox.
+	.#{$nameprefix}checkbox {
+		&__check {
+			&.checked {
+				background-color: $light-theme-color;
+				border-color: $light-theme-color;
+			}
 		}
 
-		// Fileinput.
-		.tt-filebutton {
-				&__label {
-						color: $light-theme-color;
-
-						&:hover {
-								background: rgba($light-theme-color, 0.2);
-						}
-				}
+		&__ripple {
+			background-color: $light-theme-color;
 		}
 
-		// Button.
-		.#{$nameprefix}button {
-				&.primary:not([disabled]) {
-						color: $light-theme-color;
+		&__input {
+			&:focus:not(&:active) + .check.checked:before {
+				background-color: rgba($light-theme-color, 0.3);
+			}
+		}
+	}
 
-						&:hover,
-						&:focus:not(:active) {
-								background: rgba($light-theme-color, 0.2);
-						}
-				}
+	// Modal.
+	.#{$nameprefix}modal {
+		&__overlay {
+			background: #000;
 		}
 
-		// Checkbox.
-		.#{$nameprefix}checkbox {
-				&__check {
-						&.checked {
-								background-color: $light-theme-color;
-								border-color: $light-theme-color;
-						}
-				}
-
-				&__ripple {
-						background-color: $light-theme-color;
-				}
-
-				&__input {
-						&:focus:not(&:active) + .check.checked:before {
-								background-color: rgba($light-theme-color, 0.3);
-						}
-				}
+		&__content {
+			background-color: #FFF;
 		}
 
-		// Modal.
-		.#{$nameprefix}modal {
-				&__overlay {
-						background: #000;
-				}
+		&__tabside {
+			h2 {
+				color: #333;
+			}
 
-				&__content {
-						background-color: #FFF;
-				}
-
-				&__tabside {
-						h2 {
-								color: #333;
-						}
-
-						p {
-								color: #444;
-						}
-				}
-
-				&__tabcontent {
-						border-lef: 1px solid #e4e4e4;
-				}
-
-				&__tabitem {
-						color: #333;
-
-						&.active {
-								border-right: 2px solid $light-theme-color;
-								background: #f5f5f5;
-								font-weight: 700;
-						}
-				}
-
-				&__tablabel {
-						color: #333;
-
-						&.active {
-								font-weight: 700;
-								color: $light-theme-color;
-						}
-
-						&:hover {
-								color: #555;
-						}
-				}
+			p {
+				color: #444;
+			}
 		}
+
+		&__tabcontent {
+			border-lef: 1px solid #e4e4e4;
+		}
+
+		&__tabitem {
+			color: #333;
+
+			&.active {
+				border-right: 2px solid $light-theme-color;
+				background: #f5f5f5;
+				font-weight: 700;
+			}
+		}
+
+		&__tablabel {
+			color: #333;
+
+			&.active {
+				font-weight: 700;
+				color: $light-theme-color;
+			}
+
+			&:hover {
+				color: #555;
+			}
+		}
+	}
 }
 
 .light {
-		background: $light-primary-color;
+	background: $light-primary-color;
 
-		// Sliderinput
-		.tt-sliderinput {
-				background: $light-range-track-color;
+	// Sliderinput
+	.tt-sliderinput {
+		background: $light-range-track-color;
 
-				&__handle {
-						background: $light-primary-color;
-						border-color: $light-secondary-color;
-				}
-
-				&--horizontal {
-						.tt-sliderinput__fill {
-								background: $light-theme-color;
-						}
-				}
+		&__handle {
+			background: $light-primary-color;
+			border-color: $light-secondary-color;
 		}
 
-		// Timepicker
-		.tt-timepicker {
-				&__time {
+		&--horizontal {
+			.tt-sliderinput__fill {
+				background: $light-theme-color;
+			}
+		}
+	}
+
+	// Timepicker
+	.tt-timepicker {
+		&__time {
+			background-color: $light-theme-color;
+			color: $light-primary-border-color;
+
+			&.is-active {
+				color: $light-primary-color;
+			}
+		}
+
+		&__separator {
+			color: $light-theme-color;
+		}
+	}
+
+	// Clock
+	.tt-clock {
+		&__wrapper {
+			background: #eee;
+			border: 1px solid #ccc;
+		}
+
+		&__hand {
+			background: $light-theme-color;
+
+			&:before {
+				background: $light-theme-color;
+			}
+		}
+
+		&__knob {
+			background: $light-theme-color;
+		}
+	}
+
+	.#{$nameprefix} {
+		&timeinput {
+			&__options {
+				button {
+					color: $light-theme-color;
+					border-color: $light-theme-color;
+
+					&.is-active {
+						color: $light-primary-color;
 						background-color: $light-theme-color;
-						color: $light-primary-border-color;
-
-						&.is-active {
-								color: $light-primary-color;
-						}
+					}
 				}
-
-				&__separator {
-						color: $light-theme-color;
-				}
+			}
 		}
 
-		// Clock
-		.tt-clock {
-				&__wrapper {
-						background: #eee;
-						border: 1px solid #ccc;
+		&calendar {
+			thead {
+				td {
+					color: $light-theme-color;
+				}
+			}
+
+			tbody td {
+				border-color: $light-secondary-text-color;
+				color: $light-secondary-text-color;
+
+				&:hover {
+					color: $light-theme-color;
 				}
 
-				&__hand {
-						background: $light-theme-color;
+				&.current-day:hover {
+					color: #FFF;
+				}
+			}
 
-						&:before {
-								background: $light-theme-color;
-						}
+			.current-day {
+				background: $light-theme-color;
+				color: $light-primary-color;
+			}
+
+			.prev-month,
+			.next-month {
+				color: $light-secondary-text-color;
+			}
+
+			&__toolbar {
+				color: $light-theme-color;
+
+				button {
+					border: 1px solid $light-theme-color;
+					background: $light-theme-color;
+
+					svg {
+						fill: $light-primary-color !important;
+					}
 				}
 
-				&__knob {
-						background: $light-theme-color;
+				.current-date {
+					color: $light-theme-color;
 				}
+			}
 		}
 
-		.#{$nameprefix} {
-				&timeinput {
-						&__options {
-								button {
-										color: $light-theme-color;
-										border-color: $light-theme-color;
-
-										&.is-active {
-				                color: $light-primary-color;
-				                background-color: $light-theme-color;
-				            }
-								}
-						}
-				}
-
-				&calendar {
-						thead {
-								td {
-										color: $light-theme-color;
-								}
-						}
-
-						tbody td {
-								border-color: $light-secondary-text-color;
-				        color: $light-secondary-text-color;
-
-				        &:hover {
-				            color: $light-theme-color;
-				        }
-
-								&.current-day:hover {
-										color: #FFF;
-								}
-				    }
-
-						.current-day {
-				        background: $light-theme-color;
-								color: $light-primary-color;
-				    }
-
-				    .prev-month,
-				    .next-month {
-				        color: $light-secondary-text-color;
-				    }
-
-				    &__toolbar {
-				        color: $light-theme-color;
-
-				        button {
-				            border: 1px solid $light-theme-color;
-				            background: $light-theme-color;
-
-										svg {
-												fill: $light-primary-color !important;
-										}
-				        }
-
-				        .current-date {
-				            color: $light-theme-color;
-				        }
-				    }
-				}
-
-				&main {
-						background: $light-primary-color;
-				}
-
-				&aside,
-				&tab,
-				&sidetab {
-						background: $light-secondary-color;
-				}
-
-				&tab,
-				&sidetab {
-						&__close {
-								&:hover {
-										color: $light-theme-color;
-								}
-						}
-
-						h1 {
-								color: $light-primary-text-color;
-						}
-				}
-
-				&sidetab {
-						&__title {
-								> span {
-										&:nth-child(2) {
-												color: $light-secondary-text-color;
-										}
-								}
-						}
-				}
-
-				&copyright {
-						h3 {
-								color: $light-secondary-text-color;
-						}
-				}
-
-				&contentblocks {
-						&__inner {
-								.blocktitle {
-										color: $light-primary-text-color;
-								}
-						}
-
-						&__block {
-								figcaption {
-										color: $light-primary-color;
-										background: $light-primary-text-color;
-								}
-						}
-				}
-
-				&page-new {
-						border-color: $light-primary-border-color;
-				}
+		&main {
+			background: $light-primary-color;
 		}
+
+		&aside,
+		&tab,
+		&sidetab {
+			background: $light-secondary-color;
+		}
+
+		&tab,
+		&sidetab {
+			&__close {
+				&:hover {
+					color: $light-theme-color;
+				}
+			}
+
+			h1 {
+				color: $light-primary-text-color;
+			}
+		}
+
+		&sidetab {
+			&__title {
+				> span {
+					&:nth-child(2) {
+						color: $light-secondary-text-color;
+					}
+				}
+			}
+		}
+
+		&copyright {
+			h3 {
+				color: $light-secondary-text-color;
+			}
+		}
+
+		&contentblocks {
+			&__inner {
+				.blocktitle {
+					color: $light-primary-text-color;
+				}
+			}
+
+			&__block {
+				figcaption {
+					color: $light-primary-color;
+					background: $light-primary-text-color;
+				}
+			}
+		}
+
+		&page-new {
+			border-color: $light-primary-border-color;
+		}
+	}
 }
