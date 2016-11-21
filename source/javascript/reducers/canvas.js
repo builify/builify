@@ -75,6 +75,51 @@ export default function canvas (state = canvasInitialState, action) {
         }
       });
     }
+
+    case Actions.CLONE_ITEM:
+    case Actions.SET_CANVAS_ELEMENTS_HOVER_EVENTS: {
+      const { iFrameWindow } = state;
+      const targets = [
+        'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+        'strong', 'em', 'i', 'span', 'p', 'a',
+        'li', 'ul',
+        'div',
+        'img', 'input', 'textarea', 'blockquote',
+        'figcaption'
+      ].join(',');
+      const targetElements = iFrameWindow.document.querySelectorAll(targets);
+      const mouseEnterEvent = function () {
+        this.classList.add('ab-ch');
+      };
+
+      const mouseLeaveEvent = function () {
+        this.classList.remove('ab-ch');
+      };
+
+
+      // Add mouse events to elements inside core block.
+      _map(targetElements, (target) => {
+        const findUp = TTDOM.find.findUpAttr(target, 'data-abcpanel');
+
+        if (findUp !== null || target.getAttribute('data-abcpanel')) {
+          return false;
+        }
+
+        target.contentEditable = true;
+
+        // First remove old events.
+        target.removeEventListener('mouseenter', mouseEnterEvent);
+        target.removeEventListener('mouseleave', mouseLeaveEvent);
+
+        // Add new events.
+        target.addEventListener('mouseenter', mouseEnterEvent, false);
+        target.addEventListener('mouseleave', mouseLeaveEvent, false);
+      });
+
+      return _assign({}, state, {
+
+      });
+    }
   }
 
   return state;

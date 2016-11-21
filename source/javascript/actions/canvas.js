@@ -149,3 +149,9 @@ export function openContentblockSourceEditModal (currentHoverBlock) {
     currentHoverBlock: currentHoverBlock
   };
 }
+
+export function setCanvasElementsHoverEvents () {
+  return {
+    type: Actions.SET_CANVAS_ELEMENTS_HOVER_EVENTS
+  };
+}

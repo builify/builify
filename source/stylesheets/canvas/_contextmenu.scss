@@ -1,0 +1,54 @@
+.#{$nameprefix}crightpanel {
+	position: fixed;
+	display: none;
+	z-index: 999999 !important;
+    overflow: hidden;
+    width: 170px;
+	@include shadow-2dp();
+
+	&.show {
+		display: block;
+	}
+
+	&__text,
+	&__item {
+		width: 100%;
+		overflow: hidden;
+		height: 45px;
+		line-height: 45px;
+		padding: 0 15px;
+		font-weight: 400;
+		text-align: left;
+		font-size: 16px;
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+	&__text {
+		color: #FFF;
+		font-weight: 700;
+		background: $light-theme-color;
+	}
+
+	&__item {
+		background: #FFF;
+		color: #222;
+		font-size: 14px;
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		@include animation-default();
+
+	    &:hover {
+			background: darken(#FFF, 9%);
+		}
+
+		&,
+		& * {
+			cursor: pointer;
+		}
+
+		svg {
+			vertical-align: middle;
+			margin-right: 5px;
+			height: 100%;
+		}
+	}
+}

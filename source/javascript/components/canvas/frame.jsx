@@ -4,7 +4,6 @@ import _isElement from 'lodash/iselement';
 import _isObject from 'lodash/isobject';
 import _values from 'lodash/values';
 import _delay from 'lodash/delay';
-import TTEditor from 'tt-editor';
 import TTDOM from '../../common/TTDOM';
 import TTIFrame from '../../modules/react-tt-iframe';
 import ClickToolbox from './click-toolbox';
@@ -21,6 +20,7 @@ class Frame extends React.Component {
     template: React.PropTypes.object.isRequired,
     removeLoadingScreen: React.PropTypes.func.isRequired,
     renderBlockToCanvas: React.PropTypes.func.isRequired,
+    setCanvasElementsHoverEvents: React.PropTypes.func.isRequired,
     coreBlockHover: React.PropTypes.func.isRequired,
     openContextMenu: React.PropTypes.func.isRequired,
     closeContextMenu: React.PropTypes.func.isRequired,
@@ -180,39 +180,14 @@ class Frame extends React.Component {
   }
 
   addMouseEventsToCoreBlock (coreElementReference, block) {
-    const targets = [
-      'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-      'strong', 'em', 'i', 'span', 'p', 'a',
-      'li', 'ul',
-      'div',
-      'img', 'input', 'textarea', 'blockquote',
-      'figcaption'
-    ].join(',');
-    const targetElements = coreElementReference.querySelectorAll(targets);
-    const mouseEnterEvent = function () {
-      this.classList.add('ab-ch');
-    };
-
-    const mouseLeaveEvent = function () {
-      this.classList.remove('ab-ch');
-    };
-
-    // Add mouse events to elements inside core block.
-    _map(targetElements, (target) => {
-      target.contentEditable = true;
-
-      target.removeEventListener('mouseenter', mouseEnterEvent);
-      target.removeEventListener('mouseleave', mouseLeaveEvent);
-      target.addEventListener('mouseenter', mouseEnterEvent, false);
-      target.addEventListener('mouseleave', mouseLeaveEvent, false);
-    });
-
     // Add section hover event to core block.
     if (_isElement(coreElementReference)) {
       coreElementReference.addEventListener('mouseenter', () => {
         return this.props.coreBlockHover(coreElementReference, block);
       });
     }
+
+    return this.props.setCanvasElementsHoverEvents();
   }
 
   drawCanvas () {
@@ -334,6 +309,10 @@ function mapDispatchToProps (dispatch) {
 
     coreBlockHover: (elementReference, block) => {
       dispatch(Actions.currentHoverBlock(elementReference, block));
+    },
+
+    setCanvasElementsHoverEvents: () => {
+      dispatch(Actions.setCanvasElementsHoverEvents());
     },
 
     // Click toolbox events.

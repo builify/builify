@@ -59,7 +59,8 @@ export default class ClickToolbox extends React.Component {
   }
 
   getHTMLTagName (target) {
-    return HTMLTagNamesToString[target.tagName.toLowerCase()];
+    const targetName = target.tagName.toLowerCase();
+    return `${HTMLTagNamesToString[targetName]} (${targetName.toUpperCase()})`;
   }
 
   openPanel (e) {
@@ -78,9 +79,7 @@ export default class ClickToolbox extends React.Component {
     let isElemenetChangeable = true;
     const findUp = TTDOM.find.findUpAttr(target, 'data-abctoolbox data-abcpanel');
 
-    if (findUp !== null ||
-      target.getAttribute('data-abctoolbox') ||
-      target.getAttribute('data-abcpanel')) {
+    if (findUp !== null || target.getAttribute('data-abctoolbox') || target.getAttribute('data-abcpanel')) {
       this.closePanel();
       return false;
     }
@@ -182,7 +181,7 @@ export default class ClickToolbox extends React.Component {
 
   renderChildren () {
     const targetElement = this.state.target;
-    var elementOptions = {
+    let elementOptions = {
       showIconChange: false,
       showClone: true,
       showChangeImage: false,
@@ -243,7 +242,7 @@ export default class ClickToolbox extends React.Component {
     return (
       <div data-abcpanel ref='panel' id='ab-cpanel' style={panelStyle} className={planelClassName}>
         <div className='ab-crightpanel__text'>
-          <span>{targetName}</span>
+          <span>{ targetName }</span>
         </div>
         { this.renderChildren() }
       </div>

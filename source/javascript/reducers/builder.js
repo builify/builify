@@ -38,7 +38,7 @@ const builderInitialState = {
 export default function builder (state = builderInitialState, action) {
   switch (action.type) {
     case Actions.UPLOAD_FILE:
-     return _assign({}, state, {});
+      return _assign({}, state, {});
 
     case Actions.OPEN_TAB: {
       const { target } = action;
@@ -86,7 +86,8 @@ export default function builder (state = builderInitialState, action) {
         currentLocation: CurrentLocations.STARTSCREEN,
         isPageSelected: false,
         pages: pages,
-        doPreviousPagesExistInStorage: previousPages
+        doPreviousPagesExistInStorage: previousPages,
+        filterContentBlocksTarget: 'all'
       });
     }
 

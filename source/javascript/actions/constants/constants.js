@@ -60,6 +60,9 @@ export default keyMirror([
   'SET_COLOR_FROM_COLORPICKER',
   'CLOSE_COLORPICKER',
 
+  // Canvas' actions
+  'SET_CANVAS_ELEMENTS_HOVER_EVENTS',
+
   // Tempate design's actions
   'LOAD_CONTENTBLOCK_TO_PAGE',
   'BLOCK_WAS_RENDERED_TO_PAGE',

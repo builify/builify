@@ -59,7 +59,7 @@ class DownloadPages extends React.Component {
 
     return (
       <ModalWrapper ref='modalWrapper' onClose={closeModal} className={className}>
-        <ModalTab title='Download Selected Pages'>
+        <ModalTab title='Select Pages to Download'>
           <div className={classNames('modal__tab')}>
             <Scrollbar height={380}>
               <div className={classNames(null, 'p-x-3', 'p-y-3')}>

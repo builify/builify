@@ -5,14 +5,9 @@
 @import "../main/mixins/animations";
 @import "../main/components/switch";
 
-* {
-	cursor: auto;
-}
-
-html,
-body {
-	height: 100%;
-}
+@import "base";
+@import "contextmenu";
+@import "toolbox";
 
 .#{$nameprefix}croot {
 	width: 100%;
@@ -20,157 +15,7 @@ body {
 }
 
 .#{$nameprefix}ch {
-	outline: 1px solid #bbb !important;
-}
-
-.#{$nameprefix}crightpanel {
-	position: fixed;
-	display: none;
-	z-index: 999999 !important;
-    border-radius: 4px;
-    overflow: hidden;
-    width: 170px;
-	@include shadow-2dp();
-
-	&.show {
-		display: block;
-	}
-
-	&__text,
-	&__item {
-		width: 100%;
-		overflow: hidden;
-		height: 45px;
-		line-height: 45px;
-		padding: 0 15px;
-		font-weight: 400;
-		text-align: left;
-		font-size: 16px;
-		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    }
-
-	&__text {
-		color: #FFF;
-		font-weight: 700;
-		background: $light-theme-color;
-	}
-
-	&__item {
-		background: #FFF;
-		color: #222;
-		font-size: 14px;
-		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-		@include animation-default();
-
-	    &:hover {
-			background: darken(#FFF, 3%);
-		}
-
-		&,
-		& * {
-			cursor: pointer;
-		}
-
-		svg {
-			vertical-align: middle;
-			margin-right: 5px;
-			height: 100%;
-		}
-	}
-}
-
-.#{$nameprefix}cstoolbox {
-	position: absolute;
-	top: 10px;
-	right: 20px;
-	display: block;
-	z-index: 99999;
-	height: 45px;
-	overflow: hidden;
-	background: rgba(#000, 0.3);
-
-	.settings {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-
-		li {
-			cursor: pointer;
-			text-align: center;
-			height: 45px;
-			width: 45px;
-			float: left;
-			display: block;
-			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-			@include transition(all 0.3s ease);
-
-			&:hover {
-				background: rgba(#000, 0.9);
-			}
-
-			* {
-				cursor: pointer;
-			}
-
-			svg {
-				margin-top: 11px;
-			}
-		}
-	}
-
-	.dropdown {
-		position: absolute;
-		top: 50px;
-		right: 20px;
-		display: block;
-		background: #FFF;
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		width: 210px;
-		opacity: 0;
-		height: 0;
-		overflow: hidden;
-		@include transition(all 0.3s ease);
-		@include shadow-2dp();
-
-		label {
-			margin-top: 10px;
-		}
-
-		&.active {
-			height: auto;
-			opacity: 1;
-			@include transform(translateX(0px));
-		}
-
-		li {
-			width: 100%;
-			display: block;
-			width: 100%;
-			overflow: hidden;
-			height: 45px;
-			line-height: 45px;
-			padding: 0 15px;
-			font-weight: 400;
-			text-align: left;
-			color: #222;
-			font-size: 14px;
-			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-
-			&,
-			& * {
-				cursor: pointer;
-			}
-
-			&.title {
-				background: $light-theme-color;
-				color: #FFF;
-				font-weight: 700;
-				font-size: 16px;
-			}
-		}
-	}
+	outline: 2px dotted #ccc !important;
 }
 
 .#{$nameprefix}cmain__wrapper {
