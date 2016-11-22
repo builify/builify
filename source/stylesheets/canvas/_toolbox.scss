@@ -6,6 +6,8 @@
 	z-index: 99999;
 	height: 45px;
 	overflow: hidden;
+    line-height: 16px;
+    font-size: 16px;
 	background: rgba(#000, 0.3);
 
 	.settings {
@@ -18,6 +20,8 @@
 			text-align: center;
 			height: 45px;
 			width: 45px;
+            line-height: 16px;
+            font-size: 16px;
 			float: left;
 			display: block;
 			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -50,6 +54,8 @@
 		opacity: 0;
 		height: 0;
 		overflow: hidden;
+        line-height: 16px;
+        font-size: 16px;
 		@include transition(all 0.3s ease);
 		@include shadow-2dp();
 

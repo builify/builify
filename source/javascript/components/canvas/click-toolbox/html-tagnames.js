@@ -20,7 +20,9 @@ const HTMLTagNamesToString = {
   input: 'Input',
   blockquote: 'Quote',
   figcaption: 'Caption',
-  button: 'Button'
+  button: 'Button',
+  header: 'Header',
+  footer: 'Footer'
 };
 
 export default HTMLTagNamesToString;

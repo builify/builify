@@ -3,6 +3,7 @@ import _map from 'lodash/map';
 import _has from 'lodash/has';
 import classNames from '../../../common/classnames';
 import Random from '../../../common/random';
+import Icon from '../../shared/icon';
 
 export default class ModalTab extends React.Component {
   static propTypes = {
@@ -55,6 +56,14 @@ export default class ModalTab extends React.Component {
     );
   }
 
+  renderCloseIcon () {
+    return (
+      <div className={classNames('modal__close')} title='Close tab'>
+        <Icon icon='remove' size={26} />
+      </div>
+    );
+  }
+
   render () {
     const { title, info, children } = this.props;
 
@@ -64,6 +73,7 @@ export default class ModalTab extends React.Component {
           { title && <h2>{ title }</h2> }
           { info && <h3>{ info }</h3> }
           { this.renderNav() }
+          { this.renderCloseIcon() }
         </header>
         { children }
       </div>

@@ -2,7 +2,6 @@ import _map from 'lodash/map';
 import _assign from 'lodash/assign';
 import _isElement from 'lodash/iselement';
 import _isObject from 'lodash/isobject';
-import _indexOf from 'lodash/indexof';
 
 import TTDOM from '../common/TTDOM';
 import * as Actions from '../actions/constants';
@@ -16,24 +15,13 @@ const targets = [
   'figcaption'
 ].join(',');
 
-const mouseEnterEvent = function () {
-  this.classList.add('ab-ch');
-};
+function mouseEnterEvent () {
+  TTDOM.element.classes.add(this, 'ab-ch');
+}
 
-const mouseLeaveEvent = function () {
-  this.classList.remove('ab-ch');
-};
-
-var incrementingId = 0;
-const getId = (function () {
-  return function(element) {
-    if (!element.getAttribute('data-ttid')) {
-      element.setAttribute('data-ttid', `id_${incrementingId++}`);
-      // Possibly add a check if this ID really is unique
-    }
-    return element.getAttribute('data-ttid');
-  };
-}());
+function mouseLeaveEvent () {
+  TTDOM.element.classes.remove(this, 'ab-ch');
+}
 
 const canvasInitialState = {
   iFrameWindow: null,
@@ -42,9 +30,7 @@ const canvasInitialState = {
     block: {},
     elementReference: null,
     topX: 10
-  },
-
-  eventedElements: []
+  }
 };
 
 export default function canvas (state = canvasInitialState, action) {
@@ -111,18 +97,13 @@ export default function canvas (state = canvasInitialState, action) {
     case Actions.CLONE_ITEM:
     case Actions.SET_CANVAS_ELEMENTS_HOVER_EVENTS: {
       const { iFrameWindow } = state;
-      let { eventedElements } = state;
       const targetElements = iFrameWindow.document.querySelectorAll(targets);
 
       // Add mouse events to elements inside core block.
       _map(targetElements, (target) => {
-        if (_indexOf(eventedElements, getId(target)) !== -1) {
-          return false;
-        }
-
         const findUp = TTDOM.find.findUpAttr(target, 'data-abcpanel data-abctoolbox');
 
-        if (findUp !== null || target.getAttribute('data-abcpanel')) {
+        if (findUp !== null || target.getAttribute('data-abccorent')) {
           return false;
         }
 
@@ -135,13 +116,9 @@ export default function canvas (state = canvasInitialState, action) {
         // Add new events.
         target.addEventListener('mouseenter', mouseEnterEvent, false);
         target.addEventListener('mouseleave', mouseLeaveEvent, false);
-
-        eventedElements.push(getId(target));
       });
 
-      return _assign({}, state, {
-        eventedElements: eventedElements
-      });
+      return state;
     }
   }
 

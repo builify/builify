@@ -46,6 +46,36 @@ $modal-navigation-padding: .8 * $unit;
 		@include transform(translateY(-$modal-translate-y));
 	}
 
+	&__close {
+		position: absolute;
+		right: 5px;
+		top: 0;
+		height: 70px;
+		width: 40px;
+		line-height: 70px;
+		cursor: pointer;
+
+        svg {
+            position: relative;
+            top: 6px;
+
+            path {
+                fill: #ccc;
+                transition-duration: $animation-duration;
+        		transition-delay: $animation-delay;
+        		transition-timing-function: $animation-curve-default;
+            }
+        }
+
+        &:hover {
+            svg {
+                path {
+                    fill: #111;
+                }
+            }
+        }
+	}
+
 	&__userselect {
 		@include user-select(none);
 	}
