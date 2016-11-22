@@ -2,8 +2,38 @@ import _map from 'lodash/map';
 import _assign from 'lodash/assign';
 import _isElement from 'lodash/iselement';
 import _isObject from 'lodash/isobject';
+import _indexOf from 'lodash/indexof';
+
 import TTDOM from '../common/TTDOM';
 import * as Actions from '../actions/constants';
+
+const targets = [
+  'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+  'strong', 'em', 'i', 'span', 'p', 'a',
+  'li', 'ul',
+  'div',
+  'img', 'input', 'textarea', 'blockquote',
+  'figcaption'
+].join(',');
+
+const mouseEnterEvent = function () {
+  this.classList.add('ab-ch');
+};
+
+const mouseLeaveEvent = function () {
+  this.classList.remove('ab-ch');
+};
+
+var incrementingId = 0;
+const getId = (function () {
+  return function(element) {
+    if (!element.getAttribute('data-ttid')) {
+      element.setAttribute('data-ttid', `id_${incrementingId++}`);
+      // Possibly add a check if this ID really is unique
+    }
+    return element.getAttribute('data-ttid');
+  };
+}());
 
 const canvasInitialState = {
   iFrameWindow: null,
@@ -12,7 +42,9 @@ const canvasInitialState = {
     block: {},
     elementReference: null,
     topX: 10
-  }
+  },
+
+  eventedElements: []
 };
 
 export default function canvas (state = canvasInitialState, action) {
@@ -79,27 +111,16 @@ export default function canvas (state = canvasInitialState, action) {
     case Actions.CLONE_ITEM:
     case Actions.SET_CANVAS_ELEMENTS_HOVER_EVENTS: {
       const { iFrameWindow } = state;
-      const targets = [
-        'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-        'strong', 'em', 'i', 'span', 'p', 'a',
-        'li', 'ul',
-        'div',
-        'img', 'input', 'textarea', 'blockquote',
-        'figcaption'
-      ].join(',');
+      let { eventedElements } = state;
       const targetElements = iFrameWindow.document.querySelectorAll(targets);
-      const mouseEnterEvent = function () {
-        this.classList.add('ab-ch');
-      };
-
-      const mouseLeaveEvent = function () {
-        this.classList.remove('ab-ch');
-      };
-
 
       // Add mouse events to elements inside core block.
       _map(targetElements, (target) => {
-        const findUp = TTDOM.find.findUpAttr(target, 'data-abcpanel');
+        if (_indexOf(eventedElements, getId(target)) !== -1) {
+          return false;
+        }
+
+        const findUp = TTDOM.find.findUpAttr(target, 'data-abcpanel data-abctoolbox');
 
         if (findUp !== null || target.getAttribute('data-abcpanel')) {
           return false;
@@ -114,10 +135,12 @@ export default function canvas (state = canvasInitialState, action) {
         // Add new events.
         target.addEventListener('mouseenter', mouseEnterEvent, false);
         target.addEventListener('mouseleave', mouseLeaveEvent, false);
+
+        eventedElements.push(getId(target));
       });
 
       return _assign({}, state, {
-
+        eventedElements: eventedElements
       });
     }
   }
