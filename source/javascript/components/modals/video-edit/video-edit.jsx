@@ -106,7 +106,7 @@ class VideoEdit extends React.Component {
 
     return (
       <ModalWrapper ref='modalWrapper' onClose={closeModal} className={className}>
-        <ModalTab title='Change Video Source'>
+        <ModalTab title='Change Video Source' onCloseClick={closeModal}>
           <div className={classNames('modal__tab')}>
             <Input
               className={classNames('modal__input')}

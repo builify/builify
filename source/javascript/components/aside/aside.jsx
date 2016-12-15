@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from '../../common/classnames';
 import Tab from './tab';
+//import BlockEditor from './block-editor';
 
 export default class Aside extends React.Component {
   shouldComponentUpdate () {

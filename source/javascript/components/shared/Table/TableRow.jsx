@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Checkbox from '../Checkbox';
+import Checkbox from '../check-box';
 
 const utils = {
   inputTypeForPrototype (prototype) {

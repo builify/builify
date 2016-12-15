@@ -18,17 +18,17 @@ export default class Title extends React.Component {
     const titleClassName = classNames('title', this.props.className);
     const descClassName = classNames('title__desc');
 
-    if (title) {
-      return (
-        <div className={titleClassName}>
-          <h2>
-            <span>{localization(title)}</span>
-          </h2>
-          { description && <p className={descClassName}>{description}</p> }
-        </div>
-      );
+    if (!title) {
+      return null;
     }
 
-    return null;
+    return (
+       <div className={titleClassName}>
+        <h2>
+          <span>{localization(title)}</span>
+        </h2>
+        { description && <p className={descClassName}>{description}</p> }
+      </div>
+    );
   }
 }

@@ -57,9 +57,9 @@ class Content extends React.Component {
 
       reader.onload = () => {
         this.importPage(reader.result);
-			};
+      };
 
-			reader.readAsText(file);
+      reader.readAsText(file);
     }, false);
   }
 
@@ -89,7 +89,13 @@ class Content extends React.Component {
             <p>{ pagesInformation }</p>
             <Button label='Delete All Pages' onClick={::this.flushStorage} />
             <div className='tt-filebutton'>
-              <input onClick={::this.fileInputClick} className='tt-filebutton__input' id='fileInput' type='file' ref='fileInput' />
+              <input
+                onClick={::this.fileInputClick}
+                className='tt-filebutton__input'
+                id='fileInput'
+                type='file'
+                ref='fileInput'
+                accept='.fbuilify' />
               <label className='tt-filebutton__label' htmlFor='fileInput'>Import a Page</label>
             </div>
           </aside>

@@ -59,7 +59,7 @@ export default class Checkbox extends React.Component {
         <span data-role='checkbox' className={checkboxClassName} onMouseDown={::this.handleMouseDown}>
           <Ripple ref='ripple' data-role='ripple' className={classNames('checkbox__ripple')} spread={3} centered />
         </span>
-        { this.props.label ? <span data-role='label' className={classNames('checkbox__text')}>{this.props.label}</span> : null }
+        { this.props.label && <span data-role='label' className={classNames('checkbox__text')}>{ this.props.label }</span> }
       </label>
     );
   }

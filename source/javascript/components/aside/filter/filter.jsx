@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '../icon';
+import Icon from '../../shared/icon';
 import _orderBy from 'lodash/orderby';
 import _has from 'lodash/has';
 import _map from 'lodash/map';

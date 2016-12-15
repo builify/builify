@@ -1,6 +1,6 @@
 import JSZip from 'jszip';
 import _map from 'lodash/map';
-import Random from './random';
+import Random from '../common/random';
 import { saveAs } from 'file-saver';
 import { TEMPLATE_PACKAGE_FILENAME, TEMPLATE_PACKAGE_EXTENSION } from '../Constants';
 
@@ -70,15 +70,16 @@ async function downloadPages (pages) {
   const javascriptFile = await get('assets/template/template.js');
   const stylesheetFile = await get('assets/template/template.css');
 
+  // Add template files to ZIP package.
   templateFolder.file('template.js', javascriptFile);
   templateFolder.file('template.css', stylesheetFile);
 
+  // Add items to package and generate package.
   const pagesResult = await addPageFilesToPackage(zip, pages); //eslint-disable-line
+  const content = await zip.generateAsync(fileSettings);
 
-  zip.generateAsync(fileSettings)
-    .then((content) => {
-      saveAs(content, zipFileName);
-    });
+  // Let user download it.
+  saveAs(content, zipFileName);
 }
 
 export default function (pages, state) {

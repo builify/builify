@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import classNames from '../../../common/classnames';
 
 export default class Ripple extends React.Component {
   static propTypes = {
@@ -24,9 +24,10 @@ export default class Ripple extends React.Component {
     width: null
   };
 
+  node = null;
+
   shouldComponenUpdate (nextProps, nextState) {
-    if (this.props !== nextProps ||
-        this.state !== nextState) {
+    if (this.props !== nextProps || this.state !== nextState) {
       return true;
     }
 
@@ -38,19 +39,31 @@ export default class Ripple extends React.Component {
 
     const {top, left, width} = this._getDescriptor(pageX, pageY);
 
-    this.setState({active: false, restarting: true, width: 0}, () => {
-      this.refs.ripple.offsetWidth;  //eslint-disable-line no-unused-expressions
-      this.setState({active: true, restarting: false, top, left, width});
+    this.setState({
+      active: false,
+      restarting: true,
+      width: 0
+    }, () => {
+      this.refs.ripple.offsetWidth;
+      this.setState({
+        active: true,
+        restarting: false,
+        top, left, width
+      });
     });
   };
 
   handleEnd = () => {
     document.removeEventListener('mouseup', this.handleEnd);
-    this.setState({active: false});
+  
+    this.setState({
+      active: false
+    });
   };
 
   _getDescriptor (pageX, pageY) {
-    const { left, top, height, width } = ReactDOM.findDOMNode(this).getBoundingClientRect();
+    const { left, top, height, width } = this.node.getBoundingClientRect();
+
     return {
       left: this.props.centered ? width / 2 : pageX - left,
       top: this.props.centered ? height / 2 : pageY - top,
@@ -61,14 +74,13 @@ export default class Ripple extends React.Component {
   render () {
     const { left, top, width } = this.state;
     const rippleStyle = { left, top, width, height: width };
-    let className = this.props.loading ? 'ab-ripple__loading' : 'ab-ripple__normal';
-
-    if (this.state.active) className += ' active';
-    if (this.state.restarting) className += ' restarting';
-    if (this.props.className) className += ` ${this.props.className}`;
+    const className = classNames(this.props.loading ? 'ripple__loading' : 'ripple__normal', {
+      'active': this.state.active,
+      'restarting': this.state.restarting
+    }, this.props.className);
 
     return (
-      <span className='ab-ripple__wrapper'>
+      <span className='ab-ripple__wrapper' ref={node => this.node = node}>
         <span ref='ripple' className={className} style={rippleStyle} />
       </span>
     );

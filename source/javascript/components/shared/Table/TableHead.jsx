@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
-import Checkbox from '../Checkbox';
+import Checkbox from '../check-box';
 
-const TableHead = ({model, onSelect, selected}) => {
+const TableHead = ({ model, onSelect, selected }) => {
   let selectCell;
   const contentCells = _.map(Object.keys(model), key => {
     return <th key={key}>{key}</th>;
@@ -17,7 +17,7 @@ const TableHead = ({model, onSelect, selected}) => {
           onChange={onSelect}
           checked={selected} />
       </th>
-    )
+    );
   }
 
   return (

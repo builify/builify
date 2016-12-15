@@ -13,7 +13,8 @@ import _isNull from 'lodash/isnull';
 import TTStorage from '../modules/tt-storage';
 import Random from '../common/random';
 import TTDOM from '../common/TTDOM';
-import { exportPage, importPage } from '../common/export-page';
+import exportPage from '../pages/export-page';
+import importPage from '../pages/import-page';
 import * as Actions from '../actions/constants';
 import { TEMPLATE_PAGES_STORAGE_NAME } from '../constants';
 

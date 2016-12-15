@@ -1,6 +1,6 @@
 import React from 'react';
 import _has from 'lodash/has';
-import Checkbox from './checkbox';
+import Checkbox from './check-box';
 import localization from '../../common/localization';
 import { connect } from 'react-redux';
 import { toggleBaseline } from '../../actions';
@@ -50,7 +50,9 @@ class CheckBoxWrapper extends React.Component {
     const { checked } = this.state;
     const label = _has(item, 'label') ? localization(item.label) : '';
 
-    return <Checkbox label={label} checked={checked} onChange={::this.handleChange} />;
+    return (
+      <Checkbox label={label} checked={checked} onChange={::this.handleChange} />
+    );
   }
 }
 

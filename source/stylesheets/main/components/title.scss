@@ -1,35 +1,35 @@
 .#{$nameprefix}title {
-		position: relative;
-		margin-bottom: 5px;
-		padding-left: $base-padding;
-		padding-right: $base-padding;
+	position: relative;
+	margin-bottom: 5px;
+	padding-left: $base-padding;
+	padding-right: $base-padding;
 
-		h2 {
-				position: relative;
-				color: #555;
-				height: $base-padding / 1.5;
-				line-height: $base-padding / 1.5;
-				font-weight: 400;
-				margin: 0;
-				text-transform: uppercase;
-				@include rem(font-size, 18px);
-				@include transition(all 0.3s ease);
+	h2 {
+		position: relative;
+		color: #555;
+		height: $base-padding / 1.5;
+		line-height: $base-padding / 1.5;
+		font-weight: 400;
+		margin: 0;
+		text-transform: uppercase;
+		@include rem(font-size, 18px);
+		@include transition(all 0.3s ease);
 	}
 
 	p {
-			@include rem(font-size, 14px);
+		@include rem(font-size, 14px);
 	}
 }
 
 .ab-sidetab,
 .ab-tab {
-		.#{$nameprefix}title {
-				margin-top: 25px;
+	.#{$nameprefix}title {
+		margin-top: 25px;
 
-				&:first-child {
-						margin-top: 15px;
-				}
+		&:first-child {
+			margin-top: 15px;
 		}
+	}
 }
 
 .react-selectize {

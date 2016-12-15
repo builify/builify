@@ -8,7 +8,7 @@ import _isUndefined from 'lodash/isundefined';
 import _join from 'lodash/join';
 import _words from 'lodash/words';
 import _dropRight from 'lodash/dropright';
-import downloadPages from '../common/download-pages';
+import downloadPages from '../pages/download';
 import TTStorage from '../modules/tt-storage';
 import * as Actions from '../actions/constants';
 import { CurrentLocations, MAXIUMUM_PAGES_IN_STORAGE, TEMPLATE_PAGES_STORAGE_NAME, DialogTypes } from '../constants';
