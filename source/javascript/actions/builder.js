@@ -1,5 +1,7 @@
 import Actions from './constants';
-import _ from 'lodash';
+import _delay from 'lodash/delay';
+import _has from 'lodash/has';
+import _map from 'lodash/map';
 import TTEventEmitter from 'tt-event-emitter';
 import stripJSONComments from 'strip-json-comments';
 import IconPacksData from '../../../data/builder/icon-packs';
@@ -88,7 +90,7 @@ export function removeLoadingScreen () {
       type: Actions.LOGIC_INITIALIZED
     });
 
-    _.delay(() => {
+    _delay(() => {
       dispatch({
         type: Actions.REMOVE_LOADING_SCREEN
       });
@@ -140,7 +142,7 @@ export function getFonts () {
 
 export function getIconPacks () {
   return (dispatch) => {
-    if (_.has(IconPacksData, 'iconPacks')) {
+    if (_has(IconPacksData, 'iconPacks')) {
       const { iconPacks } = IconPacksData;
 
       dispatch(addIconPackSourcesToHead(iconPacks));
@@ -176,8 +178,8 @@ export function addIconPackSourcesToHead (iconPacks) {
 
   // Chromium bug.
   // Adding stylesheets at start results scrollbar not working.
-  _.delay(() => {
-    _.map(iconPacks, (iconPack) => {
+  _delay(() => {
+    _map(iconPacks, (iconPack) => {
       const { iconSource } = iconPack;
       let font = document.createElement('link');
 
@@ -221,7 +223,7 @@ export function changeBaselineValue (value) {
   };
 }
 
-export function sendFeedBack (payload) {
+export function sendFeedBack () {
   return (dispatch) => {
     dispatch({ type: Actions.SEND_FEEDBACK });
 

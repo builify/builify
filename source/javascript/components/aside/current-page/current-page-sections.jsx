@@ -3,7 +3,7 @@ import _map from 'lodash/map';
 import _values from 'lodash/values';
 import Random from '../../../common/random';
 import classNames from '../../../common/classnames';
-import Sortable from '../sortable';
+import Sortable from '../../shared/sortable';
 import CurrentPageItem from './current-page-item';
 
 export default class CurrentPageSections extends React.Component {

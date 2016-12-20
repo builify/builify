@@ -33,8 +33,11 @@
       "windows"
     ],
     "quotes": [
-      "error",
+      "off",
       "single"
+    ],
+    "no-console": [
+      "warn"
     ],
     "semi": [
       "error",

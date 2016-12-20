@@ -14,8 +14,10 @@ class NotificationSystem extends React.Component {
       React.PropTypes.bool,
       React.PropTypes.object
     ]),
+    notifications: React.PropTypes.array,
     noAnimation: React.PropTypes.bool,
-    allowHTML: React.PropTypes.bool
+    allowHTML: React.PropTypes.bool,
+    removeNotification: React.PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -47,7 +49,7 @@ class NotificationSystem extends React.Component {
               key={position}
               position={position}
               notifications={_notifications}
-              onRemove={this.props.onRemoveNotification}
+              onRemove={this.props.removeNotification}
               noAnimation={this.props.noAnimation}
               allowHTML={this.props.allowHTML} />
           );
@@ -71,7 +73,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onRemoveNotification: (uid) => {
+    removeNotification: (uid) => {
       dispatch(removeNotification(uid));
     }
   };

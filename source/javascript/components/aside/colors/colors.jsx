@@ -3,7 +3,7 @@ import _map from 'lodash/map';
 import Random from '../../../common/random';
 import Color from './color';
 import { connect } from 'react-redux';
-import { openColorPicker } from '../../../Actions';
+import { openColorPicker } from '../../../actions';
 
 class Colors extends React.Component {
   static propTypes = {

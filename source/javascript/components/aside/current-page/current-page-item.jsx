@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '../icon';
+import Icon from '../../shared/icon';
 import classNames from '../../../common/classnames';
 
 export default class CurrentPageItem extends React.Component {

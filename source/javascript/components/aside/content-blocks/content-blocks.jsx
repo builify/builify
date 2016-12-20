@@ -6,7 +6,7 @@ import classNames from '../../../common/classnames';
 import BlockTitle from './block-title';
 import ContentBlock from './block';
 import { connect } from 'react-redux';
-import { loadContentBlockSource } from '../../../Actions';
+import { loadContentBlockSource } from '../../../actions';
 
 class ContentBlocks extends React.Component {
   static propTypes = {

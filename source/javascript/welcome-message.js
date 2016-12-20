@@ -4,7 +4,7 @@ export default function () {
   if (process.env.NODE_ENV === 'development') {
     buildVersion = 'DEVELOPMENT';
   } else if (process.env.NODE_ENV === 'production') {
-    if (process.env.DEMO === true) {
+    if (process.env.DEMO) {
       buildVersion = 'DEMO';
     } else {
       buildVersion = 'PRODUCTION';

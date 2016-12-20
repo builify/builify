@@ -12,8 +12,8 @@
     overflow: hidden;
     visibility: hidden;
     background: $loadingscreen-bg;
-    background: -webkit-linear-gradient(to left, $loadingscreen-bg , #53346D);
-    background: linear-gradient(to left, $loadingscreen-bg , #53346D);
+    background: -webkit-linear-gradient(to left, $loadingscreen-bg , $loadingscreen-primary);
+    background: linear-gradient(to left, $loadingscreen-bg , $loadingscreen-primary);
     @include transition(all 0.3s ease);
     @include display(flex);
     @include align-items(center);

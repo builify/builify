@@ -78,7 +78,8 @@ $z-index-low: -100;
 $z-index-lower: -200;
 
 //-- Loading screen variables
-$loadingscreen-bg: #00000C;
+$loadingscreen-bg: #333;
+$loadingscreen-primary: #ff7f2a;
 $loadingscreen-loader-border-thickness: 5px;
 $loadingscreen-loader-corner-radio: 8px;
 $loadingscreen-loader-base-opacity: 0.25;

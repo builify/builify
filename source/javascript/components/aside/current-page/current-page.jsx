@@ -1,10 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
 import classNames from '../../../common/classnames';
-import Input from '../input';
+import Input from '../../shared/input';
 import Title from '../title';
 import CurrentPageSections from './current-page-sections';
-import Button from '../button';
+import Button from '../../shared/button';
 import * as Actions from '../../../actions';
 import { connect } from 'react-redux';
 

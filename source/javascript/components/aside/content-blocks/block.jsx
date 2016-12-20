@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from '../../../common/classnames';
-import ImageItem from '../image-item';
+import ImageItem from '../../shared/image-item';
 
 export default class ContentBlock extends React.Component {
   static propTypes = {

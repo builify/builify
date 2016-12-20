@@ -3,8 +3,8 @@ import _size from 'lodash/size';
 import _words from 'lodash/words';
 import localization from '../../../common/localization';
 import classNames from '../../../common/classnames';
-import Icon from '../icon';
-import { openTab, openDownloadModal, openRestartModal, saveCurrentPage } from '../../../Actions';
+import Icon from '../../shared/icon';
+import { openTab, openDownloadModal, openRestartModal, saveCurrentPage } from '../../../actions';
 import { connect } from 'react-redux';
 import { CurrentLocations } from '../../../constants';
 

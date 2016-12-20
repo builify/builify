@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import _delay from 'lodash/delay';
 import _isNull from 'lodash/isnull';
 import classNames from '../../../common/classnames';
@@ -15,21 +14,16 @@ export default class ModalWrapper extends React.Component {
     onClose: function () {}
   };
 
-  dialogElement = null;
+  _node = null;
 
   shouldComponentUpdate () {
     return false;
   }
 
   componentDidMount () {
-    const dialogRef = this.refs['modalWrapper'];
-    const dialogElement = ReactDOM.findDOMNode(dialogRef);
-
-    this.dialogElement = dialogElement;
-
     _delay(() => {
-      if (dialogElement) {
-        dialogElement.classList.add('active');
+      if (this._node) {
+        this._node.classList.add('active');
       }
     }, 33);
 
@@ -47,22 +41,12 @@ export default class ModalWrapper extends React.Component {
   }
 
   closeDialog () {
-    const { onClose } = this.props;
-    let dialogElement = null;
-
-    if (!_isNull(this.dialogElement)) {
-      dialogElement = this.dialogElement;
-    } else {
-      const dialogRef = this.refs['dialog'];
-      dialogElement = ReactDOM.findDOMNode(dialogRef);
-    }
-
-    if (dialogElement) {
-      dialogElement.classList.remove('active');
+    if (!_isNull(this._node)) {
+      this._node.classList.remove('active');
     }
 
     _delay(() => {
-      return onClose();
+      return this.props.onClose();
     }, 300);
   }
 
@@ -70,7 +54,7 @@ export default class ModalWrapper extends React.Component {
     const { className } = this.props;
 
     return (
-      <div ref='modalWrapper' className={className && className}>
+      <div ref={node => this._node = node} className={className && className}>
         <div role='overlay' className={classNames('modal__overlay')} data-modaloverlay />
         <div role='content' className={classNames('modal__content')}>
           { this.props.children }

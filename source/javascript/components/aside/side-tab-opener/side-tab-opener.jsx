@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '../icon';
+import Icon from '../../shared/icon';
 import classNames from '../../../common/classnames';
 import { connect } from 'react-redux';
 import { openTab } from '../../../actions';
@@ -20,9 +20,11 @@ class SideTabOpener extends React.Component {
   }
 
   render () {
+    const { title } = this.props;
+
     return (
       <div className={classNames('item', 'link')} onClick={::this.clickEvent}>
-        <span>{this.props.title}</span>
+        { title && <span>{ title }</span> }
         <Icon icon='arrow-forward' />
       </div>
     );

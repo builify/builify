@@ -25,7 +25,7 @@ export default class Title extends React.Component {
     return (
        <div className={titleClassName}>
         <h2>
-          <span>{localization(title)}</span>
+          <span>{ localization(title) }</span>
         </h2>
         { description && <p className={descClassName}>{description}</p> }
       </div>

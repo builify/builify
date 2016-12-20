@@ -3,16 +3,16 @@ import Random from '../common/random';
 import _isObject from 'lodash/isobject';
 import _has from 'lodash/has';
 import Filter from '../components/aside/filter';
-import ContentBlocks from '../components/shared/content-blocks';
-import CurrentPage from '../components/shared/current-page';
-import Colors from '../components/shared/colors';
-import Title from '../components/shared/title';
-import SideTabOpener from '../components/shared/side-tab-opener';
+import ContentBlocks from '../components/aside/content-blocks';
+import CurrentPage from '../components/aside/current-page';
+import Colors from '../components/aside/colors';
+import Title from '../components/aside/title';
+import SideTabOpener from '../components/aside/side-tab-opener';
 import CheckBoxWrapper from '../components/shared/checkbox-wrapper';
 import SliderInputWrapper from '../components/shared/slider-input-wrapper';
 import Copyright from '../components/shared/copyright';
 import Logo from '../components/shared/logo';
-import PrimaryNavigation from '../components/shared/primary-navigation';
+import PrimaryNavigation from '../components/aside/primary-navigation';
 
 export default function renderProcessedChildren (item) {
   if (!_isObject(item)) {
@@ -20,7 +20,7 @@ export default function renderProcessedChildren (item) {
   }
 
   if (_has(item, 'type')) {
-    const key = Random.randomKey('ch');
+    const key = Random.randomKey('rendered-children');
 
     switch (item.type) {
       case 'logo':
