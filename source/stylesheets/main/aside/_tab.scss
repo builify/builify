@@ -19,6 +19,7 @@
         position: relative;
         display: block;
         cursor: pointer;
+        margin-bottom: 20px;
         height: $base-padding;
         line-height: $base-padding;
         padding: 0 $base-padding;
@@ -28,7 +29,7 @@
             position: absolute;
             color: inherit;
             top: 5px;
-            margin-right: 10px;
+            left: 0;
             left: $base-padding;
             @include transition(all 0.3s ease);
             @include transform(scale3d(1, 1, 1));
@@ -36,7 +37,7 @@
 
         span {
             line-height: $base-padding;
-            padding-left: $base-padding;
+            padding-left: $base-padding + 5;
         }
 
         &:hover {
@@ -52,13 +53,6 @@
 
     .wrap {
         padding: 0 $base-padding;
-    }
-
-    h1 {
-        font-weight: 700;
-        text-transform: uppercase;
-        padding: 0 $base-padding;
-        @include rem(font-size, 24px);
     }
 
     .tip {
@@ -79,6 +73,13 @@
     }
 
     &__title {
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        letter-spacing: -0.5px;
+        padding: 0 $base-padding;
+        @include rem(font-size, 22px);
+        
         > span {
             &:nth-child(1) {
                 &:after {

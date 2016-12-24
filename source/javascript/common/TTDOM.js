@@ -136,7 +136,7 @@ const TTDOM = {
   },
 
   events: {
-    add (elem, events, callback, bubbling: false) {
+    add (elem, events, callback, bubbling = false) {
       events = events.split(' ');
 
       if (TTDOM.type.isElement(elem) || elem === window) {

@@ -7,7 +7,7 @@ import { toggleBaseline } from '../../actions';
 
 class CheckBoxWrapper extends React.Component {
   static propTypes = {
-    template: React.PropTypes.object.isRequired,
+    drawBaseline: React.PropTypes.bool.isRequired,
     item: React.PropTypes.object.isRequired,
     toggleBaseline: React.PropTypes.func.isRequired
   };
@@ -25,10 +25,8 @@ class CheckBoxWrapper extends React.Component {
   }
 
   componentWillMount () {
-    const { template } = this.props;
-
     this.setState({
-      checked: template.drawBaseline
+      checked: this.props.drawBaseline
     });
   }
 
@@ -50,21 +48,22 @@ class CheckBoxWrapper extends React.Component {
     const { checked } = this.state;
     const label = _has(item, 'label') ? localization(item.label) : '';
 
-    return (
-      <Checkbox label={label} checked={checked} onChange={::this.handleChange} />
-    );
+    return <Checkbox label={label} checked={checked} onChange={::this.handleChange} />;
   }
 }
 
 function mapStateToProps (state) {
+  const { template } = state;
+  const { drawBaseline } = template;
+
   return {
-    template: state.template
+    drawBaseline: drawBaseline
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    toggleBaseline: (checked) => {
+    toggleBaseline: function (checked) {
       dispatch(toggleBaseline(checked));
     }
   };

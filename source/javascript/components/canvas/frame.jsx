@@ -226,35 +226,43 @@ class Frame extends React.Component {
       _map(assets, (asset) => {
         const { type, src } = asset;
 
-        if (type === 'css') {
-          const linkElement = document.createElement('link');
-          linkElement.rel = 'stylesheet';
-          linkElement.type = 'text/css';
-          linkElement.href = src;
+        switch (type) {
+          case 'css':
+          case 'stylesheet': {
+            const linkElement = document.createElement('link');
+            linkElement.rel = 'stylesheet';
+            linkElement.type = 'text/css';
+            linkElement.href = src;
 
-          if (asset.junk) {
-            linkElement.setAttribute(Constants.JUNK_ATTR, true);
+            if (asset.junk) {
+              linkElement.setAttribute(Constants.JUNK_ATTR, true);
+            }
+
+            headElement.appendChild(linkElement);
+
+            break;
           }
 
-          headElement.appendChild(linkElement);
-        } else if (type === 'js') {
-          const scriptElement = document.createElement('script');
-          scriptElement.src = src;
+          case 'js':
+          case 'javascript': {
+            const scriptElement = document.createElement('script');
+            scriptElement.src = src;
 
-          if (src.indexOf('jquery') !== -1) {
-            bodyElement.appendChild(scriptElement);
-          } else {
-            scriptElement.setAttribute('data-update', true);
-
-            // Let jQuery load first and other files later.
-            // Fixes issue #9.
-            _delay(() => {
+            if (src.indexOf('jquery') !== -1) {
               bodyElement.appendChild(scriptElement);
-            }, 1000);
+            } else {
+              scriptElement.setAttribute('data-update', true);
+
+              // Let jQuery load first and other files later.
+              // Fixes issue #9.
+              _delay(() => {
+                bodyElement.appendChild(scriptElement);
+              }, 1000);
+            }
           }
         }
       });
-
+      
       return this.props.removeLoadingScreen();
     }
   }

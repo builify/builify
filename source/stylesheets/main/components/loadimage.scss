@@ -4,6 +4,7 @@
   	height: 100%;
   	width: 100%;
   	overflow: hidden;
+    min-height: 75px;
 
     img {
         opacity: 0;
@@ -13,40 +14,41 @@
     }
 
   	&.loaded {
-    		img {
-      			opacity: 1;
+    	img {
+      		opacity: 1;
             @include transform(scale(1));
-    		}
+    	}
 
-    		.#{$nameprefix}loadimage__icon {
-      			display: none;
-    		}
+    	.#{$nameprefix}loadimage__icon {
+      		display: none;
+    	}
   	}
 
   	&__icon {
-    		position: absolute;
-    		top: 50%;
-    		left: 50%;
+    	position: absolute;
+    	top: 50%;
+    	left: 50%;
+        @include transform(scale(0.6));
 
-    		.icon {
-      			position: relative;
-      			animation: 0.6s linear 0s normal forwards infinite running anim_121444834759445;
+    	.icon {
+      		position: relative;
+      		animation: 0.6s linear 0s normal forwards infinite running anim_121444834759445;
 
-      			&__ball {
-        				border-radius: 100%;
-        				position: absolute;
-        				top: 25.7143px;
-        				background-color: $color-primary;
-        				opacity: 0.8;
-        				animation: 0.6s linear 0s normal forwards infinite running anim_121444834759445;
-      			}
+      		&__ball {
+        		border-radius: 100%;
+        		position: absolute;
+        		top: 25.7143px;
+        		background-color: $color-primary;
+        		opacity: 0.8;
+        		animation: 0.6s linear 0s normal forwards infinite running anim_121444834759445;
+      		}
 
-      			&__track {
-      			    border-radius: 100%;
-      			    opacity: 0.1;
-      			    border: solid $color-primary;
-      			}
-    		}
+      		&__track {
+      			border-radius: 100%;
+      			opacity: 0.1;
+      			border: solid $color-primary;
+      		}
+    	}
   	}
 }
 

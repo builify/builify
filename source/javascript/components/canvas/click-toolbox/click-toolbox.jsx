@@ -60,7 +60,7 @@ export default class ClickToolbox extends React.Component {
 
   getHTMLTagName (target) {
     const targetName = target.tagName.toLowerCase();
-    return `${HTMLTagNamesToString[targetName]} (${targetName.toUpperCase()})`;
+    return `${HTMLTagNamesToString[targetName]}`;
   }
 
   openPanel (e) {

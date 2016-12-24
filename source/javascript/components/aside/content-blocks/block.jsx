@@ -35,10 +35,14 @@ export default class ContentBlock extends React.Component {
     }
 
     return (
-      <figure className={blockClassName} data-blocktype={blockType} onClick={::this.selectContentBlock}>
+      <figure
+        title={name}
+        className={blockClassName}
+        data-blocktype={blockType}
+        onClick={::this.selectContentBlock}>
         <ImageItem src={thumbnail} alt={name}/>
         <figcaption>
-          <span>{name}</span>
+          { name && <span>{ name }</span> }
         </figcaption>
       </figure>
     );

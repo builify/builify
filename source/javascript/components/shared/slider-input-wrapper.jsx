@@ -43,7 +43,7 @@ class SliderInputWrapper extends React.Component {
 
       value = _toNumber(_at(template, 'design.typography.size.baseline'));
 
-      text = `${value} (${fontsizeValue * value}px)`;
+      text = `${value} (${_round(fontsizeValue * value, 2)}px)`;
     }
 
     this.setState({

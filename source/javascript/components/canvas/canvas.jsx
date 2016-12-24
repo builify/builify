@@ -1,4 +1,5 @@
 import React from 'react';
+import _has from 'lodash/has';
 import classNames from '../../common/classnames';
 import SuggestionBox from './suggestion-box';
 import Frame from './frame';
@@ -9,7 +10,8 @@ class Canvas extends React.Component {
   static propTypes = {
     page: React.PropTypes.object.isRequired,
     builder: React.PropTypes.object.isRequired,
-    preview: React.PropTypes.object.isRequired
+    preview: React.PropTypes.object.isRequired,
+    template: React.PropTypes.object.isRequired
   };
 
   shouldComponentUpdate (nextProps) {
@@ -39,9 +41,13 @@ class Canvas extends React.Component {
       'phone': previewMode === PreviewModes.PHONE
     });
 
+    // Hack to detect whether the manifest file of template
+    // has been loader or not.
+    const templateReady = _has(this.props.template, 'external');
+
     return (
       <div className={className}>
-        <Frame />
+        { templateReady && <Frame /> }
         <SuggestionBox display={suggestionActive} />
       </div>
     );
@@ -52,7 +58,8 @@ function mapStateToProps (state) {
   return {
     builder: state.builder,
     page: state.page,
-    preview: state.preview
+    preview: state.preview,
+    template: state.template
   };
 }
 

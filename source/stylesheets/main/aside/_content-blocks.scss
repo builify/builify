@@ -72,7 +72,7 @@
             bottom: -$contentblock-figcaption-height;
             line-height: $contentblock-figcaption-height;
             height: $contentblock-figcaption-height;
-            @include rem(font-size, 14px);
+            @include rem(font-size, 12px);
         }
     }
 }

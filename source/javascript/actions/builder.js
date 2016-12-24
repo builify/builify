@@ -9,21 +9,50 @@ import imagesLibraryJSON from '../../../data/builder/images-library';
 import builderConfiguration from '../../../data/builder/builder';
 import AsideData from '../../../data/builder/aside';
 import fontsList from '../../../data/builder/fonts-list';
-import templateManifest from '../../../data/template/manifest';
 import { checkPreviousPagesInStorage, saveCurrentPage } from './page';
 import { closeTab, closeSidetab } from './aside';
 import { addNotification } from './notifications';
+import fetch from 'isomorphic-fetch';
+import JSZip from 'jszip';
 
 export function runApplicationActions () {
   return (dispatch) => {
     dispatch(initialize());
+    dispatch(checkPreviousPagesInStorage());
     dispatch(getBuilderConfiguration());
     dispatch(receiveConfiguration());
     dispatch(receiveAsideConfiguration());
-    dispatch(initializeBuilder());
-    dispatch(getIconPacks());
-    dispatch(getImagesLibrary());
-    dispatch(initializeEvents());
+    dispatch(getTemplateFiles());
+  };
+}
+
+export function getTemplateFiles () {
+  return function (dispatch) {
+    const zip = new JSZip();
+    
+    return fetch(`assets/template/arkio.builify`)
+      .then(function (response) {
+        if (response.status >= 400) {
+          throw new Error('Bad response from server');
+        }
+
+        return response.text();
+      })
+      .then(function (data) {
+        zip.loadAsync(data, { base64: true, checkCRC32: true }).then(function () {
+          zip.file('manifest.json').async('string')
+            .then(function (contents) {
+              dispatch({
+                type: Actions.GET_TEMPLATE_DATA,
+                data: JSON.parse(contents)
+              });
+              dispatch(getFonts());
+              dispatch(getIconPacks());
+              dispatch(getImagesLibrary());
+              dispatch(initializeEvents());
+            });
+        });
+      });
   };
 }
 
@@ -85,7 +114,7 @@ export function initialize () {
 }
 
 export function removeLoadingScreen () {
-  return (dispatch) => {
+  return function (dispatch) {
     dispatch({
       type: Actions.LOGIC_INITIALIZED
     });
@@ -118,21 +147,6 @@ export function receiveAsideConfiguration () {
   };
 }
 
-export function initializeBuilder () {
-  return (dispatch) => {
-    dispatch(checkPreviousPagesInStorage());
-    dispatch(getTemplateManifest());
-    dispatch(getFonts());
-  };
-}
-
-export function getTemplateManifest () {
-  return {
-    type: Actions.GET_TEMPLATE_DATA,
-    data: JSON.parse(stripJSONComments(JSON.stringify(templateManifest)))
-  };
-}
-
 export function getFonts () {
   return {
     type: Actions.GET_FONTS,
@@ -141,7 +155,7 @@ export function getFonts () {
 }
 
 export function getIconPacks () {
-  return (dispatch) => {
+  return function (dispatch) {
     if (_has(IconPacksData, 'iconPacks')) {
       const { iconPacks } = IconPacksData;
 
@@ -224,7 +238,7 @@ export function changeBaselineValue (value) {
 }
 
 export function sendFeedBack () {
-  return (dispatch) => {
+  return function (dispatch) {
     dispatch({ type: Actions.SEND_FEEDBACK });
 
     dispatch(addNotification({

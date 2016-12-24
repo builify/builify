@@ -1,12 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import ImageSpinner from './ImageSpinner';
+import ImageSpinner from './loading-spinner';
 
-class ImageItem extends Component {
+export default class ImageItem extends React.Component {
   static propTypes = {
-    src: PropTypes.string.isRequired,
-    alt: PropTypes.string,
-    loaded: PropTypes.bool
+    src: React.PropTypes.string.isRequired,
+    alt: React.PropTypes.string,
+    loaded: React.PropTypes.bool
   };
 
   static defaultProps = {
@@ -30,13 +30,13 @@ class ImageItem extends Component {
 
   render () {
     const { src, alt } = this.props;
-    const loadImage = classNames('ab-loadimage', this.state.isImageFileLoaded ? 'loaded' : '');
+    const loadImage = classNames('ab-loadimage', {
+      'loaded': this.state.isImageFileLoaded
+    });
     const imageSource = src;
 
     return (
-      <div
-        className={loadImage}
-        ref='imageWrapper'>
+      <div className={loadImage}>
         <ImageSpinner size={50} />
         <img
           draggable='false'
@@ -48,5 +48,3 @@ class ImageItem extends Component {
     );
   }
 }
-
-export default ImageItem;
