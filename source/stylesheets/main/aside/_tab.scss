@@ -21,7 +21,7 @@
         cursor: pointer;
         margin-bottom: 20px;
         height: $base-padding;
-        line-height: $base-padding;
+        line-height: $base-padding + 5;
         padding: 0 $base-padding;
         @include transition(all 0.3s ease);
 
@@ -33,16 +33,33 @@
             left: $base-padding;
             @include transition(all 0.3s ease);
             @include transform(scale3d(1, 1, 1));
+
+            path {
+                fill: #666;
+            }
         }
 
         span {
+            text-transform: uppercase;
+            font-weight: 400;
+            letter-spacing: 1px;
+            color: #666;
             line-height: $base-padding;
             padding-left: $base-padding + 5;
+            @include rem(font-size, 14px);
         }
 
         &:hover {
             svg {
                 @include transform(scale3d(1.2, 1.2, 1.2));
+
+                path {
+                    fill: #222;
+                }
+            }
+
+            span {
+                color: #222;
             }
         }
     }

@@ -1,10 +1,12 @@
 import _isArray from 'lodash/isarray';
 import _map from 'lodash/map';
 import _isNull from 'lodash/isnull';
+import _isNumber from 'lodash/isnumber';
+import _toSafeInteger from 'lodash/tosafeinteger';
 
 export default function (children) {
   if (!_isArray(children)) {
-    throw Error('No data defined.');
+    throw new Error('No data defined.');
   }
 
   let childrenToRender = [];
@@ -13,7 +15,7 @@ export default function (children) {
     const { type } = child;
 
     if (!type) {
-      throw Error('Tab children does not have type defined.');
+      throw new Error('Tab children does not have type defined.');
     }
 
     const splitType = type.split('.');
@@ -46,13 +48,15 @@ export default function (children) {
           }
 
           case 'sliderinput': {
+            const min = _isNumber(min) ? Math.abs(min) : Math.abs(_toSafeInteger(min));
+
             blockData = {
               type: 'sliderinput',
-              min: child.min,
-              max: child.max,
-              step: child.step,
-              label: child.label,
-              onChange: child.onChange
+              min: min,
+              max: child.max || 10,
+              step: child.step || 1,
+              label: child.label || '',
+              onChange: child.onChange || function () {}
             };
 
             break;
@@ -62,8 +66,8 @@ export default function (children) {
             blockData = {
               type: 'checkbox',
               state: child.state === 'off' ? false : true,
-              label: child.label,
-              onClick: child.onClick
+              label: child.label || '',
+              onClick: child.onClick || function () {}
             };
 
             break;
@@ -72,7 +76,7 @@ export default function (children) {
           case 'title': {
             blockData = {
               type: 'title',
-              title: child.title,
+              title: child.title || '',
               className: child.className || ''
             };
 
@@ -103,8 +107,8 @@ export default function (children) {
           case 'sidetab': {
             blockData = {
               type: 'sidetabopener',
-              title: child.title,
-              target: child.target
+              title: child.title || '',
+              target: child.target || ''
             };
 
             break;
