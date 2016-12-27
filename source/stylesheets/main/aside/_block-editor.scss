@@ -14,7 +14,7 @@
 		height: $base-padding / 1.5;
 		line-height: $base-padding / 1.5;
 		font-weight: 400;
-		margin: 0;
+		margin: 5px 0 0 0;
 		text-transform: uppercase;
 		@include rem(font-size, 14px);
 		@include transition(all 0.3s ease);
@@ -72,20 +72,110 @@
         }
     }
 
-    &__radius {
+    &__space,
+    &__radius,
+    &__align {
         padding: 0 $base-padding;
         position: relative;
-        display: flex;
-        height: 50px;
         overflow: hidden;
-        justify-content: center;
+        height: 45px;
+        margin-top: 10px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-content: stretch;
+    }
 
+    &__space {
         &__item {
             display: inline-block;
-            margin-right: 4px;
+            margin-right: 15px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            svg {
+                position: relative;
+                top: 5px;
+                margin-right: 10px;
+
+                path {
+                    fill: #ccc;
+                }
+            }
+        }
+
+        &__input {
+            display: inline-block;
+            padding: 0 !important;
+            width: 40px;
+            margin-top: 2px;
+            font-size: 14px;
+
+            input[type="text"] {
+                font-size: 14px;
+            }
+        }
+    }
+
+    &__align {
+        &__item {
+            display: inline-block;
+            margin-top: 5px;
+            position: relative;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background: #eee;
+            border: 1px solid #ccc;
+            cursor: pointer;
+
+            &:first-child {
+                border-radius: 3px 0 0 3px;
+                border-right: 1px solid darken(#ccc, 3%);
+            }
+
+            &:nth-child(2) {
+                border-right: 0;
+                border-left: 0;
+            }
+
+            &:last-child {
+                border-radius: 0 3px 3px 0;
+                border-left: 1px solid darken(#ccc, 3%);
+            }
+
+            svg {
+                margin: auto;
+                position: relative;
+                margin-top: 5px;
+
+                path {
+                    fill: #ccc;
+                }
+            }
+
+            &--active {
+                svg {
+                    path {
+                        fill: $base-color;
+                    }
+                }
+            }
+        }
+    }
+
+    &__radius {
+        &__item {
+            display: inline-block;
+            margin-right: 5px;
 
             &--first {
-                margin-right: 9px;
+                padding-right: 14px;
             }
         }
 
@@ -132,7 +222,7 @@
 
         &__input {
             padding: 0 !important;
-            width: 30px;
+            width: 25px;
             margin-top: 0;
             top: 2px;
             font-size: 14px;
@@ -143,9 +233,3 @@
         }
     }
 }
-/*<div className={classNames('be-block__input')}>
-              <span className={classNames('be-block__input__text')}>W</span>
-              <Input
-                className={classNames('be-block__input__type')}
-                value='32' />
-            </div>*/

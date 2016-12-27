@@ -132,7 +132,12 @@ class BlockEditor extends React.Component {
             </div>
           </div>
           <div className={classNames('be-block')}>
-            <h3 className={classNames('be-block__title')}>Appearance</h3>
+            <BlockTitle title='Text' />
+            <TextAlignEditor />
+            <TextSpaceEditor />
+          </div>
+          <div className={classNames('be-block')}>
+            <BlockTitle title='Appearance' />
             <OpacitySlider />
             <BorderRadiusEditor />
           </div>
@@ -141,5 +146,51 @@ class BlockEditor extends React.Component {
     );
   }
 }
+
+class TextSpaceEditor extends React.Component {
+  render () {
+    return (
+      <div className={classNames('be-block__space')}>
+        <div className={classNames('be-block__space__item')} title='Character Spacing'>
+          <Icon icon='swap-horiz' />
+          <Input className={classNames('be-block__space__input')} value='32' />
+        </div>
+        <div className={classNames('be-block__space__item')} title='Line Spacing'>
+          <Icon icon='format-line-spacing' />
+          <Input className={classNames('be-block__space__input')} value='32' />
+        </div>
+      </div>
+    );
+  }
+}
+
+class TextAlignEditor extends React.Component {
+  render () {
+    return (
+      <div className={classNames('be-block__align')}>
+        <div className={classNames(['be-block__align__item', 'be-block__align__item--active'])} title='Left Align'>
+          <Icon icon='format-align-left' />
+        </div>
+        <div className={classNames('be-block__align__item')} title='Center Align'>
+          <Icon icon='format-align-center' />
+        </div>
+        <div className={classNames('be-block__align__item')} title='Right Align'>
+          <Icon icon='format-align-right' />
+        </div>
+      </div>
+    );
+  }
+}
+
+const BlockTitle = function (props) {
+  return (
+    <h3 className={classNames('be-block__title')}>{ props.title }</h3>
+  );
+};
+
+BlockTitle.propTypes = {
+  title: React.PropTypes.string.isRequired
+};
+
 
 export default BlockEditor;

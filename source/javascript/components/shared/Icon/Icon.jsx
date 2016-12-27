@@ -31,6 +31,31 @@ export default class Icon extends React.Component {
 
   renderGraphic () {
     switch (this.props.icon) {
+      case 'swap-horiz':
+        return (
+          <g><path d="M6.99 11l-3.99 4 3.99 4v-3h7.01v-2h-7.01v-3zm14.01-2l-3.99-4v3h-7.01v2h7.01v3l3.99-4z"></path></g>
+        );
+        
+      case 'format-line-spacing':
+        return (
+          <g><path d="M6 7h2.5l-3.5-3.5-3.5 3.5h2.5v10h-2.5l3.5 3.5 3.5-3.5h-2.5v-10zm4-2v2h12v-2h-12zm0 14h12v-2h-12v2zm0-6h12v-2h-12v2z"></path></g>
+        );
+        
+      case 'format-align-right':
+        return (
+          <g><path d="M3 21h18v-2h-18v2zm6-4h12v-2h-12v2zm-6-4h18v-2h-18v2zm6-4h12v-2h-12v2zm-6-6v2h18v-2h-18z"></path></g>
+        );
+
+      case 'format-align-center':
+        return (
+          <g><path d="M7 15v2h10v-2h-10zm-4 6h18v-2h-18v2zm0-8h18v-2h-18v2zm4-6v2h10v-2h-10zm-4-4v2h18v-2h-18z"></path></g>
+        );
+
+      case 'format-align-left':
+        return (
+          <g><path d="M15 15h-12v2h12v-2zm0-8h-12v2h12v-2zm-12 6h18v-2h-18v2zm0 8h18v-2h-18v2zm0-18v2h18v-2h-18z"></path></g>
+        );
+
       case 'crop-free':
         return (
           <g><path d="M3 5v4h2v-4h4v-2h-4c-1.1 0-2 .9-2 2zm2 10h-2v4c0 1.1.9 2 2 2h4v-2h-4v-4zm14 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4zm0-16h-4v2h4v4h2v-4c0-1.1-.9-2-2-2z"></path></g>
