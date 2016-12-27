@@ -71,6 +71,77 @@
             }
         }
     }
+
+    &__radius {
+        padding: 0 $base-padding;
+        position: relative;
+        display: flex;
+        height: 50px;
+        overflow: hidden;
+        justify-content: center;
+
+        &__item {
+            display: inline-block;
+            margin-right: 4px;
+
+            &--first {
+                margin-right: 9px;
+            }
+        }
+
+        &__icon {
+            margin-top: 5px;
+            position: relative;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background: #eee;
+            border: 1px solid #ccc;
+            display: inline-block;
+            cursor: pointer;
+
+            &:first-child {
+                border-radius: 3px 0 0 3px;
+                border-right: 1px solid darken(#ccc, 3%);
+            }
+
+            &:last-child {
+                border-radius: 0 3px 3px 0;
+                border-left: none;
+            }
+
+            svg {
+                margin: auto;
+                position: relative;
+                margin-top: 5px;
+
+                path {
+                    fill: #ccc;
+                }
+            }
+
+            &--active {
+                svg {
+                    path {
+                        fill: $base-color;
+                    }
+                }
+            }
+        }
+
+        &__input {
+            padding: 0 !important;
+            width: 30px;
+            margin-top: 0;
+            top: 2px;
+            font-size: 14px;
+
+            input[type="text"] {
+                font-size: 14px;
+            }
+        }
+    }
 }
 /*<div className={classNames('be-block__input')}>
               <span className={classNames('be-block__input__text')}>W</span>

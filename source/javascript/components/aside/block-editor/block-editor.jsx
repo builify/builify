@@ -40,6 +40,49 @@ class OpacitySlider extends React.Component {
   }
 }
 
+class BorderRadiusEditor extends React.Component {
+  render () {
+    return (
+      <div>
+        <div className={classNames('be-block__radius')}>
+          <div
+            title='Same radius for all corners'
+            className={classNames(['be-block__radius__item' ,'be-block__radius__item--first'])}>
+            <div className={classNames('be-block__radius__icon')}>
+              <Icon icon='crop-din' />
+            </div>
+            <div
+              title='Different radius for each corner'
+              className={classNames(['be-block__radius__icon', 'be-block__radius__icon--active'])}>
+              <Icon icon='crop-free' />
+            </div>
+          </div>
+          <div className={classNames('be-block__radius__item')}>
+            <Input
+              className={classNames('be-block__radius__input')}
+              value='0' />
+          </div>
+          <div className={classNames('be-block__radius__item')}>
+            <Input
+              className={classNames('be-block__radius__input')}
+              value='0' />
+          </div>
+          <div className={classNames('be-block__radius__item')}>
+            <Input
+              className={classNames('be-block__radius__input')}
+              value='0' />
+          </div>
+          <div className={classNames('be-block__radius__item')}>
+            <Input
+              className={classNames('be-block__radius__input')}
+              value='0' />
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
 class BlockEditor extends React.Component {
   render () {
     return (
@@ -91,6 +134,7 @@ class BlockEditor extends React.Component {
           <div className={classNames('be-block')}>
             <h3 className={classNames('be-block__title')}>Appearance</h3>
             <OpacitySlider />
+            <BorderRadiusEditor />
           </div>
         </Scrollbar>
       </div>

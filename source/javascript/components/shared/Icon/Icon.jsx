@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import _ from 'lodash';
+import _assign from 'lodash/assign';
 
 /*eslint-disable */
 export default class Icon extends React.Component {
@@ -16,7 +16,7 @@ export default class Icon extends React.Component {
   };
 
   static defaultProps = {
-    onClick: () => {},
+    onClick: function () {},
     size: 18,
     className: ''
   };
@@ -26,11 +26,21 @@ export default class Icon extends React.Component {
   }
 
   mergeStyles (...args) {
-    return _.assign({}, ...args);
+    return _assign({}, ...args);
   }
 
   renderGraphic () {
     switch (this.props.icon) {
+      case 'crop-free':
+        return (
+          <g><path d="M3 5v4h2v-4h4v-2h-4c-1.1 0-2 .9-2 2zm2 10h-2v4c0 1.1.9 2 2 2h4v-2h-4v-4zm14 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4zm0-16h-4v2h4v4h2v-4c0-1.1-.9-2-2-2z"></path></g>
+        );
+
+      case 'crop-din':
+        return (
+          <g><path d="M19 3h-14c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2zm0 16h-14v-14h14v14z"></path></g>
+        );
+
       case 'rotate-right':
         return (
           <g><path d="M15.55 5.55l-4.55-4.55v3.07c-3.94.49-7 3.85-7 7.93s3.05 7.44 7 7.93v-2.02c-2.84-.48-5-2.94-5-5.91s2.16-5.43 5-5.91v3.91l4.55-4.45zm4.38 5.45c-.17-1.39-.72-2.73-1.62-3.89l-1.42 1.42c.54.75.88 1.6 1.02 2.47h2.02zm-6.93 6.9v2.02c1.39-.17 2.74-.71 3.9-1.61l-1.44-1.44c-.75.54-1.59.89-2.46 1.03zm3.89-2.42l1.42 1.41c.9-1.16 1.45-2.5 1.62-3.89h-2.02c-.14.87-.48 1.72-1.02 2.48z"></path></g>
@@ -234,7 +244,7 @@ export default class Icon extends React.Component {
           style // This lets the parent pass custom styles
         )}
         className={cn}>
-          {this.renderGraphic()}
+        { this.renderGraphic() }
       </svg>
     );
   }
