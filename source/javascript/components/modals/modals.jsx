@@ -6,6 +6,7 @@ import Countdown from './countdown';
 import VideoEdit from './video-edit';
 import Feedback from './feedback';
 import Maps from './maps';
+import CustomCSS from './custom-css';
 import DownloadPages from './download-pages';
 import DialogRestart from './dialog-restart';
 import { connect } from 'react-redux';
@@ -30,7 +31,7 @@ class Modals extends React.Component {
     const { isModalOpen, modalType, modalTarget } = this.props;
     const type = modalType || DialogTypes.CLASSIC;
 
-    if (isModalOpen === false) {
+    if (!isModalOpen) {
       return null;
     }
 
@@ -57,10 +58,13 @@ class Modals extends React.Component {
         return <VideoEdit editTarget={modalTarget} />;
 
       case DialogTypes.FEEDBACK:
-       return <Feedback />;
+        return <Feedback />;
 
       case DialogTypes.MAPS:
         return <Maps editTarget={modalTarget} />;
+
+      case DialogTypes.CUSTOMCSS:
+        return <CustomCSS />;
 
       default:
         return null;

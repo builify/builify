@@ -30,8 +30,8 @@ const builderInitialState = {
   filterContentBlocksTarget: 'all',
 
   // Modal
-  isModalOpen: false,
-  modalType: -1,
+  isModalOpen: true,
+  modalType: DialogTypes.CUSTOMCSS,
   modalTarget: null
 };
 

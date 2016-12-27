@@ -71,6 +71,12 @@ export function openMapsModal () {
   };
 }
 
+export function openCustomCSSModal () {
+  return {
+    type: Actions.OPEN_CUSTOMCSS_MODAL
+  };
+}
+
 export function closeModal () {
   return {
     type: Actions.CLOSE_MODAL

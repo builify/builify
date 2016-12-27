@@ -14,6 +14,7 @@ export default class Input extends React.Component {
     label: React.PropTypes.string,
     maxLength: React.PropTypes.number,
     multiline: React.PropTypes.bool,
+    showLength: React.PropTypes.bool,
     onBlur: React.PropTypes.func,
     onChange: React.PropTypes.func,
     onFocus: React.PropTypes.func,
@@ -52,11 +53,12 @@ export default class Input extends React.Component {
   }
 
   render () {
-    const { children, disabled, error, floating, hint, icon,
-            label: labelText, maxLength, multiline, required,
-            type, value, ...others
+    const {
+      children, disabled, error, floating, hint, icon,
+      label: labelText, maxLength, multiline, required,
+      type, value, showLength,
+      ...others
     } = this.props;
-    const length = maxLength && value ? value.length : 0;
     const labelClassName = classNames('tt-input__label', {
       'fixed': !floating
     });
@@ -85,6 +87,14 @@ export default class Input extends React.Component {
       maxLength
     });
 
+    let length = 0;
+
+    if (showLength) {
+      length = `${value ? value.length : 0}`;
+    } else if (maxLength) {
+      length = value ? value.length : 0;
+    }
+
     return (
       <div className={className}>
         { InputElement }
@@ -95,9 +105,10 @@ export default class Input extends React.Component {
             { labelText }
             { required && <span className='required'> * </span> }
           </label> }
-        { hint && <span className='tt-input__hint'>{hint}</span> }
-        { error && <span className='tt-input--error'>{error}</span> }
-        { maxLength && <span className='tt-input--counter'>{length}/{maxLength}</span> }
+        { hint && <span className='tt-input__hint'>{ hint }</span> }
+        { error && <span className='tt-input--error'>{ error }</span> }
+        { maxLength && <span className='tt-input--counter'>{ length }/{ maxLength }</span> }
+        { showLength && <span className='tt-input--counter'>{ length }</span> }
         { children }
       </div>
     );

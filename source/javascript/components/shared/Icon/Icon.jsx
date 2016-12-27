@@ -31,6 +31,11 @@ export default class Icon extends React.Component {
 
   renderGraphic () {
     switch (this.props.icon) {
+      case 'mode-edit':
+        return (
+          <g><path d="M3 17.25v3.75h3.75l11.06-11.06-3.75-3.75-11.06 11.06zm17.71-10.21c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path></g>
+        );
+        
       case 'swap-horiz':
         return (
           <g><path d="M6.99 11l-3.99 4 3.99 4v-3h7.01v-2h-7.01v-3zm14.01-2l-3.99-4v3h-7.01v2h7.01v3l3.99-4z"></path></g>

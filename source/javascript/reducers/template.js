@@ -16,6 +16,9 @@ const initialState = {
   // Template stylesheet
   templateStylesheet: null,
 
+  // Custom stylesheet,
+  userCustomStylesheet: null,
+
   // Baseline related
   iFrameWindow: null,
   baseline: null,
@@ -32,7 +35,10 @@ export default function template (state = initialState, action) {
       const baseFontsize = state.design.typography.size.basefont;
       const baselineToPxValue = _round(baseFontsize * baselineValue, 2);
 
+      // Create stylings stylesheet.
       const customStylesheet = new TTStylesheet(headElement);
+
+      // Create baseline guide.
       const baseline = new TTBaseliner({
         gridTarget: iFrameWindow.document,
         gridHeight: baselineToPxValue
@@ -40,19 +46,35 @@ export default function template (state = initialState, action) {
 
       baseline.off();
 
+      // Create custom stylesheet for user.
+      const customCSSExample = '.my-custom-css { font-size: 14px; }';
+      const userCustomStylesheet = document.createElement('style');
+
+      userCustomStylesheet.type = 'text/css';
+      userCustomStylesheet.setAttribute('data-customcss', true);
+
+      if (userCustomStylesheet.styleSheet) {
+        userCustomStylesheet.styleSheet.cssText = customCSSExample;
+      } else {
+        userCustomStylesheet.appendChild(document.createTextNode(customCSSExample));
+      }
+
+      headElement.appendChild(userCustomStylesheet);
+
       return _assign({}, state, {
         iFrameWindow: iFrameWindow,
         baseline: baseline,
-        templateStylesheet: customStylesheet
+        templateStylesheet: customStylesheet,
+        userCustomStylesheet: userCustomStylesheet
       });
     }
 
     case Actions.START_NEW_PAGE:
     case Actions.RESTART_PAGE:
     case Actions.LOAD_PREVIOUS_PAGE:
-     return _assign({}, state, {
-       drawBaseline: false
-     });
+      return _assign({}, state, {
+        drawBaseline: false
+      });
 
     case Actions.TOGGLE_BASELINE: {
       const { checked } = action;

@@ -56,11 +56,11 @@ class IconChange extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    closeModal: () => {
+    closeModal: function () {
       dispatch(closeModal());
     },
 
-    addNotification: (notification) => {
+    addNotification: function (notification) {
       dispatch(addNotification(notification));
     }
   };

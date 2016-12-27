@@ -13,7 +13,8 @@ export default class ModalTab extends React.Component {
     activeTab: React.PropTypes.number,
     uploadedImagesLength: React.PropTypes.number,
     onTabClick: React.PropTypes.func,
-    children: React.PropTypes.node
+    children: React.PropTypes.node,
+    onClose: React.PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -58,7 +59,7 @@ export default class ModalTab extends React.Component {
 
   renderCloseIcon () {
     return (
-      <div className={classNames('modal__close')} title='Close tab'>
+      <div onClick={this.props.onClose} className={classNames('modal__close')} title='Close tab'>
         <Icon icon='remove' size={26} />
       </div>
     );

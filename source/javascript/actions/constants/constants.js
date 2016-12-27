@@ -93,5 +93,6 @@ export default keyMirror([
   'OPEN_RESTART_MODAL',
   'OPEN_FEEDBACK_MODAL',
   'OPEN_MAPS_MODAL',
+  'OPEN_CUSTOMCSS_MODAL',
   'CLOSE_MODAL'
 ]);

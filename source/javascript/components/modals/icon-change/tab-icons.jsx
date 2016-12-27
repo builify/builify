@@ -58,14 +58,14 @@ class TabIcons extends React.Component {
         <div
           key={Random.randomKey('tabitem')}
           className={className}
-          onClick={() => {
+          onClick={function () {
             if (idx !== activeCategory) {
               this.setState({
                 activeCategory: idx
               });
             }
           }}>
-          <span>{iconFullname}</span>
+          <span>{ iconFullname }</span>
         </div>
       );
     });

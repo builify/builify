@@ -34,6 +34,7 @@ export const PreviewModes = {
 };
 
 export const DialogTypes = {
+  NONE: -1,
   CLASSIC: 0,
   IMAGECHANGE: 1,
   ICONCHANGE: 2,
@@ -44,7 +45,8 @@ export const DialogTypes = {
   COUNTDOWN: 7,
   VIDEOEDIT: 8,
   FEEDBACK: 9,
-  MAPS: 10
+  MAPS: 10,
+  CUSTOMCSS: 11
 };
 
 export const ColorPickerTargetTypes = {

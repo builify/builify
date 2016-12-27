@@ -179,6 +179,14 @@ export default class ClickToolbox extends React.Component {
     return <ClickToolBoxItem icon='clear' text='Remove' onClick={clickEvent} />;
   }
 
+  listItemOpenEditor () {
+    const clickEvent = () => {
+      return this.closePanel();
+    };
+
+    return <ClickToolBoxItem icon='mode-edit' text='Editor' onClick={clickEvent} />;
+  }
+
   renderChildren () {
     const targetElement = this.state.target;
     let elementOptions = {
@@ -224,6 +232,7 @@ export default class ClickToolbox extends React.Component {
         { elementOptions.showClone && this.listClone() }
         { elementOptions.showExpandColumn && this.listExpandColumn() }
         { elementOptions.showShrinkColumn && this.listShrinkColumn() }
+        { this.listItemOpenEditor() }
         { elementOptions.showRemove && this.listItemRemove() }
       </div>
     );
