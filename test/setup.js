@@ -1,5 +1,10 @@
 'use strict';
 
+import path from 'path';
+
+console.log(__dirname);
+console.log(path.join(__dirname, '..', '..'));
+
 import jsdom from 'jsdom';
 
 // Define some html to be our basic document
