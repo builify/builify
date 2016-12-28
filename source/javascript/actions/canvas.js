@@ -155,3 +155,10 @@ export function setCanvasElementsHoverEvents () {
     type: Actions.SET_CANVAS_ELEMENTS_HOVER_EVENTS
   };
 }
+
+export function setCustomCSS (value) {
+  return {
+    type: Actions.SET_CUSTOM_CSS,
+    value: value
+  };
+}

@@ -84,6 +84,10 @@
           "type": "open.sidetab",
           "title": "Typography",
           "target": "design-typography"
+        },
+        {
+          "type": "open.customcssmodal",
+          "title": "Custom CSS"
         }
       ]
     },

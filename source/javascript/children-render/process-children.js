@@ -114,6 +114,16 @@ export default function (children) {
             break;
           }
 
+          case 'customcssmodal': {
+            blockData = {
+              type: 'sidetabopener',
+              title: child.title,
+              target: 'customcss'
+            };
+
+            break;
+          }
+
           default:
             break;
         }

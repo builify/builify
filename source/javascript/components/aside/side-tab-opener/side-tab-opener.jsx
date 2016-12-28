@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from '../../shared/icon';
 import classNames from '../../../common/classnames';
 import { connect } from 'react-redux';
-import { openTab } from '../../../actions';
+import { openTab, openCustomCSSModal } from '../../../actions';
 
 class SideTabOpener extends React.Component {
   static propTypes = {
@@ -33,8 +33,12 @@ class SideTabOpener extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    openTab: (target) => {
-      dispatch(openTab(target));
+    openTab: function (target) {
+      if (target === 'customcss') {
+        dispatch(openCustomCSSModal());
+      } else {
+        dispatch(openTab(target));
+      }
     }
   };
 }

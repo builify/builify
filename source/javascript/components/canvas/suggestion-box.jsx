@@ -20,15 +20,15 @@ export default class CanvasSuggestionBox extends React.Component {
   }
 
   render () {
-    if (this.props.display === true) {
-      return (
-        <div className={classNames('suggestion-box')}>
-          <h1>{localization('canvas.suggestionbox.h1')}</h1>
-          <h2>{localization('canvas.suggestionbox.h2')}</h2>
-        </div>
-      );
+    if (!this.props.display) {
+      return null;
     }
 
-    return null;
+    return (
+      <div className={classNames('suggestion-box')}>
+        <h1>{ localization('canvas.suggestionbox.h1') }</h1>
+        <h2>{ localization('canvas.suggestionbox.h2') }</h2>
+      </div>
+    );
   }
 }

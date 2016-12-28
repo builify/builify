@@ -1,6 +1,7 @@
 import _assign from 'lodash/assign';
 import _has from 'lodash/has';
 import _round from 'lodash/round';
+import _isNull from 'lodash/isnull';
 import TTStylesheet from 'tt-stylesheet';
 import TTDOM from '../common/TTDOM';
 import TTBaseliner from '../modules/tt-baseliner';
@@ -67,6 +68,21 @@ export default function template (state = initialState, action) {
         templateStylesheet: customStylesheet,
         userCustomStylesheet: userCustomStylesheet
       });
+    }
+
+    case Actions.SET_CUSTOM_CSS: {
+      const { value } = action;
+      const { userCustomStylesheet } = state;
+
+      if (!_isNull(userCustomStylesheet)) {
+        if (userCustomStylesheet.styleSheet) {
+          userCustomStylesheet.styleSheet.cssText = value;
+        } else {
+          userCustomStylesheet.appendChild(document.createTextNode(value));
+        }
+      }
+
+      return state;
     }
 
     case Actions.START_NEW_PAGE:

@@ -6,16 +6,16 @@ import ModalTab from '../common/tab';
 import BottomNavigation from '../common/bottom-navigation';
 import Input from '../../shared/input';
 import { connect } from 'react-redux';
-import { closeModal, sendFeedBack } from '../../../actions';
+import { closeModal, setCustomCSS } from '../../../actions';
 
 class Feedback extends React.Component {
   static propTypes = {
     closeModal: React.PropTypes.func.isRequired,
-    sendFeedBack: React.PropTypes.func.isRequired
+    setCustomCSS: React.PropTypes.func.isRequired
   };
 
   state = {
-    issue: '.custom-css { font-size: 14px; }'
+    text: '.custom-css { font-size: 14px; }'
   };
 
   closeDialog () {
@@ -25,25 +25,19 @@ class Feedback extends React.Component {
   handleInputChange (value) {
     this.setState({
       ...this.state,
-      issue: value
+      text: value
     });
   }
 
-  sendFeedBack () {
-    const { issue } = this.state;
-    const payload = {
-      issue: issue
-    };
-
+  saveCustomCSS () {
     this.closeDialog();
-
-    return this.props.sendFeedBack(payload);
+    return this.props.setCustomCSS(this.state.text);
   }
 
   render () {
     const actions = [
       { label: 'Cancel', onClick: ::this.closeDialog },
-      { label: 'Send', onClick: ::this.sendFeedBack }
+      { label: 'Save', onClick: ::this.saveCustomCSS }
     ];
     const containerStyle = {
       background: '#f5f5f5'
@@ -67,7 +61,7 @@ class Feedback extends React.Component {
                 multiline
                 showLength
                 style={style}
-                value={this.state.issue}
+                value={this.state.text}
                 onChange={::this.handleInputChange} />
             </div>
           </div>
@@ -80,12 +74,12 @@ class Feedback extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    closeModal: () => {
+    closeModal: function () {
       dispatch(closeModal());
     },
 
-    sendFeedBack: (payload) => {
-      dispatch(sendFeedBack(payload));
+    setCustomCSS: function (value) {
+      dispatch(setCustomCSS(value));
     }
   };
 }

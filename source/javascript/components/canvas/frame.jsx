@@ -72,7 +72,7 @@ class Frame extends React.Component {
       if (this.isValidBlock(navigationBlock)) {
         const { hasBeenRendered, source } = navigationBlock;
 
-        if (hasBeenRendered === false) {
+        if (!hasBeenRendered) {
           const { navigation: childrenHolder } = this.refs;
 
           childrenHolder.innerHTML = Constants.EMPTY_STRING;
@@ -94,7 +94,7 @@ class Frame extends React.Component {
       if (this.isValidBlock(footerBlock)) {
         const { hasBeenRendered, source } = footerBlock;
 
-        if (hasBeenRendered === false) {
+        if (!hasBeenRendered) {
           const { footer: childrenHolder } = this.refs;
 
           childrenHolder.innerHTML = Constants.EMPTY_STRING;

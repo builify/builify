@@ -74,7 +74,8 @@
 
     &__space,
     &__radius,
-    &__align {
+    &__align,
+    &__pm {
         padding: 0 $base-padding;
         position: relative;
         overflow: hidden;
@@ -165,6 +166,40 @@
                         fill: $base-color;
                     }
                 }
+            }
+        }
+    }
+
+    &__pm {
+        height: 35px;
+        
+        &__item {
+            display: inline-block;
+            margin-right: 5px;
+
+            &--first {
+                padding-right: 14px;
+                width: 73px;
+
+                span {
+                    position: relative;
+                    top: 8px;
+                    font-weight: 200;
+                    color: #222;
+                    font-size: 14px;
+                }
+            }
+        }
+
+        &__input {
+            padding: 0 !important;
+            width: 25px;
+            margin-top: 0;
+            top: 2px;
+            font-size: 14px;
+
+            input[type="text"] {
+                font-size: 14px;
             }
         }
     }

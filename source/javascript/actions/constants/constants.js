@@ -73,6 +73,7 @@ export default keyMirror([
   'CLONE_ITEM',
   'CHANGE_BASE_FONT_SIZE',
   'CHANGE_BASELINE_VALUE',
+  'SET_CUSTOM_CSS',
 
   // Checkbox's actions
   'TOGGLE_BASELINE',

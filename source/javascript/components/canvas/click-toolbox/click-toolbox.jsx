@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import classNames from '../../../common/classnames';
 import TTDOM from '../../../common/TTDOM';
 import ClickToolBoxItem from './item';
 import Helpers from './helpers';
@@ -240,7 +240,7 @@ export default class ClickToolbox extends React.Component {
 
   render () {
     const { panelOpen, panelCoordinates, targetName } = this.state;
-    const planelClassName = classNames('ab-crightpanel', {
+    const planelClassName = classNames('crightpanel', {
       'show': panelOpen
     });
     const panelStyle = {
@@ -250,7 +250,7 @@ export default class ClickToolbox extends React.Component {
 
     return (
       <div data-abcpanel ref='panel' id='ab-cpanel' style={panelStyle} className={planelClassName}>
-        <div className='ab-crightpanel__text'>
+        <div className={classNames('crightpanel__text')}>
           <span>{ targetName }</span>
         </div>
         { this.renderChildren() }
