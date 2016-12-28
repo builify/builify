@@ -1,4 +1,7 @@
 import expect from 'unexpected';
+import path from 'path';
+console.log(require('../../source/javascript/common/localization'));
+console.log(__dirname);
 import localization from '../../source/javascript/common/localization';
 
 describe('Localization', () => {
