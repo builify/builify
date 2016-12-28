@@ -10,13 +10,30 @@ import { closeModal, setCustomCSS } from '../../../actions';
 
 class Feedback extends React.Component {
   static propTypes = {
+    customStylesheetText: React.PropTypes.string.isRequired,
     closeModal: React.PropTypes.func.isRequired,
     setCustomCSS: React.PropTypes.func.isRequired
   };
 
   state = {
-    text: '.custom-css { font-size: 14px; }'
+    text: ''
   };
+
+  shouldComponentUpdate (nextProps, nextState) {
+    if (nextState.text !== this.state.text) {
+      return true;
+    }
+
+    return false;
+  }
+
+  componentWillMount () {
+    const { customStylesheetText } = this.props;
+
+    this.setState({
+      text: customStylesheetText
+    });
+  }
 
   closeDialog () {
     return this.refs['modalWrapper'].closeDialog();
@@ -51,7 +68,7 @@ class Feedback extends React.Component {
 
     return (
       <ModalWrapper ref='modalWrapper' className={className} onClose={this.props.closeModal}>
-        <ModalTab title='Custom CSS' onClose={this.props.closeModal}>
+        <ModalTab title='Custom CSS' onClose={::this.closeDialog}>
           <div>
             <div className={classNames('modal__tab')}>
               <Input
@@ -72,6 +89,15 @@ class Feedback extends React.Component {
   }
 }
 
+function mapStateToProps (state) {
+  const { template } = state;
+  const { customStylesheetText } = template;
+  
+  return {
+    customStylesheetText: customStylesheetText
+  };
+}
+
 function mapDispatchToProps (dispatch) {
   return {
     closeModal: function () {
@@ -84,4 +110,4 @@ function mapDispatchToProps (dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(Feedback);
+export default connect(mapStateToProps, mapDispatchToProps)(Feedback);

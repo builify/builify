@@ -1,4 +1,5 @@
 import React from 'react';
+import _isNull from 'lodash/isnull';
 import classNames from '../../../common/classnames';
 import TTDOM from '../../../common/TTDOM';
 import ClickToolBoxItem from './item';
@@ -11,6 +12,7 @@ export default class ClickToolbox extends React.Component {
     closeContextMenu: React.PropTypes.func.isRequired,
     openIconEditModal: React.PropTypes.func.isRequired,
     openImageEditModal: React.PropTypes.func.isRequired,
+    openBlockEditorTab: React.PropTypes.func.isRequired,
     cloneItem: React.PropTypes.func.isRequired
   };
 
@@ -181,7 +183,7 @@ export default class ClickToolbox extends React.Component {
 
   listItemOpenEditor () {
     const clickEvent = () => {
-      return this.closePanel();
+      return this.props.openBlockEditorTab(this.state.target);
     };
 
     return <ClickToolBoxItem icon='mode-edit' text='Editor' onClick={clickEvent} />;
@@ -199,7 +201,7 @@ export default class ClickToolbox extends React.Component {
       showShrinkColumn: false
     };
 
-    if (targetElement !== null) {
+    if (!_isNull(targetElement)) {
       const isNotChangeble = targetElement.getAttribute('data-abccorent');
       const isChangeble = isNotChangeble ? false : true;
       const tagName = targetElement.tagName;

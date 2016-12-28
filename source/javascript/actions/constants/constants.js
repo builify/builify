@@ -45,6 +45,8 @@ export default keyMirror([
   'CLOSE_SIDETAB',
   'SET_SWATCH',
   'SET_FONT',
+  'OPEN_BLOCKEDITOR_TAB',
+  'CLOSE_BLOCKEDITOR_TAB',
 
   // Preview's actions
   'SET_PREVIEW_MODE',

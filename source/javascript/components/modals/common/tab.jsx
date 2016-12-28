@@ -20,11 +20,16 @@ export default class ModalTab extends React.Component {
   static defaultProps = {
     uploadedImagesLength: 0,
     activeTab: 0,
-    onTabClick: function () {}
+    onTabClick: function () {},
+    onClose: function () {}
   };
 
-  renderNav () {
-    const { activeTab, onTabClick, nav, uploadedImagesLength } = this.props;
+  shouldComponentUpdate () {
+    return false;
+  }
+
+  renderNavigation () {
+    const { nav, uploadedImagesLength } = this.props;
 
     if (!nav) {
       return null;
@@ -35,7 +40,7 @@ export default class ModalTab extends React.Component {
         { _map(nav, tab => {
           const { id } = tab;
           const className = classNames('modal__tablabel', {
-            'active': id === activeTab
+            'active': id === this.props.activeTab
           });
           let { label } = tab;
 
@@ -48,7 +53,7 @@ export default class ModalTab extends React.Component {
           }
 
           return (
-            <div key={Random.randomKey('tab')} className={className} onClick={() => { onTabClick(id); }}>
+            <div key={Random.randomKey('tab')} className={className} onClick={this.props.onTabClick.bind(this, id)}>
               <span>{ label }</span>
             </div>
           );
@@ -66,17 +71,17 @@ export default class ModalTab extends React.Component {
   }
 
   render () {
-    const { title, info, children } = this.props;
+    const { title, info } = this.props;
 
     return (
       <div>
         <header className={classNames('modal__tabs')}>
           { title && <h2>{ title }</h2> }
           { info && <h3>{ info }</h3> }
-          { this.renderNav() }
+          { this.renderNavigation() }
           { this.renderCloseIcon() }
         </header>
-        { children }
+        { this.props.children }
       </div>
     );
   }

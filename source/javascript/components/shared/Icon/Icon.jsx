@@ -256,7 +256,7 @@ export default class Icon extends React.Component {
   }
 
   render () {
-    const { className, size, style, onClick } = this.props;
+    const { className, size, style, onClick, ...others } = this.props;
     const cn = classNames(className);
     const styles = {
       fill: 'currentcolor',
@@ -273,7 +273,8 @@ export default class Icon extends React.Component {
           styles,
           style // This lets the parent pass custom styles
         )}
-        className={cn}>
+        className={cn}
+        {...others}>
         { this.renderGraphic() }
       </svg>
     );

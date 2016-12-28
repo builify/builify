@@ -26,8 +26,8 @@ export default class CanvasSuggestionBox extends React.Component {
 
     return (
       <div className={classNames('suggestion-box')}>
-        <h1>{ localization('canvas.suggestionbox.h1') }</h1>
-        <h2>{ localization('canvas.suggestionbox.h2') }</h2>
+        <h1 className={classNames('suggestion-box__title')}>{ localization('canvas.suggestionbox.h1') }</h1>
+        <h2 className={classNames('suggestion-box__sub')}>{ localization('canvas.suggestionbox.h2') }</h2>
       </div>
     );
   }

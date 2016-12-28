@@ -100,10 +100,15 @@ export default function canvas (state = canvasInitialState, action) {
       const targetElements = iFrameWindow.document.querySelectorAll(targets);
 
       // Add mouse events to elements inside core block.
-      _map(targetElements, (target) => {
+      _map(targetElements, (target, i) => {
         const findUp = TTDOM.find.findUpAttr(target, 'data-abcpanel data-abctoolbox');
 
-        if (findUp !== null || target.getAttribute('data-abccorent')) {
+        if (findUp !== null ||
+          target.getAttribute('data-abccorent') ||
+          target.getAttribute('data-reactroot') ||
+          target.getAttribute('data-ttroot') ||
+          i == 0 // Fixes root content editable issue.
+          ) {
           return false;
         }
 

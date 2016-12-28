@@ -73,8 +73,8 @@ class Modals extends React.Component {
 }
 
 function mapStateToProps (state) {
-  const { builder } = state;
-  const { isModalOpen, modalType, modalTarget } = builder;
+  const { modals } = state;
+  const { isModalOpen, modalType, modalTarget } = modals;
 
   return {
     isModalOpen: isModalOpen,

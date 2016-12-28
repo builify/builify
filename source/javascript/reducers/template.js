@@ -19,6 +19,7 @@ const initialState = {
 
   // Custom stylesheet,
   userCustomStylesheet: null,
+  customStylesheetText: '.my-custom-css { font-size: 14px; }',
 
   // Baseline related
   iFrameWindow: null,
@@ -48,16 +49,15 @@ export default function template (state = initialState, action) {
       baseline.off();
 
       // Create custom stylesheet for user.
-      const customCSSExample = '.my-custom-css { font-size: 14px; }';
       const userCustomStylesheet = document.createElement('style');
 
       userCustomStylesheet.type = 'text/css';
       userCustomStylesheet.setAttribute('data-customcss', true);
 
       if (userCustomStylesheet.styleSheet) {
-        userCustomStylesheet.styleSheet.cssText = customCSSExample;
+        userCustomStylesheet.styleSheet.cssText = state.customStylesheetText;
       } else {
-        userCustomStylesheet.appendChild(document.createTextNode(customCSSExample));
+        userCustomStylesheet.appendChild(document.createTextNode(state.customStylesheetText));
       }
 
       headElement.appendChild(userCustomStylesheet);
@@ -82,7 +82,9 @@ export default function template (state = initialState, action) {
         }
       }
 
-      return state;
+      return _assign({}, state, {
+        customStylesheetText: value
+      });
     }
 
     case Actions.START_NEW_PAGE:

@@ -13,6 +13,7 @@ export default class Aside extends React.Component {
       <aside className={classNames('aside')}>
         <div className={classNames('aside__wrapper')}>
           <div className={classNames('aside__item')}>
+            <BlockEditor />
             <Tab />
           </div>
         </div>

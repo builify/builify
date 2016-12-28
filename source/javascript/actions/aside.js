@@ -7,6 +7,19 @@ export function openTab (target) {
   };
 }
 
+export function openBlockEditorTab (editTarget) {
+  return {
+    type: Actions.OPEN_BLOCKEDITOR_TAB,
+    editTarget: editTarget
+  };
+}
+
+export function closeBlockEditorTab () {
+  return {
+    type: Actions.CLOSE_BLOCKEDITOR_TAB
+  };
+}
+
 export function closeTab () {
   return {
     type: Actions.CLOSE_TAB

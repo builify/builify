@@ -14,7 +14,7 @@ import { closeModal, addNotification } from '../../../actions';
 
 class VideoEdit extends React.Component {
   static propTypes = {
-    editTarget: React.PropTypes.any.isRequired,
+    editTarget: React.PropTypes.any,
     addNotification: React.PropTypes.func.isRequired,
     closeModal: React.PropTypes.func.isRequired
   };
@@ -40,7 +40,7 @@ class VideoEdit extends React.Component {
     const { editTarget } = this.props;
 
     if (!_isElement(editTarget)) {
-      return;
+      return this.closeDialog();
     }
 
     const videoHolderElement = editTarget.querySelector('.block-video-holder');
@@ -69,7 +69,7 @@ class VideoEdit extends React.Component {
       }
     }
 
-    this.closeDialog();
+    return this.closeDialog();
   }
 
   handleInputChange (value) {
@@ -106,7 +106,7 @@ class VideoEdit extends React.Component {
 
     return (
       <ModalWrapper ref='modalWrapper' onClose={closeModal} className={className}>
-        <ModalTab title='Change Video Source' onCloseClick={closeModal}>
+        <ModalTab title='Change Video Source' onClose={::this.closeDialog}>
           <div className={classNames('modal__tab')}>
             <Input
               className={classNames('modal__input')}
@@ -115,7 +115,7 @@ class VideoEdit extends React.Component {
               name='url'
               icon='youtube'
               value={url}
-              maxLength={128}
+              maxLength={256}
               onChange={::this.handleInputChange} />
             <PreviewVideo background='white' width='600px' height='330px' src={url} />
           </div>
@@ -128,11 +128,11 @@ class VideoEdit extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    closeModal: () => {
+    closeModal: function () {
       dispatch(closeModal());
     },
 
-    addNotification: (notification) => {
+    addNotification: function (notification) {
       dispatch(addNotification(notification));
     }
   };

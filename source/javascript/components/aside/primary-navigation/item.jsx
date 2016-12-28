@@ -25,6 +25,10 @@ class NavigationItem extends React.Component {
     disableItem: false
   };
 
+  shouldComponentUpdate () {
+    return false;
+  }
+
   componentWillMount () {
     const { id, currentLocation } = this.props;
 
@@ -71,7 +75,7 @@ class NavigationItem extends React.Component {
     return (
       <li className={className} title={text} onClick={::this.clickEvent}>
         <Icon icon={icon} />
-        <span>{ text }</span>
+        { text && <span>{ text }</span> }
       </li>
     );
   }
@@ -79,19 +83,19 @@ class NavigationItem extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    openTab: (target) => {
+    openTab: function (target) {
       dispatch(openTab(target));
     },
 
-    openDownloadModal: () => {
+    openDownloadModal: function () {
       dispatch(openDownloadModal());
     },
 
-    openRestartModal: () => {
+    openRestartModal: function () {
       dispatch(openRestartModal());
     },
 
-    saveCurrentPage: () => {
+    saveCurrentPage: function () {
       dispatch(saveCurrentPage());
     }
   };

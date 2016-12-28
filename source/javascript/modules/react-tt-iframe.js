@@ -16,15 +16,20 @@ export default class IFrame extends React.Component {
 
   static defaultProps = {
     initialContent: '<!DOCTYPE html><html><head></head><body><div></div></body></html>',
-    contentDidMount: () => {},
-    contentDidUpdate: () => {}
+    contentDidMount: function () {},
+    contentDidUpdate: function () {}
   };
 
   _isMounted = false;
   _document = null;
+  _node = null;
 
   render () {
-    const props = _omit(this.props, ['contentDidMount', 'contentDidUpdate', 'initialContent']);
+    const props = _omit(this.props, [
+      'contentDidMount',
+      'contentDidUpdate',
+      'initialContent'
+    ]);
 
     return React.createElement('iframe', _assign({}, props, { children: undefined }));
   }
@@ -43,12 +48,13 @@ export default class IFrame extends React.Component {
 
     if (doc && doc.readyState === 'complete') {
       var contents = React.createElement('div',
-        undefined,
+        { 'data-ttroot': true },
         this.props.head,
         this.props.children
       );
 
       var initialRender = !this._setInitialContent;
+
       if (!this._setInitialContent) {
         doc.open();
         doc.write(this.props.initialContent);

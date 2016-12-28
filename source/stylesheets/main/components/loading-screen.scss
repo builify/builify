@@ -17,7 +17,7 @@
     @include transition(all 0.3s ease);
     @include display(flex);
     @include align-items(center);
-    @include align-content(flex-start);
+    @include align-content(center);
     @include justify-content(center);
     @include flex-direction(column);
     @include flex-wrap(wrap);

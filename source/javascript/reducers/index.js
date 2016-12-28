@@ -6,11 +6,13 @@ import page from './page';
 import canvas from './canvas';
 import preview from './preview';
 import assets from './assets';
+import modals from './modals';
 import { combineReducers } from 'redux';
 
 const allReducers = combineReducers({
   builder,
   builderConfiguration,
+  modals,
   template,
   notifications,
   page,

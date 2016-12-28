@@ -100,7 +100,8 @@
 
             svg {
                 position: relative;
-                top: 5px;
+                float: left;
+                top: 10px;
                 margin-right: 10px;
 
                 path {
@@ -110,7 +111,7 @@
         }
 
         &__input {
-            display: inline-block;
+            float: right;
             padding: 0 !important;
             width: 40px;
             margin-top: 2px;
@@ -171,7 +172,7 @@
     }
 
     &__pm {
-        height: 35px;
+        height: 40px;
         
         &__item {
             display: inline-block;

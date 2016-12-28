@@ -11,7 +11,7 @@ import _dropRight from 'lodash/dropright';
 import downloadPages from '../pages/download';
 import TTStorage from '../modules/tt-storage';
 import * as Actions from '../actions/constants';
-import { CurrentLocations, MAXIUMUM_PAGES_IN_STORAGE, TEMPLATE_PAGES_STORAGE_NAME, DialogTypes } from '../constants';
+import { CurrentLocations, MAXIUMUM_PAGES_IN_STORAGE, TEMPLATE_PAGES_STORAGE_NAME } from '../constants';
 
 const builderInitialState = {
   isLoadingScreenActive: true,
@@ -20,6 +20,8 @@ const builderInitialState = {
 
   // Tabs
   currentTab: 'initial',
+  blockEditorTabOpened: false,
+  blockEditorTarget: null,
 
   // Pages
   isPageSelected: false,
@@ -27,12 +29,7 @@ const builderInitialState = {
   pages: [],
 
   // Filter
-  filterContentBlocksTarget: 'all',
-
-  // Modal
-  isModalOpen: false,
-  modalType: DialogTypes.NONE,
-  modalTarget: null
+  filterContentBlocksTarget: 'all'
 };
 
 export default function builder (state = builderInitialState, action) {
@@ -55,6 +52,21 @@ export default function builder (state = builderInitialState, action) {
 
       return state;
     }
+
+    case Actions.OPEN_BLOCKEDITOR_TAB: {
+      const { editTarget } = action;
+
+      return _assign({}, state, {
+        blockEditorTabOpened: true,
+        blockEditorTarget: editTarget
+      });
+    }
+
+    case Actions.CLOSE_BLOCKEDITOR_TAB:
+      return _assign({}, state, {
+        blockEditorTabOpened: false,
+        blockEditorTarget: null
+      });
 
     case Actions.RECEIVE_ASIDE_CONFIGURATION: {
       return _assign({}, state, action.data);
@@ -98,91 +110,6 @@ export default function builder (state = builderInitialState, action) {
         pages: pages
       });
     }
-
-    case Actions.OPEN_IMAGE_EDIT_MODAL:
-      return _assign({}, state, {
-        isModalOpen: true,
-        modalType: DialogTypes.IMAGECHANGE,
-        modalTarget: action.target
-      });
-
-    case Actions.OPEN_COUNTDOWN_EDIT_MODAL:
-      return _assign({}, state, {
-        isModalOpen: true,
-        modalType: DialogTypes.COUNTDOWN,
-        modalTarget: action.target
-      });
-
-    case Actions.OPEN_ICON_EDIT_MODAL:
-      return _assign({}, state, {
-        isModalOpen: true,
-        modalType: DialogTypes.ICONCHANGE,
-        modalTarget: action.target
-      });
-
-    case Actions.OPEN_VIDEO_EDIT_MODAL:
-      return _assign({}, state, {
-        isModalOpen: true,
-        modalType: DialogTypes.VIDEOEDIT,
-        modalTarget: action.target
-      });
-
-    case Actions.OPEN_LINK_EDIT_MODAL:
-      return _assign({}, state, {
-        isModalOpen: true,
-        modalType: DialogTypes.LINKCHANGE,
-        modalTarget: action.target
-      });
-
-    case Actions.OPEN_PREVIOUS_PAGES_SELECT_MODAL:
-      return _assign({}, state, {
-        isModalOpen: true,
-        modalType: DialogTypes.PREVIOUSPAGES
-      });
-
-    case Actions.OPEN_CONTENTBLOCK_SOURCE_EDIT_MODAL:
-      return _assign({}, state, {
-        isModalOpen: true,
-        modalType: DialogTypes.CONTENTBLOCKSOURCE,
-        modalTarget: action.currentHoverBlock
-      });
-
-    case Actions.OPEN_DOWNLOAD_MODAL: {
-      const { pages } = state;
-      const pagesSize = _size(pages);
-
-      if (pagesSize === 1) {
-        const { currentState } = action;
-
-        downloadPages(pages, currentState);
-      } else if (pagesSize > 1) {
-        return _assign({}, state, {
-          isModalOpen: true,
-          modalType: DialogTypes.DOWNLOADPAGES
-        });
-      }
-
-      return state;
-    }
-
-    case Actions.OPEN_RESTART_MODAL:
-      return _assign({}, state, {
-        isModalOpen: true,
-        modalType: DialogTypes.RESTART
-      });
-
-    case Actions.OPEN_FEEDBACK_MODAL:
-      return _assign({}, state, {
-        isModalOpen: true,
-        modalType: DialogTypes.FEEDBACK
-      });
-
-    case Actions.CLOSE_MODAL:
-      return _assign({}, state, {
-        isModalOpen: false,
-        modalType: null,
-        modalTarget: null
-      });
 
     case Actions.REMOVE_LOADING_SCREEN:
       return _assign({}, state, {

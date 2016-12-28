@@ -26,6 +26,7 @@ class Frame extends React.Component {
     closeContextMenu: React.PropTypes.func.isRequired,
     openIconEditModal: React.PropTypes.func.isRequired,
     openImageEditModal: React.PropTypes.func.isRequired,
+    openBlockEditorTab: React.PropTypes.func.isRequired,
     cloneItem: React.PropTypes.func.isRequired,
     removeContentBlock: React.PropTypes.func.isRequired,
     openVideoEditModal: React.PropTypes.func.isRequired,
@@ -269,9 +270,9 @@ class Frame extends React.Component {
 
   render () {
     return (
-      <div className={classNames('canvas__holder')}>
+      <div className={classNames('canvas__holder')} data-ttroot>
         <TTIFrame id='ab-cfrm' ref='frame' contentDidMount={::this.normalizeFrame}>
-          <div ref='root' className='tt-canvas-root'>
+          <div ref='root' className='tt-canvas-root' data-ttroot>
             <div ref='navigation' className='tt-canvas-navigation' />
             <div ref='main' className='tt-canvas-main' />
             <div ref='footer' className='tt-canvas-footer' />
@@ -281,6 +282,7 @@ class Frame extends React.Component {
               closeContextMenu={this.props.closeContextMenu}
               openIconEditModal={this.props.openIconEditModal}
               openImageEditModal={this.props.openImageEditModal}
+              openBlockEditorTab={this.props.openBlockEditorTab}
               cloneItem={this.props.cloneItem} />
             <SectionToolBox
               openVideoEditModal={this.props.openVideoEditModal}
@@ -306,58 +308,62 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     // Frame events.
-    removeLoadingScreen: () => {
+    removeLoadingScreen: function () {
       dispatch(Actions.removeLoadingScreen());
     },
 
     // Canvas events.
-    renderBlockToCanvas: (block, elementReference) => {
+    renderBlockToCanvas: function (block, elementReference) {
       dispatch(Actions.blockWasRenderedToPage(block, elementReference));
     },
 
-    coreBlockHover: (elementReference, block) => {
+    coreBlockHover: function (elementReference, block) {
       dispatch(Actions.currentHoverBlock(elementReference, block));
     },
 
-    setCanvasElementsHoverEvents: () => {
+    setCanvasElementsHoverEvents: function () {
       dispatch(Actions.setCanvasElementsHoverEvents());
     },
 
     // Click toolbox events.
-    openContextMenu: () => {
+    openContextMenu: function () {
       dispatch(Actions.openContextmenuToolbox());
     },
 
-    closeContextMenu: () => {
+    closeContextMenu: function () {
       dispatch(Actions.closeContextmenuToolbox());
     },
 
-    openIconEditModal: (target) => {
+    openIconEditModal: function (target) {
       dispatch(Actions.openIconEditModal(target));
     },
 
-    openImageEditModal: (target) => {
+    openImageEditModal: function (target) {
       dispatch(Actions.openImageEditModal(target));
     },
 
-    cloneItem: () => {
+    openBlockEditorTab: function (editTarget) {
+      dispatch(Actions.openBlockEditorTab(editTarget));
+    },
+
+    cloneItem: function () {
       dispatch(Actions.cloneItem());
     },
 
     // Section toolbox events.
-    removeContentBlock: (block) => {
+    removeContentBlock: function (block) {
       dispatch(Actions.removeContentBlock(block));
     },
 
-    openVideoEditModal: (target) => {
+    openVideoEditModal: function (target) {
       dispatch(Actions.openVideoEditModal(target));
     },
 
-    openCountdownEditModal: (target) => {
+    openCountdownEditModal: function (target){
       dispatch(Actions.openCountdownEditModal(target));
     },
 
-    openColorPicker: (target, sourceElement) => {
+    openColorPicker: function (target, sourceElement) {
       dispatch(Actions.openColorPicker(target, sourceElement));
     }
   };

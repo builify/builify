@@ -5,6 +5,10 @@ import Slider from '../../shared/slider-input';
 import Input from '../../shared/input';
 import Icon from '../../shared/icon';
 import BackButton from '../back-button';
+import BlockTitle from './block-title';
+import PositionEditor from './edit-position';
+import { connect } from 'react-redux';
+import { closeBlockEditorTab } from '../../../actions';
 
 class OpacitySlider extends React.Component {
   state = {
@@ -41,103 +45,116 @@ class OpacitySlider extends React.Component {
 }
 
 class BorderRadiusEditor extends React.Component {
-  render () {
+  state = {
+    showAll: false,
+
+    radius: 4,
+
+    topLeftRadius: 0,
+    topRightRadius: 0,
+    bottomRightRadius: 0,
+    bottomLeftRadius: 0
+  };
+
+  changeRadius (type, value) {
+    this.setState({
+      ...this.state,
+      [type]: value
+    });
+  }
+
+  changeRadiusShow (type) {
+    this.setState({
+      ...this.state,
+      showAll: type === 'all' ? true : false
+    });
+  }
+
+  renderCornerRadius () {
     return (
-      <div className={classNames('be-block__radius')}>
-        <div title='Same radius for all corners' className={classNames(['be-block__radius__item' ,'be-block__radius__item--first'])}>
-          <div className={classNames('be-block__radius__icon')}>
-            <Icon icon='crop-din' />
-          </div>
-          <div title='Different radius for each corner' className={classNames(['be-block__radius__icon', 'be-block__radius__icon--active'])}>
-            <Icon icon='crop-free' />
-          </div>
-        </div>
-        <div className={classNames('be-block__radius__item')}>
+      <div title='Corner Radius' className={classNames('be-block__radius__item')}>
+        <Input
+          className={classNames('be-block__radius__input')}
+          value={this.state.radius}
+          onChange={this.changeRadius.bind(this, 'radius')} />
+      </div>
+    );
+  }
+
+  renderAllRadiuses () {
+    return (
+      <div>
+        <div
+          title='Top Left Border Radius'
+          className={classNames('be-block__radius__item')}>
           <Input
             className={classNames('be-block__radius__input')}
-            value='0' />
+            value={this.state.topLeftRadius}
+            onChange={this.changeRadius.bind(this, 'topLeftRadius')} />
         </div>
-        <div className={classNames('be-block__radius__item')}>
+        <div
+          title='Top Right Border Radius'
+          className={classNames('be-block__radius__item')}>
           <Input
             className={classNames('be-block__radius__input')}
-            value='0' />
+            value={this.state.topRightRadius}
+            onChange={this.changeRadius.bind(this, 'topRightRadius')} />
         </div>
-        <div className={classNames('be-block__radius__item')}>
+        <div
+          title='Bottom Right Border Radius'
+          className={classNames('be-block__radius__item')}>
           <Input
             className={classNames('be-block__radius__input')}
-            value='0' />
+            value={this.state.bottomRightRadius}
+            onChange={this.changeRadius.bind(this, 'bottomRightRadius')} />
         </div>
-        <div className={classNames('be-block__radius__item')}>
+        <div
+          title='Bottom Left Radius'
+          className={classNames('be-block__radius__item')}>
           <Input
             className={classNames('be-block__radius__input')}
-            value='0' />
+            value={this.state.bottomLeftRadius}
+            onChange={this.changeRadius.bind(this, 'bottomLeftRadius')} />
         </div>
       </div>
     );
   }
-}
 
-class BlockEditor extends React.Component {
+  renderInputs () {
+    if (!this.state.showAll) {
+      return this.renderCornerRadius();
+    } else {
+      return this.renderAllRadiuses();
+    }
+  }
+
   render () {
+    const singleRadiusClassName = classNames({
+      'be-block__radius__icon': true,
+      'be-block__radius__icon--active': !this.state.showAll
+    });
+    const allRadiusClassName = classNames({
+      'be-block__radius__icon': true,
+      'be-block__radius__icon--active': this.state.showAll
+    });
+
     return (
-      <div className={classNames('tab')}>
-        <Scrollbar aside innerPadding>
-         <BackButton />
-          <h1 className={classNames('tab__title')}>
-            <span>Design</span>
-            <span>Block</span>
-          </h1>
-          <div className={classNames(['be-block', 'be-block--first'])}>
-            <div className={classNames('be-block__inputs')}>
-              <div className={classNames('be-block__input')}>
-                <span className={classNames('be-block__input__text')}>W</span>
-                <Input
-                  className={classNames('be-block__input__type')}
-                  value='32' />
-              </div>
-              <div className={classNames('be-block__input')}>
-                <span className={classNames('be-block__input__text')}>H</span>
-                <Input
-                  className={classNames('be-block__input__type')}
-                  value='32' />
-              </div>
-            </div>
-            <div className={classNames('be-block__inputs')}>
-              <div className={classNames('be-block__input')}>
-                <span className={classNames('be-block__input__text')}>X</span>
-                <Input
-                  className={classNames('be-block__input__type')}
-                  value='323' />
-              </div>
-              <div className={classNames('be-block__input')}>
-                <span className={classNames('be-block__input__text')}>Y</span>
-                <Input
-                  className={classNames('be-block__input__type')}
-                  value='1323' />
-              </div>
-            </div>
-            <div className={classNames('be-block__inputs')}>
-             <div className={classNames('be-block__input')}>
-                <Icon className={classNames('be-block__input__icon')} icon='rotate-right' size='18' />
-                <Input
-                  className={classNames('be-block__input__type')}
-                  value='323&deg;' />
-              </div>
-            </div>
+      <div className={classNames('be-block__radius')}>
+        <div title='Same radius for all corners' className={classNames(['be-block__radius__item' ,'be-block__radius__item--first'])}>
+          <div
+            onClick={this.changeRadiusShow.bind(this, 'single')}
+            title='Same radius for all corners'
+            className={singleRadiusClassName}>
+            <Icon icon='crop-din' />
           </div>
-          <div className={classNames('be-block')}>
-            <BlockTitle title='Text' />
-            <TextAlignEditor />
-            <TextSpaceEditor />
+          <div
+            onClick={this.changeRadiusShow.bind(this, 'all')}
+            title='Different radius for each corner'
+            className={allRadiusClassName}>
+            <Icon icon='crop-free' />
           </div>
-          <div className={classNames('be-block')}>
-            <BlockTitle title='Appearance' />
-            <OpacitySlider />
-            <BorderRadiusEditor />
-            <ItemMarginEditor />
-            <ItemPaddingEditor />
-          </div>
-        </Scrollbar>
+        </div>
+        { this.renderInputs() }
       </div>
     );
   }
@@ -320,15 +337,76 @@ class ItemMarginEditor extends React.Component {
   }
 }
 
-const BlockTitle = function (props) {
-  return (
-    <h3 className={classNames('be-block__title')}>{ props.title }</h3>
-  );
-};
+class BlockEditor extends React.Component {
+  static propTypes = {
+    blockEditorTabOpened: React.PropTypes.bool.isRequired,
+    blockEditorTarget: React.PropTypes.any,
+    closeBlockEditorTab: React.PropTypes.func.isRequired
+  };
 
-BlockTitle.propTypes = {
-  title: React.PropTypes.string.isRequired
-};
+  shouldComponentUpdate (nextProps) {
+    if (nextProps.blockEditorTabOpened === this.props.blockEditorTabOpened) {
+      return false;
+    }
 
+    return true;
+  }
+  
+  render () {
+    if (this.props.blockEditorTabOpened === false) {
+      return null;
+    }
+    
+    const { blockEditorTarget } = this.props;
 
-export default BlockEditor;
+    return (
+      <div className={classNames(['tab', 'tab__blockeditor'])}>
+        <Scrollbar aside innerPadding>
+          <BackButton
+            title='Close'
+            onClick={this.props.closeBlockEditorTab} />
+          <h1 className={classNames('tab__title')}>
+            <span>Design</span>
+            <span>Block</span>
+          </h1>
+          <div className={classNames(['be-block', 'be-block--first'])}>
+            <BlockTitle title='Position' />
+            <PositionEditor target={blockEditorTarget} />
+          </div>
+          <div className={classNames('be-block')}>
+            <BlockTitle title='Text' />
+            <TextAlignEditor />
+            <TextSpaceEditor />
+          </div>
+          <div className={classNames('be-block')}>
+            <BlockTitle title='Appearance' />
+            <OpacitySlider />
+            <BorderRadiusEditor />
+            <ItemMarginEditor />
+            <ItemPaddingEditor />
+          </div>
+        </Scrollbar>
+      </div>
+    );
+  }
+}
+
+function mapStateToProps (state) {
+  const { builder } = state;
+  const { blockEditorTabOpened, blockEditorTarget } = builder;
+
+  return {
+    blockEditorTabOpened: blockEditorTabOpened,
+    blockEditorTarget: blockEditorTarget
+  };
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    closeBlockEditorTab: function () {
+      dispatch(closeBlockEditorTab());
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BlockEditor);

@@ -18,6 +18,14 @@ class Feedback extends React.Component {
     issue: 'Describe your issues or share your ideas'
   };
 
+  shouldComponentUpdate (nextProps, nextState) {
+    if (nextState.issue !== this.state.issue) {
+      return true;
+    }
+
+    return false;
+  }
+
   closeDialog () {
     return this.refs['modalWrapper'].closeDialog();
   }
@@ -65,7 +73,7 @@ class Feedback extends React.Component {
 
     return (
       <ModalWrapper ref='modalWrapper' className={className} onClose={this.props.closeModal}>
-        <ModalTab title='Send Feedback' onClose={this.props.closeModal}>
+        <ModalTab title='Send Feedback' onClose={::this.closeDialog}>
           <div>
             <div className={classNames('modal__tab')}>
               <Input
@@ -91,11 +99,11 @@ class Feedback extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    closeModal: () => {
+    closeModal: function () {
       dispatch(closeModal());
     },
 
-    sendFeedBack: (payload) => {
+    sendFeedBack: function (payload) {
       dispatch(sendFeedBack(payload));
     }
   };
