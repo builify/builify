@@ -92,6 +92,7 @@
     &__space {
         &__item {
             display: inline-block;
+            width: 49%;
             margin-right: 15px;
 
             &:last-child {
@@ -113,7 +114,7 @@
         &__input {
             float: right;
             padding: 0 !important;
-            width: 40px;
+            width: 67px;
             margin-top: 2px;
             font-size: 14px;
 

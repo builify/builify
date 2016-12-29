@@ -1,13 +1,54 @@
+export const prefixedProperties = [
+  'transform'
+];
+
+export const prefix = (function () {
+  const styles = window.getComputedStyle(document.documentElement, ''),
+    pre = (Array.prototype.slice
+      .call(styles)
+      .join('') 
+      .match(/-(moz|webkit|ms)-/) || (styles.OLink === '' && ['', 'o'])
+    )[1],
+    dom = ('WebKit|Moz|MS|O').match(new RegExp('(' + pre + ')', 'i'))[1];
+  return {
+    dom: dom,
+    lowercase: pre,
+    css: '-' + pre + '-',
+    js: pre[0].toUpperCase() + pre.substr(1)
+  };
+})();
+
 export function normalizeAngle (angle) {
   return (angle % 360) + (angle < 0 ? 360 : 0);
 }
 
-export function getStyle (el, styleProp) {
+export function getAngleFromMatrix (value) {
+  // rotation matrix - http://en.wikipedia.org/wiki/Rotation_matrix
+  const values = value.split('(')[1].split(')')[0].split(',');
+  const a = values[0];
+  const b = values[1];
+  const angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+
+  return angle;
+}
+
+export function setStyleValue (el, styleProp, value) {
+  if (prefixedProperties.includes(styleProp)) {
+    styleProp = styleProp.replace(/([A-Z])/g, "-$1").toLowerCase();
+    styleProp = `${prefix.css}${styleProp}`;
+  }
+
+  el.style[styleProp] = value;
+}
+
+export function getStyleValue (el, styleProp) {
   var value, defaultView = (el.ownerDocument || document).defaultView;
-  // W3C standard way:
+
+  if (prefixedProperties.includes(styleProp)) {
+    styleProp = `${prefix.css}${styleProp}`;
+  }
+
   if (defaultView && defaultView.getComputedStyle) {
-    // sanitize property name to css notation
-    // (hypen separated words eg. font-Size)
     styleProp = styleProp.replace(/([A-Z])/g, "-$1").toLowerCase();
     return defaultView.getComputedStyle(el, null).getPropertyValue(styleProp);
   } else if (el.currentStyle) { // IE
@@ -28,6 +69,8 @@ export function getStyle (el, styleProp) {
         return value;
       })(value);
     }
+
     return value;
   }
 }
+

@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from '../../../common/classnames';
 import Input from '../../shared/input';
 import Icon from '../../shared/icon';
-import { normalizeAngle, getStyle } from './helpers';
+import { normalizeAngle, getAngleFromMatrix, getStyleValue, setStyleValue } from './helpers';
 
 export default class PositionEditor extends React.Component {
   static propTypes = {
@@ -17,36 +17,29 @@ export default class PositionEditor extends React.Component {
 
   componentWillMount () {
     this._target = this.props.target;
-
     this.setRotationDefaultValue();
   }
 
-  setRotationDefaultValue () {
-    var st = window.getComputedStyle(this._target, null);
-    var tr = st.getPropertyValue("-webkit-transform") ||
-            st.getPropertyValue("-moz-transform") ||
-            st.getPropertyValue("-ms-transform") ||
-            st.getPropertyValue("-o-transform") ||
-            st.getPropertyValue("transform") ||
-            "FAIL";
+  componentWillReceiveProps (nextProps) {
+    if (!nextProps.target.isSameNode(this.props.target)) {
+      this._target = nextProps.target;
+      this.setRotationDefaultValue();
+    }
+  }
 
-    if (tr === 'none' || tr.indexOf('matrix') === -1) {
+  componentWillUnmount () {
+    this.state = null;
+    this._target = null;
+  }
+
+  setRotationDefaultValue () {
+    const transformValue = getStyleValue(this._target, 'transform');
+
+    if (transformValue === 'none' || transformValue.indexOf('matrix') === -1) {
       return;
     }
 
-    // rotation matrix - http://en.wikipedia.org/wiki/Rotation_matrix
-    var values = tr.split('(')[1].split(')')[0].split(',');
-    var a = values[0];
-    var b = values[1];
-    var c = values[2];
-    var d = values[3];
-
-    var scale = Math.sqrt(a*a + b*b);
-
-    // arc sin, convert from radians to degrees, round
-    var sin = b/scale;
-    // next line works for 30deg but not 130deg (returns 50);
-    var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+    const angle = getAngleFromMatrix(transformValue);
 
     if (angle) {
       this.setState({
@@ -57,7 +50,7 @@ export default class PositionEditor extends React.Component {
   }
 
   setRotationValue (value) {
-    this._target.style.transform = `rotate(${value}deg)`;
+    setStyleValue(this._target, 'transform', `rotate(${value}deg)`);
 
     this.setState({
       ...this.state,
