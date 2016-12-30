@@ -22,13 +22,7 @@ class Frame extends React.Component {
     removeLoadingScreen: React.PropTypes.func.isRequired,
     renderBlockToCanvas: React.PropTypes.func.isRequired,
     setCanvasElementsHoverEvents: React.PropTypes.func.isRequired,
-    coreBlockHover: React.PropTypes.func.isRequired,
-    openContextMenu: React.PropTypes.func.isRequired,
-    closeContextMenu: React.PropTypes.func.isRequired,
-    openIconEditModal: React.PropTypes.func.isRequired,
-    openImageEditModal: React.PropTypes.func.isRequired,
-    openBlockEditorTab: React.PropTypes.func.isRequired,
-    cloneItem: React.PropTypes.func.isRequired
+    coreBlockHover: React.PropTypes.func.isRequired
   };
 
   _blocks = {};
@@ -275,13 +269,7 @@ class Frame extends React.Component {
             <div ref='main' className='tt-canvas-main' />
             <div ref='footer' className='tt-canvas-footer' />
 
-            <ClickToolbox
-              openContextMenu={this.props.openContextMenu}
-              closeContextMenu={this.props.closeContextMenu}
-              openIconEditModal={this.props.openIconEditModal}
-              openImageEditModal={this.props.openImageEditModal}
-              openBlockEditorTab={this.props.openBlockEditorTab}
-              cloneItem={this.props.cloneItem} />
+            <ClickToolbox store={store} />
             <SectionToolBox store={store} />
           </div>
         </TTIFrame>
@@ -315,31 +303,6 @@ function mapDispatchToProps (dispatch) {
 
     setCanvasElementsHoverEvents: function () {
       dispatch(Actions.setCanvasElementsHoverEvents());
-    },
-
-    // Click toolbox events.
-    openContextMenu: function () {
-      dispatch(Actions.openContextmenuToolbox());
-    },
-
-    closeContextMenu: function () {
-      dispatch(Actions.closeContextmenuToolbox());
-    },
-
-    openIconEditModal: function (target) {
-      dispatch(Actions.openIconEditModal(target));
-    },
-
-    openImageEditModal: function (target) {
-      dispatch(Actions.openImageEditModal(target));
-    },
-
-    openBlockEditorTab: function (editTarget) {
-      dispatch(Actions.openBlockEditorTab(editTarget));
-    },
-
-    cloneItem: function () {
-      dispatch(Actions.cloneItem());
     }
   };
 }

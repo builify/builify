@@ -5,8 +5,10 @@ import TTDOM from '../../../common/TTDOM';
 import ClickToolBoxItem from './item';
 import Helpers from './helpers';
 import HTMLTagNamesToString from './html-tagnames';
+import { connect } from 'react-redux';
+import * as Actions from '../../../actions';
 
-export default class ClickToolbox extends React.Component {
+class ClickToolbox extends React.Component {
   static propTypes = {
     openContextMenu: React.PropTypes.func.isRequired,
     closeContextMenu: React.PropTypes.func.isRequired,
@@ -260,3 +262,33 @@ export default class ClickToolbox extends React.Component {
     );
   }
 }
+
+function mapDispatchToProps (dispatch) {
+  return {
+    openContextMenu: function () {
+      dispatch(Actions.openContextmenuToolbox());
+    },
+
+    closeContextMenu: function () {
+      dispatch(Actions.closeContextmenuToolbox());
+    },
+
+    openIconEditModal: function (target) {
+      dispatch(Actions.openIconEditModal(target));
+    },
+
+    openImageEditModal: function (target) {
+      dispatch(Actions.openImageEditModal(target));
+    },
+
+    openBlockEditorTab: function (editTarget) {
+      dispatch(Actions.openBlockEditorTab(editTarget));
+    },
+
+    cloneItem: function () {
+      dispatch(Actions.cloneItem());
+    }
+  };
+}
+
+export default connect(null, mapDispatchToProps)(ClickToolbox);

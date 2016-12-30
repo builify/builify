@@ -67,7 +67,7 @@ export default class PositionEditor extends React.Component {
     } else if (currentRotation > 360) {
       rotation = normalizeAngle(currentRotation);
     } else if (currentRotation < 0) {
-      rotation = normalizeAngle(Math.abs(currentRotation));
+      rotation = -(normalizeAngle(Math.abs(currentRotation)));
     } else {
       return false;
     }

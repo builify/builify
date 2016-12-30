@@ -61,22 +61,22 @@ class SectionToolBox extends React.Component {
           }
         }
 
-        if (!_isNull(title)) {
-          return (
-            <ToolboxItem
-              key={feature}
-              ref={(ref) => {
-                if (feature === 'colorBackground') {
-                  this.toolboxItemColorChange = ref;
-                }
-              }}
-              title={title}
-              icon={icon}
-              onClick={clickFunction} />
-          );
+        if (_isNull(title)) {
+          return null;
         }
 
-        return null;
+        return (
+          <ToolboxItem
+            key={feature}
+            ref={(ref) => {
+              if (feature === 'colorBackground') {
+                this.toolboxItemColorChange = ref;
+              }
+            }}
+            title={title}
+            icon={icon}
+            onClick={clickFunction} />
+        );
       });
     }
 
