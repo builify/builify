@@ -1,9 +1,11 @@
 import React from 'react';
-import TTCheckerBoard from '../../../modules/react-tt-checkerboard';
+import _isEmpty from 'lodash/isempty';
+import _isElement from 'lodash/iselement';
+import CheckerBoard from '../../../modules/react-tt-checkerboard';
 import TTDOM from '../../../Common/TTDOM';
 import Input from '../../shared/input';
 import Image from '../../shared/image';
-import { TRACK_MODAL_CURENT_IMAGE_INPUT_ID } from '../../../constants';
+import { TRACK_MODAL_CURENT_IMAGE_INPUT_ID, BLOCK_BACKGROUND_IMAGE_ELEMENT_CLASSNAME } from '../../../constants';
 import { defaultImageUrl } from './config';
 
 export default class CurrentImageTab extends React.Component {
@@ -27,6 +29,7 @@ export default class CurrentImageTab extends React.Component {
     const { editTarget } = this.props;
 
     if (TTDOM.type.isElement(editTarget)) {
+      // If edit target is IMG element, simply grab its source.
       if (editTarget.tagName === 'IMG') {
         const targetUrl = editTarget.getAttribute('src');
 
@@ -38,15 +41,32 @@ export default class CurrentImageTab extends React.Component {
             height: editTarget.height
           }
         });
-      } else if (editTarget.tagName === 'DIV') {
+      } else if (editTarget.tagName === 'DIV') { // If DIV element, check whether contains background images.
         const backgroundImage = editTarget.style.backgroundImage;
-        const url = backgroundImage.match(/url\(["|']?([^"']*)["|']?\)/)[1];
 
-        if (url) {
-          this.setState({
-            ...this.state,
-            imageUrl: url
-          });
+        if (_isEmpty(backgroundImage)) {
+          // Check if contains .background-image-holder
+          const imageHolder = editTarget.querySelector(BLOCK_BACKGROUND_IMAGE_ELEMENT_CLASSNAME);
+
+          if(_isElement(imageHolder)) {
+            const url = imageHolder.style.backgroundImage.match(/url\(["|']?([^"']*)["|']?\)/);
+
+            if (url && url[1]) {
+              this.setState({
+                ...this.state,
+                imageUrl: url[1]
+              });
+            }
+          }
+        } else {
+          const url = backgroundImage.match(/url\(["|']?([^"']*)["|']?\)/);
+
+          if (url && url[1]) {
+            this.setState({
+              ...this.state,
+              imageUrl: url[1]
+            });
+          }
         }
       }
     }
@@ -62,8 +82,6 @@ export default class CurrentImageTab extends React.Component {
   render () {
     const { imageUrl, imageSize } = this.state;
 
-    console.log(imageUrl);
-
     return (
       <div className='ab-modal__tab'>
         <aside className='ab-modal__tabside sec'>
@@ -78,9 +96,9 @@ export default class CurrentImageTab extends React.Component {
             floating={false} />
         </aside>
         <main className='ab-modal__tabcontent sec'>
-          <TTCheckerBoard width={585} height={350} rows={42} columns={52}>
+          <CheckerBoard width={585} height={350} rows={42} columns={52}>
             <Image chalk className='ab-modal__imgholder' src={imageUrl} sizeInfo={imageSize} />
-          </TTCheckerBoard>
+          </CheckerBoard>
         </main>
       </div>
     );

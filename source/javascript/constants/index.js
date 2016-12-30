@@ -19,6 +19,10 @@ export const CONTENTBLOCK_ATTR_TYPE = 'data-abctype';
 export const JUNK_ATTR = 'data-abcjunk';
 export const ATTR_CORE_ELEMENT = 'data-abccorent';
 
+// Classnames
+export const BLOCK_BACKGROUND_COLOR_ELEMENT_CLASSNAME = '.background-cover-color';
+export const BLOCK_BACKGROUND_IMAGE_ELEMENT_CLASSNAME = '.background-image-holder';
+
 export const EMPTY_STRING = '';
 
 export const CurrentLocations = {

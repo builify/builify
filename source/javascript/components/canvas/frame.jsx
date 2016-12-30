@@ -28,11 +28,7 @@ class Frame extends React.Component {
     openIconEditModal: React.PropTypes.func.isRequired,
     openImageEditModal: React.PropTypes.func.isRequired,
     openBlockEditorTab: React.PropTypes.func.isRequired,
-    cloneItem: React.PropTypes.func.isRequired,
-    removeContentBlock: React.PropTypes.func.isRequired,
-    openVideoEditModal: React.PropTypes.func.isRequired,
-    openCountdownEditModal: React.PropTypes.func.isRequired,
-    openColorPicker: React.PropTypes.func.isRequired
+    cloneItem: React.PropTypes.func.isRequired
   };
 
   _blocks = {};
@@ -286,13 +282,7 @@ class Frame extends React.Component {
               openImageEditModal={this.props.openImageEditModal}
               openBlockEditorTab={this.props.openBlockEditorTab}
               cloneItem={this.props.cloneItem} />
-            <SectionToolBox
-              openVideoEditModal={this.props.openVideoEditModal}
-              openCountdownEditModal={this.props.openCountdownEditModal}
-              removeContentBlock={this.props.removeContentBlock}
-              openColorPicker={this.props.openColorPicker}
-              openImageEditModal={this.props.openImageEditModal}
-              store={store} />
+            <SectionToolBox store={store} />
           </div>
         </TTIFrame>
       </div>
@@ -350,23 +340,6 @@ function mapDispatchToProps (dispatch) {
 
     cloneItem: function () {
       dispatch(Actions.cloneItem());
-    },
-
-    // Section toolbox events.
-    removeContentBlock: function (block) {
-      dispatch(Actions.removeContentBlock(block));
-    },
-
-    openVideoEditModal: function (target) {
-      dispatch(Actions.openVideoEditModal(target));
-    },
-
-    openCountdownEditModal: function (target){
-      dispatch(Actions.openCountdownEditModal(target));
-    },
-
-    openColorPicker: function (target, sourceElement) {
-      dispatch(Actions.openColorPicker(target, sourceElement));
     }
   };
 }

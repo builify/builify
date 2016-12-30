@@ -7,10 +7,11 @@ import _isNull from 'lodash/isnull';
 import classNames from 'classnames';
 import ToolboxItem from './item';
 import { connect } from 'react-redux';
+import * as Actions from '../../../actions';
 
 class SectionToolBox extends React.Component {
   static propTypes = {
-    canvas: React.PropTypes.object.isRequired,
+    currentHoverBlock: React.PropTypes.object.isRequired,
     openVideoEditModal: React.PropTypes.func.isRequired,
     openCountdownEditModal: React.PropTypes.func.isRequired,
     removeContentBlock: React.PropTypes.func.isRequired,
@@ -21,8 +22,7 @@ class SectionToolBox extends React.Component {
   toolboxItemColorChange = null;
 
   render () {
-    const { canvas } = this.props;
-    const { currentHoverBlock } = canvas;
+    const { currentHoverBlock } = this.props;
     const { block, topX } = currentHoverBlock;
     const { features } = block;
     const className = classNames('ab-cstoolbox');
@@ -91,43 +91,36 @@ class SectionToolBox extends React.Component {
   }
 
   changeBackgroundImage () {
-    const { canvas } = this.props;
-    const { currentHoverBlock } = canvas;
+    const { currentHoverBlock } = this.props;
     const { elementReference } = currentHoverBlock;
 
     return this.props.openImageEditModal(elementReference);
   }
 
   changeBackgroundColor () {
-    const { canvas } = this.props;
-    const { currentHoverBlock } = canvas;
+    const { currentHoverBlock } = this.props;
     const { elementReference } = currentHoverBlock;
-    const sourceElement = ReactDOM.findDOMNode(this.toolboxItemColorChange);
-
-    console.log(elementReference, sourceElement);
+    const sourceElement = ReactDOM.findDOMNode(this.toolboxItemColorChange); // eslint-disable-line
 
     return this.props.openColorPicker(elementReference, sourceElement);
   }
 
   changeBackgroundVideo () {
-    const { canvas } = this.props;
-    const { currentHoverBlock } = canvas;
+    const { currentHoverBlock } = this.props;
     const { elementReference } = currentHoverBlock;
 
     return this.props.openVideoEditModal(elementReference);
   }
 
   changeCountdown () {
-    const { canvas } = this.props;
-    const { currentHoverBlock } = canvas;
+    const { currentHoverBlock } = this.props;
     const { elementReference } = currentHoverBlock;
 
     return this.props.openCountdownEditModal(elementReference);
   }
 
   removeBlock () {
-    const { canvas } = this.props;
-    const { currentHoverBlock } = canvas;
+    const { currentHoverBlock } = this.props;
     const { block } = currentHoverBlock;
 
     return this.props.removeContentBlock(block);
@@ -135,9 +128,36 @@ class SectionToolBox extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { canvas } = state;
+  const { currentHoverBlock } = canvas;
+
   return {
-    canvas: state.canvas
+    currentHoverBlock
   };
 }
 
-export default connect(mapStateToProps)(SectionToolBox);
+function mapDispatchToProps (dispatch) {
+  return {
+    removeContentBlock: function (block) {
+      dispatch(Actions.removeContentBlock(block));
+    },
+
+    openImageEditModal: function (target) {
+      dispatch(Actions.openImageEditModal(target));
+    },
+
+    openVideoEditModal: function (target) {
+      dispatch(Actions.openVideoEditModal(target));
+    },
+
+    openCountdownEditModal: function (target){
+      dispatch(Actions.openCountdownEditModal(target));
+    },
+
+    openColorPicker: function (target, sourceElement) {
+      dispatch(Actions.openColorPicker(target, sourceElement));
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SectionToolBox);

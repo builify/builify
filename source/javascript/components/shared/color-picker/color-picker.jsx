@@ -58,7 +58,7 @@ class ColorPick extends React.Component {
 
         this._colorTargetType = Constants.ColorPickerTargetTypes.COLOR;
       } else if (selectedCPElement.getAttribute(Constants.CONTENTBLOCK_ATTR_FIRST_ELEMENT)) {
-        const coverColorElement = selectedCPElement.querySelector('.background-cover-color');
+        const coverColorElement = selectedCPElement.querySelector(Constants.BLOCK_BACKGROUND_COLOR_ELEMENT_CLASSNAME);
 
         if (!_isElement(coverColorElement)) {
           return null;

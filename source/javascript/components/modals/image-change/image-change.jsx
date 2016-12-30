@@ -45,6 +45,7 @@ class ImageEdit extends React.Component {
         if (editTarget.tagName === 'IMG') {
           editTarget.setAttribute('src', source);
         } else if (editTarget.tagName === 'DIV') {
+          console.log(editTarget, source);
           const backgroundImage = editTarget.style.backgroundImage;
 
           if (backgroundImage) {
@@ -54,7 +55,7 @@ class ImageEdit extends React.Component {
       }
     }
 
-    this.closeDialog();
+    return this.closeDialog();
   }
 
   saveImage () {
@@ -125,15 +126,15 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onCloseModal: () => {
+    onCloseModal: function () {
       dispatch(closeModal());
     },
 
-    onUploadImage: (data) => {
+    onUploadImage: function (data) {
       dispatch(uploadFile(data));
     },
 
-    selectImage: (file) => {
+    selectImage: function (file) {
       dispatch(selectImageFile(file));
     }
   };

@@ -151,15 +151,14 @@ export default function template (state = initialState, action) {
 
         if (dataColorTarget && design.colors[dataColorTarget]) {
           const colorCircleElement = selectedCPElement.querySelector('.ab-color__circle');
-          const hexColor = `#${hex}`;
 
-          design.colors[dataColorTarget] = hexColor;
-          colorCircleElement.style.backgroundColor = hexColor;
-          colorCircleElement.setAttribute('data-color', hexColor);
+          design.colors[dataColorTarget] = hex;
+          colorCircleElement.style.backgroundColor = hex;
+          colorCircleElement.setAttribute('data-color', hex);
 
           templateStylesheet.add({
             [dataColorTarget]: {
-              color: hexColor
+              color: hex
             }
           });
 
@@ -170,7 +169,7 @@ export default function template (state = initialState, action) {
           });
         }
       } else if (targetType === Constants.ColorPickerTargetTypes.BACKGROUNDCOLOR) {
-        const coverColorElement = selectedCPElement.querySelector('.background-cover-color');
+        const coverColorElement = selectedCPElement.querySelector(Constants.BLOCK_BACKGROUND_COLOR_ELEMENT_CLASSNAME);
 
         if (_isElement(coverColorElement)) {
           const { hex, rgb } = color;
