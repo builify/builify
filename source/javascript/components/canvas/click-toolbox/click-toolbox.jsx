@@ -224,7 +224,8 @@ class ClickToolbox extends React.Component {
           }
         }
 
-        if (tagName === 'I' || targetElement.classList.contains('icon')) {
+        if (targetElement.classList.contains('icon') ||
+            targetElement.classList.contains('fa')) {
           elementOptions.showIconChange = true;
         }
 

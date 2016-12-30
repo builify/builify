@@ -2,7 +2,7 @@ import React from 'react';
 import _isEmpty from 'lodash/isempty';
 import _isElement from 'lodash/iselement';
 import CheckerBoard from '../../../modules/react-tt-checkerboard';
-import TTDOM from '../../../Common/TTDOM';
+import classNames from '../../../common/classnames';
 import Input from '../../shared/input';
 import Image from '../../shared/image';
 import { TRACK_MODAL_CURENT_IMAGE_INPUT_ID, BLOCK_BACKGROUND_IMAGE_ELEMENT_CLASSNAME } from '../../../constants';
@@ -28,9 +28,11 @@ export default class CurrentImageTab extends React.Component {
   componentWillMount () {
     const { editTarget } = this.props;
 
-    if (TTDOM.type.isElement(editTarget)) {
+    if (_isElement(editTarget)) {
+      const tagName = editTarget.tagName.toLowerCase();
+      
       // If edit target is IMG element, simply grab its source.
-      if (editTarget.tagName === 'IMG') {
+      if (tagName === 'img') {
         const targetUrl = editTarget.getAttribute('src');
 
         this.setState({
@@ -41,7 +43,7 @@ export default class CurrentImageTab extends React.Component {
             height: editTarget.height
           }
         });
-      } else if (editTarget.tagName === 'DIV') { // If DIV element, check whether contains background images.
+      } else {
         const backgroundImage = editTarget.style.backgroundImage;
 
         if (_isEmpty(backgroundImage)) {
@@ -83,8 +85,8 @@ export default class CurrentImageTab extends React.Component {
     const { imageUrl, imageSize } = this.state;
 
     return (
-      <div className='ab-modal__tab'>
-        <aside className='ab-modal__tabside sec'>
+      <div className={classNames('modal__tab')}>
+        <aside className={classNames('modal__tabside', 'sec')}>
           <h2>Edit Image Source</h2>
           <Input
             id={TRACK_MODAL_CURENT_IMAGE_INPUT_ID}
@@ -95,9 +97,13 @@ export default class CurrentImageTab extends React.Component {
             value={imageUrl}
             floating={false} />
         </aside>
-        <main className='ab-modal__tabcontent sec'>
+        <main className={classNames('modal__tabcontent', 'sec')}>
           <CheckerBoard width={585} height={350} rows={42} columns={52}>
-            <Image chalk className='ab-modal__imgholder' src={imageUrl} sizeInfo={imageSize} />
+            <Image
+              chalk
+              className={classNames('modal__imgholder')}
+              src={imageUrl}
+              sizeInfo={imageSize} />
           </CheckerBoard>
         </main>
       </div>

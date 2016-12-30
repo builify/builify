@@ -12,16 +12,12 @@ export default class ImageSpinner extends React.Component {
     size: 50
   };
 
-  state = {
-    loading: this.props.loading
-  };
-
   shouldComponentUpdate () {
     return false;
   }
 
   render () {
-    const { loading } = this.state;
+    const { loading } = this.props;
 
     if (!loading) {
       return null;
@@ -31,28 +27,24 @@ export default class ImageSpinner extends React.Component {
     const moonSize = size / 7;
 
     return (
-       <div
-        className='ab-loadimage__icon'
+      <div className='ab-loadimage__icon'
         style={{
           marginTop: -(size / 2),
           marginLeft: -(size / 2),
           width: size,
           height: size
         }}>
-        <div
-          className='icon'
+        <div className='icon'
           style={{
             width: size,
             height: size
           }}>
-          <div
-            className='icon__ball'
+          <div className='icon__ball'
             style={{
               height: moonSize,
               width: moonSize
             }} />
-          <div
-            className='icon__track'
+          <div className='icon__track'
             style={{
               width: size,
               height: size,

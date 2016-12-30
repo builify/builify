@@ -89,6 +89,18 @@
         align-content: stretch;
     }
 
+    &__colors {
+        margin-top: 15px;
+
+        &__name {
+            text-transform: none;
+        }
+
+        &__item {
+             margin-bottom: 5px;
+        }
+    }
+
     &__space {
         &__item {
             display: inline-block;

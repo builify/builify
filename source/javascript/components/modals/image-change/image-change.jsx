@@ -5,7 +5,6 @@ import _has from 'lodash/has';
 import _isNull from 'lodash/isnull';
 import _isEmpty from 'lodash/isempty';
 import _isElement from 'lodash/iselement';
-import TTDOM from '../../../common/TTDOM';
 import ModalWrapper from '../common/Wrapper';
 import TabNavigation from './modal';
 import BottomNavigation from '../common/bottom-navigation';
@@ -43,10 +42,10 @@ class ImageEdit extends React.Component {
     }
 
     if (!_isNull(source)) {
-      if (TTDOM.type.isElement(editTarget)) {
+      if (_isElement(editTarget)) {
         if (editTarget.tagName === 'IMG') {
           editTarget.setAttribute('src', source);
-        } else if (editTarget.tagName === 'DIV') {
+        } else {
           const backgroundImage = editTarget.style.backgroundImage;
 
           if (_isEmpty(backgroundImage)) {
@@ -79,7 +78,7 @@ class ImageEdit extends React.Component {
             src: value
           });
         }
-      } else if (editTarget.tagName === 'DIV') {
+      } else {
         const backgroundImage = editTarget.style.backgroundImage;
 
         if (_isEmpty(backgroundImage)) {

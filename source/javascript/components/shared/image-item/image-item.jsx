@@ -30,14 +30,15 @@ export default class ImageItem extends React.Component {
 
   render () {
     const { src, alt } = this.props;
+    const { isImageFileLoaded } = this.state;
     const loadImage = classNames('ab-loadimage', {
-      'loaded': this.state.isImageFileLoaded
+      'loaded': isImageFileLoaded
     });
     const imageSource = src;
 
     return (
       <div className={loadImage}>
-        <ImageSpinner size={50} />
+        <ImageSpinner size={50} loading={!isImageFileLoaded} />
         <img
           draggable='false'
           onLoad={::this.loadedImage}

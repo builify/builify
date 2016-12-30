@@ -47,8 +47,10 @@ class ContentBlocks extends React.Component {
               const { title, source, features } = blockItem;
               let thumbnail = null;
 
-              if (_has(blockItem, 'thumbnail')) {
-                thumbnail = blockItem.thumbnail;
+              if (_has(blockItem, 'id')) {
+                thumbnail = `assets/template/${blockItem.id}.jpeg`;
+              } else if (_has(blockItem, 'thumbnail')) {
+                thumbnail = `${blockItem.thumbnail}`;
               }
 
               this.itemsToRender.push({

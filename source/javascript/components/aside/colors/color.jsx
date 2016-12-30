@@ -1,11 +1,19 @@
 import React from 'react';
+import _isNull from 'lodash/isnull';
+import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
 
 export default class Color extends React.Component {
   static propTypes = {
+    text: React.PropTypes.string,
     color: React.PropTypes.string.isRequired,
-    colorTarget: React.PropTypes.string.isRequired,
+    colorTarget: React.PropTypes.string,
     onClick: React.PropTypes.func.isRequired
+  };
+
+  static defaultProps = {
+    text: null,
+    colorTarget: ''
   };
 
   colorElement = null;
@@ -19,28 +27,27 @@ export default class Color extends React.Component {
   }
 
   render () {
-    const { color, colorTarget } = this.props;
+    const { color, colorTarget, text } = this.props;
     const colorHolderStyle = {
       backgroundColor: color
     };
-    const colorName = localization(`design.colors.${colorTarget}`);
+    const colorName = _isNull(text) ? localization(`design.colors.${colorTarget}`) : text;
 
     return (
       <div
         ref={(ref) => this.colorElement = ref}
         data-abcolor={color}
         data-colortarget={colorTarget}
-        className='ab-color'
+        className={classNames('color')}
         onClick={::this.clickColor}>
-        <div className='ab-color__name' title={colorName}>
-          <span>{colorName}</span>
+        <div className={classNames('color__name')} title={colorName}>
+          <span>{ colorName }</span>
         </div>
         <div
-          className='ab-color__circle'
+          className={classNames('color__circle')}
           title={color}
           data-color={color}
-          style={colorHolderStyle}>
-        </div>
+          style={colorHolderStyle} />
       </div>
     );
   }
