@@ -18,7 +18,7 @@ import { store } from '../application-container';
 class Frame extends React.Component {
   static propTypes = {
     page: React.PropTypes.object.isRequired,
-    template: React.PropTypes.object.isRequired,
+    externalAssets: React.PropTypes.object.isRequired,
     removeLoadingScreen: React.PropTypes.func.isRequired,
     renderBlockToCanvas: React.PropTypes.func.isRequired,
     setCanvasElementsHoverEvents: React.PropTypes.func.isRequired,
@@ -34,6 +34,14 @@ class Frame extends React.Component {
     }
 
     return true;
+  }
+
+  componentDidMount () {
+    this.drawCanvas();
+  }
+
+  componentDidUpdate () {
+    this.drawCanvas();
   }
 
   setCoreElementsAttributes () {
@@ -190,22 +198,13 @@ class Frame extends React.Component {
     this.renderFooter();
   }
 
-  componentDidMount () {
-    this.drawCanvas();
-  }
-
-  componentDidUpdate () {
-    this.drawCanvas();
-  }
-
   normalizeFrame (frameDocument) {
     if (!frameDocument) {
       return;
     }
 
-    const { template } = this.props;
-    const { external } = template;
-    let { core: assets } = external;
+    const { externalAssets } = this.props;
+    let { core: assets } = externalAssets;
     const headElement = frameDocument.head;
     const bodyElement = frameDocument.body;
 
@@ -279,9 +278,12 @@ class Frame extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { page, template } = state;
+  const { external: externalAssets } = template;
+
   return {
-    page: state.page,
-    template: state.template
+    page: page,
+    externalAssets
   };
 }
 

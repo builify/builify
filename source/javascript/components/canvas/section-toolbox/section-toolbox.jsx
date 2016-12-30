@@ -21,6 +21,14 @@ class SectionToolBox extends React.Component {
 
   toolboxItemColorChange = null;
 
+  shouldComponentUpdate (nextProps) {
+    if (nextProps.currentHoverBlock !== this.props.currentHoverBlock) {
+      return true;
+    }
+
+    return false;
+  }
+
   render () {
     const { currentHoverBlock } = this.props;
     const { block, topX } = currentHoverBlock;
@@ -39,7 +47,7 @@ class SectionToolBox extends React.Component {
       featureItems = _map(features, (featureValue, feature) => {
         let title = null;
         let icon = null;
-        let clickFunction = () => {};
+        let clickFunction = null;
 
         if (featureValue === true) {
           if (feature === 'colorBackground') {
@@ -61,7 +69,7 @@ class SectionToolBox extends React.Component {
           }
         }
 
-        if (_isNull(title)) {
+        if (_isNull(title) || _isNull(clickFunction) || _isNull(icon)) {
           return null;
         }
 

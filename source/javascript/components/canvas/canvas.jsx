@@ -55,11 +55,13 @@ class Canvas extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { builder, page, preview, template } = state;
+
   return {
-    builder: state.builder,
-    page: state.page,
-    preview: state.preview,
-    template: state.template
+    builder,
+    page,
+    preview,
+    template
   };
 }
 

@@ -2,7 +2,7 @@ import _map from 'lodash/map';
 import _assign from 'lodash/assign';
 import _isElement from 'lodash/iselement';
 import _isObject from 'lodash/isobject';
-
+import _isNull from 'lodash/isnull';
 import TTDOM from '../common/TTDOM';
 import * as Actions from '../actions/constants';
 
@@ -42,6 +42,16 @@ export default function canvas (state = canvasInitialState, action) {
       return _assign({}, state, {
         iFrameWindow: iFrameWindow
       });
+    }
+
+    case Actions.RESTART_PAGE: {
+      const { iFrameWindow } = state;
+
+      if (!_isNull(iFrameWindow) && iFrameWindow.scrollTo) {
+        iFrameWindow.scrollTo(0, 0);
+      }
+      
+      return state;
     }
 
     case Actions.LOAD_PREVIOUS_PAGE:

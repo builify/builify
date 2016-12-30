@@ -1,5 +1,6 @@
 import React from 'react';
 import _isNull from 'lodash/isnull';
+import _isEmpty from 'lodash/isempty';
 import classNames from '../../../common/classnames';
 import TTDOM from '../../../common/TTDOM';
 import ClickToolBoxItem from './item';
@@ -215,6 +216,12 @@ class ClickToolbox extends React.Component {
 
         if (tagName === 'IMG') {
           elementOptions.showChangeImage = true;
+        } else if (tagName === 'DIV') {
+          const backgroundImage = targetElement.style.backgroundImage;
+
+          if (!_isEmpty(backgroundImage)) {
+            elementOptions.showChangeImage = true;
+          }
         }
 
         if (tagName === 'I' || targetElement.classList.contains('icon')) {

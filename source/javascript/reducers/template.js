@@ -91,6 +91,8 @@ export default function template (state = initialState, action) {
     case Actions.START_NEW_PAGE:
     case Actions.RESTART_PAGE:
     case Actions.LOAD_PREVIOUS_PAGE:
+      state.baseline.off();
+      
       return _assign({}, state, {
         drawBaseline: false
       });

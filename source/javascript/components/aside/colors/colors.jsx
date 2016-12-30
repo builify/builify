@@ -7,7 +7,7 @@ import { openColorPicker } from '../../../actions';
 
 class Colors extends React.Component {
   static propTypes = {
-    template: React.PropTypes.object.isRequired,
+    colors: React.PropTypes.array.isRequired,
     openColorPicker: React.PropTypes.func.isRequired
   };
 
@@ -20,9 +20,7 @@ class Colors extends React.Component {
   }
 
   renderColors () {
-    const { template } = this.props;
-    const { design } = template;
-    const { colors } = design;
+    const { colors } = this.props;
 
     return _map(colors, (color, colorTarget) => {
       const key = Random.randomKey('color');
@@ -47,14 +45,18 @@ class Colors extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { template } = state;
+  const { design } = template;
+  const { colors } = design;
+
   return {
-    template: state.template
+    colors
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    openColorPicker: (target) => {
+    openColorPicker: function (target) {
       dispatch(openColorPicker(target));
     }
   };

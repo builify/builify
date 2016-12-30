@@ -11,6 +11,10 @@ class PreviousPages extends React.Component {
     closeModal: React.PropTypes.func.isRequired
   };
 
+  shouldComponentUpdate () {
+    return false;
+  }
+
   closeDialog () {
     return this.refs['modalWrapper'].closeDialog();
   }
@@ -32,7 +36,7 @@ class PreviousPages extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    closeModal: () => {
+    closeModal: function () {
       dispatch(closeModal());
     }
   };

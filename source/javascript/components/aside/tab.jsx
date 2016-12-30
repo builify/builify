@@ -25,7 +25,7 @@ class Tab extends React.Component {
   };
 
   shouldComponentUpdate (nextProps) {
-    return nextProps.currentTab === this.state.currentTabID ? false : true;
+    return nextProps.currentTab !== this.state.currentTabID;
   }
 
   componentWillMount () {
@@ -136,7 +136,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    closeTab: () => {
+    closeTab: function () {
       dispatch(closeTab());
     }
   };

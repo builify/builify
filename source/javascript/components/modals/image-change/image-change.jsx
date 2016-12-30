@@ -3,11 +3,13 @@ import classNames from 'classnames';
 import _isObject from 'lodash/isobject';
 import _has from 'lodash/has';
 import _isNull from 'lodash/isnull';
+import _isEmpty from 'lodash/isempty';
+import _isElement from 'lodash/iselement';
 import TTDOM from '../../../common/TTDOM';
 import ModalWrapper from '../common/Wrapper';
 import TabNavigation from './modal';
 import BottomNavigation from '../common/bottom-navigation';
-import { TRACK_MODAL_CURENT_IMAGE_INPUT_ID } from '../../../constants';
+import { TRACK_MODAL_CURENT_IMAGE_INPUT_ID, BLOCK_BACKGROUND_IMAGE_ELEMENT_CLASSNAME } from '../../../constants';
 import { closeModal, uploadFile, selectImageFile } from '../../../actions';
 import { connect } from 'react-redux';
 
@@ -45,10 +47,15 @@ class ImageEdit extends React.Component {
         if (editTarget.tagName === 'IMG') {
           editTarget.setAttribute('src', source);
         } else if (editTarget.tagName === 'DIV') {
-          console.log(editTarget, source);
           const backgroundImage = editTarget.style.backgroundImage;
 
-          if (backgroundImage) {
+          if (_isEmpty(backgroundImage)) {
+            const imageHolder = editTarget.querySelector(BLOCK_BACKGROUND_IMAGE_ELEMENT_CLASSNAME);
+
+            if(_isElement(imageHolder)) {
+              imageHolder.style.backgroundImage = `url(${source})`;
+            }
+          } else {
             editTarget.style.backgroundImage = `url(${source})`;
           }
         }
@@ -63,7 +70,7 @@ class ImageEdit extends React.Component {
     const imageChangeElement = document.querySelector(`#${TRACK_MODAL_CURENT_IMAGE_INPUT_ID}`);
     const value = imageChangeElement.value;
 
-    if (TTDOM.type.isElement(editTarget)) {
+    if (_isElement(editTarget)) {
       if (editTarget.tagName === 'IMG') {
         const currentValue = editTarget.getAttribute('src');
 
@@ -74,12 +81,28 @@ class ImageEdit extends React.Component {
         }
       } else if (editTarget.tagName === 'DIV') {
         const backgroundImage = editTarget.style.backgroundImage;
-        const url = backgroundImage ? backgroundImage.match(/url\(["|']?([^"']*)["|']?\)/)[1] : null;
 
-        if (url && url !== value) {
-          this.selectImage({
-            src: value
-          });
+        if (_isEmpty(backgroundImage)) {
+          // Check if contains .background-image-holder
+          const imageHolder = editTarget.querySelector(BLOCK_BACKGROUND_IMAGE_ELEMENT_CLASSNAME);
+
+          if(_isElement(imageHolder)) {
+            const url = imageHolder.style.backgroundImage.match(/url\(["|']?([^"']*)["|']?\)/);
+
+            if (url && url[1] && url[1] !== value) {
+              this.selectImage({
+                src: value
+              });
+            }
+          }
+        } else {
+          const url = backgroundImage.match(/url\(["|']?([^"']*)["|']?\)/);
+
+          if (url && url[1] && url[1] !== value) {
+            this.selectImage({
+              src: value
+            });
+          }
         }
       }
     }
