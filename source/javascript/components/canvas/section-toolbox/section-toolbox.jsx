@@ -104,6 +104,8 @@ class SectionToolBox extends React.Component {
     const { elementReference } = currentHoverBlock;
     const sourceElement = ReactDOM.findDOMNode(this.toolboxItemColorChange);
 
+    console.log(elementReference, sourceElement);
+
     return this.props.openColorPicker(elementReference, sourceElement);
   }
 

@@ -397,7 +397,7 @@ export default function page (state = pageInitialState, action) {
         }
       }
 
-      return state;
+      break;
     }
 
     case Actions.SORT_CONTENTBLOCKS: {

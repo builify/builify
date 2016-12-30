@@ -1,5 +1,5 @@
 import React from 'react';
-import ColorPicker from 'react-color';
+import { SketchPicker } from 'react-color';
 import _isElement from 'lodash/iselement';
 import TTDOM from '../../../common/TTDOM';
 import * as Constants from '../../../constants';
@@ -8,24 +8,30 @@ import { closeColorPicker, setColorFromColorPicker } from '../../../actions';
 
 class ColorPick extends React.Component {
   static propTypes = {
-    template: React.PropTypes.object.isRequired,
+    isColorPickerOpened: React.PropTypes.bool.isRequired,
+    selectedCPElement: React.PropTypes.any,
+    sourceCPElement: React.PropTypes.any,
     closeColorPicker: React.PropTypes.func.isRequired,
     setColorFromColorPicker: React.PropTypes.func.isRequired
   };
 
-  colorTargetType = null;
+  _colorTargetType = null;
 
   onClose () {
     return this.props.closeColorPicker();
   }
 
   setColor (color) {
-    return this.props.setColorFromColorPicker(color, this.colorTargetType);
+    return this.props.setColorFromColorPicker(color, this._colorTargetType);
   }
 
   render () {
-    const { template } = this.props;
-    const { isColorPickerOpened, selectedCPElement, sourceCPElement } = template;
+    const { isColorPickerOpened, sourceCPElement, selectedCPElement } = this.props;
+
+    if (!isColorPickerOpened) {
+      return null;
+    }
+
     let defaultColor = '#000';
     let xPos = 0;
     let yPos = 0;
@@ -39,23 +45,23 @@ class ColorPick extends React.Component {
         const colorCircleElement = selectedCPElement.querySelector('.ab-color__circle');
 
         if (!_isElement(colorCircleElement)) {
-          return;
+          return null;
         }
 
         const colorCirclePosition = colorCircleElement.getBoundingClientRect();
         const { left, top } = colorCirclePosition;
 
-        xPos = Math.round(left) + 5; // Adding 5px margin to right.
-        yPos = Math.round(top);
+        xPos = Math.round(left) + 15;
+        yPos = Math.round(top) + 15;
 
         defaultColor = colorCircleElement.getAttribute('data-color');
 
-        this.colorTargetType = Constants.ColorPickerTargetTypes.COLOR;
+        this._colorTargetType = Constants.ColorPickerTargetTypes.COLOR;
       } else if (selectedCPElement.getAttribute(Constants.CONTENTBLOCK_ATTR_FIRST_ELEMENT)) {
-        const coverColorElement = selectedCPElement.querySelector('.block-background-cover-color');
+        const coverColorElement = selectedCPElement.querySelector('.background-cover-color');
 
         if (!_isElement(coverColorElement)) {
-          return;
+          return null;
         }
   
         const toolboxItemPosition = sourceCPElement.getBoundingClientRect();
@@ -63,8 +69,8 @@ class ColorPick extends React.Component {
         var coverColor = coverColorElement.style.backgroundColor;
         const coverOpacity = coverColorElement.style.opacity;
 
-        yPos = Math.round(top) + 10;
-        xPos = Math.round(right) - 5;
+        yPos = Math.round(top) + 10 + 60;
+        xPos = Math.round(right) + 10;
 
         if (coverColor.indexOf('rgb') !== -1) {
           coverColor = coverColor.replace(')', `, ${+coverOpacity})`).replace('rgb', 'rgba');
@@ -72,7 +78,7 @@ class ColorPick extends React.Component {
 
         defaultColor = coverColor;
 
-        this.colorTargetType = Constants.ColorPickerTargetTypes.BACKGROUNDCOLOR;
+        this._colorTargetType = Constants.ColorPickerTargetTypes.BACKGROUNDCOLOR;
       }
 
       const bottomX = estimatedColorPickerHeight + yPos;
@@ -80,44 +86,51 @@ class ColorPick extends React.Component {
       if (bottomX > browserHeight) {
         yPos = yPos - (bottomX - browserHeight) - 30;
       }
-    } else if (!selectedCPElement || !isColorPickerOpened) {
-      return null;
     }
-
-    xPos = `${xPos}px`;
-    yPos = `${yPos}px`;
 
     const colorpickerPosition = {
       'position': 'fixed',
-      'top': yPos,
-      'left': xPos
+      'zIndex': '9999',
+      'top': `${yPos}px`,
+      'left': `${xPos}px`
+    };
+    const coverStyle = {
+      'position': 'fixed',
+      'top': '0px',
+      'right': '0px',
+      'bottom': '0px',
+      'left': '0px'
     };
 
     return (
-      <ColorPicker
-        color={defaultColor}
-        positionCSS={colorpickerPosition}
-        display={isColorPickerOpened}
-        onClose={::this.onClose}
-        onChangeComplete={::this.setColor}
-        type='sketch' />
+      <div style={colorpickerPosition}>
+        <div style={coverStyle} onClick={::this.onClose} />
+        <SketchPicker
+          color={defaultColor}
+          onChange={::this.setColor} />
+      </div>
     );
   }
 }
 
 function mapStateToProps (state) {
+  const { template } = state;
+  const { isColorPickerOpened, selectedCPElement, sourceCPElement } = template;
+
   return {
-    template: state.template
+    isColorPickerOpened,
+    selectedCPElement,
+    sourceCPElement
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    closeColorPicker: () => {
+    closeColorPicker: function () {
       dispatch(closeColorPicker());
     },
 
-    setColorFromColorPicker: (color, colorTargetType) => {
+    setColorFromColorPicker: function (color, colorTargetType) {
       dispatch(setColorFromColorPicker(color, colorTargetType));
     }
   };

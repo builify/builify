@@ -2,6 +2,7 @@ import _assign from 'lodash/assign';
 import _has from 'lodash/has';
 import _round from 'lodash/round';
 import _isNull from 'lodash/isnull';
+import _isElement from 'lodash/iselement';
 import TTStylesheet from 'tt-stylesheet';
 import TTDOM from '../common/TTDOM';
 import TTBaseliner from '../modules/tt-baseliner';
@@ -169,12 +170,13 @@ export default function template (state = initialState, action) {
           });
         }
       } else if (targetType === Constants.ColorPickerTargetTypes.BACKGROUNDCOLOR) {
-        const coverColorElement = selectedCPElement.querySelector('.block-background-cover-color');
-        const { hex, rgb } = color;
-        const hexColor = `#${hex}`;
+        const coverColorElement = selectedCPElement.querySelector('.background-cover-color');
 
-        coverColorElement.style.backgroundColor = hexColor;
-        coverColorElement.style.opacity = rgb.a;
+        if (_isElement(coverColorElement)) {
+          const { hex, rgb } = color;
+          coverColorElement.style.backgroundColor = hex;
+          coverColorElement.style.opacity = rgb.a;
+        }
       }
 
       return state;

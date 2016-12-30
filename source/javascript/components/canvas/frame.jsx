@@ -4,6 +4,7 @@ import _isElement from 'lodash/iselement';
 import _isObject from 'lodash/isobject';
 import _values from 'lodash/values';
 import _delay from 'lodash/delay';
+import _assign from 'lodash/assign';
 import TTDOM from '../../common/TTDOM';
 import TTIFrame from '../../modules/react-tt-iframe';
 import ClickToolbox from './click-toolbox';
@@ -42,11 +43,7 @@ class Frame extends React.Component {
       this.clearCanvas();
     }
 
-    if (this.props.page !== nextProps.page || this.props.template !== nextProps.template) {
-      return true;
-    }
-
-    return false;
+    return true;
   }
 
   setCoreElementsAttributes () {
@@ -183,6 +180,11 @@ class Frame extends React.Component {
   addMouseEventsToCoreBlock (coreElementReference, block) {
     // Add section hover event to core block.
     if (_isElement(coreElementReference)) {
+      block = _assign({}, block, {
+        hasBeenRendered: true,
+        elementReference: coreElementReference
+      });
+
       coreElementReference.addEventListener('mouseenter', () => {
         return this.props.coreBlockHover(coreElementReference, block);
       });
