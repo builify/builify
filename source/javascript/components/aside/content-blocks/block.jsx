@@ -4,7 +4,7 @@ import ImageItem from '../../shared/image-item';
 
 export default class ContentBlock extends React.Component {
   static propTypes = {
-    builder: React.PropTypes.object.isRequired,
+    filterContentBlocksTarget: React.PropTypes.string.isRequired,
     data: React.PropTypes.object.isRequired,
     onClick: React.PropTypes.func.isRequired
   };
@@ -23,21 +23,16 @@ export default class ContentBlock extends React.Component {
   }
 
   render () {
-    const { builder, data } = this.props;
+    const { data, filterContentBlocksTarget } = this.props;
     const { name, thumbnail, blockType } = data;
-    const { filterContentBlocksTarget } = builder;
-    let blockClassName = classNames('contentblocks__block');
-
-    if (filterContentBlocksTarget !== 'all') {
-      if (blockType !== filterContentBlocksTarget) {
-        blockClassName = classNames('contentblocks__block', 'hide');
-      }
-    }
+    const className = classNames('contentblocks__block', {
+      'hide': filterContentBlocksTarget !== 'all' && blockType !== filterContentBlocksTarget
+    });
 
     return (
       <figure
         title={name}
-        className={blockClassName}
+        className={className}
         data-blocktype={blockType}
         onClick={::this.selectContentBlock}>
         <ImageItem src={thumbnail} alt={name}/>

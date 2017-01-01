@@ -36,12 +36,13 @@ class Page extends React.Component {
   render () {
     const { isNewPage, pages } = this.props;
     const pagesLength = pages.length;
-    const previousPages = pagesLength > 1 ? 'pages.loadpages' : 'pages.loadpage';
-    const queryString = isNewPage ? 'pages.newpage' : previousPages;
+    const previousPages = pagesLength > 1 ? 'load or import page' : 'load previous page';
+    const queryString = isNewPage ? 'start new page' : previousPages;
+    const label = localization(queryString);
 
     return (
       <div className={classNames('newpage')} onClick={::this.selectPage}>
-        <span>{localization(queryString)}</span>
+        <span>{ label }</span>
       </div>
     );
   }

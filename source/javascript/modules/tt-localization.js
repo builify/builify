@@ -1,3 +1,5 @@
+import _isString from 'lodash/isstring';
+import _isUndefined from 'lodash/isundefined';
 import localization from './localization';
 
 function getProperty (obj, prop) {
@@ -23,15 +25,11 @@ export default function (languagePreference) {
     const orgQuery = query;
 
     query = `${language}.${query}`;
-
+    
     const result = getProperty(localization, query);
 
-    if (result !== undefined) {
+    if (!_isUndefined(result) && _isString(result)) {
       return result;
-    }
-
-    if (process.env.NODE_ENV === 'development') {
-      console.warn(`Localization - "${orgQuery}" query not found!"`);
     }
 
     return orgQuery;

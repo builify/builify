@@ -1,6 +1,8 @@
 import React from 'react';
 import Icon from '../../shared/icon';
+import localization from '../../../common/localization';
 import classNames from '../../../common/classnames';
+import { emptyFunction } from '../../../common/misc';
 
 export default class CurrentPageItem extends React.Component {
   static propTypes = {
@@ -9,12 +11,14 @@ export default class CurrentPageItem extends React.Component {
   };
 
   static defaultProps = {
-    onRemoveClick: function () {}
+    onRemoveClick: emptyFunction
   };
 
   renderHandle () {
+    const title = localization('remove element');
+    
     return (
-      <div className='handle' title='Remove Element'>
+      <div className='handle' title={title}>
         <Icon size={18} icon='reorder' />
       </div>
     );
@@ -37,7 +41,12 @@ export default class CurrentPageItem extends React.Component {
         <div className={classNames('currentPage__item-title')}>
           <span>{ blockName }</span>
         </div>
-        <Icon onClick={onRemove} style={removeIconStyle} className='remove' size={24} icon='clear' />
+        <Icon
+          onClick={onRemove}
+          style={removeIconStyle}
+          className='remove'
+          size={24}
+          icon='clear' />
       </li>
     );
   }

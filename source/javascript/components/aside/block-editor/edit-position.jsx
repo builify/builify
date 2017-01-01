@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from '../../../common/classnames';
+import localization from '../../../common/localization';
 import Input from '../../shared/input';
 import Icon from '../../shared/icon';
 import { normalizeAngle, getAngleFromMatrix, getStyleValue, setStyleValue } from './helpers';
@@ -79,8 +80,10 @@ export default class PositionEditor extends React.Component {
   }
   
   render () {
+    const title = localization('rotation');
+
     return (
-      <div title='Rotation' className={classNames('be-block__inputs')}>
+      <div title={title} className={classNames('be-block__inputs')}>
         <div className={classNames('be-block__input')}>
           <Icon
             className={classNames('be-block__input__icon')}

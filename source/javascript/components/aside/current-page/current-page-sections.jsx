@@ -3,6 +3,7 @@ import _map from 'lodash/map';
 import _values from 'lodash/values';
 import Random from '../../../common/random';
 import classNames from '../../../common/classnames';
+import localization from '../../../common/localization';
 import Sortable from '../../shared/sortable';
 import CurrentPageItem from './current-page-item';
 
@@ -16,12 +17,12 @@ export default class CurrentPageSections extends React.Component {
   renderCurrentPageItems (items) {
     return _map(items, (item) => {
       return (
-          <CurrentPageItem
-            onRemove={() => {
-              return this.props.onRemove(item);
-            }}
-            data={item}
-            key={Random.randomKey('current-page-item')} />
+        <CurrentPageItem
+          onRemove={() => {
+            return this.props.onRemove(item);
+          }}
+          data={item}
+          key={Random.randomKey('current-page-item')} />
       );
     });
   }
@@ -57,7 +58,7 @@ export default class CurrentPageSections extends React.Component {
     }
 
     if (_values(navigation).length === 0 && _values(footer).length === 0 && main.length === 0) {
-      return <span className='tip'>Your current page is empty :(</span>;
+      return <span className='tip'>{ localization('your page is empty') }</span>;
     } else {
       return (
         <div>

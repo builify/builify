@@ -71,20 +71,29 @@ class ContentBlocks extends React.Component {
   }
 
   renderItems () {
-    const { loadContentBlockSource } = this.props;
+    const { loadContentBlockSource, builder } = this.props;
 
-    return _map(this.itemsToRender, item => {
+    return _map(this.itemsToRender, (item) => {
       const { type } = item;
+      const { filterContentBlocksTarget } = builder;
 
       if (type === 'blocktitle') {
-        return <BlockTitle key={Random.randomKey('blocktitle')} data={item} builder={this.props.builder} />;
+        const { name } = item;
+
+        return (
+          <BlockTitle
+            key={Random.randomKey('blocktitle')}
+            filterContentBlocksTarget={filterContentBlocksTarget}
+            title={name} />
+        );
+        
       } else if (type === 'block') {
         return (
           <ContentBlock
             key={Random.randomKey('block')}
             data={item}
             onClick={loadContentBlockSource}
-            builder={this.props.builder} />
+            filterContentBlocksTarget={filterContentBlocksTarget} />
         );
       }
     });
@@ -110,8 +119,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    loadContentBlockSource: (data) => {
-      dispatch(loadContentBlockSource(data));
+    loadContentBlockSource: function (item) {
+      dispatch(loadContentBlockSource(item));
     }
   };
 }

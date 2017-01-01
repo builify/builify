@@ -1,6 +1,8 @@
 import React from 'react';
-import _ from 'lodash';
+import _isNull from 'lodash/isnull';
+import _capitalize from 'lodash/capitalize';
 import classNames from '../../../common/classnames';
+import localization from '../../../common/localization';
 import Input from '../../shared/input';
 import Title from '../title';
 import CurrentPageSections from './current-page-sections';
@@ -9,11 +11,6 @@ import * as Actions from '../../../actions';
 import { connect } from 'react-redux';
 
 class CurrentPage extends React.Component {
-  state = {
-    title: '',
-    fileName: ''
-  };
-
   static propTypes = {
     page: React.PropTypes.object.isRequired,
     removeContentBlock: React.PropTypes.func.isRequired,
@@ -21,11 +18,16 @@ class CurrentPage extends React.Component {
     exportPage: React.PropTypes.func.isRequired
   };
 
+  state = {
+    title: '',
+    fileName: ''
+  };
+
   componentWillMount () {
     const { page } = this.props;
     const { pageID, pageTitle, pageFileName } = page;
 
-    if (!_.isNull(pageID)) {
+    if (!_isNull(pageID)) {
       this.setState({
         title: pageTitle,
         fileName: pageFileName
@@ -39,7 +41,7 @@ class CurrentPage extends React.Component {
       [name]: value
     });
 
-    return this.props[`setPage${_.capitalize(name)}`](value);
+    return this.props[`setPage${_capitalize(name)}`](value);
   }
 
   exportPage () {
@@ -54,25 +56,27 @@ class CurrentPage extends React.Component {
     let clickFunction = null;
 
     if (type === 'title') {
-      title = `Website Title`;
-      description = `This is displayed in search results and in your browser's title bar.`;
+      title = localization('website title');
+      description = localization('info.title descripion');
       value = this.state.title;
       clickFunction = this.handleInputChange.bind(this, type);
     } else if (type === 'fileName') {
-      title = `Page's Filename`;
-      description = `This will be page's filename`;
+      title = localization('page filename');
+      description = localization('info.filename descripion');
       value = this.state.fileName;
       clickFunction = this.handleInputChange.bind(this, type);
     }
 
-    if (!_.isNull(title) && !_.isNull(value) && !_.isNull(clickFunction)) {
-      return (
-        <div>
-          <Title title={title} description={description} />
-          <Input className={className} value={value} onChange={clickFunction} />
-        </div>
-      );
+    if (_isNull(title) && _isNull(value) && _isNull(clickFunction)) {
+      return null;
     }
+
+    return (
+      <div>
+        <Title title={title} description={description} />
+        <Input className={className} value={value} onChange={clickFunction} />
+      </div>
+    );
   }
 
   render () {
@@ -80,13 +84,16 @@ class CurrentPage extends React.Component {
 
     return (
       <div>
-        <Title title='Sections' />
-        <CurrentPageSections page={page} onRemove={removeContentBlock} onSortBlocks={sortContentBlocks} />
+        <Title title={localization('sections')} />
+        <CurrentPageSections
+          page={page}
+          onRemove={removeContentBlock}
+          onSortBlocks={sortContentBlocks} />
         { this.renderInput('title') }
         { this.renderInput('fileName') }
         <div className={classNames('currentPage__divider')} />
         <div className='wrap'>
-          <Button label='Export Page' onClick={::this.exportPage} />
+          <Button label={localization('export page')} onClick={::this.exportPage} />
         </div>
       </div>
     );
@@ -101,23 +108,23 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    removeContentBlock: (element) => {
+    removeContentBlock: function (element){
       dispatch(Actions.removeContentBlock(element));
     },
 
-    sortContentBlocks: (element) => {
+    sortContentBlocks: function (element) {
       dispatch(Actions.sortContentBlocks(element));
     },
 
-    setPageTitle: (title) => {
+    setPageTitle: function (title) {
       dispatch(Actions.setPageTitle(title));
     },
 
-    setPageFilename: (filename) => {
+    setPageFilename: function (filename) {
       dispatch(Actions.setPageFilename(filename));
     },
 
-    exportPage: () => {
+    exportPage: function () {
       dispatch(Actions.exportPage());
     }
   };

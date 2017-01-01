@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from '../../../common/classnames';
+import localization from '../../../common/localization';
 import Scrollbar from '../../shared/scrollbar';
 import BackButton from '../back-button';
 import BlockTitle from './block-title';
@@ -39,22 +40,22 @@ class BlockEditor extends React.Component {
     return (
       <div className={classNames(['tab', 'tab__blockeditor'])}>
         <Scrollbar aside innerPadding>
-          <BackButton title='Close' onClick={this.props.closeBlockEditorTab} />
+          <BackButton title={localization('close')} onClick={this.props.closeBlockEditorTab} />
           <h1 className={classNames('tab__title')}>
-            <span>Design</span>
-            <span>Block</span>
+            <span>{ localization('design') }</span>
+            <span>{ localization('block') }</span>
           </h1>
           <div className={classNames(['be-block', 'be-block--first'])}>
-            <BlockTitle title='Position' />
+            <BlockTitle title={localization('position')} />
             <PositionEditor target={blockEditorTarget} />
           </div>
           <div className={classNames('be-block')}>
-            <BlockTitle title='Text' />
+            <BlockTitle title={localization('text')} />
             <TextAlignEditor target={blockEditorTarget} />
             <TextSpaceEditor target={blockEditorTarget} />
           </div>
           <div className={classNames('be-block')}>
-            <BlockTitle title='Appearance' />
+            <BlockTitle title={localization('appearance')} />
             <OpacitySlider target={blockEditorTarget} />
             <BorderRadiusEditor target={blockEditorTarget} />
             <ItemMarginEditor target={blockEditorTarget} />

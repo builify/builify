@@ -1,4 +1,5 @@
 import React from 'react';
+import localization from '../../common/localization';
 import classNames from '../../common/classnames';
 import { connect } from 'react-redux';
 
@@ -28,8 +29,8 @@ class LoadingScreen extends React.Component {
       return (
         <div id={classNames('loadingScreen')} className={loadingScreenClassName}>
           <div className={classNames('loadingScreen__loader', 'big')}><div /></div>
-          <div className={classNames('loadingScreen__loading')}>Loading builder</div>
-          <div className={classNames('loadingScreen__info')}>Please wait...</div>
+          <div className={classNames('loadingScreen__loading')}>{localization('loading builder')}</div>
+          <div className={classNames('loadingScreen__info')}>{localization('please wait')}</div>
         </div>
       );
     }
