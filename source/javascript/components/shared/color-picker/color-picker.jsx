@@ -36,6 +36,7 @@ class ColorPick extends React.Component {
     let xPos = 0;
     let yPos = 0;
 
+    console.log(this.props);
     if (_isElement(selectedCPElement)) {
       const browserSize = TTDOM.browser.size();
       const { height: browserHeight } = browserSize;

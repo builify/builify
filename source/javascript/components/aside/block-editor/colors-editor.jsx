@@ -2,11 +2,13 @@ import React from 'react';
 import classNames from '../../../common/classnames';
 import { openColorPicker, closeColorPicker } from '../../../actions';
 import { connect } from 'react-redux';
+import { rgbToHex } from '../../../common/colors';
 import { getStyleValue, setStyleValue } from './helpers';
 
 class ColorsEditor extends React.Component {
   static propTypes = {
-    target: React.PropTypes.any.isRequired
+    target: React.PropTypes.any.isRequired,
+    openColorPicker: React.PropTypes.func.isRequired
   };
 
   state = {
@@ -49,7 +51,15 @@ class ColorsEditor extends React.Component {
     const colorValue = getStyleValue(this._target, 'color');
     const backgroundColorValue = getStyleValue(this._target, 'background-color');
 
-    console.log(colorValue, backgroundColorValue);
+    this.setState({
+      ...this.state,
+      color: rgbToHex(colorValue),
+      backgroundColor: rgbToHex(backgroundColorValue)
+    });
+  }
+
+  onColorClick (element) {
+    return this.props.openColorPicker(element);
   }
   
   render () {
@@ -62,11 +72,13 @@ class ColorsEditor extends React.Component {
     return (
       <div className={classNames('be-block__colors')}>
         <Color
-            title='Color'
-            color={color} />
+          title='Color'
+          color={color}
+          onClick={::this.onColorClick} />
         <Color
           title='Background Color'
-          color={backgroundColor} />
+          color={backgroundColor}
+          onClick={::this.onColorClick} />
       </div>
     );
   }
@@ -75,8 +87,20 @@ class ColorsEditor extends React.Component {
 class Color extends React.Component {
   static propTypes = {
     color: React.PropTypes.string.isRequired,
-    title: React.PropTypes.string.isRequired
+    title: React.PropTypes.string.isRequired,
+    onClick: React.PropTypes.func
   };
+
+  static defaultProps = {
+    onClick: function () {}
+  };
+
+  _colorElement = null;
+
+  clickEvent (e) {
+    e.preventDefault();
+    return this.props.onClick(this._colorElement);
+  }
 
   render () {
     const { color, title } = this.props;
@@ -86,9 +110,11 @@ class Color extends React.Component {
 
     return (
       <div
+        ref={(ref) => this._colorElement = ref}
         title={title}
         data-abcolor={color}
-        className={classNames(['color', 'be-block__colors__item'])}>
+        className={classNames(['color', 'be-block__colors__item'])}
+        onClick={::this.clickEvent}>
         <div className={classNames(['color__name', 'be-block__colors__name'])}>
           <span>{ title }</span>
         </div>

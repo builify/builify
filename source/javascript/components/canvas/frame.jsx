@@ -22,14 +22,16 @@ class Frame extends React.Component {
     removeLoadingScreen: React.PropTypes.func.isRequired,
     renderBlockToCanvas: React.PropTypes.func.isRequired,
     setCanvasElementsHoverEvents: React.PropTypes.func.isRequired,
-    coreBlockHover: React.PropTypes.func.isRequired
+    coreBlockHover: React.PropTypes.func.isRequired,
+    clearPageBlocksCount: React.PropTypes.func.isRequired
   };
 
   _blocks = {};
   _blocksCache = [];
 
   shouldComponentUpdate (nextProps) {
-    if (nextProps.page.pageID !== this.props.page.pageID) {
+    if (nextProps.page.pageID !== this.props.page.pageID ||
+        nextProps.page.blocksCount === 0) {
       this.clearCanvas();
     }
 
@@ -38,10 +40,25 @@ class Frame extends React.Component {
 
   componentDidMount () {
     this.drawCanvas();
+    this.checkBlockCount();
   }
 
   componentDidUpdate () {
     this.drawCanvas();
+    this.checkBlockCount();
+  }
+
+  checkBlockCount () {
+    const navigationBlocks = this.refs.navigation.children;
+    const mainBlocks = this.refs.main.children;
+    const footerBlocks = this.refs.footer.children;
+
+    if (navigationBlocks.length === 0 &&
+        mainBlocks.length === 0 &&
+        footerBlocks.length === 0 &&
+        this.props.page.blocksCount !== 0) {
+      return this.props.clearPageBlocksCount();
+    }
   }
 
   setCoreElementsAttributes () {
@@ -305,6 +322,10 @@ function mapDispatchToProps (dispatch) {
 
     setCanvasElementsHoverEvents: function () {
       dispatch(Actions.setCanvasElementsHoverEvents());
+    },
+
+    clearPageBlocksCount: function () {
+      dispatch(Actions.clearPageBlocksCount());
     }
   };
 }

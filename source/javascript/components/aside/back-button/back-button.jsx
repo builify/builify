@@ -1,6 +1,8 @@
 import React from 'react';
 import Icon from '../../shared/icon';
 import classNames from '../../../common/classnames';
+import localization from '../../../common/localization';
+import { emptyFunction } from '../../../common/misc';
 
 export default class BackButton extends React.Component {
   static propTypes = {
@@ -10,9 +12,9 @@ export default class BackButton extends React.Component {
   };
 
   static defaultProps = {
-    onClick: function () {},
+    onClick: emptyFunction,
     className: classNames('tab__close'),
-    title: 'Go Back'
+    title: 'go back'
   };
 
   shouldComponentUpdate () {
@@ -20,7 +22,7 @@ export default class BackButton extends React.Component {
   }
 
   render () {
-    const { title } = this.props;
+    const title = localization(this.props.title);
 
     return (
       <div title={title} className={this.props.className} onClick={this.props.onClick}>

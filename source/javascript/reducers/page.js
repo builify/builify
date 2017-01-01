@@ -18,23 +18,6 @@ import importPage from '../pages/import-page';
 import * as Actions from '../actions/constants';
 import { TEMPLATE_PAGES_STORAGE_NAME } from '../constants';
 
-const pageInitialState = {
-  // Core
-  pageID: null,
-  pageTitle: 'Page Title',
-  pageFileName: 'index.html',
-  pageFullSource: null,
-
-  // Blocks
-  navigation: {},
-  main: [],
-  footer: {},
-  blocksCount: 0,
-
-  // Misc
-  replaceInHTML: []
-};
-
 function replaceDataInHTML (HTML, arrayOfItemsToReplace) {
   if (!HTML || !arrayOfItemsToReplace || !arrayOfItemsToReplace.length) {
     return HTML;
@@ -108,11 +91,34 @@ function removeFirstTag (source) {
   arr.pop();
 }
 
+const pageInitialState = {
+  // Core
+  pageID: null,
+  pageTitle: 'Page Title',
+  pageFileName: 'index.html',
+  pageFullSource: null,
+
+  // Blocks
+  navigation: {},
+  main: [],
+  footer: {},
+  blocksCount: 0,
+
+  // Misc
+  replaceInHTML: []
+};
+
 export default function page (state = pageInitialState, action) {
   switch (action.type) {
     case Actions.CLONE_ITEM: {
       // To update hovering events.
       return _assign({}, state);
+    }
+
+    case Actions.CLEAR_PAGE_BLOCKS_COUNT: {
+      return _assign({}, state, {
+        blocksCount: 0
+      });
     }
 
     case Actions.EXPORT_PAGE: {

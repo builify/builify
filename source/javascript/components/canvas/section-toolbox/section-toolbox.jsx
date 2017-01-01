@@ -4,8 +4,9 @@ import _values from 'lodash/values';
 import _has from 'lodash/has';
 import _map from 'lodash/map';
 import _isNull from 'lodash/isnull';
-import classNames from 'classnames';
+import classNames from '../../../common/classnames';
 import ToolboxItem from './item';
+import localization from '../../../common/localization';
 import { connect } from 'react-redux';
 import * as Actions from '../../../actions';
 
@@ -33,7 +34,7 @@ class SectionToolBox extends React.Component {
     const { currentHoverBlock } = this.props;
     const { block, topX } = currentHoverBlock;
     const { features } = block;
-    const className = classNames('ab-cstoolbox');
+    const className = classNames('cstoolbox');
     const toolBoxStyle = {
       top: topX
     };
@@ -92,7 +93,10 @@ class SectionToolBox extends React.Component {
       <div data-abctoolbox className={className} style={toolBoxStyle}>
         <ul className='settings'>
           { featureItems }
-          <ToolboxItem title='Remove Block' icon='remove' onClick={::this.removeBlock} />
+          <ToolboxItem
+            title={localization('remove')}
+            icon='remove'
+            onClick={::this.removeBlock} />
         </ul>
       </div>
     );

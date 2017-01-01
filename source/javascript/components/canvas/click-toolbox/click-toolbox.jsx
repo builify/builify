@@ -2,6 +2,7 @@ import React from 'react';
 import _isNull from 'lodash/isnull';
 import _isEmpty from 'lodash/isempty';
 import classNames from '../../../common/classnames';
+import localization from '../../../common/localization';
 import TTDOM from '../../../common/TTDOM';
 import ClickToolBoxItem from './item';
 import Helpers from './helpers';
@@ -133,63 +134,70 @@ class ClickToolbox extends React.Component {
   }
 
   listExpandColumn () {
+    const label = localization('expand column');
     const clickEvent = () => {
         // Why is it reversed?
       return Helpers.replaceGridClassnames(this.state.target);
     };
 
-    return <ClickToolBoxItem text='Expand Column' icon='format-indent-increase' onClick={clickEvent} />;
+    return <ClickToolBoxItem text={label} icon='format-indent-increase' onClick={clickEvent} />;
   }
 
   listShrinkColumn () {
+    const label = localization('shrink column');
     const clickEvent = () => {
       // Why is it reversed?
       return Helpers.replaceGridClassnames(this.state.target, true);
     };
 
-    return <ClickToolBoxItem text='Shrink Column' icon='format-indent-decrease' onClick={clickEvent} />;
+    return <ClickToolBoxItem text={label} icon='format-indent-decrease' onClick={clickEvent} />;
   }
 
   listImageChange () {
+    const label = localization('edit image');
     const clickEvent = () => {
       return this.props.openImageEditModal(this.state.target);
     };
 
-    return <ClickToolBoxItem icon='image'  text='Edit Image' onClick={clickEvent} />;
+    return <ClickToolBoxItem icon='image' text={label} onClick={clickEvent} />;
   }
 
   listClone () {
+    const label = localization('clone');
     const clickEvent = () => {
       Helpers.cloneItem(this.state.target);
       return this.props.cloneItem();
     };
 
-    return <ClickToolBoxItem icon='control-point-duplicate' text='Clone' onClick={clickEvent} />;
+    return <ClickToolBoxItem icon='control-point-duplicate' text={label} onClick={clickEvent} />;
   }
 
   listIconChange () {
+    const label = localization('change icon');
     const clickEvent = () => {
       return this.props.openIconEditModal(this.state.target);
     };
 
-    return <ClickToolBoxItem icon='star' text='Change Icon' onClick={clickEvent} />;
+    return <ClickToolBoxItem icon='star' text={label} onClick={clickEvent} />;
   }
 
   listItemRemove () {
+    const label = localization('remove');
     const clickEvent = () => {
       TTDOM.element.remove(this.state.target);
       return this.closePanel();
     };
 
-    return <ClickToolBoxItem icon='clear' text='Remove' onClick={clickEvent} />;
+    return <ClickToolBoxItem icon='clear' text={label} onClick={clickEvent} />;
   }
 
   listItemOpenEditor () {
+    const label = localization('open editor');
     const clickEvent = () => {
       return this.props.openBlockEditorTab(this.state.target);
     };
 
-    return <ClickToolBoxItem icon='mode-edit' text='Editor' onClick={clickEvent} />;
+    return <ClickToolBoxItem icon='mode-edit' text={label} onClick={clickEvent} />;
   }
 
   renderChildren () {

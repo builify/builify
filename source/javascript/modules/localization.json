@@ -1,5 +1,15 @@
 {
   "en": {
+    "go back": "Go Back",
+
+    "edit image": "Edit Image",
+    "clone": "Clone Item",
+    "change icon": "Change Icon",
+    "open editor": "Open Editor",
+    "remove": "Remove",
+    "expand column": "Expand Column",
+    "shrink column": "Shrink Column",
+
     "navigation": {
       "pages": "Page",
       "content": "Content",

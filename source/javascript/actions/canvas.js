@@ -81,6 +81,12 @@ export function blockWasRenderedToPage (block, elementReference) {
   };
 }
 
+export function clearPageBlocksCount () {
+  return {
+    type: Actions.CLEAR_PAGE_BLOCKS_COUNT
+  };
+}
+
 export function updateContentBlockSource (block, newSource) {
   return {
     type: Actions.UPDATE_CONTENTBLOCK_SOURCE,
