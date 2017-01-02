@@ -4,6 +4,7 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    height: 100%;
     margin-top: 30px;
     @include clearfix;
 
@@ -14,8 +15,9 @@
         text-transform: uppercase;
         font-weight: 400;
         cursor: pointer;
+        color: #444;
         padding: 10px $base-padding;
-        @include rem(font-size, 18px);
+        @include rem(font-size, 16px);
         @include user-select(none);
         @include transition(all 0.3s ease);
 
@@ -34,6 +36,16 @@
             &:hover {
                 background: transparent;
             }
+        }
+
+        &.feedback,
+        &.settings {
+            position: fixed;
+            bottom: 10px;
+        }
+
+        &.feedback {
+            bottom: 50px;
         }
     }
 }

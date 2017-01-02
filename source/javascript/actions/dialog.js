@@ -37,7 +37,7 @@ export function openPreviousPagesSelectionModal () {
 }
 
 export function openDownloadModal () {
-  return (dispatch, getState) => {
+  return function (dispatch, getState) {
     if (IS_DEMO_VERSION) {
       dispatch(addNotification({
         level: 'warning',

@@ -151,6 +151,8 @@ export default {
     'file-saver',
     'mime',
     'moment',
-    'sortablejs'
+    'sortablejs',
+    'punycode',
+    'url'
   ]
 };

@@ -76,6 +76,17 @@ $modal-navigation-padding: .8 * $unit;
         }
 	}
 
+    &__pageremove {
+        position: absolute;
+        right: 50px;
+
+        &:hover {
+            path {
+                fill: red;
+            }
+        }
+    }
+
 	&__userselect {
 		@include user-select(none);
 	}
@@ -294,6 +305,9 @@ $modal-navigation-padding: .8 * $unit;
 		flex-grow: 0;
 		text-align: right;
 		padding: $modal-navigation-padding;
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(flex-end);
 	}
 
 	&__imgholder {

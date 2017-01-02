@@ -22,6 +22,21 @@
             right: $base-padding;
             top: (($item-height * 2) / 2) - 12;
         }
+
+        span:nth-of-type(2) {
+            margin-left: 10px;
+            position: relative;
+            top: 0px;
+            @include rem(font-size, 12px);
+
+            &:before {
+                content: "(";
+            }
+
+            &:after {
+                content: ")";
+            }
+        }
     }
 
     &__items {

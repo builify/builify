@@ -1,5 +1,12 @@
 {
   "en": {
+    "page": "Page",
+    "design": "Design",
+    "content": "Content",
+    "save": "Save",
+    "restart": "Restart",
+    "download": "Download",
+
     "go back": "Go Back",
 
     "edit image": "Edit Image",
@@ -21,7 +28,6 @@
     "position": "Position",
     "close": "Close",
     "text": "Text",
-    "design": "Design",
     "block": "Block",
     "appearance": "Appearance",
     "remove element": "Remove Element",
@@ -31,19 +37,15 @@
     "page filename": "Page Filename",
     "your page is empty": "Your current page is empty :(",
     "export page": "Export Page",
+    "import page": "Import Page",
+    "delete all pages": "Delete all pages",
+    "filter": "Filter",
+
+    "cancel": "Cancel",
 
     "info": {
       "title descripion": "This is displayed in search results and in your browser's title bar.",
       "filename description": "This will be page's filename"
-    },
-
-    "navigation": {
-      "pages": "Page",
-      "content": "Content",
-      "design": "Design",
-      "save": "Save",
-      "restart": "Restart",
-      "download": "Download"
     },
 
     "canvas": {

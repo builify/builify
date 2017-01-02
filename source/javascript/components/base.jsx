@@ -7,9 +7,8 @@ import ColorPicker from './shared/color-picker';
 import Modals from './modals';
 import NotificationContainer from './notifications';
 import Upperbar from './upperbar';
-import FeedBack from './feedback';
 import { connect } from 'react-redux';
-import { IS_DEMO_VERSION, IS_DEV_VERSION, BUY_LINK } from '../constants';
+import { IS_DEMO_VERSION, BUY_LINK } from '../constants';
 
 class Base extends React.Component {
   static propTypes = {
@@ -39,8 +38,7 @@ class Base extends React.Component {
         <ColorPicker />
         <Modals />
         <NotificationContainer />
-        
-        { (IS_DEV_VERSION || IS_DEMO_VERSION) && <FeedBack /> }
+
         { IS_DEMO_VERSION && <SaleButton /> }
       </div>
     );

@@ -20,7 +20,8 @@ class Modals extends React.Component {
   };
 
   shouldComponentUpdate (nextProps) {
-    if (this.props.isModalOpen !== nextProps.isModalOpen) {
+    if (this.props.isModalOpen !== nextProps.isModalOpen ||
+        this.props.modalType !== nextProps.modalType) {
       return true;
     }
 
@@ -30,6 +31,8 @@ class Modals extends React.Component {
   render () {
     const { isModalOpen, modalType, modalTarget } = this.props;
     const type = modalType || DialogTypes.CLASSIC;
+
+    console.log(this.props);
 
     if (!isModalOpen) {
       return null;

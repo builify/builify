@@ -61,21 +61,10 @@ export default function builder (state = initialState, action) {
       });
 
     case Actions.OPEN_DOWNLOAD_MODAL: {
-      const { pages } = state;
-      const pagesSize = _size(pages);
-
-      if (pagesSize === 1) {
-        const { currentState } = action;
-
-        downloadPages(pages, currentState);
-      } else if (pagesSize > 1) {
-        return _assign({}, state, {
-          isModalOpen: true,
-          modalType: DialogTypes.DOWNLOADPAGES
-        });
-      }
-
-      return state;
+      return _assign({}, state, {
+        isModalOpen: true,
+        modalType: DialogTypes.DOWNLOADPAGES
+      });
     }
 
     case Actions.OPEN_RESTART_MODAL:

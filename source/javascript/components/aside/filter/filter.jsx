@@ -6,6 +6,7 @@ import _map from 'lodash/map';
 import _isNull from 'lodash/isnull';
 import _filter from 'lodash/filter';
 import classNames from '../../../common/classnames';
+import localization from '../../../common/localization';
 import { connect } from 'react-redux';
 import { filterContentBlocks } from '../../../actions';
 
@@ -110,6 +111,7 @@ class Filter extends React.Component {
   }
 
   render () {
+    const { filterContentBlocksTarget } = this.props;
     const { isFilterOpened } = this.state;
     const filterClassName = classNames('filter', {
       'active': isFilterOpened
@@ -118,7 +120,8 @@ class Filter extends React.Component {
     return (
       <div className={filterClassName}>
         <div className={classNames('filter__text')} onClick={::this.toggleFilter}>
-          <span>Filter</span>
+          <span>{ localization('filter') }</span>
+          <span>{ filterContentBlocksTarget }</span>
           <Icon icon={isFilterOpened ? 'expand-less' : 'expand-more'} size='24' />
         </div>
         <div className={classNames('filter__items')}>

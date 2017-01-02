@@ -1,8 +1,9 @@
 import JSZip from 'jszip';
 import _map from 'lodash/map';
 import Random from '../common/random';
+import { fetch } from '../common/http';
 import { saveAs } from 'file-saver';
-import { TEMPLATE_PACKAGE_FILENAME, TEMPLATE_PACKAGE_EXTENSION } from '../Constants';
+import { TEMPLATE_PACKAGE_FILENAME, TEMPLATE_PACKAGE_EXTENSION } from '../constants';
 
 function getFileSettings () {
   return {
@@ -12,27 +13,6 @@ function getFileSettings () {
 
 function getFileName () {
   return `${TEMPLATE_PACKAGE_FILENAME}.${TEMPLATE_PACKAGE_EXTENSION}`;
-}
-
-function get (url) {
-  return new Promise(function (resolve, reject) {
-    const request = new XMLHttpRequest();
-
-    request.onreadystatechange = function() {
-      if (request.readyState === 4) { // done
-        if (request.status === 200) { // complete
-          resolve(request.responseText);
-        }
-      }
-    };
-
-    request.onerror = function (e) {
-      reject(e.target.status);
-    };
-
-    request.open('GET', url, true);
-    request.send(null);
-  });
 }
 
 async function addPageFilesToPackage (pckg, pages) {
@@ -67,8 +47,8 @@ async function downloadPages (pages) {
   const templateFolder = assetsFolder.folder('template');
 
   // Get local asset files.
-  const javascriptFile = await get('assets/template/template.js');
-  const stylesheetFile = await get('assets/template/template.css');
+  const javascriptFile = await fetch('assets/template/template.js');
+  const stylesheetFile = await fetch('assets/template/template.css');
 
   // Add template files to ZIP package.
   templateFolder.file('template.js', javascriptFile);
@@ -86,6 +66,8 @@ export default function (pages, state) {
   if (pages.length === 0 || !state) {
     return false;
   }
+
+  console.log(pages);
 
   downloadPages(pages, state);
 }

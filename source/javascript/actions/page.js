@@ -42,7 +42,7 @@ export function getCurrentPageData () {
 }
 
 export function saveCurrentPage () {
-  return (dispatch, getState) => {
+  return function (dispatch, getState) {
     const { builder } = getState();
     const { currentLocation } = builder;
 
@@ -92,7 +92,7 @@ export function importPage (data) {
 }
 
 export function exportPage () {
-  return (dispatch) => {
+  return function (dispatch) {
     if (IS_DEMO_VERSION) {
       dispatch(addNotification({
         level: 'warning',
@@ -102,5 +102,12 @@ export function exportPage () {
     } else {
       dispatch({ type: Actions.EXPORT_PAGE });
     }
+  };
+}
+
+export function deletePage (id) {
+  return {
+    type: Actions.DELETE_PAGE,
+    id: id
   };
 }

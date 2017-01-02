@@ -11,8 +11,8 @@ import AsideData from '../../../data/builder/aside';
 import fontsList from '../../../data/builder/fonts-list';
 import { checkPreviousPagesInStorage, saveCurrentPage } from './page';
 import { closeTab, closeSidetab } from './aside';
+import { fetch } from '../common/http';
 import { addNotification } from './notifications';
-import fetch from 'isomorphic-fetch';
 import JSZip from 'jszip';
 
 export function runApplicationActions () {
@@ -36,7 +36,7 @@ export function getTemplateFiles () {
           throw new Error('Bad response from server');
         }
 
-        return response.text();
+        return response;
       })
       .then(function (data) {
         zip.loadAsync(data, { base64: true, checkCRC32: true }).then(function () {
@@ -61,7 +61,7 @@ export function initializeEvents () {
     ESC: 27
   };
 
-  return (dispatch, getState) => {
+  return function (dispatch, getState) {
     const observable = new TTEventEmitter();
 
     // Event listeners.
@@ -177,8 +177,17 @@ export function uploadImage (data) {
   };
 }
 
+export function downloadSinglePage () {
+  return function (dispatch, getState) {
+    dispatch({
+      type: Actions.DOWNLOAD_SINGLE_PAGE,
+      currentState: getState()
+    });
+  };
+}
+
 export function downloadPages (pages) {
-  return (dispatch, getState) => {
+  return function (dispatch, getState) {
     dispatch({
       type: Actions.DOWNLOAD_PAGES,
       pages: pages,

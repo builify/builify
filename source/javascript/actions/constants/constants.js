@@ -32,11 +32,13 @@ export default keyMirror([
   'GET_CURRENT_PAGE_DATA',
   'SAVE_CURRENT_PAGE',
   'DOWNLOAD_PAGES',
+  'DOWNLOAD_SINGLE_PAGE',
   'RESTART_PAGE',
   'SET_PAGE_TITLE',
   'SET_PAGE_FILENAME',
   'IMPORT_PAGE',
   'EXPORT_PAGE',
+  'DELETE_PAGE',
 
   // Tab's actions
   'OPEN_TAB',

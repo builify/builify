@@ -6,6 +6,8 @@ import _size from 'lodash/size';
 import _isArray from 'lodash/isarray';
 import _isUndefined from 'lodash/isundefined';
 import _join from 'lodash/join';
+import _findIndex from 'lodash/findindex';
+import _without from 'lodash/without';
 import _words from 'lodash/words';
 import _dropRight from 'lodash/dropright';
 import downloadPages from '../pages/download';
@@ -36,6 +38,25 @@ export default function builder (state = builderInitialState, action) {
   switch (action.type) {
     case Actions.UPLOAD_FILE:
       return _assign({}, state, {});
+
+    case Actions.DELETE_PAGE: {
+      const { id } = action;
+      const result = _findIndex(state.pages, {
+        pageID: id
+      });
+
+      if (result !== -1) {
+        const pages = _without(state.pages, state.pages[result]);
+
+        TTStorage.set(TEMPLATE_PAGES_STORAGE_NAME, pages);
+
+        return _assign({}, state, {
+          pages: pages
+        });
+      }
+
+      return state;
+    }
 
     case Actions.OPEN_TAB: {
       const { target } = action;
@@ -70,6 +91,15 @@ export default function builder (state = builderInitialState, action) {
 
     case Actions.RECEIVE_ASIDE_CONFIGURATION: {
       return _assign({}, state, action.data);
+    }
+    
+    case Actions.DOWNLOAD_SINGLE_PAGE: {
+      const { currentState } = action;
+      const { pages } = state;
+
+      downloadPages(pages, currentState);
+      
+      return state;
     }
 
     case Actions.DOWNLOAD_PAGES: {
@@ -121,8 +151,9 @@ export default function builder (state = builderInitialState, action) {
       const pagesInStorage = TTStorage.get(TEMPLATE_PAGES_STORAGE_NAME);
 
       if (!_isUndefined(pagesInStorage) && _isArray(pagesInStorage)) {
+
         return _assign({}, state, {
-          doPreviousPagesExistInStorage: true,
+          doPreviousPagesExistInStorage: pagesInStorage.length !== 0,
           pages: pagesInStorage
         });
       }
@@ -148,7 +179,7 @@ export default function builder (state = builderInitialState, action) {
       };
       let pagesList = [];
 
-      if (pagesInStorage === undefined) {
+      if (_isUndefined(pagesInStorage)) {
         pagesList.push(pageObject);
         TTStorage.set(TEMPLATE_PAGES_STORAGE_NAME, pagesList);
       } else {
