@@ -5,6 +5,7 @@ import TTDOM from '../../../common/TTDOM';
 import * as Constants from '../../../constants';
 import { connect } from 'react-redux';
 import { closeColorPicker, setColorFromColorPicker } from '../../../actions';
+import { setStyleValue } from '../../aside/block-editor/helpers';
 
 class ColorPick extends React.Component {
   static propTypes = {
@@ -16,13 +17,22 @@ class ColorPick extends React.Component {
   };
 
   _colorTargetType = null;
+  _editorColor = null;
+  _colorCircleElement = null;
 
   onClose () {
     return this.props.closeColorPicker();
   }
 
   setColor (color) {
-    return this.props.setColorFromColorPicker(color, this._colorTargetType);
+    if (this._editorColor) {
+      setStyleValue(this.props.sourceCPElement, this._editorColor, color.hex);
+      this._colorCircleElement && setStyleValue(this._colorCircleElement, 'background-color', color.hex);
+      return false;
+      
+    } else {
+      return this.props.setColorFromColorPicker(color, this._colorTargetType);
+    }
   }
 
   render () {
@@ -36,7 +46,10 @@ class ColorPick extends React.Component {
     let xPos = 0;
     let yPos = 0;
 
-    console.log(this.props);
+    if (_isElement(selectedCPElement) && selectedCPElement.getAttribute('data-editorcolor')) {
+      this._editorColor = selectedCPElement.getAttribute('data-editorcolor');
+    } 
+
     if (_isElement(selectedCPElement)) {
       const browserSize = TTDOM.browser.size();
       const { height: browserHeight } = browserSize;
@@ -44,6 +57,8 @@ class ColorPick extends React.Component {
 
       if (selectedCPElement.getAttribute('data-abcolor')) {
         const colorCircleElement = selectedCPElement.querySelector('.ab-color__circle');
+
+        this._colorCircleElement = colorCircleElement;
 
         if (!_isElement(colorCircleElement)) {
           return null;

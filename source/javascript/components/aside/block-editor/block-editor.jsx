@@ -11,6 +11,8 @@ import ItemMarginEditor from './margin-editor';
 import ItemPaddingEditor from './padding-editor';
 import TextAlignEditor from './text-align-editor';
 import TextSpaceEditor from './text-spacing-editor';
+import AttributesEditor from './attributes-editor';
+import ColorsEditor from './colors-editor';
 import { connect } from 'react-redux';
 import { closeBlockEditorTab } from '../../../actions';
 
@@ -42,7 +44,7 @@ class BlockEditor extends React.Component {
         <Scrollbar aside innerPadding>
           <BackButton title={localization('close')} onClick={this.props.closeBlockEditorTab} />
           <h1 className={classNames('tab__title')}>
-            <span>{ localization('design') }</span>
+            <span>{ localization('editor') }</span>
             <span>{ localization('block') }</span>
           </h1>
           <div className={classNames(['be-block', 'be-block--first'])}>
@@ -60,7 +62,9 @@ class BlockEditor extends React.Component {
             <BorderRadiusEditor target={blockEditorTarget} />
             <ItemMarginEditor target={blockEditorTarget} />
             <ItemPaddingEditor target={blockEditorTarget} />
+            <ColorsEditor target={blockEditorTarget} />
           </div>
+          <AttributesEditor target={blockEditorTarget} />
         </Scrollbar>
       </div>
     );

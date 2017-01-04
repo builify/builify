@@ -1,9 +1,10 @@
 import React from 'react';
 import classNames from '../../../common/classnames';
+import localization from '../../../common/localization';
 import { openColorPicker, closeColorPicker } from '../../../actions';
 import { connect } from 'react-redux';
 import { rgbToHex } from '../../../common/colors';
-import { getStyleValue, setStyleValue } from './helpers';
+import { getStyleValue } from './helpers';
 
 class ColorsEditor extends React.Component {
   static propTypes = {
@@ -59,11 +60,11 @@ class ColorsEditor extends React.Component {
   }
 
   onColorClick (element) {
-    return this.props.openColorPicker(element);
+    return this.props.openColorPicker(element, this._target);
   }
   
   render () {
-    const { display, color, backgroundColor } = this.state;
+    const { display, color } = this.state;
 
     if (!display) {
       return null;
@@ -72,12 +73,9 @@ class ColorsEditor extends React.Component {
     return (
       <div className={classNames('be-block__colors')}>
         <Color
-          title='Color'
+          type='color'
+          title={localization('color')}
           color={color}
-          onClick={::this.onColorClick} />
-        <Color
-          title='Background Color'
-          color={backgroundColor}
           onClick={::this.onColorClick} />
       </div>
     );
@@ -86,6 +84,7 @@ class ColorsEditor extends React.Component {
 
 class Color extends React.Component {
   static propTypes = {
+    type: React.PropTypes.string.isRequired,
     color: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
     onClick: React.PropTypes.func
@@ -103,7 +102,7 @@ class Color extends React.Component {
   }
 
   render () {
-    const { color, title } = this.props;
+    const { color, title, type } = this.props;
     const colorHolderStyle = {
       backgroundColor: color
     };
@@ -113,6 +112,7 @@ class Color extends React.Component {
         ref={(ref) => this._colorElement = ref}
         title={title}
         data-abcolor={color}
+        data-editorcolor={type}
         className={classNames(['color', 'be-block__colors__item'])}
         onClick={::this.clickEvent}>
         <div className={classNames(['color__name', 'be-block__colors__name'])}>

@@ -75,7 +75,8 @@
     &__space,
     &__radius,
     &__align,
-    &__pm {
+    &__pm,
+    &__attr {
         padding: 0 $base-padding;
         position: relative;
         overflow: hidden;
@@ -87,6 +88,62 @@
         flex-wrap: nowrap;
         justify-content: flex-start;
         align-content: stretch;
+    }
+
+    &__attr {
+        height: auto;
+        flex-direction: column;
+
+        &__title {
+            position: relative;
+            color: #555;
+            height: $base-padding / 1.7;
+            line-height: $base-padding / 1.7;
+            font-weight: 400;
+            margin: 20px 0 0 0;
+            text-transform: uppercase;
+            @include rem(font-size, 14px);
+            @include transition(all 0.3s ease);
+
+        }
+
+        &__item {
+            display: block;
+            width: 100%;
+
+            &--first {
+                .#{$nameprefix}be-block__attr__title {
+                    margin: 0;
+                }
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            svg {
+                position: relative;
+                float: left;
+                top: 10px;
+                margin-right: 10px;
+
+                path {
+                    fill: #ccc;
+                }
+            }
+        }
+
+        &__input {
+            float: right;
+            padding: 0 !important;
+            width: 100%;
+            margin-top: 0px;
+            font-size: 14px;
+
+            input[type="text"] {
+                font-size: 14px;
+            }
+        }
     }
 
     &__colors {

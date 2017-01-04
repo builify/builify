@@ -46,8 +46,11 @@ class PreviousPages extends React.Component {
       };
 
       return (
-        <div key={idx} className={classNames('modal__pageitem')}>
-          <span onClick={onClick}>{ pageText }</span>
+        <div
+          onClick={onClick}
+          key={idx}
+          className={classNames('modal__pageitem')}>
+          <span>{ pageText }</span>
           <Icon
             title={localization('remove')}
             onClick={onRemoveClick}

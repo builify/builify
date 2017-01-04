@@ -41,6 +41,13 @@
     "delete all pages": "Delete all pages",
     "filter": "Filter",
 
+    "classname": "Classname",
+    "id": "ID",
+    "title": "Title",
+    "editor": "Editor",
+    "color": "Color",
+    "background color": "Background Color",
+
     "cancel": "Cancel",
 
     "info": {
