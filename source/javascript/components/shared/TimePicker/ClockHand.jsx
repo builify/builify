@@ -1,6 +1,6 @@
 import React from 'react';
-import Events from '../../../Common/Events';
-import prefixer from '../../../Common/Prefixer';
+import Events from '../../../common/events';
+import prefixer from '../../../common/prefix';
 
 function angleFromPositions (cx, cy, ex, ey) {
   const theta = Math.atan2(ey - cy, ex - cx) + Math.PI / 2;

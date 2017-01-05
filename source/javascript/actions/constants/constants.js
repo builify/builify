@@ -100,5 +100,6 @@ export default keyMirror([
   'OPEN_FEEDBACK_MODAL',
   'OPEN_MAPS_MODAL',
   'OPEN_CUSTOMCSS_MODAL',
+  'OPEN_LINK_CHANGE_MODAL',
   'CLOSE_MODAL'
 ]);

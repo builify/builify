@@ -17,8 +17,12 @@ export default class Scrollbar extends React.Component {
     innerPadding: false
   };
 
-  shouldComponentUpdate () {
-    return true;
+  shouldComponentUpdate (nextProps) {
+    if (this.props.children !== nextProps.children) {
+      return true;
+    }
+
+    return false;
   }
 
   getStyle ({ aside, height, width }) {

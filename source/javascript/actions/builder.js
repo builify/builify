@@ -123,7 +123,7 @@ export function removeLoadingScreen () {
       dispatch({
         type: Actions.REMOVE_LOADING_SCREEN
       });
-    }, 250);
+    }, 500);
   };
 }
 

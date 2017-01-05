@@ -13,10 +13,12 @@ export default class ItemMarginEditor extends React.Component {
     className: '',
     id: '',
     title: '',
+    href: '',
 
     displayClassName: true,
     displayID: true,
-    displayTitle: true
+    displayTitle: true,
+    displayHref: true
   };
 
   _target = null;
@@ -42,15 +44,18 @@ export default class ItemMarginEditor extends React.Component {
     const className = this._target.className;
     const id = this._target.id;
     const title = this._target.title;
+    const href = this._target.href;
 
     this.setState({
       className,
       id,
       title,
+      href,
 
       displayClassName: _isEmpty(className) ? false : true,
       displayID: _isEmpty(id) ? false : true,
-      displayTitle: _isEmpty(title) ? false : true
+      displayTitle: _isEmpty(title) ? false : true,
+      displayHref: _isEmpty(href) ? false : true
     });
   }
 
@@ -111,10 +116,27 @@ export default class ItemMarginEditor extends React.Component {
     );
   }
 
+  renderHref () {
+    if (!this.state.displayHref) {
+      return null;
+    }
+
+    return (
+      <div className={classNames('be-block__attr__item')}>
+        <h3 className={classNames('be-block__attr__title')}>{ localization('href') }</h3>
+        <Input
+          className={classNames('be-block__attr__input')}
+          value={this.state.href}
+          onChange={this.handleChange.bind(this, 'href')} />
+      </div>
+    );
+  }
+
   render () {
     if (!this.state.displayID &&
         !this.state.displayClassName &&
-        !this.state.displayTitle) {
+        !this.state.displayTitle &&
+        !this.state.displayHref) {
       return null;
     }
 
@@ -124,6 +146,7 @@ export default class ItemMarginEditor extends React.Component {
           { this.renderClassName() }
           { this.renderID() }
           { this.renderTitle() }
+          { this.renderHref() }
         </div>
       </div>
     );

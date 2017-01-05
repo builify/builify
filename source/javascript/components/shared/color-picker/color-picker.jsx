@@ -19,6 +19,7 @@ class ColorPick extends React.Component {
   _colorTargetType = null;
   _editorColor = null;
   _colorCircleElement = null;
+  _disableAlpha = false;
 
   onClose () {
     return this.props.closeColorPicker();
@@ -48,7 +49,11 @@ class ColorPick extends React.Component {
 
     if (_isElement(selectedCPElement) && selectedCPElement.getAttribute('data-editorcolor')) {
       this._editorColor = selectedCPElement.getAttribute('data-editorcolor');
-    } 
+      this._disableAlpha = true;
+    }  else {
+      this._editorColor = null;
+      this._disableAlpha = false;
+    }
 
     if (_isElement(selectedCPElement)) {
       const browserSize = TTDOM.browser.size();
@@ -123,7 +128,9 @@ class ColorPick extends React.Component {
         <div style={coverStyle} onClick={::this.onClose} />
         <SketchPicker
           color={defaultColor}
-          onChange={::this.setColor} />
+          onChange={::this.setColor}
+          disableAlpha={this._disableAlpha}
+          presetColors={[]} />
       </div>
     );
   }

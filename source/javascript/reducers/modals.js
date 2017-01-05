@@ -85,6 +85,12 @@ export default function builder (state = initialState, action) {
         modalType: DialogTypes.CUSTOMCSS
       });
 
+    case Actions.OPEN_LINK_CHANGE_MODAL:
+      return _assign({}, state, {
+        isModalOpen: true,
+        modalType: DialogTypes.LINKCHANGE
+      });
+
     case Actions.CLOSE_MODAL:
       return _assign({}, state, {
         isModalOpen: false,

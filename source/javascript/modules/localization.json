@@ -16,6 +16,7 @@
     "remove": "Remove",
     "expand column": "Expand Column",
     "shrink column": "Shrink Column",
+    "change link": "Change Link",
 
     "loading builder": "Loading Builder",
     "please wait": "Please wait...",
@@ -47,6 +48,7 @@
     "editor": "Editor",
     "color": "Color",
     "background color": "Background Color",
+    "href": "HREF",
 
     "cancel": "Cancel",
 

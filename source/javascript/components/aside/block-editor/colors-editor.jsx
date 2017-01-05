@@ -6,6 +6,60 @@ import { connect } from 'react-redux';
 import { rgbToHex } from '../../../common/colors';
 import { getStyleValue } from './helpers';
 
+class Color extends React.Component {
+  static propTypes = {
+    type: React.PropTypes.string.isRequired,
+    color: React.PropTypes.string.isRequired,
+    title: React.PropTypes.string.isRequired,
+    onClick: React.PropTypes.func
+  };
+
+  static defaultProps = {
+    onClick: function () {}
+  };
+
+  _colorElement = null;
+
+  shouldComponentUpdate (nextProps) {
+    if (nextProps.color !== this.props.color) {
+      return true;
+    }
+
+    return false;
+  }
+
+  clickEvent (e) {
+    e.preventDefault();
+    return this.props.onClick(this._colorElement);
+  }
+
+  render () {
+    const { color, title, type } = this.props;
+    const colorHolderStyle = {
+      backgroundColor: color
+    };
+
+    return (
+      <div
+        ref={(ref) => this._colorElement = ref}
+        title={title}
+        data-abcolor={color}
+        data-editorcolor={type}
+        className={classNames(['color', 'be-block__colors__item'])}
+        onClick={::this.clickEvent}>
+        <div className={classNames(['color__name', 'be-block__colors__name'])}>
+          <span>{ title }</span>
+        </div>
+        <div
+          className={classNames('color__circle')}
+          title={color}
+          data-color={color}
+          style={colorHolderStyle} />
+      </div>
+    );
+  }
+}
+
 class ColorsEditor extends React.Component {
   static propTypes = {
     target: React.PropTypes.any.isRequired,
@@ -55,7 +109,8 @@ class ColorsEditor extends React.Component {
     this.setState({
       ...this.state,
       color: rgbToHex(colorValue),
-      backgroundColor: rgbToHex(backgroundColorValue)
+      backgroundColor: rgbToHex(backgroundColorValue),
+      display: true
     });
   }
 
@@ -77,52 +132,6 @@ class ColorsEditor extends React.Component {
           title={localization('color')}
           color={color}
           onClick={::this.onColorClick} />
-      </div>
-    );
-  }
-}
-
-class Color extends React.Component {
-  static propTypes = {
-    type: React.PropTypes.string.isRequired,
-    color: React.PropTypes.string.isRequired,
-    title: React.PropTypes.string.isRequired,
-    onClick: React.PropTypes.func
-  };
-
-  static defaultProps = {
-    onClick: function () {}
-  };
-
-  _colorElement = null;
-
-  clickEvent (e) {
-    e.preventDefault();
-    return this.props.onClick(this._colorElement);
-  }
-
-  render () {
-    const { color, title, type } = this.props;
-    const colorHolderStyle = {
-      backgroundColor: color
-    };
-
-    return (
-      <div
-        ref={(ref) => this._colorElement = ref}
-        title={title}
-        data-abcolor={color}
-        data-editorcolor={type}
-        className={classNames(['color', 'be-block__colors__item'])}
-        onClick={::this.clickEvent}>
-        <div className={classNames(['color__name', 'be-block__colors__name'])}>
-          <span>{ title }</span>
-        </div>
-        <div
-          className={classNames('color__circle')}
-          title={color}
-          data-color={color}
-          style={colorHolderStyle} />
       </div>
     );
   }

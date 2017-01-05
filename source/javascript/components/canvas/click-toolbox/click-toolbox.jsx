@@ -153,6 +153,15 @@ class ClickToolbox extends React.Component {
     return <ClickToolBoxItem text={label} icon='format-indent-decrease' onClick={clickEvent} />;
   }
 
+  listLinkChange () {
+    const label = localization('change link');
+    const clickEvent = () => {
+
+    };
+
+    return <ClickToolBoxItem icon='' text={label} onClick={clickEvent} />;
+  }
+
   listImageChange () {
     const label = localization('edit image');
     const clickEvent = () => {
@@ -209,29 +218,30 @@ class ClickToolbox extends React.Component {
       showChangeBackgroundImage: false,
       showRemove: false,
       showExpandColumn: false,
-      showShrinkColumn: false
+      showShrinkColumn: false,
+      showLinkChange: false
     };
 
     if (!_isNull(targetElement)) {
       const isNotChangeble = targetElement.getAttribute('data-abccorent');
       const isChangeble = isNotChangeble ? false : true;
-      const tagName = targetElement.tagName;
+      const tagName = targetElement.tagName.toLowerCase();
 
       if (isChangeble) {
         if (!targetElement.getAttribute('data-abcnotremoveable')) {
           elementOptions.showRemove = true;
         }
 
-        if (tagName === 'IMG') {
+        if (tagName === 'img') {
           elementOptions.showChangeImage = true;
-        } else if (tagName === 'DIV') {
+        } else if (tagName === 'div') {
           const backgroundImage = targetElement.style.backgroundImage;
 
           if (!_isEmpty(backgroundImage)) {
             elementOptions.showChangeImage = true;
           }
         }
-
+        
         if (targetElement.classList.contains('icon') ||
             targetElement.classList.contains('fa')) {
           elementOptions.showIconChange = true;
@@ -252,6 +262,7 @@ class ClickToolbox extends React.Component {
         { elementOptions.showClone && this.listClone() }
         { elementOptions.showExpandColumn && this.listExpandColumn() }
         { elementOptions.showShrinkColumn && this.listShrinkColumn() }
+        { elementOptions.showLinkChange && this.listLinkChange() }
         { this.listItemOpenEditor() }
         { elementOptions.showRemove && this.listItemRemove() }
       </div>

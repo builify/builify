@@ -13,6 +13,10 @@ export default class ToolboxItem extends React.Component {
     onClick: () => {}
   };
 
+  shouldComponentUpdate () {
+    return false;
+  }
+
   render () {
     const { onClick, title } = this.props;
     const iconSize = 24;

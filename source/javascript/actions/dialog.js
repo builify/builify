@@ -77,6 +77,12 @@ export function openCustomCSSModal () {
   };
 }
 
+export function openLinkChangeModal () {
+  return {
+    type: Actions.OPEN_LINK_CHANGE_MODAL
+  };
+}
+
 export function closeModal () {
   return {
     type: Actions.CLOSE_MODAL

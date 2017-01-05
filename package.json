@@ -67,7 +67,7 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "*",
     "watchify": "*",
-    "why-did-you-update": "*"
+    "why-did-you-update": "0.0.8"
   },
   "dependencies": {
     "classnames": "*",

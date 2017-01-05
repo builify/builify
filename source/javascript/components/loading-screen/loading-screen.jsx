@@ -1,6 +1,7 @@
 import React from 'react';
 import localization from '../../common/localization';
 import classNames from '../../common/classnames';
+import ProgressBar from '../shared/progress-bar';
 import { connect } from 'react-redux';
 
 class LoadingScreen extends React.Component {
@@ -22,15 +23,15 @@ class LoadingScreen extends React.Component {
     const { isLoadingScreenActive, loadingScreenType } = this.props;
 
     if (loadingScreenType === 0) {
-      const loadingScreenClassName = classNames('loadingScreen', {
+      const loadingScreenClassName = classNames('loading-screen', {
         'show': isLoadingScreenActive
       });
 
       return (
-        <div id={classNames('loadingScreen')} className={loadingScreenClassName}>
-          <div className={classNames('loadingScreen__loader', 'big')}><div /></div>
-          <div className={classNames('loadingScreen__loading')}>{localization('loading builder')}</div>
-          <div className={classNames('loadingScreen__info')}>{localization('please wait')}</div>
+        <div id={classNames('loading-screen')} className={loadingScreenClassName}>
+          <ProgressBar type='circular' mode='indeterminate' multicolor />
+          <div className={classNames('loading-screen__loading')}>{localization('loading builder')}</div>
+          <div className={classNames('loading-screen__info')}>{localization('please wait')}</div>
         </div>
       );
     }

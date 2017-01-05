@@ -36,6 +36,7 @@ export default class CurrentPageSections extends React.Component {
     const { navigation, main, footer } = page;
     const sortableOptions = {
       draggable: '.draggable',
+      animation: 150,
       filter: '.ignore',
       handle: '.handle',
       onSort: (evt) => {

@@ -1,0 +1,153 @@
+$progress-main-color: $color-primary;
+$progress-secondary-color: rgba($color-primary-contrast, 0.7);
+$progress-disabled-color: rgba(#000, 0.3);
+$circle-wrapper-width: 60px;
+$circle-radius: 25px;
+$scale-ratio: $circle-radius / 20;
+
+.#{$nameprefix}progress-bar {
+    &__linear {
+        background: #ccc;
+        display: inline-block;
+        height: 15px;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+
+        &.indeterminate .value {
+            animation: linear-indeterminate-bar 1s linear infinite;
+            transform-origin: center center;
+        }
+    }
+
+    &__value,
+    &__buffer {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transform: scaleX(0);
+        transform-origin: left center;
+        transition-duration: 300ms;
+        transition-timing-function: cubic-bezier(0.23, 1, 0.320, 1);
+    }
+
+    &__value {
+        background-color: $progress-main-color;
+    }
+
+    &__buffer {
+        background-image:
+            linear-gradient(to right, #{$progress-secondary-color}, #{$progress-secondary-color}),
+            linear-gradient(to right, #{$progress-main-color}, #{$progress-main-color});
+    }
+
+    &__circular {
+        display: inline-block;
+        height: $circle-wrapper-width;
+        position: relative;
+        transform: rotate(-90deg);
+        width: $circle-wrapper-width;
+
+        &.indeterminate {
+            & .#{$nameprefix}progress-bar__circle {
+                animation: circular-indeterminate-bar-rotate 2s linear infinite;
+            }
+
+            & .#{$nameprefix}progress-bar__path {
+                animation: circular-indeterminate-bar-dash 1.5s ease-in-out infinite;
+                stroke-dasharray: calc(#{$scale-ratio} * 1), calc(#{$scale-ratio} * 200);
+                stroke-dashoffset: 0;
+            }
+
+            &.multicolor .#{$nameprefix}progress-bar__path {
+                animation:
+                    circular-indeterminate-bar-dash 1.5s ease-in-out infinite,
+                    colors calc(1.5s * 4) ease-in-out infinite;
+            }
+        }
+    }
+
+    &__path {
+        fill: none;
+        stroke: $progress-main-color;
+        stroke-dasharray: 0, calc(#{$scale-ratio} * 200);
+        stroke-dashoffset: 0;
+        stroke-linecap: round;
+        stroke-miterlimit: 20;
+        stroke-width: 4;
+        transition: stroke-dasharray $animation-duration $animation-curve-default;
+    }
+
+    &__circular[disabled],
+    &__linear[disabled] {
+        & .value {
+            background-color: $progress-disabled-color;
+        }
+    }
+
+    &__circle {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+@keyframes linear-indeterminate-bar {
+    0% {
+        transform: translate(-50%) scaleX(0);
+    }
+
+    50% {
+        transform: translate(-0%) scaleX(0.3);
+    }
+
+    100% {
+        transform: translate(50%) scaleX(0);
+    }
+}
+
+@keyframes circular-indeterminate-bar-rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes circular-indeterminate-bar-dash {
+    0% {
+        stroke-dasharray: calc(#{$scale-ratio} * 1), calc(#{$scale-ratio} * 200);
+        stroke-dashoffset: calc(#{$scale-ratio} * 0);
+    }
+
+    50% {
+        stroke-dasharray: calc(#{$scale-ratio} * 89), calc(#{$scale-ratio} * 200);
+        stroke-dashoffset: calc(#{$scale-ratio} * -35);
+    }
+
+    100% {
+        stroke-dasharray: calc(#{$scale-ratio} * 89), calc(#{$scale-ratio} * 200);
+        stroke-dashoffset: calc(#{$scale-ratio} * -124);
+    }
+}
+
+@keyframes colors {
+    0% {
+        stroke: #4285f4;
+    }
+
+    25% {
+        stroke: #de3e35;
+    }
+
+    50% {
+        stroke: #f7c223;
+    }
+
+    75% {
+        stroke: #1b9a59;
+    }
+
+    100% {
+        stroke: #4285f4;
+    }
+}

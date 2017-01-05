@@ -88,22 +88,11 @@ class PrimaryNavigation extends React.Component {
     return null;
   }
 
-  renderSettingsNavigationItem () {
-    return (
-      <NavigationItem
-        className='settings'
-        title='settings'
-        icon='settings-applications'
-        onClick={function () {}} />
-    );
-  }
-
   render () {
     return (
       <ul className={classNames('primarynav')}>
         { this.renderNavigationItems() }
         { this.renderFeedBackNavigationItem() }
-        { this.renderSettingsNavigationItem() }
       </ul>
     );
   }

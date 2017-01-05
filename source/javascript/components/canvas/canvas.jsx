@@ -1,5 +1,6 @@
 import React from 'react';
 import _has from 'lodash/has';
+import _isEqual from 'lodash/isequal';
 import classNames from '../../common/classnames';
 import SuggestionBox from './suggestion-box';
 import Frame from './frame';
@@ -8,19 +9,17 @@ import { CurrentLocations, PreviewModes } from '../../constants';
 
 class Canvas extends React.Component {
   static propTypes = {
-    page: React.PropTypes.object.isRequired,
-    builder: React.PropTypes.object.isRequired,
-    preview: React.PropTypes.object.isRequired,
+    previewMode: React.PropTypes.number.isRequired,
+    currentLocation: React.PropTypes.number.isRequired,
+    blocksCount: React.PropTypes.number.isRequired,
     template: React.PropTypes.object.isRequired
   };
 
   shouldComponentUpdate (nextProps) {
-    if (this.props !== this.props ||
-        this.props.page.footer !== nextProps.page.footer ||
-        this.props.page.navigation !== nextProps.page.navigation ||
-        this.props.builder !== nextProps.builder ||
-        this.props.page !== nextProps.page ||
-        this.props.preview !== nextProps.preview) {
+    if (nextProps.currentLocation !== this.props.currentLocation ||
+        nextProps.previewMode !== this.props.previewMode ||
+        nextProps.blocksCount !== this.props.blocksCount ||
+        !_isEqual(nextProps.template, this.props.template)) {
       return true;
     }
 
@@ -28,10 +27,7 @@ class Canvas extends React.Component {
   }
 
   render () {
-    const { page, builder, preview } = this.props;
-    const { blocksCount } = page;
-    const { currentLocation } = builder;
-    const { previewMode } = preview;
+    const { previewMode, currentLocation, blocksCount } = this.props;
     const suggestionActive = blocksCount === 0;
 
     const className = classNames('canvas', {
@@ -56,11 +52,14 @@ class Canvas extends React.Component {
 
 function mapStateToProps (state) {
   const { builder, page, preview, template } = state;
+  const { blocksCount } = page;
+  const { currentLocation } = builder;
+  const { previewMode } = preview;
 
   return {
-    builder,
-    page,
-    preview,
+    blocksCount,
+    currentLocation,
+    previewMode,
     template
   };
 }

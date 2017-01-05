@@ -34,8 +34,12 @@ export default class Input extends React.Component {
     type: 'text'
   };
 
-  shouldComponentUpdate () {
-    return true;
+  shouldComponentUpdate (nextProps) {
+    if (this.props.onChange !== nextProps.onChange) {
+      return true;
+    }
+
+    return false;
   }
 
   handleChange = (event) => {

@@ -1,4 +1,4 @@
-.#{$nameprefix}loadingScreen {
+.#{$nameprefix}loading-screen {
     display: none;
     position: fixed;
     top: 0;
@@ -6,14 +6,13 @@
     right: 0;
     bottom: 0;
     width: 100%;
-    height: 0px;
     opacity: 0;
     z-index: -1;
     overflow: hidden;
     visibility: hidden;
-    background: $loadingscreen-bg;
-    background: -webkit-linear-gradient(to left, $loadingscreen-bg , $loadingscreen-primary);
-    background: linear-gradient(to left, $loadingscreen-bg , $loadingscreen-primary);
+    background: #000000; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #000000 , #434343); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #000000 , #434343); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */      
     @include transition(all 0.3s ease);
     @include display(flex);
     @include align-items(center);
@@ -29,49 +28,9 @@
         visibility: visible;
     }
 
-    &__loader {
-        position: relative;
-    }
-
-    &__loader,
-    &__loader:before,
-    &__loader > div,
-    &__loader > div:before {
-        display: block;
-    }
-
-    &__loader:before,
-    &__loader > div {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-
-    &__loader > div {
-        left: 50%;
-        overflow: hidden;
-        @include animation(loader_mask $loadingscreen-loader-animation-settings);
-        @include transform-origin(left center);
-    }
-
-    &__loader:before,
-    &__loader > div:before {
-        content: '';
-        border-radius: 100%;
-        border: $loadingscreen-loader-border-thickness solid $loadingscreen-loader-color-primary;
-    }
-
-    &__loader > div:before {
-        position: relative;
-        border-color: $loadingscreen-loader-snake-color;
-        @include animation(mask_contents $loadingscreen-loader-animation-settings);
-        @include transform-origin(center center);
-    }
-
     &__loading,
     &__info {
         position: relative;
-        font-family: "Open Sans", sans-serif;
         font-weight: 200;
         color: #f1f1f2;
         height: 50px;
@@ -81,77 +40,10 @@
 
     &__loading {
         font-size: 26px;
-        margin: 45px 0 0;
+        margin: 25px 0 0;
     }
 
     &__info {
         font-size: 18px;
-    }
-
-    &__loader {
-        &.big {
-            width: $loadingscreen-loader-size-big;
-            height: $loadingscreen-loader-size-big;
-
-            &:before,
-            & > div:before {
-                width: $loadingscreen-loader-size-big;
-                height: $loadingscreen-loader-size-big;
-            }
-
-            & > div {
-                width: $loadingscreen-loader-size-big;
-                height: $loadingscreen-loader-mask-size-big;
-                top: ($loadingscreen-loader-size-big - $loadingscreen-loader-mask-size-big) / 2;
-
-                &:before {
-                    left: -($loadingscreen-loader-size-big / 2);
-                    top: -($loadingscreen-loader-size-big - $loadingscreen-loader-mask-size-big) / 2;
-                }
-            }
-        }
-
-        &.small {
-            width: $loadingscreen-loader-size-small;
-            height: $loadingscreen-loader-size-small;
-
-            &:before,
-            & > div:before {
-                width: $loadingscreen-loader-size-small;
-                height: $loadingscreen-loader-size-small;
-            }
-
-            & > div {
-                width: $loadingscreen-loader-size-small;
-                height: $loadingscreen-loader-mask-size-small;
-                top: ($loadingscreen-loader-size-small - $loadingscreen-loader-mask-size-small) / 2;
-                @include animation-duration(0.5s);
-
-                &:before {
-                    left: -($loadingscreen-loader-size-small / 2);
-                    top: -($loadingscreen-loader-size-small - $loadingscreen-loader-mask-size-small) / 2;
-                }
-            }
-        }
-    }
-}
-
-@include keyframes(loader_mask) {
-    0% {
-        @include transform(rotate(0deg));
-    }
-
-    100% {
-        @include transform(rotate(360deg));
-    }
-}
-
-@include keyframes(mask_contents) {
-    0% {
-        @include transform(rotate(0deg));
-    }
-
-    100% {
-        @include transform(rotate(-360deg));
     }
 }

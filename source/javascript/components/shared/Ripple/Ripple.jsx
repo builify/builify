@@ -1,4 +1,5 @@
 import React from 'react';
+import _isEqual from 'lodash/isequal';
 import classNames from '../../../common/classnames';
 
 export default class Ripple extends React.Component {
@@ -27,7 +28,7 @@ export default class Ripple extends React.Component {
   node = null;
 
   shouldComponenUpdate (nextProps, nextState) {
-    if (this.props !== nextProps || this.state !== nextState) {
+    if (!_isEqual(this.props, nextProps) || !_isEqual(this.state, nextState)) {
       return true;
     }
 

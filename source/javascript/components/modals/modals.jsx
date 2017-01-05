@@ -32,8 +32,6 @@ class Modals extends React.Component {
     const { isModalOpen, modalType, modalTarget } = this.props;
     const type = modalType || DialogTypes.CLASSIC;
 
-    console.log(this.props);
-
     if (!isModalOpen) {
       return null;
     }
