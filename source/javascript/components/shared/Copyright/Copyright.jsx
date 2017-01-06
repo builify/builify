@@ -7,18 +7,10 @@ export default class Copyright extends React.Component {
   }
 
   render () {
-    const currentYear = new Date().getFullYear();
-    const companyName = 'Trip-Trax';
-    let companyYear = 2015;
-
-    if (currentYear > companyYear) {
-      companyYear = `${companyYear} - ${currentYear}`;
-    }
-
     return (
       <div className={classNames('copyright')}>
         <h3>BUILify&#8482; v.1.0.0</h3>
-        <h3>Copyright {companyName} {companyYear}</h3>
+        <h3>Copyright Trip-Trax 2015 - 2017</h3>
         <h3>All rights reserved</h3>
       </div>
     );

@@ -32,9 +32,9 @@ describe('Constants', () => {
       });
     });
 
-    describe('Dialog types', () => {
+    describe('Modal types', () => {
       it('should be object', () => {
-        expect(Constants.DialogTypes, 'to be a', 'object');
+        expect(Constants.ModalTypes, 'to be a', 'object');
       });
     });
 

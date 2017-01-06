@@ -10,7 +10,7 @@ import CustomCSS from './custom-css';
 import DownloadPages from './download-pages';
 import DialogRestart from './dialog-restart';
 import { connect } from 'react-redux';
-import { DialogTypes } from '../../constants';
+import { ModalTypes } from '../../constants';
 
 class Modals extends React.Component {
   static propTypes = {
@@ -30,41 +30,41 @@ class Modals extends React.Component {
 
   render () {
     const { isModalOpen, modalType, modalTarget } = this.props;
-    const type = modalType || DialogTypes.CLASSIC;
+    const type = modalType || ModalTypes.CLASSIC;
 
     if (!isModalOpen) {
       return null;
     }
 
     switch (type) {
-      case DialogTypes.IMAGECHANGE:
+      case ModalTypes.IMAGECHANGE:
         return <ImageEdit editTarget={modalTarget}  />;
 
-      case DialogTypes.RESTART:
+      case ModalTypes.RESTART:
         return <DialogRestart />;
 
-      case DialogTypes.DOWNLOADPAGES:
+      case ModalTypes.DOWNLOADPAGES:
         return <DownloadPages />;
 
-      case DialogTypes.PREVIOUSPAGES:
+      case ModalTypes.PREVIOUSPAGES:
         return <PreviousPages />;
 
-      case DialogTypes.ICONCHANGE:
+      case ModalTypes.ICONCHANGE:
         return <IconChange editTarget={modalTarget} />;
 
-      case DialogTypes.COUNTDOWN:
+      case ModalTypes.COUNTDOWN:
         return <Countdown editTarget={modalTarget} />;
 
-      case DialogTypes.VIDEOEDIT:
+      case ModalTypes.VIDEOEDIT:
         return <VideoEdit editTarget={modalTarget} />;
 
-      case DialogTypes.FEEDBACK:
+      case ModalTypes.FEEDBACK:
         return <Feedback />;
 
-      case DialogTypes.MAPS:
+      case ModalTypes.MAPS:
         return <Maps editTarget={modalTarget} />;
 
-      case DialogTypes.CUSTOMCSS:
+      case ModalTypes.CUSTOMCSS:
         return <CustomCSS />;
 
       default:

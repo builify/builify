@@ -17,7 +17,6 @@ import rimraf from 'rimraf-promise';
 import server from 'browser-sync';
 import $rev from 'gulp-rev';
 import $replace from 'gulp-replace';
-import $pug from 'gulp-pug';
 import $size from 'gulp-size';
 import $util from 'gulp-util';
 import $plumber from 'gulp-plumber';
@@ -108,13 +107,11 @@ gulp.task('files:template', () => {
 gulp.task('html', () => {
   if (config.env.debug) {
     return gulp.src(config.html.entry)
-      .pipe($pug())
       .pipe($hint())
       .pipe($size({ title: '[html]', gzip: true }))
       .pipe(gulp.dest(config.html.output));
   } else {
     return gulp.src(config.html.entry)
-      .pipe($pug())
       .pipe($size({ title: '[html]', gzip: true }))
       .pipe(gulp.dest(config.html.output));
   }

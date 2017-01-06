@@ -4,6 +4,7 @@ import classNames from '../../common/classnames';
 import Constants from './constants';
 import Timer from '../../modules/tt-timer';
 import Icon from '../shared/icon';
+import { emtpyFunction } from '../../common/misc';
 
 var whichTransitionEvent = function() {
   var t;
@@ -32,7 +33,7 @@ export default class NotificationItem extends React.Component {
 
   static defaultProps = {
     noAnimation: false,
-    onRemove: function() {},
+    onRemove: emtpyFunction,
     allowHTML: false
   };
 
@@ -46,6 +47,15 @@ export default class NotificationItem extends React.Component {
   _noAnimation = null;
   _isMounted = false;
   _removeCount = 0;
+
+  shouldComponentUpdate (nextProps, nextState) {
+    if (nextState.visible !== this.state.visible ||
+        nextState.removed !== this.state.removed) {
+      return true;
+    }
+
+    return false;
+  }
 
   componentWillMount () {
     this._noAnimation = this.props.noAnimation;

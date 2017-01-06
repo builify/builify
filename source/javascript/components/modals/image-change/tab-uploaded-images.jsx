@@ -1,6 +1,7 @@
 import React from 'react';
 import _map from 'lodash/map';
-import classNames from 'classnames';
+import classNames from '../../../common/classnames';
+import localization from '../../../common/localization';
 import Random from '../../../common/random';
 import Scrollbar from '../../shared/scrollbar';
 import Image from '../../shared/image';
@@ -20,9 +21,11 @@ class UploadedImagesTab extends React.Component {
     return false;
   }
 
-  renderImages (assets) {
+  renderImages () {
+    const { assets } = this.props;
+
     if (assets.length === 0) {
-      return <p>Upload some images! :-D</p>;
+      return <p>{ localization('upload some images') }</p>;
     }
 
     return _map(assets, (asset) => {
@@ -35,7 +38,7 @@ class UploadedImagesTab extends React.Component {
             return this.props.selectImage(asset);
           }}
           key={Random.randomKey('upimg')}
-          className={classNames('ab-modal__tabimage')}
+          className={classNames('modal__tabimage')}
           src={fileData} />
       );
     });
@@ -52,16 +55,16 @@ class UploadedImagesTab extends React.Component {
     const uploadedInformation = `You have ${imagesUploaded} images uploaded`;
 
     return (
-      <div className='ab-modal__tab'>
-        <aside className='ab-modal__tabside'>
+      <div className={classNames('modal__tab')}>
+        <aside className={classNames('modal__tabside')}>
           <h2>Uploaded</h2>
           <p>{ uploadedInformation }</p>
-          <Button label='Delete All Images' onClick={::this.deleteAssets}/>
+          <Button label={localization('delete all images')} onClick={::this.deleteAssets}/>
         </aside>
-        <main className='ab-modal__tabcontent'>
+        <main className={classNames('modal__tabcontent')}>
           <Scrollbar height={380}>
-            <div className='ab-modal__tabimages'>
-              { this.renderImages(assets) }
+            <div className={classNames('modal__tabimages')}>
+              { this.renderImages() }
             </div>
           </Scrollbar>
         </main>
@@ -71,14 +74,16 @@ class UploadedImagesTab extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { assets } = state;
+
   return {
-    assets: state.assets
+    assets
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    deleteAllAssets: () => {
+    deleteAllAssets: function () {
       dispatch(deleteAllAssets());
     }
   };

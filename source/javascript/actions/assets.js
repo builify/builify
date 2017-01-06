@@ -1,3 +1,4 @@
+import _isUndefined from 'lodash/isundefined';
 import Actions from './constants';
 import { addNotification } from './notifications';
 import { closeModal } from './dialog';
@@ -7,11 +8,11 @@ function getExtension (filename) {
 }
 
 export function uploadFile (file) {
-  return (dispatch) => {
+  return function (dispatch) {
     const extension = getExtension(file.fileName);
 
-    if (extension !== undefined) {
-      switch (extension) {
+    if (!_isUndefined(extension)) {
+      switch (extension.toLowerCase()) {
         case 'jpg':
         case 'jpeg':
         case 'png':

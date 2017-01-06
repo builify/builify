@@ -67,7 +67,5 @@ export default function (pages, state) {
     return false;
   }
 
-  console.log(pages);
-
   downloadPages(pages, state);
 }

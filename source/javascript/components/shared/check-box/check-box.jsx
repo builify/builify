@@ -20,6 +20,14 @@ export default class Checkbox extends React.Component {
     disabled: false
   };
 
+  shouldComponentUpdate (nextProps) {
+    if (nextProps.checked !== this.props.checked) {
+      return true;
+    }
+
+    return false;
+  }
+
   handleClick (event) {
     event.stopPropagation();
     event.preventDefault();

@@ -1,12 +1,10 @@
 import _assign from 'lodash/assign';
-import _size from 'lodash/size';
-import downloadPages from '../pages/download';
 import * as Actions from '../actions/constants';
-import { DialogTypes } from '../constants';
+import { ModalTypes } from '../constants';
 
 const initialState = {
   isModalOpen: false,
-  modalType: DialogTypes.NONE,
+  modalType: ModalTypes.NONE,
   modalTarget: null
 };
 
@@ -15,86 +13,86 @@ export default function builder (state = initialState, action) {
     case Actions.OPEN_IMAGE_EDIT_MODAL:
       return _assign({}, state, {
         isModalOpen: true,
-        modalType: DialogTypes.IMAGECHANGE,
+        modalType: ModalTypes.IMAGECHANGE,
         modalTarget: action.target
       });
 
     case Actions.OPEN_COUNTDOWN_EDIT_MODAL:
       return _assign({}, state, {
         isModalOpen: true,
-        modalType: DialogTypes.COUNTDOWN,
+        modalType: ModalTypes.COUNTDOWN,
         modalTarget: action.target
       });
 
     case Actions.OPEN_ICON_EDIT_MODAL:
       return _assign({}, state, {
         isModalOpen: true,
-        modalType: DialogTypes.ICONCHANGE,
+        modalType: ModalTypes.ICONCHANGE,
         modalTarget: action.target
       });
 
     case Actions.OPEN_VIDEO_EDIT_MODAL:
       return _assign({}, state, {
         isModalOpen: true,
-        modalType: DialogTypes.VIDEOEDIT,
+        modalType: ModalTypes.VIDEOEDIT,
         modalTarget: action.target
       });
 
     case Actions.OPEN_LINK_EDIT_MODAL:
       return _assign({}, state, {
         isModalOpen: true,
-        modalType: DialogTypes.LINKCHANGE,
+        modalType: ModalTypes.LINKCHANGE,
         modalTarget: action.target
       });
 
     case Actions.OPEN_PREVIOUS_PAGES_SELECT_MODAL:
       return _assign({}, state, {
         isModalOpen: true,
-        modalType: DialogTypes.PREVIOUSPAGES
+        modalType: ModalTypes.PREVIOUSPAGES
       });
 
     case Actions.OPEN_CONTENTBLOCK_SOURCE_EDIT_MODAL:
       return _assign({}, state, {
         isModalOpen: true,
-        modalType: DialogTypes.CONTENTBLOCKSOURCE,
+        modalType: ModalTypes.CONTENTBLOCKSOURCE,
         modalTarget: action.currentHoverBlock
       });
 
     case Actions.OPEN_DOWNLOAD_MODAL: {
       return _assign({}, state, {
         isModalOpen: true,
-        modalType: DialogTypes.DOWNLOADPAGES
+        modalType: ModalTypes.DOWNLOADPAGES
       });
     }
 
     case Actions.OPEN_RESTART_MODAL:
       return _assign({}, state, {
         isModalOpen: true,
-        modalType: DialogTypes.RESTART
+        modalType: ModalTypes.RESTART
       });
 
     case Actions.OPEN_FEEDBACK_MODAL:
       return _assign({}, state, {
         isModalOpen: true,
-        modalType: DialogTypes.FEEDBACK
+        modalType: ModalTypes.FEEDBACK
       });
 
     case Actions.OPEN_CUSTOMCSS_MODAL:
       return _assign({}, state, {
         isModalOpen: true,
-        modalType: DialogTypes.CUSTOMCSS
+        modalType: ModalTypes.CUSTOMCSS
       });
 
     case Actions.OPEN_LINK_CHANGE_MODAL:
       return _assign({}, state, {
         isModalOpen: true,
-        modalType: DialogTypes.LINKCHANGE
+        modalType: ModalTypes.LINKCHANGE
       });
 
     case Actions.CLOSE_MODAL:
       return _assign({}, state, {
         isModalOpen: false,
-        modalType: DialogTypes.NONE,
+        modalType: ModalTypes.NONE,
         modalTarget: null
       });
   }

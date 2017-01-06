@@ -32,6 +32,7 @@
     "block": "Block",
     "appearance": "Appearance",
     "remove element": "Remove Element",
+    "delete all images": "Delete All Images",
 
     "sections": "Sections",
     "website title": "Website Title",
@@ -41,19 +42,20 @@
     "import page": "Import Page",
     "delete all pages": "Delete all pages",
     "filter": "Filter",
+    "upload some images": "Upload some images! :)",
 
     "classname": "Classname",
     "id": "ID",
     "title": "Title",
     "editor": "Editor",
     "color": "Color",
-    "background color": "Background Color",
+    "background color": "Backaground Color",
     "href": "HREF",
 
     "cancel": "Cancel",
 
     "info": {
-      "title descripion": "This is displayed in search results and in your browser's title bar.",
+      "title description": "This is displayed in search results and in your browser's title bar.",
       "filename description": "This will be page's filename"
     },
 

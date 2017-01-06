@@ -37,7 +37,7 @@ export const PreviewModes = {
   PHONE: 2
 };
 
-export const DialogTypes = {
+export const ModalTypes = {
   NONE: -1,
   CLASSIC: 0,
   IMAGECHANGE: 1,

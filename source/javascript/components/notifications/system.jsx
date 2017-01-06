@@ -2,6 +2,7 @@ import React from 'react';
 import _map from 'lodash/map';
 import _values from 'lodash/values';
 import _filter from 'lodash/filter';
+import _isEqual from 'lodash/isequal';
 import classNames from '../../common/classnames';
 import NotificationContainer from './container';
 import Constants from './constants';
@@ -24,10 +25,6 @@ class NotificationSystem extends React.Component {
     style: {},
     noAnimation: false,
     allowHTML: false
-  };
-
-  state = {
-    notifications: []
   };
 
   uid = Constants.defaultUid;
@@ -66,15 +63,17 @@ class NotificationSystem extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { notifications } = state;
+
   return {
-    notifications: state.notifications
+    notifications
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    removeNotification: (uid) => {
-      dispatch(removeNotification(uid));
+    removeNotification: function (id) {
+      dispatch(removeNotification(id));
     }
   };
 }

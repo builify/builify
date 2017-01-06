@@ -33,7 +33,7 @@ class BlockEditor extends React.Component {
   }
   
   render () {
-    if (this.props.blockEditorTabOpened === false) {
+    if (!this.props.blockEditorTabOpened) {
       return null;
     }
     

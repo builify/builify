@@ -1,14 +1,33 @@
 import React from 'react';
 import _map from 'lodash/map';
+import _isEqual from 'lodash/isequal';
 import NotificationItem from './item';
 import Constants from './constants';
 import classNames from '../../common/classnames';
+import { emtpyFunction } from '../../common/misc';
 
 export default class NotificationContainer extends React.Component {
   static propTypes = {
     position: React.PropTypes.string.isRequired,
-    notifications: React.PropTypes.array.isRequired
+    notifications: React.PropTypes.array.isRequired,
+    onRemove: React.PropTypes.func,
+    noAnimation: React.PropTypes.bool,
+    allowHTML: React.PropTypes.bool
   };
+
+  static defaultProps = {
+    onRemove: emtpyFunction,
+    noAnimation: false,
+    allowHTML: false
+  };
+
+  shouldComponentUpdate (nextProps) {
+    if (!_isEqual(nextProps.notifications, this.props.notifications)) {
+      return true;
+    }
+
+    return false;
+  }
 
   render () {
     if ([Constants.positions.bl, Constants.positions.br, Constants.positions.bc].indexOf(this.props.position) > -1) {

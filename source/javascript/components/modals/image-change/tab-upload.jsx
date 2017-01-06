@@ -1,5 +1,6 @@
 import React from 'react';
 import Dropzone from 'react-dropzone-component';
+import classNames from '../../../common/classnames';
 
 export default class ImageEditContentUploadImage extends React.Component {
   static propTypes = {
@@ -11,7 +12,7 @@ export default class ImageEditContentUploadImage extends React.Component {
     parallelUploads: 1,
     clickable: true,
     maxFiles: 1,
-    iconFiletypes: ['.jpg', '.png', '.gif'],
+    iconFiletypes: ['.jpg', '.jpeg', '.png', '.gif'],
     showFiletypeIcon: true,
     postUrl: '/index.html'
   };
@@ -44,11 +45,11 @@ export default class ImageEditContentUploadImage extends React.Component {
       timeBetweenSteps = 100,
       bytesPerStep = 1000000;
 
-    dropzone.on('maxfilesexceeded', function(file) {
+    dropzone.on('maxfilesexceeded', function (file) {
       this.removeFile(file);
     });
 
-    dropzone.uploadFiles = function(files) {
+    dropzone.uploadFiles = function (files) {
       var self = this;
 
       for (let i = 0; i < files.length; i++) {
@@ -60,7 +61,7 @@ export default class ImageEditContentUploadImage extends React.Component {
         for (let step = 0; step < totalSteps; step++) {
           const duration = timeBetweenSteps * (step + 1);
 
-          window.setTimeout(function(file, totalSteps, step) {
+          window.setTimeout(function (file, totalSteps, step) {
             return function() {
               file.upload = {
                 progress: 100 * (step + 1) / totalSteps,
@@ -94,7 +95,7 @@ export default class ImageEditContentUploadImage extends React.Component {
     };
 
     return (
-      <div className='ab-modal__tab'>
+      <div className={classNames('modal__tab')}>
         <Dropzone config={this.dropzoneConfig} eventHandlers={dropzoneEventHandlers} />
       </div>
     );

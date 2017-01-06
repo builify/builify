@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from '../../shared/icon';
+import { emtpyFunction } from '../../../common/misc';
 
 export default class ToolboxItem extends React.Component {
   static propTypes = {
@@ -10,7 +11,7 @@ export default class ToolboxItem extends React.Component {
 
   static defaultProps = {
     title: '',
-    onClick: () => {}
+    onClick: emtpyFunction
   };
 
   shouldComponentUpdate () {
@@ -18,7 +19,7 @@ export default class ToolboxItem extends React.Component {
   }
 
   render () {
-    const { onClick, title } = this.props;
+    const { onClick, title, icon } = this.props;
     const iconSize = 24;
     const iconStyle = {
       fill: '#FFF'
@@ -26,7 +27,7 @@ export default class ToolboxItem extends React.Component {
 
     return (
       <li onClick={onClick} title={title}>
-        { this.props.icon && <Icon icon={this.props.icon} size={iconSize} style={iconStyle} /> }
+        { icon && <Icon icon={icon} size={iconSize} style={iconStyle} /> }
       </li>
     );
   }

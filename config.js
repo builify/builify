@@ -48,7 +48,7 @@ export default {
   },
 
   html: {
-    entry: path.join(sourceDir, 'html', '*.{pug,jade,html}'),
+    entry: path.join(sourceDir, 'html', '*.html'),
     output: path.join(buildDir)
   },
 
@@ -111,7 +111,7 @@ export default {
       files: path.join('stylesheets', 'canvas', '**', '*.{css,scss,sass}'),
       tasks: ['stylesheet:canvas']
     },{
-      files: path.join('html', '**', '*.{pug,jade,html}'),
+      files: path.join('html', '**', '*.html'),
       tasks: ['html']
     }]
   },

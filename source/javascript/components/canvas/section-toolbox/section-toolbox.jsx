@@ -4,6 +4,7 @@ import _values from 'lodash/values';
 import _has from 'lodash/has';
 import _map from 'lodash/map';
 import _isNull from 'lodash/isnull';
+import _isUndefined from 'lodash/isundefined';
 import classNames from '../../../common/classnames';
 import ToolboxItem from './item';
 import localization from '../../../common/localization';
@@ -30,69 +31,71 @@ class SectionToolBox extends React.Component {
     return false;
   }
 
+  renderItems () {
+    const { currentHoverBlock } = this.props;
+    const { block } = currentHoverBlock;
+    const { features } = block;
+
+    return _map(features, (featureValue, feature) => {
+      let title = null;
+      let icon = null;
+      let clickFunction = null;
+
+      if (featureValue === true) {
+        if (feature === 'colorBackground') {
+          title = 'Change Background Color';
+          icon = 'format-paint';
+          clickFunction = ::this.changeBackgroundColor;
+        } else if (feature === 'videoBackground') {
+          title = 'Change Background Video';
+          icon = 'video-collection';
+          clickFunction = ::this.changeBackgroundVideo;
+        } else if (feature === 'imageBackground') {
+          title = 'Change Background Image';
+          icon = 'photo';
+          clickFunction = ::this.changeBackgroundImage;
+        } else if (feature === 'countdown') {
+          title = 'Change Countdown';
+          icon = 'exposure-plus-1';
+          clickFunction = ::this.changeCountdown;
+        }
+      }
+
+      if (_isNull(title) || _isNull(clickFunction) || _isNull(icon)) {
+        return null;
+      }
+
+      return (
+        <ToolboxItem
+          key={feature}
+          ref={(ref) => {
+            if (feature === 'colorBackground') {
+              this.toolboxItemColorChange = ref;
+            }
+          }}
+          title={title}
+          icon={icon}
+          onClick={clickFunction} />
+      );
+    });
+  }
+
   render () {
     const { currentHoverBlock } = this.props;
     const { block, topX } = currentHoverBlock;
-    const { features } = block;
     const className = classNames('cstoolbox');
     const toolBoxStyle = {
       top: topX
     };
-    let featureItems = null;
 
     if (_values(block).length === 0 || !_has(block, 'elementReference')) {
       return null;
     }
 
-    if (features) {
-      featureItems = _map(features, (featureValue, feature) => {
-        let title = null;
-        let icon = null;
-        let clickFunction = null;
-
-        if (featureValue === true) {
-          if (feature === 'colorBackground') {
-            title = 'Change Background Color';
-            icon = 'format-paint';
-            clickFunction = ::this.changeBackgroundColor;
-          } else if (feature === 'videoBackground') {
-            title = 'Change Background Video';
-            icon = 'video-collection';
-            clickFunction = ::this.changeBackgroundVideo;
-          } else if (feature === 'imageBackground') {
-            title = 'Change Background Image';
-            icon = 'photo';
-            clickFunction = ::this.changeBackgroundImage;
-          } else if (feature === 'countdown') {
-            title = 'Change Countdown';
-            icon = 'exposure-plus-1';
-            clickFunction = ::this.changeCountdown;
-          }
-        }
-
-        if (_isNull(title) || _isNull(clickFunction) || _isNull(icon)) {
-          return null;
-        }
-
-        return (
-          <ToolboxItem
-            key={feature}
-            ref={(ref) => {
-              if (feature === 'colorBackground') {
-                this.toolboxItemColorChange = ref;
-              }
-            }}
-            title={title}
-            icon={icon}
-            onClick={clickFunction} />
-        );
-      });
-    }
-
     return (
       <div data-abctoolbox className={className} style={toolBoxStyle}>
         <ul className='settings'>
-          { featureItems }
+          { this.renderItems() }
           <ToolboxItem
             title={localization('remove')}
             icon='remove'

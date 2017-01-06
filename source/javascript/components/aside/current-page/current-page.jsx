@@ -57,12 +57,12 @@ class CurrentPage extends React.Component {
 
     if (type === 'title') {
       title = localization('website title');
-      description = localization('info.title descripion');
+      description = localization('info.title description');
       value = this.state.title;
       clickFunction = this.handleInputChange.bind(this, type);
     } else if (type === 'fileName') {
       title = localization('page filename');
-      description = localization('info.filename descripion');
+      description = localization('info.filename description');
       value = this.state.fileName;
       clickFunction = this.handleInputChange.bind(this, type);
     }

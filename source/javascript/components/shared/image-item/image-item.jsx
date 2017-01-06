@@ -1,6 +1,6 @@
 import React from 'react';
-import classNames from 'classnames';
-import ImageSpinner from './loading-spinner';
+import classNames from '../../../common/classnames';
+import ProgressBar from '../progress-bar';
 
 export default class ImageItem extends React.Component {
   static propTypes = {
@@ -31,14 +31,14 @@ export default class ImageItem extends React.Component {
   render () {
     const { src, alt } = this.props;
     const { isImageFileLoaded } = this.state;
-    const loadImage = classNames('ab-loadimage', {
+    const loadImage = classNames('loadimage', {
       'loaded': isImageFileLoaded
     });
     const imageSource = src;
 
     return (
       <div className={loadImage}>
-        <ImageSpinner size={50} loading={!isImageFileLoaded} />
+        { !isImageFileLoaded && <ProgressBar className={classNames('loadimage__spinner')} type='circular' mode='indeterminate' multicolor /> }
         <img
           draggable='false'
           onLoad={::this.loadedImage}
