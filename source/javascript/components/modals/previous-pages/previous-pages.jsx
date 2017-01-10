@@ -32,6 +32,12 @@ class PreviousPages extends React.Component {
   renderPageItems () {
     const { pages } = this.props;
 
+    if (pages.length === 0) {
+      return (
+        <p>No pages in storage</p>
+      );
+    }
+
     return _map(pages, (page, idx) => {
       const { pageID, pageTitle, pageFileName } = page;
       const time = new Date(+(pageID.split('-')[1]) * 1000);
@@ -42,15 +48,13 @@ class PreviousPages extends React.Component {
         return this.closeDialog();
       };
       const onRemoveClick = () => {
-        return this.props.deletePage(pageID);
+        this.props.deletePage(pageID);
+        return this.closeDialog();
       };
 
       return (
-        <div
-          onClick={onClick}
-          key={idx}
-          className={classNames('modal__pageitem')}>
-          <span>{ pageText }</span>
+        <div key={idx} className={classNames('modal__pageitem')}>
+          <span onClick={onClick}>{ pageText }</span>
           <Icon
             title={localization('remove')}
             onClick={onRemoveClick}

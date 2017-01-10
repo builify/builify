@@ -1,5 +1,6 @@
 import Actions from './constants';
 import TTStorage from '../modules/tt-storage';
+import processImportedPage from '../pages/import-page';
 import { IS_DEMO_VERSION, TEMPLATE_PAGES_STORAGE_NAME, CurrentLocations } from '../constants';
 import { addNotification } from './notifications';
 
@@ -90,7 +91,7 @@ export function setPageFilename (filename) {
 export function importPage (data) {
   return {
     type: Actions.IMPORT_PAGE,
-    data: data
+    page: processImportedPage(data)
   };
 }
 

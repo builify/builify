@@ -31,6 +31,11 @@ export default class Icon extends React.Component {
 
   renderGraphic () {
     switch (this.props.icon) {
+      case 'import-export':
+        return (
+          <g><path d="M9 3l-4 3.99h3v7.01h2v-7.01h3l-4-3.99zm7 14.01v-7.01h-2v7.01h-3l4 3.99 4-3.99h-3z"></path></g>
+        );
+        
       case 'info-outline':
         return (
           <g><path d="M11 17h2v-6h-2v6zm1-15c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-11h2v-2h-2v2z"></path></g>

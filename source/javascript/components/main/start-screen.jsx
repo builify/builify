@@ -26,8 +26,8 @@ class ProjectStartScreen extends React.Component {
     if (currentLocation === CurrentLocations.STARTSCREEN) {
       return (
         <div className={wrapperClassName}>
-          <Page isNewPage={true} />
-          { previousPagesInStorage && <Page isNewPage={false} /> }
+          <Page newPage />
+          { previousPagesInStorage && <Page /> }
           <Copyright />
         </div>
       );

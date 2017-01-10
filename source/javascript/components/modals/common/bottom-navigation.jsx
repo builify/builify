@@ -6,6 +6,7 @@ import _isElement from 'lodash/iselement';
 import _isFunction from 'lodash/isfunction';
 import classNames from '../../../common/classnames';
 import Button from '../../shared/button';
+import { TEMPLATE_FILE_EXTENSION } from '../../../constants';
 
 export default class BottomNavigation extends React.Component {
   static propTypes = {
@@ -40,19 +41,18 @@ export default class BottomNavigation extends React.Component {
       const className = classNames('modal__button', action.className)
 
       if (_has(action, 'onFileLoad') && _isFunction(action.onFileLoad)) {
+        const accept = `.${TEMPLATE_FILE_EXTENSION}`;
         this._onLoadFunction = action.onFileLoad;
 
         return (
-          <div
-            key={idx}
-            className={classNames('modal__button', 'tt-filebutton')}>
+          <div key={idx} className={classNames('modal__button', 'tt-filebutton')}>
             <input
               className='tt-filebutton__input'
               id='fileInput'
               type='file'
               ref='fileInput'
-              accept='.fbuilify' />
-            <label className='tt-filebutton__label' htmlFor='fileInput'>Import a Page</label>
+              accept={accept} />
+            <label className='tt-filebutton__label' htmlFor='fileInput'>{ action.label }</label>
           </div>
         );
       } else {

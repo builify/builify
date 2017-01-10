@@ -57,14 +57,14 @@ $scale-ratio: $circle-radius / 20;
 
             & .#{$nameprefix}progress-bar__path {
                 animation: circular-indeterminate-bar-dash 1.5s ease-in-out infinite;
-                stroke-dasharray: calc(#{$scale-ratio} * 1), calc(#{$scale-ratio} * 200);
+                stroke-dasharray: $scale-ratio, ($scale-ratio * 200);
                 stroke-dashoffset: 0;
             }
 
             &.multicolor .#{$nameprefix}progress-bar__path {
                 animation:
                     circular-indeterminate-bar-dash 1.5s ease-in-out infinite,
-                    colors calc(1.5s * 4) ease-in-out infinite;
+                    colors 6s ease-in-out infinite;
             }
         }
     }
@@ -72,7 +72,7 @@ $scale-ratio: $circle-radius / 20;
     &__path {
         fill: none;
         stroke: $progress-main-color;
-        stroke-dasharray: 0, calc(#{$scale-ratio} * 200);
+        stroke-dasharray: 0, ($scale-ratio * 200);
         stroke-dashoffset: 0;
         stroke-linecap: round;
         stroke-miterlimit: 20;

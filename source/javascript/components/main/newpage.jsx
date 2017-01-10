@@ -6,11 +6,14 @@ import { startNewPage, loadPreviousPage, openPreviousPagesSelectionModal } from 
 
 class Page extends React.Component {
   static propTypes = {
-    pages: React.PropTypes.array.isRequired,
-    isNewPage: React.PropTypes.bool.isRequired,
+    newPage: React.PropTypes.bool,
     startNewPage: React.PropTypes.func.isRequired,
     openPreviousPagesSelectionModal: React.PropTypes.func.isRequired,
     loadPreviousPage: React.PropTypes.func.isRequired
+  };
+
+  static defaultProps = {
+    newPage: false
   };
 
   shouldComponentUpdate () {
@@ -18,26 +21,15 @@ class Page extends React.Component {
   }
 
   selectPage () {
-    const { isNewPage, pages } = this.props;
-
-    if (isNewPage) {
+    if (this.props.newPage) {
       return this.props.startNewPage();
     } else {
-      const pagesLength = pages.length;
-
-      if (pagesLength > 1) {
-        return this.props.openPreviousPagesSelectionModal();
-      } else {
-        return this.props.loadPreviousPage();
-      }
+      return this.props.openPreviousPagesSelectionModal();
     }
   }
 
   render () {
-    const { isNewPage, pages } = this.props;
-    const pagesLength = pages.length;
-    const previousPages = pagesLength > 1 ? 'load or import page' : 'load previous page';
-    const queryString = isNewPage ? 'start new page' : previousPages;
+    const queryString = this.props.newPage ? 'start new page' : 'load or import page';
     const label = localization(queryString);
 
     return (
@@ -48,29 +40,20 @@ class Page extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
-  const { builder } = state;
-  const { pages } = builder;
-
-  return {
-    pages: pages
-  };
-}
-
 function mapDispatchToProps (dispatch) {
   return {
-    startNewPage: () => {
+    startNewPage: function () {
       dispatch(startNewPage());
     },
 
-    openPreviousPagesSelectionModal: () => {
+    openPreviousPagesSelectionModal: function () {
       dispatch(openPreviousPagesSelectionModal());
     },
 
-    loadPreviousPage: () => {
+    loadPreviousPage: function () {
       dispatch(loadPreviousPage());
     }
   };
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Page);
+export default connect(null, mapDispatchToProps)(Page);

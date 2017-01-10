@@ -44,6 +44,7 @@ async function downloadPages (pages) {
   const fileSettings = getFileSettings();
   const zipFileName = getFileName();
   const assetsFolder = zip.folder('assets');
+  const imagesFolder = zip.folder('images');
   const templateFolder = assetsFolder.folder('template');
 
   // Get local asset files.

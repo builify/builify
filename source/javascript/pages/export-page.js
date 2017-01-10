@@ -1,5 +1,6 @@
 import _isObject from 'lodash/isobject';
 import { saveAs } from 'file-saver';
+import { TEMPLATE_FILE_EXTENSION } from '../constants';
 
 function utoa (str) {
   return window.btoa(unescape(encodeURIComponent(str)));
@@ -14,6 +15,7 @@ export default function (currentPage) {
   const data = new Blob([encoded], {
     type: 'text/plain;charset=utf-8'
   });
+  const fileName = `arkio-page.${TEMPLATE_FILE_EXTENSION}`;
 
-  saveAs(data, 'page.fbuilify');
+  saveAs(data, fileName);
 }

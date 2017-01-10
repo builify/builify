@@ -14,7 +14,6 @@ import TTStorage from '../modules/tt-storage';
 import Random from '../common/random';
 import TTDOM from '../common/TTDOM';
 import exportPage from '../pages/export-page';
-import importPage from '../pages/import-page';
 import * as Actions from '../actions/constants';
 import { TEMPLATE_PAGES_STORAGE_NAME } from '../constants';
 
@@ -144,8 +143,7 @@ export default function page (state = pageInitialState, action) {
     }
 
     case Actions.IMPORT_PAGE: {
-      const { data } = action;
-      return _assign({}, state, importPage(data));
+      return _assign({}, state, action.page);
     }
 
     case Actions.FLUSH_PAGES_IN_STORAGE: {

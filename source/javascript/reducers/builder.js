@@ -34,6 +34,15 @@ const builderInitialState = {
   filterContentBlocksTarget: 'all'
 };
 
+function cleanStorageFromOldPages (arr) {
+  let arrayLen = arr.length;
+  
+  if (arrayLen > (MAXIUMUM_PAGES_IN_STORAGE - 1)) {
+    arr.shift();
+    cleanStorageFromOldPages(arr);
+  }
+}
+
 export default function builder (state = builderInitialState, action) {
   switch (action.type) {
     case Actions.UPLOAD_FILE:
@@ -47,11 +56,16 @@ export default function builder (state = builderInitialState, action) {
 
       if (result !== -1) {
         const pages = _without(state.pages, state.pages[result]);
+        const previousPages = !!(pages && pages.length !== 0);
 
         TTStorage.set(TEMPLATE_PAGES_STORAGE_NAME, pages);
 
         return _assign({}, state, {
-          pages: pages
+          currentLocation: CurrentLocations.STARTSCREEN,
+          isPageSelected: false,
+          pages: pages,
+          doPreviousPagesExistInStorage: previousPages,
+          filterContentBlocksTarget: 'all'
         });
       }
 
@@ -164,6 +178,33 @@ export default function builder (state = builderInitialState, action) {
       });
     }
 
+    case Actions.IMPORT_PAGE: {
+      const { page } = action;
+      const pagesInStorage = TTStorage.get(TEMPLATE_PAGES_STORAGE_NAME);
+      let pagesList = [];
+
+      if (_isUndefined(pagesInStorage)) {
+        pagesList.push(page);
+        TTStorage.set(TEMPLATE_PAGES_STORAGE_NAME, pagesList);
+      } else {
+        pagesList = pagesInStorage;
+        cleanStorageFromOldPages(pagesList);
+
+        if (_isArray(pagesList)) {
+          pagesList.push(page);
+          TTStorage.set(TEMPLATE_PAGES_STORAGE_NAME, pagesList);
+        } else {
+          throw Error('Pages data type mismatches with storage pages.');
+        }
+      }
+
+      return _assign({}, state, {
+        currentLocation: CurrentLocations.CANVAS,
+        isPageSelected: true,
+        pages: pagesList
+      });
+    }
+
     case Actions.START_NEW_PAGE: {
       const { pageID, pagesInStorage } = action;
       const pageObject = {
@@ -183,15 +224,6 @@ export default function builder (state = builderInitialState, action) {
         pagesList.push(pageObject);
         TTStorage.set(TEMPLATE_PAGES_STORAGE_NAME, pagesList);
       } else {
-        const cleanStorageFromOldPages = (arr) => {
-          let arrayLen = arr.length;
-
-          if (arrayLen > (MAXIUMUM_PAGES_IN_STORAGE - 1)) {
-            arr.shift();
-            cleanStorageFromOldPages(arr);
-          }
-        };
-
         pagesList = pagesInStorage;
         cleanStorageFromOldPages(pagesList);
 
@@ -219,7 +251,6 @@ export default function builder (state = builderInitialState, action) {
       });
     }
 
-    case Actions.IMPORT_PAGE:
     case Actions.LOAD_PREVIOUS_PAGE:
       return _assign({}, state, {
         currentLocation: CurrentLocations.CANVAS,

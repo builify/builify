@@ -49,15 +49,17 @@ class Frame extends React.Component {
   }
 
   checkBlockCount () {
-    const navigationBlocks = this.refs.navigation.children;
-    const mainBlocks = this.refs.main.children;
-    const footerBlocks = this.refs.footer.children;
+    if (this.refs.navigation && this.refs.main && this.refs.footer) {
+      const navigationBlocks = this.refs.navigation.children;
+      const mainBlocks = this.refs.main.children;
+      const footerBlocks = this.refs.footer.children;
 
-    if (navigationBlocks.length === 0 &&
-        mainBlocks.length === 0 &&
-        footerBlocks.length === 0 &&
-        this.props.page.blocksCount !== 0) {
-      return this.props.clearPageBlocksCount();
+      if (navigationBlocks.length === 0 &&
+          mainBlocks.length === 0 &&
+          footerBlocks.length === 0 &&
+          this.props.page.blocksCount !== 0) {
+        return this.props.clearPageBlocksCount();
+      }
     }
   }
 

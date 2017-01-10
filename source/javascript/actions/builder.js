@@ -16,7 +16,7 @@ import { addNotification } from './notifications';
 import JSZip from 'jszip';
 
 export function runApplicationActions () {
-  return (dispatch) => {
+  return function (dispatch) {
     dispatch(initialize());
     dispatch(checkPreviousPagesInStorage());
     dispatch(getBuilderConfiguration());
@@ -196,6 +196,16 @@ export function downloadPages (pages) {
   };
 }
 
+export function noPagesToDownload () {
+  return function (dispatch) {
+    dispatch({ type: Actions.NO_PAGES_TO_DOWNLOAD });
+    dispatch(addNotification({
+      message: 'No pages to download!',
+      level: 'info'
+    }));
+  };
+}
+
 export function addIconPackSourcesToHead (iconPacks) {
   const headElement = document.getElementsByTagName('head')[0];
 
@@ -249,7 +259,6 @@ export function changeBaselineValue (value) {
 export function sendFeedBack () {
   return function (dispatch) {
     dispatch({ type: Actions.SEND_FEEDBACK });
-
     dispatch(addNotification({
       message: 'Feedback sent!',
       level: 'info'

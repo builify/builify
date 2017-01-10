@@ -7,6 +7,10 @@ export function rgbToHex (rgb) {
     return rgb;
   }
 
+  if (rgb === 'transparent' || rgb === '') {
+    return rgb;
+  }
+
   rgb = rgb.match(/(rgba?)|(\d+(\.\d+)?%?)|(\.\d+)/g);
   
   return `#${hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3])}`;

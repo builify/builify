@@ -6,7 +6,7 @@ import _partial from 'lodash/partial';
 import Random from '../../../common/random';
 import NavigationItem from './item';
 import classNames from '../../../common/classnames';
-import { openFeedbackModal, openTab, openDownloadModal, downloadSinglePage, openRestartModal, saveCurrentPage } from '../../../actions';
+import { openFeedbackModal, openTab, openDownloadModal, noPagesToDownload, downloadSinglePage, openRestartModal, saveCurrentPage } from '../../../actions';
 import { connect } from 'react-redux';
 import { CurrentLocations, IS_DEMO_VERSION, IS_DEV_VERSION } from '../../../constants';
 
@@ -20,7 +20,8 @@ class PrimaryNavigation extends React.Component {
     openRestartModal: React.PropTypes.func.isRequired,
     openDownloadModal: React.PropTypes.func.isRequired,
     saveCurrentPage: React.PropTypes.func.isRequired,
-    downloadSinglePage: React.PropTypes.func.isRequired
+    downloadSinglePage: React.PropTypes.func.isRequired,
+    noPagesToDownload: React.PropTypes.func.isRequired
   };
 
   shouldComponentUpdate (nextProps) {
@@ -53,8 +54,10 @@ class PrimaryNavigation extends React.Component {
           } else if (cmd2 === 'download') {
             if (pages.length > 1) {
               clickFunction = this.props.openDownloadModal;
-            } else {
+            } else if (pages.length === 1) {
               clickFunction = this.props.downloadSinglePage;
+            } else {
+              clickFunction = this.props.noPagesToDownload;
             }
           } else if (cmd2 === 'save') {
             clickFunction = this.props.saveCurrentPage;
@@ -129,6 +132,10 @@ function mapDispatchToProps (dispatch) {
 
     downloadSinglePage: function () {
       dispatch(downloadSinglePage())
+    },
+
+    noPagesToDownload: function () {
+      dispatch(noPagesToDownload());
     },
 
     saveCurrentPage: function () {

@@ -2,7 +2,6 @@ import React from 'react';
 import _map from 'lodash/map';
 import _values from 'lodash/values';
 import _filter from 'lodash/filter';
-import _isEqual from 'lodash/isequal';
 import classNames from '../../common/classnames';
 import NotificationContainer from './container';
 import Constants from './constants';
@@ -15,7 +14,7 @@ class NotificationSystem extends React.Component {
       React.PropTypes.bool,
       React.PropTypes.object
     ]),
-    notifications: React.PropTypes.array,
+    notifications: React.PropTypes.array.isRequired,
     noAnimation: React.PropTypes.bool,
     allowHTML: React.PropTypes.bool,
     removeNotification: React.PropTypes.func.isRequired
@@ -26,8 +25,6 @@ class NotificationSystem extends React.Component {
     noAnimation: false,
     allowHTML: false
   };
-
-  uid = Constants.defaultUid;
 
   render () {
     const { notifications } = this.props;
