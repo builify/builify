@@ -23,7 +23,7 @@ export function startNewPage () {
 export function loadPreviousPage (idx) {
   return {
     type: Actions.LOAD_PREVIOUS_PAGE,
-    idx: idx
+    idx
   };
 }
 
@@ -77,14 +77,14 @@ export function restartPage () {
 export function setPageTitle (title) {
   return {
     type: Actions.SET_PAGE_TITLE,
-    title: title
+    title
   };
 }
 
 export function setPageFilename (filename) {
   return {
     type: Actions.SET_PAGE_FILENAME,
-    filename: filename
+    filename
   };
 }
 
@@ -112,6 +112,6 @@ export function exportPage () {
 export function deletePage (id) {
   return {
     type: Actions.DELETE_PAGE,
-    id: id
+    id
   };
 }

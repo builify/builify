@@ -15,7 +15,7 @@ export default class CurrentPageItem extends React.Component {
   };
 
   renderHandle () {
-    const title = localization('remove element');
+    const title = localization('change block position');
     
     return (
       <div className='handle' title={title}>
@@ -31,12 +31,15 @@ export default class CurrentPageItem extends React.Component {
       fill: '#ce4031'
     };
     const sortable = type === 'navigation' || type === 'footer' ? false : true;
-    const itemClassName = classNames('currentPage__item', {
+    const className = classNames('currentPage__item', {
       'notsortable': !sortable
     });
 
     return (
-      <li data-blockid={id} className={itemClassName}>
+      <li
+        title={blockName}
+        data-blockid={id}
+        className={className}>
         { sortable && this.renderHandle() }
         <div className={classNames('currentPage__item-title')}>
           <span>{ blockName }</span>
@@ -46,7 +49,8 @@ export default class CurrentPageItem extends React.Component {
           style={removeIconStyle}
           className='remove'
           size={24}
-          icon='clear' />
+          icon='clear'
+          title={localization('remove element')} />
       </li>
     );
   }

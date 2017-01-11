@@ -8,7 +8,7 @@ const initialState = {
   modalTarget: null
 };
 
-export default function builder (state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case Actions.OPEN_IMAGE_EDIT_MODAL:
       return _assign({}, state, {

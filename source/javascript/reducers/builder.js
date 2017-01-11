@@ -43,7 +43,7 @@ function cleanStorageFromOldPages (arr) {
   }
 }
 
-export default function builder (state = builderInitialState, action) {
+export default function (state = builderInitialState, action) {
   switch (action.type) {
     case Actions.UPLOAD_FILE:
       return _assign({}, state, {});

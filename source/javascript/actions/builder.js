@@ -2,6 +2,7 @@ import Actions from './constants';
 import _delay from 'lodash/delay';
 import _has from 'lodash/has';
 import _map from 'lodash/map';
+import JSZip from 'jszip';
 import TTEventEmitter from 'tt-event-emitter';
 import stripJSONComments from 'strip-json-comments';
 import IconPacksData from '../../../data/builder/icon-packs';
@@ -13,7 +14,7 @@ import { checkPreviousPagesInStorage, saveCurrentPage } from './page';
 import { closeTab, closeSidetab } from './aside';
 import { fetch } from '../common/http';
 import { addNotification } from './notifications';
-import JSZip from 'jszip';
+import { PAGE_AUTOMATIC_SAVE_TIME } from '../constants';
 
 export function runApplicationActions () {
   return function (dispatch) {
@@ -103,7 +104,7 @@ export function initializeEvents () {
 
     window.setInterval(() => {
       observable.emit('savecurrentpage');
-    }, 60000);
+    }, PAGE_AUTOMATIC_SAVE_TIME);
   };
 }
 
@@ -115,14 +116,10 @@ export function initialize () {
 
 export function removeLoadingScreen () {
   return function (dispatch) {
-    dispatch({
-      type: Actions.LOGIC_INITIALIZED
-    });
+    dispatch({ type: Actions.LOGIC_INITIALIZED });
 
-    _delay(() => {
-      dispatch({
-        type: Actions.REMOVE_LOADING_SCREEN
-      });
+    _delay(function () {
+      dispatch({ type: Actions.REMOVE_LOADING_SCREEN });
     }, 500);
   };
 }
@@ -173,7 +170,7 @@ export function getIconPacks () {
 export function uploadImage (data) {
   return {
     type: Actions.UPLOADED_IMAGE,
-    data: data
+    data
   };
 }
 
@@ -190,7 +187,7 @@ export function downloadPages (pages) {
   return function (dispatch, getState) {
     dispatch({
       type: Actions.DOWNLOAD_PAGES,
-      pages: pages,
+      pages,
       currentState: getState()
     });
   };
@@ -245,14 +242,14 @@ export function cloneItem () {
 export function changeBaseFontSize (value) {
   return {
     type: Actions.CHANGE_BASE_FONT_SIZE,
-    value: value
+    value
   };
 }
 
 export function changeBaselineValue (value) {
   return {
     type: Actions.CHANGE_BASELINE_VALUE,
-    value: value
+    value
   };
 }
 

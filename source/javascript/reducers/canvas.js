@@ -33,7 +33,7 @@ const canvasInitialState = {
   }
 };
 
-export default function canvas (state = canvasInitialState, action) {
+export default function (state = canvasInitialState, action) {
   switch (action.type) {
     case Actions.LOGIC_INITIALIZED: {
       const iFrame = TTDOM.iframe.get('ab-cfrm');

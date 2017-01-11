@@ -3,7 +3,7 @@ import * as Actions from '../actions/constants';
 
 const builderConfigurationInitialState = {};
 
-export default function builderConfiguration (state = builderConfigurationInitialState, action) {
+export default function (state = builderConfigurationInitialState, action) {
   switch (action.type) {
     case Actions.RECEIVE_BUILDER_CONFIGURATION:
       return _assign({}, state, action.data);

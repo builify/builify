@@ -40,7 +40,7 @@ export function uploadFile (file) {
 export function selectImageFile (file) {
   return {
     type: Actions.SELECT_IMAGE_FILE,
-    file: file
+    file
   };
 }
 

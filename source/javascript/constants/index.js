@@ -3,6 +3,8 @@ export const IS_DEV_VERSION = !!(process.env.NODE_ENV === 'development');
 export const BUY_LINK = 'http://genert.github.io';
 export const MAXIMUM_NOTIFICATIONS = 5;
 
+export const PAGE_AUTOMATIC_SAVE_TIME = 60 * 1000;
+
 export const TEMPLATE_ASSETS_STORAGE_NAME = 'builify-assets';
 export const TEMPLATE_PAGES_STORAGE_NAME = 'builify-pages';
 export const TEMPLATE_PACKAGE_FILENAME = 'template';

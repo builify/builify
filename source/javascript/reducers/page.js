@@ -107,7 +107,7 @@ const pageInitialState = {
   replaceInHTML: []
 };
 
-export default function page (state = pageInitialState, action) {
+export default function (state = pageInitialState, action) {
   switch (action.type) {
     case Actions.CLONE_ITEM: {
       // To update hovering events.

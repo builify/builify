@@ -3,23 +3,23 @@ import Actions from './constants';
 export function toggleBaseline (checked) {
   return {
     type: Actions.TOGGLE_BASELINE,
-    checked: checked
+    checked
   };
 }
 
 export function openColorPicker (target, sourceElement = null) {
   return {
     type: Actions.OPEN_COLORPICKER,
-    target: target,
-    sourceElement: sourceElement
+    target,
+    sourceElement
   };
 }
 
 export function setColorFromColorPicker (color, targetType) {
   return {
     type: Actions.SET_COLOR_FROM_COLORPICKER,
-    color: color,
-    targetType: targetType
+    color,
+    targetType
   };
 }
 
@@ -32,7 +32,7 @@ export function closeColorPicker () {
 export function setSwatch (swatch) {
   return {
     type: Actions.SET_SWATCH,
-    swatch: swatch
+    swatch
   };
 }
 
@@ -56,7 +56,7 @@ export function setFont (font) {
 }
 
 export function loadContentBlockSource (source, blockType, blockName) {
-  return (dispatch) => {
+  return function (dispatch) {
     dispatch(loadContentBlockToPage(source, blockType, blockName));
   };
 }
@@ -67,17 +67,17 @@ export function loadContentBlockToPage (blockData) {
   return {
     type: Actions.LOAD_CONTENTBLOCK_TO_PAGE,
     HTML: source,
-    blockType: blockType,
+    blockType,
     blockName: name,
-    features: features
+    features
   };
 }
 
 export function blockWasRenderedToPage (block, elementReference) {
   return {
     type: Actions.BLOCK_WAS_RENDERED_TO_PAGE,
-    block: block,
-    elementReference: elementReference
+    block,
+    elementReference
   };
 }
 
@@ -90,37 +90,37 @@ export function clearPageBlocksCount () {
 export function updateContentBlockSource (block, newSource) {
   return {
     type: Actions.UPDATE_CONTENTBLOCK_SOURCE,
-    block: block,
-    newSource: newSource
+    block,
+    newSource
   };
 }
 
 export function contentBlockWasUpdated (block) {
   return {
     type: Actions.CONTENTBLOCK_WAS_UPDATED,
-    block: block
+    block
   };
 }
 
 export function currentHoverBlock (elementReference, block) {
   return {
     type: Actions.CURRENT_HOVER_BLOCK,
-    elementReference: elementReference,
-    block: block
+    elementReference,
+    block
   };
 }
 
 export function removeContentBlock (block) {
   return {
     type: Actions.REMOVE_CONTENTBLOCK,
-    block: block
+    block
   };
 }
 
 export function filterContentBlocks (target) {
   return {
     type: Actions.FILTER_CONTENTBLOCKS,
-    target: target
+    target
   };
 }
 
@@ -145,14 +145,14 @@ export function openContentBlockSettings () {
 export function sortContentBlocks (evt) {
   return {
     type: Actions.SORT_CONTENTBLOCKS,
-    evt: evt
+    evt
   };
 }
 
 export function openContentblockSourceEditModal (currentHoverBlock) {
   return {
     type: Actions.OPEN_CONTENTBLOCK_SOURCE_EDIT_MODAL,
-    currentHoverBlock: currentHoverBlock
+    currentHoverBlock
   };
 }
 
@@ -165,6 +165,6 @@ export function setCanvasElementsHoverEvents () {
 export function setCustomCSS (value) {
   return {
     type: Actions.SET_CUSTOM_CSS,
-    value: value
+    value
   };
 }

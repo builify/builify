@@ -5,28 +5,28 @@ import { IS_DEMO_VERSION } from '../constants';
 export function openIconEditModal (target) {
   return {
     type: Actions.OPEN_ICON_EDIT_MODAL,
-    target: target
+    target
   };
 }
 
 export function openImageEditModal (target) {
   return {
     type: Actions.OPEN_IMAGE_EDIT_MODAL,
-    target: target
+    target
   };
 }
 
 export function openVideoEditModal (target) {
   return {
     type: Actions.OPEN_VIDEO_EDIT_MODAL,
-    target: target
+    target
   };
 }
 
 export function openCountdownEditModal (target) {
   return {
     type: Actions.OPEN_COUNTDOWN_EDIT_MODAL,
-    target: target
+    target
   };
 }
 

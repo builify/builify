@@ -3,14 +3,14 @@ import Actions from './constants';
 export function openTab (target) {
   return {
     type: Actions.OPEN_TAB,
-    target: target
+    target
   };
 }
 
 export function openBlockEditorTab (editTarget) {
   return {
     type: Actions.OPEN_BLOCKEDITOR_TAB,
-    editTarget: editTarget
+    editTarget
   };
 }
 

@@ -6,7 +6,7 @@ const initialState = {
   previewMode: PreviewModes.INITIAL
 };
 
-export default function preview (state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case Actions.SET_PREVIEW_MODE:
       return _assign({}, state, {

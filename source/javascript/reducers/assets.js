@@ -9,7 +9,7 @@ import { TEMPLATE_ASSETS_STORAGE_NAME } from '../constants';
 
 const initialState = [];
 
-export default function assets (state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case Actions.INITIALIZE: {
       const assetsInStorage = storage.get(TEMPLATE_ASSETS_STORAGE_NAME);

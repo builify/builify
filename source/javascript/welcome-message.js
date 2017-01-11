@@ -1,5 +1,7 @@
+import { EMPTY_STRING } from './constants';
+
 export default function () {
-  let buildVersion = '';
+  let buildVersion = EMPTY_STRING;
 
   if (process.env.NODE_ENV === 'development') {
     buildVersion = 'DEVELOPMENT';

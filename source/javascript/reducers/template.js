@@ -12,8 +12,8 @@ import * as Constants from '../constants';
 const initialState = {
   // Colorpicker
   isColorPickerOpened: false, // Is colorpicker opened or not?
-  selectedCPElement: null, // Element whose position will be used for colorpicker position.
-  sourceCPElement: null, // Where the click orginates from. For section toolbox.
+  selectedCPElement: null,    // Element whose position will be used for colorpicker position.
+  sourceCPElement: null,      // Where the click orginates from. For section toolbox.
 
   // Template stylesheet
   templateStylesheet: null,
@@ -28,7 +28,7 @@ const initialState = {
   drawBaseline: false
 };
 
-export default function template (state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case Actions.LOGIC_INITIALIZED: {
       const iFrame = TTDOM.iframe.get('ab-cfrm');

@@ -9,7 +9,7 @@ import { MAXIMUM_NOTIFICATIONS } from '../constants';
 const notificationsInitialState = [];
 let UID = Constants.defaultUid;
 
-export default function notificationsReducer (state = notificationsInitialState, action) {
+export default function (state = notificationsInitialState, action) {
   switch (action.type) {
     case Actions.ADD_NOTIFICATION: {
       const { notification } = action;
