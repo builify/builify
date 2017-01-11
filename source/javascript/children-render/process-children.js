@@ -33,7 +33,6 @@ export default function (children) {
 
         switch (blockType) {
           case 'navigation':
-          case 'copyright':
           case 'currentpage':
           case 'contentblocks':
           case 'filter':

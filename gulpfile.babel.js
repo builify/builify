@@ -240,8 +240,7 @@ gulp.task('javascript:main', () => {
       .pipe(buffer())
       .pipe($uglify())
       .pipe($size({ title: '[javascript:main]', gzip: true }))
-      .pipe(gulp.dest(config.javascripts.main.output))
-      .pipe(browserSync.stream({ match: '**/*.js' }));
+      .pipe(gulp.dest(config.javascripts.main.output));
   }
 });
 
@@ -275,7 +274,7 @@ gulp.task('default', () => {
     'javascript:main'
   ];
 
-  if (config.env.debug === true) {
+  if (config.env.debug) {
     seq.push('watch');
     seq.push('server');
   }

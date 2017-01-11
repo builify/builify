@@ -10,7 +10,6 @@ import Title from '../components/aside/title';
 import SideTabOpener from '../components/aside/side-tab-opener';
 import CheckBoxWrapper from '../components/shared/checkbox-wrapper';
 import SliderInputWrapper from '../components/shared/slider-input-wrapper';
-import Copyright from '../components/shared/copyright';
 import Logo from '../components/shared/logo';
 import PrimaryNavigation from '../components/aside/primary-navigation';
 
@@ -25,9 +24,6 @@ export default function renderProcessedChildren (item) {
     switch (item.type) {
       case 'logo':
         return <Logo key={key} />;
-
-      case 'copyright':
-        return <Copyright key={key} />;
 
       case 'navigation':
         return <PrimaryNavigation key={key} />;
