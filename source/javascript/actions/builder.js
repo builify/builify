@@ -16,6 +16,7 @@ import { fetch } from '../common/http';
 import { addNotification } from './notifications';
 import { PAGE_AUTOMATIC_SAVE_TIME } from '../constants';
 
+
 export function runApplicationActions () {
   return function (dispatch) {
     dispatch(initialize());
@@ -30,28 +31,20 @@ export function runApplicationActions () {
 export function getTemplateFiles () {
   return function (dispatch) {
     const zip = new JSZip();
-    
-    return fetch(`assets/template/arkio.builify`)
-      .then(function (response) {
-        if (response.status >= 400) {
-          throw new Error('Bad response from server');
-        }
+    const data = __BUILIFY_TEMPLATE;
 
-        return response;
-      })
-      .then(function (data) {
-        zip.loadAsync(data, { base64: true, checkCRC32: true }).then(function () {
-          zip.file('manifest.json').async('string')
-            .then(function (contents) {
-              dispatch({
-                type: Actions.GET_TEMPLATE_DATA,
-                data: JSON.parse(contents)
-              });
-              dispatch(getFonts());
-              dispatch(getIconPacks());
-              dispatch(getImagesLibrary());
-              dispatch(initializeEvents());
-            });
+    zip.loadAsync(data, { base64: true, checkCRC32: true }).then(function () {
+      console.log(zip);
+      zip.file('manifest.json').async('string')
+        .then(function (contents) {
+          dispatch({
+            type: Actions.GET_TEMPLATE_DATA,
+            data: JSON.parse(contents)
+          });
+          dispatch(getFonts());
+          dispatch(getIconPacks());
+          dispatch(getImagesLibrary());
+          dispatch(initializeEvents());
         });
       });
   };
