@@ -60,6 +60,7 @@
     "jasmine-enzyme": "^2.1.0",
     "jasmine-spec-reporter": "^3.2.0",
     "jsdom": "^9.9.1",
+    "lodash": "^4.17.4",
     "loose-envify": "*",
     "lost": "*",
     "react-addons-test-utils": "^15.4.2",
