@@ -1,21 +1,23 @@
-import _pick from 'lodash/pick';
-import _remove from 'lodash/remove';
-import _assign from 'lodash/assign';
-import _isUndefined from 'lodash/isundefined';
-import _has from 'lodash/has';
-import _isObject from 'lodash/isobject';
-import _size from 'lodash/size';
-import _isArray from 'lodash/isarray';
-import _map from 'lodash/map';
-import _findIndex from 'lodash/findindex';
-import _isElement from 'lodash/iselement';
-import _isNull from 'lodash/isnull';
 import TTStorage from '../modules/tt-storage';
 import Random from '../common/random';
 import TTDOM from '../common/TTDOM';
 import exportPage from '../pages/export-page';
 import * as Actions from '../actions/constants';
 import { TEMPLATE_PAGES_STORAGE_NAME } from '../constants';
+import {
+  assign as _assign,
+  has as _has,
+  findIndex as _findIndex,
+  size as _size,
+  pick as _pick,
+  remove as _remove,
+  map as _map,
+  isNull as _isNull,
+  isElement as _isElement,
+  isArray as _isArray,
+  isObject as _isObject,
+  isUndefined as _isUndefined
+} from 'lodash';
 
 function replaceDataInHTML (HTML, arrayOfItemsToReplace) {
   if (!HTML || !arrayOfItemsToReplace || !arrayOfItemsToReplace.length) {

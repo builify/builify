@@ -1,12 +1,14 @@
 import React from 'react';
-import _map from 'lodash/map';
-import _has from 'lodash/has';
 import Random from '../../../common/random';
 import classNames from '../../../common/classnames';
 import BlockTitle from './block-title';
 import ContentBlock from './block';
 import { connect } from 'react-redux';
 import { loadContentBlockSource } from '../../../actions';
+import {
+  map as _map,
+  has as _has
+} from 'lodash';
 
 class ContentBlocks extends React.Component {
   static propTypes = {

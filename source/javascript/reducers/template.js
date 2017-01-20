@@ -1,13 +1,15 @@
-import _assign from 'lodash/assign';
-import _has from 'lodash/has';
-import _round from 'lodash/round';
-import _isNull from 'lodash/isnull';
-import _isElement from 'lodash/iselement';
 import TTStylesheet from 'tt-stylesheet';
 import TTDOM from '../common/TTDOM';
 import TTBaseliner from '../modules/tt-baseliner';
 import * as Actions from '../actions/constants';
 import * as Constants from '../constants';
+import {
+  assign as _assign,
+  has as _has,
+  round as _round,
+  isNull as _isNull,
+  isElement as _isElement
+} from 'lodash';
 
 const initialState = {
   // Colorpicker

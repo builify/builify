@@ -1,6 +1,4 @@
 import React from 'react';
-import _isNull from 'lodash/isnull';
-import _capitalize from 'lodash/capitalize';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
 import Input from '../../shared/input';
@@ -9,6 +7,10 @@ import CurrentPageSections from './current-page-sections';
 import Button from '../../shared/button';
 import * as Actions from '../../../actions';
 import { connect } from 'react-redux';
+import {
+  isNull as _isNull,
+  capitalize as _capitalize
+} from 'lodash';
 
 class CurrentPage extends React.Component {
   static propTypes = {

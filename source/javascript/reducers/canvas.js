@@ -1,10 +1,12 @@
-import _map from 'lodash/map';
-import _assign from 'lodash/assign';
-import _isElement from 'lodash/iselement';
-import _isObject from 'lodash/isobject';
-import _isNull from 'lodash/isnull';
 import TTDOM from '../common/TTDOM';
 import * as Actions from '../actions/constants';
+import {
+  assign as _assign,
+  map as _map,
+  isObject as _isObject,
+  isNull as _isNull,
+  isElement as _isElement
+} from 'lodash';
 
 const targets = [
   'h1', 'h2', 'h3', 'h4', 'h5', 'h6',

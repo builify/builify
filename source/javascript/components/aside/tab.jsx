@@ -1,10 +1,4 @@
 import React from 'react';
-import _find from 'lodash/find';
-import _words from 'lodash/words';
-import _size from 'lodash/size';
-import _isObject from 'lodash/isobject';
-import _has from 'lodash/has';
-import _map from 'lodash/map';
 import proccessChildren from '../../children-render/process-children';
 import renderProccessedChildren from '../../children-render/render-processed-children';
 import BackButton from './back-button';
@@ -12,6 +6,14 @@ import Scrollbar from '../shared/scrollbar';
 import classNames from '../../common/classnames';
 import { connect } from 'react-redux';
 import { closeTab } from '../../actions';
+import {
+  map as _map,
+  find as _find,
+  size as _size,
+  words as _words,
+  has as _has,
+  isObject as _isObject
+} from 'lodash';
 
 class Tab extends React.Component {
   static propTypes = {

@@ -1,4 +1,3 @@
-import _assign from 'lodash/assign';
 import * as asideActions from './aSide';
 import * as builderActions from './builder';
 import * as dialogActions from './dialog';
@@ -7,6 +6,9 @@ import * as previewActions from './preview';
 import * as canvasActions from './canvas';
 import * as notificationActions from './notifications';
 import * as assetsActions from './assets';
+import {
+  assign as _assign
+} from 'lodash';
 
 const allActions = _assign({},
   builderActions,

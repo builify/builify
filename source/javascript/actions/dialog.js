@@ -36,9 +36,9 @@ export function openPreviousPagesSelectionModal () {
   };
 }
 
-export function openDownloadModal () {
+export function openDownloadModal (isDemoVersion = IS_DEMO_VERSION) {
   return function (dispatch, getState) {
-    if (IS_DEMO_VERSION) {
+    if (isDemoVersion) {
       dispatch(addNotification({
         level: 'warning',
         title: 'Demo Version',

@@ -1,6 +1,8 @@
-import _assign from 'lodash/assign';
 import * as Actions from '../actions/constants';
 import { ModalTypes } from '../constants';
+import {
+  assign as _assign
+} from 'lodash';
 
 const initialState = {
   isModalOpen: false,

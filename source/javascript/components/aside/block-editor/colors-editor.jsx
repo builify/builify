@@ -106,8 +106,6 @@ class ColorsEditor extends React.Component {
     const colorValue = getStyleValue(this._target, 'color');
     const backgroundColorValue = getStyleValue(this._target, 'background-color');
 
-    console.log(colorValue, backgroundColorValue);
-
     this.setState({
       ...this.state,
       color: rgbToHex(colorValue),

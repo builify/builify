@@ -1,11 +1,13 @@
 import React from 'react';
-import _has from 'lodash/has';
-import _isEqual from 'lodash/isequal';
 import classNames from '../../common/classnames';
 import SuggestionBox from './suggestion-box';
 import Frame from './frame';
 import { connect } from 'react-redux';
 import { CurrentLocations, PreviewModes } from '../../constants';
+import {
+  has as _has,
+  isEqual as _isEqual
+} from 'lodash';
 
 class Canvas extends React.Component {
   static propTypes = {

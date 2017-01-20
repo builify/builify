@@ -1,10 +1,4 @@
 import React from 'react';
-import _map from 'lodash/map';
-import _isElement from 'lodash/iselement';
-import _isObject from 'lodash/isobject';
-import _values from 'lodash/values';
-import _delay from 'lodash/delay';
-import _assign from 'lodash/assign';
 import TTDOM from '../../common/TTDOM';
 import TTIFrame from '../../modules/react-tt-iframe';
 import ClickToolbox from './click-toolbox';
@@ -14,6 +8,14 @@ import * as Actions from '../../actions';
 import * as Constants from '../../constants';
 import { connect } from 'react-redux';
 import { store } from '../application-container';
+import {
+  values as _values,
+  delay as _delay,
+  map as _map,
+  assign as _assign,
+  isElement as _isElement,
+  isObject as _isObject
+} from 'lodash';
 
 class Frame extends React.Component {
   static propTypes = {

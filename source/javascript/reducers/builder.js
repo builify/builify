@@ -1,19 +1,21 @@
-import _assign from 'lodash/assign';
-import _find from 'lodash/find';
-import _isObject from 'lodash/isobject';
-import _endsWith from 'lodash/endswith';
-import _size from 'lodash/size';
-import _isArray from 'lodash/isarray';
-import _isUndefined from 'lodash/isundefined';
-import _join from 'lodash/join';
-import _findIndex from 'lodash/findindex';
-import _without from 'lodash/without';
-import _words from 'lodash/words';
-import _dropRight from 'lodash/dropright';
 import downloadPages from '../pages/download';
 import TTStorage from '../modules/tt-storage';
 import * as Actions from '../actions/constants';
 import { CurrentLocations, MAXIUMUM_PAGES_IN_STORAGE, TEMPLATE_PAGES_STORAGE_NAME } from '../constants';
+import {
+  assign as _assign,
+  find as _find,
+  endsWidth as _endsWith,
+  size as _size,
+  join as _join,
+  findIndex as _findIndex,
+  without as _without,
+  words as _words,
+  dropRight as _dropRight,
+  isArray as _isArray,
+  isUndefined as _isUndefined,
+  isObject as _isObject
+} from 'lodash';
 
 const builderInitialState = {
   isLoadingScreenActive: true,

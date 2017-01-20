@@ -1,14 +1,15 @@
 import React from 'react';
 import Icon from '../../shared/icon';
-import _orderBy from 'lodash/orderby';
-import _has from 'lodash/has';
-import _map from 'lodash/map';
-import _isNull from 'lodash/isnull';
-import _filter from 'lodash/filter';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
 import { connect } from 'react-redux';
 import { filterContentBlocks } from '../../../actions';
+import {
+  map as _map,
+  isNull as _isNull,
+  orderBy as _orderBy,
+  filter as _filter
+} from 'lodash';
 
 class Filter extends React.Component {
   static propTypes = {
@@ -91,7 +92,7 @@ class Filter extends React.Component {
           const { name, target } = item;
 
           const itemClassName = classNames(null, {
-             'active': target === filterContentBlocksTarget
+            'active': target === filterContentBlocksTarget
           });
 
           return (

@@ -2,9 +2,11 @@ import 'babel-polyfill';
 
 import React from 'react'; // eslint-disable-line no-unused-vars
 import ReactDOM from 'react-dom';
-import _isElement from 'lodash/iselement';
 import welcomeMessage from './welcome-message';
 import { ApplicationContainer } from './components/application-container';
+import {
+  isElement as _isElement
+} from 'lodash';
 
 function main () {
   const targetElementQuery = '#react-js';

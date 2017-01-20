@@ -1,11 +1,13 @@
 import React from 'react';
-import _map from 'lodash/map';
-import _values from 'lodash/values';
 import Random from '../../../common/random';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
 import Sortable from '../../shared/sortable';
 import CurrentPageItem from './current-page-item';
+import {
+  map as _map,
+  values as _values
+} from 'lodash';
 
 export default class CurrentPageSections extends React.Component {
   static propTypes = {

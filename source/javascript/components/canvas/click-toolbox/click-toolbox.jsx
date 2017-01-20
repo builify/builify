@@ -1,6 +1,4 @@
 import React from 'react';
-import _isNull from 'lodash/isnull';
-import _isEmpty from 'lodash/isempty';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
 import TTDOM from '../../../common/TTDOM';
@@ -9,6 +7,10 @@ import Helpers from './helpers';
 import HTMLTagNamesToString from './html-tagnames';
 import { connect } from 'react-redux';
 import * as Actions from '../../../actions';
+import {
+  isNull as _isNull,
+  isEmpty as _isEmpty
+} from 'lodash';
 
 class ClickToolbox extends React.Component {
   static propTypes = {

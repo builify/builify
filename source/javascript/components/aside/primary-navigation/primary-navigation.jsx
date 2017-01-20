@@ -1,14 +1,16 @@
 import React from 'react';
-import _map from 'lodash/map';
-import _size from 'lodash/size';
-import _words from 'lodash/words';
-import _partial from 'lodash/partial';
 import Random from '../../../common/random';
 import NavigationItem from './item';
 import classNames from '../../../common/classnames';
 import { openFeedbackModal, openTab, openDownloadModal, noPagesToDownload, downloadSinglePage, openRestartModal, saveCurrentPage } from '../../../actions';
 import { connect } from 'react-redux';
 import { CurrentLocations, IS_DEMO_VERSION, IS_DEV_VERSION } from '../../../constants';
+import {
+  map as _map,
+  size as _size,
+  words as _words,
+  partial as _partial
+} from 'lodash';
 
 class PrimaryNavigation extends React.Component {
   static propTypes = {

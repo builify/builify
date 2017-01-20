@@ -1,7 +1,4 @@
 import Actions from './constants';
-import _delay from 'lodash/delay';
-import _has from 'lodash/has';
-import _map from 'lodash/map';
 import JSZip from 'jszip';
 import TTEventEmitter from 'tt-event-emitter';
 import stripJSONComments from 'strip-json-comments';
@@ -12,10 +9,13 @@ import AsideData from '../../../data/builder/aside';
 import fontsList from '../../../data/builder/fonts-list';
 import { checkPreviousPagesInStorage, saveCurrentPage } from './page';
 import { closeTab, closeSidetab } from './aside';
-import { fetch } from '../common/http';
 import { addNotification } from './notifications';
 import { PAGE_AUTOMATIC_SAVE_TIME } from '../constants';
-
+import {
+  delay as _delay,
+  map as _map,
+  has as _has
+} from 'lodash';
 
 export function runApplicationActions () {
   return function (dispatch) {
@@ -31,7 +31,7 @@ export function runApplicationActions () {
 export function getTemplateFiles () {
   return function (dispatch) {
     const zip = new JSZip();
-    const data = __BUILIFY_TEMPLATE;
+    const data = __BUILIFY_TEMPLATE; // eslint-disable-line
 
     zip.loadAsync(data, { base64: true, checkCRC32: true }).then(function () {
       console.log(zip);

@@ -1,5 +1,5 @@
 import TTLocalization from '../modules/tt-localization';
 
-const loc = new TTLocalization();
+const localization = new TTLocalization();
 
-export default loc;
+export default localization;

@@ -1,7 +1,9 @@
 import React from 'react';
-import _isNull from 'lodash/isnull';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
+import {
+  isNull as _isNull
+} from 'lodash';
 
 export default class Color extends React.Component {
   static propTypes = {

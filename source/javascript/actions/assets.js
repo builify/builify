@@ -1,8 +1,10 @@
-import _isUndefined from 'lodash/isundefined';
 import Actions from './constants';
 import { addNotification } from './notifications';
 import { closeModal } from './dialog';
 import { getExtension } from '../common/misc';
+import {
+  isUndefined as _isUndefined
+} from 'lodash';
 
 export function uploadFile (file) {
   return function (dispatch) {

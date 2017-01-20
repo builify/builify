@@ -16,7 +16,10 @@ describe('Common - Misc', () => {
     it('should return correct values', () => {
       expect(Misc.getExtension('somefile.jpg'), 'to be a', 'string');
       expect(Misc.getExtension('somefile.jpg'), 'to be', 'jpg');
+      expect(Misc.getExtension('somefile.png'), 'to be', 'png');
+      expect(Misc.getExtension('somefile.123213.jpeeeeg.jpg.png'), 'to be', 'png');
       expect(Misc.getExtension('some---123123 file.png'), 'to be', 'png');
+      expect(Misc.getExtension('somefile'), 'to be a', 'undefined');
     });
   });
 });

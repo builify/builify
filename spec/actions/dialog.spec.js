@@ -65,4 +65,76 @@ describe('Dialog actions', () => {
       expect(Actions.openPreviousPagesSelectionModal().type, 'to be', Constants.OPEN_PREVIOUS_PAGES_SELECT_MODAL);
     });
   });
+
+  describe('openDownloadModal', () => {
+    it('should be a function', () => {
+      expect(Actions.openDownloadModal, 'to be a', 'function');
+    });
+  });
+
+  describe('openRestartModal', () => {
+    it('should be a function', () => {
+      expect(Actions.openRestartModal, 'to be a', 'function');
+    });
+
+    it('should return correct values', () => {
+      expect(Actions.openRestartModal(), 'to only have key', 'type');
+      expect(Actions.openRestartModal().type, 'to be', Constants.OPEN_RESTART_MODAL);
+    });
+  });
+
+  describe('openFeedbackModal', () => {
+    it('should be a function', () => {
+      expect(Actions.openFeedbackModal, 'to be a', 'function');
+    });
+
+    it('should return correct values', () => {
+      expect(Actions.openFeedbackModal(), 'to only have key', 'type');
+      expect(Actions.openFeedbackModal().type, 'to be', Constants.OPEN_FEEDBACK_MODAL);
+    });
+  });
+
+  describe('openMapsModal', () => {
+    it('should be a function', () => {
+      expect(Actions.openMapsModal, 'to be a', 'function');
+    });
+
+    it('should return correct values', () => {
+      expect(Actions.openMapsModal(), 'to only have key', 'type');
+      expect(Actions.openMapsModal().type, 'to be', Constants.OPEN_MAPS_MODAL);
+    });
+  });
+
+  describe('openCustomCSSModal', () => {
+    it('should be a function', () => {
+      expect(Actions.openCustomCSSModal, 'to be a', 'function');
+    });
+
+    it('should return correct values', () => {
+      expect(Actions.openCustomCSSModal(), 'to only have key', 'type');
+      expect(Actions.openCustomCSSModal().type, 'to be', Constants.OPEN_CUSTOMCSS_MODAL);
+    });
+  });
+
+  describe('openLinkChangeModal', () => {
+    it('should be a function', () => {
+      expect(Actions.openLinkChangeModal, 'to be a', 'function');
+    });
+
+    it('should return correct values', () => {
+      expect(Actions.openLinkChangeModal(), 'to only have key', 'type');
+      expect(Actions.openLinkChangeModal().type, 'to be', Constants.OPEN_LINK_CHANGE_MODAL);
+    });
+  });
+
+  describe('closeModal', () => {
+    it('should be a function', () => {
+      expect(Actions.closeModal, 'to be a', 'function');
+    });
+
+    it('should return correct values', () => {
+      expect(Actions.closeModal(), 'to only have key', 'type');
+      expect(Actions.closeModal().type, 'to be', Constants.CLOSE_MODAL);
+    });
+  });
 });

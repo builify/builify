@@ -1,11 +1,13 @@
-import _assign from 'lodash/assign';
-import _isUndefined from 'lodash/isundefined';
-import _isArray from 'lodash/isarray';
-import _findIndex from 'lodash/findindex';
-import _map from 'lodash/map';
 import storage from '../modules/tt-storage';
 import * as Actions from '../actions/constants';
 import { TEMPLATE_ASSETS_STORAGE_NAME } from '../constants';
+import {
+  assign as _assign,
+  findIndex as _findIndex,
+  map as _map,
+  isArray as _isArray,
+  isUndefined as _isUndefined
+} from 'lodash';
 
 const initialState = [];
 

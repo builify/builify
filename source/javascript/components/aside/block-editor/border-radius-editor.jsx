@@ -1,9 +1,11 @@
 import React from 'react';
-import _kebabCase from 'lodash/kebabcase';
 import classNames from '../../../common/classnames';
 import Input from '../../shared/input';
 import Icon from '../../shared/icon';
 import { getStyleValue, setStyleValue } from './helpers';
+import {
+  kebabCase as _kebabCase
+} from 'lodash';
 
 export default class BorderRadiusEditor extends React.Component {
   static propTypes = {

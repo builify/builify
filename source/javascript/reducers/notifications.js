@@ -1,10 +1,12 @@
-import _assign from 'lodash/assign';
-import _values from 'lodash/values';
-import _isNaN from 'lodash/isnan';
-import _isFunction from 'lodash/isfunction';
 import Constants from '../components/notifications/constants';
 import * as Actions from '../actions/constants';
 import { MAXIMUM_NOTIFICATIONS } from '../constants';
+import {
+  assign as _assign,
+  values as _values,
+  isNaN as _isNaN,
+  isFunction as _isFunction
+} from 'lodash';
 
 const notificationsInitialState = [];
 let UID = Constants.defaultUid;
