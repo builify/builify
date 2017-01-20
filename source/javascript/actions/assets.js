@@ -2,10 +2,7 @@ import _isUndefined from 'lodash/isundefined';
 import Actions from './constants';
 import { addNotification } from './notifications';
 import { closeModal } from './dialog';
-
-function getExtension (filename) {
-  return (/[.]/.exec(filename)) ? /[^.]+$/.exec(filename)[0] : undefined;
-}
+import { getExtension } from '../common/misc';
 
 export function uploadFile (file) {
   return function (dispatch) {

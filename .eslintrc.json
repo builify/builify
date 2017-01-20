@@ -5,6 +5,7 @@
     "commonjs": true,
     "es6": true,
     "mocha": true,
+    "jasmine": true,
     "node": true
   },
   "extends": [

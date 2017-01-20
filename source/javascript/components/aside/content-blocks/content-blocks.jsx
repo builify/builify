@@ -10,15 +10,15 @@ import { loadContentBlockSource } from '../../../actions';
 
 class ContentBlocks extends React.Component {
   static propTypes = {
-    builder: React.PropTypes.object.isRequired,
-    template: React.PropTypes.object.isRequired,
+    blocks: React.PropTypes.array.isRequired,
+    filterContentBlocksTarget: React.PropTypes.string.isRequired,
     loadContentBlockSource: React.PropTypes.func.isRequired
   };
 
-  itemsToRender = [];
+  _itemsToRender = [];
 
   shouldComponentUpdate (nextProps) {
-    if (nextProps.builder.filterContentBlocksTarget !== this.props.builder.filterContentBlocksTarget) {
+    if (nextProps.filterContentBlocksTarget !== this.props.filterContentBlocksTarget) {
       return true;
     }
 
@@ -26,56 +26,49 @@ class ContentBlocks extends React.Component {
   }
 
   componentWillMount () {
-    const { template } = this.props;
+    const { blocks } = this.props;
 
-    if (_has(template, 'blocks')) {
-      const { blocks } = template;
-
-      _map(blocks, (block) => {
-        if (_has(block, 'type')) {
-          const { type } = block;
-
-          this.itemsToRender.push({
-            type: 'blocktitle',
-            name: type
-          });
-
-          if (_has(block, 'items')) {
-            const blockItems = block.items;
-
-            _map(blockItems, (blockItem) => {
-              const { title, source, features } = blockItem;
-              let thumbnail = null;
-
-              if (_has(blockItem, 'id')) {
-                thumbnail = `assets/template/${blockItem.id}.jpeg`;
-              } else if (_has(blockItem, 'thumbnail')) {
-                thumbnail = `${blockItem.thumbnail}`;
-              }
-
-              this.itemsToRender.push({
-                type: 'block',
-                blockType: type,
-                name: title,
-                source: source,
-                thumbnail: thumbnail,
-                features: features
-              });
-            });
-          }
-        } else {
-          throw Error(`Missing type of ${JSON.stringify(block)}`);
-        }
-      });
+    if (blocks.length === 0) {
+      return null;
     }
+
+    _map(blocks, (block) => {
+      if (_has(block, 'type')) {
+        const { type } = block;
+
+        this._itemsToRender.push({
+          type: 'blocktitle',
+          name: type
+        });
+
+        if (_has(block, 'items')) {
+          const blockItems = block.items;
+
+          _map(blockItems, (blockItem) => {
+            const { title, source, features } = blockItem;
+            const thumbnail = `${blockItem.thumbnail}`;
+
+            this._itemsToRender.push({
+              type: 'block',
+              blockType: type,
+              name: title,
+              source: source,
+              thumbnail: thumbnail,
+              features: features
+            });
+          });
+        }
+      } else {
+        throw Error(`Missing type of ${JSON.stringify(block)}`);
+      }
+    });
   }
 
   renderItems () {
-    const { loadContentBlockSource, builder } = this.props;
+    const { loadContentBlockSource, filterContentBlocksTarget } = this.props;
 
-    return _map(this.itemsToRender, (item) => {
+    return _map(this._itemsToRender, (item) => {
       const { type } = item;
-      const { filterContentBlocksTarget } = builder;
 
       if (type === 'blocktitle') {
         const { name } = item;
@@ -111,9 +104,13 @@ class ContentBlocks extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { template, builder } = state;
+  const { blocks } = template;
+  const { filterContentBlocksTarget } = builder;
+
   return {
-    template: state.template,
-    builder: state.builder
+    filterContentBlocksTarget,
+    blocks
   };
 }
 

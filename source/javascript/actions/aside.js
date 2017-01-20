@@ -1,13 +1,13 @@
 import Actions from './constants';
 
-export function openTab (target) {
+export function openTab (target = '') {
   return {
     type: Actions.OPEN_TAB,
     target
   };
 }
 
-export function openBlockEditorTab (editTarget) {
+export function openBlockEditorTab (editTarget = '') {
   return {
     type: Actions.OPEN_BLOCKEDITOR_TAB,
     editTarget
