@@ -1,10 +1,10 @@
-import _ from 'lodash';
-
-const _isArray = _.isArray;
-const _map = _.map;
-const _isNull = _.isNull;
-const _isNumber = _.isNumber;
-const _toSafeInteger = _.toSafeInteger;
+import {
+  isArray as _isArray,
+  map as _map,
+  isNull as _isNull,
+  isNumber as _isNumber,
+  toSafeInteger as _toSafeInteger
+} from 'lodash';
 
 export default function (children) {
   if (!_isArray(children)) {

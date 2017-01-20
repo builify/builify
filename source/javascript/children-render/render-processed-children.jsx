@@ -1,7 +1,5 @@
 import React from 'react';
 import Random from '../common/random';
-import _isObject from 'lodash/isobject';
-import _has from 'lodash/has';
 import Filter from '../components/aside/filter';
 import ContentBlocks from '../components/aside/content-blocks';
 import CurrentPage from '../components/aside/current-page';
@@ -12,6 +10,10 @@ import CheckBoxWrapper from '../components/shared/checkbox-wrapper';
 import SliderInputWrapper from '../components/shared/slider-input-wrapper';
 import Logo from '../components/shared/logo';
 import PrimaryNavigation from '../components/aside/primary-navigation';
+import {
+  has as _has,
+  isObject as _isObject
+} from 'lodash';
 
 export default function renderProcessedChildren (item) {
   if (!_isObject(item)) {
