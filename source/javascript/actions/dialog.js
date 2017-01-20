@@ -2,28 +2,28 @@ import Actions from './constants';
 import { addNotification } from './notifications';
 import { IS_DEMO_VERSION } from '../constants';
 
-export function openIconEditModal (target) {
+export function openIconEditModal (target = null) {
   return {
     type: Actions.OPEN_ICON_EDIT_MODAL,
     target
   };
 }
 
-export function openImageEditModal (target) {
+export function openImageEditModal (target = null) {
   return {
     type: Actions.OPEN_IMAGE_EDIT_MODAL,
     target
   };
 }
 
-export function openVideoEditModal (target) {
+export function openVideoEditModal (target = null) {
   return {
     type: Actions.OPEN_VIDEO_EDIT_MODAL,
     target
   };
 }
 
-export function openCountdownEditModal (target) {
+export function openCountdownEditModal (target = null) {
   return {
     type: Actions.OPEN_COUNTDOWN_EDIT_MODAL,
     target
