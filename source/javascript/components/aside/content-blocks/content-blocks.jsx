@@ -3,6 +3,7 @@ import Random from '../../../common/random';
 import classNames from '../../../common/classnames';
 import BlockTitle from './block-title';
 import ContentBlock from './block';
+import Scrollbar from '../../shared/scrollbar';
 import { connect } from 'react-redux';
 import { loadContentBlockSource } from '../../../actions';
 import {
@@ -95,12 +96,22 @@ class ContentBlocks extends React.Component {
   }
 
   render () {
+    const browserHeight = window.innerHeight || document.body.clientHeight;
+    const scrollbarDimensions = {
+      width: 275,
+      height: browserHeight - 270
+    };
+
     return (
-      <div className={classNames('contentblocks')}>
-        <div className={classNames('contentblocks__inner')}>
-          { this.renderItems() }
+      <Scrollbar
+        width={scrollbarDimensions.width}
+        height={scrollbarDimensions.height}>
+        <div className={classNames('contentblocks')}>
+          <div className={classNames('contentblocks__inner')}>
+            { this.renderItems() }
+          </div>
         </div>
-      </div>
+      </Scrollbar>
     );
   }
 }
