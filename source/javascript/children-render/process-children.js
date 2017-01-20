@@ -1,8 +1,10 @@
-import _isArray from 'lodash/isarray';
-import _map from 'lodash/map';
-import _isNull from 'lodash/isnull';
-import _isNumber from 'lodash/isnumber';
-import _toSafeInteger from 'lodash/tosafeinteger';
+import _ from 'lodash';
+
+const _isArray = _.isArray;
+const _map = _.map;
+const _isNull = _.isNull;
+const _isNumber = _.isNumber;
+const _toSafeInteger = _.toSafeInteger;
 
 export default function (children) {
   if (!_isArray(children)) {
