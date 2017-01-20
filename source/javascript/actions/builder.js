@@ -34,7 +34,6 @@ export function getTemplateFiles () {
     const data = __BUILIFY_TEMPLATE; // eslint-disable-line
 
     zip.loadAsync(data, { base64: true, checkCRC32: true }).then(function () {
-      console.log(zip);
       zip.file('manifest.json').async('string')
         .then(function (contents) {
           dispatch({
@@ -46,7 +45,7 @@ export function getTemplateFiles () {
           dispatch(getImagesLibrary());
           dispatch(initializeEvents());
         });
-      });
+    });
   };
 }
 

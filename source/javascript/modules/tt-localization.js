@@ -1,6 +1,8 @@
-import _isString from 'lodash/isstring';
-import _isUndefined from 'lodash/isundefined';
 import localization from './localization';
+import {
+  isString as _isString,
+  isUndefined as _isUndefined
+} from 'lodash';
 
 function getProperty (obj, prop) {
   var parts = prop.split('.');
