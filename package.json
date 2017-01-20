@@ -13,8 +13,10 @@
     "build:demo": "gulp --env demo && npm run revision",
     "lint": "eslint ./source/javascript",
     "test": "jasmine",
-    "coverage": "nyc --extension .jsx --extension .es6 --reporter=lcov --reporter=text-lcov npm test"
+    "coverage": "nyc --extension .jsx --extension .es6 --reporter=lcov --reporter=text-lcov npm test",
+    "pre-release": "npm run lint && npm run test"
   },
+  "pre-commit": ["pre-release"],
   "engines": {
     "node": "6.1.0",
     "npm": "3.8.6"
@@ -62,6 +64,7 @@
     "jsdom": "^9.9.1",
     "loose-envify": "*",
     "lost": "*",
+    "pre-commit": "^1.2.2",
     "react-addons-test-utils": "^15.4.2",
     "rimraf-promise": "*",
     "run-sequence": "*",

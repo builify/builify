@@ -5,7 +5,7 @@ import { CurrentLocations, MAXIUMUM_PAGES_IN_STORAGE, TEMPLATE_PAGES_STORAGE_NAM
 import {
   assign as _assign,
   find as _find,
-  endsWidth as _endsWith,
+  endsWith as _endsWith,
   size as _size,
   join as _join,
   findIndex as _findIndex,

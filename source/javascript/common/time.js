@@ -6,10 +6,10 @@ export default {
     var ddd = ["\x03", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     function ii(i, len) {
-        var s = i + "";
-        len = len || 2;
-        while (s.length < len) s = "0" + s;
-        return s;
+      var s = i + "";
+      len = len || 2;
+      while (s.length < len) s = "0" + s;
+      return s;
     }
 
     var y = utc ? date.getUTCFullYear() : date.getFullYear();
@@ -62,11 +62,12 @@ export default {
 
     var tz = -date.getTimezoneOffset();
     var K = utc || !tz ? "Z" : tz > 0 ? "+" : "-";
+    
     if (!utc) {
-        tz = Math.abs(tz);
-        var tzHrs = Math.floor(tz / 60);
-        var tzMin = tz % 60;
-        K += ii(tzHrs) + ":" + ii(tzMin);
+      tz = Math.abs(tz);
+      var tzHrs = Math.floor(tz / 60);
+      var tzMin = tz % 60;
+      K += ii(tzHrs) + ":" + ii(tzMin);
     }
     format = format.replace(/(^|[^\\])K/g, "$1" + K);
 
