@@ -32,7 +32,7 @@ export default {
   },
 
   images: {
-    entry: path.join(sourceDir, 'images', '**', '*.{png,jpg,icon,svg,jpeg}'),
+    entry: path.join(sourceDir, 'images', '**', '*.{png,jpg,ico,svg,jpeg}'),
     output: path.join(buildDir, 'assets', 'static')
   },
 

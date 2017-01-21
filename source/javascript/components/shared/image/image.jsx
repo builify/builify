@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import isNull from 'lodash/isnull';
+import {
+  isNull as _isNull
+} from 'lodash';
 
 export default class ImageItem extends React.Component {
   static propTypes = {

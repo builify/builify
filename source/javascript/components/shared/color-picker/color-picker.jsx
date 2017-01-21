@@ -1,11 +1,13 @@
 import React from 'react';
-import { SketchPicker } from 'react-color';
-import _isElement from 'lodash/iselement';
 import TTDOM from '../../../common/TTDOM';
 import * as Constants from '../../../constants';
 import { connect } from 'react-redux';
+import { SketchPicker } from 'react-color';
 import { closeColorPicker, setColorFromColorPicker } from '../../../actions';
 import { setStyleValue } from '../../aside/block-editor/helpers';
+import {
+  isElement as _isElement
+} from 'lodash';
 
 class ColorPick extends React.Component {
   static propTypes = {

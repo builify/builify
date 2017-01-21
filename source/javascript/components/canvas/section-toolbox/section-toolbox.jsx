@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import _values from 'lodash/values';
-import _has from 'lodash/has';
-import _map from 'lodash/map';
-import _isNull from 'lodash/isnull';
-import _isUndefined from 'lodash/isundefined';
 import classNames from '../../../common/classnames';
 import ToolboxItem from './item';
 import localization from '../../../common/localization';
 import { connect } from 'react-redux';
 import * as Actions from '../../../actions';
+import {
+  values as _values,
+  has as _has,
+  map as _map,
+  isNull as _isNull
+} from 'lodash';
 
 class SectionToolBox extends React.Component {
   static propTypes = {

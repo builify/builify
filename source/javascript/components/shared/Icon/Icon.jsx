@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import _assign from 'lodash/assign';
+import {
+  assign as _assign
+} from 'lodash';
 
 /*eslint-disable */
 export default class Icon extends React.Component {
