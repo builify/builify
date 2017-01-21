@@ -1,9 +1,5 @@
 import config from './config';
 import pckg from './package';
-import _has from 'lodash/has';
-import _keys from 'lodash/keys';
-import _isEmpty from 'lodash/isempty';
-import _endsWith from 'lodash/endswith';
 import gulp from 'gulp';
 import path from 'path';
 import browserify from 'browserify';
@@ -25,6 +21,12 @@ import $hint from 'gulp-htmlhint';
 import $cleanCSS from 'gulp-clean-css';
 import $autoprefixer from 'gulp-autoprefixer';
 import $uglify from 'gulp-uglify';
+import {
+  has as _has,
+  keys as _keys,
+  isEmpty as _isEmpty,
+  endsWith as _endsWith
+} from 'lodash';
 
 // Set environment variable.
 process.env.NODE_ENV = config.env.debug ? 'development' : 'production';
@@ -132,10 +134,7 @@ gulp.task('rev', (callback) => {
 
       for (let v in manifest) {
         if (v !== manifest[v]) {
-          if (v.indexOf(config.rev.blacklist[0]) === -1 &&
-              v.indexOf(config.rev.blacklist[1]) === -1) {
-            removables.push(path.join(config.rev.output, v));
-          }
+          removables.push(path.join(config.rev.output, v));
         }
       }
 
