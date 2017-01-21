@@ -93,10 +93,11 @@ export default {
   },
 
   rev: {
+    blacklist: ['canvas-stylesheet', 'template'],
     entry: path.join(buildDir, '**', '*.{css,js,eot,ttf,woff,woff2,ogv,mp4}'),
     output: buildDir,
     manifestFile: 'rev-manifest.json',
-    replace: path.join(buildDir, '**', '*.{css,scss,sass,js,html}')
+    replace: path.join(buildDir, '**', '*.{css,js,html}')
   },
 
   watch: {

@@ -132,7 +132,10 @@ gulp.task('rev', (callback) => {
 
       for (let v in manifest) {
         if (v !== manifest[v]) {
-          removables.push(path.join(config.rev.output, v));
+          if (v.indexOf(config.rev.blacklist[0]) === -1 &&
+              v.indexOf(config.rev.blacklist[1]) === -1) {
+            removables.push(path.join(config.rev.output, v));
+          }
         }
       }
 

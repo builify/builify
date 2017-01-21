@@ -104,8 +104,6 @@ class Tab extends React.Component {
     const { currentTab } = this.state;
     const { content } = currentTab;
 
-    console.log(content);
-
     if (content) {
       return _map(proccessChildren(content), (child) => {
         return renderProccessedChildren(child);
