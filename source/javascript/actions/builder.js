@@ -102,7 +102,10 @@ export function initializeEvents () {
 
 export function initialize () {
   return {
-    type: Actions.INITIALIZE
+    type: Actions.INITIALIZE,
+    meta: {
+      throttle: true
+    }
   };
 }
 
@@ -234,14 +237,20 @@ export function cloneItem () {
 export function changeBaseFontSize (value) {
   return {
     type: Actions.CHANGE_BASE_FONT_SIZE,
-    value
+    value,
+    meta: {
+      throttle: 500
+    }
   };
 }
 
 export function changeBaselineValue (value) {
   return {
     type: Actions.CHANGE_BASELINE_VALUE,
-    value
+    value,
+    meta: {
+      throttle: 500
+    }
   };
 }
 

@@ -18,11 +18,11 @@ const targets = [
 ].join(',');
 
 function mouseEnterEvent () {
-  TTDOM.element.classes.add(this, 'ab-ch');
+  TTDOM.element.classes.add(this, 'ab-highlight');
 }
 
 function mouseLeaveEvent () {
-  TTDOM.element.classes.remove(this, 'ab-ch');
+  TTDOM.element.classes.remove(this, 'ab-highlight');
 }
 
 const canvasInitialState = {

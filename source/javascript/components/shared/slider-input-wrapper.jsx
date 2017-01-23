@@ -1,12 +1,15 @@
 import React from 'react';
-import _at from 'lodash/at';
-import _toNumber from 'lodash/tonumber';
-import _round from 'lodash/round';
 import classNames from '../../common/classnames';
 import localization from '../../common/localization';
 import SliderInput from './slider-input';
 import { connect } from 'react-redux';
 import { changeBaseFontSize, changeBaselineValue } from '../../actions';
+import {
+  throttle as _throttle,
+  round as _round,
+  toNumber as _toNumber,
+  at as _at
+} from 'lodash';
 
 class SliderInputWrapper extends React.Component {
   static propTypes = {
@@ -76,7 +79,7 @@ class SliderInputWrapper extends React.Component {
       this.setState({
         ...this.state,
         value: value,
-        text: `${value} (${_round(fontsizeValue * value, 2)}px)`
+        text: `${value} (${_round(fontsizeValue * value)}px)`
       });
 
       return this.props.changeBaselineValue(value);
@@ -114,11 +117,11 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    changeBaseFontSize: (value) => {
+    changeBaseFontSize: function (value) {
       dispatch(changeBaseFontSize(value));
     },
 
-    changeBaselineValue: (value) => {
+    changeBaselineValue:function (value) {
       dispatch(changeBaselineValue(value));
     }
   };

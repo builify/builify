@@ -1,64 +1,225 @@
-.tt-sliderinput {
-    margin: 20px 0;
+$slider-main-color: $color-primary;
+$slider-main-color-contrast: $color-primary-contrast;
+$slider-snap-color: $color-black;
+$slider-disabled-color: rgba(177, 177, 177, 1);
+$slider-knob-size: $unit * 3.2;
+$slider-inner-knob-size: 1.2 * $unit;
+$slider-snap-size: 0.2 * $unit;
+$slider-input-width: 5 * $unit;
+$slider-bar-height: 0.2 * $unit;
+$slider-pin-size: 2.6 * $unit;
+$slider-pin-elevation: 1.7 * $unit;
+$slider-side-separation: 1 * $unit;
+$slider-empty-knob-border: 0.2 * $unit;
+
+.tt-slider__container {
+    height: $slider-knob-size;
+    margin-right: $slider-knob-size;
     position: relative;
-
-    &__fill,
-    &__handle {
-        position: absolute;
+    user-select: none;
+    width: calc(100% - #{$slider-knob-size});
+    
+    &:not(:last-child) {
+        margin-right: $slider-side-separation + $slider-knob-size;
     }
 
-    &,
-    &__fill {
+    &:not(:first-child) {
+        margin-left: $slider-side-separation;
+    }
+}
+
+.tt-slider__knob {
+    align-items: center;
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    height: $slider-knob-size;
+    justify-content: center;
+    left: 0;
+    position: relative;
+    top: 0;
+    width: $slider-knob-size;
+    z-index: 10;
+}
+
+.tt-slider__innerknob {
+    background-color: $slider-main-color;
+    border-radius: 50%;
+    height: $slider-inner-knob-size;
+    transition-duration: 0.1s;
+    transition-property: height, width, background-color, border;
+    transition-timing-function: $animation-curve-default;
+    width: $slider-inner-knob-size;
+    z-index: 10;
+}
+
+.tt-slider__snaps {
+    display: flex;
+    flex-direction: row;
+    height: $slider-snap-size;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    top: calc(var(--slider-knob-size) / 2 - var(--slider-snap-size) / 2);
+    width: calc(100% + var(--slider-snap-size));
+
+    &::after {
+        background-color: var(--slider-snap-color);
+        border-radius: 50%;
+        content: '';
         display: block;
-        box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
+        height: var(--slider-snap-size);
+        width: var(--slider-snap-size);
     }
+}
 
-    &__handle {
-        border: 1px solid;
-        cursor: pointer;
-        display: inline-block;
+.tt-slider__snap {
+    flex: 1;
+
+    &::after {
+        background-color: var(--slider-snap-color);
+        border-radius: 50%;
+        content: '';
+        display: block;
+        height: var(--slider-snap-size);
+        width: var(--slider-snap-size);
+    }
+}
+
+.tt-slider__progress {
+    height: 100%;
+    left: $slider-knob-size / 2;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    & .tt-slider__innerprogress {
+        height: $slider-bar-height;
         position: absolute;
-        box-shadow: $zdepth-shadow-1;
+        top: ($slider-knob-size / 2) - ($slider-bar-height / 2);
+
+        & [data-ref='value'] {
+            transition-duration: 0s;
+        }
+    }
+}
+
+.tt-slider {
+    &:focus .tt-slider__knob::before {
+        background-color: $slider-main-color;
+        border-radius: 50%;
+        bottom: 0;
+        content: '';
+        left: 0;
+        opacity: 0.26;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 10;
     }
 
-    &--horizontal {
-        height: 10px;
-        border-radius: 10px;
+    &[disabled] {
+        cursor: auto;
+        pointer-events: none;
 
-        .tt-sliderinput__fill {
-            height: 100%;
-            border-radius: 10px;
+        & .tt-slider__innerknob {
+            background-color: $slider-disabled-color;
+        }
+    }
+
+    &.editable {
+        align-items: center;
+        display: flex;
+        flex-direction: row
+    }
+
+    &.pinned .tt-slider__innerknob {
+        &::before {
+            background-color: $slider-main-color;
+            border-radius: 50% 50% 50% 0;
+            content: '';
+            height: $slider-pin-size;
+            left: 0;
+            margin-left: ($slider-knob-size) - ($slider-pin-size / 2);
+            position: absolute;
             top: 0;
+            transform: rotate(-45deg) scale(0) translate(0);
+            transition:
+                transform 0.2s ease,
+                background-color 0.18s ease;
+            width: $slider-pin-size;
         }
 
-        .tt-sliderinput__handle {
-            width: 26px;
-            height: 26px;
-            border-radius: 40px;
-            top: -8px;
+        &::after {
+            color: var(--color-background);
+            content: attr(data-value);
+            font-size: 10px;
+            height: var(--slider-pin-size);
+            left: 0;
+            position: absolute;
+            text-align: center;
+            top: 0;
+            transform: scale(0) translate(0);
+            transition:
+                transform 0.2s ease,
+                background-color 0.18s ease;
+            width: $slider-knob-size;
         }
     }
 
-    &--vertical {
-        margin: 20px auto;
-      	height: 150px;
-      	max-width: 10px;
-      	background: none;
+    &.pressed {
+        &.pinned .tt-slider__innerknob {
+            &::before {
+                transform: rotate(-45deg) scale(1) translate(var(--slider-pin-elevation), calc(-1 * var(--slider-pin-elevation)));
+                transition-delay: 100ms;
+            }
 
-        .tt-sliderinput__fill {
-            width: 100%;
-            background: $base-color;
-            box-shadow: none;
-            bottom: 0;
+            &::after {
+                transform: scale(1) translate(0, calc(-1 * var(--slider-pin-elevation)));
+                transition-delay: 100ms;
+            }
         }
 
-        .tt-sliderinput__handle {
-            width: 30px;
-            height: 10px;
-            left: -10px;
+        &:not(.pinned) {
+            &.ring .tt-slider__progress {
+                left: calc(var(--slider-knob-size) / 2 + (var(--slider-knob-size) - var(--slider-empty-knob-border) * 2) / 2);
+                width: calc(100% - ((var(--slider-knob-size) - var(--slider-empty-knob-border) * 2) / 2));
+            }
 
-            &:active {
-                box-shadow: none;
+            & .tt-slider__innerknob {
+                height: 100%;
+                transform: translateZ(0);
+                width: 100%;
+            }
+        }
+    }
+
+    &.ring {
+        & .tt-slider__innerknob {
+            background-color: transparent;
+            border: $slider-empty-knob-border solid $color-divider;;
+
+            &::before {
+                background-color: $slider-main-color;
+            }
+        }
+
+        & .tt-slider__progress {
+            left: ($slider-knob-size / 2) + ($slider-empty-knob-border * 2);
+            transition:
+                left 0.18s ease,
+                width 0.18s ease;
+            width: calc(100% - #{$slider-empty-knob-border * 2});
+        }
+
+         &.pinned {
+            & .tt-slider__innerknob {
+                background-color: $color-background;
+            }
+
+            & .tt-slider__progress {
+                left: $slider-knob-size / 2;
+                width: 100%;
             }
         }
     }

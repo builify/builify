@@ -12,7 +12,7 @@ function main () {
   const targetElementQuery = '#react-js';
   const targetElement = document.querySelector(targetElementQuery);
 
-  enableDeveloperTools();
+  //enableDeveloperTools();
 
   if (_isElement(targetElement)) {
     welcomeMessage();
