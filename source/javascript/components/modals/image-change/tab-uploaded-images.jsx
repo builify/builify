@@ -1,5 +1,4 @@
 import React from 'react';
-import _map from 'lodash/map';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
 import Random from '../../../common/random';
@@ -8,6 +7,9 @@ import Image from '../../shared/image';
 import Button from '../../shared/button';
 import { connect } from 'react-redux';
 import { deleteAllAssets } from '../../../actions';
+import {
+  map as _map
+} from 'lodash';
 
 class UploadedImagesTab extends React.Component {
   static propTypes = {

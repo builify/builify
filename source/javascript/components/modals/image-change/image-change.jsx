@@ -1,16 +1,18 @@
 import React from 'react';
 import classNames from 'classnames';
-import _isObject from 'lodash/isobject';
-import _has from 'lodash/has';
-import _isNull from 'lodash/isnull';
-import _isEmpty from 'lodash/isempty';
-import _isElement from 'lodash/iselement';
 import ModalWrapper from '../common/Wrapper';
 import TabNavigation from './modal';
 import BottomNavigation from '../common/bottom-navigation';
 import { TRACK_MODAL_CURENT_IMAGE_INPUT_ID, BLOCK_BACKGROUND_IMAGE_ELEMENT_CLASSNAME } from '../../../constants';
 import { closeModal, uploadFile, selectImageFile } from '../../../actions';
 import { connect } from 'react-redux';
+import {
+  has as _has,
+  isObject as _isObject,
+  isNull as _isNull,
+  isEmpty as _isEmpty,
+  isElement as _isElement
+} from 'lodash';
 
 class ImageEdit extends React.Component {
   static propTypes = {

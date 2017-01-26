@@ -1,11 +1,13 @@
 import React from 'react';
-import _map from 'lodash/map';
-import _sortBy from 'lodash/sortby';
-import _has from 'lodash/has';
 import classNames from '../../../common/classnames';
 import Random from '../../../common/random';
 import Scrollbar from '../../shared/scrollbar';
 import Image from '../../shared/image';
+import {
+  map as _map,
+  sortBy as _sortBy,
+  has as _has
+} from 'lodash';
 
 export default class ImageEditContentImages extends React.Component {
   static propTypes = {

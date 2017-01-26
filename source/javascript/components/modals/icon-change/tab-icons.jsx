@@ -1,9 +1,11 @@
 import React from 'react';
-import _map from 'lodash/map';
 import classNames from 'classnames';
 import Random from '../../../common/random';
 import Scrollbar from '../../shared/scrollbar';
 import { connect } from 'react-redux';
+import {
+  map as _map
+} from 'lodash';
 
 class TabIcons extends React.Component {
   static propTypes = {

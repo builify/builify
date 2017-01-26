@@ -1,12 +1,14 @@
 import React from 'react';
-import _isEmpty from 'lodash/isempty';
-import _isElement from 'lodash/iselement';
 import CheckerBoard from '../../../modules/react-tt-checkerboard';
 import classNames from '../../../common/classnames';
 import Input from '../../shared/input';
 import Image from '../../shared/image';
 import { TRACK_MODAL_CURENT_IMAGE_INPUT_ID, BLOCK_BACKGROUND_IMAGE_ELEMENT_CLASSNAME } from '../../../constants';
 import { defaultImageUrl } from './config';
+import {
+  isEmpty as _isEmpty,
+  isElement as _isElement
+} from 'lodash';
 
 export default class CurrentImageTab extends React.Component {
   static propTypes = {

@@ -1,11 +1,13 @@
 import React from 'react';
-import _map from 'lodash/map';
-import _has from 'lodash/has';
 import classNames from '../../../common/classnames';
 import Random from '../../../common/random';
 import ContentTabs from './content-tabs';
 import { connect } from 'react-redux';
 import { defaultTabId, tabList } from './config';
+import {
+  map as _map,
+  has as _has
+} from 'lodash';
 
 class TabNavigation extends React.Component {
   static propTypes = {

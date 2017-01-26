@@ -30,7 +30,7 @@ export default class ImageItem extends React.Component {
     const { sizeInfo } = this.props;
     const { width, height } = sizeInfo;
 
-    if (isNull(sizeInfo) || width <= 0 || height <= 0) {
+    if (_isNull(sizeInfo) || width <= 0 || height <= 0) {
       return null;
     }
 

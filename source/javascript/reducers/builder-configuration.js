@@ -15,10 +15,10 @@ export default function (state = builderConfigurationInitialState, action) {
 
     case Actions.GET_IMAGESLIBRARY: {
       const { data } = action;
-      const { imageLibraryCategories } = data;
+      const { categories } = data;
 
       return _assign({}, state, {
-        imageLibraryCategories
+        imageLibraryCategories: categories
       });
     }
 
