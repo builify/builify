@@ -91,6 +91,13 @@ export default function (state = initialState, action) {
         modalType: ModalTypes.LINKCHANGE
       });
 
+    case Actions.OPEN_FORMEDIT_MODAL:
+      return _assign({}, state, {
+        isModalOpen: true,
+        modalType: ModalTypes.FORMEDIT,
+        modalTarget: action.target
+      });
+
     case Actions.CLOSE_MODAL:
       return _assign({}, state, {
         isModalOpen: false,

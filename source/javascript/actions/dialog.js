@@ -83,6 +83,13 @@ export function openLinkChangeModal () {
   };
 }
 
+export function openFormEditModal (target = null) {
+  return {
+    type: Actions.OPEN_FORMEDIT_MODAL,
+    target
+  };
+}
+
 export function closeModal () {
   return {
     type: Actions.CLOSE_MODAL

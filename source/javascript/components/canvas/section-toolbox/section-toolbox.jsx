@@ -19,7 +19,8 @@ class SectionToolBox extends React.Component {
     openCountdownEditModal: React.PropTypes.func.isRequired,
     removeContentBlock: React.PropTypes.func.isRequired,
     openColorPicker: React.PropTypes.func.isRequired,
-    openImageEditModal: React.PropTypes.func.isRequired
+    openImageEditModal: React.PropTypes.func.isRequired,
+    openFormEditModal: React.PropTypes.func.isRequired
   };
 
   toolboxItemColorChange = null;
@@ -59,6 +60,10 @@ class SectionToolBox extends React.Component {
           title = 'Change Countdown';
           icon = 'exposure-plus-1';
           clickFunction = ::this.changeCountdown;
+        } else if (feature === 'formInput') {
+          title = 'Edit Form';
+          icon = 'input';
+          clickFunction = ::this.editFormInput;
         }
       }
 
@@ -141,6 +146,13 @@ class SectionToolBox extends React.Component {
 
     return this.props.removeContentBlock(block);
   }
+
+  editFormInput () {
+    const { currentHoverBlock } = this.props;
+    const { block } = currentHoverBlock;
+
+    return this.props.openFormEditModal(block);
+  }
 }
 
 function mapStateToProps (state) {
@@ -172,6 +184,10 @@ function mapDispatchToProps (dispatch) {
 
     openColorPicker: function (target, sourceElement) {
       dispatch(Actions.openColorPicker(target, sourceElement));
+    },
+
+    openFormEditModal: function (target) {
+      dispatch(Actions.openFormEditModal(target));
     }
   };
 }

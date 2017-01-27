@@ -9,6 +9,7 @@ import Maps from './maps';
 import CustomCSS from './custom-css';
 import DownloadPages from './download-pages';
 import DialogRestart from './dialog-restart';
+import FormEdit from './form-edit';
 import { connect } from 'react-redux';
 import { ModalTypes } from '../../constants';
 
@@ -66,6 +67,9 @@ class Modals extends React.Component {
 
       case ModalTypes.CUSTOMCSS:
         return <CustomCSS />;
+
+      case ModalTypes.FORMEDIT:
+        return <FormEdit />;
 
       default:
         return null;

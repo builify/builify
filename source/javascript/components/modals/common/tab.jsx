@@ -24,10 +24,6 @@ export default class ModalTab extends React.Component {
     onClose: function () {}
   };
 
-  shouldComponentUpdate () {
-    return false;
-  }
-
   renderNavigation () {
     const { nav, uploadedImagesLength } = this.props;
 

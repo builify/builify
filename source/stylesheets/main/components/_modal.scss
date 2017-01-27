@@ -76,6 +76,13 @@ $modal-navigation-padding: .8 * $unit;
         }
 	}
 
+    &__dropdown {
+        float: none !important;
+        width: 100% !important;
+        position: relative;
+        padding: 0;
+    }
+
     &__pageremove {
         position: absolute;
         right: 50px;

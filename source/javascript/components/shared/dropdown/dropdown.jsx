@@ -1,11 +1,13 @@
 import React from 'react';
-import _isFunction from 'lodash/isfunction';
-import _map from 'lodash/map';
-import _isObject from 'lodash/isobject';
-import _find from 'lodash/find';
-import _isEmpty from 'lodash/isempty';
 import classNames from '../../../common/classnames';
 import Scrollbar from '../scrollbar';
+import {
+  map as _map,
+  find as _find,
+  isFunction as _isFunction,
+  isEmpty as _isEmpty,
+  isObject as _isObject
+} from 'lodash';
 
 export default class FontPicker extends React.Component {
   static propTypes = {
@@ -15,7 +17,8 @@ export default class FontPicker extends React.Component {
     activeColor: React.PropTypes.string,
     value: React.PropTypes.string,
     height: React.PropTypes.number,
-    onChange: React.PropTypes.func
+    onChange: React.PropTypes.func,
+    className: React.PropTypes.string
   };
 
   static defaultProps = {
@@ -138,9 +141,7 @@ export default class FontPicker extends React.Component {
       'dropdown__options--hidden': !this.state.isOptionsVisible
     });
     const valueObject = _find(this.props.options, { value: value });
-
-    console.log(this.state.selectedOption);
-
+    
     if (_isObject(valueObject)) {
       const { text } = valueObject;
 
@@ -148,7 +149,7 @@ export default class FontPicker extends React.Component {
     }
 
     return (
-			<div className={classNames('dropdown')}>
+			<div className={classNames('dropdown', this.props.className)}>
 				<div className={classNames('dropdown__wrapper')} onClick={::this.onWrapperClick}>
 					<div className={selectedOptionsClassName}>{ label }</div>
 					<div className={classNames('dropdown__selected-option')}>
