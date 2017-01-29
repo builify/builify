@@ -1,7 +1,7 @@
 export default function (store) {
   return function (next) {
     return function (action) {
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV !== 'development') {
         console.groupCollapsed(action.type); // eslint-disable-line
 
         let result = next(action);

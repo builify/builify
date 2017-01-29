@@ -69,7 +69,7 @@ class Modals extends React.Component {
         return <CustomCSS />;
 
       case ModalTypes.FORMEDIT:
-        return <FormEdit />;
+        return <FormEdit editTarget={modalTarget} />;
 
       default:
         return null;

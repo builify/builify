@@ -1,4 +1,4 @@
-import React from 'react';;
+import React from 'react';
 import classNames from '../../../common/classnames';
 import ModalWrapper from '../common/wrapper';
 import ModalTab from '../common/tab';
@@ -7,6 +7,12 @@ import Input from '../../shared/input';
 import Dropdown from '../../shared/dropdown';
 import { connect } from 'react-redux';
 import { closeModal } from '../../../actions';
+import {
+  isObject as _isObject,
+  isElement as _isElement,
+  isNull as _isNull,
+  has as _has
+} from 'lodash';
 
 const options = [
   { text: 'POST', value: 'post' },
@@ -15,6 +21,7 @@ const options = [
 
 class FormEdit extends React.Component {
   static propTypes = {
+    editTarget: React.PropTypes.any,
     closeModal: React.PropTypes.func.isRequired
   };
 
@@ -23,8 +30,54 @@ class FormEdit extends React.Component {
     method: 'post'
   };
 
-  shouldComponentUpdate () {
-    return true;
+  shouldComponentUpdate (nextProps, nextState) {
+    if (nextState.action !== this.state.action ||
+      nextState.method !== this.state.method) {
+      return true;
+    }
+
+    return false;
+  }
+
+  componentWillMount () {
+    const formElement = this.getFormElement();
+
+    if (!_isNull(formElement)) {
+      const action = formElement.getAttribute('action') || this.state.action;
+      const method = formElement.getAttribute('method') || this.state.method;
+
+      this.setState({
+        action,
+        method
+      });
+    }
+  }
+
+  saveFormAttributes () {
+    const formElement = this.getFormElement();
+
+    if (!_isNull(formElement)) {
+      formElement.setAttribute('action', this.state.action);
+      formElement.setAttribute('method', this.state.method);
+    }
+
+    return this.closeDialog();
+  }
+
+  getFormElement () {
+    const { editTarget } = this.props;
+
+    if (_isObject(editTarget) &&
+      _has(editTarget, 'elementReference') &&
+      _isElement(editTarget.elementReference)) {
+      const formElement = editTarget.elementReference.querySelector('form');
+
+      if (_isElement(formElement)) {
+        return formElement;
+      }
+    }
+
+    return null;
   }
 
   closeDialog () {
@@ -41,7 +94,7 @@ class FormEdit extends React.Component {
   render () {
     const actions = [
       { label: 'Cancel', onClick: ::this.closeDialog },
-      { label: 'Save' }
+      { label: 'Save', onClick: ::this.saveFormAttributes }
     ];
     const containerStyle = {
       background: '#f5f5f5'
