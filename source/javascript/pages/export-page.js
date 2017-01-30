@@ -1,6 +1,8 @@
-import _isObject from 'lodash/isobject';
 import { saveAs } from 'file-saver';
 import { TEMPLATE_FILE_EXTENSION } from '../constants';
+import {
+  isObject as _isObject
+} from 'lodash';
 
 function utoa (str) {
   return window.btoa(unescape(encodeURIComponent(str)));

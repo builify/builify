@@ -1,5 +1,10 @@
+import {
+  isString as _isString,
+  isUndefined as _isUndefined
+} from 'lodash';
+
 function baseToString (value) {
-  if (typeof value === 'string') {
+  if (_isString(value)) {
     return value;
   }
 
@@ -14,7 +19,9 @@ export default {
     const intLen = Math.floor((stringLength || 40) / 2);
     const intArr = new Uint8Array(intLen);
 
-    cryptoObject.getRandomValues(intArr);
+    if (!_isUndefined(cryptoObject)) {
+      cryptoObject.getRandomValues(intArr);
+    }
 
     const value = [].map.call(intArr, (n) => {
       return n.toString(16);
