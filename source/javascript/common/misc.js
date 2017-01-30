@@ -7,3 +7,11 @@ export function getExtension (filename) {
   
   return (/[.]/.exec(filename)) ? /[^.]+$/.exec(filename)[0] : undefined;
 }
+
+export function generatePageID () {
+  const currentTimestamp = Math.floor(Date.now() / 1000);
+  const uniqueKey = Math.random().toString(36).slice(-8);
+  const pageID = `builifypage-${currentTimestamp}-${uniqueKey}`;
+
+  return pageID;
+}

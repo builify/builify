@@ -22,4 +22,16 @@ describe('Common - Misc', () => {
       expect(Misc.getExtension('somefile'), 'to be a', 'undefined');
     });
   });
+
+  describe('generatePageID', () => {
+    it('should be a function', () => {
+      expect(Misc.generatePageID, 'to be a', 'function');
+    });
+
+    it('should return correct values', () => {
+      expect(Misc.generatePageID(), 'to be a', 'string');
+      expect(Misc.generatePageID(), 'to begin with', 'builifypage-');
+      expect(Misc.generatePageID(), 'to have length', 31);
+    });
+  });
 });

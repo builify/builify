@@ -3,14 +3,7 @@ import TTStorage from '../modules/tt-storage';
 import processImportedPage from '../pages/import-page';
 import { IS_DEMO_VERSION, TEMPLATE_PAGES_STORAGE_NAME, CurrentLocations } from '../constants';
 import { addNotification } from './notifications';
-
-function generatePageID () {
-  const currentTimestamp = Math.floor(Date.now() / 1000);
-  const uniqueKey = Math.random().toString(36).slice(-8);
-  const pageID = `abpage-${currentTimestamp}-${uniqueKey}`;
-
-  return pageID;
-}
+import { generatePageID } from '../common/misc';
 
 export function startNewPage () {
   return {

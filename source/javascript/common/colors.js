@@ -1,4 +1,8 @@
-function hex(x) {
+import {
+  isNull as _isNull
+} from 'lodash';
+
+export function hex (x) {
   return ('0' + parseInt(x).toString(16)).slice(-2);
 }
 
@@ -11,7 +15,11 @@ export function rgbToHex (rgb) {
     return rgb;
   }
 
-  rgb = rgb.match(/(rgba?)|(\d+(\.\d+)?%?)|(\.\d+)/g);
-  
-  return `#${hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3])}`;
+  const values = rgb.match(/(rgba?)|(\d+(\.\d+)?%?)|(\.\d+)/g);
+
+  if (_isNull(values)) {
+    return rgb;
+  } else {
+    return `#${hex(values[1]) + hex(values[2]) + hex(values[3])}`;
+  }
 }
