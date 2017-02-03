@@ -21,6 +21,8 @@ import $hint from 'gulp-htmlhint';
 import $cleanCSS from 'gulp-clean-css';
 import $autoprefixer from 'gulp-autoprefixer';
 import $uglify from 'gulp-uglify';
+import $imagemin from 'gulp-imagemin';
+import $changed from 'gulp-changed';
 import {
   has as _has,
   keys as _keys,
@@ -53,6 +55,9 @@ gulp.task('server', () => {
 // Images task.
 gulp.task('images', () => {
   return gulp.src(config.images.entry)
+    .pipe($changed(config.images.output))
+    .pipe($imagemin())
+    .pipe($size({ title: '[files:template]', gzip: true }))
     .pipe(gulp.dest(config.images.output));
 });
 
@@ -103,6 +108,15 @@ gulp.task('files:template', () => {
   return gulp.src(config.files.template.entry)
     .pipe($size({ title: '[files:template]', gzip: true }))
     .pipe(gulp.dest(config.files.template.output));
+});
+
+// Compiles and deploys template thumbnail files.
+gulp.task('files:template:thumbnail', () => {
+  return gulp.src(config.files.template.thumbnail.entry)
+    .pipe($changed(config.images.output))
+    .pipe($imagemin())
+    .pipe($size({ title: '[files:template:thumbnail]', gzip: true }))
+    .pipe(gulp.dest(config.files.template.thumbnail.output));
 });
 
 // Compiles and deploys HTML files.
@@ -270,6 +284,7 @@ gulp.task('default', () => {
     'images',
     'files',
     'files:template',
+    'files:template:thumbnail',
     'stylesheet:main',
     'stylesheet:canvas',
     'javascript:vendor',

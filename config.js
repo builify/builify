@@ -41,8 +41,13 @@ export default {
     output: path.join(buildDir, 'assets', 'static'),
 
     template: {
-      entry: path.join(currentDir, 'data', 'template', 'assets', '**/*.*'),
-      output: path.join(buildDir, 'assets', 'template')
+      entry: path.join(currentDir, 'data', 'template', 'assets', '/*.{js,css}'),
+      output: path.join(buildDir, 'assets', 'template'),
+
+      thumbnail: {
+        entry: path.join(currentDir, 'data', 'template', 'assets', 'thumbnails/*.{jpg,jpeg,png}'),
+        output: path.join(buildDir, 'assets', 'template')
+      }
     }
   },
 

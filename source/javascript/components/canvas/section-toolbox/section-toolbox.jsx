@@ -25,14 +25,6 @@ class SectionToolBox extends React.Component {
 
   toolboxItemColorChange = null;
 
-  shouldComponentUpdate (nextProps) {
-    if (nextProps.currentHoverBlock.topX !== this.props.currentHoverBlock.topX) {
-      return true;
-    }
-
-    return false;
-  }
-
   renderItems () {
     const { currentHoverBlock } = this.props;
     const { block } = currentHoverBlock;
@@ -93,6 +85,8 @@ class SectionToolBox extends React.Component {
     const toolBoxStyle = {
       top: topX
     };
+
+    console.log(currentHoverBlock);
 
     if (_values(block).length === 0 || !_has(block, 'elementReference')) {
       return null;

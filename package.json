@@ -16,7 +16,9 @@
     "coverage": "nyc --extension .jsx --extension .es6 --reporter=lcov --reporter=text-lcov npm test",
     "pre-release": "npm run lint && npm run test"
   },
-  "pre-commit": ["pre-release"],
+  "pre-commit": [
+    "pre-release"
+  ],
   "engines": {
     "node": "6.1.0",
     "npm": "3.8.6"
@@ -43,10 +45,12 @@
     "glob": "*",
     "gulp": "*",
     "gulp-autoprefixer": "*",
+    "gulp-changed": "^1.3.2",
     "gulp-clean-css": "*",
     "gulp-cssmin": "*",
     "gulp-htmlhint": "*",
     "gulp-if": "*",
+    "gulp-imagemin": "^3.1.1",
     "gulp-notify": "*",
     "gulp-plumber": "*",
     "gulp-postcss": "*",
