@@ -62,35 +62,39 @@ export default class ImageEditContentImages extends React.Component {
     return (
       <div className={classNames('modal__tabimages')}>
         { _map(this.defaultImages, (item, catIdx) => {
-          if (catIdx !== activeCategory) {
+          if (catIdx !== activeCategory || !_has(item, 'images')) {
             return null;
           }
 
-          if (_has(item, 'images')) {
-            return _map(item.images, url => {
-              className = classNames('modal__tabimage');
+          return _map(item.images, (imageInfo) => {
+            const { source: imageSource, thumbnail: imageThumbnail } = imageInfo;
+            className = classNames('modal__tabimage');
 
-              return (
-                <Image
-                  className={className}
-                  backgroundImage
-                  src={url}
-                  onClick={() => {
-                    return onSelectImage({
-                      src: url
-                    });
-                  }} />
-              );
-            });
-          }
-
-          return null;
+            return (
+              <Image
+                className={className}
+                backgroundImage
+                src={imageThumbnail}
+                onClick={() => {
+                  return onSelectImage({
+                    src: imageSource
+                  });
+                }} />
+            );
+          });
         }) }
       </div>
     );
   }
 
   render () {
+    const spanStyle = {
+      display: 'block',
+      top: '30px',
+      position: 'relative',
+      fontSize: '12px'
+    };
+
     return (
       <div className={classNames('modal__tab')}>
         <aside className={classNames('modal__tabside')}>
@@ -98,6 +102,7 @@ export default class ImageEditContentImages extends React.Component {
           <nav className={classNames('modal__tabmenu')}>
             { this.renderCategories() }
           </nav>
+          <div style={spanStyle}>Images by <a href="https://unsplash.com/" target="_blank">Unsplash</a></div>
         </aside>
         <main className={classNames('modal__tabcontent')}>
           <Scrollbar height={380}>

@@ -163,8 +163,9 @@ $modal-navigation-padding: .8 * $unit;
 	}
 
 	&__tabmenu {
-		float: left;
+        position: relative;
 		width: 100%;
+        overflow: hidden;
 		margin-top: 10px;
 	}
 
