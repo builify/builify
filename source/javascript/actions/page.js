@@ -2,7 +2,7 @@ import Actions from './constants';
 import TTStorage from '../modules/tt-storage';
 import processImportedPage from '../pages/import-page';
 import { IS_DEMO_VERSION, TEMPLATE_PAGES_STORAGE_NAME, CurrentLocations } from '../constants';
-import { addNotification } from './notifications';
+import { addNotification, demoNotification } from './notifications';
 import { generatePageID } from '../common/misc';
 
 export function startNewPage () {
@@ -56,8 +56,12 @@ export function saveCurrentPage () {
 }
 
 export function downloadAsHTML () {
-  return {
-    type: Actions.DOWNLOAD_AS_HTML
+  return function (dispatch) {
+    if (IS_DEMO_VERSION) {
+      dispatch(demoNotification());
+    } else {
+      dispatch({ type: Actions.DOWNLOAD_AS_HTML });
+    }
   };
 }
 
@@ -82,20 +86,22 @@ export function setPageFilename (filename) {
 }
 
 export function importPage (data) {
-  return {
-    type: Actions.IMPORT_PAGE,
-    page: processImportedPage(data)
+  return function (dispatch) {
+    if (IS_DEMO_VERSION) {
+      dispatch(demoNotification());
+    } else {
+      dispatch({
+        type: Actions.IMPORT_PAGE,
+        page: processImportedPage(data)
+      });
+    }
   };
 }
 
 export function exportPage () {
   return function (dispatch) {
     if (IS_DEMO_VERSION) {
-      dispatch(addNotification({
-        level: 'warning',
-        title: 'Demo Version',
-        message: 'Buy full version to get access'
-      }));
+      dispatch(demoNotification());
     } else {
       dispatch({ type: Actions.EXPORT_PAGE });
     }

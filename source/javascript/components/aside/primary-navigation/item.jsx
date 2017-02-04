@@ -10,7 +10,8 @@ export default class NavigationItem extends React.Component {
     icon: React.PropTypes.string.isRequired,
     className: React.PropTypes.string,
     disabled: React.PropTypes.bool,
-    onClick: React.PropTypes.func
+    onClick: React.PropTypes.func,
+    style: React.PropTypes.object
   };
 
   static defaultProps = {
@@ -18,7 +19,8 @@ export default class NavigationItem extends React.Component {
     currentLocation: -1,
     className: '',
     disabled: false,
-    onClick: emptyFunction
+    onClick: emptyFunction,
+    style: {}
   };
 
   shouldComponentUpdate () {
@@ -31,14 +33,18 @@ export default class NavigationItem extends React.Component {
   }
 
   render () {
-    const { icon, title } = this.props;
+    const { icon, title, style } = this.props;
     const className = classNames(null, {
       'hide': this.props.disabled
     }, this.props.className);
     const text = localization(title);
 
     return (
-      <li className={className} title={text} onClick={::this.clickEvent}>
+      <li
+        className={className}
+        title={text}
+        onClick={::this.clickEvent}
+        style={style}>
         { icon && <Icon icon={icon} /> }
         { text && <span>{ text }</span> }
       </li>

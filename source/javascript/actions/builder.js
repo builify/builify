@@ -9,8 +9,8 @@ import AsideData from '../../../data/builder/aside';
 import fontsList from '../../../data/builder/fonts-list';
 import { checkPreviousPagesInStorage, saveCurrentPage } from './page';
 import { closeTab, closeSidetab } from './aside';
-import { addNotification } from './notifications';
-import { PAGE_AUTOMATIC_SAVE_TIME } from '../constants';
+import { addNotification, demoNotification } from './notifications';
+import { PAGE_AUTOMATIC_SAVE_TIME, IS_DEMO_VERSION } from '../constants';
 import {
   delay as _delay,
   map as _map,
@@ -171,20 +171,28 @@ export function uploadImage (data) {
 
 export function downloadSinglePage () {
   return function (dispatch, getState) {
-    dispatch({
-      type: Actions.DOWNLOAD_SINGLE_PAGE,
-      currentState: getState()
-    });
+    if (IS_DEMO_VERSION) {
+      dispatch(demoNotification());
+    } else {
+      dispatch({
+        type: Actions.DOWNLOAD_SINGLE_PAGE,
+        currentState: getState()
+      });
+    }
   };
 }
 
 export function downloadPages (pages) {
   return function (dispatch, getState) {
-    dispatch({
-      type: Actions.DOWNLOAD_PAGES,
-      pages,
-      currentState: getState()
-    });
+    if (IS_DEMO_VERSION) {
+      dispatch(demoNotification());
+    } else {
+      dispatch({
+        type: Actions.DOWNLOAD_PAGES,
+        pages,
+        currentState: getState()
+      });
+    }
   };
 }
 

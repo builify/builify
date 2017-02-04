@@ -1,7 +1,5 @@
 .#{$nameprefix}salebutton {
     position: fixed !important;
-    bottom: 25px;
-    left: 65px;
     z-index: 9999;
     height: 50px;
     line-height: 50px;
@@ -14,6 +12,8 @@
     text-decoration: none;
     cursor: pointer;
     text-shadow: 0 0 2px rgba(#000, 0.5);
+    bottom: 15px;
+    left: 305px;
     background: $color-green;
     box-shadow: $zdepth-shadow-1;
     @include transition(all 0.3s ease);
@@ -29,3 +29,4 @@
         box-shadow: $zdepth-shadow-2;
     }
 }
+

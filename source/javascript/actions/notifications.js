@@ -13,3 +13,13 @@ export function removeNotification (uid) {
     uid
   };
 }
+
+export function demoNotification () {
+  return function (dispatch) {
+    dispatch(addNotification({
+      level: 'warning',
+      title: 'Demo Version',
+      message: 'Buy full version to get access'
+    }));
+  };
+}
