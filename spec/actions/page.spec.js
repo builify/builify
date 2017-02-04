@@ -69,11 +69,6 @@ describe('Page actions', () => {
     it('should be a function', () => {
       expect(Actions.downloadAsHTML, 'to be a', 'function');
     });
-
-    it('should return correct values', () => {
-      expect(Actions.downloadAsHTML(), 'to only have key', 'type');
-      expect(Actions.downloadAsHTML().type, 'to be', Constants.DOWNLOAD_AS_HTML);
-    });
   });
 
   describe('restartPage', () => {
