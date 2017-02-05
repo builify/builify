@@ -1,16 +1,14 @@
 import Actions from './constants';
 import JSZip from 'jszip';
-import TTEventEmitter from 'tt-event-emitter';
 import stripJSONComments from 'strip-json-comments';
 import IconPacksData from '../../../data/builder/icon-packs';
 import imagesLibraryJSON from '../../../data/builder/images-library';
 import builderConfiguration from '../../../data/builder/builder';
 import AsideData from '../../../data/builder/aside';
 import fontsList from '../../../data/builder/fonts-list';
-import { checkPreviousPagesInStorage, saveCurrentPage } from './page';
-import { closeTab, closeSidetab } from './aside';
+import { checkPreviousPagesInStorage } from './page';
 import { addNotification, demoNotification } from './notifications';
-import { PAGE_AUTOMATIC_SAVE_TIME, IS_DEMO_VERSION } from '../constants';
+import { IS_DEMO_VERSION } from '../constants';
 import {
   delay as _delay,
   map as _map,
@@ -43,60 +41,8 @@ export function getTemplateFiles () {
           dispatch(getFonts());
           dispatch(getIconPacks());
           dispatch(getImagesLibrary());
-          dispatch(initializeEvents());
         });
     });
-  };
-}
-
-export function initializeEvents () {
-  const keyCodes = {
-    ESC: 27
-  };
-
-  return function (dispatch, getState) {
-    const observable = new TTEventEmitter();
-
-    // Event listeners.
-    observable.addListener('savecurrentpage', () => {
-      dispatch(saveCurrentPage());
-    });
-
-    observable.addListener('goback', () => {
-      const state = getState();
-      const { builder } = state;
-      const { isTabOpened, isSidetabOpened } = builder;
-
-      if (isSidetabOpened) {
-        dispatch(closeSidetab());
-      } else if (!isSidetabOpened && isTabOpened) {
-        dispatch(closeTab());
-      }
-    });
-
-    // Event emitters.
-    document.addEventListener('visibilitychange', (e) => {
-      const visbilityState = e.target.visibilityState;
-
-      if (visbilityState === 'hidden') {
-        observable.emit('savecurrentpage');
-      }
-    });
-
-    document.addEventListener('keyup', (event) => {
-      const keyCode = event.keyCode || event.which;
-
-      if (keyCode === keyCodes.ESC) {
-        event.stopPropagation();
-        event.preventDefault();
-
-        observable.emit('goback');
-      }
-    });
-
-    window.setInterval(() => {
-      observable.emit('savecurrentpage');
-    }, PAGE_AUTOMATIC_SAVE_TIME);
   };
 }
 

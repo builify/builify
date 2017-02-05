@@ -86,6 +86,12 @@ export function openFormEditModal (target = null) {
   };
 }
 
+export function openHelpModal () {
+  return {
+    type: Actions.OPEN_HELP_MODAL
+  };
+}
+
 export function closeModal () {
   return {
     type: Actions.CLOSE_MODAL

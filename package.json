@@ -80,6 +80,7 @@
   },
   "dependencies": {
     "classnames": "*",
+    "combokeys": "^2.4.6",
     "file-saver": "*",
     "input-moment": "*",
     "isomorphic-fetch": "^2.2.1",

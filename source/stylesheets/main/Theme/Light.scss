@@ -87,8 +87,13 @@
 	// Modal.
 	.#{$nameprefix}modal {
 		&__overlay {
-			background: #000;
-		}
+			background: rgba(#000,.9);
+            background: -webkit-radial-gradient(center,ellipse cover,rgba(0,0,0,.7) 0,rgba(0,0,0,.9) 100%);
+            background: -moz-radial-gradient(center,ellipse cover,rgba(0,0,0,.7) 0,rgba(0,0,0,.9) 100%);
+            background: -ms-radial-gradient(center,ellipse cover,rgba(0,0,0,.7) 0,rgba(0,0,0,.9) 100%);
+            background: -o-radial-gradient(center,ellipse cover,rgba(0,0,0,.7) 0,rgba(0,0,0,.9) 100%);
+            background: radial-gradient(ellipse at center,rgba(0,0,0,.7) 0,rgba(0,0,0,.9) 100%);
+        }
 
 		&__content {
 			background-color: #FFF;

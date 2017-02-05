@@ -103,5 +103,6 @@ export default keyMirror([
   'OPEN_CUSTOMCSS_MODAL',
   'OPEN_LINK_CHANGE_MODAL',
   'OPEN_FORMEDIT_MODAL',
+  'OPEN_HELP_MODAL',
   'CLOSE_MODAL'
 ]);

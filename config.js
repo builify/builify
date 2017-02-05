@@ -159,6 +159,7 @@ export default {
     'moment',
     'sortablejs',
     'punycode',
-    'url'
+    'url',
+    'combokeys'
   ]
 };

@@ -1,6 +1,6 @@
-import * as asideActions from './aSide';
+import * as asideActions from './aside';
 import * as builderActions from './builder';
-import * as dialogActions from './dialog';
+import * as dialogActions from './modal';
 import * as pageActions from './page';
 import * as previewActions from './preview';
 import * as canvasActions from './canvas';

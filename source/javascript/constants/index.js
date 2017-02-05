@@ -56,7 +56,8 @@ export const ModalTypes = {
   MAPS: 10,
   CUSTOMCSS: 11,
   LINKCHANGE: 12,
-  FORMEDIT: 13
+  FORMEDIT: 13,
+  HELP: 14
 };
 
 export const ColorPickerTargetTypes = {

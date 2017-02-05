@@ -2,7 +2,7 @@ import React from 'react';
 import Random from '../../../common/random';
 import NavigationItem from './item';
 import classNames from '../../../common/classnames';
-import { openFeedbackModal, openTab, openDownloadModal, noPagesToDownload, downloadSinglePage, openRestartModal, saveCurrentPage } from '../../../actions';
+import * as Actions from '../../../actions';
 import { connect } from 'react-redux';
 import { CurrentLocations, IS_DEMO_VERSION, IS_DEV_VERSION } from '../../../constants';
 import {
@@ -11,6 +11,8 @@ import {
   words as _words,
   partial as _partial
 } from 'lodash';
+
+console.log(Actions);
 
 class PrimaryNavigation extends React.Component {
   static propTypes = {
@@ -23,7 +25,8 @@ class PrimaryNavigation extends React.Component {
     openDownloadModal: React.PropTypes.func.isRequired,
     saveCurrentPage: React.PropTypes.func.isRequired,
     downloadSinglePage: React.PropTypes.func.isRequired,
-    noPagesToDownload: React.PropTypes.func.isRequired
+    noPagesToDownload: React.PropTypes.func.isRequired,
+    openHelpModal: React.PropTypes.func.isRequired
   };
 
   shouldComponentUpdate (nextProps) {
@@ -93,11 +96,22 @@ class PrimaryNavigation extends React.Component {
     return null;
   }
 
+  renderInfoNavigationItem () {
+    return (
+      <NavigationItem
+        className='help'
+        title='help'
+        icon='info-outline'
+        onClick={this.props.openHelpModal} />
+    );
+  }
+
   render () {
     return (
       <ul className={classNames('primarynav')}>
         { this.renderNavigationItems() }
         { this.renderFeedBackNavigationItem() }
+        { this.renderInfoNavigationItem() }
       </ul>
     );
   }
@@ -118,30 +132,34 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     openFeedbackModal: function () {
-      dispatch(openFeedbackModal());
+      dispatch(Actions.openFeedbackModal());
     },
     openTab: function (target) {
-      dispatch(openTab(target));
+      dispatch(Actions.openTab(target));
     },
 
     openDownloadModal: function () {
-      dispatch(openDownloadModal());
+      dispatch(Actions.openDownloadModal());
     },
 
     openRestartModal: function () {
-      dispatch(openRestartModal());
+      dispatch(Actions.openRestartModal());
     },
 
     downloadSinglePage: function () {
-      dispatch(downloadSinglePage())
+      dispatch(Actions.downloadSinglePage())
     },
 
     noPagesToDownload: function () {
-      dispatch(noPagesToDownload());
+      dispatch(Actions.noPagesToDownload());
     },
 
     saveCurrentPage: function () {
-      dispatch(saveCurrentPage());
+      dispatch(Actions.saveCurrentPage());
+    },
+
+    openHelpModal: function () {
+      dispatch(Actions.openHelpModal());
     }
   };
 }

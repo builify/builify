@@ -98,6 +98,12 @@ export default function (state = initialState, action) {
         modalTarget: action.target
       });
 
+    case Actions.OPEN_HELP_MODAL:
+      return _assign({}, state, {
+        isModalOpen: true,
+        modalType: ModalTypes.HELP
+      });
+
     case Actions.CLOSE_MODAL:
       return _assign({}, state, {
         isModalOpen: false,

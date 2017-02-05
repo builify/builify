@@ -1,6 +1,6 @@
 import expect from 'unexpected';
 import * as Constants from '../../source/javascript/actions/constants';
-import * as Actions from '../../source/javascript/actions/dialog';
+import * as Actions from '../../source/javascript/actions/modal';
 
 describe('Dialog actions', () => {
   describe('openIconEditModal', () => {

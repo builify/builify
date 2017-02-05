@@ -41,6 +41,11 @@
         &.feedback,
         &.settings {
             position: fixed;
+            bottom: 50px;
+        }
+
+        &.help {
+            position: fixed;
             bottom: 10px;
         }
     }

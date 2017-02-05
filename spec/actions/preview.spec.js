@@ -11,6 +11,7 @@ describe('Preview actions', () => {
     it('should return correct values', () => {
       expect(Actions.setPreviewMode(), 'to have keys', 'type', 'mode');
       expect(Actions.setPreviewMode().type, 'to be', Constants.SET_PREVIEW_MODE);
+      expect(Actions.setPreviewMode().mode, 'to be', 0);
       expect(Actions.setPreviewMode('some-target').mode, 'to be', 'some-target');
     });
   });

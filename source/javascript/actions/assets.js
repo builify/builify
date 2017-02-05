@@ -1,6 +1,6 @@
 import Actions from './constants';
 import { addNotification } from './notifications';
-import { closeModal } from './dialog';
+import { closeModal } from './modal';
 import { getExtension } from '../common/misc';
 import {
   isUndefined as _isUndefined

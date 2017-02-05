@@ -119,6 +119,43 @@ $modal-navigation-padding: .8 * $unit;
 		}
 	}
 
+    &__transparent {
+        .#{$nameprefix}modal {
+			&__content {
+				min-height: 100px;
+				width: 400px;
+                color: #fff;
+                background-color: transparent !important;
+                box-shadow: none !important;
+			}
+		}
+
+        &__title {
+            margin: 30px 0 15px;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        &__shortcuts {
+            width: 100%;
+            border: 1px solid #fff;
+            border-collapse: collapse;
+            border-spacing: 0;
+
+            th {
+                font-weight: 700;
+            }
+
+            th,
+            td {
+                padding: 10px;
+                text-align: left;
+                border-right: 1px solid #fff;
+                border-bottom: 1px solid #fff;
+            }
+        }
+    }
+
 	$modal-tab-height: 70px;
 
 	&__tabside {
@@ -355,7 +392,7 @@ $modal-navigation-padding: .8 * $unit;
 
 		.#{$nameprefix}modal {
 			&__overlay {
-				opacity: 0.9;
+				opacity: 1;
 			}
 
 			&__content {

@@ -10,6 +10,7 @@ import CustomCSS from './custom-css';
 import DownloadPages from './download-pages';
 import DialogRestart from './dialog-restart';
 import FormEdit from './form-edit';
+import Help from './help';
 import { connect } from 'react-redux';
 import { ModalTypes } from '../../constants';
 
@@ -70,6 +71,9 @@ class Modals extends React.Component {
 
       case ModalTypes.FORMEDIT:
         return <FormEdit editTarget={modalTarget} />;
+
+      case ModalTypes.HELP:
+        return <Help />;
 
       default:
         return null;
