@@ -2,10 +2,7 @@ import React from 'react';
 import ImageEdit from './image-change';
 import PreviousPages from './previous-pages';
 import IconChange from './icon-change';
-import Countdown from './countdown';
-import VideoEdit from './video-edit';
 import Feedback from './feedback';
-import Maps from './maps';
 import CustomCSS from './custom-css';
 import DownloadPages from './download-pages';
 import DialogRestart from './dialog-restart';
@@ -54,17 +51,8 @@ class Modals extends React.Component {
       case ModalTypes.ICONCHANGE:
         return <IconChange editTarget={modalTarget} />;
 
-      case ModalTypes.COUNTDOWN:
-        return <Countdown editTarget={modalTarget} />;
-
-      case ModalTypes.VIDEOEDIT:
-        return <VideoEdit editTarget={modalTarget} />;
-
       case ModalTypes.FEEDBACK:
         return <Feedback />;
-
-      case ModalTypes.MAPS:
-        return <Maps editTarget={modalTarget} />;
 
       case ModalTypes.CUSTOMCSS:
         return <CustomCSS />;

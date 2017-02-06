@@ -5,7 +5,6 @@ import IconPacksData from '../../../data/builder/icon-packs';
 import imagesLibraryJSON from '../../../data/builder/images-library';
 import builderConfiguration from '../../../data/builder/builder';
 import AsideData from '../../../data/builder/aside';
-import fontsList from '../../../data/builder/fonts-list';
 import { checkPreviousPagesInStorage } from './page';
 import { addNotification, demoNotification } from './notifications';
 import { IS_DEMO_VERSION } from '../constants';
@@ -38,7 +37,6 @@ export function getTemplateFiles () {
             type: Actions.GET_TEMPLATE_DATA,
             data: JSON.parse(contents)
           });
-          dispatch(getFonts());
           dispatch(getIconPacks());
           dispatch(getImagesLibrary());
         });
@@ -82,13 +80,6 @@ export function receiveAsideConfiguration () {
   return {
     type: Actions.RECEIVE_ASIDE_CONFIGURATION,
     data: JSON.parse(stripJSONComments(JSON.stringify(AsideData)))
-  };
-}
-
-export function getFonts () {
-  return {
-    type: Actions.GET_FONTS,
-    data: JSON.parse(stripJSONComments(JSON.stringify(fontsList)))
   };
 }
 

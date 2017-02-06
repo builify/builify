@@ -225,7 +225,11 @@ gulp.task('javascript:main', () => {
     debug: config.env.debug,
     fullPaths: config.env.debug
   })
-  .transform(babelify)
+  .transform('babelify', {
+    babelrc: false,
+    presets: ["latest", "stage-0", "react"],
+    plugins: ["add-module-exports"]
+  })
   .transform(envify({
     _: 'purge',
     NODE_ENV: config.env.debug ? 'development' : 'production',

@@ -128,13 +128,10 @@ export default {
     'react-dom',
     'react-color',
     'react-select',
-    'react-selectize',
     'react-redux',
     'react-custom-scrollbars',
     'react-dropzone-component',
     'react-addons-css-transition-group',
-    'react-addons-shallow-compare',
-    'react-gmaps',
 
     // Redux
     'redux',
@@ -158,7 +155,6 @@ export default {
     'mime',
     'moment',
     'sortablejs',
-    'punycode',
     'url',
     'combokeys'
   ]

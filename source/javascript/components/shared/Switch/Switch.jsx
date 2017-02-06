@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import Thumb from './Thumb';
+import Thumb from './thumb';
 
 export default class Switch extends React.Component {
   static propTypes = {
