@@ -8,8 +8,9 @@
   "scripts": {
     "precommit": "npm run test",
     "revision": "gulp revision",
+    "header": "gulp header",
     "start": "gulp --env debug",
-    "build": "gulp --env production && npm run revision",
+    "build": "gulp --env production && npm run header && npm run revision",
     "build:demo": "gulp --env demo && npm run revision",
     "lint": "eslint ./source/javascript",
     "test": "jasmine",
@@ -51,6 +52,7 @@
     "gulp-changed": "^1.3.2",
     "gulp-clean-css": "*",
     "gulp-cssmin": "*",
+    "gulp-header": "^1.8.8",
     "gulp-htmlhint": "*",
     "gulp-if": "*",
     "gulp-imagemin": "^3.1.1",

@@ -4,6 +4,9 @@
 # Configuration
 jsconfig.json
 
+# Editor
+.vscode
+
 # Node and generated
 node_modules
 dist

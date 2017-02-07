@@ -99,7 +99,7 @@ export default {
 
   rev: {
     entry: [
-      path.join(buildDir, '**', '{favicon,vendors,application,arkio.builify}.{ico,css,js,eot,ttf,woff,woff2,ogv,mp4}')
+      path.join(buildDir, '**', '{stylesheet,favicon,vendors,application,arkio.builify}.{ico,css,js,eot,ttf,woff,woff2,ogv,mp4}')
     ],
     output: buildDir,
     manifestFile: 'rev-manifest.json',

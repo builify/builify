@@ -23,6 +23,7 @@ import $autoprefixer from 'gulp-autoprefixer';
 import $uglify from 'gulp-uglify';
 import $imagemin from 'gulp-imagemin';
 import $changed from 'gulp-changed';
+import $header from 'gulp-header';
 import {
   has as _has,
   keys as _keys,
@@ -280,6 +281,27 @@ gulp.task('watch', () => {
 gulp.task('revision', () => {
   const seq = ['rev'];
   sequence(...seq);
+});
+
+gulp.task('header', () => {
+  const banner = `
+/** 
+* BUILify - Static Website Creator by ${pckg.author}
+*
+* @version: ${pckg.version}
+* @license: ${pckg.license}
+* @link: http://builify.trip-trax.co
+* @author: http://trip-trax.co
+* @date ${new Date().toDateString()}
+*/
+`;
+
+  return gulp.src([
+    path.join(config.javascripts.vendor.output, 'vendors.js'),
+    path.join(config.javascripts.main.output, 'application.js')
+  ])
+    .pipe($header(banner))
+    .pipe(gulp.dest(config.javascripts.main.output));
 });
 
 gulp.task('default', () => {
