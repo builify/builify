@@ -103,26 +103,35 @@
     initializeMenu: function initializeMenu() {
       var bodyElement = $('body');
       var menuOpenButton = $('.js-open-menu');
+      var menuCloseButton = $('.js-menu-close');
       var morphEl = document.getElementById('morph-shape');
+
+      if (!morphEl) {
+        return;
+      }
+
       var s = Snap(morphEl.querySelector('svg'));
       var path = s.select('path');
       var initialPath = path.attr('d');
       var pathOpen = morphEl.getAttribute('data-morph-open');
       var isAnimating = false;
       var isMenuOpen = false;
+      var closeMenuFunc = function closeMenuFunc() {
+        bodyElement.removeClass('show-menu');
+
+        window.setTimeout(function () {
+          path.attr('d', initialPath);
+          isAnimating = false;
+          isMenuOpen = false;
+        }, 300);
+      };
 
       if (menuOpenButton) {
         menuOpenButton.on('click', function (e) {
           e.preventDefault();
 
           if (isMenuOpen) {
-            bodyElement.removeClass('show-menu');
-
-            window.setTimeout(function () {
-              path.attr('d', initialPath);
-              isAnimating = false;
-              isMenuOpen = false;
-            }, 300);
+            closeMenuFunc();
           } else {
             bodyElement.addClass('show-menu');
             path.animate({ 'path': pathOpen }, 400, mina.easeinout, function () {
@@ -132,56 +141,13 @@
             isMenuOpen = true;
           }
         });
+      }
 
-        /*
-        var bodyEl = document.body,
-        content = document.querySelector( '.content-wrap' ),
-        openbtn = document.querySelector( '.js-open-menu' ),
-        closebtn = document.getElementById( 'close-button' ),
-        isOpen = false,
-          morphEl = document.getElementById( 'morph-shape' ),
-        s = Snap( morphEl.querySelector( 'svg' ) );
-        path = s.select( 'path' );
-          console.log(s);
-        initialPath = this.path.attr('d'),
-        pathOpen = morphEl.getAttribute( 'data-morph-open' ),
-        isAnimating = false;
-        function init() {
-        initEvents();
-        }
-        function initEvents() {
-        openbtn.addEventListener( 'click', toggleMenu );
-        if( closebtn ) {
-          closebtn.addEventListener( 'click', toggleMenu );
-        }
-          // close the menu element if the target it´s not the menu element or one of its descendants..
-        content.addEventListener( 'click', function(ev) {
-          var target = ev.target;
-          if( isOpen && target !== openbtn ) {
-            toggleMenu();
-          }
-        } );
-        }
-        function toggleMenu() {
-        if( isAnimating ) return false;
-        isAnimating = true;
-        if( isOpen ) {
-          classie.remove( bodyEl, 'show-menu' );
-          // animate path
-          setTimeout( function() {
-            // reset path
-            path.attr( 'd', initialPath );
-            isAnimating = false; 
-          }, 300 );
-        }
-        else {
-          classie.add( bodyEl, 'show-menu' );
-          // animate path
-          path.animate( { 'path' : pathOpen }, 400, mina.easeinout, function() { isAnimating = false; } );
-        }
-        isOpen = !isOpen;
-        }
-        */
+      if (menuCloseButton) {
+        menuCloseButton.on('click', function (e) {
+          e.preventDefault();
+          closeMenuFunc();
+        });
       }
     }
   };
