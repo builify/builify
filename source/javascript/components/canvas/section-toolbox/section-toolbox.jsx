@@ -86,8 +86,6 @@ class SectionToolBox extends React.Component {
       top: topX
     };
 
-    console.log(currentHoverBlock);
-
     if (_values(block).length === 0 || !_has(block, 'elementReference')) {
       return null;
     }

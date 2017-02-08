@@ -14,13 +14,15 @@ import {
   map as _map,
   assign as _assign,
   isElement as _isElement,
-  isObject as _isObject
+  isObject as _isObject,
+  isEmpty as _isEmpty
 } from 'lodash';
 
 class Frame extends React.Component {
   static propTypes = {
     page: React.PropTypes.object.isRequired,
     externalAssets: React.PropTypes.object.isRequired,
+    coreAssets: React.PropTypes.object.isRequired,
     removeLoadingScreen: React.PropTypes.func.isRequired,
     renderBlockToCanvas: React.PropTypes.func.isRequired,
     setCanvasElementsHoverEvents: React.PropTypes.func.isRequired,
@@ -224,7 +226,7 @@ class Frame extends React.Component {
       return;
     }
 
-    const { externalAssets } = this.props;
+    const { externalAssets, coreAssets } = this.props;
     let { core: assets } = externalAssets;
     const headElement = frameDocument.head;
     const bodyElement = frameDocument.body;
@@ -235,6 +237,38 @@ class Frame extends React.Component {
         src: 'assets/static/canvas-stylesheet.css',
         junk: true
       });
+      
+      if (!_isEmpty(coreAssets.javascript)) {
+        const element = document.createElement('script');
+        element.type = 'text/javascript';
+        element.setAttribute(Constants.JUNK_ATTR, true);
+
+        if (element.styleSheet) {
+          element.styleSheet.cssText = coreAssets.javascript; // IE
+        } else {
+          element.appendChild(document.createTextNode(coreAssets.javascript));
+        }
+
+        _delay(() => {
+          bodyElement.appendChild(element);
+        }, 1000);
+      }
+
+      if (!_isEmpty(coreAssets.stylesheet)) {
+        const element = document.createElement('style');
+        element.type = 'text/css';
+        element.setAttribute(Constants.JUNK_ATTR, true);
+
+        if (element.styleSheet) {
+          element.styleSheet.cssText = coreAssets.stylesheet; // IE
+        } else {
+          element.appendChild(document.createTextNode(coreAssets.stylesheet));
+        }
+
+        _delay(() => {
+          headElement.appendChild(element);
+        }, 1000);
+      }
 
       _map(assets, (asset) => {
         const { type, src } = asset;
@@ -300,11 +334,12 @@ class Frame extends React.Component {
 
 function mapStateToProps (state) {
   const { page, template } = state;
-  const { external: externalAssets } = template;
+  const { external: externalAssets, core: coreAssets } = template;
 
   return {
     page: page,
-    externalAssets
+    externalAssets,
+    coreAssets
   };
 }
 

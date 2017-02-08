@@ -1,6 +1,5 @@
 import JSZip from 'jszip';
 import Random from '../common/random';
-import { fetch } from '../common/http';
 import { saveAs } from 'file-saver';
 import { TEMPLATE_PACKAGE_FILENAME, TEMPLATE_PACKAGE_EXTENSION } from '../constants';
 import {
@@ -41,7 +40,7 @@ async function addPageFilesToPackage (pckg, pages) {
   });
 }
 
-async function downloadPages (pages) {
+async function downloadPages (pages, coreAssets) {
   const zip = new JSZip();
   const fileSettings = getFileSettings();
   const zipFileName = getFileName();
@@ -50,13 +49,9 @@ async function downloadPages (pages) {
 
   zip.folder('images');
 
-  // Get local asset files.
-  const javascriptFile = await fetch('assets/template/template.js');
-  const stylesheetFile = await fetch('assets/template/template.css');
-
   // Add template files to ZIP package.
-  templateFolder.file('template.js', javascriptFile);
-  templateFolder.file('template.css', stylesheetFile);
+  templateFolder.file('template.js', coreAssets.javascript.toString());
+  templateFolder.file('template.css', coreAssets.stylesheet.toString());
 
   // Add items to package and generate package.
   const pagesResult = await addPageFilesToPackage(zip, pages); //eslint-disable-line
@@ -67,9 +62,12 @@ async function downloadPages (pages) {
 }
 
 export default function (pages, state) {
-  if (pages.length === 0 || !state) {
+  if (pages.length === 0 || !state || !state.template) {
     return false;
   }
 
-  downloadPages(pages, state);
+  const { template } = state;
+  const { core: coreAssets } = template;
+
+  downloadPages(pages, coreAssets);
 }

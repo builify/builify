@@ -43,7 +43,7 @@ class VideoEdit extends React.Component {
       return this.closeDialog();
     }
 
-    const videoHolderElement = editTarget.querySelector('.block-video-holder');
+    const videoHolderElement = editTarget.querySelector('.background-video-holder');
 
     if (_isElement(videoHolderElement)) {
       const parsedURL = URL.parse(url);
@@ -82,7 +82,7 @@ class VideoEdit extends React.Component {
     const { editTarget } = this.props;
 
     if (_isElement(editTarget)) {
-      const videoHolderElement = editTarget.querySelector('.block-video-holder');
+      const videoHolderElement = editTarget.querySelector('.background-video-holder');
 
       if (_isElement(videoHolderElement)) {
         const videoID = videoHolderElement.getAttribute('data-videoid');

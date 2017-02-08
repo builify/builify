@@ -317,6 +317,11 @@ const TTDOM = {
       const cloneDocElem = iFrameDocumentElement.cloneNode(true);
 
       function removeJunk (doc) {
+        const bodyElement = doc.querySelector('body');
+        const headElement = doc.querySelector('head');
+
+        console.log(headElement, bodyElement);
+
         // Remove certain elements.
         const junkElementsQuery = [
           '[data-abcpanel]',
@@ -337,30 +342,17 @@ const TTDOM = {
         TTDOM.element.attr.remove(attributeJunkElements, attributesToRemove);
 
         // Fix asset locations for production builds.
-        const linkElements = doc.querySelectorAll('link');
-        const scriptElements = doc.querySelectorAll('script');
+        const javascriptElement = document.createElement('script');
+        javascriptElement.type = 'text/javascript';
+        javascriptElement.src = 'assets/template/template.js';
+        javascriptElement.setAttribute('media', 'all');
+        bodyElement.appendChild(javascriptElement);
 
-        for (let i = 0; i < linkElements.length; i++) {
-          const cur = linkElements[i];
-          const href = cur.getAttribute('href');
-
-          if (href) {
-            if (href.indexOf('assets/template/template') !== -1) {
-              cur.setAttribute('href', 'assets/template/template.css');
-            }
-          }
-        }
-
-        for (let i = 0; i < scriptElements.length; i++) {
-          const cur = scriptElements[i];
-          const src = cur.getAttribute('src');
-
-          if (src) {
-            if (src.indexOf('assets/template/template')) {
-              cur.setAttribute('src', 'assets/template/template.js');
-            }
-          }
-        }
+        const stylesheetElement = document.createElement('link');
+        stylesheetElement.href = 'assets/template/template.css';
+        stylesheetElement.rel = 'stylesheet';
+        stylesheetElement.media = 'all';
+        headElement.appendChild(stylesheetElement);
 
         return doc;
       }

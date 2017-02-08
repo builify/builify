@@ -8,6 +8,7 @@ import DownloadPages from './download-pages';
 import DialogRestart from './dialog-restart';
 import FormEdit from './form-edit';
 import Help from './help';
+import VideoEdit from './video-edit';
 import { connect } from 'react-redux';
 import { ModalTypes } from '../../constants';
 
@@ -62,6 +63,9 @@ class Modals extends React.Component {
 
       case ModalTypes.HELP:
         return <Help />;
+
+      case ModalTypes.VIDEOEDIT:
+        return <VideoEdit editTarget={modalTarget} />;
 
       default:
         return null;

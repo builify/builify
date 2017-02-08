@@ -12,8 +12,6 @@ import {
   partial as _partial
 } from 'lodash';
 
-console.log(Actions);
-
 class PrimaryNavigation extends React.Component {
   static propTypes = {
     navigation: React.PropTypes.array.isRequired,
@@ -36,7 +34,6 @@ class PrimaryNavigation extends React.Component {
 
     return false;
   }
-
 
   renderNavigationItems () {
     const { navigation, currentLocation, pages } = this.props;
