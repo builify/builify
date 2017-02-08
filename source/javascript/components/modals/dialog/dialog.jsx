@@ -22,8 +22,8 @@ export default class Dialog extends React.Component {
     return (
       <ModalWrapper ref='modalWrapper' onClose={this.props.closeModal} className={className}>
         <div>
-          <section role='body' className='ab-dialog__body'>
-            { title && <h6 className='ab-dialog__title'>{title}</h6> }
+          <section role='body' className={classNames('dialog__body')}>
+            { title && <h6 className={classNames('dialog__title')}>{ title }</h6> }
             { children }
           </section>
           { actions && <BottomNavigation actions={actions} /> }

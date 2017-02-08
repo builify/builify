@@ -13,7 +13,8 @@ const LOAD_EVENTS = [
   'restartpage',
   'preview-desktop',
   'preview-tablet',
-  'preview-phone'
+  'preview-phone',
+  'close-modal'
 ];
 
 export default class {
@@ -23,10 +24,16 @@ export default class {
   constructor (dispatch) {
     this._dispatch = dispatch;
 
-    this.initializeEmitter();
-    this.loadEvents();
-    this.initializeEventTriggers();
-    this.initializeBackgroundEvents();
+    try {
+      this.initializeEmitter();
+      this.loadEvents();
+      this.initializeEventTriggers();
+      this.initializeBackgroundEvents();
+    } catch (e) {
+      throw e;
+    }
+    
+    this.initializeMessage();
   }
 
   initializeEmitter () {
@@ -80,6 +87,13 @@ export default class {
 
         break;
 
+      case 'close-modal':
+        this._observable.addListener('close-modal', () => {
+          this._dispatch(Actions.closeModal());
+        }, 'keyup');
+
+        break;
+
       default:
         break;
     }
@@ -114,6 +128,10 @@ export default class {
       this.emit('preview-phone');
       return false;
     });
+
+    combokeys.bind('esc', () => {
+      this.emit('close-modal');
+    });
   }
 
   initializeBackgroundEvents () {
@@ -122,6 +140,10 @@ export default class {
         this._observable.emit('saveCurrentPage');
       }, PAGE_AUTOMATIC_SAVE_TIME);
     }
+  }
+
+  initializeMessage () {
+    console.log('BUILify - Initialized events successfully.');
   }
 
   emit (eventType) {

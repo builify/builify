@@ -1,7 +1,5 @@
 import React from 'react';
 import QueryString from 'querystring';
-import _isNull from 'lodash/isnull';
-import _isElement from 'lodash/iselement';
 import URL from 'url';
 import classNames from '../../../common/classnames';
 import ModalWrapper from '../common/wrapper';
@@ -11,6 +9,12 @@ import Input from '../../shared/input';
 import PreviewVideo from '../../shared/preview-video';
 import { connect } from 'react-redux';
 import { closeModal, addNotification } from '../../../actions';
+import {
+  isNull as _isNull,
+  isElement as _isElement
+} from 'lodash';
+
+const DEFAULT_VIDEO_EDIT_URL = 'https://www.youtube.com/watch?v=XNdNLNFZBmk';
 
 class VideoEdit extends React.Component {
   static propTypes = {
@@ -20,7 +24,7 @@ class VideoEdit extends React.Component {
   };
 
   state = {
-    url: 'https://www.youtube.com/watch?v=XNdNLNFZBmk'
+    url: DEFAULT_VIDEO_EDIT_URL
   };
 
   shouldComponentUpdate (nextProps, nextState) {

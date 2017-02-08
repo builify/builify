@@ -1,12 +1,14 @@
 import React from 'react';
-import _map from 'lodash/map';
-import _omit from 'lodash/omit';
-import _has from 'lodash/has';
-import _isElement from 'lodash/iselement';
-import _isFunction from 'lodash/isfunction';
 import classNames from '../../../common/classnames';
 import Button from '../../shared/button';
 import { TEMPLATE_FILE_EXTENSION } from '../../../constants';
+import {
+  map as _map,
+  omit as _omit,
+  has as _has,
+  isElement as _isElement,
+  isFunction as _isFunction
+} from 'lodash';
 
 export default class BottomNavigation extends React.Component {
   static propTypes = {

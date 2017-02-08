@@ -1,11 +1,11 @@
 import React from 'react';
-import _delay from 'lodash/delay';
-import _isNull from 'lodash/isnull';
 import classNames from '../../../common/classnames';
+import {
+  delay as _delay,
+  isNull as _isNull
+} from 'lodash';
 
 export default class ModalWrapper extends React.Component {
-  _node = null;
-  
   static propTypes = {
     onClose: React.PropTypes.func,
     children: React.PropTypes.node,
@@ -15,6 +15,8 @@ export default class ModalWrapper extends React.Component {
   static defaultProps = {
     onClose: function () {}
   };
+
+  _node = null;
 
   componentDidMount () {
     _delay(() => {

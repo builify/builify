@@ -1,9 +1,11 @@
 import React from 'react';
-import _map from 'lodash/map';
-import _has from 'lodash/has';
 import classNames from '../../../common/classnames';
 import Random from '../../../common/random';
 import Icon from '../../shared/icon';
+import {
+  map as _map,
+  has as _has
+} from 'lodash';
 
 export default class ModalTab extends React.Component {
   static propTypes = {

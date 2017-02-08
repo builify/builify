@@ -1,5 +1,5 @@
 import React from 'react';
-import Table from '../../shared/Table';
+import Table from '../../shared/table';
 
 export default class TablePages extends React.Component {
   static propTypes = {

@@ -1,5 +1,4 @@
 import React from 'react';
-import _assign from 'lodash/assign';
 import classNames from '../../../common/classnames';
 import ModalWrapper from '../common/wrapper';
 import ModalTab from '../common/tab';
@@ -7,6 +6,9 @@ import BottomNavigation from '../common/bottom-navigation';
 import Input from '../../shared/input';
 import { connect } from 'react-redux';
 import { closeModal, sendFeedBack } from '../../../actions';
+import {
+  assign as _assign
+} from 'lodash';
 
 class Feedback extends React.Component {
   static propTypes = {

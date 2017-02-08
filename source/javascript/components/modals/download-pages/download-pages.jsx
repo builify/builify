@@ -1,5 +1,4 @@
 import React from 'react';
-import _map from 'lodash/map';
 import classNames from '../../../common/classnames';
 import Time from '../../../common/time';
 import ModalWrapper from '../common/wrapper';
@@ -9,6 +8,9 @@ import TablePages from './table-pages';
 import Scrollbar from '../../shared/scrollbar';
 import { connect } from 'react-redux';
 import { closeModal, addNotification, downloadPages } from '../../../actions';
+import {
+  map as _map
+} from 'lodash';
 
 class DownloadPages extends React.Component {
   static propTypes = {

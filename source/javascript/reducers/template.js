@@ -118,6 +118,10 @@ export default function (state = initialState, action) {
 
     case Actions.GET_TEMPLATE_DATA: {
       if (_has(action, 'data')) {
+        if (_has(action.data, 'name')) {
+          console.log(`BUILify - Obtained ${action.data.name} template data successfully.`);
+        }
+
         return _assign({}, state, action.data);
       }
 

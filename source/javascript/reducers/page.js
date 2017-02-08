@@ -1,6 +1,7 @@
 import TTStorage from '../modules/tt-storage';
 import Random from '../common/random';
 import TTDOM from '../common/TTDOM';
+import formatPage from '../pages/format';
 import exportPage from '../pages/export-page';
 import * as Actions from '../actions/constants';
 import { TEMPLATE_PAGES_STORAGE_NAME } from '../constants';
@@ -126,7 +127,7 @@ export default function (state = pageInitialState, action) {
       const { pageTitle, pageFileName, pageID, navigation, main, footer, blocksCount } = state;
       const iFrame = TTDOM.iframe.get('ab-cfrm');
       const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
-      const pageFullSource = TTDOM.iframe.getFullHTML(iFrameWindow);
+      const pageFullSource = formatPage(iFrameWindow);
       const pageObject = _assign({}, state, {
         pageID: pageID,
         pageTitle: pageTitle,
@@ -169,7 +170,7 @@ export default function (state = pageInitialState, action) {
         if (!_isUndefined(pageInStorage)) {
           const iFrame = TTDOM.iframe.get('ab-cfrm');
           const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
-          const pageFullSource = TTDOM.iframe.getFullHTML(iFrameWindow);
+          const pageFullSource = formatPage(iFrameWindow);
           const newPage = _assign({}, pageInStorage, {
             pageID: pageID,
             pageTitle: pageTitle,

@@ -1,5 +1,4 @@
 import React from 'react';
-import _assign from 'lodash/assign';
 import classNames from '../../../common/classnames';
 import ModalWrapper from '../common/wrapper';
 import ModalTab from '../common/tab';
