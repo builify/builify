@@ -1,15 +1,13 @@
+import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import loggerMiddleware from '../middleware/logger';
 import throttleMiddleware from '../middleware/throttle';
 import allReducers from '../reducers';
-import { createStore, applyMiddleware } from 'redux';
-
-const createStoreWithMiddleware = applyMiddleware(
-  thunkMiddleware,
-  loggerMiddleware,
-  throttleMiddleware
-)(createStore);
 
 export default function configureStore (initialState) {
-  return createStoreWithMiddleware(allReducers, initialState);
+  const middleware = [thunkMiddleware, throttleMiddleware];
+
+  const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore);
+  const store = createStoreWithMiddleware(allReducers, initialState);
+
+  return store;
 }

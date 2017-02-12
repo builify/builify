@@ -50,7 +50,7 @@ function mapStateToProps (state) {
   const { defaultTheme } = builderConfiguration;
 
   return {
-    defaultTheme: defaultTheme
+    defaultTheme: defaultTheme ? defaultTheme : 'light'
   };
 }
 

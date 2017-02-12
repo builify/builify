@@ -23,10 +23,12 @@ function main () {
 }
 
 function enableDeveloperTools () {
-  if (process.env.NODE_ENV === 'development') {
-    const { whyDidYouUpdate } = require('why-did-you-update');
-    whyDidYouUpdate(React);
+  if (process.env.NODE_ENV !== 'development') {
+    return;
   }
+
+  const { whyDidYouUpdate } = require('why-did-you-update');
+  whyDidYouUpdate(React);
 }
 
 main();
