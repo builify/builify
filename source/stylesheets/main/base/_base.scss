@@ -48,6 +48,16 @@ p {
     line-height: 1.5;
 }
 
+::-moz-selection {
+    background: $base-color;
+    color: #fff;
+}
+
+::selection {
+    background: $base-color;
+    color: #fff;
+} 
+
 .#{$nameprefix}toggle {
 	text-transform: uppercase;
 	font-weight: 400;
