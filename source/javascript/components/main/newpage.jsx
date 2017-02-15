@@ -2,43 +2,41 @@ import React  from 'react';
 import classNames from '../../common/classnames';
 import localization from '../../common/localization';
 import { connect } from 'react-redux';
-import { startNewPage, loadPreviousPage, openPreviousPagesSelectionModal } from '../../actions';
+import { startNewPage, openPreviousPagesSelectionModal } from '../../actions';
 
-class Page extends React.Component {
-  static propTypes = {
-    newPage: React.PropTypes.bool,
-    startNewPage: React.PropTypes.func.isRequired,
-    openPreviousPagesSelectionModal: React.PropTypes.func.isRequired,
-    loadPreviousPage: React.PropTypes.func.isRequired
-  };
-
-  static defaultProps = {
-    newPage: false
-  };
-
-  shouldComponentUpdate () {
-    return false;
-  }
-
-  selectPage () {
-    if (this.props.newPage) {
-      return this.props.startNewPage();
+function Page ({
+  newPage,
+  startNewPage,
+  openPreviousPagesSelectionModal
+}) {
+  const queryString = newPage ?
+    'start new page' :
+    'load or import page';
+  const label = localization(queryString);
+  const selectPage = () => {
+    if (newPage) {
+      return startNewPage();
     } else {
-      return this.props.openPreviousPagesSelectionModal();
+      return openPreviousPagesSelectionModal();
     }
-  }
+  };
 
-  render () {
-    const queryString = this.props.newPage ? 'start new page' : 'load or import page';
-    const label = localization(queryString);
-
-    return (
-      <div className={classNames('newpage')} onClick={::this.selectPage}>
-        <span>{ label }</span>
-      </div>
-    );
-  }
+  return (
+    <div className={classNames('newpage')} onClick={selectPage}>
+      <span>{ label }</span>
+    </div>
+  );
 }
+
+Page.propTypes = {
+  newPage: React.PropTypes.bool,
+  startNewPage: React.PropTypes.func.isRequired,
+  openPreviousPagesSelectionModal: React.PropTypes.func.isRequired
+};
+
+Page.defaultProps = {
+  newPage: false
+};
 
 function mapDispatchToProps (dispatch) {
   return {
@@ -48,10 +46,6 @@ function mapDispatchToProps (dispatch) {
 
     openPreviousPagesSelectionModal: function () {
       dispatch(openPreviousPagesSelectionModal());
-    },
-
-    loadPreviousPage: function () {
-      dispatch(loadPreviousPage());
     }
   };
 }

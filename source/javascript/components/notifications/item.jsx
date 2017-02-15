@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { findDOMNode } from 'react-dom';
 import classNames from '../../common/classnames';
 import Constants from './constants';
 import Timer from '../../modules/tt-timer';
@@ -167,7 +167,7 @@ export default class NotificationItem extends React.Component {
   componentDidMount () {
     var transitionEvent = whichTransitionEvent();
     var notification = this.props.notification;
-    var element = ReactDOM.findDOMNode(this);
+    var element = findDOMNode(this);
 
     this._height = element.offsetHeight;
 
@@ -208,7 +208,7 @@ export default class NotificationItem extends React.Component {
   }
 
   componentWillUnmount () {
-    const element = ReactDOM.findDOMNode(this);
+    const element = findDOMNode(this);
     const transitionEvent = whichTransitionEvent();
 
     element.removeEventListener(transitionEvent, ::this._onTransitionEnd);

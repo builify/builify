@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
 import events from '../../../common/events';
 import InjectProgressBar from '../progress-bar';
@@ -105,7 +105,7 @@ const factory = (ProgressBar) => {
     };
 
     handleResize = (event, callback) => {
-      const {left, right} = ReactDOM.findDOMNode(this.refs.progressbar).getBoundingClientRect();
+      const {left, right} = findDOMNode(this.refs.progressbar).getBoundingClientRect();
       const cb = (callback) || (() => {});
       this.setState({sliderStart: left, sliderLength: right - left}, cb);
     };

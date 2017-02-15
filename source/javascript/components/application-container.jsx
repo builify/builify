@@ -9,16 +9,10 @@ export const store = configureStore();
 store.dispatch(runApplicationActions());
 export const events = new Events(store.dispatch);
 
-export class ApplicationContainer extends React.Component {
-  shouldComponentUpdate () {
-    return false;
-  }
-
-  render() {
-    return (
-      <Provider store={store}>
-        <Base />
-      </Provider>
-    );
-  }
+export function ApplicationContainer () {
+  return (
+    <Provider store={store}>
+      <Base />
+    </Provider>
+  );
 }

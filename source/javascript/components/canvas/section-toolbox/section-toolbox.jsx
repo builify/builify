@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { findDOMNode } from 'react-dom';
 import classNames from '../../../common/classnames';
 import ToolboxItem from './item';
 import localization from '../../../common/localization';
@@ -113,7 +113,7 @@ class SectionToolBox extends React.Component {
   changeBackgroundColor () {
     const { currentHoverBlock } = this.props;
     const { elementReference } = currentHoverBlock;
-    const sourceElement = ReactDOM.findDOMNode(this.toolboxItemColorChange); // eslint-disable-line
+    const sourceElement = findDOMNode(this.toolboxItemColorChange); // eslint-disable-line
 
     return this.props.openColorPicker(elementReference, sourceElement);
   }

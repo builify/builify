@@ -10,40 +10,37 @@ import Upperbar from './upperbar';
 import { connect } from 'react-redux';
 import { IS_DEMO_VERSION, BUY_LINK } from '../constants';
 
-class Base extends React.Component {
-  static propTypes = {
-    defaultTheme: React.PropTypes.string.isRequired
-  };
+function SaleButton () {
+  return (
+    <a href={BUY_LINK} target='_blank' className={classNames('salebutton')}>
+      <span>Buy Now</span>
+    </a>
+  );
+} 
 
-  shouldComponentUpdate () {
-    return false;
-  }
+function Base ({
+  defaultTheme
+}) {
+  const className = classNames(null, 'react-wrap', defaultTheme);
 
-  render () {
-    const className = classNames(null, 'react-wrap', this.props.defaultTheme);
-    const SaleButton = () => {
-      return (
-        <a href={BUY_LINK} target='_blank' className={classNames('salebutton')}>
-          <span>Buy Now</span>
-        </a>
-      );
-    };
+  return (
+    <div className={className}>
+      <Aside />
+      <Upperbar />
+      <Main />
+      <LoadingScreen />
+      <ColorPicker />
+      <Modals />
+      <NotificationContainer />
 
-    return (
-      <div className={className}>
-        <Aside />
-        <Upperbar />
-        <Main />
-        <LoadingScreen />
-        <ColorPicker />
-        <Modals />
-        <NotificationContainer />
-
-        { IS_DEMO_VERSION && <SaleButton /> }
-      </div>
-    );
-  }
+      { IS_DEMO_VERSION && <SaleButton /> }
+    </div>
+  );
 }
+
+Base.propTypes = {
+  defaultTheme: React.PropTypes.string.isRequired
+};
 
 function mapStateToProps (state) {
   const { builderConfiguration } = state;

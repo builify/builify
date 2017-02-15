@@ -1,7 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import _assign from 'lodash/assign';
-import _omit from 'lodash/omit';
+import { findDOMNode, unmountComponentAtNode, unstable_renderSubtreeIntoContainer } from 'react-dom';
+import {
+  assign as _assign,
+  omit as _omit
+} from 'lodash';
 
 export default class IFrame extends React.Component {
   static propTypes = {
@@ -44,7 +46,7 @@ export default class IFrame extends React.Component {
       return;
     }
 
-    var doc = ReactDOM.findDOMNode(this).contentDocument;
+    var doc = findDOMNode(this).contentDocument;
 
     if (doc && doc.readyState === 'complete') {
       var contents = React.createElement('div',
@@ -80,7 +82,7 @@ export default class IFrame extends React.Component {
         mountTarget = doc.body.children[0];
       }
 
-      ReactDOM.unstable_renderSubtreeIntoContainer(this, contents, mountTarget, callback);
+      unstable_renderSubtreeIntoContainer(this, contents, mountTarget, callback);
 
       this._document = doc;
     } else {
@@ -93,13 +95,13 @@ export default class IFrame extends React.Component {
   }
 
   componentWillUnmount () {
-    const iframe = ReactDOM.findDOMNode(this);
+    const iframe = findDOMNode(this);
     const doc = iframe.contentDocument;
 
     this._isMounted = false;
 
     if (doc) {
-      ReactDOM.unmountComponentAtNode(doc.body);
+      unmountComponentAtNode(doc.body);
     }
   }
 }

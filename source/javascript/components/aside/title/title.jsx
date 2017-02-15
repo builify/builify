@@ -2,33 +2,30 @@ import React from 'react';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
 
-export default class Title extends React.Component {
-  static propTypes = {
-    title: React.PropTypes.string.isRequired,
-    description: React.PropTypes.string,
-    className: React.PropTypes.string
-  };
+export default function Title ({
+  title,
+  description,
+  className
+}) {
+  const titleClassName = classNames('title', className);
+  const descClassName = classNames('title__desc');
 
-  shouldComponentUpdate () {
-    return false;
+  if (!title) {
+    return null;
   }
 
-  render () {
-    const { title, description } = this.props;
-    const titleClassName = classNames('title', this.props.className);
-    const descClassName = classNames('title__desc');
-
-    if (!title) {
-      return null;
-    }
-
-    return (
-       <div className={titleClassName}>
-        <h2>
-          <span>{ localization(title) }</span>
-        </h2>
-        { description && <p className={descClassName}>{description}</p> }
-      </div>
-    );
-  }
+  return (
+    <div className={titleClassName}>
+      <h2>
+        <span>{ localization(title) }</span>
+      </h2>
+      { description && <p className={descClassName}>{ description }</p> }
+    </div>
+  );
 }
+
+Title.propTypes = {
+  title: React.PropTypes.string.isRequired,
+  description: React.PropTypes.string,
+  className: React.PropTypes.string
+};

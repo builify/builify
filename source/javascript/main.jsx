@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 
 import React from 'react'; // eslint-disable-line no-unused-vars
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import welcomeMessage from './welcome-message';
 import { ApplicationContainer } from './components/application-container';
 import {
@@ -16,7 +16,7 @@ function main () {
 
   if (_isElement(targetElement)) {
     welcomeMessage();
-    ReactDOM.render(<ApplicationContainer />, targetElement);
+    render(<ApplicationContainer />, targetElement);
   } else {
     throw Error(`Could not find "${targetElementQuery}" element.`);
   }

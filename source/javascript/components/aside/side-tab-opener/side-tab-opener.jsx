@@ -4,32 +4,27 @@ import classNames from '../../../common/classnames';
 import { connect } from 'react-redux';
 import { openTab, openCustomCSSModal } from '../../../actions';
 
-class SideTabOpener extends React.Component {
-  static propTypes = {
-    title: React.PropTypes.string.isRequired,
-    onClick: React.PropTypes.string.isRequired,
-    openTab: React.PropTypes.func.isRequired
-  };
-
-  shouldComponentUpdate () {
-    return false;
+function SideTabOpener({
+  title,
+  onClick,
+  openTab
+}) {
+  const clickEvent = () => {
+    return openTab(onClick);
   }
-
-  clickEvent () {
-    return this.props.openTab(this.props.onClick);
-  }
-
-  render () {
-    const { title } = this.props;
-
-    return (
-      <div className={classNames('item', 'link')} onClick={::this.clickEvent}>
-        { title && <span>{ title }</span> }
-        <Icon icon='arrow-forward' />
-      </div>
-    );
-  }
+  return (
+    <div className={classNames('item', 'link')} onClick={clickEvent}>
+      { title && <span>{ title }</span> }
+      <Icon icon='arrow-forward' />
+    </div>
+  );
 }
+
+SideTabOpener.propTypes = {
+  title: React.PropTypes.string.isRequired,
+  onClick: React.PropTypes.string.isRequired,
+  openTab: React.PropTypes.func.isRequired
+};
 
 function mapDispatchToProps (dispatch) {
   return {

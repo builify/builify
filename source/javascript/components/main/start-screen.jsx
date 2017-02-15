@@ -5,7 +5,7 @@ import Copyright from './copyright';
 import { connect } from 'react-redux';
 import { CurrentLocations } from '../../constants';
 
-class ProjectStartScreen extends React.Component {
+class StartScreen extends React.Component {
   static propTypes = {
     previousPagesInStorage: React.PropTypes.bool.isRequired,
     currentLocation: React.PropTypes.number.isRequired
@@ -47,4 +47,4 @@ function mapStateToProps (state) {
   };
 }
 
-export default connect(mapStateToProps)(ProjectStartScreen);
+export default connect(mapStateToProps)(StartScreen);

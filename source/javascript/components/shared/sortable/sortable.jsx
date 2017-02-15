@@ -1,7 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import _assign from 'lodash/assign';
 import Sortable from 'sortablejs';
+import { findDOMNode, unmountComponentAtNode, render } from 'react-dom';
+import {
+  assign as _assign
+} from 'lodash';
 
 class ReactSortable extends React.Component {
   static propTypes = {
@@ -13,7 +15,7 @@ class ReactSortable extends React.Component {
   componentDidMount () {
     var options = _assign({}, this.props.sortable);
 
-    this.sortable = Sortable.create(ReactDOM.findDOMNode(this), options);
+    this.sortable = Sortable.create(findDOMNode(this), options);
     this.renderList();
   }
 
@@ -22,8 +24,8 @@ class ReactSortable extends React.Component {
   }
 
   componentWillUnmount () {
-    for (var _iterator = ReactDOM.findDOMNode(this).childNodes[Symbol.iterator](), _step; !(_step = _iterator.next()).done;) {
-      ReactDOM.unmountComponentAtNode(_step.value);
+    for (let _iterator = findDOMNode(this).childNodes[Symbol.iterator](), _step; !(_step = _iterator.next()).done;) {
+      unmountComponentAtNode(_step.value);
     }
 
     this.sortable.destroy();
@@ -48,8 +50,8 @@ class ReactSortable extends React.Component {
   renderList () {
     var _this = this;
     var domChildMap = {};
-    for (var i = 0; i < ReactDOM.findDOMNode(this).childNodes.length; i++) {
-      var child = ReactDOM.findDOMNode(this).childNodes[i];
+    for (var i = 0; i < findDOMNode(this).childNodes.length; i++) {
+      var child = findDOMNode(this).childNodes[i];
       domChildMap[child.dataset.id] = child;
     }
 
@@ -63,15 +65,15 @@ class ReactSortable extends React.Component {
           domChild.className = _this.props.sortable.draggable.slice(1);
         }
         domChild.dataset.id = reactChild.key;
-        ReactDOM.findDOMNode(_this).appendChild(domChild);
+        findDOMNode(_this).appendChild(domChild);
       }
 
-      ReactDOM.render(reactChild, domChild);
+      render(reactChild, domChild);
     });
 
     for (var key in domChildMap) {
-      ReactDOM.unmountComponentAtNode(domChildMap[key]);
-      ReactDOM.findDOMNode(this).removeChild(domChildMap[key]);
+      unmountComponentAtNode(domChildMap[key]);
+      findDOMNode(this).removeChild(domChildMap[key]);
     }
   }
 }

@@ -100,12 +100,16 @@ export default class {
 
   on () {
     this.resize();
-    this.overlay.style.display = 'block';
+    this.setOverlayDisplayValue('block');
     return this;
   }
 
   off () {
-    this.overlay.style.display = 'none';
+    this.setOverlayDisplayValue('none');
     return this;
+  }
+
+  setOverlayDisplayValue (value = 'none') {
+    this.overlay.style.display = value;
   }
 }
