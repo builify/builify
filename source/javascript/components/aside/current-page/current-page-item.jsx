@@ -4,7 +4,7 @@ import localization from '../../../common/localization';
 import classNames from '../../../common/classnames';
 import { emptyFunction } from '../../../common/misc';
 
-function renderHandle () {
+function RenderHandle () {
   return (
     <div className='handle' title={localization('change block position')}>
       <Icon size={18} icon='reorder' />
@@ -30,7 +30,7 @@ export default function CurrentPageItem ({
       title={blockName}
       data-blockid={id}
       className={className}>
-      { sortable && renderHandle() }
+      { sortable && RenderHandle() }
       <div className={classNames('currentPage__item-title')}>
         <span>{ blockName }</span>
       </div>

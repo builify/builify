@@ -14,7 +14,6 @@ export default class {
 
   constructor(props) {
     this.userProps = Object.assign({}, this.defaultProps, props);
-
     this.createGridOverlay();
   }
 

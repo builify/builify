@@ -4939,7 +4939,7 @@ a {
 
 .portfolio__title {
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   font-size: 44px;
   line-height: 1.3;
   color: #222; }
@@ -4997,7 +4997,7 @@ a {
         background-size: cover; }
 
 .portfolio--01 {
-  padding: 140px 0;
+  padding: 150px 0;
   text-align: center; }
 
 .button {
@@ -5048,24 +5048,6 @@ a {
       .button--white-shadow:hover {
         box-shadow: 5px 5px 15px rgba(51, 51, 51, 0.3); }
 
-/*
-.button--border-white {
-    border: 1px solid white;
-    color: white;
-}
-
-.button--border {
-    border: 1px solid $primary-color;
-}
-
-.button--border-blue {
-    color: #222;
-}
-.button--border-blue:hover {
-    background-color: #1b8bf9;
-    color: white;
-}
-*/
 .input {
   border: none;
   outline: 0;
@@ -5790,11 +5772,11 @@ textarea.input {
   .shop--04__item {
     overflow: hidden;
     background: #eee;
-    padding: 1.625em;
+    padding: 25px;
     position: relative;
     z-index: 1; }
     .shop--04__item__image {
-      margin: 1.625em 0; }
+      margin: 25px 0; }
     .shop--04__item__product {
       width: 100%;
       margin: 0;
@@ -5824,8 +5806,7 @@ textarea.input {
     list-style: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
-    vertical-align: middle; }
+    overflow: hidden; }
     .shop--05__tabs--horizontal li {
       display: inline-block; }
       .shop--05__tabs--horizontal li a {
@@ -5848,7 +5829,6 @@ textarea.input {
     width: 45%;
     margin-right: 4%;
     display: inline-block;
-    float: left;
     margin-bottom: 63px;
     position: relative; }
     .shop--05__gallery__image {
@@ -5888,8 +5868,7 @@ textarea.input {
           height: auto; }
   .shop--05__summary {
     width: 50%;
-    display: inline-block;
-    float: left; }
+    display: inline-block; }
     .shop--05__summary__title {
       font-size: 32px;
       margin-top: 0;
@@ -6016,11 +5995,11 @@ textarea.input {
   .shop--06__item {
     overflow: hidden;
     background: #eee;
-    padding: 1.625em;
+    padding: 25px;
     position: relative;
     z-index: 1; }
     .shop--06__item__image {
-      margin: 1.625em 0; }
+      margin: 25px 0; }
     .shop--06__item__product {
       width: 100%;
       margin: 0;

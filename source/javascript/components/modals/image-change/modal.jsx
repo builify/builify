@@ -11,7 +11,6 @@ import {
 
 class TabNavigation extends React.Component {
   static propTypes = {
-    builder: React.PropTypes.object.isRequired,
     builderConfiguration: React.PropTypes.object.isRequired,
     assets: React.PropTypes.array.isRequired,
     editTarget: React.PropTypes.any.isRequired,
@@ -67,7 +66,7 @@ class TabNavigation extends React.Component {
   }
 
   render () {
-    const { onSelectImage, builder, assets, builderConfiguration, editTarget, onUploadImage, onClose } = this.props;
+    const { onSelectImage, assets, builderConfiguration, editTarget, onUploadImage, onClose } = this.props;
     const { activeTab } = this.state;
     const title = 'Select an Image';
 
@@ -83,7 +82,6 @@ class TabNavigation extends React.Component {
           onSelectImage={onSelectImage}
           editTarget={editTarget}
           onUploadImage={onUploadImage}
-          builder={builder}
           assets={assets}
           builderConfiguration={builderConfiguration}
           activeTab={activeTab}
@@ -95,7 +93,6 @@ class TabNavigation extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    builder: state.builder,
     assets: state.assets
   };
 }

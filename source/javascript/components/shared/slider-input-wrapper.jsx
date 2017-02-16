@@ -5,7 +5,6 @@ import SliderInput from './slider-input';
 import { connect } from 'react-redux';
 import { changeBaseFontSize, changeBaselineValue } from '../../actions';
 import {
-  throttle as _throttle,
   round as _round,
   toNumber as _toNumber,
   at as _at

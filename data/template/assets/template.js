@@ -488,6 +488,7 @@ if (typeof Object.create !== "function") {
 
       var videoOptions = {
         fitToBackground: true,
+        mute: true,
         videoId: 'fwkJtgVswgM' // Default
       };
 

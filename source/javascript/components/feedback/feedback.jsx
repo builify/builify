@@ -2,25 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { openFeedbackModal } from '../../actions';
 
-class FeedBackWrapper extends React.Component {
-  static propTypes = {
-    openFeedbackModal: React.PropTypes.func.isRequired
-  };
-
-  openDisplay () {
-    return this.props.openFeedbackModal();
-  }
-
-  render () {
-    return (
-      <div>
-        <div className='tt-feedback' onClick={::this.openDisplay}>
-          <div className='tt-feedback__text'>Send Feedback</div>
-        </div>
+function FeedBackWrapper ({
+  openFeedbackModal
+}) {
+  return (
+    <div>
+      <div className='tt-feedback' onClick={openFeedbackModal}>
+        <div className='tt-feedback__text'>Send Feedback</div>
       </div>
-    );
-  }
+    </div>
+  );
 }
+
+FeedBackWrapper.propTypes = {
+  openFeedbackModal: React.PropTypes.func.isRequired
+};
 
 function mapDispatchToProps (dispatch) {
   return {

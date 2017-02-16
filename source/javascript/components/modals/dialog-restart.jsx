@@ -3,38 +3,32 @@ import Dialog from './dialog';
 import { closeModal, restartPage } from '../../actions';
 import { connect } from 'react-redux';
 
-class DialogRestart extends React.Component {
-  static propTypes = {
-    closeModal: React.PropTypes.func.isRequired,
-    restartPage: React.PropTypes.func.isRequired
-  };
+function RestartDialog ({
+  closeModal,
+  restartPage
+}) {
+  let dialogElement = null;
+  const actions = [
+    { label: 'No', onClick: () => {
+      dialogElement.closeDialog();
+    }},
+    { label: 'Yes', onClick: () => {
+      dialogElement.closeDialog();
+      restartPage();
+    } }
+  ];
 
-  shouldComponentUpdate () {
-    return false;
-  }
-
-  closeDialog () {
-    return this.refs.dialog.closeDialog();
-  }
-
-  restartPage () {
-    this.refs.dialog.closeDialog();
-    return this.props.restartPage();
-  }
-
-  render () {
-    const actions = [
-      { label: 'No', onClick: ::this.closeDialog },
-      { label: 'Yes', onClick: ::this.restartPage }
-    ];
-
-    return (
-      <Dialog ref='dialog' title='Restart' actions={actions} closeModal={this.props.closeModal}>
-        <p>Do you want to go back to start screen and save current page?</p>
-      </Dialog>
-    );
-  }
+  return (
+    <Dialog ref={(node) => dialogElement = node } title='Restart' actions={actions} closeModal={closeModal}>
+      <p>Do you want to go back to start screen and save current page?</p>
+    </Dialog>
+  );
 }
+
+RestartDialog.propTypes = {
+  closeModal: React.PropTypes.func.isRequired,
+  restartPage: React.PropTypes.func.isRequired
+};
 
 function mapDispatchToProps (dispatch) {
   return {
@@ -48,4 +42,4 @@ function mapDispatchToProps (dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(DialogRestart);
+export default connect(null, mapDispatchToProps)(RestartDialog);
