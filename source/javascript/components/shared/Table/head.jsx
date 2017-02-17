@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
-import _ from 'lodash';
 import Checkbox from '../check-box';
+import { map as _map } from 'lodash';
 
-const TableHead = ({ model, onSelect, selected }) => {
+export default function TableHead ({ model, onSelect, selected }) {
   let selectCell;
-  const contentCells = _.map(Object.keys(model), key => {
+  const contentCells = _map(Object.keys(model), key => {
     return <th key={key}>{key}</th>;
   });
 
@@ -22,10 +22,10 @@ const TableHead = ({ model, onSelect, selected }) => {
 
   return (
     <thead>
-      <tr>{[selectCell, ...contentCells]}</tr>
+      <tr>{ [selectCell, ...contentCells] }</tr>
     </thead>
   );
-};
+}
 
 TableHead.propTypes = {
   className: PropTypes.string,
@@ -39,5 +39,3 @@ TableHead.defaultProps = {
   model: {},
   selected: false
 };
-
-export default TableHead;

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import {
   assign as _assign
 } from 'lodash';
-import RenderIcon from './render-icon';
+import renderIcon from './render-icon';
 
 export default function Icon ({
   icon,
@@ -28,7 +28,7 @@ export default function Icon ({
       style={_assign({}, styles, style)}
       className={cn}
       {...others}>
-      { RenderIcon(icon) }
+      { renderIcon(icon) }
     </svg>
   );
 }

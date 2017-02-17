@@ -1,6 +1,6 @@
 import React from 'react';
-import _isEqual from 'lodash/isequal';
 import classNames from '../../../common/classnames';
+import { isEqual as _isEqual } from 'lodash';
 
 export default class Ripple extends React.Component {
   static propTypes = {

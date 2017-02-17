@@ -1,16 +1,16 @@
-import React, { Component, PropTypes } from 'react';
-import TableHead from './TableHead';
-import TableRow from './TableRow';
+import React from 'react';
+import TableHead from './head';
+import TableRow from './row';
 
-class Table extends Component {
+class Table extends React.Component {
   static propTypes = {
-    className: PropTypes.string,
-    heading: PropTypes.bool,
-    model: PropTypes.object,
-    onChange: PropTypes.func,
-    onSelect: PropTypes.func,
-    selected: PropTypes.array,
-    source: PropTypes.array
+    className: React.PropTypes.string,
+    heading: React.PropTypes.bool,
+    model: React.PropTypes.object,
+    onChange: React.PropTypes.func,
+    onSelect: React.PropTypes.func,
+    selected: React.PropTypes.array,
+    source: React.PropTypes.array
   };
 
   static defaultProps = {
@@ -35,7 +35,7 @@ class Table extends Component {
       if (position !== -1) newSelected.splice(position, 1); else newSelected.push(index);
       this.props.onSelect(newSelected);
     }
-  };
+  }
 
   handleRowChange (index, key, value) {
     if (this.props.onChange) {

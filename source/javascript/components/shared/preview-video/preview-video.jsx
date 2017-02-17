@@ -1,8 +1,8 @@
 import React from 'react';
 import Mime from 'mime';
-import _isNull from 'lodash/isnull';
 import QueryString from 'querystring';
 import URL from 'url';
+import { isNull as _isNull } from 'lodash';
 
 export default class PreviewVideo extends React.Component {
   static propTypes = {

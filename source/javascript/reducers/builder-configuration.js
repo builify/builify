@@ -1,7 +1,5 @@
 import * as Actions from '../actions/constants';
-import {
-  assign as _assign
-} from 'lodash';
+import { assign as _assign } from 'lodash';
 
 const builderConfigurationInitialState = {};
 

@@ -3,7 +3,7 @@ import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
 import Input from '../../shared/input';
 import Title from '../title';
-import CurrentPageSections from './current-page-sections';
+import CurrentPageSections from './sections';
 import Button from '../../shared/button';
 import * as Actions from '../../../actions';
 import { connect } from 'react-redux';

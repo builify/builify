@@ -5,7 +5,8 @@ import { emtpyFunction } from '../../../common/misc';
 export default function ToolboxItem ({
   title,
   onClick,
-  icon
+  icon,
+  itemRef
 }) {
   const iconSize = 24;
   const iconStyle = {
@@ -13,7 +14,7 @@ export default function ToolboxItem ({
   };
 
   return (
-    <li onClick={onClick} title={title}>
+    <li onClick={onClick} title={title} ref={itemRef}>
       { icon && <Icon icon={icon} size={iconSize} style={iconStyle} /> }
     </li>
   );
@@ -22,11 +23,13 @@ export default function ToolboxItem ({
 ToolboxItem.propTypes = {
   title: React.PropTypes.string,
   onClick: React.PropTypes.func,
-  icon: React.PropTypes.string
+  icon: React.PropTypes.string,
+  itemRef: React.PropTypes.func
 };
 
 ToolboxItem.defaultProps = {
   title: '',
   onClick: emtpyFunction,
-  icon: null
+  icon: null,
+  itemRef: emtpyFunction
 };

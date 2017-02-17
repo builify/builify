@@ -1,7 +1,7 @@
 import React from 'react';
 import Random from '../../../common/random';
 import classNames from '../../../common/classnames';
-import BlockTitle from './block-title';
+import BlockTitle from './title';
 import ContentBlock from './block';
 import Scrollbar from '../../shared/scrollbar';
 import { connect } from 'react-redux';

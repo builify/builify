@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function RenderIcon (icon) {
+export default function renderIcon (icon) {
   switch (icon) {
     case 'import-export':
       return (

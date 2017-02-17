@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import Checkbox from '../check-box';
 
 const utils = {
@@ -18,12 +18,12 @@ const utils = {
   }
 };
 
-class TableRow extends Component {
+class TableRow extends React.Component {
   static propTypes = {
-    data: PropTypes.object,
-    onChange: PropTypes.func,
-    onSelect: PropTypes.func,
-    selected: PropTypes.bool
+    data: React.PropTypes.object,
+    onChange: React.PropTypes.func,
+    onSelect: React.PropTypes.func,
+    selected: React.PropTypes.bool
   };
 
   handleInputChange = (key, type, event) => {

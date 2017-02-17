@@ -66,7 +66,7 @@ class SectionToolBox extends React.Component {
       return (
         <ToolboxItem
           key={feature}
-          ref={(ref) => {
+          itemRef={(ref) => {
             if (feature === 'colorBackground') {
               this.toolboxItemColorChange = ref;
             }
@@ -113,7 +113,7 @@ class SectionToolBox extends React.Component {
   changeBackgroundColor () {
     const { currentHoverBlock } = this.props;
     const { elementReference } = currentHoverBlock;
-    const sourceElement = findDOMNode(this.toolboxItemColorChange); // eslint-disable-line
+    const sourceElement = findDOMNode(this.toolboxItemColorChange);
 
     return this.props.openColorPicker(elementReference, sourceElement);
   }
