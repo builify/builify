@@ -1,11 +1,5 @@
 import React from 'react';
-import proccessChildren from '../../children-render/process-children';
-import renderProccessedChildren from '../../children-render/render-processed-children';
-import BackButton from './back-button';
-import Scrollbar from '../shared/scrollbar';
-import classNames from '../../common/classnames';
 import { connect } from 'react-redux';
-import { closeTab } from '../../actions';
 import {
   map as _map,
   find as _find,
@@ -14,6 +8,29 @@ import {
   has as _has,
   isObject as _isObject
 } from 'lodash';
+import proccessChildren from '../../children-render/process-children';
+import renderProccessedChildren from '../../children-render/render-processed-children';
+import BackButton from './back-button';
+import Scrollbar from '../shared/scrollbar';
+import classNames from '../../common/classnames';
+import { closeTab } from '../../actions';
+
+function renderTitle (currentTab) {
+  if (_has(currentTab, 'title')) {
+    if (_has(currentTab, 'subtitle')) {
+      return (
+        <h1 className={classNames('tab__title')}>
+          <span>{ currentTab.title }</span>
+          <span>{ currentTab.subtitle }</span>
+        </h1>
+      );
+    }
+
+    return <h1 className={classNames('tab__title')}>{currentTab.title}</h1>;
+  }
+
+  return null;
+}
 
 class Tab extends React.Component {
   static propTypes = {
@@ -26,16 +43,16 @@ class Tab extends React.Component {
     currentTab: null
   };
 
-  shouldComponentUpdate (nextProps) {
-    return nextProps.currentTab !== this.state.currentTabID;
-  }
-
   componentWillMount () {
     this.initializeState(this.props);
   }
 
   componentWillReceiveProps (nextProps) {
     this.initializeState(nextProps);
+  }
+
+  shouldComponentUpdate (nextProps) {
+    return nextProps.currentTab !== this.state.currentTabID;
   }
 
   initializeState (props) {
@@ -46,18 +63,18 @@ class Tab extends React.Component {
 
     if (splitSize === 1) {
       currentTab = _find(tabs, {
-        'id': currentTabID
+        id: currentTabID
       });
     } else {
       currentTab = _find(tabs, {
-        'id': splitCurrentTab[splitSize - 1]
+        id: splitCurrentTab[splitSize - 1]
       });
     }
 
     if (_isObject(currentTab)) {
       this.setState({
-        currentTabID: currentTabID,
-        currentTab: currentTab
+        currentTabID,
+        currentTab
       });
     } else {
       throw Error('Tab is not object.');
@@ -75,26 +92,9 @@ class Tab extends React.Component {
       return (
         <div>
           <BackButton onClick={::this.closeTab} />
-          { this.renderTitle(currentTab) }
+          { renderTitle(currentTab) }
         </div>
       );
-    }
-
-    return null;
-  }
-
-  renderTitle (currentTab) {
-    if (_has(currentTab, 'title')) {
-      if (_has(currentTab, 'subtitle')) {
-        return (
-          <h1 className={classNames('tab__title')}>
-            <span>{ currentTab.title }</span>
-            <span>{ currentTab.subtitle }</span>
-          </h1>
-        );
-      } else {
-        return <h1 className={classNames('tab__title')}>{currentTab.title}</h1>;
-      }
     }
 
     return null;
@@ -131,14 +131,14 @@ function mapStateToProps (state) {
   const { currentTab } = builder;
 
   return {
-    tabs: tabs,
-    currentTab: currentTab
+    tabs,
+    currentTab
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    closeTab: function () {
+    closeTab: () => {
       dispatch(closeTab());
     }
   };

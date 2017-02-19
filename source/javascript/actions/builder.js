@@ -1,6 +1,11 @@
-import Actions from './constants';
 import JSZip from 'jszip';
 import stripJSONComments from 'strip-json-comments';
+import {
+  delay as _delay,
+  map as _map,
+  has as _has
+} from 'lodash';
+import Actions from './constants';
 import IconPacksData from '../../../data/builder/icon-packs';
 import imagesLibraryJSON from '../../../data/builder/images-library';
 import builderConfiguration from '../../../data/builder/builder';
@@ -8,41 +13,6 @@ import AsideData from '../../../data/builder/aside';
 import { checkPreviousPagesInStorage } from './page';
 import { addNotification, demoNotification } from './notifications';
 import { IS_DEMO_VERSION } from '../constants';
-import {
-  delay as _delay,
-  map as _map,
-  has as _has
-} from 'lodash';
-
-export function runApplicationActions () {
-  return function (dispatch) {
-    dispatch(initialize());
-    dispatch(checkPreviousPagesInStorage());
-    dispatch(getBuilderConfiguration());
-    dispatch(receiveConfiguration());
-    dispatch(receiveAsideConfiguration());
-    dispatch(getTemplateFiles());
-  };
-}
-
-export function getTemplateFiles () {
-  return function (dispatch) {
-    const zip = new JSZip();
-    const data = __BUILIFY_TEMPLATE; // eslint-disable-line
-
-    zip.loadAsync(data, { base64: true, checkCRC32: true }).then(function () {
-      zip.file('manifest.json').async('string')
-        .then(function (contents) {
-          dispatch({
-            type: Actions.GET_TEMPLATE_DATA,
-            data: JSON.parse(contents)
-          });
-          dispatch(getIconPacks());
-          dispatch(getImagesLibrary());
-        });
-    });
-  };
-}
 
 export function initialize () {
   return {
@@ -57,7 +27,7 @@ export function removeLoadingScreen () {
   return function (dispatch) {
     dispatch({ type: Actions.LOGIC_INITIALIZED });
 
-    _delay(function () {
+    _delay(() => {
       dispatch({ type: Actions.REMOVE_LOADING_SCREEN });
     }, 500);
   };
@@ -91,7 +61,7 @@ export function getIconPacks () {
       dispatch(addIconPackSourcesToHead(iconPacks));
       dispatch({
         type: Actions.GET_ICONPACKS,
-        iconPacks: iconPacks
+        iconPacks
       });
     } else {
       throw Error('Iconpacks not found.');
@@ -151,7 +121,7 @@ export function addIconPackSourcesToHead (iconPacks) {
   _delay(() => {
     _map(iconPacks, (iconPack) => {
       const { iconSource } = iconPack;
-      let font = document.createElement('link');
+      const font = document.createElement('link');
 
       font.rel = 'stylesheet';
       font.type = 'text/css';
@@ -206,5 +176,35 @@ export function sendFeedBack () {
       message: 'Feedback sent!',
       level: 'info'
     }));
+  };
+}
+
+export function getTemplateFiles () {
+  return function (dispatch) {
+    const zip = new JSZip();
+    const data = __BUILIFY_TEMPLATE; // eslint-disable-line
+
+    zip.loadAsync(data, { base64: true, checkCRC32: true }).then(() => {
+      zip.file('manifest.json').async('string')
+        .then((contents) => {
+          dispatch({
+            type: Actions.GET_TEMPLATE_DATA,
+            data: JSON.parse(contents)
+          });
+          dispatch(getIconPacks());
+          dispatch(getImagesLibrary());
+        });
+    });
+  };
+}
+
+export function runApplicationActions () {
+  return function (dispatch) {
+    dispatch(initialize());
+    dispatch(checkPreviousPagesInStorage());
+    dispatch(getBuilderConfiguration());
+    dispatch(receiveConfiguration());
+    dispatch(receiveAsideConfiguration());
+    dispatch(getTemplateFiles());
   };
 }

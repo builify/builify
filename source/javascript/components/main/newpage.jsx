@@ -1,7 +1,7 @@
-import React  from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import classNames from '../../common/classnames';
 import localization from '../../common/localization';
-import { connect } from 'react-redux';
 import { startNewPage, openPreviousPagesSelectionModal } from '../../actions';
 
 function Page ({

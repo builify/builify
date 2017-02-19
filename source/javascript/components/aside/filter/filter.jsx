@@ -56,7 +56,7 @@ class Filter extends React.Component {
     let navigationCopy = null;
 
     // Remove footer and header, 
-    items = _filter(items, function (item) {
+    items = _filter(items, (item) => {
       if (item.name === 'footer') {
         footerCopy = item;
         return false;
@@ -79,7 +79,7 @@ class Filter extends React.Component {
     if (!_isNull(navigationCopy)) {
       items.push(navigationCopy);
     }
-      
+ 
     // Add "Show All" to the start of the list.
     items.unshift({
       name: 'Show All'.toLowerCase(),
@@ -115,7 +115,7 @@ class Filter extends React.Component {
     const { filterContentBlocksTarget } = this.props;
     const { isFilterOpened } = this.state;
     const filterClassName = classNames('filter', {
-      'active': isFilterOpened
+      active: isFilterOpened
     });
 
     return (
@@ -139,8 +139,8 @@ function mapStateToProps (state) {
   const { blocks } = template;
 
   return {
-    filterContentBlocksTarget: filterContentBlocksTarget,
-    blocks: blocks
+    filterContentBlocksTarget,
+    blocks
   };
 }
 
@@ -152,4 +152,4 @@ function mapDispatchToProps (dispatch) {
   };
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Filter);
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);

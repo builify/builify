@@ -1,10 +1,9 @@
+import { isUndefined as _isUndefined } from 'lodash';
 import Actions from './constants';
 import { addNotification } from './notifications';
 import { closeModal } from './modal';
 import { getExtension } from '../common/misc';
-import {
-  isUndefined as _isUndefined
-} from 'lodash';
+
 
 export function uploadFile (file) {
   return function (dispatch) {
@@ -18,7 +17,7 @@ export function uploadFile (file) {
         case 'gif':
           dispatch({
             type: Actions.UPLOAD_FILE,
-            file: file
+            file
           });
 
           break;

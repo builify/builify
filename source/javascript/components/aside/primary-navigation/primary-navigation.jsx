@@ -1,16 +1,16 @@
 import React from 'react';
-import Random from '../../../common/random';
-import NavigationItem from './item';
-import classNames from '../../../common/classnames';
-import * as Actions from '../../../actions';
 import { connect } from 'react-redux';
-import { CurrentLocations, IS_DEMO_VERSION, IS_DEV_VERSION } from '../../../constants';
 import {
   map as _map,
   size as _size,
   words as _words,
   partial as _partial
 } from 'lodash';
+import Random from '../../../common/random';
+import NavigationItem from './item';
+import classNames from '../../../common/classnames';
+import * as Actions from '../../../actions';
+import { CurrentLocations, IS_DEMO_VERSION, IS_DEV_VERSION } from '../../../constants';
 
 class PrimaryNavigation extends React.Component {
   static propTypes = {
@@ -37,7 +37,7 @@ class PrimaryNavigation extends React.Component {
 
   renderNavigationItems () {
     const { navigation, currentLocation, pages } = this.props;
-    
+
     return _map(navigation, (item) => {
       const { id, title, icon, onClick } = item;
       const command = _words(onClick);

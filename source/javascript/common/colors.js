@@ -1,9 +1,7 @@
-import {
-  isNull as _isNull
-} from 'lodash';
+import { isNull as _isNull } from 'lodash';
 
 export function hex (x) {
-  return ('0' + parseInt(x).toString(16)).slice(-2);
+  return ('0' + parseInt(x, 10).toString(16)).slice(-2);
 }
 
 export function rgbToHex (rgb) {
@@ -19,7 +17,7 @@ export function rgbToHex (rgb) {
 
   if (_isNull(values)) {
     return rgb;
-  } else {
-    return `#${hex(values[1]) + hex(values[2]) + hex(values[3])}`;
   }
+
+  return `#${hex(values[1]) + hex(values[2]) + hex(values[3])}`;
 }

@@ -1,8 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import classNames from '../../common/classnames';
 import Canvas from '../canvas';
 import ProjectStartScreen from './start-screen';
-import { connect } from 'react-redux';
 import { CurrentLocations } from '../../constants';
 
 class Main extends React.Component {
@@ -22,8 +22,8 @@ class Main extends React.Component {
     const { currentLocation } = this.props;
 
     const mainClassName = classNames('main', {
-      'fullsize': currentLocation === CurrentLocations.TEMPLATESELECTION,
-      'preview': currentLocation === CurrentLocations.PREVIEW
+      fullsize: currentLocation === CurrentLocations.TEMPLATESELECTION,
+      preview: currentLocation === CurrentLocations.PREVIEW
     });
 
     return (
@@ -40,7 +40,7 @@ function mapStateToProps (state) {
   const { currentLocation } = builder;
 
   return {
-    currentLocation: currentLocation
+    currentLocation
   };
 }
 

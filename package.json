@@ -15,7 +15,7 @@
     "lint": "eslint ./source/javascript",
     "test": "jasmine",
     "coverage": "nyc --extension .jsx --extension .es6 --reporter=lcov --reporter=text-lcov npm test",
-    "pre-release": "npm run lint && npm run test",
+    "pre-release": "npm run test",
     "create-helpers": "./node_modules/.bin/babel-external-helpers -t global > ./source/javascript/wrapper/helpers.js"
   },
   "pre-commit": [
@@ -45,7 +45,10 @@
     "envify": "^4.0.0",
     "enzyme": "^2.7.0",
     "eslint": "*",
-    "eslint-plugin-react": "*",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
     "glob": "*",
     "gulp": "*",
     "gulp-autoprefixer": "*",

@@ -10,10 +10,10 @@ export default function NavigationItem ({
   className,
   disabled,
   onClick,
-  style
+  ...others
 }) {
   const cn = classNames(null, {
-    'hide': disabled
+    hide: disabled
   }, className);
   const text = localization(title);
   const clickEvent = (e) => {
@@ -26,7 +26,7 @@ export default function NavigationItem ({
       className={cn}
       title={text}
       onClick={clickEvent}
-      style={style}>
+      {...others}>
       { icon && <Icon icon={icon} /> }
       { text && <span>{ text }</span> }
     </li>
@@ -38,14 +38,12 @@ NavigationItem.propTypes = {
   icon: React.PropTypes.string.isRequired,
   className: React.PropTypes.string,
   disabled: React.PropTypes.bool,
-  onClick: React.PropTypes.func,
-  style: React.PropTypes.object
+  onClick: React.PropTypes.func
 };
 
 NavigationItem.defaultProps = {
   currentLocation: -1,
   className: '',
   disabled: false,
-  onClick: emptyFunction,
-  style: {}
+  onClick: emptyFunction
 };

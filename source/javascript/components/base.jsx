@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import classNames from '../common/classnames';
 import Aside from './aside';
 import Main from './main';
@@ -7,16 +8,15 @@ import ColorPicker from './shared/color-picker';
 import Modals from './modals';
 import NotificationContainer from './notifications';
 import Upperbar from './upperbar';
-import { connect } from 'react-redux';
 import { IS_DEMO_VERSION, BUY_LINK } from '../constants';
 
 function SaleButton () {
   return (
-    <a href={BUY_LINK} target='_blank' className={classNames('salebutton')}>
+    <a href={BUY_LINK} target={'_blank'} rel={'noopener noreferrer'} className={classNames('salebutton')}>
       <span>Buy Now</span>
     </a>
   );
-} 
+}
 
 function Base ({
   defaultTheme
@@ -47,7 +47,7 @@ function mapStateToProps (state) {
   const { defaultTheme } = builderConfiguration;
 
   return {
-    defaultTheme: defaultTheme ? defaultTheme : 'light'
+    defaultTheme: defaultTheme || 'light'
   };
 }
 

@@ -6,6 +6,7 @@ const currentDir = __dirname.toLowerCase();
 const sourceDir = path.join(currentDir, 'source');
 const buildDir = path.join(currentDir, 'public');
 const modulesDir = path.join(currentDir, 'node_modules');
+const assetsPath = path.join(buildDir, 'assets');
 
 // Supported CLI options.
 const env = {
@@ -33,20 +34,20 @@ export default {
 
   images: {
     entry: path.join(sourceDir, 'images', '**', '*.{png,jpg,ico,svg,jpeg}'),
-    output: path.join(buildDir, 'assets', 'static')
+    output: path.join(assetsPath, 'static')
   },
 
   files: {
     entry: path.join(sourceDir, 'files', '**/*.*'),
-    output: path.join(buildDir, 'assets', 'static'),
+    output: path.join(assetsPath, 'static'),
 
     template: {
-      entry: path.join(currentDir, 'data', 'template', 'assets', '/*.{js,css}'),
-      output: path.join(buildDir, 'assets', 'template'),
+      entry: path.join(currentDir, 'data', 'template', 'assets', '/*.{js,css,png,jpg,jpeg}'),
+      output: path.join(assetsPath, 'template'),
 
       thumbnail: {
         entry: path.join(currentDir, 'data', 'template', 'assets', 'thumbnails/*.{jpg,jpeg,png}'),
-        output: path.join(buildDir, 'assets', 'template')
+        output: path.join(assetsPath, 'static', 'thumbnails')
       }
     }
   },
@@ -58,23 +59,23 @@ export default {
 
   javascripts: {
     vendor: {
-      output: path.join(buildDir, 'assets', 'static')
+      output: path.join(assetsPath, 'static')
     },
     main: {
       entry: path.join(sourceDir, 'javascript', 'main.jsx'),
-      output: path.join(buildDir, 'assets', 'static')
+      output: path.join(assetsPath, 'static')
     }
   },
 
   stylesheets: {
     main: {
       entry: path.join(sourceDir, 'stylesheets', 'main', 'stylesheet.scss'),
-      output: path.join(buildDir, 'assets', 'static')
+      output: path.join(assetsPath, 'static')
     },
 
     canvas: {
       entry: path.join(sourceDir, 'stylesheets', 'canvas', 'canvas-stylesheet.scss'),
-      output: path.join(buildDir, 'assets', 'static')
+      output: path.join(assetsPath, 'static')
     },
 
     sass: {

@@ -29,3 +29,8 @@ Title.propTypes = {
   description: React.PropTypes.string,
   className: React.PropTypes.string
 };
+
+Title.defaultProps = {
+  description: null,
+  className: null
+};
