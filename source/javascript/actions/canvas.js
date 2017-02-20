@@ -55,12 +55,6 @@ export function setFont (font) {
   };
 }
 
-export function loadContentBlockSource (source, blockType, blockName) {
-  return function (dispatch) {
-    dispatch(loadContentBlockToPage(source, blockType, blockName));
-  };
-}
-
 export function loadContentBlockToPage (blockData) {
   const { blockType, features, name, source } = blockData;
 
@@ -70,6 +64,12 @@ export function loadContentBlockToPage (blockData) {
     blockType,
     blockName: name,
     features
+  };
+}
+
+export function loadContentBlockSource (source, blockType, blockName) {
+  return function (dispatch) {
+    dispatch(loadContentBlockToPage(source, blockType, blockName));
   };
 }
 
@@ -149,10 +149,10 @@ export function sortContentBlocks (evt) {
   };
 }
 
-export function openContentblockSourceEditModal (currentHoverBlock) {
+export function openContentblockSourceEditModal (currentTarget) {
   return {
     type: Actions.OPEN_CONTENTBLOCK_SOURCE_EDIT_MODAL,
-    currentHoverBlock
+    currentHoverBlock: currentTarget
   };
 }
 

@@ -1,11 +1,9 @@
 import React from 'react';
+import { isNull as _isNull } from 'lodash';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
-import {
-  isNull as _isNull
-} from 'lodash';
 
-export default function Color({
+export default function Color ({
   color,
   colorTarget,
   onClick,
@@ -21,7 +19,7 @@ export default function Color({
   };
 
   return (
-    <div
+    <button
       ref={(ref) => colorElement = ref}
       data-abcolor={color}
       data-colortarget={colorTarget}
@@ -35,7 +33,7 @@ export default function Color({
         title={color}
         data-color={color}
         style={colorHolderStyle} />
-    </div>
+    </button>
   );
 }
 

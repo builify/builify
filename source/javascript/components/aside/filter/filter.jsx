@@ -1,15 +1,15 @@
 import React from 'react';
-import Icon from '../../shared/icon';
-import classNames from '../../../common/classnames';
-import localization from '../../../common/localization';
 import { connect } from 'react-redux';
-import { filterContentBlocks } from '../../../actions';
 import {
   map as _map,
   isNull as _isNull,
   orderBy as _orderBy,
   filter as _filter
 } from 'lodash';
+import Icon from '../../shared/icon';
+import classNames from '../../../common/classnames';
+import localization from '../../../common/localization';
+import { filterContentBlocks } from '../../../actions';
 
 class Filter extends React.Component {
   static propTypes = {
@@ -55,7 +55,7 @@ class Filter extends React.Component {
     let footerCopy = null;
     let navigationCopy = null;
 
-    // Remove footer and header, 
+    // Remove footer and header
     items = _filter(items, (item) => {
       if (item.name === 'footer') {
         footerCopy = item;
@@ -79,7 +79,7 @@ class Filter extends React.Component {
     if (!_isNull(navigationCopy)) {
       items.push(navigationCopy);
     }
- 
+
     // Add "Show All" to the start of the list.
     items.unshift({
       name: 'Show All'.toLowerCase(),
@@ -92,7 +92,7 @@ class Filter extends React.Component {
           const { name, target } = item;
 
           const itemClassName = classNames(null, {
-            'active': target === filterContentBlocksTarget
+            active: target === filterContentBlocksTarget
           });
 
           return (

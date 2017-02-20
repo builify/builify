@@ -42,7 +42,6 @@ NavigationItem.propTypes = {
 };
 
 NavigationItem.defaultProps = {
-  currentLocation: -1,
   className: '',
   disabled: false,
   onClick: emptyFunction

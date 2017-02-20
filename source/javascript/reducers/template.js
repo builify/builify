@@ -1,8 +1,4 @@
 import TTStylesheet from 'tt-stylesheet';
-import TTDOM from '../common/TTDOM';
-import TTBaseliner from '../modules/tt-baseliner';
-import * as Actions from '../actions/constants';
-import * as Constants from '../constants';
 import {
   assign as _assign,
   has as _has,
@@ -10,6 +6,10 @@ import {
   isNull as _isNull,
   isElement as _isElement
 } from 'lodash';
+import TTDOM from '../common/TTDOM';
+import TTBaseliner from '../modules/tt-baseliner';
+import * as Actions from '../actions/constants';
+import * as Constants from '../constants';
 
 const initialState = {
   // Colorpicker
@@ -66,10 +66,10 @@ export default function (state = initialState, action) {
       headElement.appendChild(userCustomStylesheet);
 
       return _assign({}, state, {
-        iFrameWindow: iFrameWindow,
-        baseline: baseline,
+        iFrameWindow,
+        baseline,
         templateStylesheet: customStylesheet,
-        userCustomStylesheet: userCustomStylesheet
+        userCustomStylesheet
       });
     }
 
@@ -94,7 +94,7 @@ export default function (state = initialState, action) {
     case Actions.RESTART_PAGE:
     case Actions.LOAD_PREVIOUS_PAGE:
       state.baseline.off();
-      
+
       return _assign({}, state, {
         drawBaseline: false
       });
@@ -119,7 +119,7 @@ export default function (state = initialState, action) {
     case Actions.GET_TEMPLATE_DATA: {
       if (_has(action, 'data')) {
         if (_has(action.data, 'name')) {
-          console.log(`BUILify - Obtained ${action.data.name} template data successfully.`);
+          console.log(`BUILify - Obtained ${action.data.name} (v${action.data.version}) template data successfully.`);
         }
 
         return _assign({}, state, action.data);
@@ -153,7 +153,7 @@ export default function (state = initialState, action) {
       }
 
       if (targetType === Constants.ColorPickerTargetTypes.COLOR) {
-        var { templateStylesheet, design } = state;
+        const { templateStylesheet, design } = state;
         const { hex } = color;
         const dataColorTarget = selectedCPElement.getAttribute('data-colortarget');
 
@@ -173,7 +173,7 @@ export default function (state = initialState, action) {
           templateStylesheet.initCSS();
 
           return _assign({}, state, {
-            design: design
+            design
           });
         }
       } else if (targetType === Constants.ColorPickerTargetTypes.BACKGROUNDCOLOR) {
@@ -213,7 +213,7 @@ export default function (state = initialState, action) {
         }
 
         return _assign({}, state, {
-          design: design
+          design
         });
       }
 
@@ -236,7 +236,7 @@ export default function (state = initialState, action) {
         templateStylesheet.initCSS();
 
         return _assign({}, state, {
-          design: design
+          design
         });
       }
 
@@ -244,7 +244,7 @@ export default function (state = initialState, action) {
     }
 
     case Actions.SET_SWATCH: {
-      let designState = state.design;
+      const designState = state.design;
 
       if (_has(action, 'swatch')) {
         designState.currentSwatch = action.swatch;
@@ -254,7 +254,8 @@ export default function (state = initialState, action) {
         design: designState
       });
     }
-  }
 
-  return state;
+    default:
+      return state;
+  }
 }

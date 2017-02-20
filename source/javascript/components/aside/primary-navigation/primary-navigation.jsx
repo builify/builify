@@ -73,8 +73,7 @@ class PrimaryNavigation extends React.Component {
           disabled={!!((currentLocation === CurrentLocations.STARTSCREEN && id !== 'download') && true)}
           title={title}
           icon={icon}
-          onClick={clickFunction}
-          currentLocation={currentLocation} />
+          onClick={clickFunction} />
       );
     });
   }
@@ -83,9 +82,9 @@ class PrimaryNavigation extends React.Component {
     if (IS_DEV_VERSION || IS_DEMO_VERSION) {
       return (
         <NavigationItem
-          className='feedback'
-          title='feedback'
-          icon='info-outline'
+          className={'feedback'}
+          title={'feedback'}
+          icon={'info-outline'}
           onClick={this.props.openFeedbackModal} />
       );
     }
@@ -96,9 +95,9 @@ class PrimaryNavigation extends React.Component {
   renderInfoNavigationItem () {
     return (
       <NavigationItem
-        className='help'
-        title='help'
-        icon='info-outline'
+        className={'help'}
+        title={'help'}
+        icon={'info-outline'}
         onClick={this.props.openHelpModal} />
     );
   }
@@ -128,34 +127,34 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    openFeedbackModal: function () {
+    openFeedbackModal: () => {
       dispatch(Actions.openFeedbackModal());
     },
-    openTab: function (target) {
+    openTab: (target) => {
       dispatch(Actions.openTab(target));
     },
 
-    openDownloadModal: function () {
+    openDownloadModal: () => {
       dispatch(Actions.openDownloadModal());
     },
 
-    openRestartModal: function () {
+    openRestartModal: () => {
       dispatch(Actions.openRestartModal());
     },
 
-    downloadSinglePage: function () {
-      dispatch(Actions.downloadSinglePage())
+    downloadSinglePage: () => {
+      dispatch(Actions.downloadSinglePage());
     },
 
-    noPagesToDownload: function () {
+    noPagesToDownload: () => {
       dispatch(Actions.noPagesToDownload());
     },
 
-    saveCurrentPage: function () {
+    saveCurrentPage: () => {
       dispatch(Actions.saveCurrentPage());
     },
 
-    openHelpModal: function () {
+    openHelpModal: () => {
       dispatch(Actions.openHelpModal());
     }
   };

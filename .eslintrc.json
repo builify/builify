@@ -2,7 +2,7 @@
   "extends": "airbnb",
   "parser": "babel-eslint",
   "env": {
-    "browser": false,
+    "browser": true,
     "node": true
   },
  "parserOptions": {
@@ -18,8 +18,14 @@
     "import/no-named-as-default": 0,
     "import/no-named-as-default-member": 0,
     "import/no-unresolved": 0,
-    "func-names": 0,
+    "import/prefer-default-export": 0,
 
+    "react/jsx-closing-bracket-location": 0,
+    "react/forbid-prop-types": 0,
+
+    "jsx-a11y/no-static-element-interactions": 0,
+
+    "func-names": 0,
     "no-await-in-loop": 0,
     "no-multi-assign": 0,
     "comma-dangle": 0,

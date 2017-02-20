@@ -1,6 +1,8 @@
 import React from 'react';
-import _map from 'lodash/map';
-import _isEqual from 'lodash/isequal';
+import {
+  map as _map,
+  isEqual as _isEqual
+} from 'lodash';
 import NotificationItem from './item';
 import Constants from './constants';
 import classNames from '../../common/classnames';

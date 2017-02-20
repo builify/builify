@@ -9,7 +9,7 @@ export default function ContentBlock ({
 }) {
   const { name, thumbnail, blockType } = data;
   const className = classNames('contentblocks__block', {
-    'hide': filterContentBlocksTarget !== 'all' && blockType !== filterContentBlocksTarget
+    hide: filterContentBlocksTarget !== 'all' && blockType !== filterContentBlocksTarget
   });
   const selectContentBlock = () => {
     return onClick(data);
@@ -21,7 +21,7 @@ export default function ContentBlock ({
       className={className}
       data-blocktype={blockType}
       onClick={selectContentBlock}>
-      <ImageItem src={thumbnail} alt={name}/>
+      <ImageItem src={thumbnail} alt={name} />
       <figcaption>
         { name && <span>{ name }</span> }
       </figcaption>

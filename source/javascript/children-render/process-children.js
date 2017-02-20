@@ -11,7 +11,7 @@ export default function (children) {
     throw new Error('No data defined.');
   }
 
-  let childrenToRender = [];
+  const childrenToRender = [];
 
   _map(children, (child) => {
     const { type } = child;
@@ -49,11 +49,12 @@ export default function (children) {
           }
 
           case 'sliderinput': {
-            const min = _isNumber(min) ? Math.abs(min) : Math.abs(_toSafeInteger(min));
+            const min = _isNumber(child.min) ?
+              Math.abs(child.min) : Math.abs(_toSafeInteger(child.min));
 
             blockData = {
               type: 'sliderinput',
-              min: min,
+              min,
               max: child.max || 10,
               step: child.step || 1,
               label: child.label || '',
@@ -66,7 +67,7 @@ export default function (children) {
           case 'checkbox': {
             blockData = {
               type: 'checkbox',
-              state: child.state === 'off' ? false : true,
+              state: child.state !== 'off',
               label: child.label || '',
               onClick: child.onClick || function () {}
             };

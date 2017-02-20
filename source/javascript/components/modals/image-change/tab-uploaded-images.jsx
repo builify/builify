@@ -1,15 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { map as _map } from 'lodash';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
 import Random from '../../../common/random';
 import Scrollbar from '../../shared/scrollbar';
 import Image from '../../shared/image';
 import Button from '../../shared/button';
-import { connect } from 'react-redux';
-import { deleteAllAssets } from '../../../actions';
-import {
-  map as _map
-} from 'lodash';
+import { deleteAllAssets as deleteAllAssetsAction } from '../../../actions';
+
 
 class UploadedImagesTab extends React.Component {
   static propTypes = {
@@ -21,6 +20,11 @@ class UploadedImagesTab extends React.Component {
 
   shouldComponentUpdate () {
     return false;
+  }
+
+  deleteAssets () {
+    this.props.deleteAllAssets();
+    return this.props.onClose();
   }
 
   renderImages () {
@@ -44,11 +48,6 @@ class UploadedImagesTab extends React.Component {
           src={fileData} />
       );
     });
-  }
-
-  deleteAssets () {
-    this.props.deleteAllAssets();
-    return this.props.onClose();
   }
 
   render () {
@@ -85,8 +84,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    deleteAllAssets: function () {
-      dispatch(deleteAllAssets());
+    deleteAllAssets: () => {
+      dispatch(deleteAllAssetsAction());
     }
   };
 }

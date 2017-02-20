@@ -12,10 +12,10 @@ export default function BackButton ({
   const locTitle = localization(title);
 
   return (
-    <div title={locTitle} className={className} onClick={onClick}>
+    <button title={locTitle} className={className} onClick={onClick}>
       <Icon icon={'arrow-back'} size={30} />
       <span>{ title }</span>
-    </div>
+    </button>
   );
 }
 

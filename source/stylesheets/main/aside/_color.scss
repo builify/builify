@@ -1,4 +1,8 @@
 .#{$nameprefix}color {
+    background: transparent;
+    text-align: left;
+    outline: 0;
+    border: 0;
     text-transform: uppercase;
 
 	&__name {

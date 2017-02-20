@@ -1,8 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import localization from '../../common/localization';
 import classNames from '../../common/classnames';
 import ProgressBar from '../shared/progress-bar';
-import { connect } from 'react-redux';
 
 function LoadingScreen ({
   isLoadingScreenActive,
@@ -10,12 +10,12 @@ function LoadingScreen ({
 }) {
   if (loadingScreenType === 0) {
     const loadingScreenClassName = classNames('loading-screen', {
-      'show': isLoadingScreenActive
+      show: isLoadingScreenActive
     });
 
     return (
       <div id={classNames('loading-screen')} className={loadingScreenClassName}>
-        <ProgressBar type='circular' mode='indeterminate' multicolor />
+        <ProgressBar type={'circular'} mode={'indeterminate'} multicolor />
         <div className={classNames('loading-screen__loading')}>{localization('loading builder')}</div>
         <div className={classNames('loading-screen__info')}>{localization('please wait')}</div>
       </div>
@@ -33,8 +33,8 @@ function mapStateToProps (state) {
   const { isLoadingScreenActive, loadingScreenType } = builder;
 
   return {
-    isLoadingScreenActive: isLoadingScreenActive,
-    loadingScreenType: loadingScreenType
+    isLoadingScreenActive,
+    loadingScreenType
   };
 }
 

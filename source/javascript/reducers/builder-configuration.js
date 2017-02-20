@@ -1,9 +1,9 @@
-import * as Actions from '../actions/constants';
 import { assign as _assign } from 'lodash';
+import * as Actions from '../actions/constants';
 
-const builderConfigurationInitialState = {};
+const initialState = {};
 
-export default function (state = builderConfigurationInitialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case Actions.RECEIVE_BUILDER_CONFIGURATION:
       return _assign({}, state, action.data);
@@ -31,7 +31,8 @@ export default function (state = builderConfigurationInitialState, action) {
         fontsList: action.data
       });
     }
-  }
 
-  return state;
+    default:
+      return state;
+  }
 }

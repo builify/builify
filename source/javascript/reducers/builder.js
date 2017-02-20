@@ -1,7 +1,3 @@
-import downloadPages from '../pages/download';
-import TTStorage from '../modules/tt-storage';
-import * as Actions from '../actions/constants';
-import { CurrentLocations, MAXIUMUM_PAGES_IN_STORAGE, TEMPLATE_PAGES_STORAGE_NAME } from '../constants';
 import {
   assign as _assign,
   find as _find,
@@ -16,6 +12,10 @@ import {
   isUndefined as _isUndefined,
   isObject as _isObject
 } from 'lodash';
+import downloadPages from '../pages/download';
+import TTStorage from '../modules/tt-storage';
+import * as Actions from '../actions/constants';
+import { CurrentLocations, MAXIUMUM_PAGES_IN_STORAGE, TEMPLATE_PAGES_STORAGE_NAME } from '../constants';
 
 const builderInitialState = {
   isLoadingScreenActive: true,
@@ -37,8 +37,8 @@ const builderInitialState = {
 };
 
 function cleanStorageFromOldPages (arr) {
-  let arrayLen = arr.length;
-  
+  const arrayLen = arr.length;
+
   if (arrayLen > (MAXIUMUM_PAGES_IN_STORAGE - 1)) {
     arr.shift();
     cleanStorageFromOldPages(arr);
@@ -65,7 +65,7 @@ export default function (state = builderInitialState, action) {
         return _assign({}, state, {
           currentLocation: CurrentLocations.STARTSCREEN,
           isPageSelected: false,
-          pages: pages,
+          pages,
           doPreviousPagesExistInStorage: previousPages,
           filterContentBlocksTarget: 'all'
         });
@@ -78,7 +78,7 @@ export default function (state = builderInitialState, action) {
       const { target } = action;
       const { currentTab, tabs } = state;
       const tab = _find(tabs, {
-        'id': target
+        id: target
       });
 
       if (_isObject(tab) && !_endsWith(currentTab, target)) {
@@ -108,13 +108,13 @@ export default function (state = builderInitialState, action) {
     case Actions.RECEIVE_ASIDE_CONFIGURATION: {
       return _assign({}, state, action.data);
     }
-    
+
     case Actions.DOWNLOAD_SINGLE_PAGE: {
       const { currentState } = action;
       const { pages } = state;
 
       downloadPages(pages, currentState);
-      
+
       return state;
     }
 
@@ -123,10 +123,10 @@ export default function (state = builderInitialState, action) {
       const { pages } = state;
       const { pages: selectedPages } = action;
       const selectPagesLength = selectedPages.length;
-      let queryPages = [];
+      const queryPages = [];
 
       if (selectPagesLength !== 0) {
-        for (let i = 0; i < selectPagesLength; i++) {
+        for (let i = 0; i < selectPagesLength; i += 1) {
           queryPages.push(pages[selectedPages[i]]);
         }
 
@@ -143,7 +143,7 @@ export default function (state = builderInitialState, action) {
       return _assign({}, state, {
         currentLocation: CurrentLocations.STARTSCREEN,
         isPageSelected: false,
-        pages: pages,
+        pages,
         doPreviousPagesExistInStorage: previousPages,
         filterContentBlocksTarget: 'all'
       });
@@ -153,7 +153,7 @@ export default function (state = builderInitialState, action) {
       const pages = TTStorage.get(TEMPLATE_PAGES_STORAGE_NAME);
 
       return _assign({}, state, {
-        pages: pages
+        pages
       });
     }
 
@@ -210,7 +210,7 @@ export default function (state = builderInitialState, action) {
     case Actions.START_NEW_PAGE: {
       const { pageID, pagesInStorage } = action;
       const pageObject = {
-        pageID: pageID,
+        pageID,
         pageTitle: 'Page Title',
         pageFileName: 'index.html',
         pageFullSource: null,
@@ -266,22 +266,22 @@ export default function (state = builderInitialState, action) {
 
       if (splitSize === 1) {
         return _assign({}, state);
-      } else {
-        return _assign({}, state, {
-          currentTab: _join(_dropRight(splitCurrentTab), '.')
-        });
       }
+
+      return _assign({}, state, {
+        currentTab: _join(_dropRight(splitCurrentTab), '.')
+      });
     }
 
     case Actions.OPEN_PREVIEW:
       if (state.currentLocation === CurrentLocations.TEMPLATESELECTION ||
           state.currentLocation === CurrentLocations.STARTSCREEN) {
         return state;
-      } else {
-        return _assign({}, state, {
-          currentLocation: CurrentLocations.PREVIEW
-        });
       }
+
+      return _assign({}, state, {
+        currentLocation: CurrentLocations.PREVIEW
+      });
 
     case Actions.CLOSE_PREVIEW:
       return _assign({}, state, {
@@ -293,7 +293,8 @@ export default function (state = builderInitialState, action) {
         filterContentBlocksTarget: action.target
       });
     }
+    
+    default:
+      return state;
   }
-
-  return state;
 }

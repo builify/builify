@@ -1,13 +1,13 @@
 import React from 'react';
-import classNames from '../../../common/classnames';
-import Random from '../../../common/random';
-import Scrollbar from '../../shared/scrollbar';
-import Image from '../../shared/image';
 import {
   map as _map,
   sortBy as _sortBy,
   has as _has
 } from 'lodash';
+import classNames from '../../../common/classnames';
+import Random from '../../../common/random';
+import Scrollbar from '../../shared/scrollbar';
+import Image from '../../shared/image';
 
 export default class ImageEditContentImages extends React.Component {
   static propTypes = {
@@ -19,14 +19,14 @@ export default class ImageEditContentImages extends React.Component {
     activeCategory: 0
   };
 
-  defaultImages = [];
-
   componentWillMount () {
     const { builderConfiguration } = this.props;
     const { imageLibraryCategories } = builderConfiguration;
 
     this.defaultImages = _sortBy(imageLibraryCategories, 'category');
   }
+
+  defaultImages = [];
 
   renderCategories () {
     const { activeCategory } = this.state;
@@ -36,7 +36,7 @@ export default class ImageEditContentImages extends React.Component {
       const { category } = item;
 
       className = classNames('modal__tabitem', {
-        'active': !!(idx === activeCategory)
+        active: !!(idx === activeCategory)
       });
 
       return (
@@ -48,7 +48,7 @@ export default class ImageEditContentImages extends React.Component {
               activeCategory: idx
             });
           }}>
-          <span>{category}</span>
+          <span>{ category }</span>
         </div>
       );
     });
@@ -102,7 +102,7 @@ export default class ImageEditContentImages extends React.Component {
           <nav className={classNames('modal__tabmenu')}>
             { this.renderCategories() }
           </nav>
-          <div style={spanStyle}>Images by <a href="https://unsplash.com/" target="_blank">Unsplash</a></div>
+          <div style={spanStyle}>Images by <a href="https://unsplash.com/" target={'_blank'}>Unsplash</a></div>
         </aside>
         <main className={classNames('modal__tabcontent')}>
           <Scrollbar height={380}>

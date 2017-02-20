@@ -2,21 +2,23 @@ import TTDOM from '../../../common/TTDOM';
 
 export default {
   checkIfBackgroundImageHolderIsNear (target) {
+    let newTarget = target;
+
     if (target.getAttribute('data-abccorent')) {
       const { children } = target;
 
-      for (let i = 0; i < children.length; i++) {
-        let currentChild = children[i];
+      for (let i = 0; i < children.length; i += 1) {
+        const currentChild = children[i];
 
         if (currentChild.classList.contains('background-image-holder')) {
-          target = currentChild;
-          target.setAttribute('data-abcnotremoveable', true);
+          newTarget = currentChild;
+          newTarget.setAttribute('data-abcnotremoveable', true);
           break;
         }
       }
     }
 
-    return target;
+    return newTarget;
   },
 
   hasGridClassnames (elem, elementOptions) {
@@ -39,7 +41,7 @@ export default {
   replaceGridClassnames (element, shrink = false) {
     const { className: text } = element;
     const regex = /(col-)(md|sm|xs)-\d/g;
-    var m = null;
+    let m = null;
 
     while ((m = regex.exec(text)) !== null) {
       if (m.index === regex.lastIndex) {

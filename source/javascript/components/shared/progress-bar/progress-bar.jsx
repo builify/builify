@@ -18,6 +18,7 @@ export default class ProgressBar extends React.Component {
   static defaultProps = {
     buffer: 0,
     className: '',
+    disabled: false,
     max: 100,
     min: 0,
     mode: 'indeterminate',
@@ -30,7 +31,7 @@ export default class ProgressBar extends React.Component {
     if (nextProps.value !== this.props.value) {
       return true;
     }
-    
+
     return false;
   }
 
@@ -52,6 +53,8 @@ export default class ProgressBar extends React.Component {
         strokeDasharray: `${2 * Math.PI * 25 * this.calculateRatio(this.props.value)}, 400`
       };
     }
+
+    return {};
   }
 
   linearStyle () {
@@ -60,9 +63,9 @@ export default class ProgressBar extends React.Component {
         buffer: prefixer({transform: `scaleX(${this.calculateRatio(this.props.buffer)})`}),
         value: prefixer({transform: `scaleX(${this.calculateRatio(this.props.value)})`})
       };
-    } else {
-      return {};
     }
+
+    return {};
   }
 
   renderCircular () {
@@ -78,8 +81,8 @@ export default class ProgressBar extends React.Component {
 
     return (
       <div>
-        <span ref='buffer' data-ref='buffer' className={classNames('progress-bar__buffer')} style={buffer}/>
-        <span ref='value' data-ref='value' className={classNames('progress-bar__value')} style={value}/>
+        <span ref='buffer' data-ref='buffer' className={classNames('progress-bar__buffer')} style={buffer} />
+        <span ref='value' data-ref='value' className={classNames('progress-bar__value')} style={value} />
       </div>
     );
   }
@@ -89,7 +92,7 @@ export default class ProgressBar extends React.Component {
     const _className = classNames({
       [`progress-bar__${type}`]: true
     }, {
-      'multicolor': multicolor
+      multicolor
     }, mode, className);
 
     return (

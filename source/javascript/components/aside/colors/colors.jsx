@@ -1,9 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { map as _map } from 'lodash';
 import Random from '../../../common/random';
 import Color from './color';
-import { connect } from 'react-redux';
-import { openColorPicker } from '../../../actions';
-import { map as _map } from 'lodash';
+import { openColorPicker as openColorPickerAction } from '../../../actions';
 
 function renderColors (colors, openColorPicker) {
   return _map(colors, (color, colorTarget) => {
@@ -23,6 +23,7 @@ function Colors ({
   colors,
   openColorPicker
 }) {
+  console.log(colors);
   return (
     <div>
       { renderColors(colors, openColorPicker) }
@@ -41,16 +42,16 @@ function mapStateToProps (state) {
   const { colors } = design;
 
   return {
-    colors: colors
+    colors
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    openColorPicker: function (target) {
-      dispatch(openColorPicker(target));
+    openColorPicker: (target) => {
+      dispatch(openColorPickerAction(target));
     }
   };
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Colors);
+export default connect(mapStateToProps, mapDispatchToProps)(Colors);

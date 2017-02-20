@@ -23,6 +23,9 @@
         position: relative;
         display: block;
         cursor: pointer;
+        outline: 0;
+        background: transparent;
+        border: 0;
         margin-bottom: 20px;
         height: $base-padding;
         line-height: $base-padding + 5;

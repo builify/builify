@@ -1,19 +1,17 @@
 import React from 'react';
-import _map from 'lodash/map';
-import _values from 'lodash/values';
-import _filter from 'lodash/filter';
+import { connect } from 'react-redux';
+import {
+  map as _map,
+  values as _values,
+  filter as _filter
+} from 'lodash';
 import classNames from '../../common/classnames';
 import NotificationContainer from './container';
 import Constants from './constants';
 import { removeNotification } from '../../actions';
-import { connect } from 'react-redux';
 
 class NotificationSystem extends React.Component {
   static propTypes = {
-    style: React.PropTypes.oneOfType([
-      React.PropTypes.bool,
-      React.PropTypes.object
-    ]),
     notifications: React.PropTypes.array.isRequired,
     noAnimation: React.PropTypes.bool,
     allowHTML: React.PropTypes.bool,
@@ -21,7 +19,6 @@ class NotificationSystem extends React.Component {
   };
 
   static defaultProps = {
-    style: {},
     noAnimation: false,
     allowHTML: false
   };
@@ -69,7 +66,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    removeNotification: function (id) {
+    removeNotification: (id) => {
       dispatch(removeNotification(id));
     }
   };

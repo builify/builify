@@ -6,7 +6,7 @@ export default function BlockTitle ({
   title
 }) {
   const className = classNames(null, 'blocktitle', {
-    'hide': filterContentBlocksTarget !== 'all'
+    hide: filterContentBlocksTarget !== 'all'
   });
 
   return (

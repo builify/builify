@@ -4,10 +4,10 @@ import localization from '../../../common/localization';
 import classNames from '../../../common/classnames';
 import { emptyFunction } from '../../../common/misc';
 
-function RenderHandle () {
+function renderHandle () {
   return (
-    <div className='handle' title={localization('change block position')}>
-      <Icon size={18} icon='reorder' />
+    <div className={'handle'} title={localization('change block position')}>
+      <Icon size={18} icon={'reorder'} />
     </div>
   );
 }
@@ -20,9 +20,9 @@ export default function CurrentPageItem ({
   const removeIconStyle = {
     fill: '#ce4031'
   };
-  const sortable = type === 'navigation' || type === 'footer' ? false : true;
+  const sortable = type === 'navigation' || type !== 'footer';
   const className = classNames('currentPage__item', {
-    'notsortable': !sortable
+    notsortable: !sortable
   });
 
   return (
@@ -30,7 +30,7 @@ export default function CurrentPageItem ({
       title={blockName}
       data-blockid={id}
       className={className}>
-      { sortable && RenderHandle() }
+      { sortable && renderHandle() }
       <div className={classNames('currentPage__item-title')}>
         <span>{ blockName }</span>
       </div>
@@ -39,7 +39,7 @@ export default function CurrentPageItem ({
         style={removeIconStyle}
         className='remove'
         size={24}
-        icon='clear'
+        icon={'clear'}
         title={localization('remove element')} />
     </li>
   );

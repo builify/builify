@@ -1,16 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import {
+  isNull as _isNull,
+  isEmpty as _isEmpty
+} from 'lodash';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
 import TTDOM from '../../../common/TTDOM';
 import ClickToolBoxItem from './item';
 import Helpers from './helpers';
 import HTMLTagNamesToString from './html-tagnames';
-import { connect } from 'react-redux';
 import * as Actions from '../../../actions';
-import {
-  isNull as _isNull,
-  isEmpty as _isEmpty
-} from 'lodash';
 
 class ClickToolbox extends React.Component {
   static propTypes = {
@@ -32,30 +32,34 @@ class ClickToolbox extends React.Component {
     targetName: ''
   };
 
+  _panelElement = null;
+
   _panelXPadding = 15;
   _browserSize = TTDOM.browser.size();
 
   componentDidMount () {
-    const panelElement = this.refs.panel;
+    const panelElement = this._panelElement;
     const clickTargetElement = panelElement.parentElement;
 
     TTDOM.events.add(window, 'resize', () => {
       this._browserSize = TTDOM.browser.size();
     });
 
-    TTDOM.events.add(clickTargetElement, 'contextmenu click', (e) => {
-      const { type } = e;
+    if (clickTargetElement) {
+      TTDOM.events.add(clickTargetElement, 'contextmenu click', (e) => {
+        const { type } = e;
 
-      if (type === 'contextmenu') {
-        this.openPanel(e);
-      } else if (type === 'click') {
-        this.closePanel(e);
-      }
-    });
+        if (type === 'contextmenu') {
+          this.openPanel(e);
+        } else if (type === 'click') {
+          this.closePanel(e);
+        }
+      });
+    }
   }
 
   componentDidUpdate () {
-    const panelElement = this.refs.panel;
+    const panelElement = this._panelElement;
     const panelElementHeight = panelElement.offsetHeight;
     const { y } = this.state.panelCoordinates;
 
@@ -73,7 +77,7 @@ class ClickToolbox extends React.Component {
 
   openPanel (e) {
     if (e.shiftKey) {
-      return;
+      return false;
     }
 
     e.stopPropagation();
@@ -117,9 +121,9 @@ class ClickToolbox extends React.Component {
         x: eventPosition.x,
         y: eventPosition.y
       },
-      target: target,
-      targetName: targetName,
-      isElemenetChangeable: isElemenetChangeable
+      target,
+      targetName,
+      isElemenetChangeable
     });
   }
 
@@ -243,7 +247,7 @@ class ClickToolbox extends React.Component {
             elementOptions.showChangeImage = true;
           }
         }
-        
+
         if (targetElement.classList.contains('icon') ||
             targetElement.classList.contains('fa')) {
           elementOptions.showIconChange = true;
@@ -274,7 +278,7 @@ class ClickToolbox extends React.Component {
   render () {
     const { panelOpen, panelCoordinates, targetName } = this.state;
     const planelClassName = classNames('crightpanel', {
-      'show': panelOpen
+      show: panelOpen
     });
     const panelStyle = {
       top: panelCoordinates.y,
@@ -282,7 +286,12 @@ class ClickToolbox extends React.Component {
     };
 
     return (
-      <div data-abcpanel ref='panel' id='ab-cpanel' style={panelStyle} className={planelClassName}>
+      <div
+        id={'ab-cpanel'}
+        data-abcpanel
+        ref={(node) => this._panelElement = node }
+        style={panelStyle}
+        className={planelClassName}>
         <div className={classNames('crightpanel__text')}>
           <span>{ targetName }</span>
         </div>
@@ -294,27 +303,27 @@ class ClickToolbox extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    openContextMenu: function () {
+    openContextMenu: () => {
       dispatch(Actions.openContextmenuToolbox());
     },
 
-    closeContextMenu: function () {
+    closeContextMenu: () => {
       dispatch(Actions.closeContextmenuToolbox());
     },
 
-    openIconEditModal: function (target) {
+    openIconEditModal: (target) => {
       dispatch(Actions.openIconEditModal(target));
     },
 
-    openImageEditModal: function (target) {
+    openImageEditModal: (target) => {
       dispatch(Actions.openImageEditModal(target));
     },
 
-    openBlockEditorTab: function (editTarget) {
-      dispatch(Actions.openBlockEditorTab(editTarget));
+    openBlockEditorTab: (target) => {
+      dispatch(Actions.openBlockEditorTab(target));
     },
 
-    cloneItem: function () {
+    cloneItem: () => {
       dispatch(Actions.cloneItem());
     }
   };

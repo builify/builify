@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classNames from '../../common/classnames';
 import localization from '../../common/localization';
-import { startNewPage, openPreviousPagesSelectionModal } from '../../actions';
+import * as Actions from '../../actions';
 
 function Page ({
   newPage,
@@ -40,12 +40,12 @@ Page.defaultProps = {
 
 function mapDispatchToProps (dispatch) {
   return {
-    startNewPage: function () {
-      dispatch(startNewPage());
+    startNewPage: () => {
+      dispatch(Actions.startNewPage());
     },
 
-    openPreviousPagesSelectionModal: function () {
-      dispatch(openPreviousPagesSelectionModal());
+    openPreviousPagesSelectionModal: () => {
+      dispatch(Actions.openPreviousPagesSelectionModal());
     }
   };
 }

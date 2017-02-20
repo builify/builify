@@ -4,7 +4,6 @@ import { addNotification } from './notifications';
 import { closeModal } from './modal';
 import { getExtension } from '../common/misc';
 
-
 export function uploadFile (file) {
   return function (dispatch) {
     const extension = getExtension(file.fileName);

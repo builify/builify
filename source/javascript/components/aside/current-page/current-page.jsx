@@ -1,4 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import {
+  isNull as _isNull,
+  capitalize as _capitalize
+} from 'lodash';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
 import Input from '../../shared/input';
@@ -6,11 +11,6 @@ import Title from '../title';
 import CurrentPageSections from './sections';
 import Button from '../../shared/button';
 import * as Actions from '../../../actions';
-import { connect } from 'react-redux';
-import {
-  isNull as _isNull,
-  capitalize as _capitalize
-} from 'lodash';
 
 class CurrentPage extends React.Component {
   static propTypes = {
@@ -94,7 +94,7 @@ class CurrentPage extends React.Component {
         { this.renderInput('title') }
         { this.renderInput('fileName') }
         <div className={classNames('currentPage__divider')} />
-        <div className='wrap'>
+        <div className={'wrap'}>
           <Button label={localization('export page')} onClick={::this.exportPage} />
         </div>
       </div>
@@ -103,30 +103,32 @@ class CurrentPage extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { page } = state;
+
   return {
-    page: state.page
+    page
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    removeContentBlock: function (element){
+    removeContentBlock: (element) => {
       dispatch(Actions.removeContentBlock(element));
     },
 
-    sortContentBlocks: function (element) {
+    sortContentBlocks: (element) => {
       dispatch(Actions.sortContentBlocks(element));
     },
 
-    setPageTitle: function (title) {
+    setPageTitle: (title) => {
       dispatch(Actions.setPageTitle(title));
     },
 
-    setPageFilename: function (filename) {
+    setPageFilename: (filename) => {
       dispatch(Actions.setPageFilename(filename));
     },
 
-    exportPage: function () {
+    exportPage: () => {
       dispatch(Actions.exportPage());
     }
   };

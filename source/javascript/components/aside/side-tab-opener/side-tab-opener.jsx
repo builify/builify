@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Icon from '../../shared/icon';
 import classNames from '../../../common/classnames';
-import { openTab, openCustomCSSModal } from '../../../actions';
+import * as Actions from '../../../actions';
 
 function SideTabOpener ({
   title,
@@ -31,9 +31,9 @@ function mapDispatchToProps (dispatch) {
   return {
     openTab: (target) => {
       if (target === 'customcss') {
-        dispatch(openCustomCSSModal());
+        dispatch(Actions.openCustomCSSModal());
       } else {
-        dispatch(openTab(target));
+        dispatch(Actions.openTab(target));
       }
     }
   };

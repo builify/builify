@@ -1,15 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import {
+  map as _map,
+  has as _has
+} from 'lodash';
 import Random from '../../../common/random';
 import classNames from '../../../common/classnames';
 import BlockTitle from './title';
 import ContentBlock from './block';
 import Scrollbar from '../../shared/scrollbar';
-import { connect } from 'react-redux';
-import { loadContentBlockSource } from '../../../actions';
-import {
-  map as _map,
-  has as _has
-} from 'lodash';
+import { loadContentBlockSource as loadContentBlockSourceAction } from '../../../actions';
 
 class ContentBlocks extends React.Component {
   static propTypes = {
@@ -18,21 +18,11 @@ class ContentBlocks extends React.Component {
     loadContentBlockSource: React.PropTypes.func.isRequired
   };
 
-  _itemsToRender = [];
-
-  shouldComponentUpdate (nextProps) {
-    if (nextProps.filterContentBlocksTarget !== this.props.filterContentBlocksTarget) {
-      return true;
-    }
-
-    return false;
-  }
-
   componentWillMount () {
     const { blocks } = this.props;
 
     if (blocks.length === 0) {
-      return null;
+      return;
     }
 
     _map(blocks, (block) => {
@@ -55,9 +45,9 @@ class ContentBlocks extends React.Component {
               type: 'block',
               blockType: type,
               name: title,
-              source: source,
-              thumbnail: thumbnail,
-              features: features
+              source,
+              thumbnail,
+              features
             });
           });
         }
@@ -66,6 +56,16 @@ class ContentBlocks extends React.Component {
       }
     });
   }
+
+  shouldComponentUpdate (nextProps) {
+    if (nextProps.filterContentBlocksTarget !== this.props.filterContentBlocksTarget) {
+      return true;
+    }
+
+    return false;
+  }
+
+  _itemsToRender = [];
 
   renderItems () {
     const { loadContentBlockSource, filterContentBlocksTarget } = this.props;
@@ -82,7 +82,6 @@ class ContentBlocks extends React.Component {
             filterContentBlocksTarget={filterContentBlocksTarget}
             title={name} />
         );
-        
       } else if (type === 'block') {
         return (
           <ContentBlock
@@ -92,6 +91,8 @@ class ContentBlocks extends React.Component {
             filterContentBlocksTarget={filterContentBlocksTarget} />
         );
       }
+
+      return null;
     });
   }
 
@@ -129,8 +130,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    loadContentBlockSource: function (item) {
-      dispatch(loadContentBlockSource(item));
+    loadContentBlockSource: (item) => {
+      dispatch(loadContentBlockSourceAction(item));
     }
   };
 }

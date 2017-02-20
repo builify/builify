@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from '../../../common/classnames';
 import Icon from '../../shared/icon';
 
-export default function ClickToolBoxItem({
+export default function ClickToolBoxItem ({
   icon,
   text,
   onClick
@@ -24,5 +24,5 @@ ClickToolBoxItem.propTypes = {
 ClickToolBoxItem.defaultProps = {
   icon: null,
   text: '',
-  onClick: function () {}
+  onClick: () => {}
 };
