@@ -1,14 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { assign as _assign } from 'lodash';
 import classNames from '../../../common/classnames';
 import ModalWrapper from '../common/wrapper';
 import ModalTab from '../common/tab';
 import BottomNavigation from '../common/bottom-navigation';
 import Input from '../../shared/input';
-import { connect } from 'react-redux';
 import { closeModal, sendFeedBack } from '../../../actions';
-import {
-  assign as _assign
-} from 'lodash';
 
 class Feedback extends React.Component {
   static propTypes = {
@@ -42,7 +40,7 @@ class Feedback extends React.Component {
   sendFeedBack () {
     const { issue } = this.state;
     const payload = {
-      issue: issue
+      issue
     };
 
     this.closeDialog();
@@ -101,11 +99,11 @@ class Feedback extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    closeModal: function () {
+    closeModal: () => {
       dispatch(closeModal());
     },
 
-    sendFeedBack: function (payload) {
+    sendFeedBack: (payload) => {
       dispatch(sendFeedBack(payload));
     }
   };

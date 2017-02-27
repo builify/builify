@@ -1,13 +1,13 @@
 import React from 'react';
-import classNames from '../../common/classnames';
-import SuggestionBox from './suggestion-box';
-import Frame from './frame';
 import { connect } from 'react-redux';
-import { CurrentLocations, PreviewModes } from '../../constants';
 import {
   has as _has,
   isEqual as _isEqual
 } from 'lodash';
+import classNames from '../../common/classnames';
+import SuggestionBox from './suggestion-box';
+import Frame from './frame';
+import { CurrentLocations, PreviewModes } from '../../constants';
 
 class Canvas extends React.Component {
   static propTypes = {
@@ -33,10 +33,10 @@ class Canvas extends React.Component {
     const suggestionActive = blocksCount === 0;
 
     const className = classNames('canvas', {
-      'hide': currentLocation === CurrentLocations.STARTSCREEN,
-      'desktop': previewMode === PreviewModes.DESKTOP,
-      'tablet': previewMode === PreviewModes.TABLET,
-      'phone': previewMode === PreviewModes.PHONE
+      hide: currentLocation === CurrentLocations.STARTSCREEN,
+      desktop: previewMode === PreviewModes.DESKTOP,
+      tablet: previewMode === PreviewModes.TABLET,
+      phone: previewMode === PreviewModes.PHONE
     });
 
     // Hack to detect whether the manifest file of template

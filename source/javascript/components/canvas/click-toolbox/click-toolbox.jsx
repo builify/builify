@@ -12,6 +12,11 @@ import Helpers from './helpers';
 import HTMLTagNamesToString from './html-tagnames';
 import * as Actions from '../../../actions';
 
+function getHTMLTagName (target) {
+  const targetName = target.tagName.toLowerCase();
+  return `${HTMLTagNamesToString[targetName]}`;
+}
+
 class ClickToolbox extends React.Component {
   static propTypes = {
     openContextMenu: React.PropTypes.func.isRequired,
@@ -31,11 +36,6 @@ class ClickToolbox extends React.Component {
     target: null,
     targetName: ''
   };
-
-  _panelElement = null;
-
-  _panelXPadding = 15;
-  _browserSize = TTDOM.browser.size();
 
   componentDidMount () {
     const panelElement = this._panelElement;
@@ -69,11 +69,9 @@ class ClickToolbox extends React.Component {
       panelElement.style.top = `${y - dif}px`;
     }
   }
-
-  getHTMLTagName (target) {
-    const targetName = target.tagName.toLowerCase();
-    return `${HTMLTagNamesToString[targetName]}`;
-  }
+  _panelElement = null;
+  _panelXPadding = 15;
+  _browserSize = TTDOM.browser.size();
 
   openPanel (e) {
     if (e.shiftKey) {
@@ -83,12 +81,12 @@ class ClickToolbox extends React.Component {
     e.stopPropagation();
     e.preventDefault();
 
-    let eventPosition = {
+    const eventPosition = {
       x: e.clientX,
       y: e.clientY
     };
     let target = e.target;
-    let isElemenetChangeable = true;
+    const isElemenetChangeable = true;
     const findUp = TTDOM.find.findUpAttr(target, 'data-abctoolbox data-abcpanel');
 
     if (findUp !== null || target.getAttribute('data-abctoolbox') || target.getAttribute('data-abcpanel')) {
@@ -97,7 +95,7 @@ class ClickToolbox extends React.Component {
     }
 
     target = Helpers.checkIfBackgroundImageHolderIsNear(target);
-    const targetName = this.getHTMLTagName(target);
+    const targetName = getHTMLTagName(target);
 
     if (targetName === undefined) {
       this.closePanel();
@@ -146,7 +144,7 @@ class ClickToolbox extends React.Component {
       return Helpers.replaceGridClassnames(this.state.target);
     };
 
-    return <ClickToolBoxItem text={label} icon='format-indent-increase' onClick={clickEvent} />;
+    return <ClickToolBoxItem text={label} icon="format-indent-increase" onClick={clickEvent} />;
   }
 
   listShrinkColumn () {
@@ -156,7 +154,7 @@ class ClickToolbox extends React.Component {
       return Helpers.replaceGridClassnames(this.state.target, true);
     };
 
-    return <ClickToolBoxItem text={label} icon='format-indent-decrease' onClick={clickEvent} />;
+    return <ClickToolBoxItem text={label} icon="format-indent-decrease" onClick={clickEvent} />;
   }
 
   listLinkChange () {
@@ -289,7 +287,7 @@ class ClickToolbox extends React.Component {
       <div
         id={'ab-cpanel'}
         data-abcpanel
-        ref={(node) => this._panelElement = node }
+        ref={(node) => { this._panelElement = node; }}
         style={panelStyle}
         className={planelClassName}>
         <div className={classNames('crightpanel__text')}>

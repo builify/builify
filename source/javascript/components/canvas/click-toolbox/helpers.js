@@ -45,17 +45,17 @@ export default {
 
     while ((m = regex.exec(text)) !== null) {
       if (m.index === regex.lastIndex) {
-        regex.lastIndex++;
+        regex.lastIndex += 1;
       }
 
       const result = m[0];
-      let number = parseInt(result.match(/\d/g).join(''));
+      let number = parseInt(result.match(/\d/g).join(''), 10);
 
       if (number > 0) {
         if (shrink && number <= 12) {
-          number--;
+          number -= 1;
         } else if (!shrink && number < 12) {
-          number++;
+          number += 1;
         }
       }
 

@@ -1,4 +1,4 @@
-const HTMLTagNamesToString = {
+export default {
   div: 'Div',
   aside: 'Aside',
   main: 'Main',
@@ -22,7 +22,5 @@ const HTMLTagNamesToString = {
   figcaption: 'Caption',
   button: 'Button',
   header: 'Header',
-  footer: 'Footer'
+  footer: 'Footer' 
 };
-
-export default HTMLTagNamesToString;
