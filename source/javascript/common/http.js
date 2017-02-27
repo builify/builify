@@ -1,8 +1,8 @@
 export function fetch (url) {
-  return new Promise(function (resolve, reject) {
+  return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest();
 
-    request.onreadystatechange = function() {
+    request.onreadystatechange = () => {
       if (request.readyState === 4) { // done
         if (request.status === 200) { // complete
           resolve(request.responseText);

@@ -31,7 +31,9 @@ export default {
   },
 
   randomKey (str) {
-    var id = this._idCounter++;
+    const id = this._idCounter;
+
+    this._idCounter += 1;
 
     return baseToString((str ? str : null)) + id;
   }

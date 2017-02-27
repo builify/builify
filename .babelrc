@@ -1,4 +1,19 @@
 {
-  "presets": ["latest", "stage-0", "react"],
-  "plugins": ["add-module-exports"]
+  "env": {
+    "development": {
+      "presets": ["latest", "react", "stage-0"],
+      "plugins": ["add-module-exports"]
+    },
+    "production": {
+      "presets": ["latest", "react", "stage-0"],
+      "plugins": [
+        "add-module-exports",
+        "transform-react-inline-elements",
+        ["transform-react-remove-prop-types", {
+          "mode": "wrap",
+          "ignoreFilenames": ["node_modules"]
+        }]
+      ]
+    }
+  }
 }

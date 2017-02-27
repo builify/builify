@@ -6,10 +6,10 @@ import {
   has as _has
 } from 'lodash';
 import Actions from './constants';
-import IconPacksData from '../../../data/builder/icon-packs';
-import imagesLibraryJSON from '../../../data/builder/images-library';
-import builderConfiguration from '../../../data/builder/builder';
-import AsideData from '../../../data/builder/aside';
+import IconPacksData from '../../../data/builder/icon-packs.json';
+import imagesLibraryJSON from '../../../data/builder/images-library.json';
+import builderConfiguration from '../../../data/builder/builder.json';
+import AsideData from '../../../data/builder/aside.json';
 import { checkPreviousPagesInStorage } from './page';
 import { addNotification, demoNotification } from './notifications';
 import { IS_DEMO_VERSION } from '../constants';
@@ -50,6 +50,29 @@ export function receiveAsideConfiguration () {
   return {
     type: Actions.RECEIVE_ASIDE_CONFIGURATION,
     data: JSON.parse(stripJSONComments(JSON.stringify(AsideData)))
+  };
+}
+
+export function addIconPackSourcesToHead (iconPacks) {
+  const headElement = document.getElementsByTagName('head')[0];
+
+  // Chromium bug.
+  // Adding stylesheets at start results scrollbar not working.
+  _delay(() => {
+    _map(iconPacks, (iconPack) => {
+      const { iconSource } = iconPack;
+      const font = document.createElement('link');
+
+      font.rel = 'stylesheet';
+      font.type = 'text/css';
+      font.href = iconSource;
+
+      headElement.appendChild(font);
+    });
+  }, 1000);
+
+  return {
+    type: Actions.ADD_ICONPACK_SOURCES_TO_HEAD
   };
 }
 
@@ -110,29 +133,6 @@ export function noPagesToDownload () {
       message: 'No pages to download!',
       level: 'info'
     }));
-  };
-}
-
-export function addIconPackSourcesToHead (iconPacks) {
-  const headElement = document.getElementsByTagName('head')[0];
-
-  // Chromium bug.
-  // Adding stylesheets at start results scrollbar not working.
-  _delay(() => {
-    _map(iconPacks, (iconPack) => {
-      const { iconSource } = iconPack;
-      const font = document.createElement('link');
-
-      font.rel = 'stylesheet';
-      font.type = 'text/css';
-      font.href = iconSource;
-
-      headElement.appendChild(font);
-    });
-  }, 1000);
-
-  return {
-    type: Actions.ADD_ICONPACK_SOURCES_TO_HEAD
   };
 }
 

@@ -1,13 +1,13 @@
 import Actions from './constants';
 
-export function addNotification (notification) {
+export function addNotification (notification = {}) {
   return {
     type: Actions.ADD_NOTIFICATION,
     notification
   };
 }
 
-export function removeNotification (uid) {
+export function removeNotification (uid = 0) {
   return {
     type: Actions.REMOVE_NOTIFICATION,
     uid

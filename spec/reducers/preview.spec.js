@@ -7,7 +7,7 @@ describe('Preview reducer', () => {
   it('should return the initial state', () => {
     expect(
       reducer(undefined, {}),
-      'to equal', 
+      'to equal',
       {
         previewMode: PreviewModes.INITIAL
       }

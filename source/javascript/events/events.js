@@ -1,10 +1,10 @@
 import TTEventEmitter from 'tt-event-emitter';
 import Combokeys from 'combokeys';
-import * as Actions from '../actions';
 import {
   findIndex as _findIndex,
   map as _map
 } from 'lodash';
+import * as Actions from '../actions';
 import { PAGE_AUTOMATIC_SAVE_TIME, PreviewModes} from '../constants';
 
 const combokeys = new Combokeys(document.documentElement);
@@ -16,6 +16,10 @@ const LOAD_EVENTS = [
   'preview-phone',
   'close-modal'
 ];
+
+function initializeMessage () {
+  console.log('BUILify - Initialized events successfully.');
+}
 
 export default class {
   _dispatch = null;
@@ -32,8 +36,8 @@ export default class {
     } catch (e) {
       throw e;
     }
-    
-    this.initializeMessage();
+
+    initializeMessage();
   }
 
   initializeEmitter () {
@@ -58,7 +62,7 @@ export default class {
         });
 
         break;
-        
+
       case 'restartpage':
         this._observable.addListener('restartpage', () => {
           this._dispatch(Actions.openRestartModal());
@@ -77,7 +81,7 @@ export default class {
         this._observable.addListener('preview-tablet', () => {
           this._dispatch(Actions.setPreviewMode(PreviewModes.TABLET));
         });
-        
+
         break;
 
       case 'preview-phone':
@@ -142,15 +146,7 @@ export default class {
     }
   }
 
-  initializeMessage () {
-    console.log('BUILify - Initialized events successfully.');
-  }
-
   emit (eventType) {
     return this._observable.emit(eventType);
-  }
-
-  destroy () {
-    combokeys.detach();
   }
 }

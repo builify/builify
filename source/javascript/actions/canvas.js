@@ -37,11 +37,11 @@ export function setSwatch (swatch) {
 }
 
 export function setFont (font) {
-  let doesFontExistInHeadRoot = document.querySelector('[data-fontname="' + font + '"]');
+  const doesFontExistInHeadRoot = document.querySelector('[data-fontname="' + font + '"]');
 
   if (doesFontExistInHeadRoot === null || doesFontExistInHeadRoot === undefined) {
     const headElement = document.getElementsByTagName('head')[0];
-    let font = document.createElement('link');
+    const font = document.createElement('link');
 
     font.rel = 'stylesheet';
     font.type = 'text/css';
