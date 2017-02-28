@@ -35,6 +35,6 @@ export default {
 
     this._idCounter += 1;
 
-    return baseToString((str ? str : null)) + id;
+    return baseToString((str || null)) + id;
   }
 };

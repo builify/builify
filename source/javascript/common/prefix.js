@@ -10,7 +10,7 @@ function capitalize (string) {
 }
 
 function getPrefixes (property, value) {
-  return properties[property].reduce(function (acc, item) {
+  return properties[property].reduce((acc, item) => {
     acc[`${item}${capitalize(property)}`] = value;
     return acc;
   }, {});
@@ -18,8 +18,11 @@ function getPrefixes (property, value) {
 
 function addPrefixesTo (style, property, value) {
   const vendor = getPrefixes(property, value);
+  
   for (const prefix in vendor) {
-    style[prefix] = vendor[prefix];
+    if ({}.hasOwnProperty.call(vendor, prefix)) {
+      style[prefix] = vendor[prefix];
+    }
   }
 
   return style;
@@ -27,10 +30,14 @@ function addPrefixesTo (style, property, value) {
 
 function prefixer (style, defaultValue = {}) {
   const _style = defaultValue;
+
   for (const property in style) {
-    _style[property] = style[property];
-    if (properties[property]) {
-      addPrefixesTo(_style, property, style[property]);
+    if ({}.hasOwnProperty.call(style, property)) {
+      _style[property] = style[property];
+
+      if (properties[property]) {
+        addPrefixesTo(_style, property, style[property]);
+      }
     }
   }
 

@@ -1,8 +1,6 @@
+import { assign as _assign } from 'lodash';
 import * as Actions from '../actions/constants';
 import { PreviewModes } from '../constants';
-import {
-  assign as _assign
-} from 'lodash';
 
 const initialState = {
   previewMode: PreviewModes.INITIAL

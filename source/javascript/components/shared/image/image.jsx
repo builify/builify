@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from '../../../common/classnames';
+import { emptyFunction } from '../../../common/misc';
 
 function Image ({
   src,
@@ -16,8 +17,8 @@ function Image ({
     };
     const cn = classNames('image', className);
     const style = {
-      height: height,
-      width: width
+      height,
+      width
     };
 
     return (
@@ -30,23 +31,21 @@ function Image ({
         <div className={classNames('image__bg')} style={imgStyle} />
       </div>
     );
-  } else {
-    const cn = classNames('image', {
-      'chalk': chalk
-    });
-
-    return (
-      <div className={className}>
-        <div
-          onClick={(e) => {
-            return onClick(e);
-          }}
-          className={cn}>
-          <img src={src} />
-        </div>
-      </div>
-    );
   }
+
+  const cn = classNames('image', { chalk });
+
+  return (
+    <div className={className}>
+      <div
+        onClick={(e) => {
+          return onClick(e);
+        }}
+        className={cn}>
+        <img src={src} alt="Item" />
+      </div>
+    </div>
+  );
 }
 
 Image.propTypes = {
@@ -56,7 +55,6 @@ Image.propTypes = {
   chalk: React.PropTypes.bool,
   height: React.PropTypes.number,
   width: React.PropTypes.number,
-  sizeInfo: React.PropTypes.object,
   onClick: React.PropTypes.func
 };
 
@@ -66,8 +64,7 @@ Image.defaultProps = {
   chalk: false,
   height: null,
   width: null,
-  sizeInfo: null,
-  onClick: function () {}
+  onClick: emptyFunction
 };
 
 export default Image;

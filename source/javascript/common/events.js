@@ -1,3 +1,21 @@
+const TRANSITIONS = {
+  transition: 'transitionend',
+  OTransition: 'oTransitionEnd',
+  MozTransition: 'transitionend',
+  WebkitTransition: 'webkitTransitionEnd'
+};
+
+function transitionEventNamesFor (element) {
+  for (const transition in TRANSITIONS) {
+    if (element && element.style[transition] !== undefined) {
+      return TRANSITIONS[transition];
+    }
+  }
+
+  return null;
+}
+
+
 export default {
   getMousePosition (event) {
     return {
@@ -20,13 +38,17 @@ export default {
 
   addEventsToDocument (eventMap) {
     for (const key in eventMap) {
-      document.addEventListener(key, eventMap[key], false);
+      if ({}.hasOwnProperty.call(eventMap, key)) {
+        document.addEventListener(key, eventMap[key], false);
+      }
     }
   },
 
   removeEventsFromDocument (eventMap) {
     for (const key in eventMap) {
-      document.removeEventListener(key, eventMap[key], false);
+      if ({}.hasOwnProperty.call(eventMap, key)) {
+        document.removeEventListener(key, eventMap[key], false);
+      }
     }
   },
 
@@ -53,18 +75,3 @@ export default {
     return true;
   }
 };
-
-const TRANSITIONS = {
-  'transition': 'transitionend',
-  'OTransition': 'oTransitionEnd',
-  'MozTransition': 'transitionend',
-  'WebkitTransition': 'webkitTransitionEnd'
-};
-
-function transitionEventNamesFor (element) {
-  for (const transition in TRANSITIONS) {
-    if (element && element.style[transition] !== undefined) {
-      return TRANSITIONS[transition];
-    }
-  }
-}

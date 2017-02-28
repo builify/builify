@@ -1,10 +1,3 @@
-import TTStorage from '../modules/tt-storage';
-import Random from '../common/random';
-import TTDOM from '../common/TTDOM';
-import formatPage from '../pages/format';
-import exportPage from '../pages/export-page';
-import * as Actions from '../actions/constants';
-import { TEMPLATE_PAGES_STORAGE_NAME } from '../constants';
 import {
   assign as _assign,
   has as _has,
@@ -19,6 +12,13 @@ import {
   isObject as _isObject,
   isUndefined as _isUndefined
 } from 'lodash';
+import TTStorage from '../modules/tt-storage';
+import Random from '../common/random';
+import TTDOM from '../common/TTDOM';
+import formatPage from '../pages/format';
+import exportPage from '../pages/export-page';
+import * as Actions from '../actions/constants';
+import { TEMPLATE_PAGES_STORAGE_NAME } from '../constants';
 
 function replaceDataInHTML (HTML, arrayOfItemsToReplace) {
   if (!HTML || !arrayOfItemsToReplace || !arrayOfItemsToReplace.length) {
@@ -29,7 +29,7 @@ function replaceDataInHTML (HTML, arrayOfItemsToReplace) {
     return HTML;
   }
 
-  arrayOfItemsToReplace.map((replacer) => {
+  map(arrayOfItemsToReplace, (replacer) => {
     const { findWhat, replaceWith } = replacer;
 
     if (!findWhat || !replaceWith) {
@@ -48,13 +48,12 @@ function resetBlockParameters (block) {
   if (_isObject(block)) {
     // Better check needed though, but works now.
     if (_size(block) < 5) {
-      return block = {};
+      return {};
     }
 
     if (_isElement(block.elementReference)) {
       const HTML = block.elementReference.outerHTML;
-
-      block.source = HTML;
+      block.source = block.elementReference.outerHTML;
     }
 
     return _assign({}, block, {
@@ -68,12 +67,14 @@ function resetBlockParameters (block) {
 
 function resetBlocks (blocks) {
   if (_isArray(blocks)) {
-    return _map(blocks, block => {
+    return _map(blocks, (block) => {
       return resetBlockParameters(block);
     });
   } else if (_isObject(blocks)) {
     return resetBlockParameters(blocks);
   }
+
+  return null;
 }
 
 function savePage (item) {
@@ -87,7 +88,7 @@ function savePage (item) {
 function removeFirstTag (source) {
   const reg = /(<([^>]+)>)/g;
   const matches = source.match(reg);
-  let arr = Array.from(matches);
+  const arr = Array.from(matches);
 
   arr.shift();
   arr.pop();
@@ -129,15 +130,15 @@ export default function (state = pageInitialState, action) {
       const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
       const pageFullSource = formatPage(iFrameWindow);
       const pageObject = _assign({}, state, {
-        pageID: pageID,
-        pageTitle: pageTitle,
-        pageFileName: pageFileName,
-        pageFullSource: pageFullSource,
+        pageID,
+        pageTitle,
+        pageFileName,
+        pageFullSource,
 
         navigation: resetBlocks(navigation),
         main: resetBlocks(main),
         footer: resetBlocks(footer),
-        blocksCount: blocksCount
+        blocksCount
       });
 
       exportPage(pageObject);
@@ -163,7 +164,7 @@ export default function (state = pageInitialState, action) {
 
       if (pageID) {
         const pagesInStorage = TTStorage.get(TEMPLATE_PAGES_STORAGE_NAME);
-        const queryString = { pageID: pageID };
+        const queryString = { pageID };
         const itemIndex = _findIndex(pagesInStorage, queryString);
         const pageInStorage = pagesInStorage[itemIndex];
 
@@ -172,15 +173,15 @@ export default function (state = pageInitialState, action) {
           const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
           const pageFullSource = formatPage(iFrameWindow);
           const newPage = _assign({}, pageInStorage, {
-            pageID: pageID,
-            pageTitle: pageTitle,
-            pageFileName: pageFileName,
-            pageFullSource: pageFullSource,
+            pageID,
+            pageTitle,
+            pageFileName,
+            pageFullSource,
 
             navigation: resetBlocks(navigation),
             main: resetBlocks(main),
             footer: resetBlocks(footer),
-            blocksCount: blocksCount
+            blocksCount
           });
 
           pagesInStorage[itemIndex] = newPage;

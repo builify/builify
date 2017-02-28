@@ -27,6 +27,7 @@
 
     "jsx-a11y/no-static-element-interactions": 0,
 
+    "no-restricted-syntax": ["error", "WithStatement"],
     "func-names": 0,
     "no-script-url": 0,
     "no-await-in-loop": 0,

@@ -15,3 +15,6 @@ public
 build
 npm-debug.log
 coverage
+
+# MacOS
+.DS_Store

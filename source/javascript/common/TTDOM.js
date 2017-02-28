@@ -1,3 +1,4 @@
+/* eslint-disable */
 const TTDOM = {
   browser: {
     size () {
@@ -312,5 +313,7 @@ const TTDOM = {
     }
   }
 };
+/* eslint-enable */
 
 export default TTDOM;
+

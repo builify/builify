@@ -1,4 +1,5 @@
 import Actions from './constants';
+import { addNotification } from './notifications';
 
 export function toggleBaseline (checked) {
   return {
@@ -55,21 +56,25 @@ export function setFont (font) {
   };
 }
 
-export function loadContentBlockToPage (blockData) {
-  const { blockType, features, name, source } = blockData;
+export function loadContentBlockToPage (block) {
+  const { blockType, features, name, source } = block;
 
   return {
     type: Actions.LOAD_CONTENTBLOCK_TO_PAGE,
     HTML: source,
-    blockType,
     blockName: name,
+    blockType,
     features
   };
 }
 
-export function loadContentBlockSource (source, blockType, blockName) {
+export function loadContentBlockSource (block) {
   return function (dispatch) {
-    dispatch(loadContentBlockToPage(source, blockType, blockName));
+    dispatch(loadContentBlockToPage(block));
+    dispatch(addNotification({
+      message: `Added ${block.blockType} block to page`,
+      level: 'success'
+    }));
   };
 }
 

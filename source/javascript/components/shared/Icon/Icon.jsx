@@ -1,9 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import {
-  assign as _assign
-} from 'lodash';
+import { assign as _assign } from 'lodash';
 import renderIcon from './render-icon';
+import { emptyFunction } from '../../../common/misc';
 
 export default function Icon ({
   icon,
@@ -23,8 +22,8 @@ export default function Icon ({
   return (
     <svg
       onClick={onClick}
-      viewBox='0 0 24 24'
-      preserveAspectRatio='xMidYMid meet'
+      viewBox="0 0 24 24"
+      preserveAspectRatio="xMidYMid meet"
       style={_assign({}, styles, style)}
       className={cn}
       {...others}>
@@ -45,7 +44,7 @@ Icon.propTypes = {
 };
 
 Icon.defaultProps = {
-  onClick: function () {},
+  onClick: emptyFunction,
   size: 18,
   className: '',
   style: {}

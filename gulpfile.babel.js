@@ -250,8 +250,6 @@ gulp.task('javascript:main', () => {
     appBundler = watchify(appBundler);
     appBundler.on('update', rebundle);
 
-    console.log(appBundler);
-
     rebundle();
   } else {
     appBundler.bundle()
@@ -268,7 +266,6 @@ gulp.task('javascript:main', () => {
 gulp.task('watch', () => {
   if (_has(config, 'watch.entries')) {
     config.watch.entries.map((entry) => {
-      console.log(entry);
       return gulp.watch(entry.files, { cwd: config.sourceDir }, entry.tasks);
     });
   }
