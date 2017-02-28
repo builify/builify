@@ -72,17 +72,20 @@ export default class TextAlignEditor extends React.Component {
       case 'end':
         align = 'right';
         break;
+
+      default:
+        break;
     }
 
     this.setState({
       ...this.state,
-      align: align
+      align
     });
   }
 
   changeAlign (value) {
     setStyleValue(this._target, 'text-align', value);
-    
+
     this.setState({
       align: value
     });
@@ -92,7 +95,7 @@ export default class TextAlignEditor extends React.Component {
     if (this.state.display === false) {
       return null;
     }
-    
+
     const leftClassName = classNames({
       'be-block__align__item': true,
       'be-block__align__item--active': this.state.align === 'left'

@@ -1,17 +1,15 @@
 import React from 'react';
+import { kebabCase as _kebabCase } from 'lodash';
 import classNames from '../../../common/classnames';
 import Input from '../../shared/input';
 import Icon from '../../shared/icon';
 import { getStyleValue, setStyleValue } from './helpers';
-import {
-  kebabCase as _kebabCase
-} from 'lodash';
 
 export default class BorderRadiusEditor extends React.Component {
   static propTypes = {
     target: React.PropTypes.any.isRequired
   };
-  
+
   state = {
     showAll: false,
 
@@ -142,13 +140,13 @@ export default class BorderRadiusEditor extends React.Component {
   changeRadiusShow (type) {
     this.setState({
       ...this.state,
-      showAll: type === 'all' ? true : false
+      showAll: type === 'all' || false
     });
   }
 
   renderCornerRadius () {
     return (
-      <div title='Corner Radius' className={classNames('be-block__radius__item')}>
+      <div title="Corner Radius" className={classNames('be-block__radius__item')}>
         <Input
           className={classNames('be-block__radius__input')}
           value={this.state.radius}
@@ -161,7 +159,7 @@ export default class BorderRadiusEditor extends React.Component {
     return (
       <div>
         <div
-          title='Top Left Border Radius'
+          title="Top Left Border Radius"
           className={classNames('be-block__radius__item')}>
           <Input
             className={classNames('be-block__radius__input')}
@@ -199,9 +197,9 @@ export default class BorderRadiusEditor extends React.Component {
   renderInputs () {
     if (!this.state.showAll) {
       return this.renderCornerRadius();
-    } else {
-      return this.renderAllRadiuses();
     }
+
+    return this.renderAllRadiuses();
   }
 
   render () {

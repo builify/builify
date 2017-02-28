@@ -16,9 +16,9 @@ function Page ({
   const selectPage = () => {
     if (newPage) {
       return startNewPage();
-    } else {
-      return openPreviousPagesSelectionModal();
     }
+
+    return openPreviousPagesSelectionModal();
   };
 
   return (

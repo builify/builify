@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
 import Scrollbar from '../../shared/scrollbar';
@@ -13,14 +14,18 @@ import TextAlignEditor from './text-align-editor';
 import TextSpaceEditor from './text-spacing-editor';
 import AttributesEditor from './attributes-editor';
 import ColorsEditor from './colors-editor';
-import { connect } from 'react-redux';
 import { closeBlockEditorTab } from '../../../actions';
+import { validateDOMElement } from '../../../common/react';
 
 class BlockEditor extends React.Component {
   static propTypes = {
     blockEditorTabOpened: React.PropTypes.bool.isRequired,
-    blockEditorTarget: React.PropTypes.any,
+    blockEditorTarget: validateDOMElement,
     closeBlockEditorTab: React.PropTypes.func.isRequired
+  };
+
+  static defaultProps = {
+    blockEditorTarget: null
   };
 
   shouldComponentUpdate (nextProps) {
@@ -31,12 +36,12 @@ class BlockEditor extends React.Component {
 
     return false;
   }
-  
+
   render () {
     if (!this.props.blockEditorTabOpened) {
       return null;
     }
-    
+
     const { blockEditorTarget } = this.props;
 
     return (
@@ -76,14 +81,14 @@ function mapStateToProps (state) {
   const { blockEditorTabOpened, blockEditorTarget } = builder;
 
   return {
-    blockEditorTabOpened: blockEditorTabOpened,
-    blockEditorTarget: blockEditorTarget
+    blockEditorTabOpened,
+    blockEditorTarget
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    closeBlockEditorTab: function () {
+    closeBlockEditorTab: () => {
       dispatch(closeBlockEditorTab());
     }
   };

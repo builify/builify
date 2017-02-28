@@ -1,25 +1,28 @@
 import React from 'react';
-import Dialog from './dialog';
-import { closeModal, restartPage } from '../../actions';
 import { connect } from 'react-redux';
+import Dialog from './dialog';
+import * as Actions from '../../actions';
 
 function RestartDialog ({
   closeModal,
   restartPage
 }) {
   let dialogElement = null;
-  const actions = [
-    { label: 'No', onClick: () => {
+  const actions = [{
+    label: 'No',
+    onClick: () => {
       dialogElement.closeDialog();
-    }},
-    { label: 'Yes', onClick: () => {
+    }
+  }, {
+    label: 'Yes',
+    onClick: () => {
       dialogElement.closeDialog();
       restartPage();
-    } }
-  ];
+    }
+  }];
 
   return (
-    <Dialog ref={(node) => dialogElement = node } title='Restart' actions={actions} closeModal={closeModal}>
+    <Dialog ref={(node) => { dialogElement = node; }} title="Restart" actions={actions} closeModal={closeModal}>
       <p>Do you want to go back to start screen and save current page?</p>
     </Dialog>
   );
@@ -32,12 +35,12 @@ RestartDialog.propTypes = {
 
 function mapDispatchToProps (dispatch) {
   return {
-    closeModal: function () {
-      dispatch(closeModal());
+    closeModal: () => {
+      dispatch(Actions.closeModal());
     },
 
-    restartPage: function () {
-      dispatch(restartPage());
+    restartPage: () => {
+      dispatch(Actions.restartPage());
     }
   };
 }

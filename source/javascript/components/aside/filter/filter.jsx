@@ -123,7 +123,7 @@ class Filter extends React.Component {
         <div className={classNames('filter__text')} onClick={::this.toggleFilter}>
           <span>{ localization('filter') }</span>
           <span>{ filterContentBlocksTarget }</span>
-          <Icon icon={isFilterOpened ? 'expand-less' : 'expand-more'} size='24' />
+          <Icon icon={isFilterOpened ? 'expand-less' : 'expand-more'} size="24" />
         </div>
         <div className={classNames('filter__items')}>
           { this.renderFilterItems() }

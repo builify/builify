@@ -60,7 +60,7 @@ export default class PositionEditor extends React.Component {
   }
 
   normalizeRotation () {
-    const currentRotation = parseInt(this.state.rotation);
+    const currentRotation = parseInt(this.state.rotation, 10);
     let rotation = 0;
 
     if (currentRotation === 360) {
@@ -70,15 +70,15 @@ export default class PositionEditor extends React.Component {
     } else if (currentRotation < 0) {
       rotation = -(normalizeAngle(Math.abs(currentRotation)));
     } else {
-      return false;
+      return;
     }
 
     this.setState({
       ...this.state,
-      rotation: rotation
+      rotation
     });
   }
-  
+
   render () {
     const title = localization('rotation');
 
@@ -87,8 +87,8 @@ export default class PositionEditor extends React.Component {
         <div className={classNames('be-block__input')}>
           <Icon
             className={classNames('be-block__input__icon')}
-            icon='rotate-right'
-            size='18' />
+            icon="rotate-right"
+            size="18" />
           <Input
             className={classNames('be-block__input__type')}
             value={this.state.rotation}

@@ -1,4 +1,6 @@
 import React from 'react';
+import { map as _map } from 'lodash';
+import { connect } from 'react-redux';
 import classNames from '../../../common/classnames';
 import Time from '../../../common/time';
 import ModalWrapper from '../common/wrapper';
@@ -6,25 +8,14 @@ import ModalTab from '../common/tab';
 import BottomNavigation from '../common/bottom-navigation';
 import TablePages from './table-pages';
 import Scrollbar from '../../shared/scrollbar';
-import { connect } from 'react-redux';
-import { closeModal, addNotification, downloadPages } from '../../../actions';
-import {
-  map as _map
-} from 'lodash';
+import * as Actions from '../../../actions';
 
 class DownloadPages extends React.Component {
   static propTypes = {
     builder: React.PropTypes.object.isRequired,
-    addNotification: React.PropTypes.func.isRequired,
     closeModal: React.PropTypes.func.isRequired,
     downloadPages: React.PropTypes.func.isRequired
   };
-
-  _pages = [];
-
-  closeDialog () {
-    return this.refs['modalWrapper'].closeDialog();
-  }
 
   componentWillMount () {
     const { builder } = this.props;
@@ -41,6 +32,12 @@ class DownloadPages extends React.Component {
       });
     });
   }
+
+  closeDialog () {
+    return this.refs['modalWrapper'].closeDialog();
+  }
+
+  _pages = [];
 
   downloadClick () {
     const selectedPages = this.refs['pages'].getSelected();
@@ -60,12 +57,12 @@ class DownloadPages extends React.Component {
     };
 
     return (
-      <ModalWrapper ref='modalWrapper' onClose={closeModal} className={className}>
-        <ModalTab title='Select Pages to Download'>
+      <ModalWrapper ref="modalWrapper" onClose={closeModal} className={className}>
+        <ModalTab title="Select Pages to Download">
           <div className={classNames('modal__tab')}>
             <Scrollbar height={380}>
               <div className={classNames(null, 'p-x-3', 'p-y-3')}>
-                <TablePages ref='pages' model={pagesModel} source={this._pages} />
+                <TablePages ref="pages" model={pagesModel} source={this._pages} />
               </div>
             </Scrollbar>
           </div>
@@ -77,23 +74,21 @@ class DownloadPages extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { builder } = state;
+
   return {
-    builder: state.builder
+    builder
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     downloadPages: (pages) => {
-      dispatch(downloadPages(pages));
+      dispatch(Actions.downloadPages(pages));
     },
 
     closeModal: () => {
-      dispatch(closeModal());
-    },
-
-    addNotification: (notification) => {
-      dispatch(addNotification(notification));
+      dispatch(Actions.closeModal());
     }
   };
 }

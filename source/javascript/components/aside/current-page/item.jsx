@@ -37,7 +37,7 @@ export default function CurrentPageItem ({
       <Icon
         onClick={onRemove}
         style={removeIconStyle}
-        className='remove'
+        className="remove"
         size={24}
         icon={'clear'}
         title={localization('remove element')} />

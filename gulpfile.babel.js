@@ -1,10 +1,7 @@
-import config from './config';
-import pckg from './package';
 import gulp from 'gulp';
 import path from 'path';
 import browserify from 'browserify';
 import envify from 'loose-envify/custom';
-import babelify from 'babelify';
 import watchify from 'watchify';
 import source from 'vinyl-source-stream';
 import buffer from 'vinyl-buffer';
@@ -30,6 +27,8 @@ import {
   isEmpty as _isEmpty,
   endsWith as _endsWith
 } from 'lodash';
+import config from './config';
+import pckg from './package.json';
 
 // Set environment variable.
 process.env.NODE_ENV = config.env.debug ? 'development' : 'production';
@@ -38,9 +37,9 @@ process.env.NODE_ENV = config.env.debug ? 'development' : 'production';
 const browserSync = server.create();
 
 // Rewrite gulp.src for better error handling.
-var gulpSrc = gulp.src;
-gulp.src = function () {
-  return gulpSrc(...arguments)
+const gulpSrc = gulp.src;
+gulp.src = function (...args) {
+  return gulpSrc(...args)
     .pipe($plumber((error) => {
       const { plugin, message } = error;
       $util.log($util.colors.red(`Error (${plugin}): ${message}`));
@@ -70,14 +69,14 @@ gulp.task('stylesheet:main', () => {
       .pipe($size({ title: '[stylesheet:main]', gzip: true }))
       .pipe(gulp.dest(config.stylesheets.main.output))
       .pipe(browserSync.stream({ match: '**/*.css' }));
-  } else {
-    return gulp.src(config.stylesheets.main.entry)
-      .pipe($sass(config.stylesheets.sass).on('error', $sass.logError))
-      .pipe($cleanCSS({ compatibility: 'ie8' }))
-      .pipe($autoprefixer(config.stylesheets.autoprefixer))
-      .pipe($size({ title: '[stylesheet:main]', gzip: true }))
-      .pipe(gulp.dest(config.stylesheets.main.output));
   }
+
+  return gulp.src(config.stylesheets.main.entry)
+    .pipe($sass(config.stylesheets.sass).on('error', $sass.logError))
+    .pipe($cleanCSS({ compatibility: 'ie8' }))
+    .pipe($autoprefixer(config.stylesheets.autoprefixer))
+    .pipe($size({ title: '[stylesheet:main]', gzip: true }))
+    .pipe(gulp.dest(config.stylesheets.main.output));
 });
 
 // Compiles and deploys canvas stylesheet.
@@ -88,13 +87,13 @@ gulp.task('stylesheet:canvas', () => {
       .pipe($size({ title: '[stylesheet:canvas]', gzip: true }))
       .pipe(gulp.dest(config.stylesheets.canvas.output))
       .pipe(browserSync.stream({ match: '**/*.css' }));
-  } else {
-    return gulp.src(config.stylesheets.canvas.entry)
-      .pipe($sass(config.stylesheets.sass).on('error', $sass.logError))
-      .pipe($cleanCSS({ compatibility: 'ie8' }))
-      .pipe($size({ title: '[stylesheet:canvas]', gzip: true }))
-      .pipe(gulp.dest(config.stylesheets.canvas.output));
   }
+
+  return gulp.src(config.stylesheets.canvas.entry)
+    .pipe($sass(config.stylesheets.sass).on('error', $sass.logError))
+    .pipe($cleanCSS({ compatibility: 'ie8' }))
+    .pipe($size({ title: '[stylesheet:canvas]', gzip: true }))
+    .pipe(gulp.dest(config.stylesheets.canvas.output));
 });
 
 // Compiles and deploys files.
@@ -127,11 +126,11 @@ gulp.task('html', () => {
       .pipe($hint())
       .pipe($size({ title: '[html]', gzip: true }))
       .pipe(gulp.dest(config.html.output));
-  } else {
-    return gulp.src(config.html.entry)
-      .pipe($size({ title: '[html]', gzip: true }))
-      .pipe(gulp.dest(config.html.output));
   }
+
+  return gulp.src(config.html.entry)
+    .pipe($size({ title: '[html]', gzip: true }))
+    .pipe(gulp.dest(config.html.output));
 });
 
 // Revision
@@ -144,10 +143,10 @@ gulp.task('rev', (callback) => {
     .on('end', () => {
       const manifestFile = path.join(config.rev.output, config.rev.manifestFile);
       const manifest = require(manifestFile);
-      let removables = [];
-      let pattern = (_keys(manifest)).join('|');
+      const removables = [];
+      const pattern = (_keys(manifest)).join('|');
 
-      for (let v in manifest) {
+      for (const v in manifest) {
         if (v !== manifest[v]) {
           removables.push(path.join(config.rev.output, v));
         }
@@ -160,8 +159,8 @@ gulp.task('rev', (callback) => {
           if (!_isEmpty(config.cdn)) {
             gulp.src(config.rev.replace)
               .pipe($replace(new RegExp(`((?:\\.?\\.\\/?)+)?([\\/\\da-z\\.-]+)(${pattern})`, 'gi'), (m) => {
-                let k = m.match(new RegExp(pattern, 'i'))[0];
-                let v = manifest[k];
+                const k = m.match(new RegExp(pattern, 'i'))[0];
+                const v = manifest[k];
                 return m.replace(k, v).replace(/^((?:\.?\.?\/?)+)?/, _endsWith(config.cdn, '/') ? config.cdn : `${config.cdn}/`);
               }))
               .pipe(gulp.dest(config.rev.output))
@@ -187,7 +186,7 @@ gulp.task('javascript:vendor', () => {
     transform: envify
   });
 
-  config.vendors.forEach(lib => {
+  config.vendors.forEach((lib) => {
     b.require(lib);
   });
 
@@ -212,7 +211,7 @@ gulp.task('javascript:vendor', () => {
 
 // Compiles and deploys main javascript file.
 gulp.task('javascript:main', () => {
-  var appBundler = browserify({
+  let appBundler = browserify({
     entries: [
       config.javascripts.main.entry
     ],
@@ -227,14 +226,12 @@ gulp.task('javascript:main', () => {
     fullPaths: config.env.debug
   })
   .transform('babelify', {
-    babelrc: false,
-    presets: ["latest", "stage-0", "react"],
-    plugins: ["add-module-exports"]
+    babelrc: true
   })
   .transform(envify({
     _: 'purge',
     NODE_ENV: config.env.debug ? 'development' : 'production',
-    DEMO: config.env.demo ? true : false,
+    DEMO: config.env.demo || false,
     VERSION: pckg.version
   }))
   .external(config.vendors); // Specify all vendors as external source
@@ -253,6 +250,8 @@ gulp.task('javascript:main', () => {
     appBundler = watchify(appBundler);
     appBundler.on('update', rebundle);
 
+    console.log(appBundler);
+
     rebundle();
   } else {
     appBundler.bundle()
@@ -269,7 +268,8 @@ gulp.task('javascript:main', () => {
 gulp.task('watch', () => {
   if (_has(config, 'watch.entries')) {
     config.watch.entries.map((entry) => {
-      gulp.watch(entry.files, { cwd: config.sourceDir }, entry.tasks);
+      console.log(entry);
+      return gulp.watch(entry.files, { cwd: config.sourceDir }, entry.tasks);
     });
   }
 
@@ -305,7 +305,7 @@ gulp.task('header', () => {
 });
 
 gulp.task('default', () => {
-  let seq = [
+  const seq = [
     'html',
     'images',
     'files',

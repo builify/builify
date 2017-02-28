@@ -1,13 +1,5 @@
 import React from 'react';
-import TTDOM from '../../common/TTDOM';
-import TTIFrame from '../../modules/react-tt-iframe';
-import ClickToolbox from './click-toolbox';
-import SectionToolBox from './section-toolbox';
-import classNames from '../../common/classnames';
-import * as Actions from '../../actions';
-import * as Constants from '../../constants';
 import { connect } from 'react-redux';
-import { store } from '../application-container';
 import {
   values as _values,
   delay as _delay,
@@ -17,6 +9,24 @@ import {
   isObject as _isObject,
   isEmpty as _isEmpty
 } from 'lodash';
+import TTDOM from '../../common/TTDOM';
+import TTIFrame from '../../modules/react-tt-iframe';
+import ClickToolbox from './click-toolbox';
+import SectionToolBox from './section-toolbox';
+import classNames from '../../common/classnames';
+import * as Actions from '../../actions';
+import * as Constants from '../../constants';
+import { store } from '../application-container';
+
+function isValidBlock (block) {
+  const { id, type, blockName, source } = block;
+
+  if (!id || !type || !blockName || !source) {
+    throw new Error(`Something went wrong when setting block attributes. - ${JSON.stringify(block)}`);
+  }
+
+  return true;
+}
 
 class Frame extends React.Component {
   static propTypes = {
@@ -30,8 +40,10 @@ class Frame extends React.Component {
     clearPageBlocksCount: React.PropTypes.func.isRequired
   };
 
-  _blocks = {};
-  _blocksCache = [];
+  componentDidMount () {
+    this.drawCanvas();
+    this.checkBlockCount();
+  }
 
   shouldComponentUpdate (nextProps) {
     if (nextProps.page.pageID !== this.props.page.pageID ||
@@ -40,11 +52,6 @@ class Frame extends React.Component {
     }
 
     return true;
-  }
-
-  componentDidMount () {
-    this.drawCanvas();
-    this.checkBlockCount();
   }
 
   componentDidUpdate () {
@@ -88,7 +95,7 @@ class Frame extends React.Component {
     const { navigation: navigationBlock } = page;
 
     if (_values(navigationBlock).length !== 0) {
-      if (this.isValidBlock(navigationBlock)) {
+      if (isValidBlock(navigationBlock)) {
         const { hasBeenRendered, source } = navigationBlock;
 
         if (!hasBeenRendered) {
@@ -110,7 +117,7 @@ class Frame extends React.Component {
     const { footer: footerBlock } = page;
 
     if (_values(footerBlock).length !== 0) {
-      if (this.isValidBlock(footerBlock)) {
+      if (isValidBlock(footerBlock)) {
         const { hasBeenRendered, source } = footerBlock;
 
         if (!hasBeenRendered) {
@@ -170,16 +177,6 @@ class Frame extends React.Component {
     this.removeChildren(this.refs.footer);
   }
 
-  isValidBlock (block) {
-    const { id, type, blockName, source } = block;
-
-    if (!id || !type || !blockName || !source) {
-      throw Error(`Something went wrong when setting block attributes. - ${JSON.stringify(block)}`);
-    }
-
-    return true;
-  }
-
   setBlockAttributes (block, elementReference) {
     if (!_isObject(block)) {
       throw Error('Block is not object.');
@@ -198,16 +195,19 @@ class Frame extends React.Component {
     return this.addMouseEventsToCoreBlock(elementReference, block);
   }
 
+  _blocks = {};
+  _blocksCache = [];
+
   addMouseEventsToCoreBlock (coreElementReference, block) {
     // Add section hover event to core block.
     if (_isElement(coreElementReference)) {
-      block = _assign({}, block, {
+      const renderedBlock = _assign({}, block, {
         hasBeenRendered: true,
         elementReference: coreElementReference
       });
 
       coreElementReference.addEventListener('mouseenter', () => {
-        return this.props.coreBlockHover(coreElementReference, block);
+        return this.props.coreBlockHover(coreElementReference, renderedBlock);
       });
     }
 
@@ -227,7 +227,7 @@ class Frame extends React.Component {
     }
 
     const { externalAssets, coreAssets } = this.props;
-    let { core: assets } = externalAssets;
+    const { core: assets } = externalAssets;
     const headElement = frameDocument.head;
     const bodyElement = frameDocument.body;
 
@@ -237,7 +237,7 @@ class Frame extends React.Component {
         src: 'assets/static/canvas-stylesheet.css',
         junk: true
       });
-      
+
       if (!_isEmpty(coreAssets.javascript)) {
         const element = document.createElement('script');
         element.type = 'text/javascript';
@@ -306,22 +306,27 @@ class Frame extends React.Component {
                 bodyElement.appendChild(scriptElement);
               }, 1000);
             }
+
+            break;
           }
+
+          default:
+            break;
         }
       });
-      
-      return this.props.removeLoadingScreen();
+
+      this.props.removeLoadingScreen();
     }
   }
 
   render () {
     return (
       <div className={classNames('canvas__holder')} data-ttroot>
-        <TTIFrame id='ab-cfrm' ref='frame' contentDidMount={::this.normalizeFrame}>
-          <div ref='root' className='tt-canvas-root' data-ttroot>
-            <div ref='navigation' className='tt-canvas-navigation' />
-            <div ref='main' className='tt-canvas-main' />
-            <div ref='footer' className='tt-canvas-footer' />
+        <TTIFrame id="ab-cfrm" ref="frame" contentDidMount={::this.normalizeFrame}>
+          <div ref="root" className="tt-canvas-root" data-ttroot>
+            <div ref="navigation" className="tt-canvas-navigation" />
+            <div ref="main" className="tt-canvas-main" />
+            <div ref="footer" className="tt-canvas-footer" />
 
             <ClickToolbox store={store} />
             <SectionToolBox store={store} />
@@ -337,7 +342,7 @@ function mapStateToProps (state) {
   const { external: externalAssets, core: coreAssets } = template;
 
   return {
-    page: page,
+    page,
     externalAssets,
     coreAssets
   };
@@ -346,24 +351,24 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     // Frame events.
-    removeLoadingScreen: function () {
+    removeLoadingScreen: () => {
       dispatch(Actions.removeLoadingScreen());
     },
 
     // Canvas events.
-    renderBlockToCanvas: function (block, elementReference) {
+    renderBlockToCanvas: (block, elementReference) => {
       dispatch(Actions.blockWasRenderedToPage(block, elementReference));
     },
 
-    coreBlockHover: function (elementReference, block) {
+    coreBlockHover: (elementReference, block) => {
       dispatch(Actions.currentHoverBlock(elementReference, block));
     },
 
-    setCanvasElementsHoverEvents: function () {
+    setCanvasElementsHoverEvents: () => {
       dispatch(Actions.setCanvasElementsHoverEvents());
     },
 
-    clearPageBlocksCount: function () {
+    clearPageBlocksCount: () => {
       dispatch(Actions.clearPageBlocksCount());
     }
   };

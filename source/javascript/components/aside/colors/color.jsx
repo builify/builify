@@ -20,7 +20,7 @@ export default function Color ({
 
   return (
     <button
-      ref={(ref) => colorElement = ref}
+      ref={(ref) => { colorElement = ref; }}š
       data-abcolor={color}
       data-colortarget={colorTarget}
       className={classNames('color')}

@@ -2,8 +2,8 @@ import React from 'react';
 import classNames from '../../common/classnames';
 import localization from '../../common/localization';
 
-export default function SuggestionBox({
-  display = true
+export default function SuggestionBox ({
+  display
 }) {
   if (!display) {
     return null;
@@ -19,4 +19,8 @@ export default function SuggestionBox({
 
 SuggestionBox.propTypes = {
   display: React.PropTypes.bool
+};
+
+SuggestionBox.defaultProps = {
+  display: true
 };

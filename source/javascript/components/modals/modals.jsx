@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import ImageEdit from './image-change';
 import PreviousPages from './previous-pages';
 import IconChange from './icon-change';
@@ -9,14 +10,18 @@ import DialogRestart from './dialog-restart';
 import FormEdit from './form-edit';
 import Help from './help';
 import VideoEdit from './video-edit';
-import { connect } from 'react-redux';
 import { ModalTypes } from '../../constants';
+import { validateDOMElement } from '../../common/react';
 
 class Modals extends React.Component {
   static propTypes = {
     isModalOpen: React.PropTypes.bool.isRequired,
     modalType: React.PropTypes.number.isRequired,
-    modalTarget: React.PropTypes.object
+    modalTarget: validateDOMElement
+  };
+
+  static defaultProps = {
+    modalTarget: null
   };
 
   shouldComponentUpdate (nextProps) {
@@ -38,7 +43,7 @@ class Modals extends React.Component {
 
     switch (type) {
       case ModalTypes.IMAGECHANGE:
-        return <ImageEdit editTarget={modalTarget}  />;
+        return <ImageEdit editTarget={modalTarget} />;
 
       case ModalTypes.RESTART:
         return <DialogRestart />;
@@ -78,9 +83,9 @@ function mapStateToProps (state) {
   const { isModalOpen, modalType, modalTarget } = modals;
 
   return {
-    isModalOpen: isModalOpen,
-    modalType: modalType,
-    modalTarget: modalTarget
+    isModalOpen,
+    modalType,
+    modalTarget
   };
 }
 

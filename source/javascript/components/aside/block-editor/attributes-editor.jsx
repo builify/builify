@@ -53,14 +53,14 @@ export default class ItemMarginEditor extends React.Component {
       title,
       href,
 
-      displayClassName: _isEmpty(className) ? false : true,
-      displayID: _isEmpty(id) ? false : true,
-      displayTitle: _isEmpty(title) ? false : true,
-      displayHref: _isEmpty(href) ? false : true
+      displayClassName: _isEmpty(className) || true,
+      displayID: _isEmpty(id) || true,
+      displayTitle: _isEmpty(title) || true,
+      displayHref: _isEmpty(href) || true
     });
   }
 
-  handleChange  (name, value) {
+  handleChange (name, value) {
     this._target[name] = value;
 
     this.setState({
@@ -75,7 +75,7 @@ export default class ItemMarginEditor extends React.Component {
     }
 
     return (
-      <div className={classNames(['be-block__attr__item' ,'be-block__attr__item--first'])}>
+      <div className={classNames(['be-block__attr__item', 'be-block__attr__item--first'])}>
         <h3 className={classNames('be-block__attr__title')}>{ localization('classname') }</h3>
         <Input
           className={classNames('be-block__attr__input')}

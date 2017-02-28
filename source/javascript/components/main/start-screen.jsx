@@ -1,8 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import classNames from '../../common/classnames';
 import Page from './newpage';
 import Copyright from './copyright';
-import { connect } from 'react-redux';
 import { CurrentLocations } from '../../constants';
 
 class StartScreen extends React.Component {
@@ -39,11 +39,14 @@ class StartScreen extends React.Component {
 
 function mapStateToProps (state) {
   const { builder } = state;
-  const { doPreviousPagesExistInStorage: previousPagesInStorage, currentLocation } = builder;
+  const {
+    doPreviousPagesExistInStorage: previousPagesInStorage,
+    currentLocation
+  } = builder;
 
   return {
-    previousPagesInStorage: previousPagesInStorage,
-    currentLocation: currentLocation
+    previousPagesInStorage,
+    currentLocation
   };
 }
 
