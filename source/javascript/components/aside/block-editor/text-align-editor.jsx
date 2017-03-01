@@ -112,13 +112,13 @@ export default class TextAlignEditor extends React.Component {
     return (
       <div className={classNames('be-block__align')}>
         <div className={leftClassName} title='Left Align' onClick={this.changeAlign.bind(this, 'left')}>
-          <Icon icon='format-align-left' />
+          <Icon icon="format-align-left" />
         </div>
         <div className={centerClassName} title='Center Align' onClick={this.changeAlign.bind(this, 'center')}>
-          <Icon icon='format-align-center' />
+          <Icon icon="format-align-center" />
         </div>
         <div className={rightClassName} title='Right Align' onClick={this.changeAlign.bind(this, 'right')}>
-          <Icon icon='format-align-right' />
+          <Icon icon="format-align-right" />
         </div>
       </div>
     );

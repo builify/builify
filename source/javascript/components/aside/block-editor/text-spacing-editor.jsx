@@ -8,7 +8,7 @@ export default class TextSpaceEditor extends React.Component {
   static propTypes = {
     target: React.PropTypes.any.isRequired
   };
-  
+
   state = {
     letterSpacing: 0,
     lineSpacing: 1
@@ -65,12 +65,12 @@ export default class TextSpaceEditor extends React.Component {
   render () {
     return (
       <div className={classNames('be-block__space')}>
-        <div className={classNames('be-block__space__item')} title='Character Spacing'>
-          <Icon icon='swap-horiz' />
+        <div className={classNames('be-block__space__item')} title="Character Spacing">
+          <Icon icon="swap-horiz" />
           <Input className={classNames('be-block__space__input')} value={this.state.letterSpacing} onChange={::this.handleLetterSpacing} />
         </div>
-        <div className={classNames('be-block__space__item')} title='Line Spacing'>
-          <Icon icon='format-line-spacing' />
+        <div className={classNames('be-block__space__item')} title="Line Spacing">
+          <Icon icon="format-line-spacing" />
           <Input className={classNames('be-block__space__input')} value={this.state.lineSpacing} onChange={::this.handleLineSpacing} />
         </div>
       </div>
