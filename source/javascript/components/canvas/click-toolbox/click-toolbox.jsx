@@ -110,7 +110,7 @@ class ClickToolbox extends React.Component {
     if (+xOfrightPanelEdge >= (this._browserSize.width - this._panelXPadding)) {
       const dif = +xOfrightPanelEdge - (this._browserSize.width - (this._panelXPadding * 2));
 
-      eventPosition.x = eventPosition.x - dif;
+      eventPosition.x -= dif;
     }
 
     this.setState({
@@ -123,6 +123,8 @@ class ClickToolbox extends React.Component {
       targetName,
       isElemenetChangeable
     });
+
+    return this;
   }
 
   closePanel () {
@@ -157,22 +159,13 @@ class ClickToolbox extends React.Component {
     return <ClickToolBoxItem text={label} icon="format-indent-decrease" onClick={clickEvent} />;
   }
 
-  listLinkChange () {
-    const label = localization('change link');
-    const clickEvent = () => {
-
-    };
-
-    return <ClickToolBoxItem icon='' text={label} onClick={clickEvent} />;
-  }
-
   listImageChange () {
     const label = localization('edit image');
     const clickEvent = () => {
       return this.props.openImageEditModal(this.state.target);
     };
 
-    return <ClickToolBoxItem icon='image' text={label} onClick={clickEvent} />;
+    return <ClickToolBoxItem icon="image" text={label} onClick={clickEvent} />;
   }
 
   listClone () {
@@ -182,7 +175,7 @@ class ClickToolbox extends React.Component {
       return this.props.cloneItem();
     };
 
-    return <ClickToolBoxItem icon='control-point-duplicate' text={label} onClick={clickEvent} />;
+    return <ClickToolBoxItem icon="control-point-duplicate" text={label} onClick={clickEvent} />;
   }
 
   listIconChange () {
@@ -191,7 +184,7 @@ class ClickToolbox extends React.Component {
       return this.props.openIconEditModal(this.state.target);
     };
 
-    return <ClickToolBoxItem icon='star' text={label} onClick={clickEvent} />;
+    return <ClickToolBoxItem icon="star" text={label} onClick={clickEvent} />;
   }
 
   listItemRemove () {
@@ -201,7 +194,7 @@ class ClickToolbox extends React.Component {
       return this.closePanel();
     };
 
-    return <ClickToolBoxItem icon='clear' text={label} onClick={clickEvent} />;
+    return <ClickToolBoxItem icon="clear" text={label} onClick={clickEvent} />;
   }
 
   listItemOpenEditor () {
@@ -210,7 +203,7 @@ class ClickToolbox extends React.Component {
       return this.props.openBlockEditorTab(this.state.target);
     };
 
-    return <ClickToolBoxItem icon='mode-edit' text={label} onClick={clickEvent} />;
+    return <ClickToolBoxItem icon="mode-edit" text={label} onClick={clickEvent} />;
   }
 
   renderChildren () {
@@ -222,13 +215,12 @@ class ClickToolbox extends React.Component {
       showChangeBackgroundImage: false,
       showRemove: false,
       showExpandColumn: false,
-      showShrinkColumn: false,
-      showLinkChange: false
+      showShrinkColumn: false
     };
 
     if (!_isNull(targetElement)) {
       const isNotChangeble = targetElement.getAttribute('data-abccorent');
-      const isChangeble = isNotChangeble ? false : true;
+      const isChangeble = isNotChangeble || true;
       const tagName = targetElement.tagName.toLowerCase();
 
       if (isChangeble) {
@@ -266,7 +258,6 @@ class ClickToolbox extends React.Component {
         { elementOptions.showClone && this.listClone() }
         { elementOptions.showExpandColumn && this.listExpandColumn() }
         { elementOptions.showShrinkColumn && this.listShrinkColumn() }
-        { elementOptions.showLinkChange && this.listLinkChange() }
         { this.listItemOpenEditor() }
         { elementOptions.showRemove && this.listItemRemove() }
       </div>

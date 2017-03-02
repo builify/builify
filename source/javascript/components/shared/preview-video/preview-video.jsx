@@ -6,7 +6,7 @@ import { isNull as _isNull } from 'lodash';
 
 export default class PreviewVideo extends React.Component {
   static propTypes = {
-    src: React.PropTypes.string,
+    src: React.PropTypes.string.isRequired,
     width: React.PropTypes.oneOfType([
       React.PropTypes.number,
       React.PropTypes.string
@@ -22,6 +22,11 @@ export default class PreviewVideo extends React.Component {
   };
 
   static defaultProps = {
+    width: 200,
+    height: 150
+  };
+
+  static defaultProps = {
     background: 'black'
   };
 
@@ -31,7 +36,7 @@ export default class PreviewVideo extends React.Component {
   };
 
   shouldComponentUpdate (nextProps) {
-    if (this.props.src !== nextProps.src){
+    if (this.props.src !== nextProps.src) {
       return true;
     }
 
@@ -50,8 +55,8 @@ export default class PreviewVideo extends React.Component {
 
   updatePreview (source) {
     const mimeType = Mime.lookup(source);
-    var type = this.state.type;
-    var videoID = this.state.videoID;
+    let type = this.state.type;
+    let videoID = this.state.videoID;
 
     if (mimeType === 'application/octet-stream') {
       const parsedURL = URL.parse(source);
@@ -68,8 +73,8 @@ export default class PreviewVideo extends React.Component {
     }
 
     this.setState({
-      type: type,
-      videoID: videoID
+      type,
+      videoID
     });
   }
 
@@ -78,20 +83,22 @@ export default class PreviewVideo extends React.Component {
 
     if (_isNull(type) || _isNull(videoID)) {
       return null;
-    } else {
-      if (type === 'youtube') {
-        const source = `http://www.youtube.com/embed/${videoID}?autoplay=0`;
-
-        return (
-          <iframe
-            type='text/html'
-            width={this.props.width}
-            height={this.props.height}
-            src={source}
-            frameBorder='0' />
-        );
-      }
     }
+
+    if (type === 'youtube') {
+      const source = `http://www.youtube.com/embed/${videoID}?autoplay=0`;
+
+      return (
+        <iframe
+          type="text/html"
+          width={this.props.width}
+          height={this.props.height}
+          src={source}
+          frameBorder="0" />
+      );
+    }
+
+    return null;
   }
 
   render () {
@@ -103,7 +110,7 @@ export default class PreviewVideo extends React.Component {
     };
 
     return (
-      <div className='tt-previewview' style={style}>
+      <div className="tt-previewview" style={style}>
         { this.renderVideo() }
       </div>
     );
