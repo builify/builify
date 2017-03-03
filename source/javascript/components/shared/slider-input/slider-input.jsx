@@ -1,12 +1,13 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
-import events from '../../../common/events';
-import InjectProgressBar from '../progress-bar';
+import { findDOMNode } from 'react-dom';
 import {
   round as round,
   range as range
 } from 'lodash';
+import events from '../../../common/events';
+import InjectProgressBar from '../progress-bar';
+import { emptyFunction } from '../../../common/misc';
 
 const factory = (ProgressBar) => {
   class Slider extends React.Component {
@@ -28,6 +29,9 @@ const factory = (ProgressBar) => {
       className: '',
       editable: false,
       max: 100,
+      disabled: false,
+      style: {},
+      onChange: emptyFunction,
       min: 0,
       pinned: false,
       snaps: false,
@@ -172,8 +176,8 @@ const factory = (ProgressBar) => {
 
     knobOffset () {
       const { max, min } = this.props;
-      const translated = this.state.sliderLength * (this.props.value - min) / (max - min);
-      return translated * 100 / this.state.sliderLength;
+      const translated = this.state.sliderLength * ((this.props.value - min) / (max - min));
+      return (translated * 100) / this.state.sliderLength;
     }
 
     move (position) {
@@ -184,8 +188,8 @@ const factory = (ProgressBar) => {
     positionToValue (position) {
       const { sliderStart: start, sliderLength: length } = this.state;
       const { max, min, step } = this.props;
-      const pos = (position.x - start) / length * (max - min);
-      return this.trimValue(Math.round(pos / step) * step + min);
+      const pos = (position.x - start) / (length * (max - min));
+      return this.trimValue((Math.round(pos / step) * step) + min);
     }
 
     start (position) {
@@ -213,23 +217,25 @@ const factory = (ProgressBar) => {
     renderSnaps () {
       if (this.props.snaps) {
         return (
-          <div ref='snaps' className='tt-slider__snaps'>
+          <div ref='snaps' className="tt-slider__snaps">
             {range(0, (this.props.max - this.props.min) / this.props.step).map(i => {
-              return <div key={`span-${i}`} className='tt-slider__snap' />;
+              return <div key={`span-${i}`} className="tt-slider__snap" />;
             })}
           </div>
         );
       }
+
+      return null;
     }
 
     render () {
       const knobStyles = {left: `${this.knobOffset()}%`};
       const className = classnames('tt-slider', {
-        'editable': this.props.editable,
-        'disabled': this.props.disabled,
-        'pinned': this.props.pinned,
-        'pressed': this.state.pressed,
-        'ring': this.props.value === this.props.min
+        editable: this.props.editable,
+        disabled: this.props.disabled,
+        pinned: this.props.pinned,
+        pressed: this.state.pressed,
+        ring: this.props.value === this.props.min
       }, this.props.className);
 
       return (

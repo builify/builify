@@ -4,7 +4,7 @@ import classNames from '../../../common/classnames';
 export default function Logo () {
   return (
     <div className={classNames('logo')}>
-      <img height="35px" src='assets/static/logo.svg' />
+      <img height="35px" src="assets/static/logo.svg" alt="Builify logo" />
     </div>
   );
 }

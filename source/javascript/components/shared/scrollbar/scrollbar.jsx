@@ -1,7 +1,28 @@
 import React from 'react';
+import { Scrollbars } from 'react-custom-scrollbars';
 import TTDOM from '../../../common/TTDOM';
 import classNames from '../../../common/classnames';
-import { Scrollbars } from 'react-custom-scrollbars';
+
+function getStyle ({
+  aside,
+  height,
+  width
+} = {}) {
+  if (aside) {
+    const browserSize = TTDOM.browser.size();
+    const asideWidth = 275;
+
+    return {
+      height: browserSize.height,
+      width: asideWidth
+    };
+  }
+
+  return {
+    height,
+    width
+  };
+}
 
 export default class Scrollbar extends React.Component {
   static propTypes = {
@@ -25,24 +46,6 @@ export default class Scrollbar extends React.Component {
     return false;
   }
 
-  getStyle ({ aside, height, width }) {
-    if (aside) {
-      const browserSize = TTDOM.browser.size();
-      const { height } = browserSize;
-      const asideWidth = 275;
-
-      return {
-        height: height,
-        width: asideWidth
-      };
-    }
-
-    return  {
-      height: height,
-      width: width
-    };
-  }
-
   renderChildren () {
     const { children } = this.props;
 
@@ -58,7 +61,7 @@ export default class Scrollbar extends React.Component {
   }
 
   render () {
-    const stylesheetStyle = this.getStyle(this.props);
+    const stylesheetStyle = getStyle(this.props);
 
     return (
       <Scrollbars className={classNames('scrollbar')} style={stylesheetStyle}>
