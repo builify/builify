@@ -28,7 +28,7 @@ import {
   endsWith as _endsWith
 } from 'lodash';
 import config from './config';
-import pckg from './package.json';
+import pckg from '../package.json';
 
 // Set environment variable.
 process.env.NODE_ENV = config.env.debug ? 'development' : 'production';

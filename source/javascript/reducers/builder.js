@@ -293,7 +293,7 @@ export default function (state = builderInitialState, action) {
         filterContentBlocksTarget: action.target
       });
     }
-    
+
     default:
       return state;
   }

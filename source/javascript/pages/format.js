@@ -24,11 +24,11 @@ function formatHTML (doc) {
   const bodyElement = doc.querySelector('body');
   const headElement = doc.querySelector('head');
   const junkElements = doc.querySelectorAll(junkElementsQuery);
-  
+
   TTDOM.element.remove(junkElements);
-  
+
   const attributeJunkElements = doc.querySelectorAll(attributeJunkQuery);
-  
+
   TTDOM.element.attr.remove(attributeJunkElements, attributesToRemove);
 
   // Fix asset locations for production builds.
@@ -37,13 +37,13 @@ function formatHTML (doc) {
   javascriptElement.src = 'assets/template/template.js';
   javascriptElement.setAttribute('media', 'all');
   bodyElement.appendChild(javascriptElement);
-  
+
   const stylesheetElement = document.createElement('link');
   stylesheetElement.href = 'assets/template/template.css';
   stylesheetElement.rel = 'stylesheet';
   stylesheetElement.media = 'all';
   headElement.appendChild(stylesheetElement);
-  
+
   return doc;
 }
 
@@ -52,6 +52,6 @@ export default function (iFrameWindowObject) {
   const iFrameDocumentElement = iFrameDocument.documentElement;
   const cloneDocElem = iFrameDocumentElement.cloneNode(true);
   const HTML = addDoctypeToHTML(formatHTML(cloneDocElem).innerHTML);
-  
+
   return HTML;
 }

@@ -1,3 +1,4 @@
+import { combineReducers } from 'redux';
 import builder from './builder';
 import builderConfiguration from './builder-configuration';
 import template from './template';
@@ -7,7 +8,6 @@ import canvas from './canvas';
 import preview from './preview';
 import assets from './assets';
 import modals from './modals';
-import { combineReducers } from 'redux';
 
 const allReducers = combineReducers({
   builder,

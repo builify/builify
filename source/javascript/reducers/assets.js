@@ -1,6 +1,3 @@
-import storage from '../modules/tt-storage';
-import * as Actions from '../actions/constants';
-import { TEMPLATE_ASSETS_STORAGE_NAME } from '../constants';
 import {
   assign as _assign,
   findIndex as _findIndex,
@@ -8,6 +5,9 @@ import {
   isArray as _isArray,
   isUndefined as _isUndefined
 } from 'lodash';
+import storage from '../modules/tt-storage';
+import * as Actions from '../actions/constants';
+import { TEMPLATE_ASSETS_STORAGE_NAME } from '../constants';
 
 const initialState = [];
 
@@ -64,7 +64,8 @@ export default function (state = initialState, action) {
 
       return [];
     }
-  }
 
-  return state;
+    default:
+      return state;
+  }
 }

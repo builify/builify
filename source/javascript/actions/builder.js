@@ -6,10 +6,10 @@ import {
   has as _has
 } from 'lodash';
 import Actions from './constants';
-import IconPacksData from '../../../data/builder/icon-packs.json';
-import imagesLibraryJSON from '../../../data/builder/images-library.json';
-import builderConfiguration from '../../../data/builder/builder.json';
-import AsideData from '../../../data/builder/aside.json';
+import iconPacksData from '../../configuration/icon-packs.json';
+import imageLibrariesData from '../../configuration/images-library.json';
+import builderConfigurationData from '../../configuration/builder.json';
+import asideData from '../../configuration/aside.json';
 import { checkPreviousPagesInStorage } from './page';
 import { addNotification, demoNotification } from './notifications';
 import { IS_DEMO_VERSION } from '../constants';
@@ -42,14 +42,14 @@ export function getBuilderConfiguration () {
 export function receiveConfiguration () {
   return {
     type: Actions.RECEIVE_BUILDER_CONFIGURATION,
-    data: JSON.parse(stripJSONComments(JSON.stringify(builderConfiguration)))
+    data: JSON.parse(stripJSONComments(JSON.stringify(builderConfigurationData)))
   };
 }
 
 export function receiveAsideConfiguration () {
   return {
     type: Actions.RECEIVE_ASIDE_CONFIGURATION,
-    data: JSON.parse(stripJSONComments(JSON.stringify(AsideData)))
+    data: JSON.parse(stripJSONComments(JSON.stringify(asideData)))
   };
 }
 
@@ -78,8 +78,8 @@ export function addIconPackSourcesToHead (iconPacks) {
 
 export function getIconPacks () {
   return function (dispatch) {
-    if (_has(IconPacksData, 'iconPacks')) {
-      const { iconPacks } = IconPacksData;
+    if (_has(iconPacksData, 'iconPacks')) {
+      const { iconPacks } = iconPacksData;
 
       dispatch(addIconPackSourcesToHead(iconPacks));
       dispatch({
@@ -139,7 +139,7 @@ export function noPagesToDownload () {
 export function getImagesLibrary () {
   return {
     type: Actions.GET_IMAGESLIBRARY,
-    data: imagesLibraryJSON
+    data: imageLibrariesData
   };
 }
 

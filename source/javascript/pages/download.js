@@ -1,10 +1,8 @@
 import JSZip from 'jszip';
-import Random from '../common/random';
 import { saveAs } from 'file-saver';
+import { map as _map } from 'lodash';
+import Random from '../common/random';
 import { TEMPLATE_PACKAGE_FILENAME, TEMPLATE_PACKAGE_EXTENSION } from '../constants';
-import {
-  map as _map
-} from 'lodash';
 
 function getFileSettings () {
   return {
@@ -17,14 +15,15 @@ function getFileName () {
 }
 
 async function addPageFilesToPackage (pckg, pages) {
-  let _pageFileNames = [];
+  const _pageFileNames = [];
 
   return new Promise((resolve) => {
     _map(pages, (page) => {
       const { blocksCount } = page;
 
       if (blocksCount > 0) {
-        let { pageFileName: fileName, pageFullSource: pageHTML } = page;
+        const { pageFullSource: pageHTML } = page;
+        let { pageFileName: fileName } = page;
 
         if (_pageFileNames.indexOf(fileName) !== -1) {
           fileName = `${Random.randomKey(fileName.split('.').pop())}.html`;
@@ -61,9 +60,9 @@ async function downloadPages (pages, coreAssets) {
   saveAs(content, zipFileName);
 }
 
-export default function (pages, state) {
+export default function download (pages, state) {
   if (pages.length === 0 || !state || !state.template) {
-    return false;
+    return;
   }
 
   const { template } = state;

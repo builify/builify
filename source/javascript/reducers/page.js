@@ -29,7 +29,7 @@ function replaceDataInHTML (HTML, arrayOfItemsToReplace) {
     return HTML;
   }
 
-  map(arrayOfItemsToReplace, (replacer) => {
+  _map(arrayOfItemsToReplace, (replacer) => {
     const { findWhat, replaceWith } = replacer;
 
     if (!findWhat || !replaceWith) {
@@ -52,7 +52,6 @@ function resetBlockParameters (block) {
     }
 
     if (_isElement(block.elementReference)) {
-      const HTML = block.elementReference.outerHTML;
       block.source = block.elementReference.outerHTML;
     }
 
@@ -226,7 +225,7 @@ export default function (state = pageInitialState, action) {
     case Actions.LOAD_PREVIOUS_PAGE: {
       const { idx } = action;
       const pagesInStorage = TTStorage.get(TEMPLATE_PAGES_STORAGE_NAME);
-      var pageToLoad = null;
+      let pageToLoad = null;
 
       if (!idx) {
         if (_size(pagesInStorage) >= 1) {
@@ -249,9 +248,9 @@ export default function (state = pageInitialState, action) {
         footer = resetBlocks(footer);
 
         pageToLoad = _assign({}, pageToLoad, {
-          navigation: navigation,
-          main: main,
-          footer: footer
+          navigation,
+          main,
+          footer
         });
 
         return _assign({}, state, {
@@ -263,31 +262,32 @@ export default function (state = pageInitialState, action) {
     }
 
     case Actions.GET_TEMPLATE_DATA: {
-      let {  replaceInHTML } = state;
+      let { replaceInHTML } = state;
 
       if (_has(action, 'data.replacer')) {
         replaceInHTML = action.data.replacer;
       }
 
       return _assign({}, state, {
-        replaceInHTML: replaceInHTML
+        replaceInHTML
       });
     }
 
     case Actions.LOAD_CONTENTBLOCK_TO_PAGE: {
-      let { navigation, main, footer, blocksCount } = state;
+      const { main } = state;
+      let { navigation, footer, blocksCount } = state;
 
       if (_has(action, 'HTML')) {
-        let { HTML, blockType, blockName, features } = action;
+        const { HTML, blockType, blockName, features } = action;
         const { replaceInHTML } = state;
         const sourceString = replaceDataInHTML(HTML, replaceInHTML).toString();
         const blockID = Random.randomString(13);
         const blockInformation = {
           id: blockID,
           type: blockType,
-          blockName: blockName,
+          blockName,
           source: sourceString,
-          features: features,
+          features,
 
           hasBeenRendered: false,
           elementReference: null,
@@ -304,14 +304,14 @@ export default function (state = pageInitialState, action) {
           main.push(blockInformation);
         }
 
-        blocksCount++;
+        blocksCount += 1;
       }
 
       return _assign({}, state, {
-        navigation: navigation,
-        footer: footer,
-        main: main,
-        blocksCount: blocksCount
+        navigation,
+        footer,
+        main,
+        blocksCount
       });
     }
 
@@ -324,10 +324,8 @@ export default function (state = pageInitialState, action) {
         if (type === 'footer') {
           if (_has(block, 'elementReference') && _isElement(block.elementReference)) {
             TTDOM.element.remove(block.elementReference);
-          } else {
-            if (_isElement(state.footer.elementReference)) {
-              TTDOM.element.remove(state.footer.elementReference);
-            }
+          } else if (_isElement(state.footer.elementReference)) {
+            TTDOM.element.remove(state.footer.elementReference);
           }
 
           return _assign({}, state, {
@@ -337,34 +335,32 @@ export default function (state = pageInitialState, action) {
         } else if (type === 'navigation') {
           if (_has(block, 'elementReference') && _isElement(block.elementReference)) {
             TTDOM.element.remove(block.elementReference);
-          } else {
-            if (_isElement(state.navigation.elementReference)) {
-              TTDOM.element.remove(state.navigation.elementReference);
-            }
+          } else if (_isElement(state.navigation.elementReference)) {
+            TTDOM.element.remove(state.navigation.elementReference);
           }
 
           return _assign({}, state, {
             navigation: {},
             blocksCount: state.blocksCount - 1
           });
-        } else {
-          const { id } = block;
-          const searchQuery = { id: id };
-          const index = _findIndex(state.main, searchQuery);
+        }
 
-          if (index !== -1) {
-            if (_isElement(state.main[index].elementReference)) {
-              TTDOM.element.remove(state.main[index].elementReference);
-              state.main[index].hasBeenRendered = false;
-            }
+        const { id } = block;
+        const searchQuery = { id };
+        const index = _findIndex(state.main, searchQuery);
 
-            return _assign({}, state, {
-              main: _remove(state.main, (obj) => {
-                return obj.id !== block.id;
-              }),
-              blocksCount: state.blocksCount - 1
-            });
+        if (index !== -1) {
+          if (_isElement(state.main[index].elementReference)) {
+            TTDOM.element.remove(state.main[index].elementReference);
+            state.main[index].hasBeenRendered = false;
           }
+
+          return _assign({}, state, {
+            main: _remove(state.main, (obj) => {
+              return obj.id !== block.id;
+            }),
+            blocksCount: state.blocksCount - 1
+          });
         }
       }
 
@@ -379,30 +375,30 @@ export default function (state = pageInitialState, action) {
         return _assign({}, state, {
           footer: _assign({}, state.footer, {
             hasBeenRendered: true,
-            elementReference: elementReference
+            elementReference
           })
         });
       } else if (type === 'navigation') {
         return _assign({}, state, {
           navigation: _assign({}, state.navigation, {
             hasBeenRendered: true,
-            elementReference: elementReference
+            elementReference
           })
         });
-      } else {
-        var { main } = state;
-        const index = _findIndex(main, _pick(block, 'id'));
+      }
 
-        if (index !== -1) {
-          main[index] = _assign({}, main[index], {
-            hasBeenRendered: true,
-            elementReference: elementReference
-          });
+      const { main } = state;
+      const index = _findIndex(main, _pick(block, 'id'));
 
-          return _assign({}, state, {
-            main: main
-          });
-        }
+      if (index !== -1) {
+        main[index] = _assign({}, main[index], {
+          hasBeenRendered: true,
+          elementReference
+        });
+
+        return _assign({}, state, {
+          main
+        });
       }
 
       break;
@@ -412,7 +408,7 @@ export default function (state = pageInitialState, action) {
       const { evt } = action;
       const { main } = state;
       const { newIndex, oldIndex } = evt;
-      let temp = main[newIndex];
+      const temp = main[newIndex];
 
       main[newIndex] = main[oldIndex];
       _assign(main[newIndex], {
@@ -429,10 +425,11 @@ export default function (state = pageInitialState, action) {
       });
 
       return _assign({}, state, {
-        main: main
+        main
       });
     }
-  }
 
-  return state;
+    default:
+      return state;
+  }
 }

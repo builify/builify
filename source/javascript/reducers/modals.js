@@ -1,8 +1,6 @@
+import { assign as _assign } from 'lodash';
 import * as Actions from '../actions/constants';
 import { ModalTypes } from '../constants';
-import {
-  assign as _assign
-} from 'lodash';
 
 const initialState = {
   isModalOpen: false,
@@ -110,7 +108,8 @@ export default function (state = initialState, action) {
         modalType: ModalTypes.NONE,
         modalTarget: null
       });
-  }
 
-  return state;
+    default:
+      return state;
+  }
 }

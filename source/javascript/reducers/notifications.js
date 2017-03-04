@@ -1,12 +1,12 @@
-import Constants from '../components/notifications/constants';
-import * as Actions from '../actions/constants';
-import { MAXIMUM_NOTIFICATIONS } from '../constants';
 import {
   assign as _assign,
   values as _values,
   isNaN as _isNaN,
   isFunction as _isFunction
 } from 'lodash';
+import Constants from '../components/notifications/constants';
+import * as Actions from '../actions/constants';
+import { MAXIMUM_NOTIFICATIONS } from '../constants';
 
 const notificationsInitialState = [];
 let UID = Constants.defaultUid;
@@ -15,7 +15,7 @@ export default function (state = notificationsInitialState, action) {
   switch (action.type) {
     case Actions.ADD_NOTIFICATION: {
       const { notification } = action;
-      var notifications = state;
+      const notifications = state;
       const _notification = _assign({}, Constants.notification, notification);
 
       if (!_notification.level) {
@@ -27,7 +27,7 @@ export default function (state = notificationsInitialState, action) {
       }
 
       if (_isNaN(_notification.autoDismiss)) {
-        throw new Error(`"autoDismiss" is not a valid position.`);
+        throw new Error('"autoDismiss" is not a valid position.');
       }
 
       if (_values(Constants.positions).indexOf(_notification.position) === -1) {
@@ -46,7 +46,7 @@ export default function (state = notificationsInitialState, action) {
 
 
       // do not add if the notification already exists based on supplied uid
-      for (let i = 0; i < notifications.length; i++) {
+      for (let i = 0; i < notifications.length; i += 1) {
         if (notifications[i].uid === _notification.uid) {
           return false;
         }
@@ -83,7 +83,8 @@ export default function (state = notificationsInitialState, action) {
 
       return [...newlist];
     }
-  }
 
-  return state;
+    default:
+      return state;
+  }
 }

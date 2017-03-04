@@ -1,5 +1,3 @@
-import TTDOM from '../common/TTDOM';
-import * as Actions from '../actions/constants';
 import {
   assign as _assign,
   map as _map,
@@ -7,6 +5,8 @@ import {
   isNull as _isNull,
   isElement as _isElement
 } from 'lodash';
+import TTDOM from '../common/TTDOM';
+import * as Actions from '../actions/constants';
 
 const targets = [
   'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
@@ -42,7 +42,7 @@ export default function (state = canvasInitialState, action) {
       const iFrameWindow = TTDOM.iframe.getWindow(iFrame);
 
       return _assign({}, state, {
-        iFrameWindow: iFrameWindow
+        iFrameWindow
       });
     }
 
@@ -52,7 +52,7 @@ export default function (state = canvasInitialState, action) {
       if (!_isNull(iFrameWindow) && iFrameWindow.scrollTo) {
         iFrameWindow.scrollTo(0, 0);
       }
-      
+
       return state;
     }
 
@@ -88,14 +88,14 @@ export default function (state = canvasInitialState, action) {
 
         return _assign({}, state, {
           currentHoverBlock: {
-            block: block,
-            elementReference: elementReference,
-            topX: topX
+            block,
+            elementReference,
+            topX
           }
         });
-      } else {
-        throw 'Missing element or object in hover object.';
       }
+
+      throw new Error('Missing element or object in hover object.');
     }
 
     case Actions.REMOVE_CONTENTBLOCK: {
@@ -119,9 +119,9 @@ export default function (state = canvasInitialState, action) {
           target.getAttribute('data-abccorent') ||
           target.getAttribute('data-reactroot') ||
           target.getAttribute('data-ttroot') ||
-          i == 0 // Fixes root content editable issue.
+          i === 0 // Fixes root content editable issue.
           ) {
-          return false;
+          return;
         }
 
         target.contentEditable = true;
@@ -137,7 +137,8 @@ export default function (state = canvasInitialState, action) {
 
       return state;
     }
-  }
 
-  return state;
+    default:
+      return state;
+  }
 }
