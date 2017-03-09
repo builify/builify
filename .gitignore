@@ -17,4 +17,5 @@ npm-debug.log
 coverage
 
 # MacOS
+.DS_STORE
 .DS_Store

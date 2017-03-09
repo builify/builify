@@ -1,11 +1,8 @@
 import React from 'react';
-import _assign from 'lodash/assign';
+import { connect } from 'react-redux';
 import classNames from '../../../common/classnames';
 import ModalWrapper from '../common/wrapper';
-import ModalTab from '../common/tab';
-import BottomNavigation from '../common/bottom-navigation';
-import Input from '../../shared/input';
-import { connect } from 'react-redux';
+
 import { closeModal, sendFeedBack } from '../../../actions';
 
 class Feedback extends React.Component {
@@ -18,16 +15,14 @@ class Feedback extends React.Component {
     issue: 'Describe your issues or share your ideas'
   };
 
-  shouldComponentUpdate (nextProps, nextState) {
-    if (nextState.issue !== this.state.issue) {
-      return true;
-    }
+  _modalNode = null;
 
-    return false;
+  shouldComponentUpdate (nextProps, nextState) {
+    return nextState.issue !== this.state.issue;
   }
 
   closeDialog () {
-    return this.refs['modalWrapper'].closeDialog();
+    return this._modalNode.closeDialog();
   }
 
   handleInputChange (value) {
@@ -40,7 +35,7 @@ class Feedback extends React.Component {
   sendFeedBack () {
     const { issue } = this.state;
     const payload = {
-      issue: issue
+      issue
     };
 
     this.closeDialog();
@@ -52,7 +47,7 @@ class Feedback extends React.Component {
     const className = classNames(['modal', 'modal__transparent']);
 
     return (
-      <ModalWrapper ref='modalWrapper' className={className} onClose={this.props.closeModal}>
+      <ModalWrapper ref={(node) => { this._modalNode = node; }} className={className} onClose={this.props.closeModal}>
         <section>
           <h3 className={classNames('modal__transparent__title')}>Help</h3>
           <p>Create your pages by adding contentblocks and styling them. Read <a href="http://builify.trip-trax.com/documentation" target="_blank">documentation</a> for help.</p>
@@ -105,11 +100,11 @@ class Feedback extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    closeModal: function () {
+    closeModal: () => {
       dispatch(closeModal());
     },
 
-    sendFeedBack: function (payload) {
+    sendFeedBack: (payload) => {
       dispatch(sendFeedBack(payload));
     }
   };
