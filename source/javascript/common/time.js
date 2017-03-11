@@ -1,3 +1,4 @@
+/*eslint-disable */
 export default {
   formatDate (date, format, utc) {
     var MMMM = ["\x00", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -83,3 +84,4 @@ export default {
     return format;
   }
 };
+/*eslint-enable */

@@ -40,7 +40,7 @@ const browserSync = server.create();
 const gulpSrc = gulp.src;
 gulp.src = function (...args) {
   return gulpSrc(...args)
-    .pipe($plumber((error) => {
+    .pipe($plumber(function (error) {
       const { plugin, message } = error;
       $util.log($util.colors.red(`Error (${plugin}): ${message}`));
       this.emit('end');
@@ -178,7 +178,6 @@ gulp.task('rev', (callback) => {
     .on('error', callback);
 });
 
-
 // Compiles and deploys vendor javascript file.
 gulp.task('javascript:vendor', () => {
   const b = browserify({
@@ -270,7 +269,7 @@ gulp.task('watch', () => {
     });
   }
 
-  gulp.watch(['public/**/*.html', 'public/**/*.js']).on('change', () => {
+  gulp.watch(['public/index.html', 'public/**/*.js']).on('change', () => {
     browserSync.reload('*.html');
   });
 });
@@ -287,7 +286,7 @@ gulp.task('header', () => {
 *
 * @version: ${pckg.version}
 * @license: ${pckg.license}
-* @link: http://builify.trip-trax.co
+* @link: http://builify.com
 * @author: http://trip-trax.co
 * @date ${new Date().toDateString()}
 */

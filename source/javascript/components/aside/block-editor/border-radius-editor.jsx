@@ -167,7 +167,7 @@ export default class BorderRadiusEditor extends React.Component {
             onChange={this.changeRadius.bind(this, 'topLeftRadius')} />
         </div>
         <div
-          title='Top Right Border Radius'
+          title="Top Right Border Radius"
           className={classNames('be-block__radius__item')}>
           <Input
             className={classNames('be-block__radius__input')}
@@ -175,7 +175,7 @@ export default class BorderRadiusEditor extends React.Component {
             onChange={this.changeRadius.bind(this, 'topRightRadius')} />
         </div>
         <div
-          title='Bottom Right Border Radius'
+          title="Bottom Right Border Radius"
           className={classNames('be-block__radius__item')}>
           <Input
             className={classNames('be-block__radius__input')}
@@ -183,7 +183,7 @@ export default class BorderRadiusEditor extends React.Component {
             onChange={this.changeRadius.bind(this, 'bottomRightRadius')} />
         </div>
         <div
-          title='Bottom Left Radius'
+          title="Bottom Left Radius"
           className={classNames('be-block__radius__item')}>
           <Input
             className={classNames('be-block__radius__input')}
@@ -214,18 +214,18 @@ export default class BorderRadiusEditor extends React.Component {
 
     return (
       <div className={classNames('be-block__radius')}>
-        <div title='Same radius for all corners' className={classNames(['be-block__radius__item' ,'be-block__radius__item--first'])}>
+        <div title="Same radius for all corners" className={classNames(['be-block__radius__item' ,'be-block__radius__item--first'])}>
           <div
             onClick={this.changeRadiusShow.bind(this, 'single')}
-            title='Same radius for all corners'
+            title="Same radius for all corners"
             className={singleRadiusClassName}>
-            <Icon icon='crop-din' />
+            <Icon icon="crop-din" />
           </div>
           <div
             onClick={this.changeRadiusShow.bind(this, 'all')}
-            title='Different radius for each corner'
+            title="Different radius for each corner"
             className={allRadiusClassName}>
-            <Icon icon='crop-free' />
+            <Icon icon="crop-free" />
           </div>
         </div>
         { this.renderInputs() }

@@ -18,7 +18,7 @@ function getPrefixes (property, value) {
 
 function addPrefixesTo (style, property, value) {
   const vendor = getPrefixes(property, value);
-  
+
   for (const prefix in vendor) {
     if ({}.hasOwnProperty.call(vendor, prefix)) {
       style[prefix] = vendor[prefix];

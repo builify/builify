@@ -1,3 +1,4 @@
+import { assign as _assign } from 'lodash';
 import TTDOM from '../../../common/TTDOM';
 
 export default {
@@ -22,16 +23,18 @@ export default {
   },
 
   hasGridClassnames (elem, elementOptions) {
-    const func = (elem, cn) => {
-      return !!(elem.className.indexOf(cn) !== -1);
+    const func = (item, cn) => {
+      return (item.className.indexOf(cn) !== -1);
     };
 
     if (TTDOM.element.is(elem, 'div, p, span, figure, article, img')) {
       if (func(elem, 'col-xs') ||
           func(elem, 'col-sm') ||
           func(elem, 'col-md')) {
-        elementOptions.showExpandColumn = true;
-        elementOptions.showShrinkColumn = true;
+        return _assign({}, elementOptions, {
+          showExpandColumn: true,
+          showShrinkColumn: true
+        });
       }
     }
 
@@ -43,7 +46,7 @@ export default {
     const regex = /(col-)(md|sm|xs)-\d/g;
     let m = null;
 
-    while ((m = regex.exec(text)) !== null) {
+    while ((m = regex.exec(text)) !== null) { // eslint-disable-line
       if (m.index === regex.lastIndex) {
         regex.lastIndex += 1;
       }

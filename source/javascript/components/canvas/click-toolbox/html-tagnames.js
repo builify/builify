@@ -22,5 +22,5 @@ export default {
   figcaption: 'Caption',
   button: 'Button',
   header: 'Header',
-  footer: 'Footer' 
+  footer: 'Footer'
 };

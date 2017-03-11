@@ -11,7 +11,6 @@ export function getExtension (filename) {
 export function generatePageID () {
   const currentTimestamp = Math.floor(Date.now() / 1000);
   const uniqueKey = Math.random().toString(36).slice(-8);
-  const pageID = `builifypage-${currentTimestamp}-${uniqueKey}`;
 
-  return pageID;
+  return `builifypage-${currentTimestamp}-${uniqueKey}`;
 }

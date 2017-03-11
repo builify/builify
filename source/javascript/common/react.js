@@ -4,4 +4,6 @@ export function validateDOMElement (props, propName, componentName) {
       return new Error(`Invalid prop ${propName} supplied to ${componentName}. Validation failed.`);
     }
   }
+
+  return null;
 }

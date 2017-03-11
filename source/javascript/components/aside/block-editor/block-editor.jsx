@@ -29,12 +29,8 @@ class BlockEditor extends React.Component {
   };
 
   shouldComponentUpdate (nextProps) {
-    if (nextProps.blockEditorTabOpened !== this.props.blockEditorTabOpened ||
-      !nextProps.blockEditorTarget.isSameNode(this.props.blockEditorTarget)) {
-      return true;
-    }
-
-    return false;
+    return (nextProps.blockEditorTabOpened !== this.props.blockEditorTabOpened ||
+      !nextProps.blockEditorTarget.isSameNode(this.props.blockEditorTarget));
   }
 
   render () {

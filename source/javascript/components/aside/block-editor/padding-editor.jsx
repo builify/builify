@@ -1,16 +1,14 @@
 import React from 'react';
+import { kebabCase as _kebabCase } from 'lodash';
 import classNames from '../../../common/classnames';
 import Input from '../../shared/input';
 import { getStyleValue, setStyleValue } from './helpers';
-import {
-  kebabCase as _kebabCase
-} from 'lodash';
 
 export default class ItemPaddingEditor extends React.Component {
   static propTypes = {
     target: React.PropTypes.any.isRequired
   };
-  
+
   state = {
     paddingTop: 0,
     paddingRight: 0,
@@ -53,9 +51,9 @@ export default class ItemPaddingEditor extends React.Component {
     });
   }
 
-  handleChange  (name, value) {
+  handleChange (name, value) {
     setStyleValue(this._target, _kebabCase(name), value);
-    
+
     this.setState({
       ...this.state,
       [name]: value
@@ -68,25 +66,25 @@ export default class ItemPaddingEditor extends React.Component {
         <div className={classNames(['be-block__pm__item' ,'be-block__pm__item--first'])}>
           <span>Padding</span>
         </div>
-        <div title='Padding Top' className={classNames('be-block__pm__item')}>
+        <div title="Padding Top" className={classNames('be-block__pm__item')}>
           <Input
             className={classNames('be-block__pm__input')}
             value={this.state.paddingTop}
             onChange={this.handleChange.bind(this, 'paddingTop')} />
         </div>
-        <div title='Padding Right' className={classNames('be-block__pm__item')}>
+        <div title="Padding Right" className={classNames('be-block__pm__item')}>
           <Input
             className={classNames('be-block__pm__input')}
             value={this.state.paddingRight}
             onChange={this.handleChange.bind(this, 'paddingRight')} />
         </div>
-        <div title='Padding Bottom' className={classNames('be-block__pm__item')}>
+        <div title="Padding Bottom" className={classNames('be-block__pm__item')}>
           <Input
             className={classNames('be-block__pm__input')}
             value={this.state.paddingBottom}
             onChange={this.handleChange.bind(this, 'paddingBottom')} />
         </div>
-        <div title='Padding Left' className={classNames('be-block__pm__item')}>
+        <div title="Padding Left" className={classNames('be-block__pm__item')}>
           <Input
             className={classNames('be-block__pm__input')}
             value={this.state.paddingLeft}

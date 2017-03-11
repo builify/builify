@@ -29,19 +29,12 @@ function replaceDataInHTML (HTML, arrayOfItemsToReplace) {
     return HTML;
   }
 
-  _map(arrayOfItemsToReplace, (replacer) => {
+  return _map(arrayOfItemsToReplace, (replacer) => {
     const { findWhat, replaceWith } = replacer;
-
-    if (!findWhat || !replaceWith) {
-      return;
-    }
-
     const reg = new RegExp(findWhat, 'g');
 
-    HTML = HTML.replace(reg, replaceWith);
+    return HTML.replace(reg, replaceWith);
   });
-
-  return HTML;
 }
 
 function resetBlockParameters (block) {
@@ -432,4 +425,6 @@ export default function (state = pageInitialState, action) {
     default:
       return state;
   }
+
+  return state;
 }

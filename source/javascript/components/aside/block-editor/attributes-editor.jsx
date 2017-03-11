@@ -4,7 +4,6 @@ import localization from '../../../common/localization';
 import classNames from '../../../common/classnames';
 import Input from '../../shared/input';
 
-
 export default class ItemMarginEditor extends React.Component {
   static propTypes = {
     target: React.PropTypes.any.isRequired

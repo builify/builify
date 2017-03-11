@@ -1,13 +1,12 @@
 import React from 'react';
-import classnames from 'classnames';
 import { findDOMNode } from 'react-dom';
-import {
-  round as round,
-  range as range
-} from 'lodash';
+import classnames from 'classnames';
 import events from '../../../common/events';
 import InjectProgressBar from '../progress-bar';
-import { emptyFunction } from '../../../common/misc';
+import {
+  round,
+  range
+} from 'lodash';
 
 const factory = (ProgressBar) => {
   class Slider extends React.Component {
@@ -29,9 +28,6 @@ const factory = (ProgressBar) => {
       className: '',
       editable: false,
       max: 100,
-      disabled: false,
-      style: {},
-      onChange: emptyFunction,
       min: 0,
       pinned: false,
       snaps: false,
@@ -53,7 +49,7 @@ const factory = (ProgressBar) => {
 
     componentWillReceiveProps (nextProps) {
       if (this.state.inputFocused && this.props.value !== nextProps.value) {
-        this.setState({inputValue: this.valueForInput(nextProps.value)});
+          this.setState({inputValue: this.valueForInput(nextProps.value)});
       }
     }
 
@@ -176,8 +172,8 @@ const factory = (ProgressBar) => {
 
     knobOffset () {
       const { max, min } = this.props;
-      const translated = this.state.sliderLength * ((this.props.value - min) / (max - min));
-      return (translated * 100) / this.state.sliderLength;
+      const translated = this.state.sliderLength * (this.props.value - min) / (max - min);
+      return translated * 100 / this.state.sliderLength;
     }
 
     move (position) {
@@ -188,8 +184,8 @@ const factory = (ProgressBar) => {
     positionToValue (position) {
       const { sliderStart: start, sliderLength: length } = this.state;
       const { max, min, step } = this.props;
-      const pos = (position.x - start) / (length * (max - min));
-      return this.trimValue((Math.round(pos / step) * step) + min);
+      const pos = (position.x - start) / length * (max - min);
+      return this.trimValue(Math.round(pos / step) * step + min);
     }
 
     start (position) {
@@ -217,10 +213,10 @@ const factory = (ProgressBar) => {
     renderSnaps () {
       if (this.props.snaps) {
         return (
-          <div ref='snaps' className="tt-slider__snaps">
-            {range(0, (this.props.max - this.props.min) / this.props.step).map(i => {
-              return <div key={`span-${i}`} className="tt-slider__snap" />;
-            })}
+          <div ref='snaps' className='tt-slider__snaps'>
+              {range(0, (this.props.max - this.props.min) / this.props.step).map(i => {
+                  return <div key={`span-${i}`} className='tt-slider__snap' />;
+              })}
           </div>
         );
       }
@@ -231,11 +227,11 @@ const factory = (ProgressBar) => {
     render () {
       const knobStyles = {left: `${this.knobOffset()}%`};
       const className = classnames('tt-slider', {
-        editable: this.props.editable,
-        disabled: this.props.disabled,
-        pinned: this.props.pinned,
-        pressed: this.state.pressed,
-        ring: this.props.value === this.props.min
+        'editable': this.props.editable,
+        'disabled': this.props.disabled,
+        'pinned': this.props.pinned,
+        'pressed': this.state.pressed,
+        'ring': this.props.value === this.props.min
       }, this.props.className);
 
       return (
@@ -246,31 +242,31 @@ const factory = (ProgressBar) => {
           onFocus={this.handleSliderFocus}
           style={this.props.style}
           tabIndex='0'>
-          <div
-            ref='slider'
-            className='tt-slider__container'
-            onMouseDown={this.handleMouseDown}
-            onTouchStart={this.handleTouchStart}>
             <div
-              ref='knob'
-              className='tt-slider__knob'
-              onMouseDown={this.handleMouseDown}
-              onTouchStart={this.handleTouchStart}
-              style={knobStyles}>
-              <div className='tt-slider__innerknob' data-value={parseInt(this.props.value)}/>
+                ref='slider'
+                className='tt-slider__container'
+                onMouseDown={this.handleMouseDown}
+                onTouchStart={this.handleTouchStart}>
+              <div
+                  ref='knob'
+                  className='tt-slider__knob'
+                  onMouseDown={this.handleMouseDown}
+                  onTouchStart={this.handleTouchStart}
+                  style={knobStyles}>
+                <div className='tt-slider__innerknob' data-value={parseInt(this.props.value)}/>
+              </div>
+              <div className='tt-slider__progress'>
+                <ProgressBar
+                    disabled={this.props.disabled}
+                    ref='progressbar'
+                    className='tt-slider__innerprogress'
+                    max={this.props.max}
+                    min={this.props.min}
+                    mode="determinate"
+                    value={this.props.value} />
+                  { this.renderSnaps() }
+              </div>
             </div>
-            <div className='tt-slider__progress'>
-              <ProgressBar
-                disabled={this.props.disabled}
-                ref='progressbar'
-                className='tt-slider__innerprogress'
-                max={this.props.max}
-                min={this.props.min}
-                mode='determinate'
-                value={this.props.value} />
-              { this.renderSnaps() }
-            </div>
-          </div>
         </div>
       );
     }

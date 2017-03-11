@@ -16,6 +16,8 @@ build
 npm-debug.log
 coverage
 
-# MacOS
-.DS_STORE
+# Misc
+*~
 .DS_Store
+.idea
+npm-debug.log.*

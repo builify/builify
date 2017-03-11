@@ -18,16 +18,14 @@ class Feedback extends React.Component {
     issue: 'Describe your issues or share your ideas'
   };
 
-  shouldComponentUpdate (nextProps, nextState) {
-    if (nextState.issue !== this.state.issue) {
-      return true;
-    }
+  _modalWrapper = null;
 
-    return false;
+  shouldComponentUpdate (nextProps, nextState) {
+    return (nextState.issue !== this.state.issue);
   }
 
   closeDialog () {
-    return this.refs['modalWrapper'].closeDialog();
+    return this._modalWrapper.closeDialog();
   }
 
   handleInputChange (value) {
@@ -72,15 +70,18 @@ class Feedback extends React.Component {
     const className = classNames(['modal', 'modal__dialog']);
 
     return (
-      <ModalWrapper ref='modalWrapper' className={className} onClose={this.props.closeModal}>
-        <ModalTab title='Send Feedback' onClose={::this.closeDialog}>
+      <ModalWrapper
+        ref={(node) => { this._modalWrapper = node; }}
+        className={className}
+        onClose={this.props.closeModal}>
+        <ModalTab title="Send Feedback" onClose={::this.closeDialog}>
           <div>
             <div className={classNames('modal__tab')}>
               <Input
                 className={classNames('modal__input')}
-                type='text'
-                label='Feedback'
-                multiline={true}
+                type="text"
+                label="Feedback"
+                multiline
                 maxLength={2000}
                 style={style}
                 value={this.state.issue}

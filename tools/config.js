@@ -10,8 +10,8 @@ const assetsPath = path.join(buildDir, 'assets');
 
 // Supported CLI options.
 const env = {
-  debug: !!($env.env === 'debug' || process.env.NODE_ENV === 'development'),
-  demo: !!($env.env === 'demo')
+  debug: ($env.env === 'debug' || process.env.NODE_ENV === 'development'),
+  demo: ($env.env === 'demo')
 };
 
 export default {

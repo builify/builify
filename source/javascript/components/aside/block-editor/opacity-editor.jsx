@@ -7,7 +7,7 @@ export default class OpacitySlider extends React.Component {
   static propTypes = {
     target: React.PropTypes.any.isRequired
   };
-  
+
   state = {
     value: 100,
     text: '100%'
@@ -34,11 +34,11 @@ export default class OpacitySlider extends React.Component {
 
   setOpacityDefaultValue () {
     const opacityValue = getStyleValue(this._target, 'opacity');
-    const value = parseInt(opacityValue * 100);
+    const value = parseInt(opacityValue * 100, 10);
 
     this.setState({
       ...this.state,
-      value: value,
+      value,
       text: `${value}%`
     });
   }
@@ -48,7 +48,7 @@ export default class OpacitySlider extends React.Component {
 
     this.setState({
       ...this.state,
-      value: value,
+      value,
       text: `${value}%`
     });
   }
@@ -58,7 +58,7 @@ export default class OpacitySlider extends React.Component {
 
     return (
       <div className={classNames('size')}>
-        <label>Opacity</label>
+        <label htmlFor="size">Opacity</label>
         <Slider
           min={0}
           max={100}

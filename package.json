@@ -15,14 +15,14 @@
     "lint": "eslint ./source/javascript",
     "test": "jasmine",
     "coverage": "nyc --extension .jsx --extension .es6 --reporter=lcov --reporter=text-lcov npm test",
-    "pre-release": "npm run test",
+    "pre-release": "npm run lint && npm run test",
     "create-helpers": "./node_modules/.bin/babel-external-helpers -t global > ./source/javascript/wrapper/helpers.js"
   },
   "pre-commit": [
     "pre-release"
   ],
   "engines": {
-    "node": "6.1.0",
+    "node": "7.1.0",
     "npm": "3.8.6"
   },
   "devDependencies": {

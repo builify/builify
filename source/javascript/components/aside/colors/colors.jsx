@@ -23,7 +23,6 @@ function Colors ({
   colors,
   openColorPicker
 }) {
-  console.log(colors);
   return (
     <div>
       { renderColors(colors, openColorPicker) }

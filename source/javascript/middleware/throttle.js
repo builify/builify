@@ -1,4 +1,5 @@
 import { throttle } from 'lodash';
+
 export const CANCEL = 'redux-throttle/CANCEL';
 export const FLUSH = 'redux-throttle/FLUSH';
 
@@ -11,14 +12,12 @@ function map (throttled, action, method) {
     }
 
     Object.keys(throttled)
-      .filter((t) => types.includes(t))
-      .forEach((t) => throttled[t][method]());
+      .filter(t => types.includes(t))
+      .forEach(t => throttled[t][method]());
     return;
   }
 
-  Object.keys(throttled).forEach((t) => throttled[t][method]());
-
-  return;
+  Object.keys(throttled).forEach(t => throttled[t][method]());
 }
 
 const throttled = {};

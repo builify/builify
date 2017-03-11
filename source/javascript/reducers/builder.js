@@ -167,7 +167,6 @@ export default function (state = builderInitialState, action) {
       const pagesInStorage = TTStorage.get(TEMPLATE_PAGES_STORAGE_NAME);
 
       if (!_isUndefined(pagesInStorage) && _isArray(pagesInStorage)) {
-
         return _assign({}, state, {
           doPreviousPagesExistInStorage: pagesInStorage.length !== 0,
           pages: pagesInStorage

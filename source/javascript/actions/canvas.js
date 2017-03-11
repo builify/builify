@@ -42,12 +42,13 @@ export function setFont (font) {
 
   if (doesFontExistInHeadRoot === null || doesFontExistInHeadRoot === undefined) {
     const headElement = document.getElementsByTagName('head')[0];
-    const font = document.createElement('link');
+    const fontElement = document.createElement('link');
 
-    font.rel = 'stylesheet';
-    font.type = 'text/css';
-    font.href = `https://fonts.googleapis.com/css?family=${font}`;
-    font.setAttribute('data-fontname', font);
+    fontElement.rel = 'stylesheet';
+    fontElement.type = 'text/css';
+    fontElement.href = `https://fonts.googleapis.com/css?family=${font}`;
+    fontElement.setAttribute('data-fontname', font);
+
     headElement.appendChild(font);
   }
 

@@ -1,3 +1,4 @@
+/*eslint-disable*/
 export const prefixedProperties = [
   'transform'
 ];
@@ -63,7 +64,7 @@ export function getStyleValue (el, styleProp) {
         var oldLeft = el.style.left, oldRsLeft = el.runtimeStyle.left;
         el.runtimeStyle.left = el.currentStyle.left;
         el.style.left = value || 0;
-        value = el.style.pixelLeft + "px";
+        value = el.style.pixelLeft + 'px';
         el.style.left = oldLeft;
         el.runtimeStyle.left = oldRsLeft;
         return value;
@@ -74,3 +75,4 @@ export function getStyleValue (el, styleProp) {
   }
 }
 
+/*eslint-enable*/
