@@ -45,7 +45,7 @@ export default class ImageItem extends React.Component {
 
     return (
       <div className={loadImage}>
-        { !isImageFileLoaded && <ProgressBar className={classNames('loadimage__spinner')} type='circular' mode='indeterminate' multicolor /> }
+        { !isImageFileLoaded && <ProgressBar className={classNames('loadimage__spinner')} type="circular" mode="indeterminate" multicolor /> }
         <img
           draggable="false"
           onLoad={this.loadedImage}

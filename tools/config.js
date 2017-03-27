@@ -47,7 +47,7 @@ export default {
 
       thumbnail: {
         entry: path.join(sourceDir, 'template', 'thumbnails', '*.{jpg,jpeg,png}'),
-        output: path.join(assetsPath, 'static', 'thumbnails')
+        output: path.join(assetsPath, 'template', 'thumbnails')
       }
     }
   },
