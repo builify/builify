@@ -3,7 +3,7 @@ $nameprefix: "ab-";
 $base-padding: 35px;
 $unit: 1rem; 
 $preferred-font: "Monsterrat", sans-serif;
-$base-color: #ff7f2a;
+$base-color: #F53FC7;
 
 //-- Core colors (iOS 7 based)
 $color-charcoal:      #2B2B2B;
@@ -41,7 +41,7 @@ $color-primary-contrast: $color-dark-contrast !default;
 $color-accent-contrast: $color-dark-contrast !default;
 
 //-- Light theme variables
-$light-theme-color: #ff7f2a;
+$light-theme-color: #F53FC7;
 $light-primary-text-color: #444;
 $light-secondary-text-color: #888;
 $light-primary-color: #e7e7e7;
@@ -79,7 +79,7 @@ $z-index-lower: -200;
 
 //-- Loading screen variables
 $loadingscreen-bg: #333;
-$loadingscreen-primary: #ff7f2a;
+$loadingscreen-primary: #F53FC7;
 $loadingscreen-loader-border-thickness: 5px;
 $loadingscreen-loader-corner-radio: 8px;
 $loadingscreen-loader-base-opacity: 0.25;

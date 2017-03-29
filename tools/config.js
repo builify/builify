@@ -33,7 +33,7 @@ export default {
   },
 
   images: {
-    entry: path.join(sourceDir, 'images', '**', '*.{png,jpg,ico,svg,jpeg}'),
+    entry: path.join(sourceDir, 'images', '**', '*.{png,jpg,ico,svg,jpeg,xml,json}'),
     output: path.join(assetsPath, 'static')
   },
 

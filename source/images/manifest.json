@@ -1,0 +1,13 @@
+{
+    "name": "BUILIFY",
+    "icons": [
+        {
+            "src": "assets/static/images/android-chrome-144x144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#f53fc7",
+    "background_color": "#f53fc7",
+    "display": "standalone"
+}

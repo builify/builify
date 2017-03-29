@@ -87,7 +87,7 @@ class Feedback extends React.Component {
                 value={this.state.issue}
                 onChange={::this.handleInputChange} />
               <div style={containerWithPaddingStyle}>
-                <p style={paragraphStyle}>Your feedback and additional info will be sent to <a href='http://builify.com'>BUILify</a>. See Privacy Policy and Terms of Service.</p>
+                <p style={paragraphStyle}>Your feedback and additional info will be sent to <a href="http://builify.com">Builify</a>. See Privacy Policy and Terms of Service.</p>
               </div>
             </div>
           </div>

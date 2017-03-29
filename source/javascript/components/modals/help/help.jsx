@@ -2,45 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classNames from '../../../common/classnames';
 import ModalWrapper from '../common/wrapper';
+import { closeModal } from '../../../actions';
 
-import { closeModal, sendFeedBack } from '../../../actions';
-
-class Feedback extends React.Component {
+class Help extends React.Component {
   static propTypes = {
-    closeModal: React.PropTypes.func.isRequired,
-    sendFeedBack: React.PropTypes.func.isRequired
-  };
-
-  state = {
-    issue: 'Describe your issues or share your ideas'
+    closeModal: React.PropTypes.func.isRequired
   };
 
   _modalNode = null;
 
-  shouldComponentUpdate (nextProps, nextState) {
-    return nextState.issue !== this.state.issue;
-  }
-
   closeDialog () {
     return this._modalNode.closeDialog();
-  }
-
-  handleInputChange (value) {
-    this.setState({
-      ...this.state,
-      issue: value
-    });
-  }
-
-  sendFeedBack () {
-    const { issue } = this.state;
-    const payload = {
-      issue
-    };
-
-    this.closeDialog();
-
-    return this.props.sendFeedBack(payload);
   }
 
   render () {
@@ -50,7 +22,7 @@ class Feedback extends React.Component {
       <ModalWrapper ref={(node) => { this._modalNode = node; }} className={className} onClose={this.props.closeModal}>
         <section>
           <h3 className={classNames('modal__transparent__title')}>Help</h3>
-          <p>Create your pages by adding contentblocks and styling them. Read <a href="http://builify.trip-trax.com/documentation" target="_blank">documentation</a> for help.</p>
+          <p>Create your pages by adding contentblocks and styling them. Read <a href="http://builify.com/documentation" target="_blank" rel="noopener noreferrer">documentation</a> for help.</p>
         </section>
         <section>
           <h3 className={classNames('modal__transparent__title')}>Keyboard shortcuts</h3>
@@ -102,12 +74,8 @@ function mapDispatchToProps (dispatch) {
   return {
     closeModal: () => {
       dispatch(closeModal());
-    },
-
-    sendFeedBack: (payload) => {
-      dispatch(sendFeedBack(payload));
     }
   };
 }
 
-export default connect(null, mapDispatchToProps)(Feedback);
+export default connect(null, mapDispatchToProps)(Help);
