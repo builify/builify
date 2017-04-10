@@ -1,23 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Ripple from '../ripple';
 import Icon from '../icon';
 import classNames from '../../../common/classnames';
 
 export default class Button extends React.Component {
   static propTypes = {
-    accent: React.PropTypes.bool,
-    className: React.PropTypes.string,
-    disabled: React.PropTypes.bool,
-    icon: React.PropTypes.string,
-    kind: React.PropTypes.string,
-    label: React.PropTypes.string,
-    loading: React.PropTypes.bool,
-    primary: React.PropTypes.bool,
-    ripple: React.PropTypes.bool,
-    type: React.PropTypes.string,
-    onMouseDown: React.PropTypes.func,
-    href: React.PropTypes.string,
-    children: React.PropTypes.any
+    accent: PropTypes.bool,
+    className: PropTypes.string,
+    disabled: PropTypes.bool,
+    icon: PropTypes.string,
+    kind: PropTypes.string,
+    label: PropTypes.string,
+    loading: PropTypes.bool,
+    primary: PropTypes.bool,
+    ripple: PropTypes.bool,
+    type: PropTypes.string,
+    onMouseDown: PropTypes.func,
+    href: PropTypes.string,
+    children: PropTypes.any
   };
 
   static defaultProps = {

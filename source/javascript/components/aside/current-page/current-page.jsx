@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   isNull as _isNull,
@@ -14,10 +15,10 @@ import * as Actions from '../../../actions';
 
 class CurrentPage extends React.Component {
   static propTypes = {
-    page: React.PropTypes.object.isRequired,
-    removeContentBlock: React.PropTypes.func.isRequired,
-    sortContentBlocks: React.PropTypes.func.isRequired,
-    exportPage: React.PropTypes.func.isRequired
+    page: PropTypes.object.isRequired,
+    removeContentBlock: PropTypes.func.isRequired,
+    sortContentBlocks: PropTypes.func.isRequired,
+    exportPage: PropTypes.func.isRequired
   };
 
   state = {

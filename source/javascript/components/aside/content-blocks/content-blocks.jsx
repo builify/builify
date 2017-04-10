@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   map as _map,
@@ -13,9 +14,9 @@ import { loadContentBlockSource as loadContentBlockSourceAction } from '../../..
 
 class ContentBlocks extends React.Component {
   static propTypes = {
-    blocks: React.PropTypes.array.isRequired,
-    filterContentBlocksTarget: React.PropTypes.string.isRequired,
-    loadContentBlockSource: React.PropTypes.func.isRequired
+    blocks: PropTypes.array.isRequired,
+    filterContentBlocksTarget: PropTypes.string.isRequired,
+    loadContentBlockSource: PropTypes.func.isRequired
   };
 
   componentWillMount () {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from '../common/classnames';
 import Aside from './aside';
@@ -39,7 +40,7 @@ function Base ({
 }
 
 Base.propTypes = {
-  defaultTheme: React.PropTypes.string.isRequired
+  defaultTheme: PropTypes.string.isRequired
 };
 
 function mapStateToProps (state) {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import localization from '../../../common/localization';
 import classNames from '../../../common/classnames';
 import Icon from '../../shared/icon';
@@ -34,11 +35,11 @@ export default function NavigationItem ({
 }
 
 NavigationItem.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  icon: React.PropTypes.string.isRequired,
-  className: React.PropTypes.string,
-  disabled: React.PropTypes.bool,
-  onClick: React.PropTypes.func
+  title: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 NavigationItem.defaultProps = {

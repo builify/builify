@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import localization from '../../common/localization';
 import classNames from '../../common/classnames';
@@ -24,8 +25,8 @@ function LoadingScreen ({
 }
 
 LoadingScreen.propTypes = {
-  isLoadingScreenActive: React.PropTypes.bool.isRequired,
-  loadingScreenType: React.PropTypes.number.isRequired
+  isLoadingScreenActive: PropTypes.bool.isRequired,
+  loadingScreenType: PropTypes.number.isRequired
 };
 
 function mapStateToProps (state) {

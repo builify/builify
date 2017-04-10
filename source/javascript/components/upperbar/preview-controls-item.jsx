@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from '../../common/classnames';
 import Icon from '../shared/icon';
 
@@ -10,8 +11,8 @@ export default function PreviewControlsItem ({
 }) {
   const iconSize = 20;
   const className = classNames(null, {
-    'active': active,
-    'hidden': hidden
+      active,
+      hidden
   });
   const style = {
     fill: '#444'
@@ -37,6 +38,9 @@ export default function PreviewControlsItem ({
     case 'settings-applications':
       title = 'Set to Editor Mode';
       break;
+
+    default:
+      break;
   }
 
   return (
@@ -47,10 +51,10 @@ export default function PreviewControlsItem ({
 }
 
 PreviewControlsItem.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  active: React.PropTypes.bool,
-  hidden: React.PropTypes.bool,
-  onClick: React.PropTypes.func
+  name: PropTypes.string.isRequired,
+  active: PropTypes.bool,
+  hidden: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 PreviewControlsItem.defaultProps = {

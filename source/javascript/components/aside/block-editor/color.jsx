@@ -2,15 +2,16 @@
  * Created by Genert Org on 11/03/2017.
  */
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from '../../../common/classnames';
 import { emptyFunction } from '../../../common/misc';
 
 export default class Color extends React.Component {
   static propTypes = {
-    type: React.PropTypes.string.isRequired,
-    color: React.PropTypes.string.isRequired,
-    title: React.PropTypes.string.isRequired,
-    onClick: React.PropTypes.func
+    type: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    onClick: PropTypes.func
   };
 
   static defaultProps = {

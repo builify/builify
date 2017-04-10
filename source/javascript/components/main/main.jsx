@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from '../../common/classnames';
 import Canvas from '../canvas';
@@ -7,7 +8,7 @@ import { CurrentLocations } from '../../constants';
 
 class Main extends React.Component {
   static propTypes = {
-    currentLocation: React.PropTypes.number.isRequired
+    currentLocation: PropTypes.number.isRequired
   };
 
   shouldComponentUpdate (nextProps) {

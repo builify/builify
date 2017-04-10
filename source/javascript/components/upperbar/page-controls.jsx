@@ -1,18 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import _map from 'lodash/map';
 import _isObject from 'lodash/isobject';
 import _size from 'lodash/size';
 import classNames from '../../common/classnames';
 import Dropdown from '../shared/dropdown';
-import { connect } from 'react-redux';
 import { loadPreviousPage, saveCurrentPage } from '../../actions';
 
 class PageControls extends React.Component {
   static propTypes = {
-    pages: React.PropTypes.array.isRequired,
-    pageID: React.PropTypes.any.isRequired,
-    loadPreviousPage: React.PropTypes.func.isRequired,
-    saveCurrentPage: React.PropTypes.func.isRequired
+    pages: PropTypes.array.isRequired,
+    pageID: PropTypes.any.isRequired,
+    loadPreviousPage: PropTypes.func.isRequired,
+    saveCurrentPage: PropTypes.func.isRequired
   };
 
   state = {
@@ -41,7 +42,7 @@ class PageControls extends React.Component {
       this.props.saveCurrentPage();
 
       this.setState({
-        pageID: pageID
+        pageID
       });
 
       return this.props.loadPreviousPage(pageID);

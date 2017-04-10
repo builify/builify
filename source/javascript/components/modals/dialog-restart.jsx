@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Dialog from './dialog';
 import * as Actions from '../../actions';
@@ -29,8 +30,8 @@ function RestartDialog ({
 }
 
 RestartDialog.propTypes = {
-  closeModal: React.PropTypes.func.isRequired,
-  restartPage: React.PropTypes.func.isRequired
+  closeModal: PropTypes.func.isRequired,
+  restartPage: PropTypes.func.isRequired
 };
 
 function mapDispatchToProps (dispatch) {

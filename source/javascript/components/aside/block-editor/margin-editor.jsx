@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { kebabCase as _kebabCase } from 'lodash';
 import classNames from '../../../common/classnames';
 import Input from '../../shared/input';
@@ -6,7 +7,7 @@ import { getStyleValue, setStyleValue } from './helpers';
 
 export default class ItemMarginEditor extends React.Component {
   static propTypes = {
-    target: React.PropTypes.any.isRequired
+    target: PropTypes.any.isRequired
   };
 
   state = {

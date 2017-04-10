@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   map as _map,
@@ -14,25 +15,21 @@ import { CurrentLocations, IS_DEMO_VERSION, IS_DEV_VERSION } from '../../../cons
 
 class PrimaryNavigation extends React.Component {
   static propTypes = {
-    navigation: React.PropTypes.array.isRequired,
-    pages: React.PropTypes.array.isRequired,
-    currentLocation: React.PropTypes.number.isRequired,
-    openFeedbackModal: React.PropTypes.func.isRequired,
-    openTab: React.PropTypes.func.isRequired,
-    openRestartModal: React.PropTypes.func.isRequired,
-    openDownloadModal: React.PropTypes.func.isRequired,
-    saveCurrentPage: React.PropTypes.func.isRequired,
-    downloadSinglePage: React.PropTypes.func.isRequired,
-    noPagesToDownload: React.PropTypes.func.isRequired,
-    openHelpModal: React.PropTypes.func.isRequired
+    navigation: PropTypes.array.isRequired,
+    pages: PropTypes.array.isRequired,
+    currentLocation: PropTypes.number.isRequired,
+    openFeedbackModal: PropTypes.func.isRequired,
+    openTab: PropTypes.func.isRequired,
+    openRestartModal: PropTypes.func.isRequired,
+    openDownloadModal: PropTypes.func.isRequired,
+    saveCurrentPage: PropTypes.func.isRequired,
+    downloadSinglePage: PropTypes.func.isRequired,
+    noPagesToDownload: PropTypes.func.isRequired,
+    openHelpModal: PropTypes.func.isRequired
   };
 
   shouldComponentUpdate (nextProps) {
-    if (this.props.currentLocation !== nextProps.currentLocation) {
-      return true;
-    }
-
-    return false;
+    return (this.props.currentLocation !== nextProps.currentLocation);
   }
 
   renderNavigationItems () {

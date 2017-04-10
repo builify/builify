@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   map as _map,
@@ -34,8 +35,8 @@ function renderTitle (currentTab) {
 
 class Tab extends React.Component {
   static propTypes = {
-    currentTab: React.PropTypes.string.isRequired,
-    closeTab: React.PropTypes.func.isRequired
+    currentTab: PropTypes.string.isRequired,
+    closeTab: PropTypes.func.isRequired
   };
 
   state = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
 
@@ -25,9 +26,9 @@ export default function Title ({
 }
 
 Title.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  description: React.PropTypes.string,
-  className: React.PropTypes.string
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  className: PropTypes.string
 };
 
 Title.defaultProps = {

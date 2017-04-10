@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   map as _map,
@@ -12,10 +13,10 @@ import { removeNotification } from '../../actions';
 
 class NotificationSystem extends React.Component {
   static propTypes = {
-    notifications: React.PropTypes.array.isRequired,
-    noAnimation: React.PropTypes.bool,
-    allowHTML: React.PropTypes.bool,
-    removeNotification: React.PropTypes.func.isRequired
+    notifications: PropTypes.array.isRequired,
+    noAnimation: PropTypes.bool,
+    allowHTML: PropTypes.bool,
+    removeNotification: PropTypes.func.isRequired
   };
 
   static defaultProps = {

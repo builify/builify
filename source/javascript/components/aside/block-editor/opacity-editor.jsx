@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from '../../../common/classnames';
 import Slider from '../../shared/slider-input';
 import { getStyleValue, setStyleValue } from './helpers';
 
 export default class OpacitySlider extends React.Component {
   static propTypes = {
-    target: React.PropTypes.any.isRequired
+    target: PropTypes.any.isRequired
   };
 
   state = {

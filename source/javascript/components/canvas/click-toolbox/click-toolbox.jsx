@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   isNull as _isNull,
@@ -19,12 +20,12 @@ function getHTMLTagName (target) {
 
 class ClickToolbox extends React.Component {
   static propTypes = {
-    openContextMenu: React.PropTypes.func.isRequired,
-    closeContextMenu: React.PropTypes.func.isRequired,
-    openIconEditModal: React.PropTypes.func.isRequired,
-    openImageEditModal: React.PropTypes.func.isRequired,
-    openBlockEditorTab: React.PropTypes.func.isRequired,
-    cloneItem: React.PropTypes.func.isRequired
+    openContextMenu: PropTypes.func.isRequired,
+    closeContextMenu: PropTypes.func.isRequired,
+    openIconEditModal: PropTypes.func.isRequired,
+    openImageEditModal: PropTypes.func.isRequired,
+    openBlockEditorTab: PropTypes.func.isRequired,
+    cloneItem: PropTypes.func.isRequired
   };
 
   state = {

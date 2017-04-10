@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { isNull as _isNull } from 'lodash';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
@@ -38,10 +39,10 @@ export default function Color ({
 }
 
 Color.propTypes = {
-  text: React.PropTypes.string,
-  color: React.PropTypes.string.isRequired,
-  colorTarget: React.PropTypes.string,
-  onClick: React.PropTypes.func.isRequired
+  text: PropTypes.string,
+  color: PropTypes.string.isRequired,
+  colorTarget: PropTypes.string,
+  onClick: PropTypes.func.isRequired
 };
 
 Color.defaultProps = {

@@ -1,26 +1,31 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import QueryString from 'querystring';
 import URL from 'url';
+import { connect } from 'react-redux';
+import {
+  isNull as _isNull,
+  isElement as _isElement
+} from 'lodash';
 import classNames from '../../../common/classnames';
 import ModalWrapper from '../common/wrapper';
 import ModalTab from '../common/tab';
 import BottomNavigation from '../common/bottom-navigation';
 import Input from '../../shared/input';
 import PreviewVideo from '../../shared/preview-video';
-import { connect } from 'react-redux';
 import { closeModal, addNotification } from '../../../actions';
-import {
-  isNull as _isNull,
-  isElement as _isElement
-} from 'lodash';
 
 const DEFAULT_VIDEO_EDIT_URL = 'https://www.youtube.com/watch?v=XNdNLNFZBmk';
 
 class VideoEdit extends React.Component {
   static propTypes = {
-    editTarget: React.PropTypes.any,
-    addNotification: React.PropTypes.func.isRequired,
-    closeModal: React.PropTypes.func.isRequired
+    editTarget: PropTypes.any,
+    addNotification: PropTypes.func.isRequired,
+    closeModal: PropTypes.func.isRequired
+  };
+
+  static defaultProps = {
+    editTarget: null
   };
 
   state = {
@@ -93,7 +98,7 @@ class VideoEdit extends React.Component {
         const url = `https://www.youtube.com/watch?v=${videoID}`;
 
         this.setState({
-          url: url
+          url
         });
       }
     }
@@ -132,11 +137,11 @@ class VideoEdit extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    closeModal: function () {
+    closeModal: () => {
       dispatch(closeModal());
     },
 
-    addNotification: function (notification) {
+    addNotification: (notification) => {
       dispatch(addNotification(notification));
     }
   };

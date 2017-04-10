@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
@@ -19,9 +20,9 @@ import { validateDOMElement } from '../../../common/react';
 
 class BlockEditor extends React.Component {
   static propTypes = {
-    blockEditorTabOpened: React.PropTypes.bool.isRequired,
+    blockEditorTabOpened: PropTypes.bool.isRequired,
     blockEditorTarget: validateDOMElement,
-    closeBlockEditorTab: React.PropTypes.func.isRequired
+    closeBlockEditorTab: PropTypes.func.isRequired
   };
 
   static defaultProps = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   map as _map,
   isEqual as _isEqual
@@ -10,11 +11,11 @@ import { emtpyFunction } from '../../common/misc';
 
 export default class NotificationContainer extends React.Component {
   static propTypes = {
-    position: React.PropTypes.string.isRequired,
-    notifications: React.PropTypes.array.isRequired,
-    onRemove: React.PropTypes.func,
-    noAnimation: React.PropTypes.bool,
-    allowHTML: React.PropTypes.bool
+    position: PropTypes.string.isRequired,
+    notifications: PropTypes.array.isRequired,
+    onRemove: PropTypes.func,
+    noAnimation: PropTypes.bool,
+    allowHTML: PropTypes.bool
   };
 
   static defaultProps = {
@@ -24,11 +25,7 @@ export default class NotificationContainer extends React.Component {
   };
 
   shouldComponentUpdate (nextProps) {
-    if (!_isEqual(nextProps.notifications, this.props.notifications)) {
-      return true;
-    }
-
-    return false;
+    return (!_isEqual(nextProps.notifications, this.props.notifications));
   }
 
   render () {

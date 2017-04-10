@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Icon from '../../shared/icon';
 import classNames from '../../../common/classnames';
@@ -22,9 +23,9 @@ function SideTabOpener ({
 }
 
 SideTabOpener.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  onClick: React.PropTypes.string.isRequired,
-  openTab: React.PropTypes.func.isRequired
+  title: PropTypes.string.isRequired,
+  onClick: PropTypes.string.isRequired,
+  openTab: PropTypes.func.isRequired
 };
 
 function mapDispatchToProps (dispatch) {

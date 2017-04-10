@@ -1,29 +1,30 @@
 import React from 'react';
-import classNames from '../../../common/classnames';
-import Random from '../../../common/random';
-import Icon from '../../shared/icon';
+import PropTypes from 'prop-types';
 import {
   map as _map,
   has as _has
 } from 'lodash';
+import classNames from '../../../common/classnames';
+import Random from '../../../common/random';
+import Icon from '../../shared/icon';
 
 export default class ModalTab extends React.Component {
   static propTypes = {
-    nav: React.PropTypes.array,
-    title: React.PropTypes.string,
-    info: React.PropTypes.string,
-    activeTab: React.PropTypes.number,
-    uploadedImagesLength: React.PropTypes.number,
-    onTabClick: React.PropTypes.func,
-    children: React.PropTypes.node,
-    onClose: React.PropTypes.func.isRequired
+    nav: PropTypes.array,
+    title: PropTypes.string,
+    info: PropTypes.string,
+    activeTab: PropTypes.number,
+    uploadedImagesLength: PropTypes.number,
+    onTabClick: PropTypes.func,
+    children: PropTypes.node,
+    onClose: PropTypes.func.isRequired
   };
 
   static defaultProps = {
     uploadedImagesLength: 0,
     activeTab: 0,
-    onTabClick: function () {},
-    onClose: function () {}
+    onTabClick: () => {},
+    onClose: () => {}
   };
 
   renderNavigation () {
@@ -38,7 +39,7 @@ export default class ModalTab extends React.Component {
         { _map(nav, tab => {
           const { id } = tab;
           const className = classNames('modal__tablabel', {
-            'active': id === this.props.activeTab
+            active: id === this.props.activeTab
           });
           let { label } = tab;
 
@@ -63,7 +64,7 @@ export default class ModalTab extends React.Component {
   renderCloseIcon () {
     return (
       <div onClick={this.props.onClose} className={classNames('modal__close')} title='Close tab'>
-        <Icon icon='remove' size={26} />
+        <Icon icon="remove" size={26} />
       </div>
     );
   }

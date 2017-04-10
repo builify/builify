@@ -1,7 +1,5 @@
 import React from 'react';
-import classNames from '../../../common/classnames';
-import Button from '../../shared/button';
-import { TEMPLATE_FILE_EXTENSION } from '../../../constants';
+import PropTypes from 'prop-types';
 import {
   map as _map,
   omit as _omit,
@@ -9,10 +7,13 @@ import {
   isElement as _isElement,
   isFunction as _isFunction
 } from 'lodash';
+import classNames from '../../../common/classnames';
+import Button from '../../shared/button';
+import { TEMPLATE_FILE_EXTENSION } from '../../../constants';
 
 export default class BottomNavigation extends React.Component {
   static propTypes = {
-    actions: React.PropTypes.array.isRequired
+    actions: PropTypes.array.isRequired
   };
 
   _onLoadFunction = null;
@@ -77,7 +78,7 @@ export default class BottomNavigation extends React.Component {
     const props = _omit(this.props, ['actions']);
 
     return (
-      <nav role='navigation' className={classNames('modal__navigation')} {...props}>
+      <nav role="navigation" className={classNames('modal__navigation')} {...props}>
         { this.renderActions() }
       </nav>
     );

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from '../../common/classnames';
 import localization from '../../common/localization';
 
@@ -18,7 +19,7 @@ export default function SuggestionBox ({
 }
 
 SuggestionBox.propTypes = {
-  display: React.PropTypes.bool
+  display: PropTypes.bool
 };
 
 SuggestionBox.defaultProps = {

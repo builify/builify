@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { openFeedbackModal as openFeedbackModalAction } from '../../actions';
 
@@ -15,7 +16,7 @@ function FeedBackWrapper ({
 }
 
 FeedBackWrapper.propTypes = {
-  openFeedbackModal: React.PropTypes.func.isRequired
+  openFeedbackModal: PropTypes.func.isRequired
 };
 
 function mapDispatchToProps (dispatch) {

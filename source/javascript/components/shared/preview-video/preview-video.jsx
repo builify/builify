@@ -1,23 +1,24 @@
 import React from 'react';
 import Mime from 'mime';
+import PropTypes from 'prop-types';
 import QueryString from 'querystring';
 import URL from 'url';
 import { isNull as _isNull } from 'lodash';
 
 export default class PreviewVideo extends React.Component {
   static propTypes = {
-    src: React.PropTypes.string.isRequired,
-    width: React.PropTypes.oneOfType([
-      React.PropTypes.number,
-      React.PropTypes.string
+    src: PropTypes.string.isRequired,
+    width: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
     ]),
-    height: React.PropTypes.oneOfType([
-      React.PropTypes.number,
-      React.PropTypes.string
+    height: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
     ]),
-    background: React.PropTypes.oneOfType([
-      React.PropTypes.number,
-      React.PropTypes.string
+    background: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
     ])
   };
 
@@ -36,11 +37,7 @@ export default class PreviewVideo extends React.Component {
   };
 
   shouldComponentUpdate (nextProps) {
-    if (this.props.src !== nextProps.src) {
-      return true;
-    }
-
-    return false;
+    return (this.props.src !== nextProps.src);
   }
 
   componentWillMount () {

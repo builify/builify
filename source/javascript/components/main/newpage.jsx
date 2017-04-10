@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from '../../common/classnames';
 import localization from '../../common/localization';
@@ -29,9 +30,9 @@ function Page ({
 }
 
 Page.propTypes = {
-  newPage: React.PropTypes.bool,
-  startNewPage: React.PropTypes.func.isRequired,
-  openPreviousPagesSelectionModal: React.PropTypes.func.isRequired
+  newPage: PropTypes.bool,
+  startNewPage: PropTypes.func.isRequired,
+  openPreviousPagesSelectionModal: PropTypes.func.isRequired
 };
 
 Page.defaultProps = {

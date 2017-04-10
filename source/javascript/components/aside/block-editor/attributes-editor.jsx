@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { isEmpty as _isEmpty } from 'lodash';
 import localization from '../../../common/localization';
 import classNames from '../../../common/classnames';
@@ -6,7 +7,7 @@ import Input from '../../shared/input';
 
 export default class ItemMarginEditor extends React.Component {
   static propTypes = {
-    target: React.PropTypes.any.isRequired
+    target: PropTypes.any.isRequired
   };
 
   state = {

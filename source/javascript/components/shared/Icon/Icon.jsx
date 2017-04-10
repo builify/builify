@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { assign as _assign } from 'lodash';
 import renderIcon from './render-icon';
@@ -33,14 +34,14 @@ export default function Icon ({
 }
 
 Icon.propTypes = {
-  onClick: React.PropTypes.func,
-  icon: React.PropTypes.string.isRequired,
-  size: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number
+  onClick: PropTypes.func,
+  icon: PropTypes.string.isRequired,
+  size: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
   ]),
-  style: React.PropTypes.object,
-  className: React.PropTypes.string
+  style: PropTypes.object,
+  className: PropTypes.string
 };
 
 Icon.defaultProps = {

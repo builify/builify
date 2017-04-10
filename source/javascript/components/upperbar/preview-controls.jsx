@@ -1,17 +1,18 @@
 import React from 'react';
-import _map from 'lodash/map';
+import PropTypes from 'prop-types';
+import { map as _map } from 'lodash';
+import { connect } from 'react-redux';
 import classNames from '../../common/classnames';
 import random from '../../common/random';
 import PreviewControlsItem from './preview-controls-item';
-import { connect } from 'react-redux';
 import { CurrentLocations, PreviewModes } from '../../constants';
 import { setPreviewMode } from '../../actions';
 
 class PreviewControls extends React.Component {
   static propTypes = {
-    currentLocation: React.PropTypes.number.isRequired,
-    previewMode: React.PropTypes.number.isRequired,
-    setPreviewMode: React.PropTypes.func.isRequired
+    currentLocation: PropTypes.number.isRequired,
+    previewMode: PropTypes.number.isRequired,
+    setPreviewMode: PropTypes.func.isRequired
   };
 
   shouldComponentUpdate (nextProps) {
@@ -63,8 +64,8 @@ function mapStateToProps (state) {
   const { previewMode } = preview;
 
   return {
-    currentLocation: currentLocation,
-    previewMode: previewMode
+    currentLocation,
+    previewMode
   };
 }
 

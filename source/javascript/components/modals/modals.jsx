@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ImageEdit from './image-change';
 import PreviousPages from './previous-pages';
@@ -15,8 +16,8 @@ import { validateDOMElement } from '../../common/react';
 
 class Modals extends React.Component {
   static propTypes = {
-    isModalOpen: React.PropTypes.bool.isRequired,
-    modalType: React.PropTypes.number.isRequired,
+    isModalOpen: PropTypes.bool.isRequired,
+    modalType: PropTypes.number.isRequired,
     modalTarget: validateDOMElement
   };
 

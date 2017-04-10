@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from '../../common/classnames';
 import Page from './newpage';
@@ -7,8 +8,8 @@ import { CurrentLocations } from '../../constants';
 
 class StartScreen extends React.Component {
   static propTypes = {
-    previousPagesInStorage: React.PropTypes.bool.isRequired,
-    currentLocation: React.PropTypes.number.isRequired
+    previousPagesInStorage: PropTypes.bool.isRequired,
+    currentLocation: PropTypes.number.isRequired
   };
 
   shouldComponentUpdate (nextProps) {

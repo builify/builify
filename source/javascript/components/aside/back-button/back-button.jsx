@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Icon from '../../shared/icon';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
@@ -20,9 +21,9 @@ export default function BackButton ({
 }
 
 BackButton.propTypes = {
-  onClick: React.PropTypes.func,
-  className: React.PropTypes.string,
-  title: React.PropTypes.string
+  onClick: PropTypes.func,
+  className: PropTypes.string,
+  title: PropTypes.string
 };
 
 BackButton.defaultProps = {

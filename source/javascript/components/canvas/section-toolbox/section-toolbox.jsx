@@ -1,26 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { findDOMNode } from 'react-dom';
+import {
+    values as _values,
+    has as _has,
+    map as _map,
+    isNull as _isNull
+} from 'lodash';
 import classNames from '../../../common/classnames';
 import ToolboxItem from './item';
 import localization from '../../../common/localization';
-import { connect } from 'react-redux';
 import * as Actions from '../../../actions';
-import {
-  values as _values,
-  has as _has,
-  map as _map,
-  isNull as _isNull
-} from 'lodash';
 
 class SectionToolBox extends React.Component {
   static propTypes = {
-    currentHoverBlock: React.PropTypes.object.isRequired,
-    openVideoEditModal: React.PropTypes.func.isRequired,
-    openCountdownEditModal: React.PropTypes.func.isRequired,
-    removeContentBlock: React.PropTypes.func.isRequired,
-    openColorPicker: React.PropTypes.func.isRequired,
-    openImageEditModal: React.PropTypes.func.isRequired,
-    openFormEditModal: React.PropTypes.func.isRequired
+    currentHoverBlock: PropTypes.object.isRequired,
+    openVideoEditModal: PropTypes.func.isRequired,
+    openCountdownEditModal: PropTypes.func.isRequired,
+    removeContentBlock: PropTypes.func.isRequired,
+    openColorPicker: PropTypes.func.isRequired,
+    openImageEditModal: PropTypes.func.isRequired,
+    openFormEditModal: PropTypes.func.isRequired
   };
 
   toolboxItemColorChange = null;
@@ -158,27 +159,27 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    removeContentBlock: function (block) {
+    removeContentBlock: (block) => {
       dispatch(Actions.removeContentBlock(block));
     },
 
-    openImageEditModal: function (target) {
+    openImageEditModal: (target) => {
       dispatch(Actions.openImageEditModal(target));
     },
 
-    openVideoEditModal: function (target) {
+    openVideoEditModal: (target) => {
       dispatch(Actions.openVideoEditModal(target));
     },
 
-    openCountdownEditModal: function (target){
+    openCountdownEditModal: (target) => {
       dispatch(Actions.openCountdownEditModal(target));
     },
 
-    openColorPicker: function (target, sourceElement) {
+    openColorPicker: (target, sourceElement) => {
       dispatch(Actions.openColorPicker(target, sourceElement));
     },
 
-    openFormEditModal: function (target) {
+    openFormEditModal: (target) => {
       dispatch(Actions.openFormEditModal(target));
     }
   };

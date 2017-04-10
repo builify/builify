@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { map as _map } from 'lodash';
 import Random from '../../../common/random';
@@ -31,8 +32,8 @@ function Colors ({
 }
 
 Colors.propTypes = {
-  colors: React.PropTypes.object.isRequired,
-  openColorPicker: React.PropTypes.func.isRequired
+  colors: PropTypes.object.isRequired,
+  openColorPicker: PropTypes.func.isRequired
 };
 
 function mapStateToProps (state) {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
 import Input from '../../shared/input';
@@ -7,7 +8,7 @@ import { normalizeAngle, getAngleFromMatrix, getStyleValue, setStyleValue } from
 
 export default class PositionEditor extends React.Component {
   static propTypes = {
-    target: React.PropTypes.any.isRequired
+    target: PropTypes.any.isRequired
   };
 
   state = {

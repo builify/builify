@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from '../../../common/classnames';
 import ProgressBar from '../progress-bar';
 
 export default class ImageItem extends React.Component {
   static propTypes = {
-    src: React.PropTypes.string.isRequired,
-    alt: React.PropTypes.string,
-    loaded: React.PropTypes.bool
+    src: PropTypes.string.isRequired,
+    alt: PropTypes.string,
+    loaded: PropTypes.bool
   };
 
   static defaultProps = {
@@ -41,7 +42,6 @@ export default class ImageItem extends React.Component {
     const loadImage = classNames('loadimage', {
       loaded: isImageFileLoaded
     });
-    const imageSource = src;
 
     return (
       <div className={loadImage}>
@@ -49,7 +49,7 @@ export default class ImageItem extends React.Component {
         <img
           draggable="false"
           onLoad={this.loadedImage}
-          src={imageSource}
+          src={src}
           alt={alt || 'Picture'} />
       </div>
     );

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import classNames from '../../common/classnames';
 import Constants from './constants';
@@ -25,10 +26,10 @@ var whichTransitionEvent = function() {
 
 export default class NotificationItem extends React.Component {
   static propTypes = {
-    notification: React.PropTypes.object,
-    onRemove: React.PropTypes.func,
-    allowHTML: React.PropTypes.bool,
-    noAnimation: React.PropTypes.bool
+    notification: PropTypes.object,
+    onRemove: PropTypes.func,
+    allowHTML: PropTypes.bool,
+    noAnimation: PropTypes.bool
   };
 
   static defaultProps = {
@@ -49,12 +50,8 @@ export default class NotificationItem extends React.Component {
   _removeCount = 0;
 
   shouldComponentUpdate (nextProps, nextState) {
-    if (nextState.visible !== this.state.visible ||
-        nextState.removed !== this.state.removed) {
-      return true;
-    }
-
-    return false;
+    return (nextState.visible !== this.state.visible ||
+            nextState.removed !== this.state.removed);
   }
 
   componentWillMount () {

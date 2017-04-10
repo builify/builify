@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from '../../../common/classnames';
 import Icon from '../../shared/icon';
 import { getStyleValue, setStyleValue } from './helpers';
@@ -16,7 +17,7 @@ const inlineBlocks = [
 
 export default class TextAlignEditor extends React.Component {
   static propTypes = {
-    target: React.PropTypes.any.isRequired
+    target: PropTypes.any.isRequired
   };
 
   state = {

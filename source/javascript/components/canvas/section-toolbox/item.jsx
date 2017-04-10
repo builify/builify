@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Icon from '../../shared/icon';
 import { emtpyFunction } from '../../../common/misc';
 
@@ -21,10 +22,10 @@ export default function ToolboxItem ({
 }
 
 ToolboxItem.propTypes = {
-  title: React.PropTypes.string,
-  onClick: React.PropTypes.func,
-  icon: React.PropTypes.string,
-  itemRef: React.PropTypes.func
+  title: PropTypes.string,
+  onClick: PropTypes.func,
+  icon: PropTypes.string,
+  itemRef: PropTypes.func
 };
 
 ToolboxItem.defaultProps = {

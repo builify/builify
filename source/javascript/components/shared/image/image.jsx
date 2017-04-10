@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from '../../../common/classnames';
 import { emptyFunction } from '../../../common/misc';
 
@@ -49,13 +50,13 @@ function Image ({
 }
 
 Image.propTypes = {
-  src: React.PropTypes.string.isRequired,
-  className: React.PropTypes.string,
-  backgroundImage: React.PropTypes.bool,
-  chalk: React.PropTypes.bool,
-  height: React.PropTypes.number,
-  width: React.PropTypes.number,
-  onClick: React.PropTypes.func
+  src: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  backgroundImage: PropTypes.bool,
+  chalk: PropTypes.bool,
+  height: PropTypes.number,
+  width: PropTypes.number,
+  onClick: PropTypes.func
 };
 
 Image.defaultProps = {

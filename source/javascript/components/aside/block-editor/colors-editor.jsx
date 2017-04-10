@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
@@ -9,8 +10,8 @@ import { getStyleValue } from './helpers';
 
 class ColorsEditor extends React.Component {
   static propTypes = {
-    target: React.PropTypes.any.isRequired,
-    openColorPicker: React.PropTypes.func.isRequired
+    target: PropTypes.any.isRequired,
+    openColorPicker: PropTypes.func.isRequired
   };
 
   state = {

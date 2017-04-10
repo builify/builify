@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   has as _has,
@@ -11,10 +12,10 @@ import { CurrentLocations, PreviewModes } from '../../constants';
 
 class Canvas extends React.Component {
   static propTypes = {
-    previewMode: React.PropTypes.number.isRequired,
-    currentLocation: React.PropTypes.number.isRequired,
-    blocksCount: React.PropTypes.number.isRequired,
-    template: React.PropTypes.object.isRequired
+    previewMode: PropTypes.number.isRequired,
+    currentLocation: PropTypes.number.isRequired,
+    blocksCount: PropTypes.number.isRequired,
+    template: PropTypes.object.isRequired
   };
 
   shouldComponentUpdate (nextProps) {

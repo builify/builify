@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from '../../../common/classnames';
 import Icon from '../../shared/icon';
 import Input from '../../shared/input';
@@ -6,7 +7,7 @@ import { getStyleValue, setStyleValue } from './helpers';
 
 export default class TextSpaceEditor extends React.Component {
   static propTypes = {
-    target: React.PropTypes.any.isRequired
+    target: PropTypes.any.isRequired
   };
 
   state = {

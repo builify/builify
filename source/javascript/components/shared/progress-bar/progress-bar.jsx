@@ -1,18 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from '../../../common/classnames';
 import prefixer from '../../../common/prefix';
 
 export default class ProgressBar extends React.Component {
   static propTypes = {
-    buffer: React.PropTypes.number,
-    className: React.PropTypes.string,
-    disabled: React.PropTypes.bool,
-    max: React.PropTypes.number,
-    min: React.PropTypes.number,
-    mode: React.PropTypes.oneOf(['determinate', 'indeterminate']),
-    multicolor: React.PropTypes.bool,
-    type: React.PropTypes.oneOf(['linear', 'circular']),
-    value: React.PropTypes.number
+    buffer: PropTypes.number,
+    className: PropTypes.string,
+    disabled: PropTypes.bool,
+    max: PropTypes.number,
+    min: PropTypes.number,
+    mode: PropTypes.oneOf(['determinate', 'indeterminate']),
+    multicolor: PropTypes.bool,
+    type: PropTypes.oneOf(['linear', 'circular']),
+    value: PropTypes.number
   };
 
   static defaultProps = {
@@ -28,11 +29,7 @@ export default class ProgressBar extends React.Component {
   };
 
   shouldComponentUpdate (nextProps) {
-    if (nextProps.value !== this.props.value) {
-      return true;
-    }
-
-    return false;
+    return (nextProps.value !== this.props.value);
   }
 
   calculateRatio (value) {

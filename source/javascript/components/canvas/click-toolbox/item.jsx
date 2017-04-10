@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from '../../../common/classnames';
 import Icon from '../../shared/icon';
 
@@ -16,9 +17,9 @@ export default function ClickToolBoxItem ({
 }
 
 ClickToolBoxItem.propTypes = {
-  icon: React.PropTypes.string,
-  text: React.PropTypes.string,
-  onClick: React.PropTypes.func
+  icon: PropTypes.string,
+  text: PropTypes.string,
+  onClick: PropTypes.func
 };
 
 ClickToolBoxItem.defaultProps = {

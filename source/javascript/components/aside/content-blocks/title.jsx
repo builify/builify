@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from '../../../common/classnames';
 
 export default function BlockTitle ({
@@ -17,6 +18,6 @@ export default function BlockTitle ({
 }
 
 BlockTitle.propTypes = {
-  filterContentBlocksTarget: React.PropTypes.string.isRequired,
-  title: React.PropTypes.string.isRequired
+  filterContentBlocksTarget: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 };

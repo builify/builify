@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   values as _values,
@@ -30,14 +31,14 @@ function isValidBlock (block) {
 
 class Frame extends React.Component {
   static propTypes = {
-    page: React.PropTypes.object.isRequired,
-    externalAssets: React.PropTypes.object.isRequired,
-    coreAssets: React.PropTypes.object.isRequired,
-    removeLoadingScreen: React.PropTypes.func.isRequired,
-    renderBlockToCanvas: React.PropTypes.func.isRequired,
-    setCanvasElementsHoverEvents: React.PropTypes.func.isRequired,
-    coreBlockHover: React.PropTypes.func.isRequired,
-    clearPageBlocksCount: React.PropTypes.func.isRequired
+    page: PropTypes.object.isRequired,
+    externalAssets: PropTypes.object.isRequired,
+    coreAssets: PropTypes.object.isRequired,
+    removeLoadingScreen: PropTypes.func.isRequired,
+    renderBlockToCanvas: PropTypes.func.isRequired,
+    setCanvasElementsHoverEvents: PropTypes.func.isRequired,
+    coreBlockHover: PropTypes.func.isRequired,
+    clearPageBlocksCount: PropTypes.func.isRequired
   };
 
   componentDidMount () {

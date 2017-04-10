@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   map as _map,
@@ -13,9 +14,9 @@ import { filterContentBlocks } from '../../../actions';
 
 class Filter extends React.Component {
   static propTypes = {
-    filterContentBlocksTarget: React.PropTypes.string.isRequired,
-    blocks: React.PropTypes.array.isRequired,
-    filterContentBlocks: React.PropTypes.func.isRequired
+    filterContentBlocksTarget: PropTypes.string.isRequired,
+    blocks: PropTypes.array.isRequired,
+    filterContentBlocks: PropTypes.func.isRequired
   };
 
   state = {
