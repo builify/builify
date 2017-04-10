@@ -53,9 +53,9 @@ export default class ModalWrapper extends React.Component {
     const { className } = this.props;
 
     return (
-      <div ref={node => this._node = node} className={className && className}>
-        <div role='overlay' className={classNames('modal__overlay')} data-modaloverlay />
-        <div role='content' className={classNames('modal__content')}>
+      <div ref={(node) => this._node = node} className={className && className}>
+        <div className={classNames('modal__overlay')} data-modaloverlay />
+        <div className={classNames('modal__content')}>
           { this.props.children }
         </div>
       </div>

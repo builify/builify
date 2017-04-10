@@ -1,5 +1,4 @@
 import JSZip from 'jszip';
-import stripJSONComments from 'strip-json-comments';
 import {
   delay as _delay,
   map as _map,
@@ -42,14 +41,14 @@ export function getBuilderConfiguration () {
 export function receiveConfiguration () {
   return {
     type: Actions.RECEIVE_BUILDER_CONFIGURATION,
-    data: JSON.parse(stripJSONComments(JSON.stringify(builderConfigurationData)))
+    data: JSON.parse(JSON.stringify(builderConfigurationData))
   };
 }
 
 export function receiveAsideConfiguration () {
   return {
     type: Actions.RECEIVE_ASIDE_CONFIGURATION,
-    data: JSON.parse(stripJSONComments(JSON.stringify(asideData)))
+    data: JSON.parse(JSON.stringify(asideData))
   };
 }
 

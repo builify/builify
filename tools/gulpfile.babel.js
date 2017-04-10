@@ -14,7 +14,6 @@ import $size from 'gulp-size';
 import $util from 'gulp-util';
 import $plumber from 'gulp-plumber';
 import $sass from 'gulp-sass';
-import $hint from 'gulp-htmlhint';
 import $cleanCSS from 'gulp-clean-css';
 import $autoprefixer from 'gulp-autoprefixer';
 import $uglify from 'gulp-uglify';
@@ -123,7 +122,6 @@ gulp.task('files:template:thumbnail', () => {
 gulp.task('html', () => {
   if (config.env.debug) {
     return gulp.src(config.html.entry)
-      .pipe($hint())
       .pipe($size({ title: '[html]', gzip: true }))
       .pipe(gulp.dest(config.html.output));
   }

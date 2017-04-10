@@ -128,7 +128,6 @@ export default {
     'react',
     'react-dom',
     'react-color',
-    'react-select',
     'react-redux',
     'react-custom-scrollbars',
     'react-dropzone-component',
@@ -141,7 +140,6 @@ export default {
     // Core
     'classnames',
     'lodash',
-    'strip-json-comments',
 
     // Trip-Trax
     'tt-event-emitter',
