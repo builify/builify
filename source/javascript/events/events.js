@@ -18,7 +18,7 @@ const LOAD_EVENTS = [
 ];
 
 function initializeMessage () {
-  console.log('BUILify - Initialized events successfully.');
+  console.log('Builify - Initialized events successfully.');
 }
 
 export default class {

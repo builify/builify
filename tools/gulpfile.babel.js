@@ -280,7 +280,7 @@ gulp.task('revision', () => {
 gulp.task('header', () => {
   const banner = `
 /** 
-* BUILify - Static Website Creator by ${pckg.author}
+* Builify - Static Website Creator by ${pckg.author}
 *
 * @version: ${pckg.version}
 * @license: ${pckg.license}

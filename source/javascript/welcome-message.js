@@ -13,5 +13,5 @@ export default function () {
     }
   }
 
-  console.log(`%c Trip-Trax - BUILify ${process.env.VERSION} - ${buildVersion} build.`, 'background: #222; color: #bada55');
+  console.log(`%c Trip-Trax - Builify ${process.env.VERSION} - ${buildVersion} build.`, 'background: #222; color: #bada55');
 }

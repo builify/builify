@@ -7,7 +7,6 @@ export default function configureStore (initialState) {
   const middleware = [thunkMiddleware, throttleMiddleware];
 
   const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore);
-  const store = createStoreWithMiddleware(allReducers, initialState);
 
-  return store;
+  return createStoreWithMiddleware(allReducers, initialState);
 }
