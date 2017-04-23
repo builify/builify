@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   map as _map,
   sortBy as _sortBy,
@@ -11,8 +12,8 @@ import Image from '../../shared/image';
 
 export default class ImageEditContentImages extends React.Component {
   static propTypes = {
-    builderConfiguration: React.PropTypes.object.isRequired,
-    onSelectImage: React.PropTypes.func.isRequired
+    builderConfiguration: PropTypes.object.isRequired,
+    onSelectImage: PropTypes.func.isRequired
   };
 
   state = {
@@ -36,7 +37,7 @@ export default class ImageEditContentImages extends React.Component {
       const { category } = item;
 
       className = classNames('modal__tabitem', {
-        active: !!(idx === activeCategory)
+        active: (idx === activeCategory)
       });
 
       return (

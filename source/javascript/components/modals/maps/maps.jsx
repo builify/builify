@@ -1,20 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import QueryString from 'querystring';
-import _isNull from 'lodash/isnull';
-import _isElement from 'lodash/iselement';
+import { isNull as _isNull, isElement as _isElement } from 'lodash';
+import { connect } from 'react-redux';
 import URL from 'url';
 import classNames from '../../../common/classnames';
 import ModalWrapper from '../common/wrapper';
 import BottomNavigation from '../common/bottom-navigation';
 import Modal from './modal';
-import { connect } from 'react-redux';
+
 import { closeModal, addNotification } from '../../../actions';
 
 class Maps extends React.Component {
   static propTypes = {
-    editTarget: React.PropTypes.any.isRequired,
-    addNotification: React.PropTypes.func.isRequired,
-    closeModal: React.PropTypes.func.isRequired
+    editTarget: PropTypes.any.isRequired,
+    addNotification: PropTypes.func.isRequired,
+    closeModal: PropTypes.func.isRequired
   };
 
   state = {

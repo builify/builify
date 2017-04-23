@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
 import ModalWrapper from '../common/wrapper';
@@ -13,12 +14,12 @@ import { loadPreviousPage, deletePage, closeModal, flushPagesInStorage, importPa
 
 class PreviousPages extends React.Component {
   static propTypes = {
-    pages: React.PropTypes.array.isRequired,
-    closeModal: React.PropTypes.func.isRequired,
-    flushPagesInStorage: React.PropTypes.func.isRequired,
-    importPage: React.PropTypes.func.isRequired,
-    loadPreviousPage: React.PropTypes.func.isRequired,
-    deletePage: React.PropTypes.func.isRequired
+    pages: PropTypes.array.isRequired,
+    closeModal: PropTypes.func.isRequired,
+    flushPagesInStorage: PropTypes.func.isRequired,
+    importPage: PropTypes.func.isRequired,
+    loadPreviousPage: PropTypes.func.isRequired,
+    deletePage: PropTypes.func.isRequired
   };
 
   shouldComponentUpdate () {

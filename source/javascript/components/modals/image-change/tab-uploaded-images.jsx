@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { map as _map } from 'lodash';
 import classNames from '../../../common/classnames';
@@ -9,13 +10,12 @@ import Image from '../../shared/image';
 import Button from '../../shared/button';
 import { deleteAllAssets as deleteAllAssetsAction } from '../../../actions';
 
-
 class UploadedImagesTab extends React.Component {
   static propTypes = {
-    assets: React.PropTypes.array.isRequired,
-    selectImage: React.PropTypes.func.isRequired,
-    deleteAllAssets: React.PropTypes.func.isRequired,
-    onClose: React.PropTypes.func.isRequired
+    assets: PropTypes.array.isRequired,
+    selectImage: PropTypes.func.isRequired,
+    deleteAllAssets: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired
   };
 
   shouldComponentUpdate () {

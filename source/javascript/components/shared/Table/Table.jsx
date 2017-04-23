@@ -1,16 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TableHead from './head';
 import TableRow from './row';
 
 class Table extends React.Component {
   static propTypes = {
-    className: React.PropTypes.string,
-    heading: React.PropTypes.bool,
-    model: React.PropTypes.object,
-    onChange: React.PropTypes.func,
-    onSelect: React.PropTypes.func,
-    selected: React.PropTypes.array,
-    source: React.PropTypes.array
+    className: PropTypes.string,
+    heading: PropTypes.bool,
+    model: PropTypes.object,
+    onChange: PropTypes.func,
+    onSelect: PropTypes.func,
+    selected: PropTypes.array,
+    source: PropTypes.array
   };
 
   static defaultProps = {

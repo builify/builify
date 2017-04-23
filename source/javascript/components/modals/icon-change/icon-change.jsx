@@ -1,17 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 import ModalWrapper from '../common/wrapper';
 import TTDOM from '../../../common/TTDOM';
 import BottomNavigation from '../common/bottom-navigation';
 import TabIcons from './tab-icons';
-import { connect } from 'react-redux';
-import { closeModal, addNotification } from '../../../actions';
+import * as Actions from '../../../actions';
 
 class IconChange extends React.Component {
   static propTypes = {
-    editTarget: React.PropTypes.any.isRequired,
-    addNotification: React.PropTypes.func.isRequired,
-    closeModal: React.PropTypes.func.isRequired
+    editTarget: PropTypes.any.isRequired,
+    addNotification: PropTypes.func.isRequired,
+    closeModal: PropTypes.func.isRequired
   };
 
   shouldComponentUpdate () {
@@ -36,6 +37,8 @@ class IconChange extends React.Component {
         autoDismiss: 3
       });
     }
+
+    return false;
   }
 
   render () {
@@ -56,12 +59,12 @@ class IconChange extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    closeModal: function () {
-      dispatch(closeModal());
+    closeModal: () => {
+      dispatch(Actions.closeModal());
     },
 
-    addNotification: function (notification) {
-      dispatch(addNotification(notification));
+    addNotification: (notification) => {
+      dispatch(Actions.addNotification(notification));
     }
   };
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import UploadImageTab from './tab-upload';
 import UploadedImagesTab from './tab-uploaded-images';
 import CurrentImageTab from './tab-current-image';
@@ -26,10 +27,10 @@ export default function ContentTabs ({
 }
 
 ContentTabs.propTypes = {
-  builderConfiguration: React.PropTypes.object.isRequired,
-  activeTab: React.PropTypes.number.isRequired,
-  editTarget: React.PropTypes.any.isRequired,
-  onSelectImage: React.PropTypes.func.isRequired,
-  onUploadImage: React.PropTypes.func.isRequired,
-  onClose: React.PropTypes.func.isRequired
+  builderConfiguration: PropTypes.object.isRequired,
+  activeTab: PropTypes.number.isRequired,
+  editTarget: PropTypes.any.isRequired,
+  onSelectImage: PropTypes.func.isRequired,
+  onUploadImage: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired
 };

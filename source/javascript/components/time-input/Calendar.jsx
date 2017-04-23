@@ -1,13 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { range, chunk } from 'lodash';
 import classNames from 'classnames';
-import range from 'lodash/utility/range';
-import chunk from 'lodash/array/chunk';
 import Events from '../../Common/Events';
 import Icon from '../Shared/Icon';
 
 class Day extends React.Component {
   static propTypes = {
-    onClick: React.PropTypes.func
+    onClick: PropTypes.func
   };
 
   static defaultProps = {
@@ -30,9 +30,9 @@ class Day extends React.Component {
 
 export default class Calendar extends React.Component {
   static propTypes = {
-    time: React.PropTypes.object.isRequired,
-    className: React.PropTypes.string,
-    onChange: React.PropTypes.func
+    time: PropTypes.object.isRequired,
+    className: PropTypes.string,
+    onChange: PropTypes.func
   };
 
   static defaultProps = {

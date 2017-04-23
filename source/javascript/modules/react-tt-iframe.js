@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { findDOMNode, unmountComponentAtNode, unstable_renderSubtreeIntoContainer } from 'react-dom';
 import {
   assign as _assign,
@@ -7,13 +8,13 @@ import {
 
 export default class IFrame extends React.Component {
   static propTypes = {
-    style: React.PropTypes.object,
-    head: React.PropTypes.node,
-    initialContent: React.PropTypes.string,
-    mountTarget: React.PropTypes.string,
-    contentDidMount: React.PropTypes.func,
-    contentDidUpdate: React.PropTypes.func,
-    children: React.PropTypes.node
+    style: PropTypes.object,
+    head: PropTypes.node,
+    initialContent: PropTypes.string,
+    mountTarget: PropTypes.string,
+    contentDidMount: PropTypes.func,
+    contentDidUpdate: PropTypes.func,
+    children: PropTypes.node
   };
 
   static defaultProps = {

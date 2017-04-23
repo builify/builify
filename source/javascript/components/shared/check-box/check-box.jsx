@@ -1,17 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from '../../../common/classnames';
 import Ripple from '../ripple';
 
 export default class Checkbox extends React.Component {
   static propTypes = {
-    checked: React.PropTypes.bool,
-    className: React.PropTypes.string,
-    disabled: React.PropTypes.bool,
-    label: React.PropTypes.any,
-    name: React.PropTypes.string,
-    onBlur: React.PropTypes.func,
-    onChange: React.PropTypes.func,
-    onFocus: React.PropTypes.func
+    checked: PropTypes.bool,
+    className: PropTypes.string,
+    disabled: PropTypes.bool,
+    label: PropTypes.any,
+    name: PropTypes.string,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func
   };
 
   static defaultProps = {
@@ -21,11 +22,7 @@ export default class Checkbox extends React.Component {
   };
 
   shouldComponentUpdate (nextProps) {
-    if (nextProps.checked !== this.props.checked) {
-      return true;
-    }
-
-    return false;
+    return (nextProps.checked !== this.props.checked);
   }
 
   handleClick (event) {
@@ -50,20 +47,20 @@ export default class Checkbox extends React.Component {
 
   render () {
     const fieldClassName = classNames('checkbox', {
-      'disabled': this.props.disabled
+      disabled: this.props.disabled
     }, this.props.className);
     const checkboxClassName = classNames('checkbox__check', {
-      'checked': this.props.checked
+      checked: this.props.checked
     });
 
     return (
       <label className={fieldClassName} onClick={::this.handleClick}>
         <input
-          ref='input'
+          ref="input"
           {...this.props}
           className={classNames('checkbox__input')}
           onClick={::this.handleInputClick}
-          type='checkbox' />
+          type="checkbox" />
         <span data-role='checkbox' className={checkboxClassName} onMouseDown={::this.handleMouseDown}>
           <Ripple ref='ripple' data-role='ripple' className={classNames('checkbox__ripple')} spread={3} centered />
         </span>

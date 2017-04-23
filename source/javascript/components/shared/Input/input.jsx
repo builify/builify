@@ -1,27 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from '../icon';
 
 export default class Input extends React.Component {
   static propTypes = {
-    children: React.PropTypes.any,
-    className: React.PropTypes.string,
-    disabled: React.PropTypes.bool,
-    error: React.PropTypes.node,
-    floating: React.PropTypes.bool,
-    hint: React.PropTypes.string,
-    icon: React.PropTypes.any,
-    label: React.PropTypes.string,
-    maxLength: React.PropTypes.number,
-    multiline: React.PropTypes.bool,
-    showLength: React.PropTypes.bool,
-    onBlur: React.PropTypes.func,
-    onChange: React.PropTypes.func,
-    onFocus: React.PropTypes.func,
-    onKeyPress: React.PropTypes.func,
-    required: React.PropTypes.bool,
-    type: React.PropTypes.string,
-    value: React.PropTypes.any
+    children: PropTypes.any,
+    className: PropTypes.string,
+    disabled: PropTypes.bool,
+    error: PropTypes.node,
+    floating: PropTypes.bool,
+    hint: PropTypes.string,
+    icon: PropTypes.any,
+    label: PropTypes.string,
+    maxLength: PropTypes.number,
+    multiline: PropTypes.bool,
+    showLength: PropTypes.bool,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    onKeyPress: PropTypes.func,
+    required: PropTypes.bool,
+    type: PropTypes.string,
+    value: PropTypes.any
   };
 
   static defaultProps = {
@@ -35,11 +36,7 @@ export default class Input extends React.Component {
   };
 
   shouldComponentUpdate (nextProps) {
-    if (this.props.onChange !== nextProps.onChange) {
-      return true;
-    }
-
-    return false;
+    return (this.props.onChange !== nextProps.onChange);
   }
 
   handleChange = (event) => {

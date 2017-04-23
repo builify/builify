@@ -1,27 +1,28 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import events from '../../../common/events';
-import InjectProgressBar from '../progress-bar';
+import { findDOMNode } from 'react-dom';
 import {
   round,
   range
 } from 'lodash';
+import events from '../../../common/events';
+import InjectProgressBar from '../progress-bar';
 
 const factory = (ProgressBar) => {
   class Slider extends React.Component {
     static propTypes = {
-      className: React.PropTypes.string,
-      disabled: React.PropTypes.bool,
-      editable: React.PropTypes.bool,
-      max: React.PropTypes.number,
-      min: React.PropTypes.number,
-      onChange: React.PropTypes.func,
-      pinned: React.PropTypes.bool,
-      snaps: React.PropTypes.bool,
-      step: React.PropTypes.number,
-      style: React.PropTypes.object,
-      value: React.PropTypes.number
+      className: PropTypes.string,
+      disabled: PropTypes.bool,
+      editable: PropTypes.bool,
+      max: PropTypes.number,
+      min: PropTypes.number,
+      onChange: PropTypes.func,
+      pinned: PropTypes.bool,
+      snaps: PropTypes.bool,
+      step: PropTypes.number,
+      style: PropTypes.object,
+      value: PropTypes.number
     };
 
     static defaultProps = {
@@ -213,10 +214,10 @@ const factory = (ProgressBar) => {
     renderSnaps () {
       if (this.props.snaps) {
         return (
-          <div ref='snaps' className='tt-slider__snaps'>
-              {range(0, (this.props.max - this.props.min) / this.props.step).map(i => {
-                  return <div key={`span-${i}`} className='tt-slider__snap' />;
-              })}
+          <div ref="snaps" className="tt-slider__snaps">
+            {range(0, (this.props.max - this.props.min) / this.props.step).map(i => {
+              return <div key={`span-${i}`} className="tt-slider__snap" />;
+            })}
           </div>
         );
       }
@@ -227,11 +228,11 @@ const factory = (ProgressBar) => {
     render () {
       const knobStyles = {left: `${this.knobOffset()}%`};
       const className = classnames('tt-slider', {
-        'editable': this.props.editable,
-        'disabled': this.props.disabled,
-        'pinned': this.props.pinned,
-        'pressed': this.state.pressed,
-        'ring': this.props.value === this.props.min
+        editable: this.props.editable,
+        disabled: this.props.disabled,
+        pinned: this.props.pinned,
+        pressed: this.state.pressed,
+        ring: this.props.value === this.props.min
       }, this.props.className);
 
       return (

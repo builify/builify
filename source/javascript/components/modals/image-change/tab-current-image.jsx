@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   isEmpty as _isEmpty,
   isElement as _isElement
@@ -12,7 +13,7 @@ import { defaultImageUrl } from './config';
 
 export default class CurrentImageTab extends React.Component {
   static propTypes = {
-    editTarget: React.PropTypes.any.isRequired
+    editTarget: PropTypes.any.isRequired
   };
 
   state = {

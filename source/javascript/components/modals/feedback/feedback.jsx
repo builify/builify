@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { assign as _assign } from 'lodash';
 import classNames from '../../../common/classnames';
@@ -10,8 +11,8 @@ import { closeModal, sendFeedBack } from '../../../actions';
 
 class Feedback extends React.Component {
   static propTypes = {
-    closeModal: React.PropTypes.func.isRequired,
-    sendFeedBack: React.PropTypes.func.isRequired
+    closeModal: PropTypes.func.isRequired,
+    sendFeedBack: PropTypes.func.isRequired
   };
 
   state = {

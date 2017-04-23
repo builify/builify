@@ -1,28 +1,29 @@
 import React from 'react';
-import classNames from '../../../common/classnames';
-import ModalWrapper from '../common/wrapper';
-import ModalTab from '../common/tab';
-import BottomNavigation from '../common/bottom-navigation';
-import Input from '../../shared/input';
-import Dropdown from '../../shared/dropdown';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { closeModal } from '../../../actions';
 import {
   isObject as _isObject,
   isElement as _isElement,
   isNull as _isNull,
   has as _has
 } from 'lodash';
+import classNames from '../../../common/classnames';
+import ModalWrapper from '../common/wrapper';
+import ModalTab from '../common/tab';
+import BottomNavigation from '../common/bottom-navigation';
+import Input from '../../shared/input';
+import Dropdown from '../../shared/dropdown';
+import { closeModal } from '../../../actions';
 
 const options = [
   { text: 'POST', value: 'post' },
-  { text: 'GET',  value: 'get' }
+  { text: 'GET', value: 'get' }
 ];
 
 class FormEdit extends React.Component {
   static propTypes = {
-    editTarget: React.PropTypes.any,
-    closeModal: React.PropTypes.func.isRequired
+    editTarget: PropTypes.any,
+    closeModal: PropTypes.func.isRequired
   };
 
   state = {
@@ -31,12 +32,7 @@ class FormEdit extends React.Component {
   };
 
   shouldComponentUpdate (nextProps, nextState) {
-    if (nextState.action !== this.state.action ||
-      nextState.method !== this.state.method) {
-      return true;
-    }
-
-    return false;
+    return (nextState.action !== this.state.action || nextState.method !== this.state.method);
   }
 
   componentWillMount () {
@@ -102,19 +98,19 @@ class FormEdit extends React.Component {
     const className = classNames(['modal', 'modal__dialog']);
 
     return (
-      <ModalWrapper ref='modalWrapper' className={className} onClose={this.props.closeModal}>
-        <ModalTab title='Edit Form' onClose={::this.closeDialog}>
+      <ModalWrapper ref="modalWrapper" className={className} onClose={this.props.closeModal}>
+        <ModalTab title="Edit Form" onClose={::this.closeDialog}>
           <div>
             <div className={classNames('modal__tab')}>
               <div className={classNames('modal__input')}>
                 <Input
-                  type='text'
-                  label='Action'
+                  type="text"
+                  label="Action"
                   value={this.state.action}
                   onChange={this.handleInputChange.bind(this, 'action')} />
                 <Dropdown
                   className={classNames('modal__dropdown')}
-                  label='Method'
+                  label="Method"
                   value={this.state.method}
                   options={options}
                   height={60}
@@ -132,7 +128,7 @@ class FormEdit extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    closeModal: function () {
+    closeModal: () => {
       dispatch(closeModal());
     }
   };

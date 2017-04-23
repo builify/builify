@@ -1,17 +1,18 @@
 import React from 'react';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import Thumb from './thumb';
 
 export default class Switch extends React.Component {
   static propTypes = {
-    checked: React.PropTypes.bool,
-    className: React.PropTypes.string,
-    disabled: React.PropTypes.bool,
-    label: React.PropTypes.string,
-    name: React.PropTypes.string,
-    onBlur: React.PropTypes.func,
-    onChange: React.PropTypes.func,
-    onFocus: React.PropTypes.func
+    checked: PropTypes.bool,
+    className: PropTypes.string,
+    disabled: PropTypes.bool,
+    label: PropTypes.string,
+    name: PropTypes.string,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func
   };
 
   static defaultProps = {
@@ -50,10 +51,10 @@ export default class Switch extends React.Component {
           checked={this.props.checked}
           onClick={this.handleToggle}
           readOnly
-          className='input'
-          ref='input'
-          type='checkbox' />
-        <span role='switch' className={switchClassName}>
+          className="input"
+          ref="input"
+          type="checkbox" />
+        <span role="switch" className={switchClassName}>
           <Thumb disabled={this.props.disabled} />
         </span>
         { this.props.label && <span>{this.props.label}</span> }

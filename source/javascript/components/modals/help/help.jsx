@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from '../../../common/classnames';
 import ModalWrapper from '../common/wrapper';
@@ -6,7 +7,7 @@ import { closeModal } from '../../../actions';
 
 class Help extends React.Component {
   static propTypes = {
-    closeModal: React.PropTypes.func.isRequired
+    closeModal: PropTypes.func.isRequired
   };
 
   _modalNode = null;

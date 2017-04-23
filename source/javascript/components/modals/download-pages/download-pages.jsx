@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { map as _map } from 'lodash';
 import { connect } from 'react-redux';
 import classNames from '../../../common/classnames';
@@ -12,9 +13,9 @@ import * as Actions from '../../../actions';
 
 class DownloadPages extends React.Component {
   static propTypes = {
-    builder: React.PropTypes.object.isRequired,
-    closeModal: React.PropTypes.func.isRequired,
-    downloadPages: React.PropTypes.func.isRequired
+    builder: PropTypes.object.isRequired,
+    closeModal: PropTypes.func.isRequired,
+    downloadPages: PropTypes.func.isRequired
   };
 
   componentWillMount () {

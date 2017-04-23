@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import TTDOM from '../../../common/TTDOM';
 import classNames from '../../../common/classnames';
@@ -26,11 +27,11 @@ function getStyle ({
 
 export default class Scrollbar extends React.Component {
   static propTypes = {
-    aside: React.PropTypes.bool,
-    innerPadding: React.PropTypes.bool,
-    height: React.PropTypes.number,
-    width: React.PropTypes.number,
-    children: React.PropTypes.node
+    aside: PropTypes.bool,
+    innerPadding: PropTypes.bool,
+    height: PropTypes.number,
+    width: PropTypes.number,
+    children: PropTypes.node
   };
 
   static defaultProps = {
@@ -39,11 +40,7 @@ export default class Scrollbar extends React.Component {
   };
 
   shouldComponentUpdate (nextProps) {
-    if (this.props.children !== nextProps.children) {
-      return true;
-    }
-
-    return false;
+    return (this.props.children !== nextProps.children);
   }
 
   renderChildren () {

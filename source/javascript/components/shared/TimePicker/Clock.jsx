@@ -1,15 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Hours from './ClockHours';
 import Minutes from './ClockMinutes';
 
 export default class Clock extends React.Component {
   static propTypes = {
-    className: React.PropTypes.string,
-    display: React.PropTypes.oneOf(['hours', 'minutes']),
-    format: React.PropTypes.oneOf(['24hr', 'ampm']),
-    onChange: React.PropTypes.func,
-    onHandMoved: React.PropTypes.func,
-    time: React.PropTypes.object.isRequired
+    className: PropTypes.string,
+    display: PropTypes.oneOf(['hours', 'minutes']),
+    format: PropTypes.oneOf(['24hr', 'ampm']),
+    onChange: PropTypes.func,
+    onHandMoved: PropTypes.func,
+    time: PropTypes.object.isRequired
   };
 
   static defaultProps = {

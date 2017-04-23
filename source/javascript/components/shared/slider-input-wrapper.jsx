@@ -1,21 +1,22 @@
 import React from 'react';
-import classNames from '../../common/classnames';
-import localization from '../../common/localization';
-import SliderInput from './slider-input';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { changeBaseFontSize, changeBaselineValue } from '../../actions';
 import {
   round as _round,
   toNumber as _toNumber,
   at as _at
 } from 'lodash';
+import classNames from '../../common/classnames';
+import localization from '../../common/localization';
+import SliderInput from './slider-input';
+import { changeBaseFontSize, changeBaselineValue } from '../../actions';
 
 class SliderInputWrapper extends React.Component {
   static propTypes = {
-    item: React.PropTypes.object.isRequired,
-    changeBaseFontSize: React.PropTypes.func.isRequired,
-    changeBaselineValue: React.PropTypes.func.isRequired,
-    template: React.PropTypes.object.isRequired
+    item: PropTypes.object.isRequired,
+    changeBaseFontSize: PropTypes.func.isRequired,
+    changeBaselineValue: PropTypes.func.isRequired,
+    template: PropTypes.object.isRequired
   };
 
   state = {
@@ -23,11 +24,7 @@ class SliderInputWrapper extends React.Component {
   };
 
   shouldComponentUpdate (nextProps, nextState) {
-    if (nextState.value !== this.state.value) {
-      return true;
-    }
-
-    return false;
+    return (nextState.value !== this.state.value);
   }
 
   componentWillMount () {
@@ -50,12 +47,12 @@ class SliderInputWrapper extends React.Component {
 
     this.setState({
       ...this.state,
-      min: min,
-      max: max,
-      step: step,
-      label: label,
-      value: value,
-      text: text
+      min,
+      max,
+      step,
+      label,
+      value,
+      text
     });
   }
 
@@ -66,7 +63,7 @@ class SliderInputWrapper extends React.Component {
     if (onChange === 'change.basefont') {
       this.setState({
         ...this.state,
-        value: value,
+        value,
         text: value
       });
 
@@ -77,7 +74,7 @@ class SliderInputWrapper extends React.Component {
 
       this.setState({
         ...this.state,
-        value: value,
+        value,
         text: `${value} (${_round(fontsizeValue * value)}px)`
       });
 
@@ -88,7 +85,7 @@ class SliderInputWrapper extends React.Component {
   render () {
     const { min, max, step, label, value, text } = this.state;
     const className = classNames('size__output', {
-      'px': !!(this.props.item.onChange === 'change.basefont')
+      px: !!(this.props.item.onChange === 'change.basefont')
     });
 
     return (
@@ -116,11 +113,11 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    changeBaseFontSize: function (value) {
+    changeBaseFontSize: (value) => {
       dispatch(changeBaseFontSize(value));
     },
 
-    changeBaselineValue:function (value) {
+    changeBaselineValue: (value) => {
       dispatch(changeBaselineValue(value));
     }
   };

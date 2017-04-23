@@ -1,17 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import classNames from '../../../common/classnames';
 import ModalWrapper from '../common/wrapper';
 import ModalTab from '../common/tab';
 import BottomNavigation from '../common/bottom-navigation';
 import Input from '../../shared/input';
-import { connect } from 'react-redux';
 import { closeModal, setCustomCSS } from '../../../actions';
 
 class Feedback extends React.Component {
   static propTypes = {
-    customStylesheetText: React.PropTypes.string.isRequired,
-    closeModal: React.PropTypes.func.isRequired,
-    setCustomCSS: React.PropTypes.func.isRequired
+    customStylesheetText: PropTypes.string.isRequired,
+    closeModal: PropTypes.func.isRequired,
+    setCustomCSS: PropTypes.func.isRequired
   };
 
   state = {
@@ -19,11 +20,7 @@ class Feedback extends React.Component {
   };
 
   shouldComponentUpdate (nextProps, nextState) {
-    if (nextState.text !== this.state.text) {
-      return true;
-    }
-
-    return false;
+    return (nextState.text !== this.state.text);
   }
 
   componentWillMount () {
@@ -66,14 +63,14 @@ class Feedback extends React.Component {
     const className = classNames(['modal', 'modal__dialog']);
 
     return (
-      <ModalWrapper ref='modalWrapper' className={className} onClose={this.props.closeModal}>
-        <ModalTab title='Custom CSS' onClose={::this.closeDialog}>
+      <ModalWrapper ref="modalWrapper" className={className} onClose={this.props.closeModal}>
+        <ModalTab title="Custom CSS" onClose={::this.closeDialog}>
           <div>
             <div className={classNames('modal__tab')}>
               <Input
                 className={classNames('modal__input')}
-                type='text'
-                label='Custom CSS'
+                type="text"
+                label="Custom CSS"
                 multiline
                 showLength
                 style={style}
@@ -91,19 +88,19 @@ class Feedback extends React.Component {
 function mapStateToProps (state) {
   const { template } = state;
   const { customStylesheetText } = template;
-  
+
   return {
-    customStylesheetText: customStylesheetText
+    customStylesheetText
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    closeModal: function () {
+    closeModal: () => {
       dispatch(closeModal());
     },
 
-    setCustomCSS: function (value) {
+    setCustomCSS: (value) => {
       dispatch(setCustomCSS(value));
     }
   };

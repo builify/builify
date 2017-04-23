@@ -1,21 +1,20 @@
 import React from 'react';
-import TTDOM from '../../../common/TTDOM';
-import * as Constants from '../../../constants';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { SketchPicker } from 'react-color';
+import { isElement as _isElement } from 'lodash';
+import TTDOM from '../../../common/TTDOM';
+import * as Constants from '../../../constants';
 import { closeColorPicker, setColorFromColorPicker } from '../../../actions';
 import { setStyleValue } from '../../aside/block-editor/helpers';
-import {
-  isElement as _isElement
-} from 'lodash';
 
 class ColorPick extends React.Component {
   static propTypes = {
-    isColorPickerOpened: React.PropTypes.bool.isRequired,
-    selectedCPElement: React.PropTypes.any,
-    sourceCPElement: React.PropTypes.any,
-    closeColorPicker: React.PropTypes.func.isRequired,
-    setColorFromColorPicker: React.PropTypes.func.isRequired
+    isColorPickerOpened: PropTypes.bool.isRequired,
+    selectedCPElement: PropTypes.any,
+    sourceCPElement: PropTypes.any,
+    closeColorPicker: PropTypes.func.isRequired,
+    setColorFromColorPicker: PropTypes.func.isRequired
   };
 
   _colorTargetType = null;
@@ -30,12 +29,13 @@ class ColorPick extends React.Component {
   setColor (color) {
     if (this._editorColor) {
       setStyleValue(this.props.sourceCPElement, this._editorColor, color.hex);
+
       this._colorCircleElement && setStyleValue(this._colorCircleElement, 'background-color', color.hex);
+
       return false;
-      
-    } else {
-      return this.props.setColorFromColorPicker(color, this._colorTargetType);
     }
+
+    return this.props.setColorFromColorPicker(color, this._colorTargetType);
   }
 
   render () {
@@ -52,7 +52,7 @@ class ColorPick extends React.Component {
     if (_isElement(selectedCPElement) && selectedCPElement.getAttribute('data-editorcolor')) {
       this._editorColor = selectedCPElement.getAttribute('data-editorcolor');
       this._disableAlpha = true;
-    }  else {
+    } else {
       this._editorColor = null;
       this._disableAlpha = false;
     }
@@ -86,10 +86,10 @@ class ColorPick extends React.Component {
         if (!_isElement(coverColorElement)) {
           return null;
         }
-  
+
         const toolboxItemPosition = sourceCPElement.getBoundingClientRect();
         const { top, right } = toolboxItemPosition;
-        var coverColor = coverColorElement.style.backgroundColor;
+        let coverColor = coverColorElement.style.backgroundColor;
         const coverOpacity = coverColorElement.style.opacity;
 
         yPos = Math.round(top) + 10 + 60;
@@ -151,11 +151,11 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    closeColorPicker: function () {
+    closeColorPicker: () => {
       dispatch(closeColorPicker());
     },
 
-    setColorFromColorPicker: function (color, colorTargetType) {
+    setColorFromColorPicker: (color, colorTargetType) => {
       dispatch(setColorFromColorPicker(color, colorTargetType));
     }
   };

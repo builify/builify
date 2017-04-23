@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone-component';
 import classNames from '../../../common/classnames';
 
 export default class ImageEditContentUploadImage extends React.Component {
   static propTypes = {
-    onUploadImage: React.PropTypes.func.isRequired
+    onUploadImage: PropTypes.func.isRequired
   };
 
   dropzoneConfig = {
@@ -20,7 +21,7 @@ export default class ImageEditContentUploadImage extends React.Component {
   fileUploadCallback = (file) => {
     const { onUploadImage } = this.props;
     const { name, height, width, size, lastModified } = file;
-    let reader = new FileReader();
+    const reader = new FileReader();
 
     reader.onload = (e) => {
       return onUploadImage({
@@ -32,7 +33,7 @@ export default class ImageEditContentUploadImage extends React.Component {
         fileName: name,
         fileType: file.type,
         fileData: e.target.result,
-        lastModified: lastModified
+        lastModified
       });
     };
 

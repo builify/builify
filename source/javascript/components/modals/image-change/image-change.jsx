@@ -1,10 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import ModalWrapper from '../common/Wrapper';
-import TabNavigation from './modal';
-import BottomNavigation from '../common/bottom-navigation';
-import { TRACK_MODAL_CURENT_IMAGE_INPUT_ID, BLOCK_BACKGROUND_IMAGE_ELEMENT_CLASSNAME } from '../../../constants';
-import { closeModal, uploadFile, selectImageFile } from '../../../actions';
 import { connect } from 'react-redux';
 import {
   has as _has,
@@ -13,16 +9,21 @@ import {
   isEmpty as _isEmpty,
   isElement as _isElement
 } from 'lodash';
+import ModalWrapper from '../common/Wrapper';
+import TabNavigation from './modal';
+import BottomNavigation from '../common/bottom-navigation';
+import { TRACK_MODAL_CURENT_IMAGE_INPUT_ID, BLOCK_BACKGROUND_IMAGE_ELEMENT_CLASSNAME } from '../../../constants';
+import { closeModal, uploadFile, selectImageFile } from '../../../actions';
 
 class ImageEdit extends React.Component {
   static propTypes = {
-    builderConfiguration: React.PropTypes.object.isRequired,
-    builder: React.PropTypes.object.isRequired,
-    assets: React.PropTypes.array.isRequired,
-    onUploadImage: React.PropTypes.func.isRequired,
-    onCloseModal: React.PropTypes.func.isRequired,
-    selectImage: React.PropTypes.func.isRequired,
-    editTarget: React.PropTypes.any.isRequired
+    builderConfiguration: PropTypes.object.isRequired,
+    builder: PropTypes.object.isRequired,
+    assets: PropTypes.array.isRequired,
+    onUploadImage: PropTypes.func.isRequired,
+    onCloseModal: PropTypes.func.isRequired,
+    selectImage: PropTypes.func.isRequired,
+    editTarget: PropTypes.any.isRequired
   };
 
   closeDialog () {
@@ -150,15 +151,15 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onCloseModal: function () {
+    onCloseModal: () => {
       dispatch(closeModal());
     },
 
-    onUploadImage: function (data) {
+    onUploadImage: (data) => {
       dispatch(uploadFile(data));
     },
 
-    selectImage: function (file) {
+    selectImage: (file) => {
       dispatch(selectImageFile(file));
     }
   };

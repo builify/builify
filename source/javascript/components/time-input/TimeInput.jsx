@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Calendar from './Calendar';
 import Time from './Time';
 
 export default class TimeInput extends React.Component {
   static propTypes = {
-    time: React.PropTypes.object.isRequired,
-    onChange: React.PropTypes.func
+    time: PropTypes.object.isRequired,
+    onChange: PropTypes.func
   };
 
   static defaultProps = {
