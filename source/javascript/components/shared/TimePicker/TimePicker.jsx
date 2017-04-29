@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Clock from './Clock';
 
@@ -12,13 +13,13 @@ function toggleTimeMode (d) {
 
 export default class TimePicker extends React.Component {
   static propTypes = {
-    active: React.PropTypes.bool,
-    className: React.PropTypes.string,
-    format: React.PropTypes.oneOf(['24hr', 'ampm']),
-    onDismiss: React.PropTypes.func,
-    onSelect: React.PropTypes.func,
-    onChange: React.PropTypes.func,
-    time: React.PropTypes.object.isRequired
+    active: PropTypes.bool,
+    className: PropTypes.string,
+    format: PropTypes.oneOf(['24hr', 'ampm']),
+    onDismiss: PropTypes.func,
+    onSelect: PropTypes.func,
+    onChange: PropTypes.func,
+    time: PropTypes.object.isRequired
   };
 
   static defaultProps = {

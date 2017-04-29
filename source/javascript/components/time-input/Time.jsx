@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TimePicker from '../Shared/TimePicker';
 
 export default class Time extends React.Component {
   static propTypes = {
-    time: React.PropTypes.object.isRequired,
-    className: React.PropTypes.string,
-    onChange: React.PropTypes.func
+    time: PropTypes.object.isRequired,
+    className: PropTypes.string,
+    onChange: PropTypes.func
   };
 
   static defaultProps = {

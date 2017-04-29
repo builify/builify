@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { map as _map } from 'lodash';
 import Checkbox from '../check-box';
 import classNames from '../../../common/classnames';
@@ -30,9 +31,9 @@ export default function TableHead ({ model, onSelect, selected }) {
 }
 
 TableHead.propTypes = {
-  model: React.PropTypes.object,
-  onSelect: React.PropTypes.func,
-  selected: React.PropTypes.bool
+  model: PropTypes.object,
+  onSelect: PropTypes.func,
+  selected: PropTypes.bool
 };
 
 TableHead.defaultProps = {

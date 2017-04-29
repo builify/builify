@@ -1,13 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {
+  map as _map,
+  values as _values
+} from 'lodash';
 import Random from '../../../common/random';
 import classNames from '../../../common/classnames';
 import localization from '../../../common/localization';
 import Sortable from '../../shared/sortable';
 import CurrentPageItem from './item';
-import {
-  map as _map,
-  values as _values
-} from 'lodash';
 
 function renderCurrentPageItems (items, onRemove) {
   return _map(items, (item) => {
@@ -41,8 +42,8 @@ export default function Sections ({
       return onSortBlocks(evt);
     }
   };
-  let items = [];
-  let notSortableItems = [];
+  const items = [];
+  const notSortableItems = [];
 
   _map(main, (mainItem) => {
     items.push(mainItem);
@@ -67,8 +68,8 @@ export default function Sections ({
         { renderPageDivider(notSortableItems) }
         <Sortable
           sortable={sortableOptions}
-          component='ul'
-          childElement='div'
+          component="ul"
+          childElement="div"
           className={classNames('currentPage')}>
           { renderCurrentPageItems(items, onRemove) }
         </Sortable>
@@ -79,7 +80,7 @@ export default function Sections ({
 }
 
 Sections.propTypes = {
-  page: React.PropTypes.object.isRequired,
-  onRemove: React.PropTypes.func.isRequired,
-  onSortBlocks: React.PropTypes.func.isRequired
+  page: PropTypes.object.isRequired,
+  onRemove: PropTypes.func.isRequired,
+  onSortBlocks: PropTypes.func.isRequired
 };

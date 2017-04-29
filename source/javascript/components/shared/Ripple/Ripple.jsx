@@ -1,13 +1,14 @@
 import React from 'react';
-import classNames from '../../../common/classnames';
+import PropTypes from 'prop-types';
 import { isEqual as _isEqual } from 'lodash';
+import classNames from '../../../common/classnames';
 
 export default class Ripple extends React.Component {
   static propTypes = {
-    centered: React.PropTypes.bool,
-    className: React.PropTypes.string,
-    loading: React.PropTypes.bool,
-    spread: React.PropTypes.number
+    centered: PropTypes.bool,
+    className: PropTypes.string,
+    loading: PropTypes.bool,
+    spread: PropTypes.number
   };
 
   static defaultProps = {
@@ -28,11 +29,7 @@ export default class Ripple extends React.Component {
   node = null;
 
   shouldComponenUpdate (nextProps, nextState) {
-    if (!_isEqual(this.props, nextProps) || !_isEqual(this.state, nextState)) {
-      return true;
-    }
-
-    return false;
+    return (!_isEqual(this.props, nextProps) || !_isEqual(this.state, nextState));
   }
 
   start = ({ pageX, pageY }) => {

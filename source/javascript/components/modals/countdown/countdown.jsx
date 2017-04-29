@@ -1,8 +1,9 @@
-import { connect } from 'react-redux';
-import { closeModal } from '../../../actions';
 import React from 'react';
 import classNames from 'classnames';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { closeModal } from '../../../actions';
 import ModalWrapper from '../common/wrapper';
 import ModalTab from '../common/tab';
 import BottomNavigation from '../common/bottom-navigation';
@@ -10,8 +11,8 @@ import TimeInput from '../../time-input';
 
 class Countdown extends React.Component {
   static propTypes = {
-    editTarget: React.PropTypes.any.isRequired,
-    closeModal: React.PropTypes.func.isRequired
+    editTarget: PropTypes.any.isRequired,
+    closeModal: PropTypes.func.isRequired
   };
 
   state = {
@@ -41,7 +42,7 @@ class Countdown extends React.Component {
 
   handleChange (time) {
     this.setState({
-      time: time
+      time
     });
   }
 

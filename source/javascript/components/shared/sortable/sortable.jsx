@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Sortable from 'sortablejs';
 import { findDOMNode, unmountComponentAtNode, render } from 'react-dom';
 import {
@@ -7,9 +8,9 @@ import {
 
 class ReactSortable extends React.Component {
   static propTypes = {
-    sortable: React.PropTypes.object,
-    component: React.PropTypes.any,
-    children: React.PropTypes.any
+    sortable: PropTypes.object,
+    component: PropTypes.any,
+    children: PropTypes.any
   };
 
   componentDidMount () {

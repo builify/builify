@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Events from '../../../common/events';
 import prefixer from '../../../common/prefix';
 
@@ -14,13 +15,13 @@ function angle360FromPositions (cx, cy, ex, ey) {
 
 export default class Hand extends React.Component {
   static propTypes = {
-    angle: React.PropTypes.number,
-    className: React.PropTypes.string,
-    length: React.PropTypes.number,
-    onMove: React.PropTypes.func,
-    onMoved: React.PropTypes.func,
-    origin: React.PropTypes.object,
-    step: React.PropTypes.number
+    angle: PropTypes.number,
+    className: PropTypes.string,
+    length: PropTypes.number,
+    onMove: PropTypes.func,
+    onMoved: PropTypes.func,
+    origin: PropTypes.object,
+    step: PropTypes.number
   };
 
   static defaultProps = {

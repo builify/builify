@@ -1,13 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export default class Face extends React.Component {
   static propTypes = {
-    active: React.PropTypes.number,
-    numbers: React.PropTypes.array,
-    radius: React.PropTypes.number,
-    spacing: React.PropTypes.number,
-    twoDigits: React.PropTypes.bool
+    active: PropTypes.number,
+    numbers: PropTypes.array,
+    radius: PropTypes.number,
+    spacing: PropTypes.number,
+    twoDigits: PropTypes.bool
   };
 
   static defaultProps = {

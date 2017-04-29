@@ -1,22 +1,23 @@
 import React from 'react';
-import classNames from '../../../common/classnames';
-import Random from '../../../common/random';
-import ContentTabs from './content-tabs';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { defaultTabId, tabList } from './config';
 import {
   map as _map,
   has as _has
 } from 'lodash';
+import classNames from '../../../common/classnames';
+import Random from '../../../common/random';
+import ContentTabs from './content-tabs';
+import { defaultTabId, tabList } from './config';
 
 class TabNavigation extends React.Component {
   static propTypes = {
-    builderConfiguration: React.PropTypes.object.isRequired,
-    assets: React.PropTypes.array.isRequired,
-    editTarget: React.PropTypes.any.isRequired,
-    onUploadImage: React.PropTypes.func.isRequired,
-    onSelectImage: React.PropTypes.func.isRequired,
-    onClose: React.PropTypes.func.isRequired
+    builderConfiguration: PropTypes.object.isRequired,
+    assets: PropTypes.array.isRequired,
+    editTarget: PropTypes.any.isRequired,
+    onUploadImage: PropTypes.func.isRequired,
+    onSelectImage: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired
   };
 
   state = {
@@ -24,11 +25,7 @@ class TabNavigation extends React.Component {
   };
 
   shouldComponentUpdate (nextProps, nextState) {
-    if (nextState.activeTab !== this.state.activeTab) {
-      return true;
-    }
-
-    return false;
+    return (nextState.activeTab !== this.state.activeTab);
   }
 
   renderTabNavigation () {
@@ -47,7 +44,7 @@ class TabNavigation extends React.Component {
     return _map(tabList, (tab) => {
       const { id } = tab;
       const className = classNames('modal__tablabel', {
-        'active': id === activeTab
+        active: id === activeTab
       });
       let { label } = tab;
 
@@ -92,8 +89,10 @@ class TabNavigation extends React.Component {
 }
 
 function mapStateToProps (state) {
+  const { assets } = state;
+
   return {
-    assets: state.assets
+    assets
   };
 }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Checkbox from '../check-box';
 
 const utils = {
@@ -20,10 +21,10 @@ const utils = {
 
 class TableRow extends React.Component {
   static propTypes = {
-    data: React.PropTypes.object,
-    onChange: React.PropTypes.func,
-    onSelect: React.PropTypes.func,
-    selected: React.PropTypes.bool
+    data: PropTypes.object,
+    onChange: PropTypes.func,
+    onSelect: PropTypes.func,
+    selected: PropTypes.bool
   };
 
   handleInputChange = (key, type, event) => {
@@ -41,6 +42,8 @@ class TableRow extends React.Component {
         </td>
       );
     }
+
+    return null;
   }
 
   renderCells () {
@@ -77,7 +80,7 @@ class TableRow extends React.Component {
     if (this.props.selected) className += ' ab-table__select';
 
     return (
-      <tr  className={className}>
+      <tr className={className}>
         { this.renderSelectCell() }
         { this.renderCells() }
       </tr>

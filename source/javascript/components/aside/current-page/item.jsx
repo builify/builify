@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Icon from '../../shared/icon';
 import localization from '../../../common/localization';
 import classNames from '../../../common/classnames';
@@ -46,8 +47,8 @@ export default function CurrentPageItem ({
 }
 
 CurrentPageItem.propTypes = {
-  onRemove: React.PropTypes.func,
-  data: React.PropTypes.object.isRequired
+  onRemove: PropTypes.func,
+  data: PropTypes.object.isRequired
 };
 
 CurrentPageItem.defaultProps = {

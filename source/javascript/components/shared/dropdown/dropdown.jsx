@@ -1,6 +1,5 @@
 import React from 'react';
-import classNames from '../../../common/classnames';
-import Scrollbar from '../scrollbar';
+import PropTypes from 'prop-types';
 import {
   map as _map,
   find as _find,
@@ -8,17 +7,19 @@ import {
   isEmpty as _isEmpty,
   isObject as _isObject
 } from 'lodash';
+import classNames from '../../../common/classnames';
+import Scrollbar from '../scrollbar';
 
 export default class FontPicker extends React.Component {
   static propTypes = {
-    options: React.PropTypes.array,
-    label: React.PropTypes.string,
-    previews: React.PropTypes.bool,
-    activeColor: React.PropTypes.string,
-    value: React.PropTypes.string,
-    height: React.PropTypes.number,
-    onChange: React.PropTypes.func,
-    className: React.PropTypes.string
+    options: PropTypes.array,
+    label: PropTypes.string,
+    previews: PropTypes.bool,
+    activeColor: PropTypes.string,
+    value: PropTypes.string,
+    height: PropTypes.number,
+    onChange: PropTypes.func,
+    className: PropTypes.string
   };
 
   static defaultProps = {
@@ -141,10 +142,9 @@ export default class FontPicker extends React.Component {
       'dropdown__options--hidden': !this.state.isOptionsVisible
     });
     const valueObject = _find(this.props.options, { value: value });
-    
+
     if (_isObject(valueObject)) {
       const { text } = valueObject;
-
       value = text;
     }
 

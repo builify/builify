@@ -1,15 +1,16 @@
 import React from 'react';
-import _has from 'lodash/has';
+import PropTypes from 'prop-types';
+import { has as _has } from 'lodash';
+import { connect } from 'react-redux';
 import Checkbox from './check-box';
 import localization from '../../common/localization';
-import { connect } from 'react-redux';
 import { toggleBaseline } from '../../actions';
 
 class CheckBoxWrapper extends React.Component {
   static propTypes = {
-    drawBaseline: React.PropTypes.bool.isRequired,
-    item: React.PropTypes.object.isRequired,
-    toggleBaseline: React.PropTypes.func.isRequired
+    drawBaseline: PropTypes.bool.isRequired,
+    item: PropTypes.object.isRequired,
+    toggleBaseline: PropTypes.func.isRequired
   };
 
   state = {
@@ -17,11 +18,7 @@ class CheckBoxWrapper extends React.Component {
   };
 
   shouldComponentUpdate (nextProps, nextState) {
-    if (this.state.checked !== nextState.checked) {
-      return true;
-    }
-
-    return false;
+    return (this.state.checked !== nextState.checked);
   }
 
   componentWillMount () {
@@ -41,6 +38,8 @@ class CheckBoxWrapper extends React.Component {
     if (item.onClick === 'toggle.baseline') {
       return this.props.toggleBaseline(newChecked);
     }
+
+    return null;
   }
 
   render () {
@@ -57,13 +56,13 @@ function mapStateToProps (state) {
   const { drawBaseline } = template;
 
   return {
-    drawBaseline: drawBaseline
+    drawBaseline
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    toggleBaseline: function (checked) {
+    toggleBaseline: (checked) => {
       dispatch(toggleBaseline(checked));
     }
   };

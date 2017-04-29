@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Table from '../../shared/table';
 
 export default class TablePages extends React.Component {
   static propTypes = {
-    model: React.PropTypes.object.isRequired,
-    source: React.PropTypes.array.isRequired
+    model: PropTypes.object.isRequired,
+    source: PropTypes.array.isRequired
   };
 
   state = {

@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import MapsTab from './tab-map';
 
 export default class ContentTabs extends React.Component {
   static propTypes = {
-    activeTab: React.PropTypes.number.isRequired
+    activeTab: PropTypes.number.isRequired
   };
 
   render () {

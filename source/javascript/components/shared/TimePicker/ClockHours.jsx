@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { range } from 'lodash';
 import Face from './ClockFace';
 import Hand from './ClockHand';
-import range from 'lodash/range';
 
 const outerNumbers = [0, ...range(13, 24)];
 const innerNumbers = [12, ...range(1, 12)];
@@ -10,13 +11,13 @@ const step = 360 / 12;
 
 export default class Hours extends React.Component {
   static propTypes = {
-    center: React.PropTypes.object,
-    format: React.PropTypes.oneOf(['24hr', 'ampm']),
-    onChange: React.PropTypes.func,
-    onHandMoved: React.PropTypes.func,
-    radius: React.PropTypes.number,
-    selected: React.PropTypes.number,
-    spacing: React.PropTypes.number
+    center: PropTypes.object,
+    format: PropTypes.oneOf(['24hr', 'ampm']),
+    onChange: PropTypes.func,
+    onHandMoved: PropTypes.func,
+    radius: PropTypes.number,
+    selected: PropTypes.number,
+    spacing: PropTypes.number
   };
 
   state = {

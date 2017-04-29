@@ -1,18 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { range } from 'lodash';
 import Face from './ClockFace';
 import Hand from './ClockHand';
-import range from 'lodash/range';
 
 const minutes = range(0, 60, 5);
 const step = 360 / 60;
 
 export default class Minutes extends React.Component {
   static propTypes = {
-    center: React.PropTypes.object,
-    onChange: React.PropTypes.func,
-    radius: React.PropTypes.number,
-    selected: React.PropTypes.number,
-    spacing: React.PropTypes.number
+    center: PropTypes.object,
+    onChange: PropTypes.func,
+    radius: PropTypes.number,
+    selected: PropTypes.number,
+    spacing: PropTypes.number
   };
 
   static defaultProps = {

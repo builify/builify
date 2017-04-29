@@ -1,16 +1,17 @@
 import React from 'react';
-import classNames from 'classnames';
-import Random from '../../../common/random';
-import Scrollbar from '../../shared/scrollbar';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   map as _map
 } from 'lodash';
+import classNames from 'classnames';
+import Random from '../../../common/random';
+import Scrollbar from '../../shared/scrollbar';
 
 class TabIcons extends React.Component {
   static propTypes = {
-    onSelect: React.PropTypes.func.isRequired,
-    iconPacks: React.PropTypes.array.isRequired
+    onSelect: PropTypes.func.isRequired,
+    iconPacks: PropTypes.array.isRequired
   };
 
   state = {
@@ -34,8 +35,8 @@ class TabIcons extends React.Component {
 
     _map(icons, (icon, idx) => {
       iconDocument = {
-        idx: idx,
-        icon: icon
+        idx,
+        icon
       };
 
       iconDocuments.push(iconDocument);
@@ -53,7 +54,7 @@ class TabIcons extends React.Component {
     return _map(this.defaultIconPacks, (item, idx) => {
       const { iconFullname } = item;
       const className = classNames('ab-modal__tabitem', {
-        'active': !!(idx === activeCategory)
+        active: (idx === activeCategory)
       });
 
       return (
@@ -136,7 +137,7 @@ function mapStateToProps (state) {
   const { iconPacks } = builderConfiguration;
 
   return {
-    iconPacks: iconPacks
+    iconPacks
   };
 }
 
