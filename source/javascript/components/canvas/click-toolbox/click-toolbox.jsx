@@ -109,9 +109,7 @@ class ClickToolbox extends React.Component {
     const xOfrightPanelEdge = eventPosition.x + panelWidth + 275;
 
     if (+xOfrightPanelEdge >= (this._browserSize.width - this._panelXPadding)) {
-      const dif = +xOfrightPanelEdge - (this._browserSize.width - (this._panelXPadding * 2));
-
-      eventPosition.x -= dif;
+      eventPosition.x -= +xOfrightPanelEdge - (this._browserSize.width - (this._panelXPadding * 2));
     }
 
     this.setState({
@@ -235,6 +233,10 @@ class ClickToolbox extends React.Component {
           const backgroundImage = targetElement.style.backgroundImage;
 
           if (!_isEmpty(backgroundImage)) {
+            elementOptions.showChangeImage = true;
+          }
+
+          if (targetElement.classList.contains('portfolio--03__item__description')) {
             elementOptions.showChangeImage = true;
           }
         }

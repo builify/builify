@@ -36,6 +36,7 @@ export default class CurrentImageTab extends React.Component {
 
         this.setState({
           ...this.state,
+
           imageUrl: targetUrl,
           imageSize: {
             width: editTarget.width,
@@ -57,6 +58,30 @@ export default class CurrentImageTab extends React.Component {
                 ...this.state,
                 imageUrl: url[1]
               });
+            }
+          } else if (editTarget.classList.contains('portfolio--03__item__description')) {
+            const parentElement = editTarget.parentElement;
+
+            if (parentElement) {
+              const parentElementChildren = parentElement.children;
+
+              if (parentElementChildren.length > 0) {
+                for (let i = 0; i < parentElementChildren.length; i += 1) {
+                  if (parentElementChildren[i].tagName.toLocaleLowerCase() === 'img') {
+                    const targetUrl = parentElementChildren[i].getAttribute('src');
+
+                    this.setState({
+                      ...this.state,
+
+                      imageUrl: targetUrl,
+                      imageSize: {
+                        width: parentElementChildren[i].width,
+                        height: parentElementChildren[i].height
+                      }
+                    });
+                  }
+                }
+              }
             }
           }
         } else {
@@ -80,6 +105,7 @@ export default class CurrentImageTab extends React.Component {
   handleInputChange (value) {
     this.setState({
       ...this.state,
+
       imageUrl: value
     });
   }
@@ -94,9 +120,9 @@ export default class CurrentImageTab extends React.Component {
           <Input
             id={TRACK_MODAL_CURENT_IMAGE_INPUT_ID}
             onChange={::this.handleInputChange}
-            ref='image-src'
-            type='text'
-            label='Image Source'
+            ref="image-src"
+            type="text"
+            label="Image Source"
             value={imageUrl}
             floating={false} />
         </aside>

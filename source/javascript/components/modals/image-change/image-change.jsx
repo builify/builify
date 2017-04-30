@@ -54,8 +54,22 @@ class ImageEdit extends React.Component {
           if (_isEmpty(backgroundImage)) {
             const imageHolder = editTarget.querySelector(BLOCK_BACKGROUND_IMAGE_ELEMENT_CLASSNAME);
 
-            if(_isElement(imageHolder)) {
+            if (_isElement(imageHolder)) {
               imageHolder.style.backgroundImage = `url(${source})`;
+            } else if (editTarget.classList.contains('portfolio--03__item__description')) {
+              const parentElement = editTarget.parentElement;
+
+              if (parentElement) {
+                const parentElementChildren = parentElement.children;
+
+                if (parentElementChildren.length > 0) {
+                  for (let i = 0; i < parentElementChildren.length; i += 1) {
+                    if (parentElementChildren[i].tagName.toLocaleLowerCase() === 'img') {
+                      parentElementChildren[i].setAttribute('src', source);
+                    }
+                  }
+                }
+              }
             }
           } else {
             editTarget.style.backgroundImage = `url(${source})`;
@@ -88,13 +102,33 @@ class ImageEdit extends React.Component {
           // Check if contains .background-image-holder
           const imageHolder = editTarget.querySelector(BLOCK_BACKGROUND_IMAGE_ELEMENT_CLASSNAME);
 
-          if(_isElement(imageHolder)) {
+          if (_isElement(imageHolder)) {
             const url = imageHolder.style.backgroundImage.match(/url\(["|']?([^"']*)["|']?\)/);
 
             if (url && url[1] && url[1] !== value) {
               this.selectImage({
                 src: value
               });
+            }
+          } else if (editTarget.classList.contains('portfolio--03__item__description')) {
+            const parentElement = editTarget.parentElement;
+
+            if (parentElement) {
+              const parentElementChildren = parentElement.children;
+
+              if (parentElementChildren.length > 0) {
+                for (let i = 0; i < parentElementChildren.length; i += 1) {
+                  if (parentElementChildren[i].tagName.toLocaleLowerCase() === 'img') {
+                    const currentValue = parentElementChildren[i].getAttribute('src');
+
+                    if (currentValue !== value) {
+                      this.selectImage({
+                        src: value
+                      });
+                    }
+                  }
+                }
+              }
             }
           }
         } else {

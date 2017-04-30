@@ -244,7 +244,9 @@ gulp.task('javascript:main', () => {
   };
 
   if (config.env.debug) {
-    appBundler = watchify(appBundler);
+    appBundler = watchify(appBundler, {
+      poll: true
+    });
     appBundler.on('update', rebundle);
 
     rebundle();
