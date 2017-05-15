@@ -8,7 +8,7 @@ $modal-navigation-padding: .8 * $unit;
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 9999999;
+	z-index: 9000;
 	width: 100vw;
 	height: 100vh;
 	pointer-events: none;
@@ -185,7 +185,7 @@ $modal-navigation-padding: .8 * $unit;
 		float: right;
 		width: 75%;
 		min-height: 350px;
-		margin: 0px;
+		margin: 0;
 		padding-left: 40px;
 
 		&.sec {
@@ -214,7 +214,7 @@ $modal-navigation-padding: .8 * $unit;
 		color: #3C3C3C;
 		font-size: 14px;
 		line-height: 30px;
-		padding: 0px 10px;
+		padding: 0 10px;
 		text-transform: capitalize;
 	}
 
@@ -311,7 +311,7 @@ $modal-navigation-padding: .8 * $unit;
 		width: 190px;
 		height: 130px;
 		float: left;
-		margin: 0px 10px 10px 0px;
+		margin: 0 10px 10px 0;
 		border-radius: 3px;
 		cursor: pointer;
 		overflow: hidden;
@@ -328,7 +328,7 @@ $modal-navigation-padding: .8 * $unit;
 
 	&__pointer {
 		position: absolute;
-		width: 0px;
+		width: 0;
 		height: 0.2rem;
 		margin-top: -0.2rem;
 		background-color: #3F51B5;

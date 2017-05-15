@@ -23,11 +23,9 @@ export default {
       cryptoObject.getRandomValues(intArr);
     }
 
-    const value = [].map.call(intArr, (n) => {
+    return [].map.call(intArr, (n) => {
       return n.toString(16);
     }).join('');
-
-    return value;
   },
 
   randomKey (str) {
