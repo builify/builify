@@ -2,7 +2,7 @@ root = true
 
 # Global
 [*]
-end_of_line = crlf
+end_of_line = LF
 insert_final_newline = true
 charset = utf-8
 

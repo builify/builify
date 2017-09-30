@@ -33,7 +33,7 @@ const builderInitialState = {
     pages: [],
 
     // Filter
-    filterContentBlocksTarget: 'all'
+    filterContentBlocksTarget: 'all',
 };
 
 function cleanStorageFromOldPages(arr) {
@@ -58,7 +58,7 @@ export default function(state = builderInitialState, action) {
 
         if (result !== -1) {
             const pages = _without(state.pages, state.pages[result]);
-            const previousPages = !!(pages && pages.length !== 0);
+            const previousPages = (pages && pages.length !== 0);
 
             TTStorage.set(TEMPLATE_PAGES_STORAGE_NAME, pages);
 
