@@ -1,5 +1,5 @@
 import expect from 'unexpected';
-import Events from '../../source/javascript/events';
+import Events from '../../src/javascript/events';
 
 describe('Events', () => {
   it('should be a class', () => {

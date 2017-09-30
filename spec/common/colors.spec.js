@@ -1,5 +1,5 @@
 import expect from 'unexpected';
-import * as Colors from '../../source/javascript/common/colors';
+import * as Colors from '../../src/javascript/common/colors';
 
 describe('Common - Colors', () => {
   describe('hex', () => {

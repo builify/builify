@@ -1,6 +1,6 @@
 import expect from 'unexpected';
-import reducer from '../../source/javascript/reducers/assets';
-import * as ActionTypes from '../../source/javascript/actions/constants';
+import reducer from '../../src/javascript/reducers/assets';
+import * as ActionTypes from '../../src/javascript/actions/constants';
 
 describe('Assets reducer', () => {
   it('should return the initial state', () => {

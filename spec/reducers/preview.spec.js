@@ -1,7 +1,7 @@
 import expect from 'unexpected';
-import reducer from '../../source/javascript/reducers/preview';
-import { PreviewModes } from '../../source/javascript/constants';
-import * as ActionTypes from '../../source/javascript/actions/constants';
+import reducer from '../../src/javascript/reducers/preview';
+import { PreviewModes } from '../../src/javascript/constants';
+import * as ActionTypes from '../../src/javascript/actions/constants';
 
 describe('Preview reducer', () => {
   it('should return the initial state', () => {

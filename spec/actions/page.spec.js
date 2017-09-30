@@ -1,6 +1,6 @@
 import expect from 'unexpected';
-import * as Constants from '../../source/javascript/actions/constants';
-import * as Actions from '../../source/javascript/actions/page';
+import * as Constants from '../../src/javascript/actions/constants';
+import * as Actions from '../../src/javascript/actions/page';
 
 describe('Page actions', () => {
   describe('startNewPage', () => {

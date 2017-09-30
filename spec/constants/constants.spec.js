@@ -1,5 +1,5 @@
 import expect from 'unexpected';
-import * as Constants from '../../source/javascript/constants';
+import * as Constants from '../../src/javascript/constants';
 
 describe('Constants', () => {
   describe('Template constants', () => {

@@ -3,7 +3,7 @@ import { env as $env } from 'gulp-util';
 
 // Common paths used throughout the Gulp pipeline.
 const currentDir = path.join(__dirname.toLowerCase(), '..');
-const sourceDir = path.join(currentDir, 'source');
+const sourceDir = path.join(currentDir, 'src');
 const buildDir = path.join(currentDir, 'public');
 const modulesDir = path.join(currentDir, 'node_modules');
 const assetsPath = path.join(buildDir, 'assets');

@@ -1,5 +1,5 @@
 import expect from 'unexpected';
-import * as Misc from '../../source/javascript/common/misc';
+import * as Misc from '../../src/javascript/common/misc';
 
 describe('Common - Misc', () => {
   describe('emptyFunction', () => {

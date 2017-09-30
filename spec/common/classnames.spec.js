@@ -1,5 +1,5 @@
 import expect from 'unexpected';
-import classNames from '../../source/javascript/common/classnames';
+import classNames from '../../src/javascript/common/classnames';
 
 describe('ClassNames', () => {
   it('should be function', () => {
