@@ -35,6 +35,12 @@ process.env.NODE_ENV = config.env.debug ? 'development' : 'production';
 // Create browserSync.
 const browserSync = server.create();
 
+function createErrorHandler(name) {
+    return function (err) {
+        console.error(`Error from ${name} in task`, err.toString());
+    };
+}
+
 // Rewrite gulp.src for better error handling.
 const gulpSrc = gulp.src;
 gulp.src = function (...args) {
@@ -200,7 +206,6 @@ gulp.task('javascript:vendor', () => {
       .on('error', $util.log)
       .pipe(source('vendors.js'))
       .pipe(buffer())
-      .pipe($uglify())
       .pipe($size({ title: '[javascript:vendor]', gzip: true }))
       .pipe(gulp.dest(config.javascripts.vendor.output));
   }
@@ -242,12 +247,6 @@ gulp.task('javascript:main', () => {
       .pipe(gulp.dest(config.javascripts.main.output))
       .pipe(browserSync.stream({ match: '**/*.js' }));
   };
-
-    function createErrorHandler(name) {
-      return function (err) {
-            console.error('Error from ' + name + ' in compress task', err.toString());
-        };
-    }
 
     if (config.env.debug) {
         appBundler = watchify(appBundler, {

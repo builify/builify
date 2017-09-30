@@ -1,22 +1,25 @@
 version: 2
 jobs:
-   build:
-     docker:
-       - image: circleci/node:latest
-     steps:
-       - checkout
-       - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-       - run:
-          name: install-npm-wee
-          command: npm install
-       - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules
-       - run:
-          name: test
-          command: npm test
-       - run:
-          name: build-production
-          command: npm run build
+  build:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - restore_cache:
+        key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+        name: install-npm-wee
+        command: npm install
+      - save_cache:
+        key: dependency-cache-{{ checksum "package.json" }}
+        paths:
+          - ./node_modules
+      - run:
+        name: test
+        command: npm test
+      - run:
+        name: build-production
+        command: npm run build
+      - run:
+        name: deploy-build
+        command: sh ./scripts/deploy-production.sh
