@@ -39,7 +39,7 @@ export function getCurrentPageData() {
 }
 
 export function saveCurrentPage() {
-    return function(dispatch, getState) {
+    return (dispatch, getState) => {
         const { builder } = getState();
         const { currentLocation } = builder;
 
@@ -56,7 +56,7 @@ export function saveCurrentPage() {
 }
 
 export function downloadAsHTML() {
-    return function(dispatch) {
+    return (dispatch) => {
         if (IS_DEMO_VERSION) {
             dispatch(demoNotification());
         } else {

@@ -37,7 +37,7 @@ export function openPreviousPagesSelectionModal() {
 }
 
 export function openDownloadModal(isDemoVersion = IS_DEMO_VERSION) {
-    return function(dispatch, getState) {
+    return (dispatch, getState) => {
         if (isDemoVersion) {
             dispatch(demoNotification());
         } else {

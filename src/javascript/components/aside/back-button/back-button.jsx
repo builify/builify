@@ -6,28 +6,28 @@ import localization from '../../../common/localization';
 import { emptyFunction } from '../../../common/misc';
 
 export default function BackButton ({
-  onClick,
-  className,
-  title
+    onClick,
+    className,
+    title
 }) {
-  const locTitle = localization(title);
+    const locTitle = localization(title);
 
-  return (
-    <button title={locTitle} className={className} onClick={onClick}>
-      <Icon icon={'arrow-back'} size={30} />
-      <span>{ title }</span>
-    </button>
-  );
+    return (
+        <button title={locTitle} className={className} onClick={onClick}>
+           <Icon icon={'arrow-back'} size={30} />
+           <span>{ title }</span>
+        </button>
+    );
 }
 
 BackButton.propTypes = {
-  onClick: PropTypes.func,
-  className: PropTypes.string,
-  title: PropTypes.string
+    onClick: PropTypes.func,
+    className: PropTypes.string,
+    title: PropTypes.string
 };
 
 BackButton.defaultProps = {
-  onClick: emptyFunction,
-  className: classNames('tab__close'),
-  title: 'go back'
+    onClick: emptyFunction,
+    className: classNames('tab__close'),
+    title: 'go back'
 };

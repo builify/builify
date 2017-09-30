@@ -15,7 +15,7 @@ export function removeNotification(uid = 0) {
 }
 
 export function demoNotification() {
-    return function(dispatch) {
+    return (dispatch) => {
         dispatch(addNotification({
             level: 'warning',
             title: 'Demo Version',

@@ -70,7 +70,7 @@ export function loadContentBlockToPage(block) {
 }
 
 export function loadContentBlockSource(block) {
-    return function(dispatch) {
+    return (dispatch) => {
         dispatch(loadContentBlockToPage(block));
         dispatch(addNotification({
             message: `Added ${block.blockType} block to page`,

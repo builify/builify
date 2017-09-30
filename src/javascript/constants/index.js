@@ -1,6 +1,5 @@
 export const IS_DEMO_VERSION = process.env.DEMO;
-export const IS_DEV_VERSION = !!(process.env.NODE_ENV === 'development');
-export const BUY_LINK = 'http://genert.github.io';
+export const IS_DEV_VERSION = (process.env.NODE_ENV === 'development');
 export const MAXIMUM_NOTIFICATIONS = 5;
 
 export const PAGE_AUTOMATIC_SAVE_TIME = 60 * 1000;

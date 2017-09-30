@@ -23,7 +23,7 @@ export function initialize() {
 }
 
 export function removeLoadingScreen() {
-    return function(dispatch) {
+    return (dispatch) => {
         dispatch({ type: Actions.LOGIC_INITIALIZED });
 
         _delay(() => {
@@ -76,7 +76,7 @@ export function addIconPackSourcesToHead(iconPacks) {
 }
 
 export function getIconPacks() {
-    return function(dispatch) {
+    return (dispatch) => {
         if (_has(iconPacksData, 'iconPacks')) {
             const { iconPacks } = iconPacksData;
 
@@ -99,7 +99,7 @@ export function uploadImage(data) {
 }
 
 export function downloadSinglePage() {
-    return function(dispatch, getState) {
+    return (dispatch, getState) => {
         if (IS_DEMO_VERSION) {
             dispatch(demoNotification());
         } else {
@@ -112,7 +112,7 @@ export function downloadSinglePage() {
 }
 
 export function downloadPages(pages) {
-    return function(dispatch, getState) {
+    return (dispatch, getState) => {
         if (IS_DEMO_VERSION) {
             dispatch(demoNotification());
         } else {
@@ -126,7 +126,7 @@ export function downloadPages(pages) {
 }
 
 export function noPagesToDownload() {
-    return function(dispatch) {
+    return (dispatch) => {
         dispatch({ type: Actions.NO_PAGES_TO_DOWNLOAD });
         dispatch(addNotification({
             message: 'No pages to download!',
@@ -169,7 +169,7 @@ export function changeBaselineValue(value) {
 }
 
 export function sendFeedBack() {
-    return function(dispatch) {
+    return (dispatch) => {
         dispatch({ type: Actions.SEND_FEEDBACK });
         dispatch(addNotification({
             message: 'Feedback sent!',
@@ -179,9 +179,9 @@ export function sendFeedBack() {
 }
 
 export function getTemplateFiles() {
-    return function(dispatch) {
+    return (dispatch) => {
         const zip = new JSZip();
-    const data = __BUILIFY_TEMPLATE; // eslint-disable-line
+        const data = __BUILIFY_TEMPLATE; // eslint-disable-line
 
         zip.loadAsync(data, { base64: true, checkCRC32: true }).then(() => {
             zip.file('manifest.json').async('string')
@@ -198,7 +198,7 @@ export function getTemplateFiles() {
 }
 
 export function runApplicationActions() {
-    return function(dispatch) {
+    return (dispatch) => {
         dispatch(initialize());
         dispatch(checkPreviousPagesInStorage());
         dispatch(getBuilderConfiguration());
