@@ -243,22 +243,31 @@ gulp.task('javascript:main', () => {
       .pipe(browserSync.stream({ match: '**/*.js' }));
   };
 
-  if (config.env.debug) {
-    appBundler = watchify(appBundler, {
-      poll: true
-    });
-    appBundler.on('update', rebundle);
+    function createErrorHandler(name) {
+      return function (err) {
+            console.error('Error from ' + name + ' in compress task', err.toString());
+        };
+    }
 
-    rebundle();
-  } else {
-    appBundler.bundle()
-      .on('error', $util.log)
-      .pipe(source('application.js'))
-      .pipe(buffer())
-      .pipe($uglify()).on('error', (err) => { $util.log($util.colors.red('[Error]'), err.toString()); })
-      .pipe($size({ title: '[javascript:main]', gzip: true }))
-      .pipe(gulp.dest(config.javascripts.main.output));
-  }
+    if (config.env.debug) {
+        appBundler = watchify(appBundler, {
+            poll: true
+        });
+        appBundler.on('update', rebundle);
+
+        rebundle();
+    } else {
+        appBundler.bundle()
+            .on('error', $util.log)
+            .pipe(source('application.js'))
+            .pipe(buffer())
+            .on('error', createErrorHandler('buffer'))
+            .pipe($uglify())
+            .on('error', createErrorHandler('uglify'))
+            .pipe($size({ title: '[javascript:main]', gzip: true }))
+            .pipe(gulp.dest(config.javascripts.main.output))
+            .on('error', createErrorHandler('gulp.dest'));
+    }
 });
 
 // Watch for file changes.
