@@ -255,7 +255,7 @@ gulp.task('javascript:main', () => {
       .on('error', $util.log)
       .pipe(source('application.js'))
       .pipe(buffer())
-      .pipe($uglify())
+      .pipe($uglify()).on('error', (err) => { $util.log($util.colors.red('[Error]'), err.toString()); })
       .pipe($size({ title: '[javascript:main]', gzip: true }))
       .pipe(gulp.dest(config.javascripts.main.output));
   }
