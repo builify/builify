@@ -14,6 +14,10 @@
           "ignoreFilenames": ["node_modules"]
         }]
       ]
+    },
+    "test": {
+      "presets": ["latest", "react", "stage-0"],
+      "plugins": ["add-module-exports"]
     }
   }
 }
