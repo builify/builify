@@ -9,7 +9,7 @@ import {
   isEmpty as _isEmpty,
   isElement as _isElement
 } from 'lodash';
-import ModalWrapper from '../common/Wrapper';
+import ModalWrapper from '../common/wrapper';
 import TabNavigation from './modal';
 import BottomNavigation from '../common/bottom-navigation';
 import { TRACK_MODAL_CURENT_IMAGE_INPUT_ID, BLOCK_BACKGROUND_IMAGE_ELEMENT_CLASSNAME } from '../../../constants';

@@ -1,4 +1,7 @@
-# Introduction
+# Builify
+[![CircleCI](https://circleci.com/gh/builify/builify/tree/master.svg?style=svg)](https://circleci.com/gh/builify/builify/tree/master)
+
+## Introduction
 
 This project started in 2015 summer as side-project when I was 18 years old. The indent was to disrupt certain niche vertical market with static website creator.
 

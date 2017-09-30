@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 import Events from '../../../Common/Events';
-import Ripple from '../Ripple';
+import Ripple from '../ripple';
 
 class Switch extends Component {
   static propTypes = {

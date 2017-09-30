@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { range, chunk } from 'lodash';
 import classNames from 'classnames';
 import Events from '../../Common/Events';
-import Icon from '../Shared/Icon';
+import Icon from '../shared/icon';
 
 class Day extends React.Component {
   static propTypes = {
