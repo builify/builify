@@ -75,4 +75,4 @@ export function getStyleValue (el, styleProp) {
   }
 }
 
-/*eslint-enable*/
+/* eslint-enable*/

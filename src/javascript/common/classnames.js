@@ -1,7 +1,7 @@
 import TTClassNames from 'tt-classnames';
 
 const classNames = new TTClassNames({
-  prefix: 'ab'
+    prefix: 'ab'
 });
 
 export default classNames;

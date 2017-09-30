@@ -1,9 +1,9 @@
-export function validateDOMElement (props, propName, componentName) {
-  if (props[propName] !== null) {
-    if (props[propName] instanceof Element === false) {
-      return new Error(`Invalid prop ${propName} supplied to ${componentName}. Validation failed.`);
+export function validateDOMElement(props, propName, componentName) {
+    if (props[propName] !== null) {
+        if (props[propName] instanceof Element === false) {
+            return new Error(`Invalid prop ${propName} supplied to ${componentName}. Validation failed.`);
+        }
     }
-  }
 
-  return null;
+    return null;
 }

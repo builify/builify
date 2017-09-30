@@ -10,15 +10,15 @@ import assets from './assets';
 import modals from './modals';
 
 const allReducers = combineReducers({
-  builder,
-  builderConfiguration,
-  modals,
-  template,
-  notifications,
-  page,
-  canvas,
-  preview,
-  assets
+    builder,
+    builderConfiguration,
+    modals,
+    template,
+    notifications,
+    page,
+    canvas,
+    preview,
+    assets
 });
 
 export default allReducers;

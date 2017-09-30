@@ -282,12 +282,12 @@ gulp.task('revision', () => {
 gulp.task('header', () => {
   const banner = `
 /** 
-* Builify - Static Website Creator by ${pckg.author}
+* Builify - Static website creator by ${pckg.author}
 *
 * @version: ${pckg.version}
 * @license: ${pckg.license}
 * @link: http://builify.com
-* @author: http://trip-trax.co
+* @author: http://genert.org
 * @date ${new Date().toDateString()}
 */
 `;

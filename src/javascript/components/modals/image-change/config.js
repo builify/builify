@@ -1,8 +1,8 @@
 export const tabList = [
-  { id: 1, label: 'Library' },
-  { id: 2, label: 'Current Image' },
-  { id: 3, label: 'Upload New' },
-  { id: 4, label: 'Uploaded Images', imagesUploaded: true }
+    { id: 1, label: 'Library' },
+    { id: 2, label: 'Current Image' },
+    { id: 3, label: 'Upload New' },
+    { id: 4, label: 'Uploaded Images', imagesUploaded: true }
 ];
 
 export const defaultTabId = 2;

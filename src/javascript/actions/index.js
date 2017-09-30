@@ -9,14 +9,14 @@ import * as notificationActions from './notifications';
 import * as assetsActions from './assets';
 
 const allActions = _assign({},
-  builderActions,
-  asideActions,
-  dialogActions,
-  pageActions,
-  previewActions,
-  canvasActions,
-  notificationActions,
-  assetsActions
+    builderActions,
+    asideActions,
+    dialogActions,
+    pageActions,
+    previewActions,
+    canvasActions,
+    notificationActions,
+    assetsActions
 );
 
 export default allActions;

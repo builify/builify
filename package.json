@@ -1,7 +1,7 @@
 {
   "name": "builify",
   "version": "1.0.0",
-  "author": "Trip-Trax",
+  "author": "Genert Org <contact@genert.org>",
   "license": "GPL-3.0",
   "private": true,
   "main": "gulpfile.babel.js",
@@ -11,12 +11,11 @@
     "header": "gulp --gulpfile tools/gulpfile.babel.js header",
     "start": "gulp --gulpfile tools/gulpfile.babel.js --env debug",
     "build": "gulp --gulpfile tools/gulpfile.babel.js --env production && npm run header && npm run revision",
-    "build:demo": "gulp --gulpfile tools/gulpfile.babel.js --env demo && npm run revision",
-    "lint": "eslint ./source/javascript",
+    "lint": "eslint ./src/javascript",
     "test": "jasmine",
     "coverage": "nyc --extension .jsx --extension .es6 --reporter=lcov --reporter=text-lcov npm test",
     "pre-release": "npm run lint && npm run test",
-    "create-helpers": "./node_modules/.bin/babel-external-helpers -t global > ./source/javascript/wrapper/helpers.js"
+    "create-helpers": "./node_modules/.bin/babel-external-helpers -t global > ./src/javascript/wrapper/helpers.js"
   },
   "pre-commit": [
     "pre-release"

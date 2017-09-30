@@ -1,8 +1,8 @@
-function atou (str) {
-  return decodeURIComponent(escape(window.atob(str)));
+function atou(str) {
+    return decodeURIComponent(escape(window.atob(str)));
 }
 
-export default function (data) {
-  const parsedData = JSON.parse(atou(data));
-  return parsedData;
+export default function(data) {
+    const parsedData = JSON.parse(atou(data));
+    return parsedData;
 }

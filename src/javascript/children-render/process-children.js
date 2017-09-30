@@ -1,146 +1,146 @@
 import {
-  isArray as _isArray,
-  map as _map,
-  isNull as _isNull,
-  isNumber as _isNumber,
-  toSafeInteger as _toSafeInteger
+    isArray as _isArray,
+    map as _map,
+    isNull as _isNull,
+    isNumber as _isNumber,
+    toSafeInteger as _toSafeInteger
 } from 'lodash';
 
-export default function (children) {
-  if (!_isArray(children)) {
-    throw new Error('No data defined.');
-  }
-
-  const childrenToRender = [];
-
-  _map(children, (child) => {
-    const { type } = child;
-
-    if (!type) {
-      throw new Error('Tab children does not have type defined.');
+export default function(children) {
+    if (!_isArray(children)) {
+        throw new Error('No data defined.');
     }
 
-    const splitType = type.split('.');
-    const typeDefiner = splitType.length !== 0 ? splitType[0] : type.substr(0, type.indexOf('.'));
+    const childrenToRender = [];
 
-    switch (typeDefiner) {
-      case 'block': {
-        const blockType = splitType[1];
+    _map(children, (child) => {
+        const { type } = child;
 
-        if (!blockType) {
-          throw Error('Block type missing.');
+        if (!type) {
+            throw new Error('Tab children does not have type defined.');
         }
 
-        let blockData = null;
+        const splitType = type.split('.');
+        const typeDefiner = splitType.length !== 0 ? splitType[0] : type.substr(0, type.indexOf('.'));
 
-        switch (blockType) {
-          case 'navigation':
-          case 'currentpage':
-          case 'contentblocks':
-          case 'filter':
-          case 'swatches':
-          case 'colors':
-          case 'logo': {
-            blockData = {
-              type: blockType
-            };
+        switch (typeDefiner) {
+        case 'block': {
+            const blockType = splitType[1];
 
-            break;
-          }
+            if (!blockType) {
+                throw Error('Block type missing.');
+            }
 
-          case 'sliderinput': {
-            const min = _isNumber(child.min) ?
-              Math.abs(child.min) : Math.abs(_toSafeInteger(child.min));
+            let blockData = null;
 
-            blockData = {
-              type: 'sliderinput',
-              min,
-              max: child.max || 10,
-              step: child.step || 1,
-              label: child.label || '',
-              onChange: child.onChange || function () {}
-            };
+            switch (blockType) {
+            case 'navigation':
+            case 'currentpage':
+            case 'contentblocks':
+            case 'filter':
+            case 'swatches':
+            case 'colors':
+            case 'logo': {
+                blockData = {
+                    type: blockType
+                };
 
-            break;
-          }
+                break;
+            }
 
-          case 'checkbox': {
-            blockData = {
-              type: 'checkbox',
-              state: child.state !== 'off',
-              label: child.label || '',
-              onClick: child.onClick || function () {}
-            };
+            case 'sliderinput': {
+                const min = _isNumber(child.min) ?
+                    Math.abs(child.min) : Math.abs(_toSafeInteger(child.min));
 
-            break;
-          }
+                blockData = {
+                    type: 'sliderinput',
+                    min,
+                    max: child.max || 10,
+                    step: child.step || 1,
+                    label: child.label || '',
+                    onChange: child.onChange || function() {}
+                };
 
-          case 'title': {
-            blockData = {
-              type: 'title',
-              title: child.title || '',
-              className: child.className || ''
-            };
+                break;
+            }
 
-            break;
-          }
+            case 'checkbox': {
+                blockData = {
+                    type: 'checkbox',
+                    state: child.state !== 'off',
+                    label: child.label || '',
+                    onClick: child.onClick || function() {}
+                };
 
-          default:
-            break;
-        }
+                break;
+            }
 
-        if (!_isNull(blockData)) {
-          childrenToRender.push(blockData);
-        }
+            case 'title': {
+                blockData = {
+                    type: 'title',
+                    title: child.title || '',
+                    className: child.className || ''
+                };
 
-        break;
-      }
+                break;
+            }
 
-      case 'open': {
-        const openTarget = splitType[1];
+            default:
+                break;
+            }
 
-        if (!openTarget) {
-          throw Error('Target missing.');
-        }
+            if (!_isNull(blockData)) {
+                childrenToRender.push(blockData);
+            }
 
-        let blockData = null;
-
-        switch (openTarget) {
-          case 'sidetab': {
-            blockData = {
-              type: 'sidetabopener',
-              title: child.title || '',
-              target: child.target || ''
-            };
-
-            break;
-          }
-
-          case 'customcssmodal': {
-            blockData = {
-              type: 'sidetabopener',
-              title: child.title,
-              target: 'customcss'
-            };
-
-            break;
-          }
-
-          default:
             break;
         }
 
-        if (!_isNull(blockData)) {
-          childrenToRender.push(blockData);
+        case 'open': {
+            const openTarget = splitType[1];
+
+            if (!openTarget) {
+                throw Error('Target missing.');
+            }
+
+            let blockData = null;
+
+            switch (openTarget) {
+            case 'sidetab': {
+                blockData = {
+                    type: 'sidetabopener',
+                    title: child.title || '',
+                    target: child.target || ''
+                };
+
+                break;
+            }
+
+            case 'customcssmodal': {
+                blockData = {
+                    type: 'sidetabopener',
+                    title: child.title,
+                    target: 'customcss'
+                };
+
+                break;
+            }
+
+            default:
+                break;
+            }
+
+            if (!_isNull(blockData)) {
+                childrenToRender.push(blockData);
+            }
+
+            break;
         }
 
-        break;
-      }
+        default:
+            break;
+        }
+    });
 
-      default:
-        break;
-    }
-  });
-
-  return childrenToRender;
+    return childrenToRender;
 }

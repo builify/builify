@@ -84,4 +84,4 @@ export default {
     return format;
   }
 };
-/*eslint-enable */
+/* eslint-enable */
