@@ -9,110 +9,110 @@ import Dropdown from '../shared/dropdown';
 import { loadPreviousPage, saveCurrentPage } from '../../actions';
 
 class PageControls extends React.Component {
-  static propTypes = {
-    pages: PropTypes.array.isRequired,
-    pageID: PropTypes.any.isRequired,
-    loadPreviousPage: PropTypes.func.isRequired,
-    saveCurrentPage: PropTypes.func.isRequired
-  };
+    static propTypes = {
+        pages: PropTypes.array.isRequired,
+        pageID: PropTypes.any.isRequired,
+        loadPreviousPage: PropTypes.func.isRequired,
+        saveCurrentPage: PropTypes.func.isRequired,
+    };
 
-  state = {
-    pageID: null
-  };
+    state = {
+      pageID: null
+    };
 
-  _options = [];
-  _dropdownHeight = [];
+    _options = [];
+    _dropdownHeight = [];
 
-  shouldComponentUpdate () {
-    return true;
-  }
-
-  componentWillMount () {
-    this.updateOptions();
-  }
-
-  componentWillReceiveProps () {
-    this.updateOptions();
-  }
-
-  changePage (pageID) {
-    if (pageID === this.state.pageID) {
-      return;
-    } else {
-      this.props.saveCurrentPage();
-
-      this.setState({
-        pageID
-      });
-
-      return this.props.loadPreviousPage(pageID);
+    shouldComponentUpdate () {
+        return true;
     }
-  }
 
-  updateOptions () {
-    const { pages, pageID } = this.props;
-    const optionItemHeight = 30;
-    let options = [];
+    componentWillMount () {
+        this.updateOptions();
+    }
 
-    if (_size(pages) > 0) {
-      _map(pages, (page) => {
-        if (_isObject(page)) {
-          const { pageID, pageFileName } = page;
+    componentWillReceiveProps () {
+        this.updateOptions();
+    }
 
-          options.push({
-            text: pageFileName,
-            value: pageID
-          });
+    changePage (pageID) {
+        if (pageID === this.state.pageID) {
+            return;
         }
-      });
+
+        this.props.saveCurrentPage();
+
+        this.setState({
+            pageID,
+        });
+
+        return this.props.loadPreviousPage(pageID);
     }
 
-    this._options = options;
-    this._dropdownHeight = optionItemHeight * options.length;
+    updateOptions () {
+        const { pages, pageID } = this.props;
+        const optionItemHeight = 30;
+        let options = [];
 
-    if (pageID === null) {
-      this.setState({
-        pageID: null
-      });
+        if (_size(pages) > 0) {
+            _map(pages, (page) => {
+                if (_isObject(page)) {
+                    const { pageID, pageFileName } = page;
+
+                    options.push({
+                        text: pageFileName,
+                        value: pageID,
+                    });
+                }
+            });
+        }
+
+        this._options = options;
+        this._dropdownHeight = optionItemHeight * options.length;
+
+        if (pageID === null) {
+            this.setState({
+                pageID: null,
+            });
+        }
     }
-  }
 
-  render () {
-    return (
-      <div className={classNames('upperbar__pcontrols')}>
-        <Dropdown
-          options={this._options}
-          label="Select Page"
-          value={this.state.pageID}
-          previews={false}
-          onChange={::this.changePage}
-          height={this._dropdownHeight} />
-      </div>
-    );
-  }
+    render () {
+        return (
+            <div className={classNames('upperbar__pcontrols')}>
+                <Dropdown
+                  options={this._options}
+                  label="Select Page"
+                  value={this.state.pageID}
+                  previews={false}
+                  onChange={::this.changePage}
+                  height={this._dropdownHeight} />
+            </div>
+        );
+    }
 }
 
 function mapStateToProps (state) {
-  const { builder, page } = state;
-  const { pages } = builder;
-  const { pageID } = page;
+    const { builder, page } = state;
+    const { pages } = builder;
+    const { pageID } = page;
 
-  return {
-    pages: pages,
-    pageID: pageID
-  };
+    return {
+        pages: pages,
+        pageID: pageID,
+    };
 }
 
 function mapDispatchToProps (dispatch) {
-  return {
-    loadPreviousPage: (page) => {
-      dispatch(loadPreviousPage(page));
-    },
+    return {
+        loadPreviousPage: (page) => {
+            dispatch(loadPreviousPage(page));
+        },
 
-    saveCurrentPage: () => {
-      dispatch(saveCurrentPage());
-    }
-  };
+        saveCurrentPage: () => {
+            dispatch(saveCurrentPage());
+        }
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageControls);

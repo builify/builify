@@ -9,47 +9,34 @@ import ColorPicker from './shared/color-picker';
 import Modals from './modals';
 import NotificationContainer from './notifications';
 import Upperbar from './upperbar';
-import { IS_DEMO_VERSION, BUY_LINK } from '../constants';
 
-function SaleButton () {
-  return (
-    <a href={BUY_LINK} target={'_blank'} rel={'noopener noreferrer'} className={classNames('salebutton')}>
-      <span>Buy Now</span>
-    </a>
-  );
-}
+function Base ({ defaultTheme }) {
+    const className = classNames(null, 'react-wrap', defaultTheme);
 
-function Base ({
-  defaultTheme
-}) {
-  const className = classNames(null, 'react-wrap', defaultTheme);
-
-  return (
-    <div className={className}>
-      <Aside />
-      <Upperbar />
-      <Main />
-      <LoadingScreen />
-      <ColorPicker />
-      <Modals />
-      <NotificationContainer />
-
-      { IS_DEMO_VERSION && <SaleButton /> }
-    </div>
-  );
+    return (
+        <div className={className}>
+            <Aside />
+            <Upperbar />
+            <Main />
+            <LoadingScreen />
+            <ColorPicker />
+            <Modals />
+            <NotificationContainer />
+        </div>
+    );
 }
 
 Base.propTypes = {
-  defaultTheme: PropTypes.string.isRequired
+    defaultTheme: PropTypes.string.isRequired
 };
 
 function mapStateToProps (state) {
-  const { builderConfiguration } = state;
-  const { defaultTheme } = builderConfiguration;
+    const { builderConfiguration } = state;
+    const { defaultTheme } = builderConfiguration;
 
-  return {
-    defaultTheme: defaultTheme || 'light'
-  };
+    return {
+        defaultTheme: defaultTheme || 'light',
+    };
 }
 
 export default connect(mapStateToProps)(Base);
