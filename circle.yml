@@ -1,5 +1,8 @@
----
-machine:
-  timezone: America/Los_Angeles
-  node:
-    version: 7
+version: 2
+jobs:
+   build:
+     docker:
+       - image: circleci/node:latest
+     steps:
+       - checkout
+       - run: node -v
