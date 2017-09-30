@@ -12,11 +12,7 @@ class Main extends React.Component {
   };
 
   shouldComponentUpdate (nextProps) {
-    if (this.props.currentLocation !== nextProps.currentLocation) {
-      return true;
-    }
-
-    return false;
+    return (this.props.currentLocation !== nextProps.currentLocation);
   }
 
   render () {

@@ -6,12 +6,8 @@ export default function() {
     if (process.env.NODE_ENV === 'development') {
         buildVersion = 'DEVELOPMENT';
     } else if (process.env.NODE_ENV === 'production') {
-        if (process.env.DEMO) {
-            buildVersion = 'DEMO';
-        } else {
-            buildVersion = 'PRODUCTION';
-        }
+        buildVersion = process.env.DEMO ? 'DEMO' : 'PRODUCTION';
     }
 
-    console.log(`%c Trip-Trax - Builify ${process.env.VERSION} - ${buildVersion} build.`, 'background: #222; color: #bada55');
+    console.log(`%cBuilify ${process.env.VERSION} - ${buildVersion} build.`, 'background: #222; color: #bada55');
 }

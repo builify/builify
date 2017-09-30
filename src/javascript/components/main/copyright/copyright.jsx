@@ -7,7 +7,7 @@ export default function Copyright () {
     return (
         <div className={classNames('copyright')}>
             <h3>{ version }</h3>
-            <h3>Copyright Trip-Trax 2015 - 2017</h3>
+            <h3><a href="http://genert.org/" target="_blank">Copyright Genert Org 2015 - present</a></h3>
             <h3>All rights reserved</h3>
         </div>
     );
