@@ -22,4 +22,4 @@ Contributions are welcome. Please clearly explain the purpose of the PR and foll
 Issues can be resolved quickest if they are descriptive and include both a reduced test case and a set of steps to reproduce.
 
 ## Licence
-Licensed under the [GPL-3.0 License](LICENSE) © Genert Org 2015 - present.
+Licensed under the [GNU General Public License v3.0](LICENCE) © Genert Org 2015 - present.
