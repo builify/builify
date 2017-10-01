@@ -13,11 +13,29 @@ Many mistakes were made in both business and development sense as I was the only
 
 Of-course there are many other mistakes but I think these two are most important takeaways.
 
-The code was written back in 2015 and I am glad that I choose React with Redux that time as this project shows. Of-course there are many things I would do differently and in better way when I would start again, but I am overall happy how it turned out except for stylings. I would definitely use CSS modules as that would make code much understandable and easier to work with.
+The code was written back in 2015 and I am glad that I choose React with Redux that time as this project shows. Of-course if I had a chance to start writing this project from scratch then obviously I would do many things differently to make code much more understandable and scalable like moving monolithic style structure to CSS modules, use TypeScript, Webpack for better build tooling, take functional approach, etc. Nevertheless, I am happy how it turned out.
 
 I hope this project (~30k LOC) shows what you can create with React and Redux and both inspires and shows what kind of code to write and not.
 
 Cheers!
+
+## Usage
+
+To start developing, install dependencies first:
+```shell
+npm i
+```
+
+And then fire up development server with automatic building:
+```shell
+npm run start
+```
+
+For production build, simply run:
+```shell
+npm run build
+```
+
 
 ## Contributions & Issues
 Contributions are welcome. Please clearly explain the purpose of the PR and follow the current style.
