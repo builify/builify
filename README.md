@@ -5,7 +5,7 @@
 
 ## Introduction
 
-This project started in 2015 summer as side-project when I was 18 years old. The indent was to disrupt certain niche vertical market with static website creator.
+This project started in 2015 summer as side-project when I was 18 years old. 
 
 More than 2 years later, I deem this project as commercial failure in over-saturated market and thus make this product public as I have other projects to pursue.
 
