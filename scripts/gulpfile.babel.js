@@ -139,7 +139,7 @@ gulp.task('html', () => {
 
 // Revision
 gulp.task('rev', (callback) => {
-    return gulp.src(config.rev.entry)
+    gulp.src(config.rev.entry)
         .pipe($rev())
         .pipe(gulp.dest(config.rev.output))
         .pipe($rev.manifest(config.rev.manifestFile))
@@ -206,6 +206,8 @@ gulp.task('javascript:vendor', () => {
             .on('error', $util.log)
             .pipe(source('vendors.js'))
             .pipe(buffer())
+            .pipe($uglify())
+            .on('error', createErrorHandler('uglify'))
             .pipe($size({ title: '[javascript:vendor]', gzip: true }))
             .pipe(gulp.dest(config.javascripts.vendor.output));
     }
