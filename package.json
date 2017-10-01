@@ -6,6 +6,7 @@
   "private": true,
   "main": "gulpfile.babel.js",
   "scripts": {
+    "pre-release": "npm run lint && npm run test",
     "revision": "gulp --gulpfile scripts/gulpfile.babel.js revision",
     "header": "gulp --gulpfile scripts/gulpfile.babel.js header",
     "start": "gulp --gulpfile scripts/gulpfile.babel.js --env debug",
