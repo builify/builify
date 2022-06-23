@@ -67,7 +67,7 @@
     "gulp-watch": "*",
     "istanbul": "^0.4.5",
     "jest": "^21.2.1",
-    "jsdom": "^9.9.1",
+    "jsdom": "^16.5.0",
     "loose-envify": "*",
     "lost": "*",
     "pre-commit": "^1.2.2",
